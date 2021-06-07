@@ -5,6 +5,12 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    # website support email adress (ex: support@website.com)
+    app.support_email: "support@projetdesprojets.com"
+
+    # website mailer (ex: mailer@website.com)
+    app.mailer_email: "mailer@projetdesprojets.com"
+
 services:
     # default configuration for services in *this* file
     _defaults:

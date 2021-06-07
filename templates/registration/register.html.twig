@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme registrationForm 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}
+
+<link rel="stylesheet" href="/css/app_forms.css" />
+
+{% endblock %}
+
+{% block title %}
+
+Inscription
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container col-sm-8 col-xxl-8">
+
+    <div class="row align-items-center g-5 py-5">
+
+        <div class="col-lg-6">
+
+            <h3 class="fw-bold mb-4">Inscription sur le site</h3>
+
+            {{form_start(registrationForm)}}
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.email) }}
+                {{ form_widget(registrationForm.email) }}
+            </div>
+
+            <div class="mb-3">
+                {{ form_label(registrationForm.plainPassword) }}
+                {{ form_widget(registrationForm.plainPassword) }}
+            </div>
+
+            <div>
+                {{ form_label(registrationForm.agreeTerms) }}
+                {{ form_widget(registrationForm.agreeTerms) }}
+            </div>
+
+
+
+            <!-- ui Actions Buttons -->
+
+            <div class="mt-4">
+
+                <button type="submit" value="" class="btn btn-success me-2 mb-2">
+                    <span class="h5 fw-bold">Valider</span>
+                </button>
+
+                <a href="{{path('homepage')}}">
+                    <button type="button" value="" class="btn btn-primary mb-2">
+                        <span class="h5 fw-bold">Retour</span>
+                    </button>
+                </a>
+
+            </div>
+
+            {{form_end(registrationForm)}}
+
+        </div>
+
+        <div class="col-12 col-md-8 col-lg-6">
+
+            <img src="https://www.place-hold.it/700x500" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
+                loading="lazy" width="700" height="500">
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

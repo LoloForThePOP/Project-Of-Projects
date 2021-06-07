@@ -1,0 +1,115 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Connexion au Site{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <div class="row mt-4">
+
+        <div class="mx-auto col-md-5">
+
+            <div class="py-3 px-md-3">
+
+                <h3 class="fw-bold mb-4">Connectez-vous</h3>
+
+                <form class="mb-3" method="post">
+
+                    {# security errors display #}
+
+                    {% if error %}
+
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+
+                    {% endif %}
+
+                    {# case user has already logged in #}
+
+                    {% if app.user %}
+
+                    <div class="mb-3">
+                        Vous êtes déjà connecté avec l'adresse {{ app.user.email }}, <a
+                            href="{{ path('app_logout') }}">se
+                            déconnecter</a>
+                    </div>
+
+                    {% endif %}
+
+                    {# Email input #}
+
+                    <div class="form-group mb-4">
+
+                        <input type="email" value="{{ last_username }}" name="email" id="inputEmail"
+                            placeholder="E-mail" class="form-control" autocomplete="email" required autofocus>
+
+                    </div>
+
+                    {# Password Input #}
+
+                    <div class="form-group mb-4"> <input type="password" name="password" id="inputPassword"
+                            placeholder="Mot de passe" class="form-control" autocomplete="current-password" required>
+                    </div>
+
+                    {# csrf_token #}
+
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+
+                    <!-- "Remember Me" Check-Box -->
+
+                    <input class="mb-4 mr-2" type="checkbox" id="remember_me" name="_remember_me" checked />
+                    <label for="remember_me">Se souvenir de moi</label>
+
+
+                    <!-- Action Buttons -->
+
+                    <div class="form-group">
+
+                        <!-- Login button -->
+
+                        <input type="submit" value="Connexion" class="btn btn-success sharp text-white fw-bold me-2">
+
+                        <!-- Go back button -->
+
+                        <a href="{{path('homepage')}}">
+                            <button type="button" value="" class="btn btn-primary">
+                                <span class="fw-bold">Retour</span>
+                            </button>
+                        </a>
+
+                    </div>
+
+                </form>
+
+
+                <div>
+
+                    <!-- New account access button -->
+
+                    <div class="fw-bold h5 mb-3">
+                        Pas encore inscrit ?
+                        <a href="{{path('app_register')}}" class="text-decoration-none">Rejoignez-nous !</a>
+                    </div>
+
+                    <!-- Forgotten password access button -->
+
+                    <div class="fw-bold h5">Mot de passe oublié ?
+                        <a href="" class="text-decoration-none">C'est ici</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

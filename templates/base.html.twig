@@ -1,19 +1,69 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {# Run `composer require symfony/webpack-encore-bundle`
-           and uncomment the following Encore helpers to start using Symfony UX #}
-        {% block stylesheets %}
-            {#{{ encore_entry_link_tags('app') }}#}
-        {% endblock %}
 
-        {% block javascripts %}
-            {#{{ encore_entry_script_tags('app') }}#}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+<html>
+
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{% block title %}Bienvenue sur le Projet des Projets{% endblock %}</title>
+
+    {# Bootstrap 5 css #}
+
+    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
+
+    {% block stylesheets %}
+
+    {% endblock %}
+
+    {# Bootstrap 5 javascript #}
+
+    <script src="/js/bootstrap.js"></script>
+
+    {% block javascripts %}
+
+    {% endblock %}
+
+</head>
+
+<body>
+
+    {# Header Navbar #}
+
+    {% include "_partials/header_navbar.html.twig" %}
+
+
+    <!-- Flash Messages Display -->
+
+    {% for label, messages in app.flashes %}
+
+    <div class="flashMessage d-flex align-items-center alert alert-{{label}} mt-3 h5 font-weight-bold">
+
+        {% for message in messages %}
+
+        <p class=" p-0 m-0">{{message | raw}}</p>
+
+        {% endfor %}
+
+    </div>
+
+    {% endfor %}
+
+    <!-- End of Messages Display -->
+
+    {% block body %}
+
+    {% endblock %}
+
+    {# Footer #}
+
+    {% include "_partials/footer.html.twig" %}
+
+</body>
+
 </html>

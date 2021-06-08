@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block meta %}
+
+    <meta name="author" content="{{ presentation.creator }}">
+    <meta name="keywords" content="{{ presentation.keywords }}">
+    <meta name="date" content="{{ presentation.createdAt | date}}">
+    
+{% endblock %}
+
+{% block stylesheet %}{% endblock %}
+    
+
+{% block title %}{{ presentation.goal | capitalize}}{% endblock %}
+
+{% block body %}
+
+    <h4 class="">
+        
+        {{presentation.title}}
+
+    </h4>
+
+    {% if presentation.textDescription %}
+
+        <p class="">
+            {{presentation.textDescription}}
+        </p>
+
+    {% endif %}
+
+    {% if presentation.keywords %}
+
+        <p class="">
+            {{presentation.keywords}}
+        </p>
+
+    {% endif %}
+    
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+{% endblock %}

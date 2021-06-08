@@ -24,6 +24,7 @@
     {# Bootstrap 5 javascript #}
 
     <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery-3.6.0.js"></script>
 
     {% block javascripts %}
 
@@ -36,6 +37,10 @@
     {# Header Navbar #}
 
     {% include "_partials/header_navbar.html.twig" %}
+
+    {# Sidebar #}
+
+    {% include "_partials/sidebar.html.twig" %}
 
 
     <!-- Flash Messages Display -->
@@ -59,6 +64,7 @@
     {% block body %}
 
     {% endblock %}
+
 
     {# Footer #}
 

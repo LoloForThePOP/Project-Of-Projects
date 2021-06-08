@@ -1,0 +1,244 @@
+
+{# skeletton for each project presentation structure edition page (ex : edit presentation categories; websites; needs; ...
+    
+here is skeletton structure :
+
+    - ui page title
+    - more information collapsible
+    - edition content
+    
+#}
+
+
+
+
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="/css/app_forms.css" />
+    
+{% endblock %}
+
+{% block title %}{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <!-- Title Container with Collapsible Info-Box -->
+
+        <div class="mt-4 mt-md-5 mb-3 mb-md-4">
+
+            <!-- ui page title -->
+
+            <h3 class="h3 font-weight-bold d-inline mr-3">
+
+                {% block uiPageTitle %}
+                
+                {% endblock %}
+                
+            </h3>
+
+            <!-- Display an Info-Box (if Empty Slideshow) -->
+
+            <!-- collapsable info -->	
+
+            <!-- Trigger Button -->	
+
+            <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="false" aria-controls="collapseInfo">
+
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Info </span>
+                
+            </a>
+
+            <!-- Info Box -->	
+
+            <div class="info-box collapse col-md-6 mt-0 mb-4" id="collapseInfo">
+
+                {% block collapsedInfo %}
+                
+                {% endblock %}
+
+            </div>
+
+        </div>
+
+                
+        <!-- Edit Content -->
+
+        <div class="">
+
+            {% block manageContent %}
+            
+            {% endblock %}
+
+        </div>
+
+       
+        <!-- Standard Action Buttons -->
+
+        <!-- Back to edition menu Button -->
+
+        <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+            <button type="button" class="btn btn-info btn-lg font-weight-bold mt-4 mr-2 mb-4 sharp">Menu</button>
+        </a>
+
+        <!-- Back to result Button -->
+
+        <a 
+
+            href="{{path('project_show', {'slug': presentation.slug })}}#{% block seeResultAnchor %}{% endblock %}"
+        
+            class="text-decoration-none text-white" 
+            
+        >
+
+            <button type="button" class="btn btn-warning btn-lg font-weight-bold mt-4 mb-4 sharp">Résultat</button>
+
+        </a>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <!-- sortable plugin in order to reorder elements -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
+
+        $(document).ready(function(){
+
+
+            // reorder elements capability instantiation
+
+            $('#elementsList').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                // drag and drop implies elements positions updates (ajax call)
+
+                onEnd: function (evt) {
+
+                    // an array storing elements id position
+
+                    var elementsPositions = [];
+
+                    $('#elementsList div.js-sortableGridItem').each(function(index){
+                        
+                        elementsPositions.push($(this).attr('id'));
+                   
+                    });
+
+                    jsonElementsPositions = JSON.stringify(elementsPositions);
+
+                    // getting sorted elements type to call appropriate route
+
+                    var elementsType = $('#elementsList').data('elements-type');
+
+                    var path = null;
+
+                    if(elementsType=="website"){
+
+                        path = "{{path('ajax_reorder_websites', {'slug': presentation.slug})}}";
+                    }
+
+                    // ajax call
+                    
+                    $.ajax({  
+
+                        url: path,
+                        type:       'POST',   
+                        dataType:   'json',
+                        data: {
+                            "jsonElementsPosition": jsonElementsPositions,
+                        },
+    
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                 
+                        },  
+    
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                     }); 
+
+                },
+            });
+                        
+            
+            // Remove an Element
+
+            $('#elementsList').on('click', '.js-delete-element', function (){
+
+                var idElement = $(this).attr("data-id");
+
+                // getting element type to call appropriate route
+
+                var elementsType = $('#elementsList').data('elements-type');
+
+                var path = null;
+
+                if(elementsType=="website"){
+
+                    path = "{{path('ajax_remove_website', {'slug': presentation.slug}) }}";
+                }
+
+                if (confirm("Confimez vous enlever cet élément ?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: path,
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "idElement": idElement,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+
+                        $("#elementsList #"+idElement).remove();
+                        
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                    }); 
+                    
+                }
+    
+            });
+
+        }); 
+
+        
+    </script>
+   
+{% endblock %}

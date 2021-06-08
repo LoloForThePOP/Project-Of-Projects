@@ -24,8 +24,4 @@ textarea::placeholder {
   color: #7b8a8b  !important;
 }
 
-::placeholder {
-  font-size:1.1em !important;
-  font-weight:bold;
-  color: #7b8a8b  !important;
-}
+p

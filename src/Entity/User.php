@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -38,29 +40,39 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isActivated;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $isVerified;
-
-    /**
      * 
-     * Contains emailValidation and resetPasswordToken
+     * Contains following parameters 
+     * 
+     * isVerified (user email has been confirmed, true or false)
      * 
      * @ORM\Column(type="json", nullable=true)
      */
     private $parameters = [];
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $emailValidationToken;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetPasswordToken;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PPBase::class, mappedBy="creator")
+     */
+    private $createdPresentations;
+
+
 
 
     public function __construct()
     {
-        $this->isActivated = false;
-        $this->isVerified = false;
+
+        $this->parameters['isVerified'] = false;
+        $this->PPBases = new ArrayCollection();
+        $this->createdPresentations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -144,30 +156,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-    public function getIsActivated(): ?bool
-    {
-        return $this->isActivated;
-    }
-
-    public function setIsActivated(bool $isActivated): self
-    {
-        $this->isActivated = $isActivated;
-
-        return $this;
-    }
-
-    public function getIsVerified(): ?bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
     public function getParameters(): ?array
     {
         return $this->parameters;
@@ -176,6 +164,73 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setParameters(?array $parameters): self
     {
         $this->parameters = $parameters;
+
+        return $this;
+    }
+
+
+    public function getParameter($key)
+    {
+        return $this->parameters[$key];
+    }
+
+    public function setParameter($key, $value): self
+    {
+        $this->parameters[$key] = $value;
+
+        return $this;
+    }
+
+    public function getEmailValidationToken(): ?string
+    {
+        return $this->emailValidationToken;
+    }
+
+    public function setEmailValidationToken(?string $emailValidationToken): self
+    {
+        $this->emailValidationToken = $emailValidationToken;
+
+        return $this;
+    }
+
+    public function getResetPasswordToken(): ?string
+    {
+        return $this->resetPasswordToken;
+    }
+
+    public function setResetPasswordToken(?string $resetPasswordToken): self
+    {
+        $this->resetPasswordToken = $resetPasswordToken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PPBase[]
+     */
+    public function getCreatedPresentations(): Collection
+    {
+        return $this->createdPresentations;
+    }
+
+    public function addCreatedPresentation(PPBase $createdPresentation): self
+    {
+        if (!$this->createdPresentations->contains($createdPresentation)) {
+            $this->createdPresentations[] = $createdPresentation;
+            $createdPresentation->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedPresentation(PPBase $createdPresentation): self
+    {
+        if ($this->createdPresentations->removeElement($createdPresentation)) {
+            // set the owning side to null (unless already changed)
+            if ($createdPresentation->getCreator() === $this) {
+                $createdPresentation->setCreator(null);
+            }
+        }
 
         return $this;
     }

@@ -23,7 +23,17 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator): Response
     {
         $user = new User();
-        $form = $this->createForm(RegistrationFormType::class, $user);
+        $form = $this->createForm(
+            RegistrationFormType::class,
+            $user,
+            array(
+
+                'antispam_time'     => true,
+                'antispam_time_min' => 5,
+                'antispam_time_max' => 1200
+            )
+        );
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -43,14 +53,14 @@ class RegistrationController extends AbstractController
             // save new user in database
             try {
 
-                $user->setParameters(['emailValidationToken' => $token]);
+                $user->setEmailValidationToken($token);
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
             } catch (\Exception $e) {
                 $this->addFlash('warning', $e->getMessage());
-                return $this->redirectToRoute('account_login');
+                return $this->redirectToRoute('app_login');
             }
 
             // generate url for user email confirmation
@@ -71,7 +81,7 @@ class RegistrationController extends AbstractController
                     'confirmationURL' => $confirmationURL,
                 ]);
 
-            $mailer->send($email);
+            //$mailer->send($email);
 
             // asking user to validate his email adress
 
@@ -95,45 +105,30 @@ class RegistrationController extends AbstractController
     {
 
         // searching user with given token
+
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(
 
-            ['parameters' => ['emailValidationToken' => $token]]
+            ['emailValidationToken' => $token]
 
         );
 
         // if user does not exist
         if ($user === null) {
-            // On affiche une erreur
+            // displaying an error
             $this->addFlash('danger', 'Une erreur est survenue : Token Inconnu');
-            return $this->redirectToRoute('account_login');
+            return $this->redirectToRoute('app_login');
         }
 
-        // else if post method
-        if ($request->isMethod('POST')) {
+        $user->setParameter('isVerified', true);
+        $user->setEmailValidationToken(null);
 
-            // token deletion
-            $user->setParameters(['emailValidationToken' => null]);
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($user);
+        $entityManager->flush();
 
-            // On chiffre le mot de passe
-            $user->setHash($passwordEncoder->encodePassword($user, $request->request->get('password')));
+        // flash message & redirect to toute login
+        $this->addFlash('success', 'Votre addresse a été vérifiée ! Vous pouvez maintenant vous connecter et utiliser le site.');
 
-            // On stocke
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            // On crée le message flash
-            $this->addFlash('success', 'Votre nouveau mot de passe est enregistré. Vous pouvez désormais l\'utiliser.');
-
-            // On redirige vers la page de connexion
-            return $this->redirectToRoute('account_login');
-        } else {
-            // Si on n'a pas reçu les données, on affiche le formulaire
-            return $this->render('account/forgotten_password_create.html.twig', ['token' => $token]);
-        }
-        return $this->redirectToRoute('registration/please_confirm_email.html.twig', [
-            'userEmailToConfirm' => $request->query->get('userEmail'),
-            'websiteSupportEmail' => $this->getParameter('app.support_email'),
-        ]);
+        return $this->redirectToRoute('app_login');
     }
 }

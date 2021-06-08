@@ -37,9 +37,9 @@ class RegistrationFormType extends AbstractType
                         'max' => 4096,
                     ]),
                 ],
-            ])
+            ]);
 
-            ->add('agreeTerms', CheckboxType::class, [
+        /*  ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'label' => "Accepter les conditions d'utilisation",
                 'constraints' => [
@@ -47,7 +47,7 @@ class RegistrationFormType extends AbstractType
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
-            ]);
+            ]) */
     }
 
     public function configureOptions(OptionsResolver $resolver)

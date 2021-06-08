@@ -1,0 +1,237 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Catégories du Projet{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block body %}
+
+<div class="container pt-2">
+           
+    <!-- ui Page Title -->	
+    
+    <h4 class="fw-bold my-4 d-inline-block mr-3">Catégories du Projet</h4>
+    
+    <!-- collapsable advice -->
+    
+      <!-- trigger button -->
+      
+      <a class="my-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvices" aria-expanded="false" aria-controls="collapseAdvices">
+        
+        <span class="btn btn-light fs-15 h5 sharp fw-bold p-1 px-2" style="letter-spacing: 2px;">Conseils</span>
+        
+      </a>
+      
+      <!-- Advices -->
+
+      <div id="collapseAdvices" class="info-box collapse no-transition col-md-6 mt-2">
+                  
+          <ul class="h5">
+
+              <li><strong>Choisissez des catégories</strong> pour que des visiteurs intéressés découvrent votre projet</li>
+
+              <li>On peut <strong>combiner les catégories</strong></li>
+
+              <li>Par exemple : Environnement <strong>ET</strong> Construction</li>
+
+              <li>Maximum recommandé : 6</li>
+
+              <li><strong>Compléter avec des mots-clés est efficace</strong></li>
+
+              <li>Séparez les mots-clés <span>avec des virgules</span></li>
+
+          </ul>
+
+      </div>
+
+
+    <!-- Categories Grid -->
+
+    <div id="categories-grid" class="clearfix ps-3">
+
+        {% for category in categories %}
+
+        <div 
+        
+            id="{{category.id}}" 
+
+            class="
+            
+                {% if category in presentation.categories %}
+                    selectedCategory 
+                {% endif %} 
+                
+                categories-button row mt-3 d-table
+                
+            "
+        >
+
+            {# left column : category icon #}
+
+            <div class="leftDiv d-table-cell align-middle">
+
+                <div class="d-flex align-items-center">
+                <img 
+                
+                    id="" 
+                    class="" 
+                    src="/media/static/images/icons/project_categories/{{category.uniqueName}}.svg" 
+                    alt="{{category.uniqueName}}" 
+                    width="35" 
+                    height="35"
+                ></div>
+
+
+            </div>
+    
+            {# right column : category description #}
+
+            <div class="rightDiv d-table-cell align-middle">
+                    {{category.descriptionFr}}
+            </div>
+        
+        </div>
+
+        {% endfor %}
+
+        <div class="d-inline-block" style="margin-top:35px;">
+
+            {{form_start(keywordsForm)}}
+            
+            {{form_errors(keywordsForm.keywords)}}
+            {{form_widget(keywordsForm.keywords)}}
+
+
+            <button type="submit" class="btn btn-success mb-1 sharp"><span class="h5 fw-bold">Valider</span></button>
+
+            {{form_end(keywordsForm)}}
+        </div>
+        
+    </div>
+
+</div>
+
+
+{# Styles for Categories and keywords page #}
+
+
+<style>
+
+    .info-box ul li{
+        margin-bottom: 7px;
+    }
+        
+    .categories-button {
+    
+        height:61.2px;
+        font-size:1.1em;
+        margin-right:23px;
+        margin-bottom:-5px;
+        line-height:1.4em !important;
+        float:left;
+        font-weight:700;
+        
+        border:1px solid black !important;
+
+        cursor:pointer;
+        border-radius:4px;
+        
+    }
+    .categories-button:hover{
+        background-color:rgb(241, 239, 239);
+    }
+    
+    .leftDiv {
+    
+        width:50px !important;
+        padding-left:22px;
+        
+    }
+    
+    .rightDiv {
+        
+        width:190px;
+        text-align: center;
+    }
+    /* La selection de la classe parente Permet un Override du Hover */
+    #categories-grid .selectedCategory, #categories-grid .selectedCategory:hover {
+        background-color: yellow !important;
+    }
+    
+    input {
+        outline: 0;
+        border-width: 0 0 4px;
+        border-color: #ffa500;
+        padding-bottom: 5px;
+        border-radius: 0px;
+        width:320px;
+        margin-right:16px;
+        font-size: 1.15em;
+      }
+
+      input:focus {
+        border-color: green
+      }
+            
+      input::placeholder {
+        font-size:1em !important;
+        color: rgb(49, 25, 93)  !important;
+      }
+
+
+
+      @media screen and (max-width: 580px) {
+
+        .categories-button {
+
+            width: 100%;
+
+        }
+
+
+      }
+      
+</style>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    
+    <script>
+        $(document).ready(function(){  
+
+            $("#categories-grid .categories-button").on("click", function(event){ 
+
+               var catId = $(this).attr('id');
+               $(this).toggleClass("selectedCategory");
+
+               $.ajax({  
+                url: "{{path('ajax_select_category', {'stringId': presentation.stringId}) }}",
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                  "category-id": catId,
+                },
+                async:      true,  
+                
+                success: function(data, status) {  
+                   
+                },  
+                error : function(xhr, textStatus, errorThrown) {  
+                    
+                }  
+             });  
+               
+            });  
+
+        });  
+    </script>
+
+    
+{% endblock %}

@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+{% block title %}Ajouter un Projet{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <div class="row mt-5">
+
+            <div class="col-md-8">
+
+                {# Create Presentation Form #}
+                            
+                    {{form_start(form)}}
+
+                        {# Project Goal #}
+
+                        <div class="mb-4">
+
+                            <div class="mb-md-3">
+
+                                <span class="fw-bold h5">
+
+                                    {{form_label(form.goal)}}
+
+                                </span>
+                            </div>
+
+                            <div class="mb-md-3">
+                                {{form_widget(form.goal)}}
+                            </div>
+
+                        </div>
+
+                        {# Project Goals Exemples #}
+
+                        <div class="card shadow mb-4">
+
+                            <div class="card-body p-3">
+
+                                <h4 class="mb-3">Exemples</h4>
+
+                                <!-- Unordered list -->
+
+                                <ul class="fs-15">
+                                    
+                                    <li class="mb-2">Créer un journal d'investigation</li>
+                                    <li class="mb-2">Restaurer un moulin</li>
+                                    <li class="mb-2">Créer un jeu vidéo d'action</li>
+
+                                </ul>
+                                
+                            </div>
+
+                        </div>
+
+                        {# Action Buttons #}
+
+                        <div class="mb-3">
+
+                            <button type="submit" class="btn btn-primary btn-lg sharp fw-bold me-2 mb-2">Ajouter le Projet</button>
+
+                            <a href="{{ path('homepage') }}">
+                                <button type="button" class="btn btn-light btn-lg fw-bold sharp mb-2">Annuler</button>
+                            </a>
+                        
+                        </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+{% endblock %}

@@ -99,6 +99,108 @@ class FakeDataFixtures extends Fixture
 
             ],
 
+            7 =>
+
+            [
+                "animals",
+                "Animals",
+                "Animaux",
+
+            ],
+
+            8 =>
+
+            [
+                "money",
+                "Finance, Money",
+                "Finance, Argent",
+
+            ],
+
+            9 =>
+
+            [
+                "food",
+                "Agriculture, Food",
+                "Agriculture, Nourriture",
+
+            ],
+
+            10 =>
+
+            [
+                "services",
+                "Services, Linking",
+                "Services, Mise en relation",
+
+            ],
+
+            10 =>
+
+            [
+                "arts",
+                "Culture, Arts",
+                "Culture, Arts",
+
+            ],
+
+            11 =>
+
+            [
+                "entertainment",
+                "Entertainment, Leasure, Sports",
+                "Divertissements, Loisirs, Sports",
+
+            ],
+
+            12 =>
+
+            [
+                "data",
+                "Organize data",
+                "Organiser des données",
+
+            ],
+
+            13 =>
+
+            [
+                "health",
+                "Health",
+                "Santé",
+
+            ],
+
+            14 =>
+
+            [
+                "ideas",
+                "Ideas, Politics",
+                "Idées, Politique",
+
+            ],
+
+            15 =>
+
+            [
+                "space",
+                "Air and Space",
+                "Air et Espace",
+
+            ],
+
+            16 =>
+
+            [
+                "crisis",
+                "Crisis",
+                "Crise",
+
+            ],
+
+
+
+
         ];
 
         // store categories as objects, to further hydrate project presentations
@@ -125,7 +227,7 @@ class FakeDataFixtures extends Fixture
 
         $admin = new User();
 
-        $admin->setEmail('admin@test.com')
+        $admin->setEmail('test@test.com')
             ->setPassword(
                 $this->encoder->encodePassword(
                     $admin,

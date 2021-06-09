@@ -38,10 +38,6 @@
 
     {% include "_partials/header_navbar.html.twig" %}
 
-    {# Sidebar #}
-
-    {% include "_partials/sidebar.html.twig" %}
-
 
     <!-- Flash Messages Display -->
 
@@ -59,11 +55,29 @@
 
     {% endfor %}
 
-    <!-- End of Messages Display -->
+    <!-- End of Flash Messages Display -->
 
-    {% block body %}
 
-    {% endblock %}
+    <!--Sidebar & Main Content Container -->
+
+     
+    <div class="container-fluid"> 
+
+        <div class="row" style="min-height:500px;">
+
+            {% block sidebar %}{% endblock %}
+
+            <div class="col bg-light">
+                
+                {% block body %}{% endblock %}
+            
+            </div>
+
+        </div>
+
+    </div>  
+
+   
 
 
     {# Footer #}

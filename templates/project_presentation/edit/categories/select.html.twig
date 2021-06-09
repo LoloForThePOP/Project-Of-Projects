@@ -1,0 +1,232 @@
+
+{% embed "project_presentation/edit/structure_skeleton.html.twig" %}
+
+
+{% block title %}Catégories du Projet{% endblock %}
+
+
+{% block mainContentTitle %}Catégories du Projet{% endblock %}
+
+
+    {% block buttonLabel %}
+    
+        Conseils
+    
+    {% endblock %}
+
+    {% block content %}
+                            
+        <ul class="">
+
+            <li><strong>Choisissez des catégories</strong> pour que des visiteurs intéressés découvrent votre projet</li>
+
+            <li>On peut <strong>combiner les catégories</strong></li>
+
+            <li>Par exemple : Environnement <strong>ET</strong> Construction</li>
+
+            <li>Maximum recommandé : 6</li>
+
+            <li><strong>Compléter avec des mots-clés est efficace</strong></li>
+
+            <li>Séparez les mots-clés <span>avec des virgules</span></li>
+
+        </ul>
+
+    {% endblock %}
+
+
+{% block mainContentContainer %}
+
+    <div id="cat-grid" class="col-xxl-10">
+
+        {% for category in categories %}
+        
+            <div 
+            
+                id="{{category.id}}" 
+            
+                class="
+                
+                    cat-button 
+
+                    {% if category in presentation.categories %}
+                        selectedCategory 
+                    {% endif %} 
+
+                "                    
+            >
+
+                {# Button Icon #}
+
+                <div class="bt-left-col">
+
+                    <img src="/media/static/images/icons/project_categories/{{category.uniqueName}}.svg" alt="{{category.uniqueName}}" loading="lazy" width="35" height="35">
+
+                </div>
+
+                {# Button Description #}
+
+                <div class="bt-right-col">
+
+                    {{category.descriptionFr}}
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+        {# Project Keywords Input #}
+
+        <div class="keywords-input-container">
+
+            {{form_start(keywordsForm)}}
+            
+            {{form_errors(keywordsForm.keywords)}}
+            {{form_widget(keywordsForm.keywords)}}
+
+
+            <button type="submit" class="btn btn-success mb-1 sharp"><span class="h5 fw-bold">Valider</span></button>
+
+            {{form_end(keywordsForm)}}
+        </div>
+    
+    </div>
+
+    {% block specificStyles %}
+
+        <style>
+
+            .cat-button{
+
+                float: left;
+                width: 100%;
+                max-width:230px;
+                height: 61px;
+
+                margin-right: 15px;
+                margin-bottom: 15px;
+
+                font-size:1.1em;
+                line-height:1.4em !important;
+                font-weight:700;
+                
+                border: 1px solid black !important;
+                border-radius: 4px;
+                background-color: rgb(234, 241, 253);
+                cursor:pointer;
+            }
+
+            .cat-button:hover{
+                background-color:rgb(241, 239, 239);
+            }
+
+                /* La selection de la classe parente Permet un Override du Hover */
+            #cat-grid .selectedCategory, #cat-grid .selectedCategory:hover {
+                background-color: yellow !important;
+            }
+
+            .bt-left-col{
+                width: 58px;
+                height: 100%;
+                float:left;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .bt-right-col{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                
+            }
+
+            @media (min-width: 576px) {
+
+                .cat-button{
+                    width: 260px;
+
+                }
+
+            }
+
+        </style>
+
+        {# keywords input #}
+
+        <style>
+
+            .keywords-input-container{
+                display: inline-block;
+                margin-top: 15px;
+            }
+             
+            input {
+                outline: 0;
+                border-width: 0 0 4px;
+                border-color: #ffa500;
+                padding-bottom: 5px;
+                border-radius: 0px;
+                width:350px;
+                margin-right:16px;
+                font-size: 18px !important;
+            }
+            input:focus {
+                border-color: green
+            }
+                    
+            input::placeholder {
+                font-size: 20px !important;
+                color: rgb(49, 25, 93)  !important;
+            }
+
+        </style>
+
+    {% endblock %}
+ 
+
+{% endblock %}
+
+
+
+{% block specificJavascripts %}
+
+    <script>
+        
+        $(document).ready(function(){
+
+            $("#cat-grid .cat-button").on("click", function(event){ 
+
+                var catId = $(this).attr('id');
+
+                $(this).toggleClass("selectedCategory");
+
+                $.ajax({  
+
+                    url: "{{path('ajax_select_category', {'stringId': presentation.stringId}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    data: {
+                        "category-id": catId,
+                    },
+                    async:      true,  
+                    
+                    success: function(data, status) {  
+                        // alert(data.catId)
+                        
+                    },  
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                });  
+
+            });  
+
+        });  
+    </script>
+
+{% endblock %}
+
+{% endembed %}

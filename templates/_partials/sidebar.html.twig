@@ -1,15 +1,154 @@
+{# Sidebar Items #}
 
-<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebar" aria-controls="sidebar" aria-controls="offcanvas" >
-Button with data-bs-target
-</button>
+    {% set sidebarItems = [ 
+
+        { 'name': 'result', 'name_Fr': 'Résultat', 'route': 'show_presentation', 'iconName': 'presentation.svg'}, 
+        
+        { 'name': 'edit', 'name_Fr': 'Modifier', 'route': '#', 'iconName': 'edit.svg'},  
+
+        { 'name': 'messages', 'name_Fr': 'Messages', 'route': '#', 'iconName': 'messages.svg', 'badge': ''},
+
+        { 'name': 'links', 'name_Fr': 'Liens', 'route': '#', 'iconName': 'links.svg'},
+
+        { 'name': 'settings', 'name_Fr': 'Réglages', 'route': '#', 'iconName': 'settings.svg'},
+
+    ] %}
 
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="sidebar" aria-labelledby="offcanvasScrollingLabel" style="top: 57px; width: 400px;">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Colored with scrolling</h5>
-      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+
+<div id="sidebar" class="no-transition col-4 col-sm-3 col-md-2 bg-warning">
+
+    <div id="menu-list">
+
+        {% for sidebarItem in sidebarItems %}
+
+            <a href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
+
+                <div class="menu-item">
+
+                    <img class="menu-icon" src="https://www.place-hold.it/250x250" alt="" loading="lazy" width="25" height="25">
+
+                    <span class="menu-label">
+
+                        {{sidebarItem.name_Fr}}
+
+                    </span>
+                    
+                </div>
+                
+            </a>
+
+        {% endfor %}
+
     </div>
-    <div class="offcanvas-body">
-      <p>Try scrolling the rest of the page to see this option in action.</p>
-    </div>
-  </div>
+
+</div>
+
+
+
+{# css for sidebar #}
+
+
+<style>
+
+    #sidebar {
+
+        margin: 0px;
+        padding: 0px;
+
+    }
+
+    #sidebar #menu-list{
+
+        margin-top: 20px;
+
+    }
+
+    #sidebar .menu-item{
+
+        margin-bottom: 6px;
+        cursor: pointer;
+
+    }
+
+    #sidebar a{
+
+       text-decoration: none;
+       color: inherit;
+
+    }
+
+    #sidebar .menu-item:hover{
+
+        font-weight: bold;
+        background-color: aliceblue;
+        transition: all 0.3s;
+
+    }
+
+    #sidebar .menu-icon{
+
+        width: 25px;
+        height: 25px;
+
+        margin-left: 10px;
+        margin-right: 3px;
+        margin-bottom: 2px;
+
+    }
+
+
+    
+    @media (min-width: 576px) {
+
+            
+        #sidebar .menu-item{
+
+            font-size: 1.05em;
+
+        }
+
+    }
+    
+    @media (min-width: 992px) {
+
+            
+        #sidebar #menu-list{
+
+            margin-top: 45px;
+
+        }
+
+            
+        #sidebar .menu-item{
+
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-left: 10px;
+            font-size: 1.15em;
+
+        }
+
+        #sidebar .menu-icon{
+
+            width: 30px;
+            height: 30px;
+    
+            margin-right: 7px;
+    
+        }
+
+    }
+
+    @media (min-width: 1200px) {
+            
+        #sidebar .menu-item{
+
+            padding-left: 20px;
+            font-size: 1.2em;
+
+        }
+    }
+
+
+</style>

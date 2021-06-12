@@ -1,5 +1,8 @@
+/* Overide Bootstrap 5 */
 
-
+.btn{
+    font-weight: 700;
+}
 .btn-light{
     background-color: #ecf0f1;
 }
@@ -16,4 +19,8 @@
 
 .fs-15{
     font-size: 1.15em;
+}
+
+.lh-16{
+    line-height: 1.6;
 }

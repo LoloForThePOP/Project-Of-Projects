@@ -18,8 +18,6 @@ here is skeletton structure :
 
     {% block title %}{% endblock %}
 
-    {% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
-
     {% block body %}
 
         <div class="edit-structure-container">
@@ -42,7 +40,7 @@ here is skeletton structure :
                         
                         <span class="btn btn-light fs-15 h5 sharp fw-bold p-1 px-2" style="letter-spacing: 2px;">
                             
-                            {% block buttonLabel %}{% endblock %}
+                            {% block moreInfoButtonLabel %}{% endblock %}
                         
                         </span>
                         
@@ -52,7 +50,7 @@ here is skeletton structure :
 
                     <div id="collapseAdvices" class="info-box collapse no-transition col-md-8 col-lg-6">
                                 
-                        {% block content %}{% endblock %}
+                        {% block moreInfoContent %}{% endblock %}
 
                     </div>
              

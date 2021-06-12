@@ -1,0 +1,24 @@
+vich_uploader:
+    db_driver: orm
+
+    mappings:
+
+        project_logo_image:
+
+            uri_prefix: /media/uploads/pp/logos
+            upload_destination: '%kernel.project_dir%/public/media/uploads/pp/logos'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+   
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+
+        presentation_slide_file:
+
+            uri_prefix: /media/uploads/pp/slides
+            upload_destination: '%kernel.project_dir%/public/media/uploads/pp/slides'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+   
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true

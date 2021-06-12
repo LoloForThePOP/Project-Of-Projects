@@ -6,9 +6,11 @@
 
     <div class="container-fluid ps-5">
 
-      {# Navbar Toggler #}
+      {# Navbar Toggler (only displayed on mobile) #}
 
-      <button data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="true">Outils</button>
+      <button class="d-md-none" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="false" aria-controls="collapseExample">
+        Outils
+      </button>
 
       {# Website Logo #}
 
@@ -23,13 +25,13 @@
 
       <ul class="navbar-nav fw-bold">
 
-        <li class="nav-item fs-5 me-3">
+        <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
           <a class="nav-link text-white" aria-current="page" href="/">Accueil</a>
 
         </li>
 
-        <li class="nav-item fs-5 me-3">
+        <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
           <a class="nav-link text-white" href="#">Projets</a>
 
@@ -42,10 +44,10 @@
 
       {# Trigger Button #}
 
-      <button data-bs-target="#navbarSMToggle" aria-controls="navbarSMToggle" class="navbar-toggler" type="button"
+      <button class="btn btn-success navbar-toggler" data-bs-target="#navbarSMToggle" aria-controls="navbarSMToggle" type="button"
         data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
 
-        <span class="navbar-toggler-icon"></span>
+        Menu
 
       </button>
 
@@ -118,7 +120,7 @@
 
               <li>
 
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{path("show_user_profile")}}">
                   Mon Compte
                 </a>
 

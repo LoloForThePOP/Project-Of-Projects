@@ -4,25 +4,24 @@
 
         { 'name': 'result', 'name_Fr': 'Résultat', 'route': 'show_presentation', 'iconName': 'presentation.svg'}, 
         
-        { 'name': 'edit', 'name_Fr': 'Modifier', 'route': '#', 'iconName': 'edit.svg'},  
+        { 'name': 'edit', 'name_Fr': 'Modifier', 'route': 'edit_pp_menu', 'iconName': 'edit.svg'},  
 
-        { 'name': 'messages', 'name_Fr': 'Messages', 'route': '#', 'iconName': 'messages.svg', 'badge': ''},
+        { 'name': 'messages', 'name_Fr': 'Messages', 'route': 'show_presentation', 'iconName': 'messages.svg', 'badge': ''},
 
-        { 'name': 'links', 'name_Fr': 'Liens', 'route': '#', 'iconName': 'links.svg'},
+        { 'name': 'links', 'name_Fr': 'Liens', 'route': 'show_presentation', 'iconName': 'links.svg'},
 
-        { 'name': 'settings', 'name_Fr': 'Réglages', 'route': '#', 'iconName': 'settings.svg'},
+        { 'name': 'settings', 'name_Fr': 'Réglages', 'route': 'show_presentation', 'iconName': 'settings.svg'},
 
     ] %}
 
-
-
-<div id="sidebar" class="no-transition col-4 col-sm-3 col-md-2 bg-warning">
+{# website sidebar content (togglable on small screens; always visible for medium screens) #}
+<div id="sidebar" class="collapse d-md-block no-transition col-4 col-sm-3 col-md-2 bg-warning">
 
     <div id="menu-list">
 
         {% for sidebarItem in sidebarItems %}
 
-            <a href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
+            <a href="{{path(sidebarItem.route, {'stringId': stringId})}}">
 
                 <div class="menu-item">
 

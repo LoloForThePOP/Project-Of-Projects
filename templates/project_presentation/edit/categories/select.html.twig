@@ -8,13 +8,13 @@
 {% block mainContentTitle %}Catégories du Projet{% endblock %}
 
 
-    {% block buttonLabel %}
+    {% block moreInfoButtonLabel %}
     
         Conseils
     
     {% endblock %}
 
-    {% block content %}
+    {% block moreInfoContent %}
                             
         <ul class="">
 
@@ -145,22 +145,21 @@
 
             @media (min-width: 576px) {
 
-                .cat-button{
+                .cat-button {
                     width: 260px;
 
                 }
 
             }
 
-        </style>
-
-        {# keywords input #}
-
-        <style>
+        /* keywords input */
 
             .keywords-input-container{
                 display: inline-block;
                 margin-top: 15px;
+                width:100%;
+                max-width:500px;
+
             }
              
             input {
@@ -168,11 +167,14 @@
                 border-width: 0 0 4px;
                 border-color: #ffa500;
                 padding-bottom: 5px;
+                margin-bottom:15px;
                 border-radius: 0px;
-                width:350px;
+                width:100%;
+                max-width:350px;
                 margin-right:16px;
                 font-size: 18px !important;
             }
+
             input:focus {
                 border-color: green
             }
@@ -181,6 +183,17 @@
                 font-size: 20px !important;
                 color: rgb(49, 25, 93)  !important;
             }
+
+            
+            @media (min-width: 576px) {
+
+                input {
+                    margin-bottom: 0;
+
+                }
+
+            }
+
 
         </style>
 

@@ -1,0 +1,539 @@
+
+<!-- Project Presentation Slideshow Display -->
+
+{% if presentation.slides | length > 0 %}
+
+	<!-- Structure Container -->
+
+	<div id="slideshowDisplay" class="px-0 container mb-4 pb-md-2">
+
+		<!-- Slideshow Container -->
+
+		<div class="container">
+			
+			<div class="row">
+
+				<!-- First column contains slide + caption -->
+
+				<div class="px-0 mx-auto col-md-9 col-sm-12">
+
+					<div class="SlideshowContainer">
+
+						<!-- Caption Container -->
+
+						<!-- We show caption container only if there is at least one caption -->				
+						
+						<div class="caption-container d-none
+						
+							{% for slide in presentation.slides %}
+
+								{% if slide.caption %}
+														
+									d-flex align-items-center
+
+								{% endif %}
+							
+							{% endfor %}
+							
+							">
+					
+							<p id="caption">
+
+								{% if presentation.slides | length == 1 %}
+
+									{% set slide = presentation.slides | first %}
+
+									<div class="ps-md-3">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</div>
+
+								{% endif %}
+										
+							</p>
+						
+						</div>
+
+						<div class="slides-thumbnails-container">
+								
+							<!-- Slides Container -->
+
+							<div class="slides-container">
+											
+								{% for slide in presentation.slides %}
+
+									<div class="mySlides">
+
+										<!-- Case Slide is an Image -->
+
+										{% if slide.type == 'image' %}
+										
+											<img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
+
+										{% endif %}
+
+										<!-- Case Video Slide -->
+
+										{% if slide.type =='youtube_video' %}
+
+											<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{slide.address}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+										
+										{% endif %}
+									
+									</div>
+									
+								{% endfor %}
+
+								<!-- Slideshow Navigation Lateral Buttons (only if there is more than one slide) -->
+
+								{% if presentation.slides | length > 1 %}
+											
+									<div class="nav-buttons">
+										
+										<a class="prev text-decoration-none" onclick="plusSlides(-1)">❮</a>
+									
+										<a class="next text-decoration-none" onclick="plusSlides(1)">❯</a>
+									
+									</div>	
+
+								{% endif %}
+			
+							</div>
+				
+							<!--Second Column - Contains Thumbnails - Not displayed on small screens + Not Displayed if there is only one slide -->
+
+							{% if presentation.slides | length > 1 %}
+
+								<div class="col-md-3 pe-0 d-none d-lg-block pt-5">
+
+									<!--Thumbnails Container -->
+
+									<div class="thumbnails-container">
+
+										<div class="container">
+
+											<div class="row">
+
+												<!-- first Thumbnail Column (first 4 slides) -->
+
+												<div class="col ps-4 pt-5">
+													
+													{% for slide in presentation.slides | slice (0,4) %}
+
+													<div class="row mb-5">
+							
+														<div data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="thumbnail">
+							
+															{% if slide.type == 'youtube_video' %}	
+							
+																<div class="position-relative">
+							
+
+																	<img class="SlideImage rounded" src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80px" height="50px"
+																
+																alt="
+																	
+																	{% if slide.caption %}
+																	
+																		{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+							
+																	{% endif %}
+																
+																"/>
+									
+																	<!-- ui css video icon -->
+									
+																	<span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
+								
+																</div>
+																
+															{% else %}
+							
+																<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}"
+																
+																alt="
+																	
+																	{% if slide.caption %}
+																	
+																		{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+							
+																	{% endif %}
+																
+																"/>
+																
+															{% endif %}
+							
+														</div>
+							
+													</div>
+												
+												{% endfor %}
+												</div>
+
+												<!--Second Thumbnail Column if more than 4 slides -->
+
+												{% if presentation.slides | length > 4 %}
+												
+													<div class="col pt-5 px-0">
+														
+														{% for slide in presentation.slides | slice (4,8) %}
+								
+														<div class="row mb-5">
+								
+															<div data-loop-index="{{loop.index + 4}}" onclick="currentSlide({{loop.index + 4}})" class="thumbnail">
+								
+																{% if slide.type == 'youtube_video' %}	
+								
+																	<div class="SlideImage position-relative">
+								
+																		<img class="rounded" href="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80" height="50"	
+																		alt="
+																		
+																		{% if slide.caption %}
+																		
+																			{{ slide.caption[:1] | upper ~ slide.caption[1:] }} 
+														
+																		{% endif %}
+																		
+																		"/>
+										
+																		<!-- ui css video icon -->
+										
+																		<span class="position-absolute rounded-circle p-2" style="bottom:3px; left:3px;"> </span> 
+								
+								
+									
+																	</div>
+																	
+																{% else %}
+								
+																	<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}" alt="{{slide.file}}" 
+																	
+																	alt="
+																		
+																		{% if slide.caption %}
+																		
+																			{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+								
+																		{% endif %}
+																	
+																	"/>
+																	
+																{% endif %}
+								
+															</div>
+								
+														</div>
+														
+													{% endfor %}
+													</div>
+
+												{% endif %}
+												
+											</div>
+										</div>
+
+
+								
+									</div>
+
+								</div>
+
+							{% endif %}
+						</div>
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+
+	<script>
+
+		var slideIndex = 1;
+	
+		showSlides(slideIndex);
+	
+		function plusSlides(n) {
+	
+			showSlides(slideIndex += n);
+			
+		}
+	
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
+		}
+	
+		function showSlides(n) {
+	
+			var i;
+			var slides = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("SlideImage");
+			var thumbnail = document.getElementsByClassName("thumbnail");
+			var captionText = document.getElementById("caption");
+			
+			if (n > slides.length) {slideIndex = 1}
+			
+			if (n < 1) {slideIndex = slides.length}
+			
+			for (i = 0; i < slides.length; i++) {
+				slides[i].style.display = "none";
+			}
+			
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+				thumbnail[i].className = thumbnail[i].className.replace(" active", "");
+			}
+			
+			slides[slideIndex-1].style.display = "block";
+			
+			dots[slideIndex-1].className += " active";
+			thumbnail[slideIndex-1].className += " active";
+			
+			captionText.innerHTML = dots[slideIndex-1].alt;
+		}
+	
+	</script>
+	
+	
+	
+	<style>
+	
+		/* Position the image container (needed to position the left and right arrows) */
+	
+		.SlideshowContainer {
+			
+		}
+	
+		.slides-container {
+	
+			position: relative;
+			
+		}
+	
+		/* Hide the images by default */
+	
+		.mySlides {
+	
+			display: none;
+			height:400px;
+		}
+	
+		.mySlides > img {
+			
+			max-width:100%;
+			max-height:100%;
+	
+			display:block;
+			margin:auto;
+			
+			/* Vertically center an Image */
+			
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+	
+		}
+	
+		/* Next & previous buttons */
+		.prev,
+		.next {
+			
+			cursor: pointer;
+			position: absolute;
+			top: 170px;
+	
+			font-weight: bold;
+	
+			user-select: none;
+			-webkit-user-select: none;
+	
+			width: 50px;
+			height: 50px;
+	
+			border-radius: 50%;
+			font-size: 20px;
+			color: #fff !important;
+			line-height: 50px;
+			text-align: center;
+			background-color:rgba(0, 0, 0, 0.3);
+		}
+	
+		/* Position the "previous button" to the left */
+		.prev {
+			margin-left:10px;
+		}
+	
+		/* Position the "next button" to the right */
+		.next {
+			right: 0;
+			margin-right:10px;
+		}
+
+        .SlideImage{
+            width:80px; height:50px;
+        }
+	
+		/* On hover, add a black background color with a little bit see-through */
+		.prev:hover,
+		.next:hover {
+			background-color: rgba(0, 0, 0, 0.8);
+		}
+	
+	
+		/* Container for Captions */
+	
+		.caption-container {
+	
+			min-height: 72px;
+	
+			padding: 8px 0px;
+	
+			padding-left: 35px;
+			
+			background-color: inherit;
+			
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
+	
+			margin-bottom:25px;
+	
+			font-size:1.20em;
+			
+		}
+	
+		.caption-container p {
+			
+			margin-bottom: 0;
+		}
+	
+	
+		.thumbnails-container{
+	
+			background-color:inherit;
+	
+		}
+	
+		.thumbnail {
+	
+			cursor: pointer;
+			opacity: 0.8; /* Add a transparency effect for thumnbail images */
+	
+		}
+	
+		.active,
+		.thumbnail:hover {
+	
+			opacity: 1;
+	
+		}
+	
+		
+		
+		@media screen and (max-width: 580px) {
+	
+			.mySlides {
+				
+				height:190px;
+			}
+	
+			/* Next & previous buttons */
+	
+			.prev,
+			.next {
+				
+				top: 75px;
+	
+				width: 30px;
+				height: 30px;
+	
+				font-size: 0.9em;
+	
+				line-height: 30px;
+			}
+	
+			/* Position the "previous button" to the left */
+	
+			.prev {
+				margin-left:-10px;
+			}
+	
+			/* Position the "next button" to the right */
+	
+			.next {
+				right: 0;
+				margin-right:-10px;
+			}
+				
+			.caption-container {
+	
+				min-height: 50px;
+	
+				padding: 4px 9px;
+				
+				font-size: 15px;
+				font-weight:normal;
+
+				margin-bottom : 7px;
+				
+				
+			}
+	
+			/* Number text (1/3 etc) */
+	
+			.numbertext {
+	
+				z-index:10;
+				
+				position: absolute;
+				top: 0;
+	
+				margin: 8px 12px;
+				padding: 1px 2px;
+	
+				font-size: 13px;
+				color:white;
+				text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+	
+				background-color: rgba(0,0,0,0.3);
+				
+				
+			}
+	
+		}
+	
+	</style>
+			
+
+{% endif %}
+
+
+
+
+
+
+<!-- 
+<div id="slidewhow-container">
+
+    <div id="captions-container">
+
+
+    </div>
+
+    <div id="slides" class="">
+
+        <div id="slides-container" class="">
+
+        </div>
+
+        <div id="thumbnails-container" class="">
+
+        </div>
+
+
+    </div>
+
+</div> -->

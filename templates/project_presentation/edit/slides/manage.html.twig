@@ -1,0 +1,178 @@
+{% embed "project_presentation/edit/structure_skeleton.html.twig" %}
+
+
+{% block title %}Images et Vidéos{% endblock %}
+
+
+{% block mainContentTitle %}Images & Vidéos{% endblock %}
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+{% if presentation.slides | length == 0 %}
+
+Conseil
+
+{% else %}
+
+Info
+
+{% endif %}
+
+{% endblock %}
+
+
+{% block moreInfoContent %}
+
+{% if presentation.slides | length == 0 %}
+
+<p class="lh-2 h5">Présenter des images, schémas, ou vidéos est une méthode rapide et efficace pour <strong>transmettre
+        vos Idées</strong>.</p>
+
+{% else %}
+
+<p class="lh-2 h5">Pour modifier l'ordre des images ou vidéos, utiliser le glisser-déposer (= drag and drop).</p>
+
+<p class="h5">Nombre limite (images + vidéos) : <b>8</b></p>
+
+{% endif %}
+
+{% endblock %}
+
+
+
+
+
+
+
+
+{% block mainContentContainer %}
+
+<!-- Add Image or Video Button -->
+
+{% if presentation.slides | length < 8 %} 
+
+    <div class="" style="margin-bottom:33px;">
+
+        <!-- Add an Image Button (Triggers a Modal Box with a Form, included below) -->
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
+            class="btn btn-success sharp me-3">+ Ajouter une image</button>
+
+        <!-- Small Screens Vertical Spacer -->
+
+        <div class="d-md-none">
+            <br>
+        </div>
+
+        <!-- add a video button -->
+
+        <a href="{{path('add_youtube_slide', {'stringId': stringId})}}">
+            <button type="button" class="btn btn-success sharp me-1">+ Ajouter une vidéo (Youtube)</button>
+        </a>
+
+    </div>
+
+    <!-- Add Slide Image Form -->
+
+    {% include "project_presentation/edit/slides/add_image_form.html.twig" %}
+
+{% endif %}
+
+
+    <!-- Slides list displayed in a grid -->
+
+    <div class="container mb-3">
+
+        <div id="items-list" class="row col-lg-8 pl-0">
+
+            {% if presentation.slides | length > 0 %}
+
+            {% for slide in presentation.slides %}
+
+            <!-- Thumbnail Container -->
+
+            <div id="{{slide.id}}"
+                class="js-sortable-item d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded overflow-hidden cursor-pointer"
+                style="width:130px; height:123px; border-color: #3f5cff !important;">
+
+                {% if slide.type == 'image' %}
+
+                <a href="" class="text-body text-decoration-none">
+
+                    <img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.image}}" height="" width="100%">
+
+                </a>
+
+                {% elseif slide.type == 'youtube_video' %}
+
+                <a href="" class="text-body text-decoration-none">
+
+                    {# youtube thumbnail #}
+
+                    <img src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg"
+                        alt="image miniature d'une video" height="" width="100%">
+
+                    {# red circle (= video icon stamp) #}
+
+                    <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
+
+                </a>
+
+                {% endif %}
+
+                <!-- Remove Slide button (a red cross on each slide) -->
+
+                <button type="button" class="js-delete-slide d-inline position-absolute btn btn-sm btn-danger sharp"
+                    data-id="{{slide.id}}" style="top:0; right:0;"><span class="font-weight-bold">&times</span></button>
+
+            </div>
+
+            {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    {# Action buttons #}
+
+    <div>
+
+        <!-- Back to edition Button -->
+
+        <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId }) }}">
+            <button type="button" class="btn btn-info btn-lg mt-4 me-2 mb-4 sharp">Menu</button>
+        </a>
+
+        <!-- Back to Result Button -->
+
+        <a class="text-decoration-none text-white"
+            href="{{path('show_presentation', {'stringId': stringId })}}#slideshowDisplay">
+            <button type="button" class="btn btn-warning btn-lg mt-4 mb-4 sharp">Résultat</button>
+        </a>
+
+    </div>
+
+
+
+
+    {% block specificStyles %}
+
+    {% endblock %}
+
+
+    {% endblock %}
+
+
+    {% block specificJavascripts %}
+
+
+    {% endblock %}
+
+
+
+    {% endembed %}

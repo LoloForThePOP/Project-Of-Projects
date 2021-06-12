@@ -6,28 +6,23 @@ use App\Entity\PPBase;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class PPKeywordsType extends AbstractType
+class TextDescriptionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
             ->add(
-
-                'keywords',
-
-                TextType::class,
-
+                'textDescription',
+                TextareaType::class,
                 [
-                    'label' => 'Mots-Clés (séparer avec des virgules , ) :',
-
+                    'required'     => false,
+                    'sanitize_html' => true,
                     'attr' => [
-
-                        'placeholder'    => 'Mots-Clés (séparer avec des virgules , )',
+                        'class' => "tinymce",
                     ],
-
-                    'required'   => false,
                 ]
             );
     }

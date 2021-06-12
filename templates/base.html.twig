@@ -39,23 +39,6 @@
     {% include "_partials/header_navbar.html.twig" %}
 
 
-    <!-- Flash Messages Display -->
-
-    {% for label, messages in app.flashes %}
-
-    <div class="flashMessage d-flex align-items-center alert alert-{{label}} mt-3 h5 font-weight-bold">
-
-        {% for message in messages %}
-
-        <p class=" p-0 m-0">{{message | raw}}</p>
-
-        {% endfor %}
-
-    </div>
-
-    {% endfor %}
-
-    <!-- End of Flash Messages Display -->
 
 
     <!--Sidebar & Main Content Container -->
@@ -65,9 +48,32 @@
 
         <div class="row" style="min-height:500px;">
 
+
+            <!-- Sidebar -->
+            
             {% block sidebar %}{% endblock %}
+            
+            <!-- Main Body Content -->
 
             <div class="col bg-light">
+
+                <!-- Flash Messages Display -->
+            
+                {% for label, messages in app.flashes %}
+                
+                    <div class="flashMessage d-flex align-items-center alert alert-{{label}} h6 font-weight-bold">
+                
+                        {% for message in messages %}
+                
+                        <p class=" p-0 m-0">{{message | raw}}</p>
+                
+                        {% endfor %}
+                
+                    </div>
+            
+                {% endfor %}
+            
+                <!-- End of Flash Messages Display -->
                 
                 {% block body %}{% endblock %}
             

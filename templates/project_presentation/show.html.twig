@@ -2,41 +2,94 @@
 
 {% block meta %}
 
-    <meta name="author" content="{{ presentation.creator }}">
-    <meta name="keywords" content="{{ presentation.keywords }}">
-    <meta name="date" content="{{ presentation.createdAt | date}}">
-    
+<meta name="author" content="{{ presentation.creator }}">
+<meta name="keywords" content="{{ presentation.keywords }}">
+<meta name="date" content="{{ presentation.createdAt | date}}">
+
 {% endblock %}
 
 {% block stylesheet %}{% endblock %}
-    
 
 {% block title %}{{ presentation.goal | capitalize}}{% endblock %}
 
+{% block sidebar %} {% include '_partials/sidebar.html.twig' %} {% endblock %}
+
 {% block body %}
 
-    <h4 class="">
-        
-        {{presentation.title}}
+<div class="mt-5">
 
-    </h4>
+    {# slideshow #}
+
+    {% include 'project_presentation/_show/slides.html.twig' %}
+
+    <div class="mb-3">
+
+        <a href="{{path("edit_pp_base", {'stringId': presentation.stringId})}}">
+            {% if presentation.logo %}
+
+            <div class="">
+
+                <img src="{{ vich_uploader_asset(presentation) }}" alt="project logo" height="75" width="75">
+            </div>
+
+            {% else %}
+
+            <button type="button" class="btn btn-primary">Ajouter logo</button>
+
+            {% endif %}
+
+        </a>
+    </div>
+
+    <p class="">
+
+        id: {{presentation.stringId}}
+
+    </p>
+
+    <p class="">
+
+        goal: {{presentation.goal}}
+
+    </p>
+
+    {% if presentation.title %}
+
+    <p class="">
+
+        title: {{presentation.title}}
+
+    </p>
+
+    {% endif %}
+
+    
 
     {% if presentation.textDescription %}
 
-        <p class="">
-            {{presentation.textDescription}}
-        </p>
+    <p class="">
+        Text description: {{presentation.textDescription}}
+    </p>
 
     {% endif %}
 
     {% if presentation.keywords %}
 
-        <p class="">
-            {{presentation.keywords}}
-        </p>
+    <p class="">
+        keywords: {{presentation.keywords}}
+    </p>
 
     {% endif %}
-    
+
+
+</div>
+
+<style>
+    p {
+        font-size: 1.25em;
+        ;
+    }
+</style>
 
 {% endblock %}
 

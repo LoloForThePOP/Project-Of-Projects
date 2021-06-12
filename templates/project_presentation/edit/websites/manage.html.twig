@@ -1,0 +1,69 @@
+{% embed "project_presentation/edit/structure_skeleton.html.twig" %}
+
+
+{% block title %}Sites web du Projet{% endblock %}
+
+{% block mainContentTitle %}Gérer les sites web{% endblock %}
+
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+    
+    <p class="h5 mb-3 pt-1">
+
+        Exemples :             
+
+    </p>
+        
+    <ul class="h5 mb-1">
+
+        <li class="mb-2"> réseaux sociaux, salons de discussions (Discord; Slack...)</li>
+        <li class="mb-2"> Dépôt Github; Trello... </li>
+
+    </ul>
+
+    <p class="h5 mb-3 pt-1">
+
+        Pour modifier l'ordre des sites webs, utilisez le glisser-déposer (= drag and drop)       
+
+    </p>
+
+{% endblock %}
+
+
+{% block mainContentContainer %}
+
+        <!-- Add Website Button -->
+
+        <div class="mb-4">
+
+            <button type="button" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" class="btn btn-success">+ Ajouter un site web</button> 
+
+        </div>
+
+         <!-- Form Display (in a Modal Box) -->
+
+         {% include "project_presentation/edit/websites/add_website_form.html.twig" %}
+
+    {% block specificStyles %}
+
+    {% endblock %}
+ 
+
+{% endblock %}
+
+
+{% block specificJavascripts %}
+
+
+{% endblock %}
+
+{% endembed %}

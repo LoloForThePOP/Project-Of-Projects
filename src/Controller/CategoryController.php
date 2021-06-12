@@ -52,6 +52,7 @@ class CategoryController extends AbstractController
         return $this->render('project_presentation/edit/categories/select.html.twig', [
             'categories' => $categories,
             'presentation' => $presentation,
+            'stringId' => $presentation->getStringId(),
             'keywordsForm' => $keywordsForm->createView(),
         ]);
     }

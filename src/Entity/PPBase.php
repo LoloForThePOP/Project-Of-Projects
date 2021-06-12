@@ -12,11 +12,19 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+
 
 /**
  * @ORM\Entity(repositoryClass=PPBaseRepository::class)
  * @ORM\HasLifecycleCallbacks()
+ * @Vich\Uploadable
  */
 class PPBase
 {
@@ -45,10 +53,31 @@ class PPBase
      */
     private $title;
 
+
+
     /**
+     * the name of the image logo file (example : logo-4234564567.jpg)
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $logo;
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     *  @Assert\Image(
+     *     maxSize = "1500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
+     * @Vich\UploadableField(mapping="project_logo_image", fileNameProperty="logo")
+     * 
+     * @var File|null
+     */
+    public $logoFile;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -121,6 +150,17 @@ class PPBase
      */
     private $categories;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Slide::class, mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $slides;
+
 
 
     public function __construct()
@@ -134,6 +174,7 @@ class PPBase
 
         // unique stringId is generated through $this->generateStringId() called in LifecycleCallbacks() PrePersist
         $this->categories = new ArrayCollection();
+        $this->slides = new ArrayCollection();
     }
 
 
@@ -177,7 +218,32 @@ class PPBase
     {
         $this->logo = $logo;
 
+        if (!$logo == null) {
+            $this->thumbnail = $logo;
+        }
+
         return $this;
+    }
+
+
+    /**
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $logoFile
+     */
+    public function setLogoFile(?File $logoFile = null): void
+    {
+        $this->logoFile = $logoFile;
+
+        // It is required that at least one field changes if you are using doctrine
+        // otherwise the event listeners won't be called and the file is lost
+        // So we update one field
+
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
     }
 
     public function getKeywords(): ?string
@@ -385,6 +451,48 @@ class PPBase
     {
         if ($this->categories->removeElement($category)) {
             $category->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Slide[]
+     */
+    public function getSlides(): Collection
+    {
+        return $this->slides;
+    }
+
+    public function addSlide(Slide $slide): self
+    {
+        if (!$this->slides->contains($slide)) {
+            $this->slides[] = $slide;
+            $slide->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSlide(Slide $slide): self
+    {
+        if ($this->slides->removeElement($slide)) {
+            // set the owning side to null (unless already changed)
+            if ($slide->getPresentation() === $this) {
+                $slide->setPresentation(null);
+            }
         }
 
         return $this;

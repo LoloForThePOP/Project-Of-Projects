@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Form\PPBaseType;
 use App\Form\CreatePresentationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -54,10 +55,10 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'La présentation du projet a été créée ! <br> Vous pouvez maintenant ajouter les informations que vous désirez présenter.'
+                '✅ La présentation du projet a été créée. <br> Vous pouvez maintenant ajouter toutes les informations que vous désirez présenter.'
             );
 
-            return $this->redirectToRoute('homepage', []);
+            return $this->redirectToRoute('show_presentation', []);
         }
 
         return $this->render('project_presentation/create.html.twig', [
@@ -82,6 +83,69 @@ class PPController extends AbstractController
 
         return $this->render('/project_presentation/show.html.twig', [
             'presentation' => $presentation,
+            'stringId' => $presentation->getStringId(),
+        ]);
+    }
+
+    /**
+     * Allow to Display a Project Presentation Edition Menu
+     * 
+     * @Route("/projects/{stringId}/edit/menu", name="edit_pp_menu")
+     * 
+     * @return Response
+     */
+    public function showMenu(PPBase $presentation)
+    {
+
+        $user = $this->getUser();
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        return $this->render('/project_presentation/edit/menu.html.twig', [
+            'presentation' => $presentation,
+            'stringId' => $presentation->getStringId(),
+        ]);
+    }
+
+
+
+
+    /**
+     * Allow to edit pp title; goal; keywords & logo
+     * 
+     * @Route("/projects/{stringId}/edit/", name="edit_pp_base")
+     * 
+     * @return void
+     */
+    public function editBase(PPBase $presentation, Request $request, EntityManagerInterface $manager)
+    {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        $form = $this->createForm(PPBaseType::class, $presentation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($presentation);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Les modifications ont été enregistrées ✅"
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+            ]);
+        }
+
+
+        return $this->render('project_presentation/edit/title_goal_logo/edit.html.twig', [
+            'presentation' => $presentation,
+            'stringId' => $presentation->getStringId(),
+            'form' => $form->createView(),
         ]);
     }
 }

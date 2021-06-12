@@ -1,0 +1,130 @@
+{% embed "project_presentation/edit/structure_skeleton.html.twig" %}
+
+
+{% block title %}Description Texte du Projet{% endblock %}
+
+
+{% block mainContentTitle %}Description du Projet - Texte -{% endblock %}
+
+{% block sidebar %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+
+    <p class="lh-16">Pour que la lecture soit plus agréable, n'hésitez pas à utiliser des listes et des sauts de lignes.</p>
+
+{% endblock %}
+
+
+{% block mainContentContainer %}
+
+    <!-- Project Text Description Rich Text Editor -->
+
+    <div class="col-md-9">
+
+        {{form_start(form)}}
+
+
+        <!-- Form Errors Display -->
+
+        <span class="h5 text-danger">
+
+            {{form_errors(form.textDescription)}}
+
+        </span>
+
+        <!-- Rich Text Editor Area -->
+
+        <div class="mb-4">
+
+          {{form_widget(form.textDescription)}}
+
+        </div>
+
+
+        <!-- Action Buttons -->
+
+        <div class= "pt-2">
+            
+            <button type="submit" class="btn btn-success btn-lg sharp h3 fw-bold mb-4 me-3">Enregistrer</button>
+        
+            <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId}) }}">
+                <button type="button" class="btn btn-info btn-lg sharp fw-bold mb-4">Retour menu</button>
+            </a>
+
+        </div>
+
+        {{form_end(form)}}
+
+    </div>
+
+
+    {% block specificStyles %}
+
+    {% endblock %}
+ 
+
+{% endblock %}
+
+
+{% block specificJavascripts %}
+
+
+    <!-- CDN - TinyMCE Rich Text Editor -->
+
+    <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <!-- Parameters - TinyMCE Rich Text Editor -->
+
+    <script>
+        
+        tinymce.init({
+
+            mode : "specific_textareas",
+
+            editor_selector : "tinymce",
+
+            width : "100%",
+
+            height: "500",
+
+            entity_encoding : "raw",
+
+            menubar: 'edit format',
+
+            menu: {
+
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+            }, 
+
+            language: 'fr_FR',
+
+            plugins: "emoticons, lists",
+
+            toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
+
+            content_style: "body {padding: 0px 15px;",
+
+            nowrap : false,
+
+        });
+
+    </script>
+
+    
+
+
+
+{% endblock %}
+
+{% endembed %}

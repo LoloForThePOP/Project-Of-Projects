@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Édition d'une Présentation{% endblock %}
+
+{% block sidebar %} {% include '_partials/sidebar.html.twig' %} {% endblock %}
+
+{% block body %}
+
+<!-- Edit Presentation Menu -->
+
+<a href="{{path("edit_pp_base", {'stringId': presentation.stringId})}}">
+
+    <div class="menu-button">
+
+        Objectif; titre; logo
+
+    </div>
+
+</a>
+
+<a href="{{path("select_categories", {'stringId': presentation.stringId})}}">
+
+    <div class="menu-button">
+
+        Catégories
+
+    </div>
+
+</a>
+
+<a href="{{path("edit_pp_text_description", {'stringId': presentation.stringId})}}">
+    
+    <div class="menu-button">
+    
+        Description texte
+    
+    </div>
+
+</a>
+
+<div class="menu-button">
+
+    loi
+
+</div>
+
+
+
+<style>
+
+    .menu-button{
+        display: inline-block;
+        margin:10px;
+        width:150px;
+        height:100px;
+        background-color: darkorange;
+        font-size: 1.15em;
+        color: black;
+        padding: 10px;
+    }
+
+    a{
+
+        text-decoration: none;
+    }
+
+</style>
+
+
+{% endblock %}
+
+
+
+
+{% block javascripts %}
+
+
+{% endblock %}

@@ -1,0 +1,43 @@
+html_sanitizer:
+    default_sanitizer: 'default'
+    sanitizers:
+        default:
+            # Read https://github.com/tgalopin/html-sanitizer/blob/master/docs/1-getting-started.md#extensions
+            # to learn more about which extensions you would like to enable.
+            extensions:
+                - 'basic'
+                - 'list'
+                # - 'table'
+                # - 'image'
+                - 'code'
+                # - 'iframe'
+                # - 'extra'
+
+            # Read https://github.com/tgalopin/html-sanitizer/blob/master/docs/3-configuration-reference.md
+            # to discover all the available options for each extension.
+
+            tags:
+                p:
+                    allowed_attributes:
+                        - 'style'
+                span:
+                    allowed_attributes:
+                        - 'style'
+                h1:
+                    allowed_attributes:
+                        - 'style'
+                h2:
+                    allowed_attributes:
+                        - 'style'
+                h3:
+                    allowed_attributes:
+                        - 'style'
+                h4:
+                    allowed_attributes:
+                        - 'style'
+                h5:
+                    allowed_attributes:
+                        - 'style'
+                h6:
+                    allowed_attributes:
+                        - 'style'

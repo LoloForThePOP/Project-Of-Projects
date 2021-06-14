@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme addVideoForm 'bootstrap_4_layout.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block stylesheets %}
 
 <link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-{% block title %}Ajouter une vidéo{% endblock %}
+{% block title %}Ajouter une vidéo youtube{% endblock %}
 
 {% block sidebar %} {% include '_partials/sidebar.html.twig' %}{% endblock %}
 
@@ -20,15 +20,26 @@
 
         <!-- ui Page Title -->
 
-        <h3 class="fw-bold d-inline me-2">Ajouter une vidéo Youtube</h3>
+        <h3 class="fw-bold d-inline me-2">
+
+            {% if context == 'new' %}
+
+                Ajouter une vidéo Youtube
+
+            {% else %}
+                
+                Modifier
+            
+            {% endif %}
+            
+        </h3>
 
         <!-- Button with Collapsable Advice : How to Insert a Youtube Vidéo ? -->
 
         <a class="fw-bold my-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTutorial"
             aria-expanded="false" aria-controls="collapseTutorial">
 
-            <span class="btn btn-info fw-bold btn-lg fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Comment faire
-                ?</span>
+            <span class="btn btn-info fw-bold btn-lg fs-15 h5 p-1 px-3" style="letter-spacing: 2px;">Comment faire ?</span>
 
         </a>
 
@@ -54,13 +65,13 @@
 
     <div class="mt-2">
 
-        {{form_start(addVideoForm)}}
+        {{form_start(form)}}
 
         <!-- Youtube Video Code Input-->
 
         <div class="col-md-7 ps-0 mb-4">
 
-            {{form_row(addVideoForm.address)}}
+            {{form_row(form.address)}}
 
         </div>
 
@@ -68,7 +79,7 @@
 
         <div class="col-md-7 ps-0">
 
-            {{ form_row(addVideoForm.caption) }}
+            {{ form_row(form.caption) }}
 
         </div>
 
@@ -76,16 +87,15 @@
 
         <div class="mt-4 pt-2 pl-0">
 
-            <button type="submit" class="btn btn-success bg-green sharp btn-lg h3 mb-4 me-1">Intégrer
-                la vidéo</button>
+            <button type="submit" class="btn btn-success bg-green sharp btn-lg h3 mb-4 me-1">Valider</button>
 
             <a class="text-decoration-none text-white" href="{{ path('manage_slides', {'stringId': stringId}) }}">
-                <button type="button" class="btn btn-danger btn-lg mb-4">Annuler</button>
+                <button type="button" class="btn btn-danger btn-lg mb-4">Retour Images & vidéos</button>
             </a>
 
         </div>
 
-        {{form_end(addVideoForm)}}
+        {{form_end(form)}}
 
     </div>
 

@@ -38,12 +38,35 @@
 
 </a>
 
-<div class="menu-button">
+<a href="{{path("manage_slides", {'stringId': presentation.stringId})}}">
+    
+    <div class="menu-button">
+    
+        Images & Vidéos
+    
+    </div>
 
-    loi
+</a>
 
-</div>
+<a href="{{path("manage_places", {'stringId': stringId})}}">
+    
+    <div class="menu-button">
+    
+        Lieux du projet
+    
+    </div>
 
+</a>
+
+<a href="{{path("manage_oc", {'stringId': stringId, 'component_type': 'websites'})}}">
+    
+    <div class="menu-button">
+    
+        Sites web du projet
+    
+    </div>
+
+</a>
 
 
 <style>

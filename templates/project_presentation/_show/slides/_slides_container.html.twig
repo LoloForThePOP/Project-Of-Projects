@@ -1,0 +1,41 @@
+<div class="slides-container px-0 mx-auto col-md-9 col-sm-12">
+				
+	{% for slide in presentation.slides %}
+
+		<div class="mySlides">
+
+			<!-- Case Slide is an Image -->
+
+			{% if slide.type == 'image' %}
+			
+				<img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
+
+			{% endif %}
+
+			<!-- Case Video Slide -->
+
+			{% if slide.type =='youtube_video' %}
+
+				<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{slide.address}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			
+			{% endif %}
+		
+		</div>
+		
+	{% endfor %}
+
+	<!-- Slideshow Navigation Lateral Buttons (only if there is more than one slide) -->
+
+	{% if presentation.slides | length > 1 %}
+				
+		<div class="nav-buttons">
+			
+			<a class="prev text-decoration-none" onclick="plusSlides(-1)">❮</a>
+		
+			<a class="next text-decoration-none" onclick="plusSlides(1)">❯</a>
+		
+		</div>	
+
+	{% endif %}
+
+</div>

@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\Slide;
 use App\Entity\PPBase;
 use App\Form\ImageSlideType;
+use App\Form\AddVideoSlideType;
+use App\Repository\SlideRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Form\AddVideoSlideType;
 
 class SlideController extends AbstractController
 {
@@ -63,12 +65,56 @@ class SlideController extends AbstractController
             'addImageForm' => $addImageForm->createView(),
         ]);
     }
+    
+    
+    /**
+     * Allow to update an image slide or its caption
+     *  
+     * @Route("/projects/{stringId}/slide/update-image/{id_slide}", name="update_image_slide")
+     * 
+     * @return Response
+     */
+    public function updateImageSlide (PPBase $pp, $id_slide, SlideRepository $repo, Request $request, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $pp);
+
+        $slide = $repo->findOneById($id_slide);
+
+        $form = $this->createForm(ImageSlideType::class, $slide);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+                             
+            $manager->flush();
 
 
+            $this->addFlash(
+                'success',
+                "✅ modification effectuée"
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+
+                'stringId' => $pp->getStringId(),
+                '_fragment' => 'slideshowDisplay',
+
+            ]);
+
+        }
+
+        return $this->render('project_presentation/edit/slides/update_image.html.twig', [
+            'stringId' => $pp->getStringId(),
+            'form' => $form->createView(),
+        ]);
+
+    }
+
+    
     /**
      * Allow to add a youtube video slide into a slideshow
      * 
-     * @Route("/projects/{stringId}/slides/edit-youtube-slide",name="add_youtube_slide")
+     * @Route("/projects/{stringId}/slides/add-youtube-slide",name="add_youtube_slide")
      * 
      * @return Response
      */
@@ -94,7 +140,6 @@ class SlideController extends AbstractController
             $videoSlide->setPresentation($presentation);
             $manager->persist($videoSlide);
 
-            $manager->persist($presentation);
             $manager->flush();
 
             $this->addFlash(
@@ -108,12 +153,135 @@ class SlideController extends AbstractController
             ]);
         }
 
-        return $this->render('project_presentation/edit/slides/add_youtube_video.html.twig', [
+        return $this->render('project_presentation/edit/slides/edit_youtube_video.html.twig', [
 
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
-            'addVideoForm' => $addVideoForm->createView(),
+            'form' => $addVideoForm->createView(),
+            'context' => 'new',
 
         ]);
     }
+
+
+    /**
+     * Allow to update a youtube video slide
+     * 
+     * @Route("/projects/{stringId}/slides/edit-youtube-video/{slide_id}",name="update_youtube_slide")
+     * 
+     * @return Response
+     */
+    public function editVideoSlide (PPBase $pp, $slide_id, SlideRepository $repo, Request $request, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $pp);
+
+        $slide = $repo->findOneById($slide_id);
+
+        $slide->setFile(null); //otherwise get a bug (caused by vitch upload ?)
+
+        $form = $this->createForm(AddVideoSlideType::class, $slide);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "✅ Modification effectuée"
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+
+                'stringId' => $pp->getStringId(),
+                '_fragment' => 'slideshowDisplay',
+
+            ]);
+
+        }
+
+        return $this->render('project_presentation/edit/slides/edit_youtube_video.html.twig', [
+
+            'form' => $form->createView(),
+            'stringId' => $pp->getStringId(), 
+            'presentation' => $pp,
+            'context' => "update",
+            
+        ]);
+
+    }
+
+  
+    /**
+     * Allow to reorder presentation slides
+     *
+     * @Route("/projects/{stringId}/slides/ajax-reorder-slides/", name="ajax_reorder_slides")
+     * 
+    */ 
+    public function ajaxReorderSlides(Request $request, PPBase $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonSlidesPosition = $request->request->get('jsonElementsPosition');
+
+            $slidesPosition = json_decode($jsonSlidesPosition,true);
+
+            foreach ($presentation->getSlides() as $slide){
+
+                $newSlidePosition = array_search($slide->getId(), $slidesPosition, false);
+                
+                $slide->setPosition($newSlidePosition);
+
+            }
+
+            $manager->flush();
+
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+
+    }
+
+
+    /**
+     * Ajax slide deletion
+     * 
+     * @Route("/projects/{stringId}/slides/ajax-delete-slide/", name="ajax_delete_slide")
+     * 
+     */
+    public function ajaxDeleteSlide(PPBase $presentation, Request $request, SlideRepository $slideRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        if ($request->isXmlHttpRequest()) {
+
+            $idSlide = $request->request->get('idElement');
+
+            $slide = $slideRepository->findOneById($idSlide);
+
+            if ($presentation->getSlides()->contains($slide)) {
+
+                $presentation->removeSlide($slide);
+                
+                $manager->remove($slide);
+
+                $manager->flush();
+            }
+
+            $dataResponse = [
+            ];
+
+            return new JsonResponse($dataResponse);
+
+        }
+
+    }
+    
+
+
 }

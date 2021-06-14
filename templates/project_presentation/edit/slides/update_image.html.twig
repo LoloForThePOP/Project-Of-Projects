@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+
+{% block title %}Changer une Image ou un Schéma{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h2 class="h3 my-4">Changer une Image ou un Schéma </h2>
+
+    {{form_start(form)}}
+
+    <div class="mb-1">
+
+        <div class="col-md-7 fw-bold">
+           
+            <span class="fw-bold h5"> 
+                Modifier l'Image?
+            </span>
+
+            <span class="arrowCar">▼ </span>
+
+            <div class="p-0 m-0 alert text-body h5 fw-bold">
+
+                {{ form_errors(form.file) }}
+
+            </div>
+            
+            <div class="mt-1 p-1 bg-warning disabled rounded">
+                
+                {{ form_widget(form.file) }}
+
+            </div>
+            
+            <div class="mt-5">
+
+                {{ form_row(form.caption) }}
+                
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="mt-5">
+    
+        <button type="submit" class="btn btn-success mb-4 me-1">Valider</button>
+    
+        <a class="text-decoration-none text-white" href="{{ path('manage_slides', {'stringId': stringId}) }}">
+            <button type="button" class="btn btn-info mb-4">Retour images & vidéos</button>
+        </a>
+        
+    </div>
+
+    {{form_end(form)}}
+
+</div>
+
+{% endblock %}
+
+

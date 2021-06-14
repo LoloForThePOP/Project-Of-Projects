@@ -61,7 +61,7 @@ here is skeletton structure :
 
             <div class="main-content-container">
 
-                {% block mainContentContainer %}{% endblock %}
+                {% block mainContent %}{% endblock %}
 
             </div>
 
@@ -159,6 +159,153 @@ here is skeletton structure :
         
         
 {% block javascripts %}
+
+
+    <!-- sortable plugin to reorder elements (exemple : reorder presentation slides; reorder presentation websites; etc) -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for above sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+
+    <script>
+
+        // ajax elements reordering & deletion
+
+        $(document).ready(function(){
+
+            // reorder elements capability instantiation
+
+            $('#elements-list').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                // drag and drop implies elements positions updates (ajax call)
+
+                onEnd: function (evt) {
+
+                    // an array storing elements id position
+
+                    var elementsPositions = [];
+
+                    $('#elements-list div.js-sortable-element').each(function(index){
+                        
+                        elementsPositions.push($(this).attr('id'));
+                   
+                    });
+
+                    jsonElementsPositions = JSON.stringify(elementsPositions);
+
+                    // getting entity type in order to call appropriate route (ex: a website; a slide; ...)
+
+                    var path = null;
+
+                    var entityType = $('#elements-list').data('elements-type');
+
+                    switch(entityType) {
+
+                        case "slide":
+
+                            path = "{{path('ajax_reorder_slides', {'stringId': stringId})}}";
+                            break;
+                            
+                        default:
+
+                            break;
+
+                    } 
+
+                    
+
+                    // ajax call
+                    
+                    $.ajax({  
+
+                        url: path,
+                        type:       'POST',   
+                        dataType:   'json',
+                        data: {
+                            "jsonElementsPosition": jsonElementsPositions,
+                        },
+    
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                 
+                        },  
+    
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                     }); 
+
+                },
+            });
+                        
+            
+            // Remove an Element
+
+            $('#elements-list').on('click', '.js-delete-element', function (){
+
+                var idElement = $(this).attr("data-id");
+
+                // getting entity type in order to call appropriate route (ex: presentation website; presentation slide)
+
+                var path = null;
+
+                var elementsType = $('#elements-list').data('elements-type');
+
+                if(elementsType=="slide"){
+
+                    path = "{{path('ajax_delete_slide', {'stringId': stringId})}}";
+                }
+
+                if (confirm("Confimez vous enlever cet élément ?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: path,
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "idElement": idElement,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+
+                        $("#elements-list #"+idElement).remove();
+                        
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                    }); 
+                    
+                }
+    
+            });
+
+        }); 
+
+        
+    </script>
 
         
     {# specific javascripts for childs of this skeleton #}

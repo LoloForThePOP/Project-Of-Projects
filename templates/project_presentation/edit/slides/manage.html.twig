@@ -48,7 +48,7 @@ Info
 
 
 
-{% block mainContentContainer %}
+{% block mainContent %}
 
 <!-- Add Image or Video Button -->
 
@@ -86,51 +86,56 @@ Info
 
     <div class="container mb-3">
 
-        <div id="items-list" class="row col-lg-8 pl-0">
+        <div id="elements-list" data-elements-type="slide" class="row col-lg-8 pl-0">
 
             {% if presentation.slides | length > 0 %}
 
-            {% for slide in presentation.slides %}
+                {% for slide in presentation.slides %}
 
-            <!-- Thumbnail Container -->
+                <!-- Thumbnail Container -->
 
-            <div id="{{slide.id}}"
-                class="js-sortable-item d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded overflow-hidden cursor-pointer"
-                style="width:130px; height:123px; border-color: #3f5cff !important;">
+                <div id="{{slide.id}}"
 
-                {% if slide.type == 'image' %}
+                    class="js-sortable-element">
 
-                <a href="" class="text-body text-decoration-none">
+                    {% if slide.type == 'image' %}
 
-                    <img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.image}}" height="" width="100%">
+                        {# edit link #}
 
-                </a>
+                        <a href="{{path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}" class="text-body text-decoration-none">
 
-                {% elseif slide.type == 'youtube_video' %}
+                            {# thumbnail #}
 
-                <a href="" class="text-body text-decoration-none">
+                            <img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}" height="" width="100%">
 
-                    {# youtube thumbnail #}
+                        </a>
 
-                    <img src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg"
-                        alt="image miniature d'une video" height="" width="100%">
+                    {% elseif slide.type == 'youtube_video' %}
 
-                    {# red circle (= video icon stamp) #}
+                    {# edit link #}
 
-                    <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
+                        <a href="{{path('update_youtube_slide', {'stringId': stringId, 'presentation': presentation, 'slide_id' : slide.id })}}" class="text-body text-decoration-none">
 
-                </a>
+                            {# youtube thumbnail #}
 
-                {% endif %}
+                            <img src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" alt="image miniature d'une video" height="" width="100%">
 
-                <!-- Remove Slide button (a red cross on each slide) -->
+                            {# red circle (= video icon stamp) #}
 
-                <button type="button" class="js-delete-slide d-inline position-absolute btn btn-sm btn-danger sharp"
-                    data-id="{{slide.id}}" style="top:0; right:0;"><span class="font-weight-bold">&times</span></button>
+                            <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
 
-            </div>
+                        </a>
 
-            {% endfor %}
+                    {% endif %}
+
+                    <!-- Remove Slide button (a red cross on each slide) -->
+
+                    <button type="button" class="js-delete-element position-absolute btn btn-sm btn-danger sharp"
+                        data-id="{{slide.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+                </div>
+
+                {% endfor %}
 
             {% endif %}
 
@@ -162,10 +167,36 @@ Info
 
     {% block specificStyles %}
 
+
+    <style>
+
+        .js-sortable-element{
+
+            position: relative;
+
+            display:flex;
+            align-items: center;
+            justify-content: center;
+
+
+            width:130px;
+            height:123px;
+
+            overflow:hidden;
+
+            padding:12px;
+
+            margin: 8px;
+
+            border: 5px solid  #3f5cff;
+            border-radius: 4px;
+        }
+    </style>
+
     {% endblock %}
 
 
-    {% endblock %}
+{% endblock %}
 
 
     {% block specificJavascripts %}

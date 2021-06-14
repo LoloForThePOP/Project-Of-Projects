@@ -161,6 +161,16 @@ class PPBase
      */
     private $slides;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="presentation")
+     */
+    private $places;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $otherComponents = [];
+
 
 
     public function __construct()
@@ -175,6 +185,7 @@ class PPBase
         // unique stringId is generated through $this->generateStringId() called in LifecycleCallbacks() PrePersist
         $this->categories = new ArrayCollection();
         $this->slides = new ArrayCollection();
+        $this->places = new ArrayCollection();
     }
 
 
@@ -497,4 +508,69 @@ class PPBase
 
         return $this;
     }
+
+    /**
+     * @return Collection|Place[]
+     */
+    public function getPlaces(): Collection
+    {
+        return $this->places;
+    }
+
+    public function addPlace(Place $place): self
+    {
+        if (!$this->places->contains($place)) {
+            $this->places[] = $place;
+            $place->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlace(Place $place): self
+    {
+        if ($this->places->removeElement($place)) {
+            // set the owning side to null (unless already changed)
+            if ($place->getPresentation() === $this) {
+                $place->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getOtherComponents(): ?array
+    {
+
+        return $this->otherComponents;
+    }
+
+    public function setOtherComponents(?array $otherComponents): self
+    {
+        $this->otherComponents = $otherComponents;
+
+        return $this;
+    }
+
+
+    public function getOC($key)
+    {
+        if ($key!==null) {
+            return $this->otherComponents[$key];
+        }
+    }
+
+    public function setOC($key, $value)
+    {
+        if ($key!==null) {
+
+            $this->otherComponents[$key] = $value;
+
+            return $this;
+        }
+    }
+
+
+
+
 }

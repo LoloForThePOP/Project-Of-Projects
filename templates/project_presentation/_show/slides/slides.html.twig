@@ -15,7 +15,7 @@
 
 				<!-- First column contains slide + caption -->
 
-				<div class="px-0 mx-auto col-md-9 col-sm-12">
+				<div class="">
 
 					<div class="SlideshowContainer">
 
@@ -52,191 +52,19 @@
 						</div>
 
 						<div class="slides-thumbnails-container">
-								
-							<!-- Slides Container -->
 
-							<div class="slides-container">
-											
-								{% for slide in presentation.slides %}
-
-									<div class="mySlides">
-
-										<!-- Case Slide is an Image -->
-
-										{% if slide.type == 'image' %}
-										
-											<img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
-
-										{% endif %}
-
-										<!-- Case Video Slide -->
-
-										{% if slide.type =='youtube_video' %}
-
-											<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{slide.address}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-										
-										{% endif %}
+							<div class="row">
 									
-									</div>
-									
-								{% endfor %}
+								<!-- Slides Container -->
 
-								<!-- Slideshow Navigation Lateral Buttons (only if there is more than one slide) -->
+								{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
+					
+						
+								{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
 
-								{% if presentation.slides | length > 1 %}
-											
-									<div class="nav-buttons">
-										
-										<a class="prev text-decoration-none" onclick="plusSlides(-1)">❮</a>
-									
-										<a class="next text-decoration-none" onclick="plusSlides(1)">❯</a>
-									
-									</div>	
 
-								{% endif %}
-			
 							</div>
-				
-							<!--Second Column - Contains Thumbnails - Not displayed on small screens + Not Displayed if there is only one slide -->
-
-							{% if presentation.slides | length > 1 %}
-
-								<div class="col-md-3 pe-0 d-none d-lg-block pt-5">
-
-									<!--Thumbnails Container -->
-
-									<div class="thumbnails-container">
-
-										<div class="container">
-
-											<div class="row">
-
-												<!-- first Thumbnail Column (first 4 slides) -->
-
-												<div class="col ps-4 pt-5">
-													
-													{% for slide in presentation.slides | slice (0,4) %}
-
-													<div class="row mb-5">
-							
-														<div data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="thumbnail">
-							
-															{% if slide.type == 'youtube_video' %}	
-							
-																<div class="position-relative">
-							
-
-																	<img class="SlideImage rounded" src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80px" height="50px"
-																
-																alt="
-																	
-																	{% if slide.caption %}
-																	
-																		{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
-							
-																	{% endif %}
-																
-																"/>
-									
-																	<!-- ui css video icon -->
-									
-																	<span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
 								
-																</div>
-																
-															{% else %}
-							
-																<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}"
-																
-																alt="
-																	
-																	{% if slide.caption %}
-																	
-																		{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
-							
-																	{% endif %}
-																
-																"/>
-																
-															{% endif %}
-							
-														</div>
-							
-													</div>
-												
-												{% endfor %}
-												</div>
-
-												<!--Second Thumbnail Column if more than 4 slides -->
-
-												{% if presentation.slides | length > 4 %}
-												
-													<div class="col pt-5 px-0">
-														
-														{% for slide in presentation.slides | slice (4,8) %}
-								
-														<div class="row mb-5">
-								
-															<div data-loop-index="{{loop.index + 4}}" onclick="currentSlide({{loop.index + 4}})" class="thumbnail">
-								
-																{% if slide.type == 'youtube_video' %}	
-								
-																	<div class="SlideImage position-relative">
-								
-																		<img class="rounded" href="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80" height="50"	
-																		alt="
-																		
-																		{% if slide.caption %}
-																		
-																			{{ slide.caption[:1] | upper ~ slide.caption[1:] }} 
-														
-																		{% endif %}
-																		
-																		"/>
-										
-																		<!-- ui css video icon -->
-										
-																		<span class="position-absolute rounded-circle p-2" style="bottom:3px; left:3px;"> </span> 
-								
-								
-									
-																	</div>
-																	
-																{% else %}
-								
-																	<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}" alt="{{slide.file}}" 
-																	
-																	alt="
-																		
-																		{% if slide.caption %}
-																		
-																			{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
-								
-																		{% endif %}
-																	
-																	"/>
-																	
-																{% endif %}
-								
-															</div>
-								
-														</div>
-														
-													{% endfor %}
-													</div>
-
-												{% endif %}
-												
-											</div>
-										</div>
-
-
-								
-									</div>
-
-								</div>
-
-							{% endif %}
 						</div>
 
 					</div>

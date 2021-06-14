@@ -18,12 +18,12 @@ class ImageSlideType extends AbstractType
                 'file',
                 VichImageType::class,
                 array(
-                    'label'     => false,
+                    'label'     => 'toto',
                     'required'     => false,
                     'allow_delete' => false,
                     'download_label' => false,
-                    'download_uri' => true,
-                    'image_uri' => true,
+                    'download_uri' => false,
+                    'image_uri' => false,
                     'asset_helper' => true,
                 )
             )

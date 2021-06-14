@@ -130,7 +130,7 @@ class Slide
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
@@ -143,7 +143,7 @@ class Slide
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $file
      */
-    public function setImageFile(?File $file = null): void
+    public function setFile(?File $file = null): void
     {
         $this->file = $file;
 

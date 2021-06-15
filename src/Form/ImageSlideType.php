@@ -18,7 +18,7 @@ class ImageSlideType extends AbstractType
                 'file',
                 VichImageType::class,
                 array(
-                    'label'     => 'toto',
+                    'label'     => 'Fichier image',
                     'required'     => false,
                     'allow_delete' => false,
                     'download_label' => false,

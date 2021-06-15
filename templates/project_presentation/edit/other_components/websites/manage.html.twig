@@ -1,0 +1,134 @@
+{% embed "project_presentation/edit/structure_skeleton.html.twig" %}
+
+
+{% block title %}Sites web du Projet{% endblock %}
+
+{% block mainContentTitle %}Gérer les sites web{% endblock %}
+
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+    
+    <p class="h5 mb-3 pt-1">
+
+        Exemples :             
+
+    </p>
+        
+    <ul class="h5 mb-1">
+
+        <li class="mb-2"> réseaux sociaux, salons de discussions (Discord; Slack...)</li>
+        <li class="mb-2"> Dépôt Github; Trello... </li>
+
+    </ul>
+
+    <p class="h5 mb-3 pt-1">
+
+        Pour modifier l'ordre des sites webs, utilisez le glisser-déposer (= drag and drop)       
+
+    </p>
+
+{% endblock %}
+
+
+{% block mainContent %}
+
+        <!-- Add Website Button -->
+
+        <div class="mb-4">
+
+            <button type="button" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" class="btn btn-success">+ Ajouter un site web</button> 
+
+        </div>
+
+        <!-- Form Display (in a Modal Box) -->
+
+        {% include "project_presentation/edit/other_components/websites/_add_website_form.html.twig" %}
+
+        
+        <!-- Display Websites List -->
+
+        <div class="container mb-2 pr-0">
+
+            <div id="elements-list" data-elements-type="websites" class="row col-md-10 px-0">
+
+                {% set websites = presentation.getOC('websites') %}
+
+                {% if websites | length > 0 %}
+
+                    {% for website in websites %}
+
+                        <!-- Thumbnails Container -->
+
+                        <div id="{{website.id}}" class="js-sortable-element fs-15 col-md-5 me-md-4 position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
+
+                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'websites', 'item_id':website.id})}}" class="w-100 h-100 d-flex align-items-center text-body text-decoration-none">
+                        
+                                <div class="">
+                                
+                                    <span class="font-weight-bold">
+                        
+                                        {{ website.description }}
+                        
+                                    </span>
+                        
+                                    <br>
+                        
+                                    {{ website.url }}  
+                        
+                                </div>
+                           
+                        
+                            </a>
+                        
+                            <!-- Remove Website Button (Red Cross) -->
+                        
+                            <button type="button" class="js-delete-element d-inline position-absolute btn btn-danger sharp" data-id="{{website.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+                        
+                        </div>
+
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- Action Buttons -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId':stringId }) }}">
+                <button type="button" class="btn btn-info btn-lg mt-2 mb-4 me-2 sharp">Menu</button>
+            </a>
+
+            <a class="text-decoration-none text-white" href="{{path('show_presentation', {'stringId': stringId })}}#websitesDisplay">
+                <button type="button" class="btn btn-warning btn-lg mt-2 mb-4 sharp">Résultat</button>
+            </a>
+
+        </div>
+
+    {% block specificStyles %}
+
+    {% endblock %}
+ 
+
+{% endblock %}
+
+
+{% block specificJavascripts %}
+
+
+{% endblock %}
+
+{% endembed %}

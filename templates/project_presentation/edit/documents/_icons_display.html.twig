@@ -1,0 +1,136 @@
+
+                                                          
+    <!-- Setting colors to documents according to their file extension -->
+
+    {% set fileType, bgColor = '', '' %}
+
+    {% if document.mimeType == 'application/pdf' or document.mimeType == 'application/x-pdf' %}
+
+        {% set fileType = 'PDF' %}
+        {% set bgColor = '#e74c3c' %}
+    
+    {% elseif document.mimeType == 'application/msword' or document.mimeType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %}
+
+        {% set fileType = 'WORD' %}
+        {% set bgColor = '#295391' %}
+    
+    {% elseif  document.mimeType == 'application/vnd.ms-excel' or document.mimeType =='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %}
+
+        {% set fileType = 'XLS' %}
+
+        {% set bgColor = '#2d7930' %}
+    
+    {% elseif document.mimeType == 'application/vnd.ms-powerpoint' or document.mimeType == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' %}
+
+        {% set fileType = 'PPT' %}
+
+        {% set bgColor = '#e28a5c' %}
+    
+    {% elseif document.mimeType == 'text/rtf' %}
+
+        {% set fileType = 'RTF' %}
+
+        {% set bgColor = '#3746a8' %}
+    
+    {% elseif document.mimeType == 'application/vnd.oasis.opendocument.text' %}
+
+        {% set fileType = 'ODOC' %}
+
+        {% set bgColor = '#1e3a57' %}
+    
+    {% elseif document.mimeType == 'application/epub+zip' %}
+
+        {% set fileType = 'EPUB' %}
+
+        {% set bgColor = '#021230' %}
+
+    {% else %}
+
+        {% set fileType = 'FILE' %}
+
+        {% set bgColor = '#000000' %}
+        
+    {% endif %}
+
+
+    <!-- Documents Icon Display -->
+
+    <div class="documentRepresentation col border border-primary">
+
+        <div class="row h-100">
+
+            <!--Document "mime type" Display (vertical text) -->
+
+            <div class="col-3 px-0 d-flex align-items-center text-white" style="padding-left : 12px !important; background-color: {{ bgColor }};">
+
+                <div class="fwt-bold h4" style="word-break:break-all; width:0px;">
+                    {{ fileType }}
+                </div>
+
+            </div> 
+
+
+            <!--Document Title (as renamed by user) -->
+
+            <div class="pp-document-title col-9 d-flex justify-content-center text-center align-items-center px-2">
+
+                {{ document.title | striptags | length > 52 ? document.title | striptags | slice(0, 49) ~ '...' : document.title | striptags }}
+
+            </div>
+
+        </div>
+        
+    </div> 
+
+{# Some Styles #}
+
+<style>
+
+    .pp-document-title
+    {
+        font-weight : bold;
+
+        text-transform:uppercase;
+
+        font-size: 14px;
+
+        word-break: break-word;
+
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -o-hyphens: auto;
+        hyphens: auto;
+
+    }
+
+    .documentRepresentation
+    {
+        width:170px; 
+        height:130px;
+    }
+
+    .documentRepresentation:hover 
+    {
+        background-color: gainsboro;
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .documentRepresentation
+        {
+            width:180px; 
+            height:130px;
+        }
+
+        .pp-document-title
+        {
+
+            font-size: 13px;
+
+        }
+
+    }
+
+</style>

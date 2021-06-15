@@ -90,7 +90,7 @@ class PPController extends AbstractController
     /**
      * Allow to Display a Project Presentation Edition Menu
      * 
-     * @Route("/projects/{stringId}/edit/menu", name="edit_pp_menu")
+     * @Route("/projects/{stringId}/edit/menu", name="edit_pp_menu", priority="5")
      * 
      * @return Response
      */

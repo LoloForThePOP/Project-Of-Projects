@@ -171,6 +171,12 @@ class PPBase
      */
     private $otherComponents = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $documents;
+
 
 
     public function __construct()
@@ -186,6 +192,7 @@ class PPBase
         $this->categories = new ArrayCollection();
         $this->slides = new ArrayCollection();
         $this->places = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
 
 
@@ -555,19 +562,149 @@ class PPBase
 
     public function getOC($key)
     {
-        if ($key!==null) {
+        if ($this->otherComponents !== null && array_key_exists($key, $this->otherComponents)) {
             return $this->otherComponents[$key];
         }
+
+        return [];
     }
 
-    public function setOC($key, $value)
+    /**
+     * 
+     */
+    public function getOCItem($component_type, $item_id)
     {
-        if ($key!==null) {
+        if ($this->otherComponents !== null && array_key_exists($component_type, $this->otherComponents)) {
 
-            $this->otherComponents[$key] = $value;
+            foreach ($this->otherComponents[$component_type] as &$item) {
+
+                if ($item['id']==$item_id) {
+                    return $item;
+                }
+
+            }
+
+            return null;
+
+        }
+
+        return null;
+    }
+
+    
+    /**
+     * 
+     */
+    public function setOCItem($component_type, $item_id, $updatedItem)
+    {
+        if ($this->otherComponents !== null && array_key_exists($component_type, $this->otherComponents)) {
+
+            foreach ($this->otherComponents[$component_type] as &$item) {
+
+                if ($item['id']==$item_id) {
+                    
+                    $item = $updatedItem;
+                    return true;
+                }
+
+
+            }
+
+            return null;
+
+        }
+
+        return null;
+    }
+
+    public function addOtherComponentItem($component_type, $item)
+    {
+        if ($component_type!==null) {
+
+            $item['id'] = uniqid();
+            $item['position'] = count($this->getOC($component_type));
+            $this->otherComponents[$component_type][] = $item;
 
             return $this;
         }
+    }
+
+    public function deleteOtherComponentItem($component_type, $id)
+    {
+        if ($component_type!==null) {
+
+            $offset=0;
+
+            foreach ($this->otherComponents[$component_type] as &$item) {
+
+                if ($item['id']==$id) {
+
+                    unset($this->otherComponents[$component_type][$offset]);
+                    $offset++;
+                    return $this;
+                }
+            }
+
+            return $this;
+        }
+    }
+
+
+    public function positionOtherComponentItem($component_type, $itemsPositions)
+    {
+        if ($component_type!==null) {
+
+            //dump($this->otherComponents[$component_type]);
+
+            foreach ($this->otherComponents[$component_type] as &$item) {
+
+                $newPosition = array_search($item['id'], $itemsPositions, false);
+
+                $item['position']=$newPosition;
+
+            }
+
+            //reordering items by position
+
+            usort($this->otherComponents[$component_type], function ($item1, $item2) {
+                return $item1['position'] <=> $item2['position'];
+            });
+
+            //dump($this->otherComponents[$component_type]);
+
+            return $this;
+        }
+
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->removeElement($document)) {
+            // set the owning side to null (unless already changed)
+            if ($document->getPresentation() === $this) {
+                $document->setPresentation(null);
+            }
+        }
+
+        return $this;
     }
 
 

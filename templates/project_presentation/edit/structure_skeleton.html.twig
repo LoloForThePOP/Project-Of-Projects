@@ -160,7 +160,6 @@ here is skeletton structure :
         
 {% block javascripts %}
 
-
     <!-- sortable plugin to reorder elements (exemple : reorder presentation slides; reorder presentation websites; etc) -->
 
     <script src="/js/sortable/sortable.min.js"></script>
@@ -217,6 +216,11 @@ here is skeletton structure :
 
                             path = "{{path('ajax_reorder_slides', {'stringId': stringId})}}";
                             break;
+
+                        case "websites":
+
+                            path = "{{path('ajax_reorder_items', {'stringId': stringId})}}";
+                            break;
                             
                         default:
 
@@ -234,6 +238,7 @@ here is skeletton structure :
                         type:       'POST',   
                         dataType:   'json',
                         data: {
+                            "entityType": entityType,
                             "jsonElementsPosition": jsonElementsPositions,
                         },
     
@@ -269,6 +274,11 @@ here is skeletton structure :
                     path = "{{path('ajax_delete_slide', {'stringId': stringId})}}";
                 }
 
+                if(elementsType=="websites"){
+
+                    path = "{{path('ajax_delete_item', {'stringId': stringId})}}";
+                }
+
                 if (confirm("Confimez vous enlever cet élément ?"))
                 {
 
@@ -281,13 +291,13 @@ here is skeletton structure :
                     dataType:   'json',
                     
                     data: {
+                        "elementsType": elementsType,
                         "idElement": idElement,
                     },
 
                     async: true,  
                     
                     success: function(data, status) {
-
 
                         $("#elements-list #"+idElement).remove();
                         

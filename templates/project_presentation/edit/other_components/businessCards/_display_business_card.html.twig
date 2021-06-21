@@ -1,0 +1,280 @@
+
+{# When in edition mode context, links are removed #}
+
+{% set editionMode = false %}
+
+{% if context is defined and context == "editionMode" %}
+
+    {% set editionMode = true %}
+
+{% endif %}
+
+
+{# <img src="{{ asset('pop_logo.svg', 'tag') }}" /> #}
+
+<!-- Contact Name or Title -->
+
+{% if bc.title is not empty %}
+    
+    <h5 class="contactCardTitle">{{bc.title}}</h5>
+
+{% endif %}
+
+<!-- Contact Email -->
+
+{% if ( bc.email1 is not null ) or ( bc.email2 is defined and bc.email2 is not null ) %}
+
+    <div class="mb-2">
+
+        {# Email #}
+
+        <div class="font-weight-bold">
+
+
+            <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/email.svg" height="32" width="32" alt="email icon">
+
+            E-mail :
+
+        </div>
+
+        <div class="pl-4">
+
+            <style>
+                                    
+                .cryptedmail:after {
+
+                    content: attr(data-name) "@" attr(data-domaintld); 
+                }
+
+            </style>
+
+
+            {% if bc.email1 is not null %}
+
+                {% if not editionMode %}
+                
+                    <a href="#" class="cryptedmail text-decoration-none text-body" 
+                    data-name="{{ bc.email1|split('@')[0] }}"
+                    data-domaintld="{{ bc.email1|split('@')[1] }}"
+                    onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
+                    </a>
+
+                {% else %}
+                    
+                    {{bc.email1}}
+
+                {% endif %}
+
+            {% endif %}
+
+            
+            {% if bc.email2 is defined and bc.email2 is not null %}
+
+                {% if not editionMode %}
+
+                    <a href="#" class="cryptedmail text-decoration-none text-body" 
+                        data-name="{{ bc.email2|split('@')[0] }}"
+                        data-domaintld="{{ conbctact.email2|split('@')[1] }}"
+                        onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
+                    </a>
+
+                {% else %}
+                    
+                    {{bc.email2}}
+
+                {% endif %}
+
+            {% endif %}
+
+
+        </div>
+
+
+    </div>
+
+
+{% endif %}
+
+<!-- Contact Telephone(s) -->
+
+{% if ( bc.tel1 is defined and bc.tel1 is not null ) or ( bc.tel2 is defined and bc.tel2 is not null ) %}
+
+    <div class="mb-2"> 
+    
+        <div class="font-weight-bold">
+
+            <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/telephone.svg" height="27" width="27" alt="telephone icon">
+        
+            Téléphone :
+            
+        </div>
+
+        <div class="pl-4">
+
+            {% if bc.tel1 is defined and bc.tel1 is not null %}
+
+                {% if not editionMode %}
+            
+                    <a class="text-decoration-none text-body" href="tel:{{bc.tel1}}">
+                        
+                        {{bc.tel1}}
+                    
+                    </a>
+                    
+                {% else %}
+
+                    {{bc.tel1}}
+                
+                {% endif %}
+                
+                <br>
+
+            {% endif %}
+            
+            {% if bc.tel2 is defined and bc.tel2 is not null %}
+
+                {% if not editionMode %}
+        
+                    <a class="text-decoration-none text-body" href="tel:{{bc.tel2}}">
+                        
+                        {{bc.tel2}}
+
+                    </a>
+
+                {% else %}
+                    
+                    {{bc.tel2}}
+
+                {% endif %}
+
+            {% endif %}
+        
+        </div>
+    
+    </div>
+
+{% endif %}
+
+
+<!-- Contact Websites -->
+
+{% if bc.website1 is not null %}
+
+    <div class="mb-2"> 
+        
+        <div class="font-weight-bold">
+
+            <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/website.svg" height="27" width="27" alt="website icon">
+        
+            Site web :
+            
+        </div>
+
+        <div class="pl-4">
+
+            {# Websites with potential troncature #}
+
+            {% if not editionMode %}
+            
+                <a class="text-decoration-none text-body"
+                href="{{bc.website1}}" target="_blank">
+
+            {% endif %}
+            
+                {{bc.website1 | slice (0,55)}}
+
+                {% if bc.website1 | length > 55 %}
+                    ...
+                {% endif %}
+
+            {% if not editionMode %}
+
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+{% endif %}
+
+<!-- Contact Postal Mail -->
+
+{% if bc.postalMail is not null %}
+
+    <div class="mb-2">
+    
+        <div class="font-weight-bold">
+
+            <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/address.svg" height="27" width="27" alt="address icon">
+            
+            Adresse :
+        
+        </div> 
+    
+        <div class="pl-4">
+        
+            {{ bc.postalMail | nl2br }}
+            
+        </div>
+        
+    </div>
+
+{% endif %}
+
+
+<!-- More Informations & Remarks -->
+
+{% if bc.remarks is not null %}
+
+    <div class="mb-2"> 
+            
+        <div class="font-weight-bold mb-2">
+        
+        + Info :
+            
+        </div>
+
+        <div class="pl-4 font-weight-bold">
+
+            {{bc.remarks | nl2br}}
+
+        </div>
+
+    </div>
+
+{% endif %}
+
+
+<style>
+
+.contactCardTitle {
+
+    font-weight: bold;
+
+    margin-bottom: 20px;
+
+}
+
+.contact-card-icon{
+    width : 16px;
+    height: 16px;
+    margin-bottom : 3px;
+    margin-right : 5px;
+}
+
+@media screen and (max-width: 580px) {
+
+    .contactCardTitle {
+
+        font-size: 1.30em;
+        font-weight: normal;
+
+    }
+
+}
+
+</style>
+
+

@@ -1,7 +1,13 @@
-.form-field-required{
-  color:red;
+
+/* Form Errors */
+
+form li {
+  font-size: 16px;
+  font-weight: bold;
+  color :red;
 }
 
+/* Labels */
 
 label, legend {
   font-size:1.15em !important;
@@ -25,5 +31,3 @@ textarea::placeholder {
   font-weight:bold;
   color: #7b8a8b  !important;
 }
-
-p

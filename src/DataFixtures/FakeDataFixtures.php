@@ -227,7 +227,9 @@ class FakeDataFixtures extends Fixture
 
         $admin = new User();
 
-        $admin->setEmail('test@test.com')
+        $admin
+            ->setUsername(TestUserName)
+            ->setEmail('test@test.com')
             ->setPassword(
                 $this->encoder->encodePassword(
                     $admin,
@@ -246,11 +248,13 @@ class FakeDataFixtures extends Fixture
 
             $user = new User();
 
-            $user->setPassword($this->encoder->encodePassword(
-                $admin,
-                'test'
-            ))
+            $user
+                ->setUsername($faker->userName())            
                 ->setEmail($faker->email())
+                ->setPassword($this->encoder->encodePassword(
+                    $admin,
+                    'test'
+                ))
                 ->setParameter('isVerified', true);
 
             $manager->persist($user);

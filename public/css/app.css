@@ -1,8 +1,12 @@
 /* Overide Bootstrap 5 */
 
 .btn{
-    font-weight: 700;
+    font-weight: bold;
+    border-radius: 0;
 }
+
+
+
 .btn-light{
     background-color: #ecf0f1;
 }

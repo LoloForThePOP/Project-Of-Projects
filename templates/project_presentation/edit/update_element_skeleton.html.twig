@@ -1,0 +1,175 @@
+{# 
+    
+    Skeletton for each project presentation structure update page (ex : update a presentation website)
+    
+#}
+
+{% extends 'base.html.twig' %}
+
+    {% block stylesheets %}
+
+        <link rel="stylesheet" href="/css/app_forms.css" />
+        
+    {% endblock %}
+
+    {% block title %}
+
+        Modifier
+        
+    {% endblock %}
+
+    {% block sidebar %}
+    
+        {% include '_partials/sidebar.html.twig' %}
+        
+    {% endblock %}
+
+
+    {% block body %}
+
+        <div class="edit-structure-container">
+
+            <div class="main-title-container">
+
+                <!-- ui Page Title -->	
+                
+                <h4 class="main-title me-3">
+
+                    {% block mainContentTitle %}Modifier{% endblock %}
+
+                </h4>
+
+            </div>
+
+            {# Update Element Form Start #}
+
+            {{ form_start(form) }}
+            
+                <div class="main-content-container">
+
+                    {% block mainContent %}{% endblock %}
+
+                </div>
+
+                {# Action Buttons #}
+
+                {% block actionButtons %}
+
+                    <div class="action-buttons-container">
+
+                        {# Update Form Valitation Button #}
+
+                        <button class="btn btn-success btn-lg sharp mb-2 me-2">Valider</button>
+
+                        {# Back to Result Button #}
+            
+                        <a 
+                        
+                            class="text-decoration-none text-white" 
+                            href="{{path('show_presentation', {'stringId': stringId })}}#{% block seeResultAnchor %}{% endblock %}Display">
+
+                            <button type="button" class="btn btn-warning btn-lg mb-2 sharp">Retour Résultat</button>
+
+                        </a>
+                        
+                    </div>
+
+                {% endblock %}
+                
+            {{ form_end(form) }}
+
+        </div>
+    
+        {# styles for this skeleton #}
+    
+        <style>
+    
+            .edit-structure-container{
+    
+                padding-top: 19px;
+                padding-bottom: 60px;
+    
+            }
+    
+            .edit-structure-container .main-title-container {
+    
+                margin-bottom: 20px;
+    
+            }
+    
+            .edit-structure-container .main-title {
+    
+                display: inline-block;
+                font-weight: bold;
+    
+            }
+
+            .main-content-container{
+                margin-bottom: 20px;
+            }
+    
+            .info-box{
+                border-left: 7px solid purple;
+                padding-bottom: 2px;
+                font-size: 1em;
+                margin-top: 8px;
+            }
+    
+            .info-box ul{
+            
+                padding-left: 25px;
+                margin-bottom: 0;
+            }
+    
+            
+    
+            @media (min-width: 576px) {
+        
+                .edit-structure-container{
+    
+                    padding-top: 29px;
+                    padding-left: 15px;
+    
+                }
+                    
+                .edit-structure-container .main-title-container {
+
+                    margin-bottom: 20px;
+
+                }
+                          
+                .info-box{
+                    margin-left: 20px;
+                }
+    
+            }
+    
+            @media (min-width: 992px) {
+        
+                .edit-structure-container{
+    
+                    padding-top: 40px;
+                    padding-left: 35px;
+    
+                }
+          
+                .edit-structure-container .main-title-container {
+
+                    margin-bottom: 30px;
+
+                }
+    
+                .info-box{
+                    font-size: 1.15em;
+                }
+    
+            }
+    
+    
+        </style>
+
+        {# specific styles for childs of this skeleton #}
+        
+        {% block specificStyles %}{% endblock %}
+        
+        {% endblock %}

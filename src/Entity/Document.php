@@ -2,8 +2,8 @@
 
 namespace App\Entity;
 
-use App\Repository\DocumentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\DocumentRepository;
 
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\Length;
@@ -11,12 +11,14 @@ use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Vich\UploaderBundle\Entity\File as EmbeddedFile;
 
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 /**
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
+ * @Vich\Uploadable
  */
 class Document
 {
@@ -55,7 +57,7 @@ class Document
      *     mimeTypesMessage = "Veuillez sélectionner un fichier de type pdf; word; excel; powerpoint; open document texte; epub; ou rtf"
      * )
      * 
-     * @Vich\UploadableField(mapping="presentation_document_file", fileNameProperty="fileName", size="size", mimeType="mimeType")
+     * @Vich\UploadableField(mapping="presentation_document_file", fileNameProperty="fileName")
      * 
      * @var File|null
      */
@@ -109,11 +111,6 @@ class Document
      */
     private $mimeType;
 
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    private $vernacularExtension;
-
 
 
 
@@ -165,7 +162,7 @@ class Document
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName;
 
@@ -216,18 +213,6 @@ class Document
     public function setMimeType(?string $mimeType): self
     {
         $this->mimeType = $mimeType;
-
-        return $this;
-    }
-
-    public function getVernacularExtension(): ?string
-    {
-        return $this->vernacularExtension;
-    }
-
-    public function setVernacularExtension(?string $vernacularExtension): self
-    {
-        $this->vernacularExtension = $vernacularExtension;
 
         return $this;
     }

@@ -4,9 +4,10 @@ namespace App\Form;
 
 use App\Entity\Document;
 use Symfony\Component\Form\AbstractType;
+use Vich\UploaderBundle\Form\Type\VichFileType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -16,9 +17,12 @@ class DocumentType extends AbstractType
     {
         $builder
             ->add(
-                'fileName', 
-                FileType::class, 
+                'file', 
+                VichFileType::class, 
                 [
+                    'allow_delete' => false,
+                    'download_label' => false,
+                    
                     'label' => 'Choisir un fichier',
                     'attr' => [
                         

@@ -45,7 +45,7 @@ class TreatOtherComponentItem {
 
             default:
 
-                break;
+                return $elementToTreat;
         }
 
     }

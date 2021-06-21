@@ -1,0 +1,40 @@
+
+<div id="add_business_card_form_modal" class="modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">Nouvelle carte de visite</h5>
+
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            {{ form_start(form) }}
+
+            <div class="modal-body">
+
+                {% include "project_presentation/edit/other_components/businessCards/_form.html.twig" %}
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-info sharp" data-bs-dismiss="modal">Retour</button>         
+
+                <button class="btn btn-success sharp">Valider</button>
+                
+            </div>
+            
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+</div>

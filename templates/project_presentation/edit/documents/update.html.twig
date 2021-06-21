@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Modifier un Document{% endblock %}
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block body %}
+    
+    <!-- Content Container -->
+
+    <div class="container">
+
+        <!-- Title Container -->
+
+        <div class="mt-3 mt-md-5 mb-2">
+
+            <!-- ui Page Title -->
+
+            <h3 class="fw-bold">Modifier un document</h3>
+     
+        </div>
+
+
+        <!-- Form Display -->
+
+        <div class="col-lg-8 mt-4 mb-5 pl-0">
+
+            {{ form_start(form) }}
+
+
+                <!-- choose another file -->
+
+                
+                <div class="fw-bold mt-5 mb-5">
+
+                    <div class="mb-2 h4 ">
+
+                        Choisir un autre fichier :
+
+                        <span class="h5">{{ form_errors(form.file) }}</span>
+                        
+                    </div>
+
+                    {{ form_widget(form.file) }}
+
+                </div>
+
+           
+            <!-- Change document title -->
+
+            <div class="fw-bold mb-5">
+
+                <div class="mb-2 h4">
+
+                    Modifier le titre du document :
+
+                    {{ form_errors(form.title) }}
+
+                </div>
+
+                {{ form_widget(form.title) }}
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Action Buttons -->
+
+        <div>
+
+            <button class="btn btn-success btn-lg sharp me-2">Valider</button>
+
+            <a href="{{ path('manage_documents', {'stringId': stringId}) }}">
+
+                <button type="button" class="btn btn-info btn-lg sharp">Retour</button>
+
+            </a>
+
+        </div>
+
+        {{ form_end(form) }}
+
+    </div>
+
+
+{% endblock %}

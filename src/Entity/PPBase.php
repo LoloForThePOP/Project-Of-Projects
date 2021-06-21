@@ -177,6 +177,12 @@ class PPBase
      */
     private $documents;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Need::class, mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $needs;
+
 
 
     public function __construct()
@@ -193,6 +199,7 @@ class PPBase
         $this->slides = new ArrayCollection();
         $this->places = new ArrayCollection();
         $this->documents = new ArrayCollection();
+        $this->needs = new ArrayCollection();
     }
 
 
@@ -701,6 +708,36 @@ class PPBase
             // set the owning side to null (unless already changed)
             if ($document->getPresentation() === $this) {
                 $document->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Need[]
+     */
+    public function getNeeds(): Collection
+    {
+        return $this->needs;
+    }
+
+    public function addNeed(Need $need): self
+    {
+        if (!$this->needs->contains($need)) {
+            $this->needs[] = $need;
+            $need->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNeed(Need $need): self
+    {
+        if ($this->needs->removeElement($need)) {
+            // set the owning side to null (unless already changed)
+            if ($need->getPresentation() === $this) {
+                $need->setPresentation(null);
             }
         }
 

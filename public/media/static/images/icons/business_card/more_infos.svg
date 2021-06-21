@@ -1,0 +1,10 @@
+<svg width="345" height="345" clip-rule="evenodd" fill-rule="evenodd" image-rendering="optimizeQuality" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" version="1.1" viewBox="0 0 345 345" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <style type="text/css">.fil0 {fill:black}</style>
+ </defs>
+ <g>
+  <path class="fil0" d="m196 227h-7v-76c0-4-3-8-8-8h-32c-5 0-8 3-8 8v17c0 4 3 8 8 8h6v51h-6c-5 0-8 4-8 9v16c0 5 3 8 8 8h47c5 0 9-3 9-8v-16c0-5-4-9-9-9z"/>
+  <path class="fil0" d="m172 0c96 0 173 77 173 173 0 95-77 172-173 172-95 0-172-77-172-172 0-96 77-173 172-173zm0 318c80 0 146-65 146-145 0-81-65-146-146-146-80 0-145 66-145 146s65 145 145 145z"/>
+  <path class="fil0" d="m171 85c11 0 20 9 20 21 0 11-9 20-20 20s-20-9-20-20c0-12 9-21 20-21z"/>
+ </g>
+</svg>

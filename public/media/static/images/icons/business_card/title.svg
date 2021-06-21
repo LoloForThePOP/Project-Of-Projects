@@ -1,0 +1,35 @@
+<svg width="6.68mm" height="4.11mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.2" preserveAspectRatio="xMidYMid" version="1.2" viewBox="-3 107 668 411" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export">
+ <defs class="ClipPathGroup">
+  <clipPath id="presentation_clip_path">
+   <rect x="-3" y="107" width="668" height="411"/>
+  </clipPath>
+ </defs>
+ <defs class="TextShapeIndex"></defs>
+ <defs class="EmbeddedBulletChars"></defs>
+ <g class="SlideGroup">
+  <g class="Slide" clip-path="url(#presentation_clip_path)">
+   <g class="Page">
+    <g class="Group">
+     <g class="com.sun.star.drawing.ClosedBezierShape">
+      <g fill="none">
+       <rect class="BoundingBox" x="-4" y="106" width="671" height="414"/>
+       <path d="m642 209v198c-57 4-103 39-119 88h-385c-15-48-60-83-118-88v-197c54-5 96-37 115-80h400c18 42 57 72 107 79z" stroke="#000" stroke-linejoin="round" stroke-width="46"/>
+      </g>
+     </g>
+     <g class="com.sun.star.drawing.LineShape">
+      <g fill="none">
+       <rect class="BoundingBox" x="127" y="232" width="408" height="48"/>
+       <path d="m151 256h359" stroke="#000" stroke-linejoin="round" stroke-width="46"/>
+      </g>
+     </g>
+     <g class="com.sun.star.drawing.LineShape">
+      <g fill="none">
+       <rect class="BoundingBox" x="127" y="331" width="408" height="48"/>
+       <path d="m151 354h359" stroke="#000" stroke-linejoin="round" stroke-width="46"/>
+      </g>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

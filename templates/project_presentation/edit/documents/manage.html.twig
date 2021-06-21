@@ -1,4 +1,4 @@
-{% embed "project_presentation/edit/structure_skeleton.html.twig" %}
+{% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
 
 
 {% block title %}Documents du Projet{% endblock %}
@@ -79,7 +79,7 @@
 
         <div class="container mb-2">
 
-            <div id="elements-list" class="row col-md-7 ps-0">
+            <div id="elements-list" data-elements-type="documents" class="row col-md-7 ps-0">
 
                 {% if presentation.documents | length > 0 %}
 
@@ -87,9 +87,9 @@
 
                         <!-- Document Icon with Title -->
 
-                        <div id="{{document.id}}" class="js-sortable-item position-relative me-4 mb-3 cursor-pointer" >
+                        <div id="{{document.id}}" class="js-sortable-element document-container position-relative me-4 mb-3" >
 
-                            <a href="{{path('update_document', {'stringId': stringId, 'id_document' : document.id })}}" class="w-100 h-100 text-body text-decoration-none">
+                            <a href="{{path('update_document', {'stringId': stringId, 'id_element' : document.id })}}" class="h-100 text-body text-decoration-none">
 
                                 {% include 'project_presentation/edit/documents/_icons_display.html.twig' %}
 
@@ -97,7 +97,7 @@
 
                             <!-- Remove Document (Button with Red Cross) -->
             
-                            <button type="button" class="js-delete-element d-inline position-absolute btn btn-danger sharp p-1 px-2" data-id="{{document.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+                            <button type="button" class="js-delete-element position-absolute btn btn-danger sharp p-1 px-2" data-id="{{document.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
 
                             
                         </div>
@@ -127,6 +127,26 @@
 
     {% block specificStyles %}
 
+        <style>
+                    
+            .document-container
+            {
+                width:170px; 
+                min-height:140px;
+                
+                border: 1px solid #2c3e50;
+                cursor:pointer;
+            }
+
+            
+            .document-container:hover 
+            {
+                background-color: gainsboro;
+                
+            }
+    
+        </style>
+
     {% endblock %}
  
 
@@ -137,19 +157,20 @@
 
 <script>
 
-// If form errors, we have to trigger modal box display for the user to be aware of these errors.
+    // If form errors, we have to trigger modal box display to show these errors to user
 
-{% if not form.vars.valid %}
+    $(document).ready(function(){
 
-    $('#documentFormModal').modal('show');
+        {% if not form.vars.valid %}
 
-{% endif %}
+            $('#documentFormModal').modal('show');
+
+        {% endif %}
+
+    });
 
 
 </script>
-
-
-
 
 {% endblock %}
 

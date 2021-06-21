@@ -1,93 +1,70 @@
-
-                                                          
-    <!-- Setting colors to documents according to their file extension -->
-
-    {% set fileType, bgColor = '', '' %}
-
-    {% if document.mimeType == 'application/pdf' or document.mimeType == 'application/x-pdf' %}
-
-        {% set fileType = 'PDF' %}
-        {% set bgColor = '#e74c3c' %}
+                                               
     
-    {% elseif document.mimeType == 'application/msword' or document.mimeType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %}
-
-        {% set fileType = 'WORD' %}
-        {% set bgColor = '#295391' %}
-    
-    {% elseif  document.mimeType == 'application/vnd.ms-excel' or document.mimeType =='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %}
-
-        {% set fileType = 'XLS' %}
-
-        {% set bgColor = '#2d7930' %}
-    
-    {% elseif document.mimeType == 'application/vnd.ms-powerpoint' or document.mimeType == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' %}
-
-        {% set fileType = 'PPT' %}
-
-        {% set bgColor = '#e28a5c' %}
-    
-    {% elseif document.mimeType == 'text/rtf' %}
-
-        {% set fileType = 'RTF' %}
-
-        {% set bgColor = '#3746a8' %}
-    
-    {% elseif document.mimeType == 'application/vnd.oasis.opendocument.text' %}
-
-        {% set fileType = 'ODOC' %}
-
-        {% set bgColor = '#1e3a57' %}
-    
-    {% elseif document.mimeType == 'application/epub+zip' %}
-
-        {% set fileType = 'EPUB' %}
-
-        {% set bgColor = '#021230' %}
-
-    {% else %}
-
-        {% set fileType = 'FILE' %}
-
-        {% set bgColor = '#000000' %}
-        
-    {% endif %}
-
-
     <!-- Documents Icon Display -->
 
-    <div class="documentRepresentation col border border-primary">
-
         <div class="row h-100">
+            
+            {% set fileExtension = document.fileName | split('.') | last %}
 
-            <!--Document "mime type" Display (vertical text) -->
+            <!--Document representation with title and file extension (vertical text) -->
 
-            <div class="col-3 px-0 d-flex align-items-center text-white" style="padding-left : 12px !important; background-color: {{ bgColor }};">
+            <div class="pp-document-file-extension-container {{ "file-" ~ fileExtension }} col-3">
 
-                <div class="fwt-bold h4" style="word-break:break-all; width:0px;">
-                    {{ fileType }}
+                <!-- displaying file extension -->
+                
+                <div class="pp-document-file-extension">
+                    {{ fileExtension | upper }}
                 </div>
 
             </div> 
 
+            <!--Document Title (as provided by user) -->
 
-            <!--Document Title (as renamed by user) -->
-
-            <div class="pp-document-title col-9 d-flex justify-content-center text-center align-items-center px-2">
+            <div class="pp-document-title col-9 px-2">
 
                 {{ document.title | striptags | length > 52 ? document.title | striptags | slice(0, 49) ~ '...' : document.title | striptags }}
 
             </div>
 
-        </div>
-        
     </div> 
 
 {# Some Styles #}
 
 <style>
+    
+    .pp-document-file-extension-container
+    {
+
+        display: flex;
+
+        align-items: center;
+
+        padding: 0 0 0 12px;
+
+    }
+
+    .pp-document-file-extension
+    {  
+
+        color: white;
+
+        font-size: 22.4px;
+        font-weight: bold;
+
+        word-break:break-all; 
+        width:0px
+
+    }
+
+
 
     .pp-document-title
     {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         font-weight : bold;
 
         text-transform:uppercase;
@@ -104,17 +81,50 @@
 
     }
 
-    .documentRepresentation
-    {
-        width:170px; 
-        height:130px;
-    }
+    /* Different background-colors depending on file extensions */
 
-    .documentRepresentation:hover 
-    {
-        background-color: gainsboro;
+    .file-pdf{
+
+        background-color: #e74c3c
 
     }
+
+    .file-doc .file-docx{
+
+        background-color: #295391;
+
+    }
+
+    .file-xls{
+
+        background-color: #2d7930;
+
+    }
+
+    .file-ppt{
+
+        background-color: #e28a5c;
+
+    }
+
+    .file-rtf{
+
+        background-color: #3746a8;
+
+    }
+
+    .file-odt{
+
+        background-color: #1e3a57;
+
+    }
+
+    .file-epub{
+
+        background-color: #021230;
+
+    }
+  
 
     @media screen and (max-width: 580px) {
 

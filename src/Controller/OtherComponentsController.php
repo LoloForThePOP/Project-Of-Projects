@@ -21,26 +21,50 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class OtherComponentsController extends AbstractController
 {
 
-    protected $managedComponents = ['websites'];
+    protected $managedComponents = ['websites', 'dataList', 'questionsAnswers', 'businessCards'];
+
+
+    // allow to get the appropriate form fully qualified name (no plural and first letter upper cased)
+
+    public function formName($component_type)
+    {
+        
+        switch ($component_type) {
+            case 'dataList':
+                $convention = 'DataList';
+                break;
+            case 'questionsAnswers':
+                $convention = 'QuestionAnswer';
+                break;
+            case 'websites':
+            case 'businessCards':
+                $convention = $convention = ucfirst(substr($component_type, 0, -1));
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        return 'App\\Form\\'.$convention.'Type';
+
+    }
 
 
     /**
      * 
-     * Allow to access crud operations pages
+     * Allow to access CRUD operations page
      * 
      * @Route("/projects/{stringId}/{component_type}/", name="manage_other_components")
      */
-    public function manage(PPBase $presentation, $component_type, Request $request, TreatOtherComponentItem $specificTreatment, EntityManagerInterface $manager): Response
+    public function manage(PPBase $presentation, $component_type, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         if (in_array ($component_type, $this->managedComponents)) {
 
-            // getting the right form (plural to singular, and upper case first letter)
-            $formName = 'App\\Form\\'.ucfirst(substr($component_type, 0, -1)).'Type';
-
-            $form = $this->createForm($formName);
+            $form = $this->createForm($this->formName($component_type));
 
             $form->handleRequest($request);
     
@@ -49,12 +73,12 @@ class OtherComponentsController extends AbstractController
                 // creating new component item and giving him an id
                 // (exemple : creating a website item)
 
-                $componentItem = $form-> getData();
+                $componentItem = $form->getData();
 
                 // specific treatments for new item
-                // exemple : if new item is a youtube channel, we see if we can attach a youtube logo
+                // exemple : if new item is a website, we check if we got a logo to attach with it
 
-                $componentItem = $specificTreatment->specificTreatments($component_type, $componentItem);
+                $componentItem = $specificTreatments->specificTreatments($component_type, $componentItem);
 
                 $presentation->addOtherComponentItem($component_type, $componentItem);
                 $manager->flush();
@@ -92,31 +116,33 @@ class OtherComponentsController extends AbstractController
      * 
      * @Route("/projects/{stringId}/{component_type}/{item_id}", name="update_other_components_item")
      */
-    public function update(PPBase $presentation, $component_type, $item_id, Request $request, EntityManagerInterface $manager): Response
+    public function update(PPBase $presentation, $component_type, $item_id, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         if (in_array ($component_type, $this->managedComponents)) {
 
-            // getting the right form (plural to singular, and upper case first letter)
-            $formName = 'App\\Form\\'.ucfirst(substr($component_type, 0, -1)).'Type';
-
             // getting item to modify
             
             $itemToUpdate = $presentation->getOCItem($component_type, $item_id);
 
-            $form = $this->createForm($formName, $itemToUpdate);
+            $form = $this->createForm($this->formName($component_type), $itemToUpdate);
 
             $form->handleRequest($request);
     
             if ($form->isSubmitted() && $form->isValid()) {
 
-                $updatedItem = $form-> getData();
+                $updatedItem = $form->getData();
 
-                // update item
+                // making some specific treatments according to item type (ex : if item is website, we check if we got a logo to attach with it)
+
+                $updatedItem = $specificTreatments->specificTreatments($component_type, $updatedItem);
+
+                // updating item
     
                 $presentation->setOCItem($component_type, $item_id, $updatedItem);
+
                 $manager->flush();
     
                 $this->addFlash(
@@ -160,6 +186,8 @@ class OtherComponentsController extends AbstractController
         if ($request->isXmlHttpRequest()) {
 
             $component_type = $request->request->get('entityType');
+
+            dump('yo');
 
             $jsonElementsPosition = $request->request->get('jsonElementsPosition');
             $elementsPosition = json_decode($jsonElementsPosition,true);

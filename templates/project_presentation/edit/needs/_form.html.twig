@@ -1,0 +1,142 @@
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+<div class="needs-form-container my-0 mt-md-3 mb-md-3 col-md-9 p-2 pb-4 p-md-5">
+
+{{ form_start(form) }}
+
+    {# need type selection is only available in need update context (when in creation mode, need type is already choosen) #}
+
+    {% if form.type is defined %}
+
+        <div class="form-row">
+
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type) }}
+
+        </div>
+
+    {% endif %}
+
+<div class="form-row">
+
+    <div class="label-box">
+
+        <img class="needs-icon-title" src="/media/static/images/icons/edit_presentation/needs/edit_form/title.svg" alt="title icon">
+        
+        {{ form_label(form.title) }}
+
+    </div>
+    
+    {{ form_widget(form.title) }}
+
+</div>
+
+<div class="form-row">
+
+    <div class="label-box">
+
+        <img class="needs-icon-money" src="/media/static/images/icons/edit_presentation/needs/edit_form/money.svg" alt="money icon">
+
+        {{ form_label(form.isPaid) }}
+
+    </div>
+
+    {{ form_widget(form.isPaid) }}
+
+</div>
+
+<div class="form-row">
+
+    <div class="label-box">
+
+        <img class="needs-icon-description" src="/media/static/images/icons/edit_presentation/needs/edit_form/text_description.svg" alt="text description icon">
+
+        {{ form_label(form.description) }}
+
+    </div>
+
+    {{ form_widget(form.description) }}
+
+</div>
+
+
+
+<div class="mt-4 mt-md-5">
+
+
+    <button class="btn btn-success btn-lg sharp me-2 mb-2">{{ button_label | default('Enregistrer') }}</button>
+
+    <a href="{{ path('manage_needs', {'stringId': stringId}) }}">
+        <button type="button" class="btn btn-info sharp btn-lg mb-2">Annuler</button>
+    </a>
+
+</div>
+
+
+{{ form_end(form) }}
+
+
+
+<style>
+
+    #content{
+        background-color: white;
+    }
+
+    .needs-form-container{
+        background-color: #f5f9ff;
+        border: 2px solid orange;
+    }
+
+    .form-row{
+        margin-bottom: 30px;
+    }
+
+    .label-box{
+        margin-bottom: 15px;
+    }
+
+    .needs-icon-title {
+        width: 30px;
+        height: 32px;
+        margin-right: 12px;
+        margin-left: 3px;
+        margin-top: -4px;
+    }
+
+    .needs-icon-money {
+        width: 25px;
+        height: 25px;
+        margin-right: 13px;
+        margin-left: 6px;
+        margin-top: -6px;
+    }
+
+    .needs-icon-description {
+        width: 27px;
+        height: 25px;
+        margin-right: 13px;
+        margin-left: 4px;
+        margin-top: -6px;
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .needs-form-container{
+            border: none;
+        }
+
+        .label-box{
+            padding-left: 8px;
+        }
+
+    }
+
+</style>
+
+
+</div>

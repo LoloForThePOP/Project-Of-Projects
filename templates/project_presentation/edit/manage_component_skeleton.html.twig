@@ -1,10 +1,16 @@
-{# skeletton for each project presentation structure edition page (ex : edit presentation categories; websites; needs; ...
+{# 
     
-here is skeletton structure :
+Skeletton for each project presentation structure edition page (ex : edit presentation categories; websites; needs; ...
+    
+Here is skeletton structure :
 
-    - ui page title
-    - more information collapsible
-    - edition content
+    - page title
+    - some advices & info for user
+    - main content management (CRUD ui)
+    - standard button(s) (ex: see result button)
+
+    - specific css (depending on which presentation structure is managed)
+    - specific js (depending on which presentation structure is managed)
     
 #}
 
@@ -27,10 +33,12 @@ here is skeletton structure :
                 <!-- ui Page Title -->	
                 
                 <h4 class="main-title me-3">
+
                     {% block mainContentTitle %}{% endblock %}
+
                 </h4>
 
-                <!-- collapsible "More Informations Box" -->
+                <!-- Show More Info / Advices Button -->
 
                 {% block collapsibleMoreInfo %}
 
@@ -65,6 +73,33 @@ here is skeletton structure :
 
             </div>
 
+            {# End of page action possibilities #}
+
+            {% block actionButtons %}
+
+                <div class="action-buttons-container">
+
+                    {# Back To Menu Button #}
+
+                    <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId }) }}">
+                        <button type="button" class="btn btn-info btn-lg mb-4 me-2 sharp">Menu</button>
+                    </a>
+
+                    {# See Result (at the right anchor) Button #}
+        
+                    <a 
+                    
+                        class="text-decoration-none text-white" 
+                        href="{{path('show_presentation', {'stringId': stringId })}}#{% block seeResultAnchor %}{% endblock %}Display">
+
+                        <button type="button" class="btn btn-warning btn-lg mb-4 sharp">Résultat</button>
+
+                    </a>
+                    
+                </div>
+            
+            {% endblock %}
+
         </div>
     
         {# styles for this skeleton #}
@@ -89,6 +124,10 @@ here is skeletton structure :
                 display: inline-block;
                 font-weight: bold;
     
+            }
+
+            .main-content-container{
+                margin-bottom: 20px;
             }
     
             .info-box{
@@ -218,8 +257,17 @@ here is skeletton structure :
                             break;
 
                         case "websites":
+                        case "dataList":
+                        case "questionsAnswers":
+                        case "businessCards":
 
                             path = "{{path('ajax_reorder_items', {'stringId': stringId})}}";
+                            break;
+
+                        case "documents":
+                        case "needs":
+
+                            path = "{{path('ajax_reorder_component_elements', {'stringId': stringId})}}";
                             break;
                             
                         default:
@@ -227,10 +275,6 @@ here is skeletton structure :
                             break;
 
                     } 
-
-                    
-
-                    // ajax call
                     
                     $.ajax({  
 
@@ -268,17 +312,34 @@ here is skeletton structure :
                 var path = null;
 
                 var elementsType = $('#elements-list').data('elements-type');
+                
+                switch(elementsType) {
 
-                if(elementsType=="slide"){
+                    case "slide":
 
-                    path = "{{path('ajax_delete_slide', {'stringId': stringId})}}";
-                }
+                        path = "{{path('ajax_delete_slide', {'stringId': stringId})}}";
+                        break;
 
-                if(elementsType=="websites"){
+                    case "websites":
+                    case "dataList":
+                    case "questionsAnswers":
+                    case "businessCards":
 
-                    path = "{{path('ajax_delete_item', {'stringId': stringId})}}";
-                }
+                        path = "{{path('ajax_delete_item', {'stringId': stringId})}}";
+                        break;
 
+                    case "documents":
+                    case "needs":
+
+                        path = "{{path('ajax_remove_component_element', {'stringId': stringId})}}";
+                        break;
+                        
+                    default:
+
+                        break;
+
+                } 
+                
                 if (confirm("Confimez vous enlever cet élément ?"))
                 {
 

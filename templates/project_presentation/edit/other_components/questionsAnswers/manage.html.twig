@@ -1,0 +1,150 @@
+{% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
+
+
+{% block title %}Questions & Réponses{% endblock %}
+
+{% block mainContentTitle %}Gérer les Questions & Réponses{% endblock %}
+
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+        
+    <p class="">
+
+        Lorsque des personnes ont tendance à vous poser les même questions sur votre projet, vous pouvez présentez les questions et les réponses ici, pour ne pas avoir à vous répéter. 
+
+    </p>
+
+
+{% endblock %}
+
+
+{% block mainContent %}
+
+    <!-- Add a Q&A Button (triggers a modal with a form) -->
+
+    <div class="mb-4">
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" class="btn btn-lg btn-success sharp p-3 fw-bold me-1">+ Ajouter une Question / Réponse</button> 
+
+    </div>
+
+    <!-- Add a Q&A Form (displayed in a Modal Box) -->
+
+    {% include "project_presentation/edit/other_components/questionsAnswers/_add_qa_form.html.twig" %}
+
+    <!-- Q&A List -->
+
+    <div class="container mb-2">
+
+        <div class="row">
+
+            <div id="elements-list" data-elements-type="questionsAnswers" class="col-md-6 px-0">
+
+                {% set qas = presentation.getOC('questionsAnswers') %}
+
+                {% if qas | length > 0 %}
+
+                    {% for qa in qas %}
+
+                        <!-- Grid Container -->
+
+                        <div id="{{qa.id}}" class="js-sortable-element fs-15 mr-md-4 d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
+
+                            <a href="{{path('update_other_components_item',{'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id': qa.id  })}}" class="w-100 h-100 text-body text-decoration-none">
+
+                                <!-- Question Display -->
+
+                                <div class="font-weight-bold mb-1">
+
+                                    {% if qa.question | length > 45 %}
+
+                                        {{ qa.question | slice (0,45) }}...
+
+                                    {% else %}
+
+                                        {{ qa.question }}
+
+                                    {% endif %}
+                                    
+                                </div>
+
+                                <!-- Answer Display -->
+                                
+                                <div>
+                                    
+                                    {% if qa.answer | length > 70 %}
+
+                                        {{ qa.answer | slice (0,70) }}...
+
+                                    {% else %}
+
+                                        {{ qa.answer }}
+
+                                    {% endif %}
+
+                                </div>
+
+                            </a>
+    
+                            <!-- Remove Q&A Button (Red Cross) -->
+            
+                            <button type="button" class="js-delete-element position-absolute btn btn-danger" data-id="{{qa.id}}" style="top:0; right:0;"><span class="font-weight-bold">&times</span></button>
+
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block seeResultAnchor %}qa{% endblock %}
+
+
+{% block specificStyles %}
+
+
+{% endblock %}
+
+
+
+
+{% block specificJavascripts %}
+
+<script>
+
+    // If form errors, we have to trigger modal box display for the user to be aware of these errors.
+
+    $(document).ready(function(){
+
+        {% if not form.vars.valid %}
+
+            $('#add_qa_form_modal').modal('show');
+
+        {% endif %}
+
+    });
+
+
+</script>
+
+{% endblock %}
+
+
+{% endembed %}

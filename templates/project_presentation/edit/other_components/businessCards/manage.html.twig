@@ -1,0 +1,112 @@
+{% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
+
+
+{% block title %}Vous Contacter{% endblock %}
+
+{% block mainContentTitle %}Comment vous contacter ?{% endblock %}
+
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+    
+    <p class="h5">
+
+        Si vous ne souhaitez pas afficher d'information de contact, les visiteurs peuvent quand même vous contacter avec la messagerie privée (que vous pouvez aussi désactiver dans les réglages).
+
+    </p>
+
+{% endblock %}
+
+
+{% block mainContent %}
+
+    <!-- Add Business Card Button (triggers a modal with a form) -->
+
+    <div class="mb-4">
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="btn btn-lg btn-success p-3 me-1">+ Ajouter</button> 
+
+    </div>
+
+    <!-- Add a Business Card Modal -->
+
+    {% include 'project_presentation/edit/other_components/businessCards/_add_business_card_modal.html.twig' %}
+
+
+    <!-- Business Cards List -->
+
+    <div id="elements-list" data-elements-type="businessCards" class="row pl-md-3">
+
+        {% set bcs = presentation.getOC('businessCards') %}
+     
+        {% for bc in bcs %}
+
+            <!-- Contact Card Item -->
+
+                <div id="{{bc.id}}" class="js-sortable-element  position-relative cursor-pointer col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
+
+                    <a href="{{path('update_other_components_item',{'stringId': stringId, 'component_type': 'businessCards', 'item_id': bc.id  })}}" class="text-body text-decoration-none">
+
+                        <!-- Contact Card Content -->
+
+                        {% include 'project_presentation/edit/other_components/businessCards/_display_business_card.html.twig' with {'context': 'editionMode'} %}
+
+                    </a>
+
+                    <!-- Remove a Business Card (Button with Red Cross) -->
+            
+                     <button type="button" class="js-delete-element position-absolute btn btn-danger" data-id="{{bc.id}}" style="top:0; right:0;"><span class="font-weight-bold">&times</span></button>
+        
+                </div>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+
+{% block seeResultAnchor %}businessCards{% endblock %}
+
+
+{% block specificStyles %}
+
+
+{% endblock %}
+
+
+
+
+{% block specificJavascripts %}
+
+<script>
+
+    // If form errors, we have to trigger modal box display to show these errors to user
+
+    $(document).ready(function(){
+
+        {% if not form.vars.valid %}
+
+            $('#add_business_card_modal').modal('show');
+
+        {% endif %}
+
+    });
+
+
+</script>
+
+{% endblock %}
+
+
+{% endembed %}

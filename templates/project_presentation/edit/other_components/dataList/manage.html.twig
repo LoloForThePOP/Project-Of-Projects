@@ -1,0 +1,199 @@
+{% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
+
+
+{% block title %}Données supplémentaires sur le Projet{% endblock %}
+
+{% block mainContentTitle %}Données supplémentaire le Projet{% endblock %}
+
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+    
+   
+<p class="h5 mb-2 pt-1">
+
+    Exemples :             
+
+</p>
+    
+<ul class="h5">
+
+    <li class="mb-2"> <b>Budget du Projet : </b> 2300 €</li>
+    <li> <b>Statut du Projet : </b> en cours de réalisation</li>
+    <li> ... </b></li>
+
+
+</ul>
+
+{% endblock %}
+
+
+{% block mainContent %}
+
+        <!-- Add Data to List Button (Triggers a Modal) -->
+
+        <div class="mb-4">
+
+            <button type="button" data-bs-toggle="modal" data-bs-target="#addDataFormModal" class="btn btn-lg btn-success sharp p-3 fw-bold">+ Ajouter une donnée</button> 
+
+        </div>
+
+        <!-- Add Data Form Display (in a Modal Box) -->
+
+        {% include "project_presentation/edit/other_components/dataList/_add_data_form.html.twig" %}
+
+        
+        <!-- Project Data List Display -->
+
+        {% set dataList = presentation.getOC('dataList') %}
+
+        {% if dataList | length > 0 %}
+
+            <div class="container pt-3">
+
+                <div id="elements-list" data-elements-type="dataList" class="row col-md-12 col-xl-8 px-0">
+
+                    {% for data in dataList %}
+
+                        <div id="{{data.id}}" class="dataListContainer js-sortable-element">
+
+                            <a href="{{path('update_other_components_item',{'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id  })}}" class="text-decoration-none text-body">
+
+                                <!-- Data Name -->
+
+                                <div class="dataName">
+
+                                    {{data.name}}
+                                    
+                                </div>
+
+                                <!-- Data Value -->
+
+                                <div class="dataValue">
+
+                                    {{data.value}}
+
+                                </div>
+
+                            </a>
+
+                            <!-- Remove Data (red cross button) -->
+
+                            <button type="button" class="js-delete-element d-inline position-absolute btn btn-sm btn-danger sharp" data-id="{{data.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+   
+        {% endif %}
+
+
+        <!-- Action Buttons -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId }) }}">
+                <button type="button" class="btn btn-info btn-lg mt-2 mb-4 me-2 sharp">Menu</button>
+            </a>
+
+            <a class="text-decoration-none text-white" href="{{path('show_presentation', {'stringId': stringId })}}#dataListDisplay">
+                <button type="button" class="btn btn-warning btn-lg mt-2 mb-4 sharp">Résultat</button>
+            </a>
+
+        </div>
+
+    {% block specificStyles %}
+
+        <style>
+
+            .dataListContainer{
+
+                width:300px;
+                margin-right:16px;
+                position:relative;
+                margin-bottom: 30px;
+                word-wrap: break-word;
+
+                border:1px solid black;
+
+                border-left: 7px solid blueviolet;
+                
+                padding-left:10px;
+
+                padding-bottom:10px;
+
+                cursor:pointer;
+            }
+
+            .dataName{
+                font-size:19px;
+                font-weight:bold;
+            }
+
+            .dataValue{
+                font-size:20px;
+                font-weight:normal;
+                line-height: 1.05em;
+            }
+
+            @media screen and (max-width: 580px) {
+
+                .dataContainer{
+
+                    width: 100%;
+                    margin-right: 0px;
+
+                }
+
+                .dataName{
+                    font-size:1em;
+                }
+
+                .dataValue{
+                    font-size:1em;
+                }
+
+            }
+
+        </style>
+
+
+    {% endblock %}
+ 
+
+{% endblock %}
+
+
+{% block specificJavascripts %}
+
+    <script>
+
+        $(document).ready(function(){
+
+            // if form errors are detected, we have to trigger form modal display
+
+            {% if not form.vars.valid %}
+
+                $('#addDataFormModal').modal('show');
+
+            {% endif %}
+
+        });
+        
+    </script>
+
+{% endblock %}
+
+{% endembed %}

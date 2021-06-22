@@ -151,7 +151,7 @@ class PPBase
     private $categories;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
@@ -183,6 +183,16 @@ class PPBase
      */
     private $needs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="presentation")
+     */
+    private $conversations;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ExternalContributorsStructure::class, mappedBy="presentation")
+     */
+    private $ECS;
+
 
 
     public function __construct()
@@ -200,6 +210,8 @@ class PPBase
         $this->places = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->needs = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
+        $this->ECS = new ArrayCollection();
     }
 
 
@@ -738,6 +750,66 @@ class PPBase
             // set the owning side to null (unless already changed)
             if ($need->getPresentation() === $this) {
                 $need->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            // set the owning side to null (unless already changed)
+            if ($conversation->getPresentation() === $this) {
+                $conversation->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExternalContributorsStructure[]
+     */
+    public function getECS(): Collection
+    {
+        return $this->ECS;
+    }
+
+    public function addEC(ExternalContributorsStructure $eC): self
+    {
+        if (!$this->ECS->contains($eC)) {
+            $this->ECS[] = $eC;
+            $eC->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEC(ExternalContributorsStructure $eC): self
+    {
+        if ($this->ECS->removeElement($eC)) {
+            // set the owning side to null (unless already changed)
+            if ($eC->getPresentation() === $this) {
+                $eC->setPresentation(null);
             }
         }
 

@@ -73,10 +73,17 @@ class Slide
      */
     private $presentation;
 
+
+
+
+
     /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+
+    
 
     public function __construct()
     {

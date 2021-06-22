@@ -2,17 +2,28 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UserRepository;
+
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email","username"}, message="Il y a déjà un utilisateur qui utilise ce choix")
+ * 
+ * Unique fields (do not factorize fields in a single assert, to get email AND userName unicity)
+ *
+ * @UniqueEntity(fields={"email"}, message="Un utilisateur utilise déjà ce choix")
+ * @UniqueEntity(fields={"userName"}, message="Un utilisateur utilise déjà ce choix")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -23,16 +34,25 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $id;
 
+    
+    /**
+     * @ORM\Column(type="string", length=30, unique=true)
+     * @Assert\NotBlank
+     * @Assert\Length(
+     *      min = 3,
+     *      max = 30,
+     *      minMessage = "Votre nom d'utilisateur doit faire au moins {{ limit }} caractères",
+     *      maxMessage = "Votre nom d'utilisateur doit faire au plus {{ limit }} caractères"
+     * )
+     */
+    private $userName;
+
+
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private $email;
 
-    
-    /**
-     * @ORM\Column(type="string", length=30, unique=true)
-     */
-    private $username;
 
     /**
      * @ORM\Column(type="json")
@@ -70,6 +90,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $createdPresentations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="authorUser")
+     */
+    private $messages;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Persorg::class, cascade={"persist", "remove"})
+     */
+    private $persorg;
 
 
 
@@ -80,6 +109,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->parameters['isVerified'] = false;
         $this->PPBases = new ArrayCollection();
         $this->createdPresentations = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -106,7 +136,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserName(): string
     {
-        return (string) $this->email;
+        return (string) $this->userName;
+    }
+    
+    public function setUserName(string $userName): self
+    {
+        $this->userName = $userName;
+
+        return $this;
     }
 
     /**
@@ -242,10 +279,49 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function setUsername(string $username): self
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
     {
-        $this->username = $username;
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setAuthorUser($this);
+        }
 
         return $this;
     }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->removeElement($message)) {
+            // set the owning side to null (unless already changed)
+            if ($message->getAuthorUser() === $this) {
+                $message->setAuthorUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPersorg(): ?Persorg
+    {
+        return $this->persorg;
+    }
+
+    public function setPersorg(?Persorg $persorg): self
+    {
+        $this->persorg = $persorg;
+
+        return $this;
+    }
+
+    
+
+
 }

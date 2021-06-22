@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SlideController extends AbstractController
 {
     /**
-     * @Route("/projects/{stringId}/slides/", name="manage_slides")
+     * @Route("/projects/{stringId}/slides/", name="manage_slides", priority="3")
      */
     public function manage(PPBase $presentation, Request $request, EntityManagerInterface $manager): Response
     {
@@ -212,76 +212,13 @@ class SlideController extends AbstractController
 
     }
 
+    /*
+    / slides reordering and slides removing
+    /
+    / see ComponentsController
+    /
+    */
+
   
-    /**
-     * Allow to reorder presentation slides
-     *
-     * @Route("/projects/{stringId}/slides/ajax-reorder-slides/", name="ajax_reorder_slides")
-     * 
-    */ 
-    public function ajaxReorderSlides(Request $request, PPBase $presentation, EntityManagerInterface $manager) {
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
-        if ($request->isXmlHttpRequest()) {
-
-            $jsonSlidesPosition = $request->request->get('jsonElementsPosition');
-
-            $slidesPosition = json_decode($jsonSlidesPosition,true);
-
-            foreach ($presentation->getSlides() as $slide){
-
-                $newSlidePosition = array_search($slide->getId(), $slidesPosition, false);
-                
-                $slide->setPosition($newSlidePosition);
-
-            }
-
-            $manager->flush();
-
-            return  new JsonResponse(true);
-
-        }
-
-        return  new JsonResponse();
-
-    }
-
-
-    /**
-     * Ajax slide deletion
-     * 
-     * @Route("/projects/{stringId}/slides/ajax-delete-slide/", name="ajax_delete_slide")
-     * 
-     */
-    public function ajaxDeleteSlide(PPBase $presentation, Request $request, SlideRepository $slideRepository, EntityManagerInterface $manager){
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
-        if ($request->isXmlHttpRequest()) {
-
-            $idSlide = $request->request->get('idElement');
-
-            $slide = $slideRepository->findOneById($idSlide);
-
-            if ($presentation->getSlides()->contains($slide)) {
-
-                $presentation->removeSlide($slide);
-                
-                $manager->remove($slide);
-
-                $manager->flush();
-            }
-
-            $dataResponse = [
-            ];
-
-            return new JsonResponse($dataResponse);
-
-        }
-
-    }
-    
-
 
 }

@@ -86,7 +86,7 @@ Info
 
     <div class="container mb-3">
 
-        <div id="elements-list" data-elements-type="slide" class="row col-lg-8 pl-0">
+        <div id="elements-list" data-elements-type="slides" class="row col-lg-8 pl-0">
 
             {% if presentation.slides | length > 0 %}
 
@@ -143,60 +143,44 @@ Info
 
     </div>
 
-    {# Action buttons #}
 
-    <div>
-
-        <!-- Back to edition Button -->
-
-        <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId }) }}">
-            <button type="button" class="btn btn-info btn-lg mt-4 me-2 mb-4 sharp">Menu</button>
-        </a>
-
-        <!-- Back to Result Button -->
-
-        <a class="text-decoration-none text-white"
-            href="{{path('show_presentation', {'stringId': stringId })}}#slideshowDisplay">
-            <button type="button" class="btn btn-warning btn-lg mt-4 mb-4 sharp">Résultat</button>
-        </a>
-
-    </div>
+{% endblock %}
 
 
+    {% block seeResultAnchor %}
 
+        slideshow
+    
+    {% endblock %}
 
     {% block specificStyles %}
 
+        <style>
 
-    <style>
+            .js-sortable-element{
 
-        .js-sortable-element{
+                position: relative;
 
-            position: relative;
-
-            display:flex;
-            align-items: center;
-            justify-content: center;
+                display:flex;
+                align-items: center;
+                justify-content: center;
 
 
-            width:130px;
-            height:123px;
+                width:130px;
+                height:123px;
 
-            overflow:hidden;
+                overflow:hidden;
 
-            padding:12px;
+                padding:12px;
 
-            margin: 8px;
+                margin: 8px;
 
-            border: 5px solid  #3f5cff;
-            border-radius: 4px;
-        }
-    </style>
+                border: 5px solid  #3f5cff;
+                border-radius: 4px;
+            }
+        </style>
 
     {% endblock %}
-
-
-{% endblock %}
 
 
     {% block specificJavascripts %}

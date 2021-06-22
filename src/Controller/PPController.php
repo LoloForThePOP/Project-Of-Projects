@@ -18,7 +18,7 @@ class PPController extends AbstractController
     /**
      * Allow to create a project presentation
      * 
-     * @Route("/projects/create",name="create_presentation")
+     * @Route("/projects/create", name="create_presentation")
      * 
      * @return Response
      */
@@ -50,15 +50,14 @@ class PPController extends AbstractController
             $manager->persist($presentation);
             $manager->flush();
 
-            $manager->persist($presentation);
-            $manager->flush();
-
             $this->addFlash(
                 'success',
                 '✅ La présentation du projet a été créée. <br> Vous pouvez maintenant ajouter toutes les informations que vous désirez présenter.'
             );
 
-            return $this->redirectToRoute('show_presentation', []);
+            return $this->redirectToRoute('show_presentation', [
+                "stringId" => $presentation->getStringId(),
+            ]);
         }
 
         return $this->render('project_presentation/create.html.twig', [

@@ -34,6 +34,17 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
 
+        persorg_image:
+
+            uri_prefix: /media/uploads/persorgs_images
+            upload_destination: '%kernel.project_dir%/public/media/uploads/persorgs_images'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+   
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+            
+
 
         test_embed_form:
                     

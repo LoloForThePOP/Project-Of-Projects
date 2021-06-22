@@ -6,7 +6,11 @@
 
     <div class="">
 
-        Salut Chou !
+        {% if app.user %}
+
+            User Name: {{app.user.userName}}
+        
+        {% endif %}
 
     </div>
 

@@ -251,11 +251,6 @@ Here is skeletton structure :
 
                     switch(entityType) {
 
-                        case "slide":
-
-                            path = "{{path('ajax_reorder_slides', {'stringId': stringId})}}";
-                            break;
-
                         case "websites":
                         case "dataList":
                         case "questionsAnswers":
@@ -266,6 +261,7 @@ Here is skeletton structure :
 
                         case "documents":
                         case "needs":
+                        case "slides":
 
                             path = "{{path('ajax_reorder_component_elements', {'stringId': stringId})}}";
                             break;
@@ -315,11 +311,6 @@ Here is skeletton structure :
                 
                 switch(elementsType) {
 
-                    case "slide":
-
-                        path = "{{path('ajax_delete_slide', {'stringId': stringId})}}";
-                        break;
-
                     case "websites":
                     case "dataList":
                     case "questionsAnswers":
@@ -330,6 +321,7 @@ Here is skeletton structure :
 
                     case "documents":
                     case "needs":
+                    case "slides":
 
                         path = "{{path('ajax_remove_component_element', {'stringId': stringId})}}";
                         break;

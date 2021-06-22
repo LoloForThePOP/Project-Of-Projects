@@ -104,27 +104,17 @@
 
         </div>
 
-        <!-- Action Buttons -->
+  
 
-        <div>
-
-            <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId':stringId }) }}">
-                <button type="button" class="btn btn-info btn-lg mt-2 mb-4 me-2 sharp">Menu</button>
-            </a>
-
-            <a class="text-decoration-none text-white" href="{{path('show_presentation', {'stringId': stringId })}}#websitesDisplay">
-                <button type="button" class="btn btn-warning btn-lg mt-2 mb-4 sharp">Résultat</button>
-            </a>
-
-        </div>
-
-    {% block specificStyles %}
-
-    {% endblock %}
- 
 
 {% endblock %}
 
+{% block seeResultAnchor %}websites{% endblock %}
+
+{% block specificStyles %}
+
+{% endblock %}
+ 
 
 {% block specificJavascripts %}
 

@@ -83,7 +83,6 @@ class ComponentsController extends AbstractController
 
             $getterMethodName = "get".ucfirst($entityType);
 
-
             if ($presentation->$getterMethodName()->contains($element)) {
 
                 // getting appropriate remover (function as a variable)

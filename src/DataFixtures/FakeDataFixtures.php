@@ -228,7 +228,7 @@ class FakeDataFixtures extends Fixture
         $admin = new User();
 
         $admin
-            ->setUsername(TestUserName)
+            ->setUsername('TestUserName')
             ->setEmail('test@test.com')
             ->setPassword(
                 $this->encoder->encodePassword(

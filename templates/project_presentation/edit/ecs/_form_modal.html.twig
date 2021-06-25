@@ -1,0 +1,206 @@
+{% form_theme ecsForm 'bootstrap_4_layout.html.twig' %}
+
+<!-- Add ECS Form Display (in a Modal Box) -->
+
+{# ECS stands for External Contributors Structures #}
+
+{# Here are some predefined title chunks #}
+
+{% set predefinedTitleChunks = [ 
+    
+    { 'name': 'Sponsors'},
+    
+    { 'name': 'Remerciements'},
+    
+    { 'name': 'Donateurs'},
+    
+    { 'name': 'Partenaires'},
+    
+    { 'name': 'Mécènes'},
+    
+    { 'name': 'Ambassadeurs'},
+    
+    { 'name': 'Amis'},
+    
+    { 'name': 'Conseillers'},
+    
+    { 'name': 'Fournisseurs'},
+    
+    { 'name': 'Crédits'},
+    
+    { 'name': 'Supporters'},
+    
+    { 'name': 'Contributeurs ponctuels'},
+    
+    { 'name': 'Financeurs'}, 
+    
+    { 'name': 'Investisseurs'},
+    
+    ] %}
+    
+
+<!-- Form Display (in a Modal Box) -->
+
+<div class="modal" id="add_ecs_form_modal" tabindex="-1" role="dialog" aria-labelledby="addECSModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="">
+
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+
+            <div class="modal-header">
+
+                <!-- Help button (trigger a collapsible) -->
+
+                <a class="fw-bold my-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseECSTitleHelp" aria-expanded="false" aria-controls="collapseECSTitleHelp">
+
+                    <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Aide</span>
+                    
+                </a>
+
+                <!-- Collapsible Help Container -->
+        
+                <div class="collapse no-transition col-md-7 mt-0" id="collapseECSTitleHelp">
+        
+                    <p class="h5 ml-md-2">
+        
+                        Sélectionnez un ou plusieurs boutons (ou écrivez votre titre personnalisé).
+        
+                    </p>
+        
+                </div>
+
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+
+            </div>
+
+            <!-- Modal Body -->
+
+            <div class="modal-body">
+
+                <div>
+
+                    <h4 class="fw-bold mb-3">Composer / écrire un titre</h4>
+
+                    <div>
+
+                        {% for titleChunk in predefinedTitleChunks %}
+                        
+                            <button type="button" class="titleChunkSuggestion btn btn-light mb-2" data-toggle="button" aria-pressed="false">{{titleChunk.name}}</button>
+
+                        {% endfor %}
+
+                    </div>
+                    
+                </div>
+
+                {{ form_start(ecsForm) }}
+
+                <div class="mt-3 mb-3 font-weight-bold">
+
+                    {{ form_row(ecsForm.title, { 'id': 'liveTitleRendering', 'value' : ''}  ) }} 
+
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-lg btn-info" data-bs-dismiss="modal">Retour</button>         
+
+                <button class="btn btn-lg btn-success">Valider</button>
+                
+            </div>
+
+            <div class="d-none">
+                {{ form_rest(ecsForm) }}
+            </div>
+
+            {{ form_end(ecsForm) }}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<style>
+
+    .titleChunkSuggestion[aria-pressed="true"]{
+
+            background-color:yellow !important;
+    
+    }
+
+    #liveTitleRendering{
+        color:black;
+    }
+
+</style>
+
+
+
+<script>
+
+
+    $(document).ready(function(){
+
+        // manage ECS Live title Rendering
+    
+        var ecsTitle='';
+    
+        $(".titleChunkSuggestion").click(function(){
+
+            ecsTitle=$("#liveTitleRendering").val();
+                            
+            if(!$(this).hasClass("active")) // we push a button, so we add its text to the title
+            {
+            
+                if(ecsTitle==''){
+                    ecsTitle = $(this).text();
+    
+                }else{
+    
+                    ecsTitle = ecsTitle + ' - ' + $(this).text();
+                }
+            
+            }
+            
+            else // we unpush a button, so we remove its text from the title
+            {
+                        
+                ecsTitle = ecsTitle.replace(' - ' + $(this).text(), "");
+                
+                ecsTitle = ecsTitle.replace($(this).text() + ' - ', "");
+                
+                ecsTitle = ecsTitle.replace($(this).text(), "");
+    
+            }
+
+            $("#liveTitleRendering").val(ecsTitle);
+
+            return ecsTitle;
+
+        });
+    
+        // if form errors are detected, we have to trigger the display of the form modal box
+    
+        {% if not ecsForm.vars.valid %}
+    
+            $('#add_ecs_form_modal').modal('show');
+    
+        {% endif %}
+
+    
+    }); 
+
+</script>

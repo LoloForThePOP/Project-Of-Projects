@@ -55,7 +55,7 @@ class OtherComponentsController extends AbstractController
      * 
      * Allow to access CRUD operations page
      * 
-     * @Route("/projects/{stringId}/{component_type}/", name="manage_other_components")
+     * @Route("/projects/{stringId}/other_components/{component_type}/", name="manage_other_components")
      */
     public function manage(PPBase $presentation, $component_type, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager): Response
     {
@@ -114,7 +114,7 @@ class OtherComponentsController extends AbstractController
      * 
      * Allow to update a component item
      * 
-     * @Route("/projects/{stringId}/{component_type}/{item_id}", name="update_other_components_item")
+     * @Route("/projects/{stringId}/other_components/{component_type}/{item_id}", name="update_other_components_item")
      */
     public function update(PPBase $presentation, $component_type, $item_id, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager): Response
     {
@@ -217,8 +217,8 @@ class OtherComponentsController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $idElement = $request->request->get('idElement');
             $component_type = $request->request->get('elementsType');
+            $idElement = $request->request->get('idElement');
 
             $presentation->deleteOtherComponentItem($component_type, $idElement);
 

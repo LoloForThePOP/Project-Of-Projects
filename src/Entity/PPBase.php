@@ -189,9 +189,11 @@ class PPBase
     private $conversations;
 
     /**
-     * @ORM\OneToMany(targetEntity=ExternalContributorsStructure::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=ContributorStructure::class, mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
-    private $ECS;
+    private $contributorStructures;
+
 
 
 
@@ -211,7 +213,7 @@ class PPBase
         $this->documents = new ArrayCollection();
         $this->needs = new ArrayCollection();
         $this->conversations = new ArrayCollection();
-        $this->ECS = new ArrayCollection();
+        $this->contributorStructures = new ArrayCollection();
     }
 
 
@@ -650,30 +652,25 @@ class PPBase
 
     public function deleteOtherComponentItem($component_type, $id)
     {
-        if ($component_type!==null) {
 
-            $offset=0;
-
-            foreach ($this->otherComponents[$component_type] as &$item) {
-
-                if ($item['id']==$id) {
-
-                    unset($this->otherComponents[$component_type][$offset]);
-                    $offset++;
-                    return $this;
-                }
+        $i=0;
+        foreach($this->otherComponents[$component_type] as $element) {
+            //check the property of every element
+            if($element['id']==$id){
+                unset($this->otherComponents[$component_type][$i]);
             }
-
-            return $this;
+            $i++;
         }
+
+        //$this->otherComponents[$component_type] = array_values($this->otherComponents[$component_type]);
+        
+        return $this;
     }
 
 
     public function positionOtherComponentItem($component_type, $itemsPositions)
     {
         if ($component_type!==null) {
-
-            //dump($this->otherComponents[$component_type]);
 
             foreach ($this->otherComponents[$component_type] as &$item) {
 
@@ -787,34 +784,36 @@ class PPBase
     }
 
     /**
-     * @return Collection|ExternalContributorsStructure[]
+     * @return Collection|ContributorStructure[]
      */
-    public function getECS(): Collection
+    public function getContributorStructures(): Collection
     {
-        return $this->ECS;
+        return $this->contributorStructures;
     }
 
-    public function addEC(ExternalContributorsStructure $eC): self
+    public function addContributorStructure(ContributorStructure $contributorStructure): self
     {
-        if (!$this->ECS->contains($eC)) {
-            $this->ECS[] = $eC;
-            $eC->setPresentation($this);
+        if (!$this->contributorStructures->contains($contributorStructure)) {
+            $this->contributorStructures[] = $contributorStructure;
+            $contributorStructure->setPresentation($this);
         }
 
         return $this;
     }
 
-    public function removeEC(ExternalContributorsStructure $eC): self
+    public function removeContributorStructure(ContributorStructure $contributorStructure): self
     {
-        if ($this->ECS->removeElement($eC)) {
+        if ($this->contributorStructures->removeElement($contributorStructure)) {
             // set the owning side to null (unless already changed)
-            if ($eC->getPresentation() === $this) {
-                $eC->setPresentation(null);
+            if ($contributorStructure->getPresentation() === $this) {
+                $contributorStructure->setPresentation(null);
             }
         }
 
         return $this;
     }
+
+
 
 
 

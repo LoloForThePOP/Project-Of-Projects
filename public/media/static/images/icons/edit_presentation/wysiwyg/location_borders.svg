@@ -1,0 +1,14 @@
+<svg width="8.83mm" height="7.61mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.2" preserveAspectRatio="xMidYMid" version="1.2" viewBox="4488 6806 883 761" xmlns="http://www.w3.org/2000/svg">
+ <g class="com.sun.star.drawing.CustomShape">
+  <rect class="BoundingBox" x="4488" y="7284" width="885" height="283" fill="none"/>
+  <path d="m4930 7302c78 0 144 5 212 16s116 26 155 45c39 20 57 39 57 62s-18 42-57 62c-39 19-87 34-155 45s-134 17-212 17-144-6-212-17-116-26-155-45c-39-20-57-39-57-62s18-42 57-62c39-19 87-34 155-45s134-16 212-16z" fill="#fc0" stroke="#000" stroke-linejoin="round" stroke-width="35"/>
+ </g>
+ <rect class="BoundingBox" x="4653" y="6805" width="557" height="622" fill="none"/>
+ <path d="m4930 6823c146 0 259 93 259 213s-245 366-260 372-258-252-258-372 113-213 259-213z" fill="#fff"/>
+ <path d="m4930 6823c146 0 259 93 259 213s-245 366-260 372-258-252-258-372 113-213 259-213z" fill="#f21a00" stroke="#000" stroke-linejoin="round" stroke-width="35"/>
+ <g class="com.sun.star.drawing.CustomShape">
+  <rect class="BoundingBox" x="4822" y="6934" width="219" height="193" fill="none"/>
+  <path d="m4931 6952c17 0 31 3 46 10 14 7 25 16 33 29 9 12 13 25 13 39s-4 27-13 39c-8 13-19 22-33 29-15 7-29 11-46 11s-31-4-46-11c-14-7-25-16-33-29-9-12-12-25-12-39s3-27 12-39c8-13 19-22 33-29 15-7 29-10 46-10z" fill="#fff"/>
+  <path d="m4931 6952c17 0 31 3 46 10 14 7 25 16 33 29 9 12 13 25 13 39s-4 27-13 39c-8 13-19 22-33 29-15 7-29 11-46 11s-31-4-46-11c-14-7-25-16-33-29-9-12-12-25-12-39s3-27 12-39c8-13 19-22 33-29 15-7 29-10 46-10z" fill="none" stroke="#000" stroke-linejoin="round" stroke-width="35"/>
+ </g>
+</svg>

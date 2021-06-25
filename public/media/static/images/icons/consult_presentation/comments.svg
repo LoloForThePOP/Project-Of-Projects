@@ -1,0 +1,12 @@
+<svg width="57" height="49.6" data-name="Layer 1" version="1.1" viewBox="0 0 57 49.6" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <style>.cls-1{fill:none;stroke:#000;stroke-linecap:round;stroke-miterlimit:10;stroke-width:3px;}</style>
+ </defs>
+ <title>Comment</title>
+ <g fill="none" stroke="#000" stroke-linecap="round" stroke-miterlimit="10" stroke-width="3px">
+  <path class="cls-1" d="m55.5 24.8c0 12.9-12.1 23.3-27 23.3a29.9 29.9 0 0 1-15.3-4.13c-1.27-0.76-8.46 4.39-9.56 3.46s3.9-7.93 3-9a21.2 21.2 0 0 1-5.1-13.6c0-12.9 12.1-23.3 27-23.3s27 10.4 27 23.3z"/>
+  <circle class="cls-1" cx="17.9" cy="24.8" r="1.61"/>
+  <circle class="cls-1" cx="28.5" cy="24.8" r="1.61"/>
+  <circle class="cls-1" cx="39.1" cy="24.8" r="1.61"/>
+ </g>
+</svg>

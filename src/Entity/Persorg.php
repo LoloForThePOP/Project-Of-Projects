@@ -35,10 +35,6 @@ class Persorg
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -124,10 +120,22 @@ class Persorg
      */
     public $imageFile;
 
+
     /**
-     * @ORM\ManyToOne(targetEntity=ExternalContributorsStructure::class, inversedBy="persorgs")
+     * @ORM\Column(type="string", length=255)
      */
-    private $externalContributorsStructure;
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $website4;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=ContributorStructure::class, inversedBy="persorgs")
+     */
+    private $contributorStructure;
+
 
 
 
@@ -197,17 +205,6 @@ class Persorg
         return $this->id;
     }
 
-    public function getTitle(): ?string
-    {
-        return $this->title;
-    }
-
-    public function setTitle(string $title): self
-    {
-        $this->title = $title;
-
-        return $this;
-    }
 
     public function getDescription(): ?string
     {
@@ -355,15 +352,41 @@ class Persorg
         return $this;
     }
 
-    public function getExternalContributorsStructure(): ?ExternalContributorsStructure
+
+    public function getName(): ?string
     {
-        return $this->externalContributorsStructure;
+        return $this->name;
     }
 
-    public function setExternalContributorsStructure(?ExternalContributorsStructure $externalContributorsStructure): self
+    public function setName(string $name): self
     {
-        $this->externalContributorsStructure = $externalContributorsStructure;
+        $this->name = $name;
 
         return $this;
     }
+
+    public function getWebsite4(): ?string
+    {
+        return $this->website4;
+    }
+
+    public function setWebsite4(?string $website4): self
+    {
+        $this->website4 = $website4;
+
+        return $this;
+    }
+
+    public function getContributorStructure(): ?ContributorStructure
+    {
+        return $this->contributorStructure;
+    }
+
+    public function setContributorStructure(?ContributorStructure $contributorStructure): self
+    {
+        $this->contributorStructure = $contributorStructure;
+
+        return $this;
+    }
+
 }

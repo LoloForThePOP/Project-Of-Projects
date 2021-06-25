@@ -38,6 +38,8 @@ class ComponentsController extends AbstractController
 
             $methodName = "get".ucfirst($entityType);
 
+            //dump($methodName);
+
             foreach ($presentation->$methodName() as $element){
 
                 $newElementPosition = array_search($element->getId(), $elementsPosition, false);

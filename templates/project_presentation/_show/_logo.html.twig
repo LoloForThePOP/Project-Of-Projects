@@ -1,0 +1,55 @@
+
+{% if presentation.logo %}
+
+    <div class="">
+
+        <img id="pp-logo" class="" src="{{ vich_uploader_asset(presentation) }}" alt="Logo du Projet">
+
+    </div>
+
+{% else %}
+        
+    <div id="logoPlaceholder" class="pp-edition-mode">
+
+        <img class="no-logo-image img-fluid" src="{{ asset('no_logo.svg', 'pp_wysiwyg') }}" height="90" width="90" alt="add a logo icon" >
+
+    </div>
+
+{% endif %}
+
+
+<style>
+
+    #pp-logo{
+        border-radius: 4px;
+        width: 140px;
+        height: 140px;
+    }
+
+    #logoPlaceholder{
+
+        border: 5px dashed rgb(180, 204, 236);
+        border-radius: 6px;
+        padding:15px;
+
+    }
+
+    #logoPlaceholder:hover {
+        cursor: pointer;
+        background-color: lavender;
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        #pp-logo{
+            border-radius: 4px;
+            width: 110px;
+            height: 110px;
+        }
+
+
+
+    }
+
+</style>

@@ -1,0 +1,91 @@
+<div class="pp-upper-box row border boder-success">
+
+    <div class="container">
+
+        {# Title Displayed at the top only on small screens #}
+
+        <div class="row d-md-none">
+
+            titre du projet
+
+        </div>
+
+        {# Logo Column and Goal Column #}
+
+        <div class="row ">
+
+            {% if presentation.logo or userPresenter %}
+                
+                {# Logo Column #}
+                
+                {% set displayLogoPlaceholder = false %}
+
+                {% if not presentation.logo and userPresenter %}
+
+                    {% set displayLogoPlaceholder = true %}
+
+                {% endif %}
+
+                <div class="pp-logo-container col-4 col-md-3 col-lg-2 border border-success {% if displayLogoPlaceholder %} pp-edition-mode {% endif %}">
+
+                    <div class="">
+                        {% include 'project_presentation/_show/_logo.html.twig' %}
+                    </div>
+
+                </div>
+
+            {% endif %}
+
+            {# Goal Column (+ Title & Keywords since Medium screens) #}
+
+            <div class="col border border-success">
+
+                <div class="container">
+
+                    {# Keywords Display only since Medium Screens #}
+
+                    <div class="row d-none-d-md-block">
+
+                        <h3 class="pp-title" >
+                            Project Title
+                        </h3>
+        
+                    </div>
+        
+                    <div class="row">
+        
+                        <h4 class="pp-goal">
+        
+                            Project Goal
+        
+                        </h4>
+                        
+                    </div>
+
+                    {# Keywords Display only since Medium Screens #}
+
+                    <div class="row d-none d-md-block">
+        
+                    <span class="pp-keywords">Project keywords</span>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        {# Keywords Display only Small Screens #}
+
+        <div class="row d-md-none">
+
+            project keywords
+
+        </div>
+
+    </div>
+
+</div>

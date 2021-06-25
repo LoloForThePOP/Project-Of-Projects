@@ -1,0 +1,11 @@
+<svg width="45" height="47.5" version="1.1" viewBox="0 0 45 47.5" xmlns="http://www.w3.org/2000/svg">
+ <switch transform="translate(-3.54 -5.14)">
+  <foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"/>
+  <g transform="translate(-185,-43.4)">
+   <path d="m233 90.1v-6.52c-5.6 2.67-14.4 3.69-22.4 3.69s-16.7-1.02-22.3-3.61v6.44c0 3.22 10 5.89 22.3 5.89s22.4-2.67 22.4-5.89z" stroke-width=".886"/>
+   <path d="m189 66.6v6.57c0 3.28 10 6.09 22.3 6.09s22.4-2.72 22.4-6.09v-6.65c-5.6 2.72-14.4 3.76-22.4 3.76s-16.7-1.04-22.3-3.68z" stroke-width=".895"/>
+  </g>
+  <ellipse cx="31.1" cy="10.9" rx="22.4" ry="7.5" fill="#1a1a1a"/>
+ </switch>
+ <path d="m44.9 6.93c0 3.43-10 6.19-22.4 6.19s-22.4-2.77-22.4-6.19c0-3.43 10-6.19 22.4-6.19s22.4 2.77 22.4 6.19z"/>
+</svg>

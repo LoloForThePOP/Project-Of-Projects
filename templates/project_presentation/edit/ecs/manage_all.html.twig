@@ -1,0 +1,101 @@
+
+{% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
+
+
+{% block title %}Contributeurs externes (sponsors, etc){% endblock %}
+
+{% block mainContentTitle %}Contributeurs externes (sponsors, partenaires, etc){% endblock %}
+
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+    
+    <p class="h5">
+
+        Vous pouvez ajouter des parties différentes. Si vous souhaitez modifier leur ordre, utilisez le glisser-déposer.
+
+    </p>
+
+{% endblock %}
+
+
+{% block mainContent %}
+
+    <!-- Add an external contributor structure button (triggers a modal with a form) -->
+
+    <div class="mb-4">
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" class="btn btn-lg btn-success p-3 me-1">+ Ajouter</button> 
+
+    </div>
+
+    <!-- Add an ecs form modal -->
+
+    {% include 'project_presentation/edit/ecs/_form_modal.html.twig' %}
+
+
+    <!-- ECS List -->
+
+    <div id="elements-list" data-elements-type="contributorStructures" class="">
+     
+        {% for cs in presentation.getContributorStructures %}
+
+            <!-- contributor structure item -->
+
+                <div id="{{cs.id}}" class="js-sortable-element position-relative cursor-pointer border border-primary border-2 mb-4" style="word-wrap: break-word; max-width: 500px;">
+
+                    <a href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': cs.id  })}}" class="text-body text-decoration-none">
+
+                        <div class="p-4">
+
+                            {{cs.title}}
+
+                        </div>
+
+                    </a>
+
+                    <!-- Remove a cs (Button with Red Cross) -->
+            
+                     <button type="button" class="js-delete-element position-absolute btn btn-danger" data-id="{{cs.id}}" style="top:0; right:0;"><span class="font-weight-bold">&times</span></button>
+        
+                </div>
+
+            </a>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+
+{% block seeResultAnchor %}{% endblock %}
+
+
+{% block specificStyles %}
+
+
+{% endblock %}
+
+
+
+
+{% block specificJavascripts %}
+
+<script>
+
+
+</script>
+
+{% endblock %}
+
+
+{% endembed %}

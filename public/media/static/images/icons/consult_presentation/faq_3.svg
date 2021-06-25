@@ -1,0 +1,19 @@
+<svg width="43.8" height="45" version="1.1" viewBox="0 0 43.8 45" xmlns="http://www.w3.org/2000/svg">
+ <switch transform="translate(-10.1 -27.6)">
+  <foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"/>
+  <g>
+   <g transform="matrix(-1,0,0,1,58.3,0)">
+    <g transform="translate(-.602 1.05)">
+     <g transform="matrix(.807 0 0 .839 -11.9 4.09)">
+      <circle transform="scale(-1,1)" cx="-50.7" cy="61.9" r="3.17" stroke-width=".833"/>
+     </g>
+     <g transform="matrix(-1.15 0 0 1.12 86.7 -2.63)">
+      <path d="m50 47.8c-1.12 0-1.96-0.911-1.96-1.96 0-2.31 1.4-4.34 3.57-5.25 1.54-0.63 2.45-2.17 2.45-3.78-0.07-2.1-1.82-3.85-3.92-3.92-1.12 0-2.1 0.35-2.94 1.12-0.771 0.771-1.19 1.75-1.19 2.87s-0.911 1.96-1.96 1.96c-1.05 0-2.03-0.911-2.03-1.96 0-2.17 0.841-4.2 2.38-5.74 1.54-1.54 3.57-2.31 5.81-2.24 4.13 0.14 7.64 3.57 7.78 7.78 0.07 3.29-1.82 6.23-4.83 7.57-0.7 0.28-1.19 0.911-1.19 1.61 0 1.05-0.841 1.96-1.96 1.96z" stroke-width=".7"/>
+     </g>
+    </g>
+    <path d="m46.7 29.2v36.9h-34.1" fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="3.1"/>
+    <path d="m12.9 59.4v12.6l-7.93-6.32z" stroke="#000" stroke-linecap="round" stroke-linejoin="round"/>
+   </g>
+  </g>
+ </switch>
+</svg>

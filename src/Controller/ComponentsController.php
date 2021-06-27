@@ -73,7 +73,6 @@ class ComponentsController extends AbstractController
             $entityType = $request->request->get('elementsType');
             $idElement = $request->request->get('idElement');
 
-            
             // getting appropriate repository
             // fully qualified entity name
 

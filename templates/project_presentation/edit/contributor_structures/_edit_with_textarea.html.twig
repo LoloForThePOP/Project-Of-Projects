@@ -1,0 +1,137 @@
+
+
+<!-- Textarea Edition -->
+
+<div 
+
+    id="js-textarea-container"
+
+    class="{% if cs.richTextContent is empty %}d-none{% endif %}"
+
+>
+
+    {{form_start(csForm)}}
+
+    <!-- Form Errors Display -->
+
+    <span class="h5 text-danger">
+
+        {{form_errors(csForm.richTextContent)}}
+
+    </span>
+
+    <!-- Rich Text Editor Area -->
+
+    <div class="mb-4">
+
+        {{form_widget(csForm.richTextContent, {'attr': {'placeholder': 'Exemple : nous remerçions toutes les personnes qui nous apportent une aide précieuse : Marie Duval; Jean Dupond; etc.'}})}}
+
+    </div>
+
+    <!-- Hiding some form fields -->
+
+    <div class="d-none">
+        {{ form_rest(csForm) }}
+    </div>
+
+    <!-- Save Rich Text Content Button -->
+
+    <div class= "pt-2">
+        
+        <button type="submit" class="btn btn-success btn-lg mb-4 mr-3">Enregistrer Texte</button>
+
+    </div>
+
+    {{form_end(csForm)}}
+
+</div>
+
+
+{% block specificJavascripts %}
+
+
+    <script>
+
+        $(document).ready(function(){
+
+            // if user wants to use text, we reveal textarea and we scroll down to textarea
+
+            $(".js-display-textarea").click(function() {
+
+                $(".js-display-textarea").hide();
+
+                $('#js-textarea-container').removeClass("d-none");
+
+            });
+
+        });
+
+    </script>
+        
+    <!-- CDN - TinyMCE Rich Text Editor -->
+
+    <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <!-- Parameters - TinyMCE Rich Text Editor -->
+
+    <script>
+        
+        tinymce.init({
+
+            // live save WIP
+            
+            setup: function(ed) {
+                ed.on('change', function(e) {
+                    console.log('the event object ', e);
+                    console.log('the editor object ', ed);
+                    console.log('the content ', ed.getContent());
+                });
+            },
+             
+
+            mode : "specific_textareas",
+
+            editor_selector : "tinymce",
+
+            //content_css : '/css/tinymce.css',
+
+            width : "100%",
+
+            height: "350",
+
+            entity_encoding : "raw",
+
+            menubar: 'edit format',
+
+            menu: {
+
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+            }, 
+
+            language: 'fr_FR',
+
+            plugins: "emoticons, lists",
+
+            toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
+
+            content_style: "body {padding: 0px 15px;}",
+
+            nowrap : false,
+
+            //link_title: false, (only when links plugin will be integrated)
+            //target_list: false,
+        });
+
+
+        function myCustomOnChangeHandler(inst) {
+            alert("Some one modified something");
+            alert("The HTML is now:" + inst.getBody().innerHTML);
+          }
+
+    </script>
+
+{% endblock %}

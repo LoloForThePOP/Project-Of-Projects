@@ -187,8 +187,6 @@ class OtherComponentsController extends AbstractController
 
             $component_type = $request->request->get('entityType');
 
-            dump('yo');
-
             $jsonElementsPosition = $request->request->get('jsonElementsPosition');
             $elementsPosition = json_decode($jsonElementsPosition,true);
 

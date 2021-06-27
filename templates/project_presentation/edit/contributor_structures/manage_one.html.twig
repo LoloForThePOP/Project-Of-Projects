@@ -1,0 +1,78 @@
+{% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
+
+
+
+{% set ecsTitle = cs.title[:1] | upper ~ cs.title[1:] %}
+
+
+{% block title %}
+
+    {{ecsTitle}}
+
+{% endblock %}
+
+{% block mainContentTitle %}
+
+    {{ecsTitle}}
+
+{% endblock %}
+
+
+{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+
+
+{% block moreInfoButtonLabel %}
+
+    Info
+
+{% endblock %}
+
+{% block moreInfoContent %}
+    
+    <p class="h5">
+
+        Les vignettes permettent d'ajouter des photos ou des logos.
+
+    </p>
+
+{% endblock %}
+
+
+{% block mainContent %}
+
+    <!-- Add Items Buttons-->
+
+    <div class="mt-md-5 mb-4"> 
+        
+        <!-- Add a persorg button (triggers a modal with a form) -->
+
+        <button type="button"data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="btn btn-success btn-lg mb-4 me-3">Ajouter une vignette</button>
+            
+        {% if cs.richTextContent is empty %}
+
+            <!-- Button Display Text Area -->
+
+            <button type="button" class="js-display-textarea btn btn-success btn-lg mb-4"> <span class="mr-2">+</span>Texte libre</button>
+
+        {% endif %}
+
+    </div>
+
+    <!-- Add a Persorg Form (displayed in a modal box) -->
+
+    {% include "persorgs/_add_form_modal.html.twig" %}
+
+{# Thumbnails display #}
+            
+    {% include "project_presentation/edit/contributor_structures/_thumbnails_display.html.twig" %}
+
+{# Textarea display #}
+
+    {% include "project_presentation/edit/contributor_structures/_edit_with_textarea.html.twig" %}
+
+
+{% endblock %}
+
+
+
+{% endembed %}

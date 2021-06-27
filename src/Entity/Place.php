@@ -69,6 +69,7 @@ class Place
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="places")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $presentation;
 

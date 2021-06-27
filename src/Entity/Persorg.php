@@ -133,6 +133,7 @@ class Persorg
 
     /**
      * @ORM\ManyToOne(targetEntity=ContributorStructure::class, inversedBy="persorgs")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $contributorStructure;
 

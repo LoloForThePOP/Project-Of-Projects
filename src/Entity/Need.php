@@ -47,6 +47,7 @@ class Need
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="needs")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $presentation;
 

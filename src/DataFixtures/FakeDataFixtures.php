@@ -308,6 +308,101 @@ class FakeDataFixtures extends Fixture
                     $privateMessagesActivation = true;
                 }
 
+                // Websites creation 
+
+                $numWebsites = mt_rand(0, 6);
+
+                if ($numWebsites > 0) {
+
+                    for ($l=0; $l < $numWebsites; $l++) { 
+
+                        $website = [];
+
+                        $website['id'] = uniqid();
+                        $website['position'] = $l;
+                        $website['url'] = $faker->url();
+                        $website['description'] = $faker->sentence();
+
+                        $presentation->addOtherComponentItem('websites', $website);
+
+                    }
+
+                }
+
+
+                // Q&A creation 
+
+                $numQA = mt_rand(0, 6);
+
+                if ($numQA > 0) {
+
+                    for ($l=0; $l < $numQA; $l++) { 
+
+                        $qa = [];
+
+                        $qa['id'] = uniqid();
+                        $qa['position'] = $l;
+                        $qa['question'] = substr($faker->sentence(), 0, -1) .'?';
+                        $qa['answer'] = $faker->paragraph();
+
+                        $presentation->addOtherComponentItem('questionsAnswers', $qa);
+
+                    }
+
+                }
+
+                // Data List creation 
+
+                $numList = mt_rand(0, 1);
+
+                if ($numList > 0) {
+
+                    $numItems = mt_rand(1, 8);
+
+                    for ($l=0; $l < $numItems; $l++) { 
+
+                        $item = [];
+
+                        $item['id'] = uniqid();
+                        $item['position'] = $l;
+                        $item['name'] = $faker->sentence(mt_rand(1,2));
+                        $item['value'] = $faker->sentence(mt_rand(1,5));
+
+                        $presentation->addOtherComponentItem('dataList', $item);
+
+                    }
+
+                }
+
+                // Business Cards Creation creation 
+
+                $numBC = mt_rand(0, 4);
+
+                if ($numBC > 0) {
+
+                    for ($l=0; $l < $numBC; $l++) { 
+
+                        $bc = [];
+
+                        $bc['id'] = uniqid();
+                        $bc['position'] = $l;
+                        $bc['title'] = $faker->sentence(mt_rand(1,2));
+                        
+                        if ($faker->boolean(75)) {
+
+                        }
+                        $bc['value'] = $faker->sentence(mt_rand(1,5));
+
+                        $presentation->addOtherComponentItem('dataList', $bc);
+
+                    }
+
+                }
+
+
+
+
+
 
                 // Hydrate Presentation
 
@@ -345,6 +440,8 @@ class FakeDataFixtures extends Fixture
 
                 $manager->persist($presentation);
             }
+
+            // End of Project Presentation Creation
         }
 
         $manager->flush();

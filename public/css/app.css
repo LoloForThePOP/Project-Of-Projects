@@ -5,8 +5,6 @@
     border-radius: 0;
 }
 
-
-
 .btn-light{
     background-color: #ecf0f1;
 }
@@ -59,6 +57,51 @@
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
   }
+
+
+  
+/* One Letter Avatars */
+
+.avatar-circle {
+    background-color: #27ae60;
+    text-align: center;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+  }
+
+.avatar-circle-50 {
+    width: 50px;
+    height: 50px;
+}
+
+.avatar-circle-100 {
+    width: 100px;
+    height: 100px;
+}
+
+
+.avatar-initial {
+    position: relative;
+    color: #fff;
+    font-family: "Courier New", monospace;
+    font-weight: bold;
+}
+
+.avatar-initial-50 {
+    top: 16px; /* 25% of parent */
+    font-size: 40px; /* 50% of parent */
+    line-height: 25px; /* 50% of parent */
+}
+
+.avatar-initial-100 {
+    top: 35px; /* 25% of parent */
+    font-size: 80px; /* 50% of parent */
+    line-height: 40px; /* 50% of parent */
+}
+
+  /* end of One Letter Avatars */
+
 
 
   

@@ -263,10 +263,15 @@ Here is skeletton structure :
                         case "needs":
                         case "slides":
                         case "contributorStructures":
-
+                            
                             path = "{{path('ajax_reorder_component_elements', {'stringId': stringId})}}";
                             break;
+                 
+                        case "persorgs":
                             
+                            path = "{{path('ajax_reorder_cs_persorgs', {'stringId': stringId, 'id_cs': cs.id|default('none')})}}";
+                            break;
+
                         default:
 
                             break;
@@ -326,6 +331,11 @@ Here is skeletton structure :
                     case "contributorStructures":
 
                         path = "{{path('ajax_remove_component_element', {'stringId': stringId})}}";
+                        break;
+
+                    case "persorgs":
+
+                        path = "{{path('ajax_remove_cs_persorg', {'stringId': stringId})}}";
                         break;
                         
                     default:

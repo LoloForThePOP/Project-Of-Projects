@@ -70,6 +70,7 @@ class Slide
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="slides")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $presentation;
 

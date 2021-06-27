@@ -1,0 +1,127 @@
+{% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
+
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+    {% block mainContent %}
+
+        <!-- Content Container -->
+
+        <div class="container">
+
+            <!-- Title Container -->
+
+            <div class="mt-3 mt-md-5 mb-2">
+
+                <!-- ui Page Title -->
+
+                <h3 class="font-weight-bold d-inline mr-3">Modifier un profil</h3>
+        
+            </div>
+
+
+            <!-- Form Display -->
+
+            <div class="col-md-7 mt-4 mb-5 pl-0">
+
+                <!-- Persorg Name -->
+
+                <div class="mt-3 mb-3">
+
+                    {{ form_row(form.name) }}
+
+                </div>
+
+                
+                {% if context == 'teammates' %}
+                        
+                    <!-- Persorg Missions -->
+
+                    <div class="mt-3 mb-3">
+
+                        {{ form_row(form.missions) }}
+
+                    </div>
+
+                {% endif %}   
+
+                <!-- Persorg Image -->
+
+                <div class="mb-4 px-3 rounded" style="border:1px solid black;">
+
+                    <h5 class="mt-2 mb-3 font-weight-bold">Image</h5>
+
+                    <!-- If an image already exists, we display it -->
+
+                    {% if persorg.image is not null %}
+
+                        <div class="mb-4">
+
+                            <img class="" src="{{ vich_uploader_asset(persorg) | imagine_filter('persorg_thumbnail_sm') }}">
+
+                        </div>
+                        
+                        <h5 class="mt-2 mb-3 font-weight-bold">Modifier l'image</h5>
+                                        
+                    {% endif %}
+
+                    {{ form_widget(form.imageFile) }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    <h4 class="font-weight-bold h5">Site web ou réseau social (facultatif)</h4>
+
+                    {{ form_widget(form.website1) }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    <h4 class="font-weight-bold h5">Adresse e-mail (facultatif)</h4>
+
+                    {{ form_widget(form.email) }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    <h4 class="font-weight-bold h5">Commentaire ou description (facultatif)</h4>
+
+                    {{ form_widget(form.description) }}
+
+                </div>
+
+
+                <div class="d-none">
+
+                    {{ form_rest(form) }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    {% endblock %}
+
+
+{% endembed %}
+
+
+{% block javascripts %}
+
+  <script>
+
+        // image upload french translation and position
+    
+      $(document).ready(function(){
+
+        $(".form-check-label").html("Supprimer l'image");
+        $(".custom-file").addClass("mt-1").addClass("mb-2");
+
+      });
+
+  </script>
+
+{% endblock %}

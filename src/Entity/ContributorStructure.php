@@ -2,10 +2,14 @@
 
 namespace App\Entity;
 
-use App\Repository\ContributorStructureRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use App\Repository\ContributorStructureRepository;
+
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Choice;
 
 /**
  * @ORM\Entity(repositoryClass=ContributorStructureRepository::class)
@@ -21,6 +25,7 @@ class ContributorStructure
 
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Choice({"owner", "team", "external"})
      */
     private $type;
 
@@ -31,6 +36,7 @@ class ContributorStructure
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="contributorStructures")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $presentation;
 

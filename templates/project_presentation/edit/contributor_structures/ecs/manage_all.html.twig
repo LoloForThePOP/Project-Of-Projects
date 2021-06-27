@@ -39,14 +39,14 @@
 
     <!-- Add an ecs form modal -->
 
-    {% include 'project_presentation/edit/ecs/_form_modal.html.twig' %}
+    {% include 'project_presentation/edit/contributor_structures/ecs/_form_modal.html.twig' %}
 
 
     <!-- ECS List -->
 
     <div id="elements-list" data-elements-type="contributorStructures" class="">
      
-        {% for cs in presentation.getContributorStructures %}
+        {% for cs in ecs %}
 
             <!-- contributor structure item -->
 

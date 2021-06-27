@@ -2,43 +2,24 @@
 
     <!-- Persorg Image Container -->
     
-    <div class="d-flex align-items-center justify-content-center" style="height:120px; margin-top:15px; margin-bottom:8px;">
+    <div class="d-flex align-items-center justify-content-center" style="height:120px; margin-top:15px; margin-bottom:8px; border-radius: 4px;">
 
         {% if persorg.image is not null %}
 
-            <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+            <img class="img-fluid rounded-lg" src="{{ vich_uploader_asset(persorg)  | imagine_filter('persorg_thumbnail_sm') }}">
         
         {% else %}
                                     
-            <div class="avatar-circle mx-auto" style="margin-top:25px;">
+            <div class="avatar-circle avatar-circle-100 mx-auto">
 
-                <span class="initials">
+                <span class="avatar-initial avatar-initial-100">
 
                     {{persorg.name | slice (0,1) | capitalize}}
 
                 </span>
 
             </div>
-
-                <!-- Some Styles -->
-
-                <style>
-                
-                    .avatar-circle {
-                        width: 100px;
-                        height: 100px;
-                    }
-
-                    
-                    .initials {
-                        position: relative;
-                        top: 22px; /* 25% of parent */
-                        font-size: 58px; /* 50% of parent */
-                        line-height: 58px; /* 50% of parent */
-                    }
-
-                </style>
-    
+            
         {% endif %}
 
     </div> 
@@ -47,6 +28,6 @@
 
     <div class="d-flex justify-content-center font-weight-bold" style="margin-bottom:8px; font-size:1.15em;">
 
-        {{ persorg.name | length < 10 ? persorg.name : persorg.name|slice(0, 10) ~ '...' }}
+        {{ persorg.name | length < 10 ? persorg.name : persorg.name | slice(0, 10) ~ '...' }}
 
     </div>

@@ -130,6 +130,7 @@ class PPBase
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="createdPresentations")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $creator;
 

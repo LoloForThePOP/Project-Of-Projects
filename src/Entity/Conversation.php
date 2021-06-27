@@ -21,6 +21,7 @@ class Conversation
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="conversations")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $presentation;
 

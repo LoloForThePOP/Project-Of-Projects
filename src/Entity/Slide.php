@@ -5,14 +5,14 @@ namespace App\Entity;
 use App\Repository\SlideRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Image;
+
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
-
-use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=SlideRepository::class)
@@ -29,6 +29,7 @@ class Slide
 
     /**
      * @ORM\Column(type="string", length=30)
+     * @Assert\Choice({"image", "youtube_video"})
      */
     private $type;
 
@@ -43,7 +44,7 @@ class Slide
      *  @Assert\Image(
      *     maxSize = "1500k",
      *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif", "image/apng", "image/webp", "image/x-ms-bmp", "image/bmp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="presentation_slide_file", fileNameProperty="address")

@@ -55,7 +55,7 @@ class OtherComponentsController extends AbstractController
      * 
      * Allow to access CRUD operations page
      * 
-     * @Route("/projects/{stringId}/other_components/{component_type}/", name="manage_other_components")
+     * @Route("/projects/{stringId}/other-components/{component_type}/", name="manage_other_components")
      */
     public function manage(PPBase $presentation, $component_type, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager): Response
     {

@@ -78,26 +78,9 @@
 
         </table>
 
-    <!-- Actions Buttons -->
-
-    <div class="">
-
-        <!-- Back to Menu Button -->
-
-        <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId }) }}">
-            <button type="button" class="btn btn-info btn-lg me-2 mb-4 sharp">Menu</button>
-        </a>
-
-        <!-- Back to Result Button -->
-
-        <a class="text-decoration-none text-white" href="{{path('show_presentation', {'stringId': stringId })}}#placesDisplay">
-            <button type="button" class="btn btn-warning btn-lg mb-4 sharp">Résultat</button>
-        </a>
-
-
-    </div>
-
 {% endblock %}
+
+{% block seeResultAnchor %}places{% endblock %}
 
 
 {% block specificStyles %}

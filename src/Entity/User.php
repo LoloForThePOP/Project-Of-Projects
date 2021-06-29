@@ -101,8 +101,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $persorg;
 
 
-
-
     public function __construct()
     {
 

@@ -4,11 +4,29 @@
 
 {% block body %}
 
-    <div class="">
+    <div class="p-4">
 
         {% if app.user %}
 
-            User Name: {{app.user.userName}}
+            {% set user = app.user %}
+
+            User Name: {{user.userName}}
+            
+            {% if user.createdPresentations | length > 0 %}
+
+                {% for presentation in user.createdPresentations %}
+
+                    <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
+
+                        <h5 class="mb-2">
+                            {{presentation.title}}
+                        </h5>
+            
+                    </a>
+
+                {% endfor %}
+
+            {% endif %}
         
         {% endif %}
 

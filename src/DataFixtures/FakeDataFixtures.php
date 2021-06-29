@@ -10,6 +10,7 @@ use App\Entity\Slide;
 use App\Entity\PPBase;
 use App\Entity\Persorg;
 use App\Entity\Category;
+use App\Entity\Document;
 use App\Entity\ContributorStructure;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -27,9 +28,7 @@ class FakeDataFixtures extends Fixture
 
 
     /**
-     * Allow to create a person or organisation thumbnail (= name; avatar picture; email; short description ...)
-     * 
-     * persorg $type is 'person' or 'organisation' (company)
+     * Allow to create a person or organisation thumbnail (= name; avatar picture; email; short description ...). Persorg $type is 'person' or 'organisation' (company; ngo; etc.)
      */
 
     public static function hydratePersorg($persorg, $type){
@@ -86,11 +85,7 @@ class FakeDataFixtures extends Fixture
 
         $faker = Factory::create('fr_FR');
 
-        // Project Categories Creation
-
-        // Categories List
-
-        // [position; unique name; english description; french description] 
+        // Project Categories Creation. Categories List : array[category position; unique name; english description; french description] 
 
         $categories = [
 
@@ -331,7 +326,7 @@ class FakeDataFixtures extends Fixture
 
         // Project Presentations Creation
 
-        for ($j = 0; $j < 12; $j++) {
+        for ($j = 0; $j < 15; $j++) {
 
             $presentation = new PPBase();
 
@@ -341,7 +336,7 @@ class FakeDataFixtures extends Fixture
 
             if ($faker->boolean(50)) {
 
-                $title = $faker->sentence();
+                $title = $faker->sentence(mt_rand(1,20));
             }
 
             // Keywords Creation
@@ -450,7 +445,7 @@ class FakeDataFixtures extends Fixture
 
                 $slidesTypes = ['image','youtube_video'];
                 
-                $imageAddresses = ['width.jpg','height.jpeg','width2.jpg','width3.png','height2.jpeg','square.jpg','landscape.webp', 'bird.jpg', 'tiger.jpg', 'scheme1.jpg', 'scheme2.jpg', 'scheme3.png', 'scheme4.jpg', 'team1.jpeg', 'team2.jpeg', 'team3.png'];
+                $imageAddresses = ['width.jpg','height.jpeg','width2.jpg','width3.png','height2.jpeg','square.webp','landscape.jpg', 'bird.jpg', 'tiger.jpg', 'scheme1.jpg', 'scheme2.jpg', 'scheme3.png', 'scheme4.jpg', 'team1.jpg', 'team2.jpg', 'team3.png'];
 
                 $videoAddresses = ['5xQDgtsvEaw','TJawNbIGYbo','XpChfjSUFMo','fyqW_GGiqjc','zgMmC-NOhV4','sX1Y2JMK6g8','oPVte6aMprI'];
 
@@ -490,7 +485,7 @@ class FakeDataFixtures extends Fixture
                 }
             }
 
-            // Project Sponsors; Partners; Acknowledgments
+            // Project Sponsors; Partners; Acknowledgments; etc
 
             if ($faker->boolean(50)) {
 
@@ -516,6 +511,8 @@ class FakeDataFixtures extends Fixture
 
                             $hydratedPersorg = FakeDataFixtures::hydratePersorg($persorg, 'organisation');
 
+                            $hydratedPersorg->setPosition($j);
+
                             $structure->addPersorg($hydratedPersorg);
 
                             $manager->persist($persorg);      
@@ -524,14 +521,42 @@ class FakeDataFixtures extends Fixture
 
                     }
 
-                    $structure->setTitle($title)
-                         ->setRichTextContent($text)
-                         ->setPosition($i)
-                         ->setPresentation($presentation);
+                    $structure
+                            ->setType('external')
+                            ->setTitle($title)
+                            ->setRichTextContent($text)
+                            ->setPosition($i)
+                            ->setPresentation($presentation);
 
                     $manager->persist($structure);
                 }
-            }           
+            }
+
+            // Attached Documents
+            
+            if ($faker->boolean(50)) {
+
+                $documentsCount = mt_rand(1,8);
+
+                $documentFileNames = ['pdf.pdf', 'docx.docx', 'xlsx.xlsx','epub.epub', 'odt.odt', 'pptx.pptx', 'rtf.rtf'];
+                
+                for ($i=0; $i < $documentsCount; $i++) { 
+                    
+                    $document = new Document();
+
+                    $documentFileName = $documentFileNames[array_rand($documentFileNames)];
+
+                    $documentTitle= $faker->words(mt_rand(2,18), true);
+
+                    $document
+                            ->setTitle($documentTitle)
+                            ->setFileName($documentFileName)
+                            ->setPosition($i)
+                            ->setPresentation($presentation);
+
+                    $manager->persist($document);
+                }
+            }
             
 
             // Websites creation 

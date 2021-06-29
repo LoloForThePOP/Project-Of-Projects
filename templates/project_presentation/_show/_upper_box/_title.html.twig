@@ -1,0 +1,98 @@
+<!-- Project Title Presentation -->
+
+{% if presentation.title is not empty %}
+
+    <!-- Structure Container -->
+
+    <div class="mb-0">
+
+        <!-- Project Title Display -->
+
+        <h3 class="pp-title mr-3 mb-0 d-inline-block" >
+            
+            {% if presentation.title | length > 79 %}
+
+                <span class="cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">
+
+                    {{presentation.title[:1] | upper ~ presentation.title[1:] | slice (0,79)}}
+                
+                </span>
+
+                    <span class="collapse cursor-pointer" id="collapsedProjectTitle">
+                        
+                        {{presentation.title [80:] }}
+
+                    </span>
+                    
+                    <span class="title-collapse-hide-me cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">... ▼</span>
+
+            {% else %}
+
+                {{presentation.title[:1] | upper ~ presentation.title[1:]}}
+
+            {% endif %}
+                                                
+            <!-- Edit Project Title Button -->
+
+            {% if userPresenter %}
+
+                <a class="pp-edition-mode text-decoration-none" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
+
+                    {# <img class="editIcon img-fluid" src="/images/icons/edit_presentation/edit.svg" height="18" width="18" alt="edit icon" > #}
+
+                    <button type="button" class="btn btn-light btn-sm">
+
+                        Éditer
+                    </button>
+
+
+                </a>
+
+            {% endif %}
+        
+        </h3>
+
+
+    </div>
+
+    <!-- Some Styles -->
+
+    <style>
+
+        .pp-title{
+
+            color:navy !important;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+
+            padding-top: 0px;
+
+            margin-bottom:13px !important;
+
+            font-weight:bold;
+
+        }
+
+        .title-collapse-hide-me[aria-expanded="true"]{
+
+        display: none;
+
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .pp-title{
+
+                font-size: 25px;
+                font-weight:normal;
+
+                padding-top: 2px;
+                padding-left: 0px;
+
+                margin-bottom: 0px !important;
+            }
+
+        }
+
+    </style>
+
+{% endif %}

@@ -18,11 +18,6 @@
 
 {% block body %}
 
-    {% include "/project_presentation/_show/test_embed1.html.twig" %}
-    {% include "/project_presentation/_show/test_embed2.html.twig" %}
-
-
-
     {# flag if user presents this project ? #}
 
     {% set userPresenter = false %}
@@ -34,36 +29,48 @@
     {% endif %}
 
 
+    {#
+              
+        {% include "/project_presentation/_show/test_embed1.html.twig" %}
+        {% include "/project_presentation/_show/test_embed2.html.twig" %} 
+        
+    #}
 
 <div class="pp-container container">
 
+    {# {% include 'project_presentation/_show/slides/slides.html.twig' %}
+ #}
+
+    
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
 
-
-    <div class="row ">
-
+    <div class="row">
         
-        {# Presentation Text Description #}
+        {# Text Description #}
 
         <div class="col-6 py-2 mb-3 border border-success">
 
-            {% if presentation.textDescription | length > 0 and  presentation.textDescription.content is not empty %}
+            {% if presentation.textDescription is not empty %}
 
-                Texte de Description du Projet
+                <h4 class="fw-bold mb-2">
+                    Description texte
+                </h4>
 
-            {% else %}
+                {{presentation.textDescription | raw}}
+
+            {# {% else %}
 
                 <div class="pp-placeholder-container pp-edition-mode">
 
                     <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
 
-                </div>
+                </div> #}
                 
             {% endif %}
 
         </div>
 
-        {# Presentation Websites #}
+        {# Websites #}
 
         <div id="displayWebsites" class="col-6 py-2 mb-3 border border-success">
 
@@ -72,7 +79,7 @@
             {% if websites | length > 0 %}
 
                 <h4 class="fw-bold mb-2">
-                    Sites Webs du Projet
+                    Sites Webs
                 </h4>
 
                 <div id="websites" data-elements-type="websites">
@@ -117,16 +124,118 @@
 
         </div>
 
-        {# Presentation Needs #}
+        {# Documents #}
+
+        <div id="displayDocuments" class="col-6 py-2 mb-3 border border-success">
+
+            {% if presentation.documents | length > 0 %}
+
+                <h4 class="fw-bold mb-2">
+                    Documents
+                </h4>
+
+                <div id="documents" data-elements-type="documents">
+
+                    {% for document in presentation.documents %}
+
+                        <div id="{{document.id}}" class="js-sortable-element cursor pointer bg-success mb-2">
+
+                            <a href="{{ vich_uploader_asset(document) }}" target="_blank" class="text-decoration-none">
+
+                                <div class="p-3 text-white">
+                                    
+                                    <span class="fw-bold">
+                        
+                                        {{ document.title }}
+                        
+                                    </span>        
+                        
+                                </div>
+                        
+                            </a>
+
+                        </div>
+                        
+                    {% endfor %}
+
+                </div>
+
+            {% elseif userPresenter %}
+
+                <div class="h-100 d-flex align-items-center justify-content-center">
+
+                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
+
+                </div>
+                
+            {% endif %}
+
+        </div>
+
+        {# Q&A #}
+
+        <div id="displayQuestionsAnswers" class="col-6 py-2 mb-3 border border-success">
+
+            {% set qas = presentation.getOC('questionsAnswers') %}
+
+            {% if qas | length > 0 %}
+
+                <h4 class="fw-bold mb-2">
+                    Questions & Réponses
+                </h4>
+
+                <div id="questionsAnswers" data-elements-type="questionsAnswers">
+
+                    {% for qa in qas %}
+
+                        <div id="{{qa.id}}" class="js-sortable-element cursor pointer bg-success mb-2">
+
+                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+
+                                <div class="p-3 text-white">
+                                    
+                                    <span class="fw-bold">
+                        
+                                        {{ qa.question }}
+                        
+                                    </span>
+                        
+                                    <br>
+                        
+                                    {{ qa.answer }}  
+                        
+                                </div>
+                        
+                            </a>
+
+                        </div>
+                        
+                    {% endfor %}
+
+                </div>
+
+            {% elseif userPresenter %}
+
+                <div class="h-100 d-flex align-items-center justify-content-center">
+
+                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
+
+                </div>
+                
+            {% endif %}
+
+        </div>
+
+        {# Needs #}
 
         <div class="col-6 py-2 mb-3 border border-success">
 
+            <h4 class="fw-bold mb-2">
+                Participer
+            </h4>
+
             {% if presentation.needs | length > 0 %}
                 
-                <h4 class="fw-bold mb-2">
-                Besoins du Projet
-                </h4>
-
                 <div id="needs" data-elements-type="needs">
 
                     {% for need in presentation.needs %}
@@ -155,6 +264,37 @@
 
             {% else %}
 
+                Aucun Besoin présenté
+
+                {# <div class="h-100 d-flex align-items-center justify-content-center">
+
+                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
+
+                </div> #}
+                
+            {% endif %}
+           
+
+        </div>
+
+        {# Places #}
+
+        <div class="col-6 py-2 mb-3 border border-success">
+
+            {% if presentation.places | length > 0 %}
+                
+                <h4 class="fw-bold mb-2">
+                    Lieux du Projet
+                </h4>
+
+                <div id="places" data-elements-type="places">
+
+                    Aucun
+
+                </div>
+
+            {% else %}
+
                 <div class="h-100 d-flex align-items-center justify-content-center">
 
                     <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
@@ -166,19 +306,35 @@
 
         </div>
 
-        {# Presentation Places #}
+        {# External Contributors #}
 
-        <div class="col-6 py-2 mb-3 border border-success">
+        <div class="col-12 py-2 mb-3 border border-success">
 
-            {% if presentation.places | length > 0 %}
+            {% if presentation.contributorStructures | length > 0 %}
                 
                 <h4 class="fw-bold mb-2">
-                    Lieux du Projet
+                    Contributeurs
                 </h4>
 
-                <div id="places" data-elements-type="needs">
+                <div id="contributors" data-elements-type="contributors">
 
-                    Liste de Lieux
+                    {% for cs in presentation.contributorStructures | slice(0,1) %}
+
+                        {{cs.richTextContent}} <br>
+
+                        {% if cs.persorgs | length > 0 %}
+
+                            {% for persorg in cs.persorgs %}
+
+                                <span class="me-2">{{persorg.name}}</span>
+                                
+                                <img src="{{ vich_uploader_asset(persorg) | imagine_filter('persorg_thumbnail_sm') }}" alt="person or company avatar"><br>
+                                
+                            {% endfor %}
+                        
+                        {% endif %}
+                        
+                    {% endfor %}
 
                 </div>
 

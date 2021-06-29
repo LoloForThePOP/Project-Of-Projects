@@ -20,7 +20,7 @@ class CategoryController extends AbstractController
      *  - display and select Project Categories
      *  - display and edit Project Keywords
      * 
-     * @Route("/projects/{stringId}/categories", name="select_categories")
+     * @Route("/projects/{stringId}/categories", name="select_categories_keywords")
      * 
      */
     public function select(PPBase $presentation, Request $request, EntityManagerInterface $manager, CategoryRepository $categoryRepository)

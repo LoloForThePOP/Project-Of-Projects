@@ -1,0 +1,115 @@
+<!-- Project Keywords Presentation -->
+
+{% if presentation.keywords is not empty %}
+
+    <div class="pp-keywords text-left" >
+
+        <!-- Project Keywords Display -->
+
+        <span class="d-inline-block me-2">
+
+            {% set keywords = presentation.keywords | replace({" " : ""}) | split(',') %}
+
+            {% for keyword in keywords %}
+
+                #{{keyword | first | capitalize ~ keyword[1:] }}
+
+            {% endfor %}
+
+        </span>
+       
+        <!-- Edit Project Keywords Button -->
+
+        {% if userPresenter %}
+
+            <a class="pp-edition-mode ms-3 ms-md-0" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">
+
+                <button class="btn btn-light btn-sm mb-2">Éditer</button>
+                
+            </a>
+
+        {% endif %}
+
+
+    </div>
+  
+    <!-- Some Styles -->
+
+    <style>
+
+        .pp-keywords{
+
+            font-size: 17px;
+            font-weight: bold;
+            color:#065fd4;
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .pp-pkeywords{
+
+                font-size: 15px;
+                font-weight:normal;
+
+                margin-top: 0.7rem !important;
+
+            }
+
+        }
+
+    </style>
+
+{% elseif userPresenter and presentation.categories | length == 0  %} {# no keywords (+ no categories), we insert a placeholder for project presenters #}
+
+    <a class="pp-edition-mode text-decoration-none ps-3 w-100 ps-md-0 text-body mt-4" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
+        
+        <div id="keywordsPlaceholder" class="d-flex align-items-center">
+
+            <img class="keywordsIcon img-fluid" src="{{ asset('hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
+
+            <span class="h4 fw-bold mt-2">Catégorie & Mots-clés</span>
+
+        </div>
+
+    <style>
+
+		#keywordsPlaceholder{
+
+			cursor: pointer;
+
+            padding: 0px 15px;
+
+			border: 5px dashed rgb(180, 204, 236);
+			border-radius: 6px;
+
+            width:400px;
+
+		}
+
+        
+        .keywordsIcon {
+
+            margin-right : 15px;
+            
+        }
+
+		#keywordsPlaceholder:hover {
+			
+			background-color: lavender;
+		}
+
+
+		@media screen and (max-width: 580px) {
+
+			#keywordsPlaceholder{
+
+                width:100%;
+
+			}
+
+		}
+
+    </style>
+    
+
+{% endif %}

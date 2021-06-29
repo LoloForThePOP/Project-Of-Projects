@@ -37,6 +37,7 @@ class Document
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="documents")
+     * @ORM\JoinColumn(onDelete="CASCADE")
      */
     private $presentation;
 

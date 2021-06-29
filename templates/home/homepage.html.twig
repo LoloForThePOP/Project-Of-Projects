@@ -7,37 +7,67 @@
 <div class="">
 
   <div class="container col-xxl-8 px-4">
+    
+    <!-- Last Inserted Presentations -->
 
-    <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+  <div class="container px-1 px-md-3 pt-md-5">
 
-      <div class="col-12 col-md-8 col-lg-6">
+    <h3 class="fw-bold mb-3" style="color: navy;">
+      Derniers projets présentés
+    </h3>
 
-        <img src="https://www.place-hold.it/700x500" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
-          loading="lazy" width="700" height="500">
+    <div class="mt-4">
 
-      </div>
+      {% for presentation in lastInsertedPresentations %}
+          
+        <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
 
-      <div class="col-lg-6">
+          <h5 class="mb-2">
+            {{presentation.title}}
+          </h5>
 
-        <h1 class="display-5 fw-bold lh-1 mb-3">La carte de visite de votre projet</h1>
+        </a>
 
-        <p class="lead">
-          Vous souhaitez faire connaître votre Projet ? Créez la carte de visite de votre projet ! Elle
-          concentre et toutes les informations utiles à partager, et s'affiche correctement sur tous les appareils.
-          Donnez son adresse aux personnes qui aimeraient connaître votre projet. C'est simple, rapide, et gratuit.
-        </p>
+      {% endfor %}
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-start pt-3">
+    </div>
+      
+  </div>
 
-          <button type="button" class="btn btn-secondary btn-lg fw-bold px-4 me-md-2">Voir un Exemple</button>
+    {# Jumbotron #}
 
-          <a href="{{path('create_presentation')}}"><button type="button" class="btn btn-primary btn-lg fw-bold px-4">Ajouter un Projet</button></a>
+    {#
+      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+
+        <div class="col-12 col-md-8 col-lg-6">
+
+          <img src="https://www.place-hold.it/700x500" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
+            loading="lazy" width="700" height="500">
+
+        </div>
+
+        <div class="col-lg-6">
+
+          <h1 class="display-5 fw-bold lh-1 mb-3">La carte de visite de votre projet</h1>
+
+          <p class="lead">
+            Vous souhaitez faire connaître votre Projet ? Créez la carte de visite de votre projet ! Elle
+            concentre et toutes les informations utiles à partager, et s'affiche correctement sur tous les appareils.
+            Donnez son adresse aux personnes qui aimeraient connaître votre projet. C'est simple, rapide, et gratuit.
+          </p>
+
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start pt-3">
+
+            <button type="button" class="btn btn-secondary btn-lg fw-bold px-4 me-md-2">Voir un Exemple</button>
+
+            <a href="{{path('create_presentation')}}"><button type="button" class="btn btn-primary btn-lg fw-bold px-4">Ajouter un Projet</button></a>
+
+          </div>
 
         </div>
 
       </div>
-
-    </div>
+    #}
 
   </div>
 

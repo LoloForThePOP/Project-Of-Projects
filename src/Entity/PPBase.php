@@ -3,20 +3,21 @@
 namespace App\Entity;
 
 use DateTime;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PPBaseRepository;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints as Assert;
-
 use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
+
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
@@ -26,7 +27,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */
-class PPBase
+class PPBase implements \Serializable
 {
     /**
      * @ORM\Id
@@ -69,7 +70,7 @@ class PPBase
      *  @Assert\Image(
      *     maxSize = "1500k",
      *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/apng", "image/gif", "image/webp", "image/x-ms-bmp", "image/bmp"},
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/apng", "image/gif", "image/webp", "image/x-ms-bmp", "image/svg", "image/bmp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="project_logo_image", fileNameProperty="logo")
@@ -202,6 +203,7 @@ class PPBase
     {
         $this->createdAt = new DateTime();
         $this->isAdminValidated = true;
+        $this->overallQualityAssessment = 3;
         $this->parameters['arePrivateMessagesActivated'] = true;
         $this->isPublished = true;
         $this->isDeleted = false;
@@ -215,6 +217,16 @@ class PPBase
         $this->needs = new ArrayCollection();
         $this->conversations = new ArrayCollection();
         $this->contributorStructures = new ArrayCollection();
+    }
+
+    public function serialize()
+    {
+        return serialize($this->id);
+    }
+    
+    public function unserialize($serialized)
+    {
+        $this->id = unserialize($serialized);
     }
 
 

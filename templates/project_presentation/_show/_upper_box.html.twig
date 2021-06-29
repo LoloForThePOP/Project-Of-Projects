@@ -6,7 +6,7 @@
 
         <div class="row d-md-none">
 
-            titre du projet
+            {% include 'project_presentation/_show/_upper_box/_title.html.twig' %}
 
         </div>
 
@@ -29,44 +29,38 @@
                 <div class="pp-logo-container col-4 col-md-3 col-lg-2 border border-success {% if displayLogoPlaceholder %} pp-edition-mode {% endif %}">
 
                     <div class="">
-                        {% include 'project_presentation/_show/_logo.html.twig' %}
+                        {% include 'project_presentation/_show/_upper_box/_logo.html.twig' %}
                     </div>
 
                 </div>
 
             {% endif %}
 
-            {# Goal Column (+ Title & Keywords since Medium screens) #}
+            {# Goal Column (+ Title & Keywords >= Medium screens) #}
 
-            <div class="col border border-success">
+            <div class="col border border-success d-flex align-items-center">
 
                 <div class="container">
 
-                    {# Keywords Display only since Medium Screens #}
+                    {# Title Display only >= Medium Screens #}
 
                     <div class="row d-none-d-md-block">
 
-                        <h3 class="pp-title" >
-                            Project Title
-                        </h3>
+                        {% include 'project_presentation/_show/_upper_box/_title.html.twig' %}
         
                     </div>
         
                     <div class="row">
-        
-                        <h4 class="pp-goal">
-        
-                            Project Goal
-        
-                        </h4>
+
+                        {% include 'project_presentation/_show/_upper_box/_goal.html.twig' %}
                         
                     </div>
 
-                    {# Keywords Display only since Medium Screens #}
+                    {# Keywords Display only >= Medium Screens #}
 
                     <div class="row d-none d-md-block">
         
-                    <span class="pp-keywords">Project keywords</span>
+                        {% include 'project_presentation/_show/_upper_box/_keywords.html.twig' %}
 
                     </div>
 
@@ -82,7 +76,7 @@
 
         <div class="row d-md-none">
 
-            project keywords
+            {% include 'project_presentation/_show/_upper_box/_keywords.html.twig' %}
 
         </div>
 

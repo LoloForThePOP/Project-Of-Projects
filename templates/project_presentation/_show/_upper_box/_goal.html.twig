@@ -1,0 +1,55 @@
+
+<h4 class="pp-goal 
+    {% if presentation.title is empty %} untitledProject
+    {% endif %}
+">
+
+    {{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}
+
+    <!-- Edit Project Goal Button -->
+
+    {% if userPresenter %}
+
+        <a class="pp-edition-mode ms-3 ms-md-0" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
+
+            <button class="btn btn-light btn-sm fs-15" style="font-size:13px !important;">Éditer</button>
+            
+        </a>
+
+    {% endif %}
+
+</h4>
+
+
+
+<style>
+
+    .pp-goal{
+        display: inline-block;
+        font-size: 1.45em;
+        font-family: Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .pp-goal.untitledProject{
+
+        font-size: 1.7em !important;
+
+    } 
+
+    @media screen and (max-width: 580px) {
+
+        .pp-goal{
+
+            font-size: 1.1em;
+            font-weight: normal;
+        }
+            
+        .pp-goal.untitledProject{
+
+            font-size: 1.3em !important;
+
+        }
+
+    }
+
+</style>

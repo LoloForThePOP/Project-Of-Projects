@@ -17,9 +17,16 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(): Response
+    public function index(EntityManagerInterface $manager): Response
     {
-        return $this->render('home/homepage.html.twig', []);
+
+        // last 20 inserted projects presentations
+
+        $lastInsertedPresentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->setMaxResults('20')->getResult();
+
+        return $this->render("/home/homepage.html.twig", [
+            'lastInsertedPresentations' => $lastInsertedPresentations,
+        ]);
     }
 
     /**

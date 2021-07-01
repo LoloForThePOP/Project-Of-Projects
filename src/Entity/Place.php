@@ -78,6 +78,10 @@ class Place
      */
     private $position;
 
+
+
+    
+
     public function getId(): ?int
     {
         return $this->id;

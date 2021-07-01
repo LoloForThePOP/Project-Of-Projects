@@ -165,6 +165,7 @@ class PPBase implements \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity=Place::class, mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $places;
 
@@ -675,7 +676,7 @@ class PPBase implements \Serializable
             $i++;
         }
 
-        //$this->otherComponents[$component_type] = array_values($this->otherComponents[$component_type]);
+        $this->otherComponents[$component_type] = array_values($this->otherComponents[$component_type]);
         
         return $this;
     }

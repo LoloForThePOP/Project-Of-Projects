@@ -1,0 +1,84 @@
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "geodomains", 'title': "Lieux du Projet",} %}
+
+
+{% block editButtons %}
+
+    {# Manage places button #}
+
+    <a class="pp-edition-mode" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
+
+        <button class="pp-edition-mode btn btn-light btn-sm">Gérer</button>
+    </a>
+
+{% endblock %}
+
+{% block mainContent %}
+
+{% if presentation.places | length > 0 %}
+            
+    <div id="places" class="js-elements-list">
+
+        {% for place in presentation.places %}
+
+            {# create a readable place type #}
+
+            {% set readablePlaceType = "" %}
+
+            {% if place.type =="locality" %}
+
+                {% set readablePlaceType = "Ville de" %}
+
+            {% elseif place.type =="administrative_area_level_1" %}
+
+                {% set readablePlaceType = "Région" %}
+
+            {% elseif place.type =="administrative_area_level_2" %}
+
+                {% set readablePlaceType = "Département" %}
+            
+            {% endif %}
+
+            {# display place card #}
+
+            
+            <div id="{{place.id}}" class="js-sortable-element position-relative bg-success mb-2" style="cursor:pointer;">
+
+                <div class="p-3 text-white">
+
+                    {{readablePlaceType}} {{place.name | capitalize}}
+
+                    {% if place.type =="locality" %}
+
+                        ({{place.postalCode}})
+                    
+                    {% endif %}
+                   
+                </div>
+                
+                {# delete place (Red Cross) button #}
+
+                <button type="button" data-elements-type="places" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{place.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+            </div>
+            
+        {% endfor %}
+
+    </div>
+
+    {# No place, placeholder for userPresenter #}
+
+    {% elseif userPresenter %}
+
+        <div class="h-100 d-flex align-items-center justify-content-center">
+
+            <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
+
+        </div>
+
+    {% endif %}
+
+{% endblock %}
+
+
+    
+{% endembed %}

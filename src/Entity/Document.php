@@ -41,6 +41,29 @@ class Document
      */
     private $presentation;
 
+
+    
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mimeType;
+
+
     /**
      * the name of the document file (example : schedule-4234564567.pdf)
      * 
@@ -90,29 +113,6 @@ class Document
     {
         return $this->file;
     }
-
-
-    /**
-     * @ORM\Column(type="smallint", nullable=true)
-     */
-    private $position;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $updatedAt;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $mimeType;
-
-
 
 
     public function __construct()

@@ -6,7 +6,7 @@
 
 <div class="form-row">
 
-    <img class="contact-icon-title" src="/images/icons/consult_presentation/contact_card/title.svg" alt="title icon">
+    <img class="contact-icon-title" src="{{ asset('title.svg', 'business_card')}}" alt="title icon">
 
     {{ form_label(form.title) }}
     {{ form_widget(form.title) }}
@@ -15,7 +15,7 @@
 
 <div class="form-row">
 
-    <img class="contact-icon" src="/images/icons/consult_presentation/contact_card/email.svg" alt="email icon">
+    <img class="contact-icon" src="{{ asset('email.svg', 'business_card')}}" alt="email icon">
 
     {{ form_label(form.email1) }}
 
@@ -25,7 +25,7 @@
 
 <div class="form-row">
 
-    <img class="contact-icon" src="/images/icons/consult_presentation/contact_card/telephone.svg" alt="telephone icon">
+    <img class="contact-icon" src="{{ asset('telephone.svg', 'business_card') }}">
 
     {{ form_label(form.tel1) }}
     {{ form_widget(form.tel1) }}
@@ -34,7 +34,7 @@
 
 <div class="form-row">
 
-    <img class="contact-icon" src="/images/icons/consult_presentation/contact_card/website.svg" alt="website icon">
+    <img class="contact-icon" src="{{ asset('website.svg', 'business_card')}}" alt="website icon">
 
     {{ form_label(form.website1) }}
     {{ form_widget(form.website1) }}
@@ -43,7 +43,7 @@
 
 <div class="form-row">
 
-    <img class="contact-icon" src="/images/icons/consult_presentation/contact_card/website.svg" alt="website icon">
+    <img class="contact-icon" src="{{ asset('website.svg', 'business_card')}}" alt="website icon">
 
     {{ form_label(form.website2) }}
     {{ form_widget(form.website2) }}
@@ -52,7 +52,7 @@
 
 <div class="form-row">
 
-    <img class="contact-icon" src="/images/icons/consult_presentation/contact_card/address.svg" alt="address icon">
+    <img class="contact-icon" src="{{ asset('address.svg', 'business_card')}}" alt="address icon">
 
     {{ form_label(form.postalMail) }}
     {{ form_widget(form.postalMail) }}
@@ -62,7 +62,7 @@
 
 <div class="form-row">
 
-    <img class="contact-icon" src="/images/icons/consult_presentation/contact_card/more_infos2.svg" alt="more informations icon">
+    <img class="contact-icon" src="{{ asset('more_infos.svg', 'business_card')}}" alt="more informations icon">
 
     {{ form_label(form.remarks) }}
     {{ form_widget(form.remarks) }}

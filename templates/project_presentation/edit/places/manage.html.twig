@@ -22,7 +22,7 @@
 {% block mainContent %}
 
 
-    <!-- Places Search Bar -->
+    <!-- Add a Place Search Bar -->
 
     <div class="p-0 col-sm-6 mb-4">
 
@@ -57,13 +57,39 @@
             <tbody>
 
             {% for place in presentation.places %}
+
+                {# create a readable place type #}
+
+                {% set readablePlaceType = "" %}
+
+                {% if place.type =="locality" %}
+
+                    {% set readablePlaceType = "Ville" %}
+
+                {% elseif place.type =="sublocality_level_1" %}
+
+                    {% set readablePlaceType = "Section de ville" %}
+
+                {% elseif place.type =="administrative_area_level_1" %}
+
+                    {% set readablePlaceType = "Région" %}
+
+                {% elseif place.type =="administrative_area_level_2" %}
+
+                    {% set readablePlaceType = "Département" %}
+
+                {% else %}
+
+                    {% set readablePlaceType = "Autres" %}
+                
+                {% endif %}
     
                 <tr id="" data-id="{{place.id}}" data-postal-code="{{place.postalCode}}" data-locality="{{place.locality}}" class="cursor-pointer">  
                     
-                    <td id="">{{ place.type | upper  }}</td>
+                    <td id="">{{ readablePlaceType | upper  }}</td>
                     <td id="">{{ place.name | upper }}</td>
-                    <td>
-                        <button data-id="{{place.id}}" data-name="{{place.name}}" type="button" class="js-remove-place btn btn-danger fw-bold" data-dismiss="alert">&times;</button>
+                    <td class="py-2">
+                        <button data-id="{{place.id}}" data-name="{{place.name}}" type="button" class="js-remove-place btn btn-danger btn-sm rounded fw-bold" data-dismiss="alert">&times;</button>
                     </td>
                     
                 </tr>
@@ -224,7 +250,31 @@
                     $('#projectPlacesTable').show();
 
                     var placeName = place_name;
-                    var placeType_fr=place_type;
+                    var placeType_fr='';
+
+                    switch(place_type) {
+                        case 'locality':
+                            placeType_fr='Ville';
+                            break;
+                        case 'sublocality_level_1':
+                            placeType_fr='Section de Ville';
+                            break;
+                        case 'administrative_area_level_2':
+                            placeType_fr='Département'
+                             break;
+                        case 'administrative_area_level_1':
+                            placeType_fr='Région'
+                             break;
+                        case 'country':
+                            placeType_fr='Pays'
+                             break;
+                        case 'route':
+                            placeType_fr='Rue'
+                            break;
+                        default:
+                          // code block
+                      } 
+
 
                     $('#autocomplete').val("");
 
@@ -234,7 +284,7 @@
                         '<tr>'
                             +'<td>'+placeType_fr.toUpperCase()+'</td>'
                             +'<td>'+place_name.toUpperCase()+'</td>'
-                            +'<td><button data-id="'+ data.placeId+'" data-cityname="'+ place_name+'" type="button" class="js-remove-place btn btn-danger fw-bold" data-dismiss="alert">&times;</button></td></tr>');
+                            +'<td class="py-2"><button data-id="'+ data.placeId+'" data-cityname="'+ place_name+'" type="button" class="js-remove-place btn btn-danger btn-sm rounded fw-bold" data-dismiss="alert">&times;</button></td></tr>');
                     
                     $('#noResult').hide();
                 

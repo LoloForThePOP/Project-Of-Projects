@@ -2,14 +2,14 @@
 
     {% block mainContent %}
 
-        {{ form_widget(form) }}
+        {% include "project_presentation/edit/other_components/businessCards/_form.html.twig" %}
 
     {% endblock %}
 
 
     {% block seeResultAnchor %}
 
-        questionsAnswers
+        businessCards
         
     {% endblock %}
 

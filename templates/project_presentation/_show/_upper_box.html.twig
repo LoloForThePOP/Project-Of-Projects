@@ -14,19 +14,13 @@
 
         <div class="row ">
 
+            {# a logo is displayed in two case : it already exists; or we display a fake logo placeholder for user presenters only #}
+
             {% if presentation.logo or userPresenter %}
                 
-                {# Logo Column #}
-                
-                {% set displayLogoPlaceholder = false %}
+                {# Logo Column #} {# when fake logo placeholder, it is only displayed for userPresenter (so we add pp-edition-mode class) #}
 
-                {% if not presentation.logo and userPresenter %}
-
-                    {% set displayLogoPlaceholder = true %}
-
-                {% endif %}
-
-                <div class="pp-logo-container col-4 col-md-3 col-lg-2 border border-success {% if displayLogoPlaceholder %} pp-edition-mode {% endif %}">
+                <div class="pp-logo-container col-4 col-md-3 col-lg-2 border border-success {% if not presentation.logo and userPresenter %} pp-edition-mode {% endif %}">
 
                     <div class="">
                         {% include 'project_presentation/_show/_upper_box/_logo.html.twig' %}

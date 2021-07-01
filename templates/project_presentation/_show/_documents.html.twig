@@ -1,0 +1,58 @@
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "documents", 'title': "Documents Attachés",} %}
+
+    {% block editButtons %}
+
+        {# Add document button (triggers a modal) #}
+
+        <button data-bs-toggle="modal" data-bs-target="#AddDocumentFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+
+        {# Form Displayed in a Modal Box #}
+
+        {% include "project_presentation/edit/documents/_form.html.twig" with {'form': addDocumentForm} %}
+
+    {% endblock %}
+
+    {% block mainContent %}
+
+        <div id="documents" class="js-elements-list">
+
+            {% for document in presentation.documents %}
+
+                <div id="{{document.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2 me-2" style="width:180px; min-height:130px; display: inline-block;">
+
+                    <a href="{{path("update_document", {'stringId': stringId, 'id_element': document.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+
+                        <div class="p-3 text-white">
+                            
+                            <span class="fw-bold">
+                
+                                {{ document.title | slice(0,20) }}
+                
+                            </span>
+                
+                            <br>
+                
+                                {{ document.fileName }}  
+                
+                        </div>
+                
+                    </a>
+
+                    {# delete document (Red Cross) button #}
+
+                    <button type="button" data-elements-type="documents" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{document.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+                </div>
+                
+            {% endfor %}
+
+        </div>
+
+    {% endblock %}
+
+
+    
+{% endembed %}
+
+
+

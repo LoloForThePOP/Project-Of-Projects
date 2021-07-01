@@ -3,8 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Entity\Document;
 use App\Form\PPBaseType;
+use App\Form\WebsiteType;
+use App\Form\DataListType;
+use App\Form\DocumentType;
 use App\Form\CreatePresentationType;
+use App\Service\TreatOtherComponentItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -73,12 +78,121 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation)
+    public function show(PPBase $presentation, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('view', $presentation);
 
         $user = $this->getUser();
 
-        $this->denyAccessUnlessGranted('view', $presentation);
+        if ($this->isGranted('edit', $presentation)) {
+
+            $addWebsiteForm = $this->createForm(WebsiteType::class);
+            $addWebsiteForm->handleRequest($request);
+            if ($addWebsiteForm->isSubmitted() && $addWebsiteForm->isValid()) {
+
+                $componentItem = $addWebsiteForm->getData();
+
+                $componentItem = $specificTreatments->specificTreatments('websites', $componentItem);
+
+                $presentation->addOtherComponentItem('websites', $componentItem);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+    
+                    ]
+
+                );
+
+            }
+
+            $addDataListElemForm = $this->createForm(DataListType::class);
+            $addDataListElemForm->handleRequest($request);
+            if ($addDataListElemForm->isSubmitted() && $addDataListElemForm->isValid()) {
+
+                $componentItem = $addDataListElemForm->getData();
+
+                $componentItem = $specificTreatments->specificTreatments('dataList', $componentItem);
+
+                $presentation->addOtherComponentItem('dataList', $componentItem);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+    
+                    ]
+
+                );
+
+            }
+
+            $document=new Document();
+            $addDocumentForm = $this->createForm(DocumentType::class, $document);
+            $addDocumentForm->handleRequest($request);
+            if ($addDocumentForm->isSubmitted() && $addDocumentForm->isValid()) {
+
+                $document->setPresentation($presentation);
+
+                $manager->persist($document);
+    
+                $manager->flush();
+    
+                $this->addFlash(
+                    'success',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+    
+                    ]
+
+                );
+
+            }
+
+            
+
+
+
+
+
+
+            return $this->render('/project_presentation/show.html.twig', [
+                'presentation' => $presentation,
+                'stringId' => $presentation->getStringId(),
+                'addWebsiteForm' => $addWebsiteForm->createView(),
+                'addDataListElemForm' => $addDataListElemForm->createView(),
+                'addDocumentForm' => $addDocumentForm->createView(),
+            ]);
+
+        }
+
 
         return $this->render('/project_presentation/show.html.twig', [
             'presentation' => $presentation,

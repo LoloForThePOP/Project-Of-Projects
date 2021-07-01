@@ -1,0 +1,150 @@
+
+/* Whole Presentation Container */
+
+.pp-whole-container {
+
+    background-color :  #eff4ff;
+
+    }
+
+/* Each Structure Container */
+
+.pp-struct-container {
+
+    background-color : aliceblue;
+
+    padding-left: 20px;
+
+    padding-top: 20px;
+
+    margin-bottom: 35px;
+
+    border-radius: 0px;
+
+    -webkit-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
+    -moz-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
+    box-shadow: -1px 1px 6px 0px #e6e4ff !important;
+
+}
+
+
+/* Each Structure Title Container (contains title + edit button) */
+
+.pp-struct-title-container{
+
+    margin-bottom: 38px;
+
+    display: flex;
+    align-items:center;
+    flex-wrap: wrap !important;
+
+}
+
+/* Each Structure Title */
+
+.pp-struct-title{
+
+    display:inline;
+    color : navy;
+    font-family : Verdana, Geneva, Tahoma, sans-serif; 
+    font-size: 2rem;
+    margin:0px;
+    margin-right:17px;
+
+}
+
+/* Each Structure Icon */
+
+.pp-struct-icon{
+
+    position: relative;
+    top: 4px;
+    
+    margin-right : 7px;
+
+    /* change svg colors 
+    
+    filter: invert(73%) sepia(92%) saturate(2564%) hue-rotate(8deg) brightness(112%) contrast(104%); */
+}
+
+
+.editIcon{
+
+    margin-bottom:11px;
+
+}
+
+
+/* Switch Between Edition Mode and Consultation Mode Button */
+
+#pp-switch-edit-consult-mode {
+    position: fixed; /* Fixed/sticky position */
+    top: 450px; /* Place the button at the bottom of the page */
+    right: 30px; /* Place the button 30px from the right */
+    z-index: 99; /* Make sure it does not overlap */
+    border: none; 
+    outline: none; /* Remove outline */
+    background-color: #d6f0ca; 
+    color: rgb(0, 0, 0); /* Text color */
+    cursor: pointer; 
+    padding: 16px; 
+    border-radius: 50%; 
+    font-size: 18px; 
+    }
+
+
+/* Presentation Edition Forms */
+    
+label, legend {
+
+    font-size:1.35em !important;
+    font-weight : bold !important;
+
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+
+@media screen and (max-width: 580px) {
+    
+    .pp-struct-container {
+
+        padding-left: 10px;
+
+        padding-right: 0px;
+        padding-top: 7px;
+
+        margin-bottom: 15px;
+
+        font-size: 15px !important;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    
+    }
+
+    .pp-struct-title-container{
+
+        margin-bottom: 18px;
+
+    }
+
+    .pp-struct-title{
+
+        color : navy;
+        font-family : Verdana, Geneva, Tahoma, sans-serif;
+
+        font-size: 20px;
+
+    }
+
+    .pp-struct-icon{
+
+        width:23px;
+        height:23px;
+
+        margin-right:5px;
+
+    }
+
+}

@@ -1,0 +1,78 @@
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "websites", 'title': "Sites Web",} %}
+
+
+{% block editButtons %}
+
+    {# Add website button (triggers a modal) #}
+
+    <button data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+
+    {# Form Displayed in a Modal Box #}
+
+    {% include "project_presentation/edit/other_components/websites/_add_website_form.html.twig" with {'form': addWebsiteForm} %}
+
+{% endblock %}
+
+{% block mainContent %}
+        
+    {% set websites = presentation.getOC('websites') %}
+
+    {% if websites | length > 0 %}
+
+        <div id="websites" class="js-elements-list">
+
+            {% for website in websites %}
+
+                <div id="{{website.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2">
+
+                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'websites', 'item_id':website.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+
+                        <div class="p-3 text-white">
+                            
+                            {% if website.icon is defined and website.icon is not null %}
+                            
+                                <img src="{{ asset(website.icon ~'.png', 'popular_website_logo')}}" alt="{{website.icon}}~ logo">
+
+                            {% endif %}
+                            
+                            <span class="fw-bold">
+                
+                                {{ website.description }}
+                
+                            </span>
+                
+                            <br>
+                
+                            {{ website.url }}  
+                
+                        </div>
+                
+                    </a>
+
+                    {# delete website (Red Cross) button #}
+
+                    <button type="button" data-elements-type="websites" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{website.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+                </div>
+                
+            {% endfor %}
+
+        </div>
+
+    {# No website, placeholder for userPresenter #}
+
+    {% elseif userPresenter %}
+
+        <div class="h-100 d-flex align-items-center justify-content-center">
+
+            <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
+
+        </div>
+        
+    {% endif %}
+
+{% endblock %}
+
+
+    
+{% endembed %}

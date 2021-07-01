@@ -42,8 +42,6 @@ class DocumentsController extends AbstractController
 
             $manager->flush();
 
-            $idDocument = $document->getId();
-
             $this->addFlash(
                 'success',
                 "✅ Ajout effectué"

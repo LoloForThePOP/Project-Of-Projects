@@ -1,0 +1,51 @@
+{# 
+    
+Skeleton to display a presentation structure content (ex : display websites; display needs; ...)
+    
+It contains :
+
+    - structure icon
+    - structure title
+    - some buttons related to this structure (ex: add a website button)
+    
+#}
+
+{% block structureTitle %} {# Title container with logo and edit button #}
+
+    <div class="pp-struct-title-container">
+        
+        {% block icon %}
+
+            <img 
+            
+                src= "{{ asset(iconName ~ '.svg', 'pp_consult') }}"
+                class= "pp-struct-icon"  
+                height= "27" 
+                width= "27" 
+                alt= "{% block iconName %}{% endblock %}"
+                
+            >
+
+        {% endblock %}
+
+        {% block title %}
+
+            <h3 class="pp-struct-title">{{title}}</h3>
+
+        {% endblock %}
+
+        {% block editButtons %}{% endblock %}
+
+    </div>
+
+    {% if userPresenter %}
+    
+        {% block mainContent %}
+        
+        {% endblock %}
+    
+    {% endif %}
+
+{% endblock %}
+
+{% block specificStyles %}{% endblock %}

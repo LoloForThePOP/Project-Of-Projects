@@ -8,9 +8,9 @@
 
 {% endblock %}
 
-{% block stylesheet %}
+{% block stylesheets %}
 
-    <link href="/css/slideshow.css" rel="stylesheet">
+    <link href="/css/project_presentation_page.css" rel="stylesheet">
 
 {% endblock %}
 
@@ -18,7 +18,7 @@
 
 {% block body %}
 
-    {# flag if user presents this project ? #}
+    {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
 
     {% set userPresenter = false %}
 
@@ -38,271 +38,84 @@
 
 <div class="pp-container container">
 
-    {# {% include 'project_presentation/_show/slides/slides.html.twig' %}
- #}
-
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
+    
+    {# {% include 'project_presentation/_show/slides/slides.html.twig' %} #}
 
     <div class="row">
         
         {# Text Description #}
 
-        <div class="col-6 py-2 mb-3 border border-success">
+        <div class="col-8 py-2 mb-3 border border-success">
 
-            {% if presentation.textDescription is not empty %}
-
-                <h4 class="fw-bold mb-2">
-                    Description texte
-                </h4>
-
-                {{presentation.textDescription | raw}}
-
-            {# {% else %}
-
-                <div class="pp-placeholder-container pp-edition-mode">
-
-                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-                </div> #}
-                
-            {% endif %}
-
+            {% include 'project_presentation/_show/_text_description.html.twig' %}
+            
         </div>
+        
+        {# Miscelaneous Data List #}
 
-        {# Websites #}
+        {% if presentation.getOC('dataList') %}
 
-        <div id="displayWebsites" class="col-6 py-2 mb-3 border border-success">
+            <div class="col-lg-10 py-2 mb-3 border border-success">
 
-            {% set websites = presentation.getOC('websites') %}
-
-            {% if websites | length > 0 %}
-
-                <h4 class="fw-bold mb-2">
-                    Sites Webs
-                </h4>
-
-                <div id="websites" data-elements-type="websites">
-
-                    {% for website in websites %}
-
-                        <div id="{{website.id}}" class="js-sortable-element cursor pointer bg-success mb-2">
-
-                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'websites', 'item_id':website.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
-
-                                <div class="p-3 text-white">
-                                    
-                                    <span class="fw-bold">
-                        
-                                        {{ website.description }}
-                        
-                                    </span>
-                        
-                                    <br>
-                        
-                                    {{ website.url }}  
-                        
-                                </div>
-                        
-                            </a>
-
-                        </div>
-                        
-                    {% endfor %}
-
-                </div>
-
-            {% elseif userPresenter %}
-
-                <div class="h-100 d-flex align-items-center justify-content-center">
-
-                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-                </div>
+                {% include 'project_presentation/_show/_data_list.html.twig' %}
                 
-            {% endif %}
+            </div>
+
+        {% endif %}
+        
+        {# Websites #}
+        
+        <div id="displayWebsites" class="col-6 py-2 mb-3 border border-success">
+            
+            {% include 'project_presentation/_show/_websites.html.twig' %}
 
         </div>
 
         {# Documents #}
 
-        <div id="displayDocuments" class="col-6 py-2 mb-3 border border-success">
+        {% set countDocuments = presentation.documents | length %}
 
-            {% if presentation.documents | length > 0 %}
+            {% if countDocuments > 0 or userPresenter  %}
 
-                <h4 class="fw-bold mb-2">
-                    Documents
-                </h4>
+            <div id="displayDocuments" class="col-6 py-2 mb-3 border border-success">
 
-                <div id="documents" data-elements-type="documents">
-
-                    {% for document in presentation.documents %}
-
-                        <div id="{{document.id}}" class="js-sortable-element cursor pointer bg-success mb-2">
-
-                            <a href="{{ vich_uploader_asset(document) }}" target="_blank" class="text-decoration-none">
-
-                                <div class="p-3 text-white">
-                                    
-                                    <span class="fw-bold">
-                        
-                                        {{ document.title }}
-                        
-                                    </span>        
-                        
-                                </div>
-                        
-                            </a>
-
-                        </div>
-                        
-                    {% endfor %}
-
-                </div>
-
-            {% elseif userPresenter %}
-
-                <div class="h-100 d-flex align-items-center justify-content-center">
-
-                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-                </div>
+                {% if countDocuments > 0 %}
                 
+                    {% include 'project_presentation/_show/_documents.html.twig' %}
+                
+                {% elseif userPresenter %}
+                    
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' %}
+                
+                {% endif %}
+
+            </div>
+
             {% endif %}
-
-        </div>
-
+        
         {# Q&A #}
-
+        
         <div id="displayQuestionsAnswers" class="col-6 py-2 mb-3 border border-success">
-
-            {% set qas = presentation.getOC('questionsAnswers') %}
-
-            {% if qas | length > 0 %}
-
-                <h4 class="fw-bold mb-2">
-                    Questions & Réponses
-                </h4>
-
-                <div id="questionsAnswers" data-elements-type="questionsAnswers">
-
-                    {% for qa in qas %}
-
-                        <div id="{{qa.id}}" class="js-sortable-element cursor pointer bg-success mb-2">
-
-                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
-
-                                <div class="p-3 text-white">
-                                    
-                                    <span class="fw-bold">
-                        
-                                        {{ qa.question }}
-                        
-                                    </span>
-                        
-                                    <br>
-                        
-                                    {{ qa.answer }}  
-                        
-                                </div>
-                        
-                            </a>
-
-                        </div>
-                        
-                    {% endfor %}
-
-                </div>
-
-            {% elseif userPresenter %}
-
-                <div class="h-100 d-flex align-items-center justify-content-center">
-
-                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-                </div>
-                
-            {% endif %}
-
+            
+            {% include 'project_presentation/_show/_questionsAnswers.html.twig' %}
+            
         </div>
-
+        
         {# Needs #}
-
+        
         <div class="col-6 py-2 mb-3 border border-success">
-
-            <h4 class="fw-bold mb-2">
-                Participer
-            </h4>
-
-            {% if presentation.needs | length > 0 %}
-                
-                <div id="needs" data-elements-type="needs">
-
-                    {% for need in presentation.needs %}
-
-                        <div id="{{need.id}}" class="js-sortable-element cursor pointer bg-success mb-2">
-
-                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'needs', 'item_id': need.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
-
-                                <div class="p-3 text-white">
-                                    
-                                    <span class="fw-bold">
-                        
-                                        {{ need.title }}
-                        
-                                    </span>
-
-                                </div>
-                        
-                            </a>
-
-                        </div>
-                        
-                    {% endfor %}
-
-                </div>
-
-            {% else %}
-
-                Aucun Besoin présenté
-
-                {# <div class="h-100 d-flex align-items-center justify-content-center">
-
-                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-                </div> #}
-                
-            {% endif %}
-           
-
+            
+            {% include 'project_presentation/_show/_needs.html.twig' %}
+            
         </div>
-
+        
         {# Places #}
-
+        
         <div class="col-6 py-2 mb-3 border border-success">
-
-            {% if presentation.places | length > 0 %}
-                
-                <h4 class="fw-bold mb-2">
-                    Lieux du Projet
-                </h4>
-
-                <div id="places" data-elements-type="places">
-
-                    Aucun
-
-                </div>
-
-            {% else %}
-
-                <div class="h-100 d-flex align-items-center justify-content-center">
-
-                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-                </div>
-                
-            {% endif %}
-           
+            
+            {% include 'project_presentation/_show/_places.html.twig' %}
 
         </div>
 
@@ -348,6 +161,15 @@
                 
             {% endif %}
            
+
+        </div>
+
+          
+        {# Business Cards #}
+        
+        <div class="col-12 py-2 mb-3 border border-success">
+            
+            {% include 'project_presentation/_show/_business_cards.html.twig' %}
 
         </div>
 
@@ -408,71 +230,13 @@
 
 {% block javascripts %}
 
-    
-<script>
-        
-    $(document).ready(function(){
-        
-        {% if is_granted('edit', presentation) %}
+    {% if is_granted('edit', presentation) %}
 
-            //if user edit presentation, we enter in edition mode by default
+        {% include 'project_presentation/_show/_js/reorder_delete_elements.html.twig' %}
 
-            //some elements are only displayed in consultation mode (follow button for example)
+        {% include 'project_presentation/_show/_js/wysiwyg.html.twig' %}
 
-            $(".pp-consultation-mode").addClass("d-none");
-
-            //manage switch between edition mode and consultation mode
-                
-            $( "#pp-switch-edit-consult-mode" ).click(function() {
-                
-                if($(this).hasClass("edition-mode")){
-
-                    // entering consultation mode
-
-                    // toggling switch button class
-
-                    $(this).removeClass("edition-mode");
-                    $(this).addClass("consultation-mode");
-                    $(this).html("✎");
-
-                    //hiding elements related to edition
-                    $(".pp-edition-mode").hide();
-
-                    //showing elements related to consultation
-
-                    $(".pp-consultation-mode").addClass("d-block");
-
-                }
-
-                else{
-
-                    //entering edition mode
-
-                    // toggling switch button class
-
-                    $(this).removeClass("consultation-mode");
-                    $(this).addClass("edition-mode");
-                    $(this).html("👁");
-
-                    //showing elements related to edition 
-                    $(".pp-edition-mode").show();
-
-                    //hiding elements related to consultation
-                    $(".pp-consultation-mode").removeClass("d-block");
-
-                }
-            
-            });
-
-
-
-        {% endif %}
-
-
-        
-    });
-
-</script>
+    {% endif %}
 
 {% endblock %}
 

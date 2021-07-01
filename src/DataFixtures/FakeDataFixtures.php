@@ -366,16 +366,25 @@ class FakeDataFixtures extends Fixture
 
                 $needsCount = mt_rand(1,7);
 
+
                 for ($i=0; $i < $needsCount; $i++) { 
                     
                     $need = new Need();
 
+                    $needType= Need::TYPES[array_rand(Need::TYPES)];
+
+                    $needIsPaid= Need::ISPAID[array_rand(Need::ISPAID)];
+
                     $description = $faker->boolean(60) ? $faker->paragraphs(mt_rand(1,4), true) : null;
 
-                    $need->setTitle($faker->sentence())
-                         ->setDescription($description)
-                         ->setPosition($i)
-                         ->setPresentation($presentation);
+                    $need
+                    
+                        ->setTitle($faker->sentence())
+                        ->setDescription($description)
+                        ->setIsPaid($needIsPaid)
+                        ->setType($needType)
+                        ->setPosition($i)
+                        ->setPresentation($presentation);
 
                     $manager->persist($need);
                 }
@@ -396,20 +405,27 @@ class FakeDataFixtures extends Fixture
                     $placeType = $placestypes[array_rand($placestypes)];
 
                     $placeName = null;
+                    $postalCode = null;
 
                     switch ($placeType) {
+                        
                         case 'administrative_area_level_1':
                             $placeName = $faker->region();
                             break;
+
                         case 'administrative_area_level_2':
                             $placeName = $faker->departmentName();
                             break;
+
                         case 'locality':
                             $placeName = $faker->city();
+                            $postalCode = $faker->postCode();
                             break;
+
                         case 'sublocality_level_1':
                             $placeName = $faker->streetName();
                             break;
+
                         case 'country':
                             $placeName = $faker->country();
                             break;
@@ -419,11 +435,6 @@ class FakeDataFixtures extends Fixture
                             break;
                     }
 
-                    $postalCode = null;
-
-                    if ($placeName=='locality') {
-                        $postalCode = $faker->postalcode();
-                    }
 
                     $place->setName($placeName)
                          ->setType($placeType)

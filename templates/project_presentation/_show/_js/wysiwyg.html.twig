@@ -1,0 +1,67 @@
+<script>
+        
+    $(document).ready(function(){
+        
+            //if user edit presentation, we enter in edition mode by default
+
+            //some elements are only displayed in consultation mode (follow button for example)
+
+            $(".pp-consultation-mode").addClass("d-none");
+
+            //manage switch between edition mode and consultation mode
+                
+            $( "#pp-switch-edit-consult-mode" ).click(function() {
+                
+                if($(this).hasClass("edition-mode")){
+
+                    // entering consultation mode
+
+                    // toggling switch button class
+
+                    $(this).removeClass("edition-mode");
+                    $(this).addClass("consultation-mode");
+                    $(this).html("✎");
+
+                    //hiding elements related to edition
+                    $(".pp-edition-mode").hide();
+
+                    //showing elements related to consultation
+
+                    $(".pp-consultation-mode").addClass("d-block");
+
+                }
+
+                else{
+
+                    //entering edition mode
+
+                    // toggling switch button class
+
+                    $(this).removeClass("consultation-mode");
+                    $(this).addClass("edition-mode");
+                    $(this).html("👁");
+
+                    //showing elements related to edition 
+                    $(".pp-edition-mode").show();
+
+                    //hiding elements related to consultation
+                    $(".pp-consultation-mode").removeClass("d-block");
+
+                }
+            
+            });
+
+            
+
+        
+
+
+        
+
+
+
+       
+
+    });
+
+</script>

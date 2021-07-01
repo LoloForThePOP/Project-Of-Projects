@@ -1,0 +1,180 @@
+
+ <!-- sortable plugin to reorder elements (exemple : reorder presentation slides; reorder presentation websites; etc) -->
+
+ <script src="/js/sortable/sortable.min.js"></script>
+
+ <!-- jQuerySupport for above sortable plugin -->
+ 
+ <script src="/js/sortable/jquery-sortable.js"></script>
+
+ <script>
+
+     // ajax elements reordering & deletion
+
+     $(document).ready(function(){
+
+         // reorder elements capability
+
+         $('.js-elements-list').sortable({
+
+            animation: 150,
+
+            ghostClass: 'blue-background-class',
+
+            filter: ".disabled",
+
+            onMove: function (evt) {
+            return evt.related.className.indexOf('disabled') === -1;
+
+            },
+
+            // drag and drop implies elements positions updates (ajax call)
+
+            onEnd: function (evt) {
+
+                var entityType = evt.srcElement.id;
+
+                // an array storing elements id position
+
+                var elementsPositions = [];
+
+                $('#'+entityType+' div.js-sortable-element').each(function(index){
+                    
+                    elementsPositions.push($(this).attr('id'));
+            
+                });
+
+                jsonElementsPositions = JSON.stringify(elementsPositions);
+
+                // setting appropriate route according to entity type (ex: a website; a document; ...)
+
+                var path = null;
+
+                switch(entityType) {
+
+                    case "websites":
+                    case "dataList":
+                    case "questionsAnswers":
+                    case "businessCards":
+
+                        path = "{{path('ajax_reorder_items', {'stringId': stringId})}}";
+                        break;
+
+                    case "documents":
+                    case "needs":
+                    case "slides":
+                    case "places":
+
+                        path = "{{path('ajax_reorder_component_elements', {'stringId': stringId})}}";
+                        break;
+                        
+                    default:
+
+                        break;
+
+                } 
+                
+                $.ajax({  
+
+                     url: path,
+                     type:       'POST',   
+                     dataType:   'json',
+                     data: {
+                         "entityType": entityType,
+                         "jsonElementsPosition": jsonElementsPositions,
+                     },
+ 
+                     async: true,  
+                     
+                     success: function(data, status) {
+                              
+                     },  
+ 
+                     error : function(xhr, textStatus, errorThrown) {  
+                         // alert('Ajax request failed.');  
+                     }  
+                  }); 
+
+             },
+         });
+
+
+         
+        // Remove a elements capability
+
+        $('.js-elements-list').on('click', '.js-delete-element', function (){
+
+                var idElement = $(this).attr("data-id");
+                
+                // getting entity type in order to call appropriate route (ex: presentation website; presentation slide)
+                
+                var path = null;
+                
+                var elementsType = $(this).data('elements-type');
+                
+                switch(elementsType) {
+
+                    case "websites":
+                    case "dataList":
+                    case "questionsAnswers":
+                    case "businessCards":
+
+                        path = "{{path('ajax_delete_item', {'stringId': stringId})}}";
+                        break;
+
+                    case "documents":
+                    case "needs":
+                    case "slides":
+                    case "contributorStructures":
+                    case "places":
+
+                        path = "{{path('ajax_remove_component_element', {'stringId': stringId})}}";
+                        break;
+
+                    case "persorgs":
+
+                        path = "{{path('ajax_remove_cs_persorg', {'stringId': stringId})}}";
+                        break;
+                        
+                    default:
+
+                        break;
+
+                } 
+                
+                if (confirm("Confimez-vous enlever cet élément ?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: path,
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "elementsType": elementsType,
+                        "idElement": idElement,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+                        $("#"+idElement).remove();
+                        
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                    }); 
+                    
+                }
+    
+            });
+
+     });
+
+ </script>

@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\NeedRepository;
 
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -21,10 +22,21 @@ class Need
      */
     private $id;
 
+    const TYPES = ["skill", "task", "advice", "area", "money", "other"];
+
     /**
      * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Choice(choices=Need::TYPES, message="Veuillez renseigner un type de besoin valide")
      */
     private $type;
+
+    const ISPAID = ["yes", "maybe", "no"];
+    
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     * @Assert\Choice(choices=Need::ISPAID, message="Veuillez renseigner un type de transaction valide (payé ou non ou peut-être)")
+     */
+    private $isPaid;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -66,10 +78,6 @@ class Need
      */
     private $updatedAt;
 
-    /**
-     * @ORM\Column(type="string", length=20, nullable=true)
-     */
-    private $isPaid;
 
 
 

@@ -69,6 +69,33 @@ class NeedController extends AbstractController
         ]);
     }
 
+    /**
+    * @Route("/projects/{stringId}/needs/update/{need_id}", name="update_need", methods={"GET","POST"}) 
+    */
+    public function update(PPBase $presentation, Request $request, Need $need): Response
+    {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        $form = $this->createForm(NeedType::class, $need);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('show_presentation',[
+                'stringId' => $presentation->getStringId(),
+            ]);
+        }
+
+        return $this->render('project_presentation/edit/needs/update.html.twig', [
+            'need' => $need,
+            'form' => $form->createView(),
+            'stringId' => $presentation->getStringId(),
+        ]);
+    }
+
 
 
 

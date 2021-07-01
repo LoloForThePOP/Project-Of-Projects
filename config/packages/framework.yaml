@@ -19,7 +19,11 @@ framework:
                 base_path: /media/static/images/icons/edit_presentation/wysiwyg/
             pp_consult: 
                 base_path: /media/static/images/icons/consult_presentation/
-
+            business_card: 
+                base_path: /media/static/images/icons/business_card/
+            popular_website_logo: 
+                base_path: /media/static/images/icons/popular_websites/
+                
     #esi: true
     #fragments: true
     php_errors:

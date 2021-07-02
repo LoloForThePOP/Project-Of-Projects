@@ -1,15 +1,15 @@
-{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "", 'title': "Nous contacter",} %}
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Nous contacter",} %}
 
 
 {% block editButtons %}
 
-    {# Add business card button #}
+    {# Add business card button (triggers a modal) #}
 
-    <a href="{{path("manage_other_components", {'stringId': stringId, 'component_type': 'businessCards'})}}">
+    <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="btn btn-lg btn-sm">+ Ajouter</button>
 
-        <button class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+    {# Add business card form (in a modal) #}
 
-    </a>
+    {% include 'project_presentation/edit/other_components/businessCards/_add_business_card_modal.html.twig' with {'form': addBusinessCardForm} %}
 
 {% endblock %}
 
@@ -23,7 +23,7 @@
 
             {% for bc in bcs %}
 
-                <div id="{{bc.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2">
+                <div id="{{bc.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2" style="width:300px; display: inline-block;">
 
                     <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
 

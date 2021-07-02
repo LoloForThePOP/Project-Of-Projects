@@ -41,7 +41,7 @@
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
     
-    {# {% include 'project_presentation/_show/slides/slides.html.twig' %} #}
+    {% include 'project_presentation/_show/slides/slides.html.twig' %}
 
     <div class="row">
         
@@ -87,7 +87,7 @@
                 
                 {% elseif userPresenter %}
                     
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' %}
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'image':"lol",} %}
                 
                 {% endif %}
 
@@ -107,7 +107,7 @@
         
         <div class="col-6 py-2 mb-3 border border-success">
             
-            {% include 'project_presentation/_show/_needs.html.twig' %}
+            {% include 'project_presentation/_show/needs/main.html.twig' %}
             
         </div>
         
@@ -124,32 +124,9 @@
         <div class="col-12 py-2 mb-3 border border-success">
 
             {% if presentation.contributorStructures | length > 0 %}
-                
-                <h4 class="fw-bold mb-2">
-                    Contributeurs
-                </h4>
+            
+                {% include 'project_presentation/_show/_external_contributors.html.twig' %}
 
-                <div id="contributors" data-elements-type="contributors">
-
-                    {% for cs in presentation.contributorStructures | slice(0,1) %}
-
-                        {{cs.richTextContent}} <br>
-
-                        {% if cs.persorgs | length > 0 %}
-
-                            {% for persorg in cs.persorgs %}
-
-                                <span class="me-2">{{persorg.name}}</span>
-                                
-                                <img src="{{ vich_uploader_asset(persorg) | imagine_filter('persorg_thumbnail_sm') }}" alt="person or company avatar"><br>
-                                
-                            {% endfor %}
-                        
-                        {% endif %}
-                        
-                    {% endfor %}
-
-                </div>
 
             {% else %}
 
@@ -160,7 +137,6 @@
                 </div>
                 
             {% endif %}
-           
 
         </div>
 
@@ -176,10 +152,6 @@
 
     </div>
     
-
-
-
-
 
     {# Switch Between Edition Mode and Consultation Mode Button #}
 
@@ -207,6 +179,7 @@
 
     .pp-upper-box {
         min-height: 170px;
+        margin-bottom: 40px;
     }
 
     .pp-logo-container{

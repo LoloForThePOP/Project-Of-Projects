@@ -2,12 +2,15 @@
 
 namespace App\Controller;
 
+use App\Entity\Slide;
 use App\Entity\PPBase;
 use App\Entity\Document;
 use App\Form\PPBaseType;
 use App\Form\WebsiteType;
 use App\Form\DataListType;
 use App\Form\DocumentType;
+use App\Form\ImageSlideType;
+use App\Form\BusinessCardType;
 use App\Form\CreatePresentationType;
 use App\Service\TreatOtherComponentItem;
 use Doctrine\ORM\EntityManagerInterface;
@@ -117,6 +120,36 @@ class PPController extends AbstractController
 
             }
 
+            $addBusinessCardForm = $this->createForm(BusinessCardType::class);
+            $addBusinessCardForm->handleRequest($request);
+            if ($addBusinessCardForm->isSubmitted() && $addBusinessCardForm->isValid()) {
+
+                $componentItem = $addBusinessCardForm->getData();
+
+                $componentItem = $specificTreatments->specificTreatments('businessCards', $componentItem);
+
+                $presentation->addOtherComponentItem('businessCards', $componentItem);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+    
+                    ]
+
+                );
+
+            }
+
             $addDataListElemForm = $this->createForm(DataListType::class);
             $addDataListElemForm->handleRequest($request);
             if ($addDataListElemForm->isSubmitted() && $addDataListElemForm->isValid()) {
@@ -176,19 +209,41 @@ class PPController extends AbstractController
 
             }
 
-            
+            $imageSlide = new Slide();
+            $imageSlide->setType('image');
+            $addImageForm = $this->createForm(ImageSlideType::class, $imageSlide);
+            $addImageForm->handleRequest($request);
+            if ($addImageForm->isSubmitted() && $addImageForm->isValid()) {
+                $imageSlide->setPosition(count($presentation->getSlides()));
 
+                $presentation->addSlide($imageSlide);
 
+                $manager->persist($imageSlide);
+                $manager->flush();
 
+                $this->addFlash(
+                    'success',
+                    "✅ Image ajoutée"
+                );
 
+                return $this->redirectToRoute(
+                    'show_presentation',
+                    [
 
+                        'stringId' => $presentation->getStringId(),
+
+                    ]
+                );
+            }
 
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
                 'addWebsiteForm' => $addWebsiteForm->createView(),
                 'addDataListElemForm' => $addDataListElemForm->createView(),
+                'addBusinessCardForm' => $addBusinessCardForm->createView(),
                 'addDocumentForm' => $addDocumentForm->createView(),
+                'addImageForm' => $addImageForm->createView(),
             ]);
 
         }

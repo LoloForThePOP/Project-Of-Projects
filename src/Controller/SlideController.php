@@ -41,7 +41,6 @@ class SlideController extends AbstractController
             $presentation->addSlide($imageSlide);
 
             $manager->persist($imageSlide);
-            $manager->persist($presentation);
             $manager->flush();
 
             $this->addFlash(

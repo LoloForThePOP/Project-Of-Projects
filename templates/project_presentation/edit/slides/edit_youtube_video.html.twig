@@ -6,7 +6,21 @@
 
 <link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-{% block title %}Ajouter une vidéo youtube{% endblock %}
+{% block title %}
+
+    {% if context == 'new' %}
+
+        Ajouter
+
+    {% else %}
+
+        Modifier
+
+    {% endif %}
+    
+        une vidéo youtube
+    
+    {% endblock %}
 
 {% block sidebar %} {% include '_partials/sidebar.html.twig' %}{% endblock %}
 
@@ -24,13 +38,15 @@
 
             {% if context == 'new' %}
 
-                Ajouter une vidéo Youtube
+                Ajouter
 
             {% else %}
                 
                 Modifier
             
             {% endif %}
+
+            une vidéo Youtube
             
         </h3>
 

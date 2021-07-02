@@ -1,0 +1,43 @@
+
+    <div id="externalContributorsDisplay" class="pp-struct-container">
+            
+        {% if userPresenter %}
+
+            {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': "Contributions externes",} %}
+
+                {% block editButtons %}
+                
+                    {# Add an external contributor structure button (triggers a modal) #}
+                
+                    <button data-bs-toggle="modal" data-bs-target="#" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter une partie</button>
+                
+                    {# Form Displayed in a Modal Box 
+                    {% include "project_presentation/edit/other_components/websites/_add_website_form.html.twig" with {'form': addWebsiteForm} %}  #}
+                
+                {% endblock %}
+        
+            {% endembed %}
+
+        {% endif %}
+        
+
+        <!-- ECS Display Container -->
+
+        <div class="ecs-display-container pb-md-2" >
+                
+            {%  for ecs in presentation.contributorStructures | filter((ecs) => ecs.type == "external") %}
+
+                {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': ecs.title} %}
+
+                    {% block editButtons %}
+                    
+                    
+                    {% endblock %}
+            
+                {% endembed %}
+           
+            {% endfor %}
+
+        </div>
+
+    </div>

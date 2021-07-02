@@ -26,7 +26,6 @@
 
 								<div class="position-relative">
 
-
 									<img class="SlideImage rounded" src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80px" height="50px"
 								
 								alt="
@@ -82,42 +81,42 @@
 
 								{% if slide.type == 'youtube_video' %}	
 
-									<div class="SlideImage position-relative">
+								<div class="position-relative">
 
-										<img class="rounded" href="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80" height="50"	
-										alt="
-										
-										{% if slide.caption %}
-										
-											{{ slide.caption[:1] | upper ~ slide.caption[1:] }} 
-						
-										{% endif %}
-										
-										"/>
-		
-										<!-- ui css video icon -->
-		
-										<span class="position-absolute rounded-circle p-2" style="bottom:3px; left:3px;"> </span> 
+									<img class="SlideImage rounded" src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80px" height="50px"
+								
+								alt="
+									
+									{% if slide.caption %}
+									
+										{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
 
-
+									{% endif %}
+								
+								"/>
 	
-									</div>
-									
-								{% else %}
+									<!-- ui css video icon -->
+	
+									<span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
 
-									<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}" alt="{{slide.file}}" 
-									
-									alt="
-										
-										{% if slide.caption %}
-										
-											{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+								</div>
+								
+							{% else %}
 
-										{% endif %}
+								<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}"
+								
+								alt="
 									
-									"/>
+									{% if slide.caption %}
 									
-								{% endif %}
+										{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+
+									{% endif %}
+								
+								"/>
+								
+							{% endif %}
+
 
 							</div>
 

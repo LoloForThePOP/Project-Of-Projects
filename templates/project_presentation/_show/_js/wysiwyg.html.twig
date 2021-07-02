@@ -6,7 +6,8 @@
 
             //some elements are only displayed in consultation mode (follow button for example)
 
-            $(".pp-consultation-mode").addClass("d-none");
+            //$(".pp-consultation-mode").addClass("d-none");
+            $(".pp-consultation-mode").css("display","none");
 
             //manage switch between edition mode and consultation mode
                 
@@ -23,11 +24,12 @@
                     $(this).html("✎");
 
                     //hiding elements related to edition
-                    $(".pp-edition-mode").hide();
+                    $(".pp-edition-mode").css("display", "none");
 
                     //showing elements related to consultation
 
-                    $(".pp-consultation-mode").addClass("d-block");
+                    //$(".pp-consultation-mode").addClass("d-block");
+                    $(".pp-consultation-mode").css("display", "block");
 
                 }
 
@@ -42,10 +44,11 @@
                     $(this).html("👁");
 
                     //showing elements related to edition 
-                    $(".pp-edition-mode").show();
+                    $(".pp-edition-mode").css("display", "block");
 
                     //hiding elements related to consultation
-                    $(".pp-consultation-mode").removeClass("d-block");
+                    //$(".pp-consultation-mode").removeClass("d-block");
+                    $(".pp-consultation-mode").css("display", "none");
 
                 }
             

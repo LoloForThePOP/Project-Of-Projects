@@ -9,7 +9,7 @@
 
                 <h5 class="modal-title font-weight-bold" id="addImageFormModal">Ajouter une Image ou un schéma</h5>
 
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
 
@@ -48,7 +48,9 @@
                         
                         <div class="mt-3">
 
-                            {{ form_row(addImageForm.caption) }}
+                            {{ form_label(addImageForm.caption) }}
+
+                            {{ form_widget(addImageForm.caption) }}
                             
                         </div>
 
@@ -63,7 +65,7 @@
 
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-info" data-dismiss="modal">Retour</button>         
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Retour</button>         
 
                 <button type="submit" class="btn btn-success">Valider</button>
                 

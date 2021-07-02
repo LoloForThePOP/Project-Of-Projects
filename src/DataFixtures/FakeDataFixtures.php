@@ -375,7 +375,7 @@ class FakeDataFixtures extends Fixture
 
                     $needIsPaid= Need::ISPAID[array_rand(Need::ISPAID)];
 
-                    $description = $faker->boolean(60) ? $faker->paragraphs(mt_rand(1,4), true) : null;
+                    $description = $faker->boolean(70) ? $faker->paragraphs(mt_rand(1,4), true) : null;
 
                     $need
                     
@@ -483,7 +483,7 @@ class FakeDataFixtures extends Fixture
                     $caption = null;
 
                     if ($faker->boolean(65)) {
-                        $caption = $faker->sentences(mt_rand(1,4), true);
+                        $caption = $faker->sentences(mt_rand(1,2), true);
                     }
 
                     $slide->setType($slideType)

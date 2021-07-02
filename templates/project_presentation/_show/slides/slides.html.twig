@@ -7,6 +7,43 @@
 
 
 
+
+{% if userPresenter %}
+
+	{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama",} %}
+
+		{% block editButtons %}
+		
+			{# Add an external contributor structure button (triggers a modal) #}
+		
+			<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
+            class="btn btn-light btn-sm me-3">+ Image</button>
+
+			{# Add Image Form (Displayed in a Modal Box) #}
+
+			{% include "project_presentation/edit/slides/add_image_form.html.twig" with {'form': addImageForm} %}
+
+			<a href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
+
+				<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
+
+			</a>
+		
+			<a href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
+
+				<button class="pp-edition-mode btn btn-light btn-sm">Ordre des diapos</button>
+				
+			</a>
+			
+		
+		{% endblock %}
+
+	{% endembed %}
+
+{% endif %}
+
+
+
 <!-- Project Presentation Slideshow Display -->
 
 {% if presentation.slides | length > 0 %}
@@ -29,23 +66,29 @@
 
 						<!-- Caption Container -->
 
-						<!-- We show caption container only if there is at least one caption -->				
+						{# If at least one caption is set, we display caption container #}				
 						
-						<div class="caption-container d-none
+						<div 
 						
-							{% for slide in presentation.slides %}
+							class="caption-container d-none"
 
-								{% if slide.caption %}
-														
-									d-flex align-items-center
+								{% for slide in presentation.slides %}
 
-								{% endif %}
+									{% if slide.caption is not empty %}
+															
+										style="display: flex !important; align-items: center;"
+
+									{% endif %}
+								
+								{% endfor %}
 							
-							{% endfor %}
-							
-							">
+							>
+
+							{# caption are displayed from slides thumbnails with javascript #}	
 					
 							<p id="caption">
+
+								{# exception : when only one slide with caption, we display its caption by default with twig #}	
 
 								{% if presentation.slides | length == 1 %}
 
@@ -129,6 +172,7 @@
 			thumbnail[slideIndex-1].className += " active";
 			
 			captionText.innerHTML = dots[slideIndex-1].alt;
+
 		}
 	
 	</script>

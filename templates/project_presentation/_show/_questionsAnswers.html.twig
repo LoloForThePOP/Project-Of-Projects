@@ -4,11 +4,11 @@
 
     {# Add question & answer button (triggers a modal) #}
 
-    <button data-bs-toggle="modal" data-bs-target="#addQuestionAnswerFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+    <button data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
 
     {# Form Displayed in a Modal Box #}
 
-    {# {% include "project_presentation/edit/other_components/websites/_add_question_answer_form_modal.html.twig" with {'form': addWebsiteForm} %} #}
+    {% include "project_presentation/edit/other_components/questionsAnswers/_add_qa_form.html.twig" with {'form': addQAForm} %}
 
 {% endblock %}
 

@@ -17,19 +17,19 @@
 			{# Add an external contributor structure button (triggers a modal) #}
 		
 			<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
-            class="btn btn-light btn-sm me-3">+ Image</button>
+            class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
 
 			{# Add Image Form (Displayed in a Modal Box) #}
 
 			{% include "project_presentation/edit/slides/add_image_form.html.twig" with {'form': addImageForm} %}
 
-			<a href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
+			<a class="text-decoration-none" href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
 
 				<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
 
 			</a>
 		
-			<a href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
+			<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
 
 				<button class="pp-edition-mode btn btn-light btn-sm">Ordre des diapos</button>
 				

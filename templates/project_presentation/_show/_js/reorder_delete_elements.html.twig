@@ -32,6 +32,8 @@
 
             onEnd: function (evt) {
 
+                //console.log(evt.newIndex);
+
                 var entityType = evt.srcElement.id;
 
                 // an array storing elements id position
@@ -50,6 +52,8 @@
 
                 var path = null;
 
+                //if(entityType.substr(0, 7) == "persorgs"){}
+
                 switch(entityType) {
 
                     case "websites":
@@ -67,6 +71,11 @@
 
                         path = "{{path('ajax_reorder_component_elements', {'stringId': stringId})}}";
                         break;
+
+                    case "persorgs":
+                        
+                        path = "{{path('ajax_reorder_cs_persorgs', {'stringId': stringId, 'id_cs': cs.id|default('none')})}}";
+                        break;
                         
                     default:
 
@@ -80,8 +89,8 @@
                      type:       'POST',   
                      dataType:   'json',
                      data: {
-                         "entityType": entityType,
-                         "jsonElementsPosition": jsonElementsPositions,
+                        "entityType": entityType,
+                        "jsonElementsPosition": jsonElementsPositions,
                      },
  
                      async: true,  

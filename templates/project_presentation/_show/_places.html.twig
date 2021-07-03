@@ -5,7 +5,7 @@
 
     {# Manage places button #}
 
-    <a class="pp-edition-mode" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
+    <a class="pp-edition-mode text-decoration-none" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
 
         <button class="pp-edition-mode btn btn-light btn-sm">Gérer</button>
     </a>
@@ -13,8 +13,6 @@
 {% endblock %}
 
 {% block mainContent %}
-
-{% if presentation.places | length > 0 %}
             
     <div id="places" class="js-elements-list">
 
@@ -26,7 +24,7 @@
 
             {% if place.type =="locality" %}
 
-                {% set readablePlaceType = "Ville de" %}
+                {% set readablePlaceType = "Ville : " %}
 
             {% elseif place.type =="administrative_area_level_1" %}
 
@@ -47,7 +45,7 @@
 
                     {{readablePlaceType}} {{place.name | capitalize}}
 
-                    {% if place.type =="locality" %}
+                    {% if place.type == "locality" %}
 
                         ({{place.postalCode}})
                     
@@ -64,18 +62,6 @@
         {% endfor %}
 
     </div>
-
-    {# No place, placeholder for userPresenter #}
-
-    {% elseif userPresenter %}
-
-        <div class="h-100 d-flex align-items-center justify-content-center">
-
-            <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-        </div>
-
-    {% endif %}
 
 {% endblock %}
 

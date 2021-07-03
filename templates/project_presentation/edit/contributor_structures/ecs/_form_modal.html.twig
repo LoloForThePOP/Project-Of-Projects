@@ -61,11 +61,11 @@
 
                 <!-- Collapsible Help Container -->
         
-                <div class="collapse no-transition col-md-7 mt-0" id="collapseECSTitleHelp">
+                <div class="collapse no-transition mx-2 mt-0" id="collapseECSTitleHelp">
         
-                    <p class="h5 ml-md-2">
+                    <p class="h5">
         
-                        Sélectionnez un ou plusieurs boutons (ou écrivez votre titre personnalisé).
+                        Pour écrire le titre, sélectionnez un ou plusieurs boutons (ou écrivez votre titre personnalisé).
         
                     </p>
         
@@ -91,7 +91,8 @@
 
                         {% for titleChunk in predefinedTitleChunks %}
                         
-                            <button type="button" class="titleChunkSuggestion btn btn-light mb-2" data-toggle="button" aria-pressed="false">{{titleChunk.name}}</button>
+                            <button type="button" class="titleChunkSuggestion btn btn-light mb-2" data-bs-toggle="button" aria-pressed="false">{{titleChunk.name}}</button>
+
 
                         {% endfor %}
 
@@ -137,7 +138,7 @@
 
     .titleChunkSuggestion[aria-pressed="true"]{
 
-            background-color:yellow !important;
+        background-color:yellow !important;
     
     }
 
@@ -157,12 +158,14 @@
         // manage ECS Live title Rendering
     
         var ecsTitle='';
+
+        // when pushing a title chunk button
     
         $(".titleChunkSuggestion").click(function(){
 
             ecsTitle=$("#liveTitleRendering").val();
                             
-            if(!$(this).hasClass("active")) // we push a button, so we add its text to the title
+            if(!$(this).hasClass("active")) //case pressing button, so we add its text to the title
             {
             
                 if(ecsTitle==''){
@@ -175,7 +178,7 @@
             
             }
             
-            else // we unpush a button, so we remove its text from the title
+            else // case unpushing a button, so we remove its text from the title
             {
                         
                 ecsTitle = ecsTitle.replace(' - ' + $(this).text(), "");

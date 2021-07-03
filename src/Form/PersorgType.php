@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PersorgType extends AbstractType
@@ -191,6 +192,17 @@ class PersorgType extends AbstractType
 
                 )
 
+            )
+
+            // Storing Potential
+                        
+            ->add('parentStuctureId', HiddenType::class, 
+                [
+
+                    'required'   => false,
+
+                    "mapped" => false,
+                ]
             )
         ;
     }

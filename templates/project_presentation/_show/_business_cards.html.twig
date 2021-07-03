@@ -1,23 +1,21 @@
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Nous contacter",} %}
 
+    {% block editButtons %}
 
-{% block editButtons %}
+        {# Add business card button (triggers a modal) #}
 
-    {# Add business card button (triggers a modal) #}
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-lg btn-sm">+ Ajouter</button>
 
-    <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="btn btn-lg btn-sm">+ Ajouter</button>
+        {# Add business card form (in a modal) #}
 
-    {# Add business card form (in a modal) #}
+        {% include 'project_presentation/edit/other_components/businessCards/_add_business_card_modal.html.twig' with {'form': addBusinessCardForm} %}
 
-    {% include 'project_presentation/edit/other_components/businessCards/_add_business_card_modal.html.twig' with {'form': addBusinessCardForm} %}
+    {% endblock %}
 
-{% endblock %}
 
-{% block mainContent %}
-        
-    {% set bcs = presentation.getOC('businessCards') %}
-
-    {% if bcs | length > 0 %}
+    {% block mainContent %}
+            
+        {% set bcs = presentation.getOC('businessCards') %}
 
         <div id="businessCards" class="js-elements-list">
 
@@ -33,7 +31,7 @@
 
                             {% include 'project_presentation/edit/other_components/businessCards/_display_business_card.html.twig' with {'context': 'editionMode'} %}
                             
-                           
+                            
                 
                         </div>
                 
@@ -49,20 +47,6 @@
 
         </div>
 
-    {# No business card, placeholder for userPresenter #}
-
-    {% elseif userPresenter %}
-
-        <div class="h-100 d-flex align-items-center justify-content-center">
-
-            <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-        </div>
+    {% endblock %}
         
-    {% endif %}
-
-{% endblock %}
-
-
-    
 {% endembed %}

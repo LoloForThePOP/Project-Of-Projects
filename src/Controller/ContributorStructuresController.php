@@ -201,26 +201,28 @@ class ContributorStructuresController extends AbstractController
     /**
      * Allow to reorder persorgs in a Contributor Structure
      * 
-     * @Route("/projects/{stringId}/contributor-structures/{id_cs}/ajax-reorder", name="ajax_reorder_cs_persorgs")
+     * @Route("/projects/{stringId}/contributor-structures/ajax-reorder", name="ajax_reorder_cs_persorgs")
      * 
      */
-    public function ajaxReorder (PPBase $presentation, $id_cs, ContributorStructureRepository $csRepo, Request $request, EntityManagerInterface $manager)
+    public function ajaxReorder (PPBase $presentation, ContributorStructureRepository $csRepo, Request $request, EntityManagerInterface $manager)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
    
         if ($request->isXmlHttpRequest()) {
 
-            $cs = $csRepo->findOneById($id_cs);
-
             $jsonElementsPosition = $request->request->get('jsonElementsPosition');
             $elementsPosition = json_decode($jsonElementsPosition,true);
+            $parentContributorStructureId = $request->request->get('parentStructureId');
+            
+            $parentStructure = $csRepo->findOneById($parentContributorStructureId);
 
+            dump($parentStructure);
 
-            if ($presentation->getContributorStructures()->contains($cs)) {
+            if ($presentation->getContributorStructures()->contains($parentStructure)) {
 
                 
-                foreach ($cs->getPersorgs() as $element){
+                foreach ($parentStructure->getPersorgs() as $element){
 
                     $newElementPosition = array_search($element->getId(), $elementsPosition, false);
                     

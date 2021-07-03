@@ -52,7 +52,15 @@
 
                 var path = null;
 
-                //if(entityType.substr(0, 7) == "persorgs"){}
+
+                // when entity type is persorg, we post its parent structure id
+
+                var parentStructureId = null;
+
+                if(entityType.substr(0, 8) == "persorgs"){
+                    parentStructureId = entityType.substr(8);
+                    entityType="persorgs";
+                }
 
                 switch(entityType) {
 
@@ -74,7 +82,7 @@
 
                     case "persorgs":
                         
-                        path = "{{path('ajax_reorder_cs_persorgs', {'stringId': stringId, 'id_cs': cs.id|default('none')})}}";
+                        path = "{{path('ajax_reorder_cs_persorgs', {'stringId': stringId})}}";
                         break;
                         
                     default:
@@ -91,6 +99,7 @@
                      data: {
                         "entityType": entityType,
                         "jsonElementsPosition": jsonElementsPositions,
+                        "parentStructureId": parentStructureId,
                      },
  
                      async: true,  

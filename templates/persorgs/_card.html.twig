@@ -1,4 +1,4 @@
-
+<div id="{{persorg.id}}" class="js-sortable-element d-inline-block position-relative border border-primary rounded cursor-pointer p-3 me-2 ">
 
     <!-- Persorg Image Container -->
     
@@ -31,3 +31,9 @@
         {{ persorg.name | length < 10 ? persorg.name : persorg.name | slice(0, 10) ~ '...' }}
 
     </div>
+
+    {# delete persorg (Red Cross) button #}
+
+    <button type="button" data-elements-type="persorgs" class="js-delete-element pp-edition-mode position-absolute btn btn-sm btn-danger" data-id="{{persorg.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+</div>

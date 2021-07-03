@@ -1,146 +1,139 @@
-<!-- Project Text Description Display -->
 
-{% if presentation.textDescription is not empty %}
+<div id="textDescriptionDisplay" class="pp-struct-container pb-1 pb-md-3">
 
-    <!-- Structure Container -->
+    <!-- Title Container with Edit Button -->
 
-    <div id="textDescriptionDisplay" class="pp-struct-container pb-1 pb-md-3">
+    <div class="mb-3">
 
-        <!-- Title Container with Edit Button -->
+        <!-- Structure Icon -->
+        
+        <img class="pp-struct-icon" src="{{ asset('description.svg', 'pp_consult') }}" height="27" width="27" alt="magnifying glass icon">
 
-        <div class="mb-3">
+        <!-- Structure Title -->
 
-            <!-- Structure Icon -->
+        <h3 class="pp-struct-title d-inline-block">Description du Projet</h3>
+
+        <!-- Edit Text Description Button -->
+
+        {% if userPresenter %}
+
+            <a class="pp-edition-mode" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}">
+
+                <button class="btn btn-light btn-sm mb-2">Éditer</button>
+                
+            </a>
+
+        {% endif %}
+
+    </div>
+
+
+    <div class="p-0">
+
+        <!-- Project Text Description Display -->
+
+        {% set textDescription = presentation.textDescription %}
+
+        {# Text Description Display (2 cases : short text description; collapsible long text description) #}
+
+        <!-- Case 1: short Text: entire text is displayed by default-->
+
+        {% if textDescription | length < 300 %}
+        
+            <div class="container pp-text-description px-0 pl-md-3">
+                
+                {{ textDescription | sanitize_html }}
+
+            </div>
+
+        <!-- Case 2: long Text: we use a collapsible text -->
             
-            <img class="pp-struct-icon" src="{{ asset('description.svg', 'pp_consult') }}" height="27" width="27" alt="magnifying glass icon">
-
-            <!-- Structure Title -->
-
-            <h3 class="pp-struct-title d-inline-block">Description du Projet</h3>
-    
-            <!-- Edit Text Description Button -->
-    
-            {% if userPresenter %}
-
-                <a class="pp-edition-mode" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}">
-    
-                    <button class="btn btn-light btn-sm mb-2">Éditer</button>
-                    
-                </a>
-
-            {% endif %}
-
-        </div>
-
-
-        <div class="p-0">
-
-            <!-- Project Text Description Display -->
-
-            {% set textDescription = presentation.textDescription %}
-
-            {# Text Description Display (2 cases : short text description; collapsible long text description) #}
-
-            <!-- Case 1: short Text: entire text is displayed by default-->
-
-            {% if textDescription | length < 300 %}
+        {% else %}
             
-                <div class="container pp-text-description px-0 pl-md-3">
-                    
+            <div id="moduleCollapseTextDescription" class="container px-0 pl-md-3">
+
+                <!-- Text Description (Display) -->
+
+                <div id="collapseTextDescription" class="pp-text-description collapse no-transition" aria-expanded="false">
+
                     {{ textDescription | sanitize_html }}
 
                 </div>
 
-            <!-- Case 2: long Text: we use a collapsible text -->
-                
-            {% else %}
-                
-                <div id="moduleCollapseTextDescription" class="container px-0 pl-md-3">
+                <!-- Toggle Collapse Button -->
 
-                    <!-- Text Description (Display) -->
+                <div class="mt-4 mb-2">
 
-                    <div id="collapseTextDescription" class="pp-text-description collapse no-transition" aria-expanded="false">
-
-                        {{ textDescription | sanitize_html }}
-
-                    </div>
-
-                    <!-- Toggle Collapse Button -->
-
-                    <div class="mt-4 mb-2">
-
-                        <button class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
-                        
-                    </div>
-
+                    <button class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
                     
                 </div>
-                    
-            {% endif %}
 
-        </div>
+                
+            </div>
+                
+        {% endif %}
 
     </div>
+
+</div>
+
+
+<style>
+            
+    #moduleCollapseTextDescription button.collapsed:after {
+        content: 'Afficher +';
+    }
     
+    #moduleCollapseTextDescription button:not(.collapsed):after {
+        content: 'Réduire';
+    }
+    
+    #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
+        
+        display: block;
+        
+        height: 3.9em; /* height = lineheight * no of lines to display */
 
-    <style>
-                
-        #moduleCollapseTextDescription button.collapsed:after {
-            content: 'Afficher +';
-        }
-        
-        #moduleCollapseTextDescription button:not(.collapsed):after {
-            content: 'Réduire';
-        }
-        
+        overflow: hidden;
+
+    }
+    
+    #moduleCollapseTextDescription #collapseTextDescription.collapsing {
+        height: 7.5em;
+    }
+
+    .pp-text-description{
+        font-size:1.15em;
+    }
+
+    #textDescriptionDisplay .pp-struct-icon{
+        top: -8px; 
+        margin-right:10px;
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+
         #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
-            
-            display: block;
-            
-            height: 3.9em; /* height = lineheight * no of lines to display */
 
-            overflow: hidden;
+            height: 3em;
 
-        }
-        
-        #moduleCollapseTextDescription #collapseTextDescription.collapsing {
-            height: 7.5em;
         }
 
         .pp-text-description{
-            font-size:1.15em;
+
+            font-size: 1.03em;
         }
 
-        #textDescriptionDisplay .pp-struct-icon{
-           top: -8px; 
-           margin-right:10px;
+        #textDescriptionDisplay .pp-struct-icon {
+            top: -3px;
+            margin-right: 2px;
+            width: 17px;
+            height: 20px;
+            margin-left: -0px;
         }
 
-
-        @media screen and (max-width: 580px) {
-
-
-            #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
-
-                height: 3em;
-
-            }
-
-            .pp-text-description{
-
-                font-size: 1.03em;
-            }
-
-            #textDescriptionDisplay .pp-struct-icon {
-                top: -3px;
-                margin-right: 2px;
-                width: 17px;
-                height: 20px;
-                margin-left: -0px;
-            }
-
-        }
-        
-    </style>
-
-{% endif %}
+    }
+    
+</style>

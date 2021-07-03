@@ -4,14 +4,19 @@ namespace App\Controller;
 
 use App\Entity\Slide;
 use App\Entity\PPBase;
+use App\Entity\Persorg;
 use App\Entity\Document;
 use App\Form\PPBaseType;
+use App\Form\PersorgType;
 use App\Form\WebsiteType;
 use App\Form\DataListType;
 use App\Form\DocumentType;
 use App\Form\ImageSlideType;
 use App\Form\BusinessCardType;
+use App\Form\QuestionAnswerType;
+use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
+use App\Form\ContributorStructureType;
 use App\Service\TreatOtherComponentItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -180,6 +185,36 @@ class PPController extends AbstractController
 
             }
 
+            $addQAForm = $this->createForm(QuestionAnswerType::class);
+            $addQAForm->handleRequest($request);
+            if ($addQAForm->isSubmitted() && $addQAForm->isValid()) {
+
+                $componentItem = $addQAForm->getData();
+
+                $componentItem = $specificTreatments->specificTreatments('questionsAnswers', $componentItem);
+
+                $presentation->addOtherComponentItem('questionsAnswers', $componentItem);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+    
+                    ]
+
+                );
+
+            }
+
             $document=new Document();
             $addDocumentForm = $this->createForm(DocumentType::class, $document);
             $addDocumentForm->handleRequest($request);
@@ -236,10 +271,74 @@ class PPController extends AbstractController
                 );
             }
 
+            $newECS = new ContributorStructure();
+            $ecsForm = $this->createForm(ContributorStructureType::class, $newECS);
+            $ecsForm->handleRequest($request);
+            if ($ecsForm->isSubmitted() && $ecsForm->isValid()){
+
+                $newECS->setType('external');
+
+                $newECS->setPresentation($presentation);
+
+                $manager->persist($newECS);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Partie ajoutée. Vous pouvez maintenant la remplir."
+                );
+
+                return $this->redirectToRoute('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                ]);
+
+            }
+
+            $persorg = new Persorg();
+            $addPersorgForm = $this->createForm(PersorgType::class, $persorg);
+            $addPersorgForm->handleRequest($request);
+            if ($addPersorgForm->isSubmitted() && $addPersorgForm->isValid()){
+
+                $parentContributorStructureId = $addPersorgForm->get('parentStuctureId')->getData();
+
+                // check if posted parent structure is really owned by this presentation
+
+                $parentContributorStructure = $this->getDoctrine()->getRepository(ContributorStructure::class)->findOneBy(
+                    [
+                        
+                        "id" => $parentContributorStructureId
+
+                    ]
+                );
+
+                if ($presentation == $parentContributorStructure->getPresentation()) {
+
+                    $persorg->setContributorStructure($parentContributorStructure);
+                    
+                    $manager->persist($persorg);
+
+                    $manager->flush();
+
+                    $this->addFlash(
+                        'success',
+                        "✅ Ajout effectué"
+                    );
+
+                    return $this->redirectToRoute('show_presentation', [
+                        'stringId' => $presentation->getStringId(),
+                        '_fragment' => '',
+                    ]);
+
+                }
+            }
+
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
                 'addWebsiteForm' => $addWebsiteForm->createView(),
+                'addQAForm' => $addQAForm->createView(),
+                'addECSForm' => $ecsForm->createView(),
+                'addPersorgForm' => $addPersorgForm->createView(),
                 'addDataListElemForm' => $addDataListElemForm->createView(),
                 'addBusinessCardForm' => $addBusinessCardForm->createView(),
                 'addDocumentForm' => $addDocumentForm->createView(),

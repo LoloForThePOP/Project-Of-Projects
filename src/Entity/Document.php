@@ -78,7 +78,7 @@ class Document
      *     maxSize = "1024k",
      *     maxSizeMessage = "Poids maximal accepté : 1 Mo",
      *     mimeTypes = {"application/pdf", "application/x-pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/msword","application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "text/rtf", "application/vnd.oasis.opendocument.text", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/epub+zip"},
-     *     mimeTypesMessage = "Veuillez sélectionner un fichier de type pdf; word; excel; powerpoint; open document texte; epub; ou rtf"
+     *     mimeTypesMessage = "Veuillez sélectionner un fichier de type pdf; word; excel; powerpoint; open document texte; epub; ou rtf."
      * )
      * 
      * @Vich\UploadableField(mapping="presentation_document_file", fileNameProperty="fileName")

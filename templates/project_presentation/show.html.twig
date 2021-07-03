@@ -29,29 +29,62 @@
     {% endif %}
 
 
-    {#
-              
-        {% include "/project_presentation/_show/test_embed1.html.twig" %}
-        {% include "/project_presentation/_show/test_embed2.html.twig" %} 
-        
-    #}
 
 <div class="pp-container container">
-
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
-    
-    {% include 'project_presentation/_show/slides/slides.html.twig' %}
 
     <div class="row">
-        
+
+        {# Slideshow images & videos #}
+            
+        {% set countSlides = presentation.slides | length %}
+
+        {% if userPresenter or countSlides > 0  %}
+
+            {% if countSlides > 0 %}
+            
+                {% include 'project_presentation/_show/slides/slides.html.twig' %}
+
+            {% else %}
+
+                <div id="" class="col-6 border border-success">
+                        
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_image"} %}
+                    
+                </div>
+
+                <div id="" class="col-6 border border-success">
+                        
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_youtube_video"} %}
+                    
+                </div>
+
+            {% endif %}
+    
+        {% endif %}
+
+
         {# Text Description #}
 
-        <div class="col-8 py-2 mb-3 border border-success">
-
-            {% include 'project_presentation/_show/_text_description.html.twig' %}
+        {% if userPresenter or presentation.textDescription is not empty %} 
             
-        </div>
+            <div class="col-8 py-2 mb-3 border border-success">
+
+                {% if presentation.textDescription is not empty %}
+                
+                    {% include 'project_presentation/_show/_text_description.html.twig' %}
+
+                {% elseif userPresenter %}
+
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_text_description"} %}
+                    
+                {% endif %}
+
+            </div>
+        
+        {% endif %}
+
         
         {# Miscelaneous Data List #}
 
@@ -66,12 +99,26 @@
         {% endif %}
         
         {# Websites #}
-        
-        <div id="displayWebsites" class="col-6 py-2 mb-3 border border-success">
-            
-            {% include 'project_presentation/_show/_websites.html.twig' %}
 
-        </div>
+        {% set countWebsites = presentation.getOC('websites') | length %}
+
+        {% if countWebsites > 0 or userPresenter  %}
+        
+            <div id="displayWebsites" class="col-6 py-2 mb-3 border border-success">
+                
+                {% if countWebsites > 0 %}
+                
+                    {% include 'project_presentation/_show/_websites.html.twig' %}
+                
+                {% elseif userPresenter %}
+                    
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_website"} %}
+                
+                {% endif %}
+
+            </div>
+
+        {% endif %}
 
         {# Documents #}
 
@@ -87,7 +134,7 @@
                 
                 {% elseif userPresenter %}
                     
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'image':"lol",} %}
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':""} %}
                 
                 {% endif %}
 
@@ -112,12 +159,26 @@
         </div>
         
         {# Places #}
-        
-        <div class="col-6 py-2 mb-3 border border-success">
-            
-            {% include 'project_presentation/_show/_places.html.twig' %}
 
-        </div>
+        {% set countPlaces = presentation.places | length %}
+
+        {% if userPresenter or countPlaces > 0 %}
+            
+            <div class="col-6 py-2 mb-3 border border-success">
+
+                {% if countPlaces > 0 %}
+                
+                    {% include 'project_presentation/_show/_places.html.twig' %}
+
+                {% else %} {# No place, we display a placeholder for userPresenter #}
+
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_website"} %}     
+
+                {% endif %}
+            
+            </div>
+
+        {% endif %}
 
         {# External Contributors #}
 
@@ -142,13 +203,26 @@
 
           
         {# Business Cards #}
-        
-        <div class="col-12 py-2 mb-3 border border-success">
+
+        {% set countBC = presentation.getOC('businessCards') | length %}
+
+        {% if userPresenter or countBC > 0 %}
             
-            {% include 'project_presentation/_show/_business_cards.html.twig' %}
+            <div class="col-12 py-2 mb-3 border border-success">
 
-        </div>
+                {% if countBC > 0 %}
+                
+                    {% include 'project_presentation/_show/_business_cards.html.twig' %}
 
+                {% else %}
+                    
+                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_business_card"} %}
+                
+                {% endif %}
+                
+            </div>
+
+        {% endif %}
 
     </div>
     
@@ -157,7 +231,7 @@
 
     {% if userPresenter %}
 
-        <button id="pp-switch-edit-consult-mode" class="edition-mode" title="Switch between edition and consultation">👁</button>
+        <button id="pp-switch-edit-consult-mode" class="edition-mode" title="Switch between edition mode and consultation mode">👁</button>
 
     {% endif %}
 
@@ -165,6 +239,10 @@
 </div>
 
 <style>
+
+    .pp-edition-mode{
+        display: none;
+    }
 
     .pp-container {
         margin-top: 50px;
@@ -178,7 +256,6 @@
     }
 
     .pp-upper-box {
-        min-height: 170px;
         margin-bottom: 40px;
     }
 

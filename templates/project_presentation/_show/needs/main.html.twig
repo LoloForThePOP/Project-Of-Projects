@@ -23,27 +23,25 @@
 
                 <div id="{{need.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2">
 
-                    {% if userPresenter %}
-
-                        <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode w-100 h-100 text-decoration-none">
-                            
-                            {% include "project_presentation/_show/needs/_card.html.twig" %}
-                    
-                        </a>
-                            
-                        {# delete need (Red Cross) button #}
-
-                        <button type="button" data-elements-type="needs" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{need.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
-
-                    {% endif %}
-
                     {# Need description is displayed in a modal #}
 
                     {% set modal_id = 'need'~ need.id %}
 
-                    <div class="pp-consultation-mode" data-bs-toggle="modal" data-bs-target="#{{modal_id}}">
+                    <div class="position-relative cursor-pointer">
 
-                        {% include "project_presentation/_show/needs/_card.html.twig" %}
+                        <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" class="p-3 text-white">
+                                                        
+                            <span class="fw-bold">
+                        
+                                {{ need.title }}
+                        
+                            </span>
+                        
+                        </div>
+
+                        {# delete need (Red Cross) button #}
+
+                        <button type="button" data-elements-type="needs" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{need.id}}" style="top:0; right:0; z-index:100;"><span class="fw-bold">&times</span></button>
 
                     </div>
 
@@ -57,7 +55,19 @@
                         
                         {% endblock %}
 
-                        {% block footerButtons %} yo !{% endblock %}
+                        {% block footerButtons %}
+
+                            {% if userPresenter %}
+
+                                <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
+                                    
+                                    <button type="button" class="btn btn-info">Modifier</button>
+                            
+                                </a>
+
+                            {% endif %}
+                        
+                        {% endblock %}
                         
                     {% endembed %}
 

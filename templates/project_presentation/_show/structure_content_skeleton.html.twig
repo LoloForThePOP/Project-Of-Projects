@@ -34,17 +34,16 @@ It contains :
 
         {% endblock %}
 
-        {% block editButtons %}{% endblock %}
+        {% if userPresenter %}
+
+            {% block editButtons %}{% endblock %}
+
+        {% endif %}
 
     </div>
 
-    {% if userPresenter %}
-    
-        {% block mainContent %}
-        
-        {% endblock %}
-    
-    {% endif %}
+
+    {% block mainContent %}{% endblock %}
 
 {% endblock %}
 

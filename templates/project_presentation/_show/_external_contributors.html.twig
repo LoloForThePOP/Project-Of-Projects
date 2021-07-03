@@ -1,43 +1,123 @@
+<div id="externalContributorsDisplay" class="pp-struct-container">
+        
+    {% if userPresenter %}
 
-    <div id="externalContributorsDisplay" class="pp-struct-container">
+        {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': "Contributions externes",} %}
+
+            {% block editButtons %}
             
-        {% if userPresenter %}
+                {# Add an external contributor structure button (triggers a modal) #}
+            
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" class="pp-edition-mode btn btn-light btn-sm">+ Nouvelle partie</button> 
+            
+                {# Form Displayed in a Modal Box #}
+                {% include "project_presentation/edit/contributor_structures/ecs/_form_modal.html.twig" with {'ecsForm': addECSForm} %}
+            
+            {% endblock %}
+    
+        {% endembed %}
 
-            {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': "Contributions externes",} %}
+    {% endif %}
+    
+
+    <!-- ECS Display Container -->
+
+    <div class="all-ecs-display-container pb-md-2" >
+
+        {# Add a Persorg Form Displayed in a Modal Box #}
+        {% include "persorgs/_add_form_modal.html.twig" with {'persorgForm': addPersorgForm} %}
+            
+        {%  for ecs in presentation.contributorStructures | filter((ecs) => ecs.type == "external") %}
+
+            <div id="{{ecs.id}}" class="each-ecs-display-container">
+
+                {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': ecs.title} %}
 
                 {% block editButtons %}
                 
                     {# Add an external contributor structure button (triggers a modal) #}
                 
-                    <button data-bs-toggle="modal" data-bs-target="#" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter une partie</button>
-                
-                    {# Form Displayed in a Modal Box 
-                    {% include "project_presentation/edit/other_components/websites/_add_website_form.html.twig" with {'form': addWebsiteForm} %}  #}
+                    <button type="button" data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="pp-edition-mode trigger-persorg-form-modal btn btn-light btn-sm">+ Vignette</button> 
                 
                 {% endblock %}
-        
-            {% endembed %}
 
-        {% endif %}
-        
+                    {% block mainContent %}
 
-        <!-- ECS Display Container -->
+                        <div id="persorgs{{ecs.id}}" class="js-elements-list each-ecs-persorgs-container">
 
-        <div class="ecs-display-container pb-md-2" >
-                
-            {%  for ecs in presentation.contributorStructures | filter((ecs) => ecs.type == "external") %}
-
-                {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': ecs.title} %}
-
-                    {% block editButtons %}
-                    
-                    
-                    {% endblock %}
+                            {% for persorg in ecs.persorgs %}
             
-                {% endembed %}
-           
-            {% endfor %}
+                                <!-- Persorg Edition Path -->
+            
+                                <a class='text-decoration-none text-body' href="{{path('edit_persorg', {'stringId': stringId, 'id_persorg': persorg.id})}}">
+            
+                                    <!-- Persorg Card Content --> 
+            
+                                    {% include "persorgs/_card.html.twig" %}
+                                
+                                </a>
+            
+                            {% endfor %}
 
-        </div>
+                        </div>
+
+                        <div class="">
+
+                            <p class="fs-15">
+
+                                {{ecs.richtextContent}}
+
+                            </p>
+
+                        </div>
+
+                    {% endblock %}
+
+
+                {% endembed %}
+
+            </div>
+        
+        {% endfor %}
 
     </div>
+
+</div>
+       
+<script>
+
+    // When user wants to set a new persorg, we got to pass in which Contributor Structure is concerned 
+
+    $(document).ready(function(){
+        
+        $( ".trigger-persorg-form-modal" ).click(function() {
+
+            var parentContributorStructureId = $(this).data("structure-id");
+
+            $("#persorg_parentStuctureId").val(parentContributorStructureId);
+            
+        });
+
+    });
+
+    
+</script>
+
+
+<style>
+    
+    .each-ecs-display-container{
+        margin-bottom: 48px;
+    }
+    
+    .each-ecs-display-container:last-child{
+        margin-bottom: 0;
+    }
+
+    .each-ecs-persorgs-container{
+        margin-bottom: 24px;
+    }
+
+
+
+</style>

@@ -55,7 +55,21 @@
 
     </div>
 
+    {# If form errors, we have to trigger modal box display to show these errors to user #} 
 
 
-</script>
+    {% if not form.vars.valid %}
 
+        <script>
+        
+            $(document).ready(function(){
+        
+                $('#AddDocumentFormModal').modal('show');
+        
+        
+            });
+        
+        
+        </script>
+
+    {% endif %}

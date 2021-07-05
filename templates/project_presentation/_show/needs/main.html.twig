@@ -1,98 +1,79 @@
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "needs", 'title': "Participer",} %}
 
+    {% block editButtons %}
 
-{% block editButtons %}
+        {# Add a need button (triggers a modal to select need type) #}
 
-    {# Add a need button (triggers a modal to select need type) #}
+        <button data-bs-toggle="modal" data-bs-target="#selectNeedTypeModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
 
-    <button data-bs-toggle="modal" data-bs-target="#selectNeedTypeModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+    {% endblock %}
 
-    {# Select need type in a Modal Box #}
+    {% block mainContent %}
 
-    {% include "project_presentation/edit/needs/_select_need_type_modal.html.twig" %}
+        {% if presentation.needs | length > 0 %}
 
-{% endblock %}
+            <div id="needs" class="js-elements-list">
+                
+                {% for need in presentation.needs %}
 
-{% block mainContent %}
+                    <div id="{{need.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2">
 
-    {% if presentation.needs | length > 0 %}
+                        {# Need description is displayed in a modal #}
 
-        <div id="needs" class="js-elements-list">
-            
-            {% for need in presentation.needs %}
+                        {% set modal_id = 'need'~ need.id %}
 
-                <div id="{{need.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2">
+                        <div class="position-relative cursor-pointer">
 
-                    {# Need description is displayed in a modal #}
+                            <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" class="p-3 text-white">
+                                                            
+                                <span class="fw-bold">
+                            
+                                    {{ need.title }}
+                            
+                                </span>
+                            
+                            </div>
 
-                    {% set modal_id = 'need'~ need.id %}
+                            {# delete need (Red Cross) button #}
 
-                    <div class="position-relative cursor-pointer">
+                            <button type="button" data-elements-type="needs" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{need.id}}" style="top:0; right:0; z-index:100;"><span class="fw-bold">&times</span></button>
 
-                        <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" class="p-3 text-white">
-                                                        
-                            <span class="fw-bold">
-                        
-                                {{ need.title }}
-                        
-                            </span>
-                        
                         </div>
 
-                        {# delete need (Red Cross) button #}
+                        {# Displaying each need in a modal #}
 
-                        <button type="button" data-elements-type="needs" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{need.id}}" style="top:0; right:0; z-index:100;"><span class="fw-bold">&times</span></button>
+                        {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': need.title} %}
+
+                            {% block modalBody %}
+
+                                {{need.description}}
+                            
+                            {% endblock %}
+
+                            {% block footerButtons %}
+
+                                {% if userPresenter %}
+
+                                    <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
+                                        
+                                        <button type="button" class="btn btn-info">Modifier</button>
+                                
+                                    </a>
+
+                                {% endif %}
+                            
+                            {% endblock %}
+                            
+                        {% endembed %}
 
                     </div>
+                
+                {% endfor %}
 
-                    {# Displaying each need in a modal #}
+            </div>
 
-                    {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': need.title} %}
+        {% endif %}
 
-                        {% block modalBody %}
-
-                            {{need.description}}
-                        
-                        {% endblock %}
-
-                        {% block footerButtons %}
-
-                            {% if userPresenter %}
-
-                                <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
-                                    
-                                    <button type="button" class="btn btn-info">Modifier</button>
-                            
-                                </a>
-
-                            {% endif %}
-                        
-                        {% endblock %}
-                        
-                    {% endembed %}
-
-                </div>
-            
-        {% endfor %}
-
-        </div>
-
-    {# No website, placeholder for userPresenter #}
-
-    {% elseif userPresenter %}
-
-        <div class="h-100 d-flex align-items-center justify-content-center">
-
-            Aucun besoin présenté
-
-            <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-        </div>
-        
-    {% endif %}
-
-{% endblock %}
-
-
+    {% endblock %}
     
 {% endembed %}

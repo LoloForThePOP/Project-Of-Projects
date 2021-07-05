@@ -6,10 +6,6 @@
 
         <button data-bs-toggle="modal" data-bs-target="#AddDocumentFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
 
-        {# Form Displayed in a Modal Box #}
-
-        {% include "project_presentation/edit/documents/_form.html.twig" with {'form': addDocumentForm} %}
-
     {% endblock %}
 
     {% block mainContent %}
@@ -49,8 +45,6 @@
         </div>
 
     {% endblock %}
-
-
     
 {% endembed %}
 

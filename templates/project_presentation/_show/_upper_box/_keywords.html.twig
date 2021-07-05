@@ -59,7 +59,7 @@
 
     </style>
 
-{% elseif userPresenter and presentation.categories | length == 0  %} {# no keywords (+ no categories), we insert a placeholder for project presenters #}
+{% elseif userPresenter and presentation.categories | length == 0  %} {# no keywords (+ no categories), we insert a placeholder #}
 
     <a class="pp-edition-mode text-decoration-none ps-3 w-100 ps-md-0 text-body mt-4" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
         
@@ -70,6 +70,8 @@
             <span class="h4 fw-bold mt-2">Catégorie & Mots-clés</span>
 
         </div>
+
+    </a>
 
     <style>
 

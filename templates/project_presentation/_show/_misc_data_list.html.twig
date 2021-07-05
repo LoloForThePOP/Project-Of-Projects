@@ -1,0 +1,50 @@
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "data", 'title': "Quelques données",} %}
+
+    {% block editButtons %}
+
+        {# Add a data to the list - button (triggers a modal) #}
+
+        <button data-bs-toggle="modal" data-bs-target="#addDataListItemFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+
+    {% endblock %}
+
+    {% block mainContent %}
+
+        <div id="dataList" class="js-elements-list row ps-lg-5">
+
+            {% for data in presentation.getOC('dataList') %}
+
+                <div id="{{data.id}}" class="col-md-5 me-4 js-sortable-element position-relative cursor-pointer bg-success mb-2">
+
+                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+
+                        <div class="p-3 text-white">
+                            
+                        
+                            <span class="fw-bold">
+                
+                                {{ data.name }}
+                
+                            </span>
+                
+                            <br>
+                
+                            {{ data.value }}  
+                
+                        </div>
+                
+                    </a>
+
+                    {# delete data item (Red Cross) button #}
+
+                    <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{data.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+                </div>
+                
+            {% endfor %}
+
+        </div>
+
+    {% endblock %}
+
+{% endembed %}

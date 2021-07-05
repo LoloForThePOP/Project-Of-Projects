@@ -12,7 +12,7 @@ It contains :
 
 {% block structureTitle %} {# Title container with logo and edit button #}
 
-    <div class="pp-struct-title-container">
+    <div class="pp-struct-title-container {{editionMode ?? ""}}"> {# editionMode is empty or pp-consultation-mode #}
         
         {% block icon %}
 

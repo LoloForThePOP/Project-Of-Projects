@@ -1,52 +1,57 @@
-{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Nous contacter",} %}
 
-    {% block editButtons %}
+{% if countBC > 0 %}
 
-        {# Add business card button (triggers a modal) #}
+    {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Nous contacter",} %}
 
-        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-lg btn-sm">+ Ajouter</button>
+        {% block editButtons %}
 
-        {# Add business card form (in a modal) #}
+            {# Add business card button (triggers a modal) #}
 
-        {% include 'project_presentation/edit/other_components/businessCards/_add_business_card_modal.html.twig' with {'form': addBusinessCardForm} %}
+            <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-lg btn-sm">+ Ajouter</button>        
 
-    {% endblock %}
+        {% endblock %}
 
 
-    {% block mainContent %}
+        {% block mainContent %}
+                
+            {% set bcs = presentation.getOC('businessCards') %}
+
+            <div id="businessCards" class="js-elements-list">
+
+                {% for bc in bcs %}
+
+                    <div id="{{bc.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2" style="width:300px; display: inline-block;">
+
+                        <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+
+                            <div class="p-2 text-white">
+
+                                <!-- Contact Card Content -->
+
+                                {% include 'project_presentation/edit/other_components/businessCards/_display_business_card.html.twig' with {'context': 'editionMode'} %}
+                                
+                                
+                    
+                            </div>
+                    
+                        </a>
+
+                        {# delete website (Red Cross) button #}
+
+                        <button type="button" data-elements-type="businessCards" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{bc.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+
+                    </div>
+                    
+                {% endfor %}
+
+            </div>
+
+        {% endblock %}
             
-        {% set bcs = presentation.getOC('businessCards') %}
+    {% endembed %}
 
-        <div id="businessCards" class="js-elements-list">
+{% elseif userPresenter %} {# No business card, we display a placeholder for user presenter #}
+                    
+    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_business_card", 'addElementModal':"#add_business_card_form_modal", 'label': "Vous contacter"} %}
 
-            {% for bc in bcs %}
-
-                <div id="{{bc.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2" style="width:300px; display: inline-block;">
-
-                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
-
-                        <div class="p-2 text-white">
-
-                            <!-- Contact Card Content -->
-
-                            {% include 'project_presentation/edit/other_components/businessCards/_display_business_card.html.twig' with {'context': 'editionMode'} %}
-                            
-                            
-                
-                        </div>
-                
-                    </a>
-
-                    {# delete website (Red Cross) button #}
-
-                    <button type="button" data-elements-type="businessCards" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{bc.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
-
-                </div>
-                
-            {% endfor %}
-
-        </div>
-
-    {% endblock %}
-        
-{% endembed %}
+{% endif %}

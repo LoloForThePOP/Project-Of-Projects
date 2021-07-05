@@ -1,0 +1,91 @@
+{# Displaying each need in a modal #}
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "non_default_structures_menu", 'modal_size': "modal-xl", 'modal_title': "Autres possibilités"} %}
+
+    {% block modalBody %}
+
+        <div class="container">
+
+            <div class="row">
+
+                {% if countMiscDataList == 0 %}
+
+                    <div data-bs-toggle="modal" data-bs-target="#addDataListItemFormModal" data-bs-dismiss="modal" class="menu-button">
+                    
+                        Données en tous genres
+                    
+                    </div>
+
+                {% endif %}
+
+                {% if countDocuments == 0 %}
+                    
+                    <div data-bs-toggle="modal" data-bs-target="#AddDocumentFormModal" data-bs-dismiss="modal" class="menu-button">
+                    
+                        Documents du projet
+                    
+                    </div>
+
+                {% endif %}
+
+                {% if countQA == 0 %}
+                
+                    <div data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" data-bs-dismiss="modal" class="menu-button">
+                    
+                        Foire aux questions
+                    
+                    </div>
+
+                {% endif %}
+
+                {% if countNeeds == 0 %}
+                
+                    <div data-bs-toggle="modal" data-bs-target="#selectNeedTypeModal" data-bs-dismiss="modal" class="menu-button">
+                    
+                        Besoins du Projet
+                    
+                    </div>
+
+                {% endif %}
+
+                {% if countECS == 0 %}
+                
+                    <div data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" data-bs-dismiss="modal" class="menu-button">
+                    
+                        Vos sponsors, partenaires, remerciements
+                    
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+    {% endblock %}
+
+    {% block footerButtons %}
+
+    {% endblock %}
+
+{% endembed %}
+
+<style>
+    
+    .menu-button {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        cursor: pointer;
+        width:200px;
+        height:100px;
+
+        margin-right: 20px;
+        margin-bottom: 10px;
+        margin-top: 10px;
+
+        background-color: rgb(226, 118, 40);
+    }
+    
+</style>

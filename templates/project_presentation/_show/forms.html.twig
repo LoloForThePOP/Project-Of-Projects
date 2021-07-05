@@ -1,0 +1,15 @@
+{% include "project_presentation/edit/slides/add_image_form.html.twig" with {'form': addImageForm} %}
+
+{% include "project_presentation/edit/other_components/dataList/_form.html.twig" with {'form': addDataListElemForm} %}
+
+{% include "project_presentation/edit/other_components/websites/_add_website_form.html.twig" with {'form': addWebsiteForm} %}
+
+{% include "project_presentation/edit/documents/_form.html.twig" with {'form': addDocumentForm} %}
+
+{% include "project_presentation/edit/other_components/questionsAnswers/_add_qa_form.html.twig" with {'form': addQAForm} %}
+
+{% include "project_presentation/edit/needs/_select_need_type_modal.html.twig" %}
+
+{% include "project_presentation/edit/contributor_structures/ecs/_form_modal.html.twig" with {'ecsForm': addECSForm} %}
+
+{% include 'project_presentation/edit/other_components/businessCards/_add_business_card_modal.html.twig' with {'form': addBusinessCardForm} %}

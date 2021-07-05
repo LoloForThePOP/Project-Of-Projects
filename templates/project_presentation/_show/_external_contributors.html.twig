@@ -2,16 +2,25 @@
         
     {% if userPresenter %}
 
-        {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': "Contributions externes",} %}
+        {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': "Contributions externes", "editionMode" : "pp-edition-mode",} %}
 
             {% block editButtons %}
             
                 {# Add an external contributor structure button (triggers a modal) #}
             
-                <button type="button" data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" class="pp-edition-mode btn btn-light btn-sm">+ Nouvelle partie</button> 
-            
-                {# Form Displayed in a Modal Box #}
-                {% include "project_presentation/edit/contributor_structures/ecs/_form_modal.html.twig" with {'ecsForm': addECSForm} %}
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" class="pp-edition-mode btn btn-light btn-sm me-2">+ Nouvelle partie</button> 
+
+                {# button to access reorder ecs when more than two ecs #}
+
+                {% if presentation.contributorStructures | length >= 2 %}
+
+                    <a href="{{path('manage_all_ecs', {'stringId': stringId})}}" class="text-decoration-none">
+
+                        <button type="button" class="pp-edition-mode btn btn-light btn-sm">Ordre</button>
+
+                    </a>
+
+                {% endif %}
             
             {% endblock %}
     
@@ -24,8 +33,12 @@
 
     <div class="all-ecs-display-container pb-md-2" >
 
-        {# Add a Persorg Form Displayed in a Modal Box #}
-        {% include "persorgs/_add_form_modal.html.twig" with {'persorgForm': addPersorgForm} %}
+        {% if userPresenter %}
+            
+            {# Add a Persorg Form Displayed in a Modal Box #}
+            {% include "persorgs/_add_form_modal.html.twig" with {'persorgForm': addPersorgForm} %}
+
+        {% endif %}
             
         {%  for ecs in presentation.contributorStructures | filter((ecs) => ecs.type == "external") %}
 
@@ -86,7 +99,7 @@
        
 <script>
 
-    // When user wants to set a new persorg, we got to pass in which Contributor Structure is concerned 
+    // When user wants to create a new persorg, we post which Contributor Structure is concerned (in an hidden persorg form field)
 
     $(document).ready(function(){
         

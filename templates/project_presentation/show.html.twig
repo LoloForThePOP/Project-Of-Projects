@@ -28,6 +28,13 @@
         
     {% endif %}
 
+    {# forms inclusions (ex: add a document form, add a website form, etc.) #}
+
+    {% if userPresenter %}
+
+        {% include "project_presentation/_show/forms.html.twig" %}
+
+    {% endif %}
 
 
 <div class="pp-container container">
@@ -42,44 +49,18 @@
 
         {% if userPresenter or countSlides > 0  %}
 
-            {% if countSlides > 0 %}
-            
-                {% include 'project_presentation/_show/slides/slides.html.twig' %}
-
-            {% else %}
-
-                <div id="" class="col-6 border border-success">
-                        
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_image"} %}
-                    
-                </div>
-
-                <div id="" class="col-6 border border-success">
-                        
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_youtube_video"} %}
-                    
-                </div>
-
-            {% endif %}
+            {% include 'project_presentation/_show/slides/slides.html.twig' %}
     
         {% endif %}
 
 
         {# Text Description #}
 
-        {% if userPresenter or presentation.textDescription is not empty %} 
+        {% if presentation.textDescription is not empty or userPresenter %} 
             
             <div class="col-8 py-2 mb-3 border border-success">
-
-                {% if presentation.textDescription is not empty %}
                 
-                    {% include 'project_presentation/_show/_text_description.html.twig' %}
-
-                {% elseif userPresenter %}
-
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_text_description"} %}
-                    
-                {% endif %}
+                {% include 'project_presentation/_show/_text_description.html.twig' %}
 
             </div>
         
@@ -88,11 +69,13 @@
         
         {# Miscelaneous Data List #}
 
-        {% if presentation.getOC('dataList') %}
+        {% set countMiscDataList = presentation.getOC('dataList') | length %}
+
+        {% if countMiscDataList > 0 %}
 
             <div class="col-lg-10 py-2 mb-3 border border-success">
 
-                {% include 'project_presentation/_show/_data_list.html.twig' %}
+                {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
                 
             </div>
 
@@ -106,57 +89,57 @@
         
             <div id="displayWebsites" class="col-6 py-2 mb-3 border border-success">
                 
-                {% if countWebsites > 0 %}
+                {% include 'project_presentation/_show/_websites.html.twig' %}
                 
-                    {% include 'project_presentation/_show/_websites.html.twig' %}
-                
-                {% elseif userPresenter %}
-                    
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_website"} %}
-                
-                {% endif %}
-
             </div>
 
         {% endif %}
+
 
         {# Documents #}
 
         {% set countDocuments = presentation.documents | length %}
 
-            {% if countDocuments > 0 or userPresenter  %}
+        {% if countDocuments > 0 %}
 
             <div id="displayDocuments" class="col-6 py-2 mb-3 border border-success">
 
-                {% if countDocuments > 0 %}
-                
-                    {% include 'project_presentation/_show/_documents.html.twig' %}
-                
-                {% elseif userPresenter %}
-                    
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':""} %}
-                
-                {% endif %}
+                {% include 'project_presentation/_show/_documents.html.twig' %}
 
             </div>
 
-            {% endif %}
+        {% endif %}
+
         
-        {# Q&A #}
-        
-        <div id="displayQuestionsAnswers" class="col-6 py-2 mb-3 border border-success">
+        {# Questions & Answers #}
+
+        {% set countQA = presentation.getOC('questionsAnswers') | length %}
+
+        {% if countQA > 0 %}
             
-            {% include 'project_presentation/_show/_questionsAnswers.html.twig' %}
-            
-        </div>
+            <div id="displayQuestionsAnswers" class="col-6 py-2 mb-3 border border-success">
+                
+                {% include 'project_presentation/_show/_questions_answers.html.twig' %}
+                
+            </div>
+
+        {% endif %}
+
         
         {# Needs #}
-        
-        <div class="col-6 py-2 mb-3 border border-success">
+
+        {% set countNeeds = presentation.getNeeds | length %}
+
+        {% if countNeeds > 0 %}
             
-            {% include 'project_presentation/_show/needs/main.html.twig' %}
-            
-        </div>
+            <div class="col-6 py-2 mb-3 border border-success">
+                
+                {% include 'project_presentation/_show/needs/main.html.twig' %}
+                
+            </div>
+
+        {% endif %}
+
         
         {# Places #}
 
@@ -165,41 +148,29 @@
         {% if userPresenter or countPlaces > 0 %}
             
             <div class="col-6 py-2 mb-3 border border-success">
-
-                {% if countPlaces > 0 %}
                 
-                    {% include 'project_presentation/_show/_places.html.twig' %}
-
-                {% else %} {# No place, we display a placeholder for userPresenter #}
-
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_website"} %}     
-
-                {% endif %}
+                {% include 'project_presentation/_show/_places.html.twig' %}
             
             </div>
 
         {% endif %}
 
-        {# External Contributors #}
 
-        <div class="col-12 py-2 mb-3 border border-success">
+        {# External Contributors Structures (ex: sponsors; partners; etc.) #}
 
-            {% if presentation.contributorStructures | length > 0 %}
-            
+        {% set contributorStructures = presentation.contributorStructures %}
+
+        {% set countECS = contributorStructures | filter((contributorStructures) => contributorStructures.type == "external") | length %}
+
+        {% if countECS > 0 %}
+
+            <div class="col-12 py-2 mb-3 border border-success">
+
                 {% include 'project_presentation/_show/_external_contributors.html.twig' %}
 
-
-            {% else %}
-
-                <div class="h-100 d-flex align-items-center justify-content-center">
-
-                    <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-                </div>
+            </div>
                 
-            {% endif %}
-
-        </div>
+        {% endif %}
 
           
         {# Business Cards #}
@@ -210,21 +181,33 @@
             
             <div class="col-12 py-2 mb-3 border border-success">
 
-                {% if countBC > 0 %}
-                
-                    {% include 'project_presentation/_show/_business_cards.html.twig' %}
+                {% include 'project_presentation/_show/_business_cards.html.twig' %}
 
-                {% else %}
-                    
-                    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_business_card"} %}
-                
-                {% endif %}
-                
             </div>
 
         {% endif %}
 
+
+        {# Other Edition Possibilities. Ex: Add Documents; add a Q&A; etc. Placeholder Icons to opens a modal with choices buttons #}
+            
+        {% if userPresenter %}
+            
+            <div class="col-12 py-2 mb-3 border border-success">
+
+                {# placeholder #}
+
+                {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres" } %}
+
+                {# menu displayed in a modal #}
+
+                {% include "project_presentation/_show/_non_default_structures_menu.html.twig" %}
+
+            </div>
+
+        {% endif %}
+    
     </div>
+
     
 
     {# Switch Between Edition Mode and Consultation Mode Button #}
@@ -239,10 +222,6 @@
 </div>
 
 <style>
-
-    .pp-edition-mode{
-        display: none;
-    }
 
     .pp-container {
         margin-top: 50px;

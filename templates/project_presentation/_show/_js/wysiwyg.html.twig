@@ -3,10 +3,9 @@
     $(document).ready(function(){
         
             //if user edit presentation, we enter in edition mode by default
-            $(".pp-edition-mode").css("display","initial");
             
             //some elements are only displayed in consultation mode, so we hide them
-            $(".pp-consultation-mode").css("display","none");
+            $(".pp-consultation-mode").hide();
 
             //manage switch between edition mode and consultation mode
                 
@@ -23,12 +22,12 @@
                     $(this).html("✎");
 
                     //hiding elements related to edition
-                    $(".pp-edition-mode").css("display", "none");
+                    $(".pp-edition-mode").hide();
 
                     //showing elements related to consultation
 
                     //$(".pp-consultation-mode").addClass("d-block");
-                    $(".pp-consultation-mode").css("display", "initial");
+                    $(".pp-consultation-mode").show();
 
                 }
 
@@ -43,11 +42,11 @@
                     $(this).html("👁");
 
                     //showing elements related to edition 
-                    $(".pp-edition-mode").css("display", "initial");
+                    $(".pp-edition-mode").show();
 
                     //hiding elements related to consultation
                     //$(".pp-consultation-mode").removeClass("d-block");
-                    $(".pp-consultation-mode").css("display", "none");
+                    $(".pp-consultation-mode").hide();
 
                 }
             

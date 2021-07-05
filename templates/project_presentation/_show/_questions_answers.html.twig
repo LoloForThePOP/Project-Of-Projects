@@ -1,22 +1,16 @@
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "questionsAnswers", 'title': "Questions & Réponses",} %}
 
-{% block editButtons %}
+    {% block editButtons %}
 
-    {# Add question & answer button (triggers a modal) #}
+        {# Add question & answer button (triggers a modal) #}
 
-    <button data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+        <button data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
 
-    {# Form Displayed in a Modal Box #}
+    {% endblock %}
 
-    {% include "project_presentation/edit/other_components/questionsAnswers/_add_qa_form.html.twig" with {'form': addQAForm} %}
+    {% block mainContent %}
 
-{% endblock %}
-
-{% block mainContent %}
-
-    {% set qas = presentation.getOC('questionsAnswers') %}
-
-    {% if qas | length > 0 %}
+        {% set qas = presentation.getOC('questionsAnswers') %}
 
         <div id="questionsAnswers" class="js-elements-list">
 
@@ -52,19 +46,6 @@
 
         </div>
 
-    {% elseif userPresenter %}
-
-        <div class="h-100 d-flex align-items-center justify-content-center">
-
-            <img class="img-fluid" src="https://www.place-hold.it/200x200" alt="">
-
-        </div>
-        
-    {% endif %}
-
-
-{% endblock %}
-
-
+    {% endblock %}
     
 {% endembed %}

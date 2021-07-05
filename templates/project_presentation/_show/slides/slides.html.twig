@@ -1,53 +1,44 @@
+{% if countSlides > 0 %}
 
-{% block stylesheet %}
+	{% block stylesheet %}
 
-<link href="/css/slideshow.css" rel="stylesheet">
+	<link href="/css/slideshow.css" rel="stylesheet">
 
-{% endblock %}
+	{% endblock %}
 
+	{% if userPresenter %}
 
+		{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama", 'editionMode': "pp-edition-mode"} %}
 
-
-{% if userPresenter %}
-
-	{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama",} %}
-
-		{% block editButtons %}
-		
-			{# Add an external contributor structure button (triggers a modal) #}
-		
-			<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
-            class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
-
-			{# Add Image Form (Displayed in a Modal Box) #}
-
-			{% include "project_presentation/edit/slides/add_image_form.html.twig" with {'form': addImageForm} %}
-
-			<a class="text-decoration-none" href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
-
-				<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
-
-			</a>
-		
-			<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
-
-				<button class="pp-edition-mode btn btn-light btn-sm">Ordre des diapos</button>
-				
-			</a>
+			{% block editButtons %}
 			
-		
-		{% endblock %}
+				{# Add an image button (triggers a modal with a form) #}
+			
+				<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
+				class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
 
-	{% endembed %}
+				{# Add a video button (triggers a modal) #}
 
-{% endif %}
+				<a class="text-decoration-none" href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
 
+					<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
 
+				</a>
+			
+				<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
 
-<!-- Project Presentation Slideshow Display -->
+					<button class="pp-edition-mode btn btn-light btn-sm">Ordre des diapos</button>
+					
+				</a>
+				
+			
+			{% endblock %}
 
-{% if presentation.slides | length > 0 %}
+		{% endembed %}
 
+	{% endif %}
+
+	<!-- Project Presentation Slideshow Display -->
 	<!-- Structure Container -->
 
 	<div id="slideshowDisplay" class="px-0 container mb-4 pb-md-2">
@@ -176,5 +167,34 @@
 		}
 	
 	</script>
+
+{% elseif userPresenter %} {# No Slide, but user presents this project #}
+
+<div class="container">
+
+	<div class="row mb-3">
+
+		{# add an image placeholder #}
+
+		<div id="" class="col-6 py-2 border border-success">
+			
+			{% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_image", 'addElementModal':"#addImageSlideFormModal", 'label': "Images"} %}
+			
+		</div>
+
+		{# add a video placeholder #}
+
+		{% set addVideoRoute = path('add_youtube_slide', {'stringId': stringId}) %}
+		
+		<div id="" class="col-6 py-2 border border-success">
+				
+			{% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_youtube_video", 'route': addVideoRoute, 'label': "Vidéos"} %}
+			
+		</div>		
+		
+	</div>
+
+</div>
+
 
 {% endif %}

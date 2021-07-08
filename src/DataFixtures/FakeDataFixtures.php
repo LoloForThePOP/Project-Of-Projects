@@ -626,7 +626,7 @@ class FakeDataFixtures extends Fixture
 
                     $item['id'] = uniqid();
                     $item['position'] = $l;
-                    $item['name'] = $faker->sentence(mt_rand(1,2));
+                    $item['name'] = substr($faker->sentence(mt_rand(1,2)), 0, -1);
                     $item['value'] = $faker->sentence(mt_rand(1,5));
 
                     $presentation->addOtherComponentItem('dataList', $item);

@@ -48,44 +48,83 @@
 
                 {% block editButtons %}
                 
-                    {# Add an external contributor structure button (triggers a modal) #}
-                
-                    <button type="button" data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="pp-edition-mode trigger-persorg-form-modal btn btn-light btn-sm">+ Vignette</button> 
-                
+                    {# Manage ecs button (title; thumbnails; rich text; deletion) #}
+
+                    <a href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
+                    
+                        <button type="button" class="pp-edition-mode btn btn-light btn-sm">Gérer</button> 
+
+                    </a>
+                    
                 {% endblock %}
 
                     {% block mainContent %}
 
-                        <div id="persorgs{{ecs.id}}" class="js-elements-list each-ecs-persorgs-container">
+                        {# ecs thumbnails #}
 
-                            {% for persorg in ecs.persorgs %}
-            
-                                <!-- Persorg Edition Path -->
-            
-                                <a class='text-decoration-none text-body' href="{{path('edit_persorg', {'stringId': stringId, 'id_persorg': persorg.id})}}">
-            
-                                    <!-- Persorg Card Content --> 
-            
-                                    {% include "persorgs/_card.html.twig" %}
-                                
-                                </a>
-            
-                            {% endfor %}
+                        {% if ecs.persorgs | length > 0 %}
 
-                        </div>
+                            <div id="persorgs{{ecs.id}}" class="js-elements-list each-ecs-persorgs-container">
 
-                        <div class="">
+                                {# Add a persorg button (mocks a thumbnail) #}
 
-                            <p class="fs-15">
+                                <div data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="js-trigger-persorg-form-modal pp-edition-mode disabled d-inline-block me-2">
 
-                                {{ecs.richtextContent}}
+                                    <div class="border border-primary rounded cursor-pointer d-flex align-items-center justify-content-center p-3" style="height: 216px;">
+                                        
+                                        <div class="">
+                                                                        
+                                                <div class="avatar-circle avatar-circle-100 mx-auto">
 
-                            </p>
+                                                    <span class="avatar-initial avatar-initial-100">
 
-                        </div>
+                                                        +
+
+                                                    </span>
+
+                                                </div>
+
+                                        </div> 
+
+                                    </div>
+
+                                </div>
+
+                                {% for persorg in ecs.persorgs %}
+                
+                                    <!-- Persorg Edition Path -->
+                
+                                    <a class='text-decoration-none text-body' href="{{path('edit_persorg', {'stringId': stringId, 'id_persorg': persorg.id})}}">
+                
+                                        <!-- Persorg Card Content --> 
+                
+                                        {% include "persorgs/_card.html.twig" %}
+                                    
+                                    </a>
+                
+                                {% endfor %}
+
+                            </div>
+                            
+                        {% endif %}
+
+                        {# ecs rich text content #}
+
+                        {% if ecs.richtextContent is not empty %}
+
+                            <div class="">
+
+                                <p class="fs-15">
+
+                                    {{ecs.richtextContent}}
+
+                                </p>
+
+                            </div>
+                        
+                        {% endif %}
 
                     {% endblock %}
-
 
                 {% endembed %}
 
@@ -103,7 +142,7 @@
 
     $(document).ready(function(){
         
-        $( ".trigger-persorg-form-modal" ).click(function() {
+        $( ".js-trigger-persorg-form-modal" ).click(function() {
 
             var parentContributorStructureId = $(this).data("structure-id");
 
@@ -129,6 +168,8 @@
 
     .each-ecs-persorgs-container{
         margin-bottom: 24px;
+        display:flex;
+        align-items: center;
     }
 
 

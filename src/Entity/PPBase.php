@@ -805,6 +805,27 @@ class PPBase implements \Serializable
         return $this->contributorStructures;
     }
 
+    /**
+     * @return array
+     */
+    public function getContributorStructuresByType(string $type): array
+    {
+        $contributorStructures = $this->contributorStructures;
+
+        $typedContributorStructures = [];
+
+        foreach ($contributorStructures as $cs) {
+
+            if ($cs->getType() == $type) {
+
+                $typedContributorStructures[] = $cs;
+            }
+
+        }
+
+        return $typedContributorStructures;
+    }
+
     public function addContributorStructure(ContributorStructure $contributorStructure): self
     {
         if (!$this->contributorStructures->contains($contributorStructure)) {

@@ -58,7 +58,7 @@
 
         {% if presentation.textDescription is not empty or userPresenter %} 
             
-            <div class="col-8 py-2 mb-3 border border-success">
+            <div class="col-12 col-md-10 col-lg-8 py-2 mb-3 border border-success">
                 
                 {% include 'project_presentation/_show/_text_description.html.twig' %}
 
@@ -87,7 +87,7 @@
 
         {% if countWebsites > 0 or userPresenter  %}
         
-            <div id="displayWebsites" class="col-6 py-2 mb-3 border border-success">
+            <div id="displayWebsites" class="col-12 col-md-6 py-2 mb-3 border border-success">
                 
                 {% include 'project_presentation/_show/_websites.html.twig' %}
                 
@@ -102,7 +102,7 @@
 
         {% if countDocuments > 0 %}
 
-            <div id="displayDocuments" class="col-6 py-2 mb-3 border border-success">
+            <div id="displayDocuments" class="col-12 col-md-6 py-2 mb-3 border border-success">
 
                 {% include 'project_presentation/_show/_documents.html.twig' %}
 
@@ -117,7 +117,7 @@
 
         {% if countQA > 0 %}
             
-            <div id="displayQuestionsAnswers" class="col-6 py-2 mb-3 border border-success">
+            <div id="displayQuestionsAnswers" class="col-12 col-lg-8 py-2 mb-3 border border-success">
                 
                 {% include 'project_presentation/_show/_questions_answers.html.twig' %}
                 
@@ -132,7 +132,7 @@
 
         {% if countNeeds > 0 %}
             
-            <div class="col-6 py-2 mb-3 border border-success">
+            <div class="col-12 col-md-8 col-lg-7 py-2 mb-3 border border-success">
                 
                 {% include 'project_presentation/_show/needs/main.html.twig' %}
                 
@@ -147,7 +147,7 @@
 
         {% if userPresenter or countPlaces > 0 %}
             
-            <div class="col-6 py-2 mb-3 border border-success">
+            <div class="col-12 py-2 mb-3 border border-success">
                 
                 {% include 'project_presentation/_show/_places.html.twig' %}
             
@@ -192,11 +192,11 @@
             
         {% if userPresenter %}
             
-            <div class="col-12 py-2 mb-3 border border-success">
+            <div class="col-12 col-md-7 py-2 mb-3 border border-success">
 
                 {# placeholder #}
 
-                {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres" } %}
+                {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres Possibilités" } %}
 
                 {# menu displayed in a modal #}
 
@@ -204,6 +204,16 @@
 
             </div>
 
+            {#
+            
+            <div class="col-5 py-2 mb-3 border border-success">
+
+                {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName': "settings", 'label': "Paramètres" } %}
+
+
+            </div>
+            #}
+            
         {% endif %}
     
     </div>
@@ -221,39 +231,6 @@
 
 </div>
 
-<style>
-
-    .pp-container {
-        margin-top: 50px;
-    }
-
-    .pp-placeholder-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100%;
-    }
-
-    .pp-upper-box {
-        margin-bottom: 40px;
-    }
-
-    .pp-logo-container{
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .pp-title{
-        display: inline-block;
-    }
-
-    .pp-goal{
-        display: inline-block;
-    }
-
-</style>
 
 {% endblock %}
 

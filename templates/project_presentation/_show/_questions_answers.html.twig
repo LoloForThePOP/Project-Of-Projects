@@ -16,36 +16,147 @@
 
             {% for qa in qas %}
 
-                <div id="{{qa.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2">
 
-                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+                    <!-- Question Display (with Collapse Symbol) -->
 
-                        <div class="p-3 text-white">
-                            
-                            <span class="fw-bold">
-                
-                                {{ qa.question }}
-                
+                    <div id="{{qa.id}}" class="js-sortable-element position-relative mb-2 questionRow row p-1 mb-2 mb-md-3 cursor-pointer collapsed" data-bs-toggle="collapse" href="#collapse-answer-{{ qa.id }}" role="button" aria-expanded="false" aria-controls="collapse-answer-{{ qa.id }}">
+                      
+                        <!-- Question -->
+
+                        <div class="col-11 pl-0 pl-md-3 pr-0">
+
+                            <span class="question">
+
+                                {{ qa.question [:1] | upper ~ qa.question [1:] }}
+
                             </span>
-                
-                            <br>
-                
-                            {{ qa.answer }}  
-                
-                        </div>
-                
-                    </a>
-                    
-                    {# delete question & answer (Red Cross) button #}
 
-                    <button type="button" data-elements-type="questionsAnswers" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{qa.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+                        </div>
+
+                        <!-- Collapse Symbol -->
+
+                        <div class="collapseSymbolDisplay col-1 px-0" style="display: flex, justify-content-center">
+
+                        </div>
+
+
+                    <!-- Answer & Action Buttons Display -->
+
+                    <div class="collapse no-transition mb-2 mb-md-3" id="collapse-answer-{{ qa.id }}">
+
+                        <div class="p-2">
+
+                            <div class="answer mb-2">
+                                
+                                {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}
+
+                                    
+                                {# edit q&a button #}
+                                        
+                                <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="pp-edition-mode">
+
+                                    <button type="button" class="btn btn-light btn-sm">Modifier</button>
+
+                                </a>
+
+                                {# delete question & answer button #}
+
+                                <button type="button" data-elements-type="questionsAnswers" class="js-delete-element pp-edition-mode btn btn-light btn-sm" data-id="{{qa.id}}">Supprimer</button>
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
-                
+
             {% endfor %}
 
         </div>
 
+        <style>
+   
+            .questionRow:hover {
+                background-color: lavender;
+            }
+        
+            .question {
+        
+                font-size: 1.25em;
+        
+                line-height: 1.15em;
+        
+                font-weight: bold;
+        
+            } 
+        
+            .answer {
+        
+                font-size: 1.15em;
+        
+                line-height: 1.5em;
+        
+            }
+        
+            .questionRow .collapseSymbolDisplay:after {
+        
+                font-size: 1.2rem !important;
+                content: "▲";
+            }
+        
+            .collapsed .collapseSymbolDisplay:after {
+                content: "▼";
+            }
+    
+    
+                        
+            #qaDisplay .pp-struct-icon {
+                margin-right: 11px;
+                top: 2px;
+                margin-left: 6px;
+            }
+    
+        
+            @media screen and (max-width: 580px) {
+    
+    
+                #qaDisplay.pp-struct-container{
+                    padding-right:10px;
+                }
+        
+                .question{
+        
+                    font-size:16px;
+                    line-height:20px;
+        
+                }
+        
+                .answer{
+        
+                    font-size: 16px;
+                    line-height: 1.5em;
+        
+                }
+    
+                .questionRow .collapseSymbolDisplay:after {
+        
+                    font-size: 1rem !important;
+    
+                }
+    
+                #qaDisplay .pp-struct-icon {
+                    width: 18px;
+                    height: 18px;
+                    top: 2px;
+                    margin-right:5px;
+                    margin-left:2px;
+                }
+        
+            }
+        
+        </style>
+        
     {% endblock %}
     
 {% endembed %}

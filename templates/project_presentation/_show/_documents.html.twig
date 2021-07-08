@@ -1,3 +1,10 @@
+
+{% block stylesheet %}
+
+    <link href="/css/document_representation.css" rel="stylesheet">
+
+{% endblock %}
+
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "documents", 'title': "Documents Attachés",} %}
 
     {% block editButtons %}
@@ -10,42 +17,51 @@
 
     {% block mainContent %}
 
-        <div id="documents" class="js-elements-list">
+        <div id="documents" class="js-elements-list row sm-scroll">
 
             {% for document in presentation.documents %}
+                
+            <!-- Document Representation with Title -->
 
-                <div id="{{document.id}}" class="js-sortable-element position-relative cursor-pointer bg-success mb-2 me-2" style="width:180px; min-height:130px; display: inline-block;">
+                {# bordered container with delete icon (outer representation) #}
 
-                    <a href="{{path("update_document", {'stringId': stringId, 'id_element': document.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+                <div id="{{document.id}}" class="js-sortable-element document-container" >
 
-                        <div class="p-3 text-white">
-                            
-                            <span class="fw-bold">
-                
-                                {{ document.title | slice(0,20) }}
-                
-                            </span>
-                
-                            <br>
-                
-                                {{ document.fileName }}  
-                
-                        </div>
-                
+                    <a href="{{path('update_document', {'stringId': stringId, 'id_element' : document.id })}}" class="h-100 text-body text-decoration-none">
+
+                        {# inner document representation #}
+
+                        {% include 'project_presentation/edit/documents/_inner_representation.html.twig' %}
+
                     </a>
 
                     {# delete document (Red Cross) button #}
 
-                    <button type="button" data-elements-type="documents" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{document.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+                    <button type="button" data-elements-type="documents" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{document.id}}"></button>
 
+                    
                 </div>
                 
             {% endfor %}
 
         </div>
 
+    <style>
+                
+        @media screen and (max-width: 580px) {
+
+            .sm-scroll{
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }          
+
+        }
+
+
+    </style>
+
     {% endblock %}
-    
+
 {% endembed %}
 
 

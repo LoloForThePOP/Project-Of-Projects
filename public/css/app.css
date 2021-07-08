@@ -62,6 +62,33 @@
     100% { transform: rotate(360deg); }
   }
 
+/* Delete Button */
+
+.delete-button {
+    position: absolute;
+	top: 0;
+	right: 0;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	line-height: 0;
+	border-radius: 2px;
+    background-color: #dc3545 !important;
+    color: white !important;
+    z-index: 2;
+}
+
+.delete-button::before {
+    content:"×";
+
+}
+
+.delete-button:hover{
+    color: #fff;
+    background-color: #bb2d3b;
+    border-color: #b02a37;
+}
+
 
   
 /* One Letter Avatars */

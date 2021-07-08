@@ -288,8 +288,9 @@ class PPController extends AbstractController
                     "✅ Partie ajoutée. Vous pouvez maintenant la remplir."
                 );
 
-                return $this->redirectToRoute('show_presentation', [
+                return $this->redirectToRoute('manage_one_cs', [
                     'stringId' => $presentation->getStringId(),
+                    'id_cs' => $newECS->getId(),
                 ]);
 
             }

@@ -10,7 +10,7 @@
         
         {% else %}
                                     
-            <div class="avatar-circle avatar-circle-100 mx-auto">
+            <div class="avatar-circle avatar-circle-100 mx-auto bg-primary">
 
                 <span class="avatar-initial avatar-initial-100">
 
@@ -34,6 +34,6 @@
 
     {# delete persorg (Red Cross) button #}
 
-    <button type="button" data-elements-type="persorgs" class="js-delete-element pp-edition-mode position-absolute btn btn-sm btn-danger" data-id="{{persorg.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+    <button type="button" data-elements-type="persorgs" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{persorg.id}}"></button>
 
 </div>

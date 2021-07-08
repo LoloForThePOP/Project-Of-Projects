@@ -1,13 +1,13 @@
 <script>
+
+    // this script should be called only for user presenters
         
     $(document).ready(function(){
         
-            //if user edit presentation, we enter in edition mode by default
-            
-            //some elements are only displayed in consultation mode, so we hide them
+            // when user edit presentation, we enter in edition mode by default, but some elements are only displayed in consultation mode, so we hide them by default
             $(".pp-consultation-mode").hide();
 
-            //manage switch between edition mode and consultation mode
+            // switching between edition mode and consultation mode
                 
             $( "#pp-switch-edit-consult-mode" ).click(function() {
                 
@@ -17,17 +17,18 @@
 
                     // toggling switch button class
 
-                    $(this).removeClass("edition-mode");
-                    $(this).addClass("consultation-mode");
+                    $(this).toggleClass("edition-mode consultation-mode");
                     $(this).html("✎");
 
                     //hiding elements related to edition
                     $(".pp-edition-mode").hide();
 
                     //showing elements related to consultation
-
-                    //$(".pp-consultation-mode").addClass("d-block");
                     $(".pp-consultation-mode").show();
+
+                    //disabling sortable capabilities
+                    $('.js-elements-list').sortable('disabled', true);
+
 
                 }
 
@@ -35,18 +36,20 @@
 
                     //entering edition mode
 
-                    // toggling switch button class
+                    //toggling switch button class
 
-                    $(this).removeClass("consultation-mode");
-                    $(this).addClass("edition-mode");
+                    $(this).toggleClass("consultation-mode edition-mode");
                     $(this).html("👁");
 
                     //showing elements related to edition 
                     $(".pp-edition-mode").show();
 
                     //hiding elements related to consultation
-                    //$(".pp-consultation-mode").removeClass("d-block");
                     $(".pp-consultation-mode").hide();
+
+
+                    //enabling sortable capabilities
+                    $('.js-elements-list').sortable('disabled', false);
 
                 }
             

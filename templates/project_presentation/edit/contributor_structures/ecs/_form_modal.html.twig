@@ -163,9 +163,9 @@
     
         $(".titleChunkSuggestion").click(function(){
 
-            ecsTitle=$("#liveTitleRendering").val();
+            ecsTitle= $("#liveTitleRendering").val();
                             
-            if(!$(this).hasClass("active")) //case pressing button, so we add its text to the title
+            if($(this).hasClass("active")) //case pressing button, so we add its text to the title
             {
             
                 if(ecsTitle==''){

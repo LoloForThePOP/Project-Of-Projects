@@ -29,23 +29,27 @@
 
                     {% elseif place.type =="administrative_area_level_1" %}
 
-                        {% set readablePlaceType = "Région" %}
+                        {% set readablePlaceType = "Région " %}
 
                     {% elseif place.type =="administrative_area_level_2" %}
 
-                        {% set readablePlaceType = "Département" %}
+                        {% set readablePlaceType = "Département :" %}
+
+                    {% elseif place.type =="country" %}
+
+                        {% set readablePlaceType = "" %}
                     
                     {% endif %}
 
                     {# Place card display #}
 
-                    <div id="{{place.id}}" class="js-sortable-element position-relative bg-success mb-2" style="cursor:pointer;">
+                    <div id="{{place.id}}" class="js-sortable-element position-relative bg-success mb-2 position-relative" style="cursor:pointer;">
 
                         <div class="p-3 text-white">
 
                             {{readablePlaceType}} {{place.name | capitalize}}
 
-                            {% if place.type == "locality" %}
+                            {% if place.type == "locality" and place.postalCode is not empty  %}
 
                                 ({{place.postalCode}})
                             
@@ -55,7 +59,7 @@
                         
                         {# delete place (Red Cross) button #}
 
-                        <button type="button" data-elements-type="places" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{place.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+                        <button type="button" data-elements-type="places" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{place.id}}"></button>
 
                     </div>
                     

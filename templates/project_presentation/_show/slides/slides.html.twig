@@ -24,13 +24,16 @@
 					<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
 
 				</a>
-			
-				<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
 
-					<button class="pp-edition-mode btn btn-light btn-sm">Ordre des diapos</button>
-					
-				</a>
+				{% if countSlides > 1 %}
 				
+					<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
+
+						<button class="pp-edition-mode btn btn-light btn-sm">Ordre</button>
+						
+					</a>
+				
+				{% endif %}
 			
 			{% endblock %}
 
@@ -51,7 +54,7 @@
 
 				<!-- First column contains slide + caption -->
 
-				<div class="">
+				<div class="p-0">
 
 					<div class="SlideshowContainer">
 
@@ -75,11 +78,11 @@
 							
 							>
 
-							{# caption are displayed from slides thumbnails with javascript #}	
+							{# caption are displayed from clicks on slides thumbnails (thumbnail alt attribute) #}	
 					
 							<p id="caption">
 
-								{# exception : when only one slide with caption, we display its caption by default with twig #}	
+								{# when only one slide with caption, we display its caption by default with twig #}	
 
 								{% if presentation.slides | length == 1 %}
 

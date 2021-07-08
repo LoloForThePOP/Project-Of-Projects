@@ -51,13 +51,13 @@
 
             <!-- Contact Card Item -->
 
-                <div id="{{bc.id}}" class="js-sortable-element  position-relative cursor-pointer col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
+                <div id="{{bc.id}}" class="js-sortable-element position-relative cursor-pointer col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
 
                     <a href="{{path('update_other_components_item',{'stringId': stringId, 'component_type': 'businessCards', 'item_id': bc.id  })}}" class="text-body text-decoration-none">
 
                         <!-- Contact Card Content -->
 
-                        {% include 'project_presentation/edit/other_components/businessCards/_display_business_card.html.twig' with {'context': 'editionMode'} %}
+                        {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig' with {'context': 'editionMode'} %}
 
                     </a>
 

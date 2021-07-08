@@ -1,11 +1,10 @@
 
 /* Whole Presentation Container */
 
-.pp-whole-container {
 
-    background-color :  #eff4ff;
-
-    }
+.pp-container {
+    margin-top: 50px;
+}
 
 /* Each Structure Container */
 
@@ -44,7 +43,7 @@
 
 .pp-struct-title{
 
-    display:inline;
+    display: inline;
     color : navy;
     font-family : Verdana, Geneva, Tahoma, sans-serif; 
     font-size: 2rem;
@@ -107,13 +106,28 @@ textarea:focus, input:focus{
 }
 
 
+@media screen and (max-width: 768px) {
+
+    .pp-container{
+        padding-left: 0;
+        padding-right: 0;
+        margin-top: 18px;
+    }
+
+}
+
 @media screen and (max-width: 580px) {
+
+    .pp-container{
+        padding: 0;
+        margin-top: 10px;
+    }
     
     .pp-struct-container {
 
-        padding-left: 10px;
+        padding-left: 0;
 
-        padding-right: 0px;
+        padding-right: 0;
         padding-top: 7px;
 
         margin-bottom: 15px;

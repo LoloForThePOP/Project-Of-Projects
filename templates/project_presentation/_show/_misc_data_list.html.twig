@@ -10,17 +10,16 @@
 
     {% block mainContent %}
 
-        <div id="dataList" class="js-elements-list row ps-lg-5">
+        <div id="dataList" class="js-elements-list row g-3 ps-lg-5">
 
             {% for data in presentation.getOC('dataList') %}
 
-                <div id="{{data.id}}" class="col-md-5 me-4 js-sortable-element position-relative cursor-pointer bg-success mb-2">
+                <div id="{{data.id}}" class="col-md-6 js-sortable-element position-relative mb-2">
 
-                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none" style="font-size: 17px;;">
 
-                        <div class="p-3 text-white">
+                        <div class="text-body">
                             
-                        
                             <span class="fw-bold">
                 
                                 {{ data.name }}
@@ -28,8 +27,13 @@
                             </span>
                 
                             <br>
+
+                            <div class="ps-md-3">
+
+                                {{ data.value }}  
+
+                            </div>
                 
-                            {{ data.value }}  
                 
                         </div>
                 
@@ -37,7 +41,7 @@
 
                     {# delete data item (Red Cross) button #}
 
-                    <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode position-absolute btn btn-danger" data-id="{{data.id}}" style="top:0; right:0;"><span class="fw-bold">&times</span></button>
+                    <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{data.id}}"></button>
 
                 </div>
                 

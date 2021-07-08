@@ -29,16 +29,16 @@ class ContributorStructuresController extends AbstractController
      * @Route("/projects/{stringId}/external-contributor-structures/manage", name="manage_all_ecs")
      * 
      */
-    public function manageAllECS (PPBase $presentation, ContributorStructureRepository $csRepo, Request $request, EntityManagerInterface $manager)
+    public function manageAllECS (PPBase $presentation, Request $request, EntityManagerInterface $manager)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         /* Getting Presentation External Contributor Structures */
 
-        $ecs = $csRepo->findBy(['type'=>'external'], ['position'=>'ASC']);
+        $ecs = $presentation->getContributorStructuresBytype('external');
 
-        /* Add an ecs capability */
+        /* Add a new ecs capability */
 
         $newECS = new ContributorStructure();
 

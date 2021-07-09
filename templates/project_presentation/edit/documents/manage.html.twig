@@ -87,7 +87,7 @@
 
                         <!-- Document Icon with Title -->
 
-                        <div id="{{document.id}}" class="js-sortable-element document-container position-relative me-4 mb-3" >
+                        <div id="{{document.id}}" class="js-sortable-element document-outer position-relative me-4 mb-3" >
 
                             <a href="{{path('update_document', {'stringId': stringId, 'id_element' : document.id })}}" class="h-100 text-body text-decoration-none">
 
@@ -129,7 +129,7 @@
 
         <style>
                     
-            .document-container
+            .document-outer
             {
                 width:170px; 
                 min-height:140px;
@@ -139,7 +139,7 @@
             }
 
             
-            .document-container:hover 
+            .document-outer:hover 
             {
                 background-color: gainsboro;
                 

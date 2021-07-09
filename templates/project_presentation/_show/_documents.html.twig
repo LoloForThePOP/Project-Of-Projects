@@ -17,7 +17,7 @@
 
     {% block mainContent %}
 
-        <div id="documents" class="js-elements-list row sm-scroll">
+        <div id="documents" class="js-elements-list row sm-horiz-scroll ps-4 ps-md-5">
 
             {% for document in presentation.documents %}
                 
@@ -25,7 +25,7 @@
 
                 {# bordered container with delete icon (outer representation) #}
 
-                <div id="{{document.id}}" class="js-sortable-element document-container" >
+                <div id="{{document.id}}" class="js-sortable-element document-outer me-3" >
 
                     <a href="{{path('update_document', {'stringId': stringId, 'id_element' : document.id })}}" class="h-100 text-body text-decoration-none">
 
@@ -39,7 +39,6 @@
 
                     <button type="button" data-elements-type="documents" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{document.id}}"></button>
 
-                    
                 </div>
                 
             {% endfor %}
@@ -50,7 +49,7 @@
                 
         @media screen and (max-width: 580px) {
 
-            .sm-scroll{
+            .sm-horiz-scroll{
                 flex-wrap: nowrap;
                 overflow-x: auto;
             }          

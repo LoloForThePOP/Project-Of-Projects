@@ -29,3 +29,14 @@ liip_imagine:
 
                     # input ?x? px -> output ?x? px (relative down-scale)
                     dim: [ 110, 110 ]
+
+        logo:
+
+            # list of transformations to apply
+            filters:
+
+                # use and setup the "scale" filter
+                scale:
+
+                    # input ?x? px -> output ?x? px (relative down-scale)
+                    dim: [ 170, 170 ]

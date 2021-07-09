@@ -1,4 +1,4 @@
-.document-container
+.document-outer
 {
     width:170px; 
     min-height:140px;
@@ -11,7 +11,7 @@
     margin-bottom: 20px;
 }
 
-.document-container:hover 
+.document-outer:hover 
 {
     background-color: gainsboro;
     

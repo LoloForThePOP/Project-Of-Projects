@@ -1,60 +1,54 @@
-{% if countBC > 0 %}
 
-    {% block stylesheet %}
+{% block stylesheet %}
 
-        <link href="/css/business_card.css" rel="stylesheet">
+    <link href="/css/business_card.css" rel="stylesheet">
+
+{% endblock %}
+
+
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Nous contacter",} %}
+
+    {% block editButtons %}
+
+        {# Add business card button (triggers a modal) #}
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-lg btn-sm">+ Ajouter</button>        
 
     {% endblock %}
 
-    {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Nous contacter",} %}
 
-        {% block editButtons %}
-
-            {# Add business card button (triggers a modal) #}
-
-            <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-lg btn-sm">+ Ajouter</button>        
-
-        {% endblock %}
-
-
-        {% block mainContent %}
-                
-            {% set bcs = presentation.getOC('businessCards') %}
-
-            <div id="businessCards" class="js-elements-list">
-
-                {% for bc in bcs %}
-
-                    <div id="{{bc.id}}" class="js-sortable-element bc-outer">
-
-                        <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
-
-                            <div class="text-body">
-
-                                <!-- Contact Card Content -->
-
-                                {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig' with {'context': 'editionMode'} %}
-                    
-                            </div>
-                    
-                        </a>
-
-                        {# delete website (Red Cross) button #}
-
-                        <button type="button" data-elements-type="businessCards" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{bc.id}}"></button>
-
-                    </div>
-                    
-                {% endfor %}
-
-            </div>
-
-        {% endblock %}
+    {% block mainContent %}
             
-    {% endembed %}
+        {% set bcs = presentation.getOC('businessCards') %}
 
-{% elseif userPresenter %} {# No business card, we display a placeholder for user presenter #}
-                    
-    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_business_card", 'addElementModal':"#add_business_card_form_modal", 'label': "Vous contacter"} %}
+        <div id="businessCards" class="js-elements-list">
 
-{% endif %}
+            {% for bc in bcs %}
+
+                <div id="{{bc.id}}" class="js-sortable-element bc-outer">
+
+                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+
+                        <div class="text-body">
+
+                            <!-- Contact Card Content -->
+
+                            {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig' with {'context': 'editionMode'} %}
+                
+                        </div>
+                
+                    </a>
+
+                    {# delete website (Red Cross) button #}
+
+                    <button type="button" data-elements-type="businessCards" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{bc.id}}"></button>
+
+                </div>
+                
+            {% endfor %}
+
+        </div>
+
+    {% endblock %}
+        
+{% endembed %}

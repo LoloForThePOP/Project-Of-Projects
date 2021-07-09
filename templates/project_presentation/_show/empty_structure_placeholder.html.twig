@@ -18,16 +18,20 @@
         
         {% endif %}
 
-        class="pp-edition-mode"
+        class="pp-edition-mode text-decoration-none"
     >
 
         <div class="placeholder-container">
     
-            <img class="placeholder-image img-fluid" src="{{ asset(iconName ~'.svg', 'pp_wysiwyg')}}" alt="Placeholder for {{entityType | default ("an empty structure")}}" width="200" height="200">
-
             <div class="placeholder-label">
 
                 {{label | default ("")}}
+
+            </div>
+
+            <div class="image-container">
+
+                <img class="placeholder-image img-fluid" src="{{ asset(iconName ~'.svg', 'pp_wysiwyg')}}" alt="Placeholder for {{entityType | default ("an empty structure")}}" width="150" height="150">
 
             </div>
     
@@ -40,11 +44,7 @@
 
         .placeholder-container{
 
-            position: relative;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          
 
             height: 100%;
 
@@ -58,23 +58,30 @@
 
         }
 
-        .placeholder-image{
-            z-index: 2;
-        }
+       
 
         .placeholder-label{
-
-            position: absolute;
-            top:0; 
-            left:0;
-
-            width: 170px;
-            height:50px;
 
             font-size: 18px;
             font-weight: bold;
 
             color: black;
+
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .placeholder-label{
+
+                font-size: 15px;
+
+            }
+                
+            .placeholder-image{
+                width: 70px;
+                height: 70px;
+            }
+
 
         }
 

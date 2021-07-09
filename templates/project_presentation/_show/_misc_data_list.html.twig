@@ -10,25 +10,23 @@
 
     {% block mainContent %}
 
-        <div id="dataList" class="js-elements-list row g-3 ps-lg-5">
+        <div id="dataList" class="js-elements-list row ps-lg-5">
 
             {% for data in presentation.getOC('dataList') %}
 
-                <div id="{{data.id}}" class="col-md-6 js-sortable-element position-relative mb-2">
+                <div id="{{data.id}}" class="col-6 col-md-5 js-sortable-element dataCard">
 
-                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none" style="font-size: 17px;;">
+                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="w-100 h-100 text-decoration-none">
 
                         <div class="text-body">
                             
-                            <span class="fw-bold">
+                            <div class="name">
                 
                                 {{ data.name }}
                 
-                            </span>
-                
-                            <br>
+                            </div>
 
-                            <div class="ps-md-3">
+                            <div class="value ps-md-3">
 
                                 {{ data.value }}  
 
@@ -48,6 +46,51 @@
             {% endfor %}
 
         </div>
+
+        <style>
+
+            .dataCard{
+                position: relative;
+                border: 1px solid silver;
+                margin-bottom: 5px;;
+            }
+
+            .dataCard .name{
+                font-size: 16px;
+                margin-bottom: 7px;
+                font-weight: bold;
+            }
+
+            .dataCard .value{
+                font-size: 15px;
+                
+                line-height: 1.05;
+            }
+
+                        
+            @media screen and (max-width: 580px) {
+
+                .dataCard .name{
+                    font-size: 15px;
+                    font-weight: bold;
+                    line-height: 1;
+                    margin-bottom: 5px;
+                }
+
+                .dataCard .value{
+                    font-size: 15px;
+                    margin-bottom: 8px;
+                    line-height: 1;
+                }
+
+            }
+
+
+
+
+
+
+        </style>
 
     {% endblock %}
 

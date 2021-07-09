@@ -1,0 +1,202 @@
+
+{% extends 'base.html.twig' %}
+
+    {% block stylesheets %}
+
+        <link rel="stylesheet" href="/css/app_forms.css" />
+        
+    {% endblock %}
+
+    {% block title %}Gestion des Catégories de Projets{% endblock %}
+
+
+    {% block body %}
+
+        {# ui page title #}
+
+        
+        <h4 class="text-danger fw-bold d-inline-block my-4 me-2">
+
+            Gestion des Catégories de Projets
+
+        </h4>
+
+        {# collapsible informations #}
+
+        {# trigger button #}
+        
+        <a class="my-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAdvices" aria-expanded="false" aria-controls="collapseAdvices">
+            
+            <span class="btn btn-light fs-15 h5 sharp fw-bold p-1 px-2" style="letter-spacing: 2px;">
+                
+               Infos
+            
+            </span>
+            
+        </a>
+        
+        <!-- Advices Content -->
+
+        <div id="collapseAdvices" class="info-box collapse no-transition col-md-8 col-lg-6">
+                    
+            <div class="alert alert-warning">
+
+                <p>
+                    Pour modifier l'ordre des catégories, utiliser le drag and drop. 
+                    <br>
+                    Pour modifier une catégorie, cliquer dessus.
+                </p>
+    
+            </div>
+
+        </div>
+
+        {# add a category button #}
+
+        <div>
+            
+            <a href="{{path('edit_category')}}">
+
+                <button type="button" class="btn btn-success btn-lg mb-4">+ Ajouter</button>
+
+            </a>
+
+        </div>
+
+        {# list categories #}
+
+        <div id="elements-list" class="col-xxl-10">
+
+            {% include "project_presentation/edit/categories/_admin_list_categories.html.twig" %}
+        
+        </div>
+
+        {# style categories display #}
+
+        <style>
+
+            .cat-button{
+
+                position: relative;
+
+                float: left;
+                width: 100%;
+                max-width:230px;
+                height: 61px;
+
+                margin-right: 15px;
+                margin-bottom: 15px;
+
+                font-size:1.1em;
+                line-height:1.4em !important;
+                font-weight:700;
+                
+                border: 1px solid black !important;
+                border-radius: 4px;
+                background-color: rgb(234, 241, 253);
+                cursor:pointer;
+            }
+
+            .bt-left-col{
+                width: 58px;
+                height: 100%;
+                float:left;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .bt-right-col{
+                height: 100%;
+                display: flex;
+                align-items: center;
+                
+            }
+
+        </style>
+
+    {% endblock %}
+
+
+    {# javascript to reorder categories #}
+
+
+    {% block javascripts %}
+
+    <!-- sortable plugin to reorder elements -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for above sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+
+        <script>
+            
+            $(document).ready(function(){
+
+                $('#elements-list').sortable({
+
+                    animation: 150,
+    
+                    ghostClass: 'blue-background-class',
+    
+                    filter: ".disabled",
+    
+                    onMove: function (evt) {
+                        return evt.related.className.indexOf('disabled') === -1;
+                    },
+    
+                    // drag and drop implies elements positions updates (ajax call)
+    
+                    onEnd: function (evt) {
+
+                        // an array storing elements id position
+
+                        var elementsPositions = [];
+
+                        $('#elements-list div.js-sortable-element').each(function(index){
+                            
+                            elementsPositions.push($(this).attr('id'));
+                    
+                        });
+
+                        jsonElementsPositions = JSON.stringify(elementsPositions);
+
+                        $.ajax({  
+
+                            url: "{{path('reorder_categories')}}",
+                            type:       'POST',   
+                            dataType:   'json',
+                            data: {
+                                "jsonElementsPosition": jsonElementsPositions,
+                            },
+        
+                            async: true,  
+                            
+                            success: function(data, status) {
+                                    
+                            },  
+        
+                            error : function(xhr, textStatus, errorThrown) {  
+                                // alert('Ajax request failed.');  
+                            }  
+                        }); 
+
+
+
+
+
+
+
+    
+                    },
+
+                });
+
+            });  
+
+        </script>
+
+    {% endblock %}
+    

@@ -1,7 +1,6 @@
 {% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
 
 
-
 {% set ecsTitle = cs.title[:1] | upper ~ cs.title[1:] %}
 
 
@@ -70,6 +69,17 @@
 
     {% include "project_presentation/edit/contributor_structures/_edit_with_textarea.html.twig" %}
 
+
+{% endblock %}
+
+
+{% block specificButtons %}
+    
+    {# update ECS Title Button #}
+
+    <a class="text-decoration-none" href="{{ path('update_ecs_title', {'stringId': stringId, 'id_ecs': cs.id}) }}">
+        <button type="button" class="btn btn-lg mb-4" style="background-color:#81661b; color:white;">Modifier le titre</button>
+    </a>
 
 {% endblock %}
 

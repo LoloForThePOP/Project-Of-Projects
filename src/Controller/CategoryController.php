@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Entity\Category;
+use App\Form\CategoryType;
 use App\Form\PPKeywordsType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class CategoryController extends AbstractController
@@ -41,7 +44,7 @@ class CategoryController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les mots-clés du Projet ont été mis à jour"
+                "✅ Mots-clés mis à jour"
             );
 
             return $this->redirectToRoute('show_presentation', [
@@ -56,7 +59,6 @@ class CategoryController extends AbstractController
             'keywordsForm' => $keywordsForm->createView(),
         ]);
     }
-
 
     /** 
      *  
@@ -88,4 +90,138 @@ class CategoryController extends AbstractController
             return new Response();
         }
     }
+
+    /** 
+     * 
+     * Allow admin to Access project categories reordering, editing button, and new category button
+     *  
+     * @Route("/admin/categories/manage", name="manage_categories") 
+     * 
+     */
+    public function adminManageCategories(Request $request, CategoryRepository $categoryRepository, EntityManagerInterface $manager)
+    {
+
+        $categories= $categoryRepository->findBy([], ['position' => 'ASC']);
+
+        return $this->render('project_presentation/edit/categories/admin_manage.html.twig', [
+
+            'categories' => $categories,
+            'admin' => true,
+
+        ]);
+
+    }
+
+    /** 
+     * 
+     * Ajax call to reorder categories
+     *  
+     * @Route("/admin/categories/ajax-reorder", name="reorder_categories") 
+     * 
+     */
+    public function adminAjaxReorderCategories(Request $request, CategoryRepository $categoryRepository, EntityManagerInterface $manager)
+    {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $categories= $categoryRepository->findAll();
+
+            $jsonElementsPosition = $request->request->get('jsonElementsPosition');
+            $elementsPosition = json_decode($jsonElementsPosition,true);
+
+            foreach ($categories as $element){
+
+                $newElementPosition = array_search($element->getId(), $elementsPosition, false);
+                
+                $element->setPosition($newElementPosition);
+
+            }
+
+            $manager->flush();
+
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+        
+    }
+
+    /** 
+     * 
+     * Allow admin to Create or Edit a Category
+     *  
+     * @Route("/admin/categories/edit/{id?}", name="edit_category") 
+     * 
+     */
+    public function adminEditCategory(Request $request, Category $category = null, EntityManagerInterface $manager)
+    {
+        $context= null;
+        $cat_id = null;
+        
+        if (!$category) {
+            $category= new Category();
+            $context= 'new';
+        }
+
+        else {
+            $context = 'update';
+            $cat_id= $category->getId();
+        }
+       
+        $form = $this->createForm(CategoryType::class, $category);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $manager->persist($category);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "✅ Catégorie éditée"
+            );
+
+            return $this->redirectToRoute('manage_categories', []);
+        }
+
+        return $this->render('project_presentation/edit/categories/admin_edit.html.twig', [
+            
+            'form' => $form->createView(),
+            'context' => $context,
+            'cat_id' => $cat_id,
+
+        ]);
+        
+    }
+
+
+    /** 
+     * 
+     * Allow admin to Delete a Category
+     *  
+     * @Route("/admin/categories/delete/{id}", name="delete_category") 
+     * 
+     */
+    public function adminDeleteCategory(Category $category, EntityManagerInterface $manager)
+    {
+        
+        $manager->remove($category);
+
+        $manager->flush();
+       
+        return $this->redirectToRoute('manage_categories');
+        
+    }
+
+
+
+
+
+
+
+
+
+
 }

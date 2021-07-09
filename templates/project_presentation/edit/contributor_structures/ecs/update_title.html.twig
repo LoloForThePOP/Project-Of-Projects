@@ -1,0 +1,31 @@
+{% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
+
+    {% block mainContentTitle %}Modifier le titre{% endblock %}
+
+    {% block mainContent %}
+
+        <div class="mt-3 mb-3 px-3">
+
+            {{ form_widget(form.title) }}
+
+        </div>
+
+        <div class="d-none">
+
+            {{ form_rest(form) }}
+
+        </div>
+
+        
+
+    {% endblock %}
+
+
+    {% block seeResultAnchor %}
+
+        ecs
+        
+    {% endblock %}
+
+
+{% endembed %}

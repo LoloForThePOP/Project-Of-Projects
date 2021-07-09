@@ -1,120 +1,109 @@
-{% if countSlides > 0 %}
 
-	{% block stylesheet %}
+{% block stylesheet %}
 
-	<link href="/css/slideshow.css" rel="stylesheet">
+<link href="/css/slideshow.css" rel="stylesheet">
 
-	{% endblock %}
+{% endblock %}
 
-	{% if userPresenter %}
+{% if userPresenter %}
 
-		{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama", 'editionMode': "pp-edition-mode"} %}
+	{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama", 'editionMode': "pp-edition-mode"} %}
 
-			{% block editButtons %}
+		{% block editButtons %}
+		
+			{# Add an image button (triggers a modal with a form) #}
+		
+			<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
+			class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
+
+			{# Add a video button (triggers a modal) #}
+
+			<a class="text-decoration-none" href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
+
+				<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
+
+			</a>
+
+			{% if countSlides > 1 %}
 			
-				{# Add an image button (triggers a modal with a form) #}
-			
-				<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
-				class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
+				<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
 
-				{# Add a video button (triggers a modal) #}
-
-				<a class="text-decoration-none" href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
-
-					<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
-
+					<button class="pp-edition-mode btn btn-light btn-sm">Ordre</button>
+					
 				</a>
-
-				{% if countSlides > 1 %}
-				
-					<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
-
-						<button class="pp-edition-mode btn btn-light btn-sm">Ordre</button>
-						
-					</a>
-				
-				{% endif %}
 			
-			{% endblock %}
+			{% endif %}
+		
+		{% endblock %}
 
-		{% endembed %}
+	{% endembed %}
 
-	{% endif %}
+{% endif %}
 
-	<!-- Project Presentation Slideshow Display -->
-	<!-- Structure Container -->
+<!-- Project Presentation Slideshow Display -->
+<!-- Structure Container -->
 
-	<div id="slideshowDisplay" class="px-0 container mb-4 pb-md-2">
+<div id="slideshowDisplay" class="px-0 container mb-4 pb-md-2">
 
-		<!-- Slideshow Container -->
+	<!-- Slideshow Container -->
 
-		<div class="container">
+	<div class="container">
+		
+		<div class="row">
+
+			<div class="SlideshowContainer">
+
+				<!-- Caption Container -->
+
+				{# If at least one caption is set, we display caption container #}					
+				<div 
+				
+					class="caption-container d-none"
+
+						{% for slide in presentation.slides %}
+
+							{% if slide.caption is not empty %}
+													
+								style="display: flex !important; align-items: center;"
+
+							{% endif %}
+						
+						{% endfor %}
+					
+					>
+
+					{# caption are displayed from clicks on slides thumbnails (thumbnail alt attribute) #}	
 			
-			<div class="row">
+					<p id="caption">
 
-				<!-- First column contains slide + caption -->
+						{# when only one slide with caption, we display its caption by default with twig #}	
 
-				<div class="p-0">
+						{% if presentation.slides | length == 1 %}
 
-					<div class="SlideshowContainer">
+							{% set slide = presentation.slides | first %}
 
-						<!-- Caption Container -->
+							<div class="ps-md-3">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</div>
 
-						{# If at least one caption is set, we display caption container #}				
-						
-						<div 
-						
-							class="caption-container d-none"
-
-								{% for slide in presentation.slides %}
-
-									{% if slide.caption is not empty %}
-															
-										style="display: flex !important; align-items: center;"
-
-									{% endif %}
+						{% endif %}
 								
-								{% endfor %}
+					</p>
+				
+				</div>
+
+				<div class="slides-thumbnails-container">
+
+					<div class="row">
 							
-							>
+						<!-- Slides Container -->
 
-							{# caption are displayed from clicks on slides thumbnails (thumbnail alt attribute) #}	
-					
-							<p id="caption">
+						{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
+			
+				
+						{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
 
-								{# when only one slide with caption, we display its caption by default with twig #}	
-
-								{% if presentation.slides | length == 1 %}
-
-									{% set slide = presentation.slides | first %}
-
-									<div class="ps-md-3">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</div>
-
-								{% endif %}
-										
-							</p>
-						
-						</div>
-
-						<div class="slides-thumbnails-container">
-
-							<div class="row">
-									
-								<!-- Slides Container -->
-
-								{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
-					
-						
-								{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
-
-
-							</div>
-								
-						</div>
 
 					</div>
-
-
+						
 				</div>
 
 			</div>
@@ -123,81 +112,52 @@
 
 	</div>
 
-	<script>
-
-		var slideIndex = 1;
-	
-		showSlides(slideIndex);
-	
-		function plusSlides(n) {
-	
-			showSlides(slideIndex += n);
-			
-		}
-	
-		function currentSlide(n) {
-			showSlides(slideIndex = n);
-		}
-	
-		function showSlides(n) {
-	
-			var i;
-			var slides = document.getElementsByClassName("mySlides");
-			var dots = document.getElementsByClassName("SlideImage");
-			var thumbnail = document.getElementsByClassName("thumbnail");
-			var captionText = document.getElementById("caption");
-			
-			if (n > slides.length) {slideIndex = 1}
-			
-			if (n < 1) {slideIndex = slides.length}
-			
-			for (i = 0; i < slides.length; i++) {
-				slides[i].style.display = "none";
-			}
-			
-			for (i = 0; i < dots.length; i++) {
-				dots[i].className = dots[i].className.replace(" active", "");
-				thumbnail[i].className = thumbnail[i].className.replace(" active", "");
-			}
-			
-			slides[slideIndex-1].style.display = "block";
-			
-			dots[slideIndex-1].className += " active";
-			thumbnail[slideIndex-1].className += " active";
-			
-			captionText.innerHTML = dots[slideIndex-1].alt;
-
-		}
-	
-	</script>
-
-{% elseif userPresenter %} {# No Slide, but user presents this project #}
-
-<div class="container">
-
-	<div class="row mb-3">
-
-		{# add an image placeholder #}
-
-		<div id="" class="col-6 py-2 border border-success">
-			
-			{% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_image", 'addElementModal':"#addImageSlideFormModal", 'label': "Images"} %}
-			
-		</div>
-
-		{# add a video placeholder #}
-
-		{% set addVideoRoute = path('add_youtube_slide', {'stringId': stringId}) %}
-		
-		<div id="" class="col-6 py-2 border border-success">
-				
-			{% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_youtube_video", 'route': addVideoRoute, 'label': "Vidéos"} %}
-			
-		</div>		
-		
-	</div>
-
 </div>
 
+<script>
 
-{% endif %}
+	var slideIndex = 1;
+
+	showSlides(slideIndex);
+
+	function plusSlides(n) {
+
+		showSlides(slideIndex += n);
+		
+	}
+
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+
+		var i;
+		var slides = document.getElementsByClassName("mySlides");
+		var dots = document.getElementsByClassName("SlideImage");
+		var thumbnail = document.getElementsByClassName("thumbnail");
+		var captionText = document.getElementById("caption");
+		
+		if (n > slides.length) {slideIndex = 1}
+		
+		if (n < 1) {slideIndex = slides.length}
+		
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
+		}
+		
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");
+			thumbnail[i].className = thumbnail[i].className.replace(" active", "");
+		}
+		
+		slides[slideIndex-1].style.display = "block";
+		
+		dots[slideIndex-1].className += " active";
+		thumbnail[slideIndex-1].className += " active";
+		
+		captionText.innerHTML = dots[slideIndex-1].alt;
+
+	}
+
+</script>

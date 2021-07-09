@@ -3,7 +3,7 @@
 
     <div class="">
 
-        <img id="pp-logo" class="img-fluid" src="{{ vich_uploader_asset(presentation)}}" alt="Logo du Projet">
+        <img id="pp-logo" class="img-fluid" src="{{ vich_uploader_asset(presentation) | imagine_filter('logo')}}" alt="Logo du Projet">
 
     </div>
 
@@ -22,8 +22,6 @@
 
     #pp-logo{
         border-radius: 4px;
-        width: 140px;
-        height: 140px;
     }
 
     #logoPlaceholder{
@@ -44,8 +42,6 @@
 
         #pp-logo{
             border-radius: 4px;
-            width: 110px;
-            height: 110px;
         }
 
 

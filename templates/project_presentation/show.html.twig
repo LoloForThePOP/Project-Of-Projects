@@ -47,7 +47,7 @@
             
         {% set countSlides = presentation.slides | length %}
 
-        {% if userPresenter or countSlides > 0  %}
+        {% if countSlides > 0  %}
 
             {% include 'project_presentation/_show/slides/slides.html.twig' %}
     
@@ -56,7 +56,7 @@
 
         {# Text Description #}
 
-        {% if presentation.textDescription is not empty or userPresenter %} 
+        {% if presentation.textDescription is not empty %} 
             
             <div class="col-12 col-md-10 col-lg-8 py-2 mb-3 border border-success">
                 
@@ -85,9 +85,9 @@
 
         {% set countWebsites = presentation.getOC('websites') | length %}
 
-        {% if countWebsites > 0 or userPresenter  %}
+        {% if countWebsites > 0  %}
         
-            <div id="displayWebsites" class="col-12 col-md-6 py-2 mb-3 border border-success">
+            <div id="displayWebsites" class="col-12 py-2 mb-3 border border-success">
                 
                 {% include 'project_presentation/_show/_websites.html.twig' %}
                 
@@ -102,7 +102,7 @@
 
         {% if countDocuments > 0 %}
 
-            <div id="displayDocuments" class="col-12 col-md-6 py-2 mb-3 border border-success">
+            <div id="displayDocuments" class="col-12 py-2 mb-3 border border-success">
 
                 {% include 'project_presentation/_show/_documents.html.twig' %}
 
@@ -145,7 +145,7 @@
 
         {% set countPlaces = presentation.places | length %}
 
-        {% if userPresenter or countPlaces > 0 %}
+        {% if countPlaces > 0 %}
             
             <div class="col-12 py-2 mb-3 border border-success">
                 
@@ -177,7 +177,7 @@
 
         {% set countBC = presentation.getOC('businessCards') | length %}
 
-        {% if userPresenter or countBC > 0 %}
+        {% if countBC > 0 %}
             
             <div class="col-12 py-2 mb-3 border border-success">
 
@@ -187,12 +187,20 @@
 
         {% endif %}
 
+        {# Placeholders for usual structures (ex: websites; places; images; etc) #}
+
+        {% if userPresenter %}
+
+            {% include "project_presentation/_show/_wysiwyg_placeholders.html.twig" %}
+
+        {% endif %}
+
 
         {# Other Edition Possibilities. Ex: Add Documents; add a Q&A; etc. Placeholder Icons to opens a modal with choices buttons #}
             
         {% if userPresenter %}
             
-            <div class="col-12 col-md-7 py-2 mb-3 border border-success">
+            <div class="pp-edition-mode col-12 col-md-7 py-2 mb-3 border border-success">
 
                 {# placeholder #}
 
@@ -203,22 +211,10 @@
                 {% include "project_presentation/_show/_non_default_structures_menu.html.twig" %}
 
             </div>
-
-            {#
-            
-            <div class="col-5 py-2 mb-3 border border-success">
-
-                {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName': "settings", 'label': "Paramètres" } %}
-
-
-            </div>
-            #}
             
         {% endif %}
     
     </div>
-
-    
 
     {# Switch Between Edition Mode and Consultation Mode Button #}
 

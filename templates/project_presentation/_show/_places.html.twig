@@ -1,80 +1,85 @@
-{% if countPlaces > 0 %}
 
-    {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "geodomains", 'title': "Lieux du Projet",} %}
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "geodomains", 'title': "Lieux du Projet",} %}
 
-        {% block editButtons %}
+    {% block editButtons %}
 
-            {# Manage places button #}
+        {# Manage places button #}
 
-            <a class="pp-edition-mode text-decoration-none" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
+        <a class="pp-edition-mode text-decoration-none" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
 
-                <button class="pp-edition-mode btn btn-light btn-sm">Gérer</button>
-            </a>
+            <button class="pp-edition-mode btn btn-light btn-sm">Gérer</button>
+        </a>
 
-        {% endblock %}
+    {% endblock %}
 
-        {% block mainContent %}
-                    
-            <div id="places" class="js-elements-list">
+    {% block mainContent %}
+                
+        <div id="places" class="js-elements-list ps-md-5">
 
-                {% for place in presentation.places %}
+            {% for place in presentation.places %}
 
-                    {# create a readable place type #}
+                {# create a readable place type #}
+
+                {% set readablePlaceType = "" %}
+
+                {% if place.type =="locality" %}
+
+                    {% set readablePlaceType = "Ville : " %}
+
+                {% elseif place.type =="administrative_area_level_1" %}
+
+                    {% set readablePlaceType = "Région " %}
+
+                {% elseif place.type =="administrative_area_level_2" %}
+
+                    {% set readablePlaceType = "Département :" %}
+
+                {% elseif place.type =="country" %}
 
                     {% set readablePlaceType = "" %}
+                
+                {% endif %}
 
-                    {% if place.type =="locality" %}
+                {# Place card display #}
 
-                        {% set readablePlaceType = "Ville : " %}
+                <div id="{{place.id}}" class="js-sortable-element col-12 col-md-7 col-lg-6 place-card">
 
-                    {% elseif place.type =="administrative_area_level_1" %}
+                        {{readablePlaceType}} {{place.name | capitalize}}
 
-                        {% set readablePlaceType = "Région " %}
+                        {% if place.type == "locality" and place.postalCode is not empty  %}
 
-                    {% elseif place.type =="administrative_area_level_2" %}
-
-                        {% set readablePlaceType = "Département :" %}
-
-                    {% elseif place.type =="country" %}
-
-                        {% set readablePlaceType = "" %}
-                    
-                    {% endif %}
-
-                    {# Place card display #}
-
-                    <div id="{{place.id}}" class="js-sortable-element position-relative bg-success mb-2 position-relative" style="cursor:pointer;">
-
-                        <div class="p-3 text-white">
-
-                            {{readablePlaceType}} {{place.name | capitalize}}
-
-                            {% if place.type == "locality" and place.postalCode is not empty  %}
-
-                                ({{place.postalCode}})
-                            
-                            {% endif %}
+                            ({{place.postalCode}})
                         
-                        </div>
-                        
-                        {# delete place (Red Cross) button #}
-
-                        <button type="button" data-elements-type="places" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{place.id}}"></button>
-
-                    </div>
+                        {% endif %}
                     
-                {% endfor %}
+                    {# delete place (Red Cross) button #}
 
-            </div>
+                    <button type="button" data-elements-type="places" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{place.id}}"></button>
 
-        {% endblock %}
+                </div>
+                
+            {% endfor %}
 
-    {% endembed %}
+        </div>
 
-{% elseif userPresenter %} {# No place, we display a placeholder for userPresenter #}
+    <style>
 
-    {% set route = path('manage_places', {'stringId': stringId}) %}
+        .place-card{
+            position: relative;
+            padding: 5px;
+            margin-bottom: 10px;
+            background-color: aliceblue;
+            font-size: 17px;
+            font-weight: bold;
 
-    {% include 'project_presentation/_show/empty_structure_placeholder.html.twig' with {'iconName':"add_place", 'route': route, 'label': "Lieux"} %}     
+        }
 
-{% endif %}
+    </style>
+    {% endblock %}
+
+
+{% endembed %}
+
+
+
+

@@ -39,43 +39,7 @@
 
     <div id="cat-grid" class="col-xxl-10">
 
-        {% for category in categories %}
-        
-            <div 
-            
-                id="{{category.id}}" 
-            
-                class="
-                
-                    cat-button 
-
-                    {% if category in presentation.categories %}
-                        selectedCategory 
-                    {% endif %} 
-
-                "                    
-            >
-
-                {# Button Icon #}
-
-                <div class="bt-left-col">
-
-                    <img src="/media/static/images/icons/project_categories/{{category.uniqueName}}.svg" alt="{{category.uniqueName}}" loading="lazy" width="35" height="35">
-
-                </div>
-
-                {# Button Description #}
-
-                <div class="bt-right-col">
-
-                    {{category.descriptionFr}}
-
-                </div>
-
-            </div>
-
-        {% endfor %}
-
+        {% include "project_presentation/edit/categories/_list.html.twig" %}
 
         {# Project Keywords Input #}
 

@@ -78,6 +78,45 @@ class ContributorStructuresController extends AbstractController
 
     }
 
+    /**
+     * Allow to update an ECS title
+     * 
+     * @Route("/projects/{stringId}/external-contributor-structure/{id_ecs}/update-title", name="update_ecs_title")
+     * 
+     */
+    public function updateECSTitle (PPBase $presentation, ContributorStructure $ecs, Request $request, EntityManagerInterface $manager)
+    {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        $form = $this->createForm(ContributorStructureType::class, $ecs);
+    
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "✅ Modification effectuée."
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+            ]);
+
+        }
+
+        return $this->render('project_presentation/edit/contributor_structures/ecs/update_title.html.twig', [
+
+            'form' => $form->createView(),
+            'stringId' => $presentation->getStringId(),
+            
+        ]);
+
+    }
+
   
     /**
      * Allow to access CRUD operation concerning a Contributor Structure (ex: add someone in it)

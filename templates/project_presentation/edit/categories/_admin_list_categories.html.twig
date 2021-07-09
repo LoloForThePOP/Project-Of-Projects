@@ -1,0 +1,33 @@
+
+{% for category in categories %}
+    
+    <div 
+    
+        id="{{category.id}}" 
+    
+        class="js-sortable-element cat-button"                    
+    >
+
+        <a href="{{path('edit_category', {'id': category.id })}}" class="text-decoration-none">
+
+            {# Button Icon #}
+
+            <div class="bt-left-col">
+
+                <img src="/media/static/images/icons/project_categories/{{category.uniqueName}}.svg" alt="{{category.uniqueName}}" loading="lazy" width="35" height="35">
+
+            </div>
+
+            {# Button Description #}
+
+            <div class="bt-right-col">
+
+                {{category.descriptionFr}}
+
+            </div>
+
+        </a>
+
+    </div>
+
+{% endfor %}

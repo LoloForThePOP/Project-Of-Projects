@@ -7,8 +7,24 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+
+use Symfony\Component\HttpFoundation\File\File;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Image;
+
+
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+
+
+
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @Vich\Uploadable
+ * 
  */
 class Category
 {
@@ -44,10 +60,90 @@ class Category
      */
     private $projects;
 
+    
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+
+
+
+
+
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     *  @Assert\Image(
+     *     maxSize = "20k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 20 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif", "image/svg", "image/svg+xml", },
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
+     * @Vich\UploadableField(mapping="category_icon", fileNameProperty="image")
+     * 
+     * @var File|null
+     */
+    public $imageFile;
+
+
+
+
     public function __construct()
     {
         $this->projects = new ArrayCollection();
     }
+
+
+
+
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
+     */
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        //if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        //}
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+
 
 
     public function getId(): ?int

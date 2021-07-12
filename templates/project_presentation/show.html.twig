@@ -58,7 +58,7 @@
 
         {% if presentation.textDescription is not empty %} 
             
-            <div class="col-12 col-md-10 col-lg-8 py-2 mb-3 border border-success">
+            <div class="pp-struct-container col-12 col-md-10">
                 
                 {% include 'project_presentation/_show/_text_description.html.twig' %}
 
@@ -73,7 +73,7 @@
 
         {% if countMiscDataList > 0 %}
 
-            <div class="col-lg-10 py-2 mb-3 border border-success">
+            <div class="pp-struct-container col-lg-10">
 
                 {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
                 
@@ -87,7 +87,7 @@
 
         {% if countWebsites > 0  %}
         
-            <div id="displayWebsites" class="col-12 py-2 mb-3 border border-success">
+            <div id="displayWebsites" class="pp-struct-container col-12">
                 
                 {% include 'project_presentation/_show/_websites.html.twig' %}
                 
@@ -102,7 +102,7 @@
 
         {% if countDocuments > 0 %}
 
-            <div id="displayDocuments" class="col-12 py-2 mb-3 border border-success">
+            <div id="displayDocuments" class="pp-struct-container col-12">
 
                 {% include 'project_presentation/_show/_documents.html.twig' %}
 
@@ -117,7 +117,7 @@
 
         {% if countQA > 0 %}
             
-            <div id="displayQuestionsAnswers" class="col-12 col-lg-8 py-2 mb-3 border border-success">
+            <div id="displayQuestionsAnswers" class="pp-struct-container col-12 col-lg-9">
                 
                 {% include 'project_presentation/_show/_questions_answers.html.twig' %}
                 
@@ -132,7 +132,7 @@
 
         {% if countNeeds > 0 %}
             
-            <div class="col-12 col-md-8 col-lg-7 py-2 mb-3 border border-success">
+            <div class="pp-struct-container col-12 col-md-9 col-lg-7">
                 
                 {% include 'project_presentation/_show/needs/main.html.twig' %}
                 
@@ -147,7 +147,7 @@
 
         {% if countPlaces > 0 %}
             
-            <div class="col-12 py-2 mb-3 border border-success">
+            <div class="pp-struct-container col-12">
                 
                 {% include 'project_presentation/_show/_places.html.twig' %}
             
@@ -164,7 +164,7 @@
 
         {% if countECS > 0 %}
 
-            <div class="col-12 py-2 mb-3 border border-success">
+            <div class="pp-struct-container col-12">
 
                 {% include 'project_presentation/_show/_external_contributors.html.twig' %}
 
@@ -179,7 +179,7 @@
 
         {% if countBC > 0 %}
             
-            <div class="col-12 py-2 mb-3 border border-success">
+            <div class="pp-struct-container col-12">
 
                 {% include 'project_presentation/_show/_business_cards.html.twig' %}
 
@@ -199,18 +199,30 @@
         {# Other Edition Possibilities. Ex: Add Documents; add a Q&A; etc. Placeholder Icons to opens a modal with choices buttons #}
             
         {% if userPresenter %}
+
+            {% set otherPossibilities = false %}
+
+            {% if countDocuments == 0 or countMiscDataList == 0 or countQA == 0 or countNeeds == 0 or countECS == 0 %}
             
-            <div class="pp-edition-mode col-12 col-md-7 py-2 mb-3 border border-success">
+                {% set otherPossibilities = true %}
 
-                {# placeholder #}
+            {% endif %}
 
-                {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres Possibilités" } %}
+            {% if otherPossibilities == true %}
 
+                <div class="pp-edition-mode col-12 col-md-7 py-2 mb-3 border border-success">
+
+                    {# placeholder #}
+
+                    {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres Possibilités" } %}
+
+                </div>
+                    
                 {# menu displayed in a modal #}
-
+                
                 {% include "project_presentation/_show/_non_default_structures_menu.html.twig" %}
 
-            </div>
+            {% endif %}
             
         {% endif %}
     

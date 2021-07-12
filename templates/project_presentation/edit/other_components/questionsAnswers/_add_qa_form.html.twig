@@ -1,40 +1,38 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "add_qa_form_modal", 'modal_title': "Ajouter une Question / Réponse"} %}
+    
+{% block modalBody %}
 
-<div class="modal" id="add_qa_form_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        {{ form_start(form) }}
 
-    <div class="modal-dialog" role="document">
+        {{ form_widget(form) }}
 
-        <div class="modal-content">
+    {% endblock %}
 
-            <div class="modal-header">
+    {% block footerButtons %}
 
-                <h5 class="modal-title" id="exampleModalLabel">Ajouter une Question / Réponse</h5>
+        <button type="submit" class="btn btn-success">Valider</button>
 
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+        {{ form_end(form) }}
 
-            </div>
+    {% endblock %}
 
-            <div class="modal-body">
 
-                {{ form_start(form) }}
+    {% block formErrors %}
+        
+        {% if not form.vars.valid %}
 
-                {{ form_widget(form) }}
+            <script>
+            
+                $(document).ready(function(){
+            
+                    $('#{{modal_id}}').modal('show');
+            
+                });
+            
+            </script>
 
-            </div>
+        {% endif %}
+    
+    {% endblock %}
 
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-info sharp" data-bs-dismiss="modal">Retour</button>         
-
-                <button class="btn btn-success sharp">Valider</button>
-                
-            </div>
-
-            {{ form_end(form) }}
-
-        </div>
-
-    </div>
-
-</div>
+{% endembed %}

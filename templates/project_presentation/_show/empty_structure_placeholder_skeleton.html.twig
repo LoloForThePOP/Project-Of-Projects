@@ -6,15 +6,16 @@
 
     <a {# Placeholder can trigger a modal, or target a route #}
 
-        {% if route is defined %}
-
-            href="{{route}}"
-
-        {% else %}
-                
+        {% if addElementModal is defined %}
+ 
             data-bs-toggle="modal"
             
             data-bs-target="{{addElementModal ?? ""}}"
+           
+
+        {% elseif route is defined %}
+
+            href="{{route}}"
         
         {% endif %}
 

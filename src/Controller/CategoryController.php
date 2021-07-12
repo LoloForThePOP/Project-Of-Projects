@@ -216,12 +216,4 @@ class CategoryController extends AbstractController
     }
 
 
-
-
-
-
-
-
-
-
 }

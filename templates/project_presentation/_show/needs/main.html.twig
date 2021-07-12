@@ -12,11 +12,11 @@
 
         {% if presentation.needs | length > 0 %}
 
-            <div id="needs" class="js-elements-list">
+            <div id="needs" class="js-elements-list pp-struct-content">
                 
                 {% for need in presentation.needs %}
 
-                    <div id="{{need.id}}" class="js-sortable-element need-card">
+                    <div id="{{need.id}}" class="js-sortable-element deletable-element need-card">
 
                         {# Need description is displayed in a modal #}
 
@@ -24,13 +24,11 @@
 
                         <div class="">
 
-                            <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}">
-                            
-                                {{ need.title }}
+                            <div class="fs-15" data-bs-toggle="modal" data-bs-target="#{{modal_id}}">
+
+                                <span>{{ need.title }}</span>
                             
                             </div>
-
-                          
 
                             {# delete need (Red Cross) button #}
 
@@ -72,16 +70,22 @@
 
         {% endif %}
     <style>
+
         .need-card{
+
             position:relative;
             cursor: pointer;
-            background-color:lavender;
             font-weight: bold;
             margin-bottom : 15px;
             padding: 15px;
+            padding-left: 17px;
+            background-color: rgb(239, 239, 252);
+            border-left: 2px solid blue;
 
         }
+
     </style>
+
     {% endblock %}
 
 {% endembed %}

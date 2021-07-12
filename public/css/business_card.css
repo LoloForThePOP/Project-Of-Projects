@@ -5,9 +5,10 @@
     width: 330px;
     max-width: 100%;
     padding: 18px;
-    margin-right: 16px;
+    margin-right: 25px;
     margin-bottom: 16px;
-    border: 2px solid black;
+    border: 2px solid rgb(223, 226, 254);
+    border-radius: 4px;
     cursor: pointer;
 }
 

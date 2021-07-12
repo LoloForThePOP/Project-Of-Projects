@@ -1,41 +1,71 @@
 
-/* Whole Presentation Container */
 
+.pp-edition-mode {
+
+    display:none;
+
+}
+
+.pp-add-element-button{
+    margin-right: 10px;
+}
+
+
+/* Delete Button */
+
+.delete-button {
+    visibility: hidden;
+    position: absolute;
+	top: 0;
+	right: 0;
+	width: 20px;
+	height: 20px;
+	padding: 0;
+	line-height: 0;
+	border-radius: 2px;
+    background-color: #dc3545 !important;
+    color: white !important;
+    z-index: 2;
+    transition: visibility 0s, opacity 2s linear;
+    opacity: 0;
+}
+
+
+.deletable-element:hover .delete-button {
+
+    visibility: visible;
+    opacity:1;
+
+}
+
+
+
+/* Whole Presentation Container */
 
 .pp-container {
     margin-top: 50px;
 }
 
-/* Each Structure Container */
+/* Each Structure Container*/
 
 .pp-struct-container {
 
-    background-color : aliceblue;
-
-    padding-left: 20px;
-
-    padding-top: 20px;
-
-    margin-bottom: 35px;
-
-    border-radius: 0px;
+    border: 1px solid rgb(198, 245, 192);
+    padding: 15px 12px 10px 12px;
+    margin-bottom: 28px;
 
     -webkit-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
     -moz-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
     box-shadow: -1px 1px 6px 0px #e6e4ff !important;
 
-}
+} 
 
 
 /* Each Structure Title Container (contains title + edit button) */
 
 .pp-struct-title-container{
 
-    margin-bottom: 38px;
-
-    display: flex;
-    align-items:center;
-    flex-wrap: wrap !important;
+    margin-bottom: 32px;
 
 }
 
@@ -46,7 +76,7 @@
     display: inline;
     color : navy;
     font-family : Verdana, Geneva, Tahoma, sans-serif; 
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin:0px;
     margin-right:17px;
 
@@ -55,24 +85,20 @@
 /* Each Structure Icon */
 
 .pp-struct-icon{
-
-    position: relative;
-    top: 4px;
     
     margin-right : 7px;
+
+    width: 22px;
+    height: 22px; 
 
     /* change svg colors 
     
     filter: invert(73%) sepia(92%) saturate(2564%) hue-rotate(8deg) brightness(112%) contrast(104%); */
 }
 
-
-.editIcon{
-
-    margin-bottom:11px;
-
+.pp-struct-content{
+    padding-left: 30px;
 }
-
 
 /* Switch Between Edition Mode and Consultation Mode Button */
 
@@ -122,7 +148,7 @@ textarea:focus, input:focus{
         padding: 0;
         margin-top: 10px;
     }
-    
+    /* 
     .pp-struct-container {
 
         padding-left: 0;
@@ -136,7 +162,7 @@ textarea:focus, input:focus{
         font-family: Verdana, Geneva, Tahoma, sans-serif;
     
     }
-
+ */
     .pp-struct-title-container{
 
         margin-bottom: 18px;
@@ -154,11 +180,16 @@ textarea:focus, input:focus{
 
     .pp-struct-icon{
 
-        width:23px;
-        height:23px;
+        width:20px;
+        height:20px;
 
         margin-right:5px;
 
+    }
+
+        
+    .pp-struct-content{
+        padding-left: 5px;
     }
 
 }

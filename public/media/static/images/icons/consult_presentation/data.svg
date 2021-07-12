@@ -1,5 +1,5 @@
 <svg width="45" height="47.5" version="1.1" viewBox="0 0 45 47.5" xmlns="http://www.w3.org/2000/svg">
- <switch transform="translate(-3.54 -5.14)">
+ <switch transform="matrix(.948 0 0 .927 -2.18 -3.01)">
   <foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"/>
   <g transform="translate(-185,-43.4)">
    <path d="m233 90.1v-6.52c-5.6 2.67-14.4 3.69-22.4 3.69s-16.7-1.02-22.3-3.61v6.44c0 3.22 10 5.89 22.3 5.89s22.4-2.67 22.4-5.89z" stroke-width=".886"/>
@@ -7,5 +7,5 @@
   </g>
   <ellipse cx="31.1" cy="10.9" rx="22.4" ry="7.5" fill="#1a1a1a"/>
  </switch>
- <path d="m44.9 6.93c0 3.43-10 6.19-22.4 6.19s-22.4-2.77-22.4-6.19c0-3.43 10-6.19 22.4-6.19s22.4 2.77 22.4 6.19z"/>
+ <path d="m43.7 8.18c0 3.18-9.48 5.74-21.2 5.74-11.7 0-21.2-2.57-21.2-5.74 0-3.18 9.48-5.74 21.2-5.74 11.7 0 21.2 2.57 21.2 5.74z" stroke-width=".937"/>
 </svg>

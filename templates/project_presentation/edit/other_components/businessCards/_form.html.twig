@@ -1,12 +1,6 @@
-
-    
-
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
-
-
 <div class="form-row">
 
-    <img class="contact-icon-title" src="{{ asset('title.svg', 'business_card')}}" alt="title icon">
+    <img class="contact-icon" src="{{ asset('title.svg', 'business_card')}}" alt="title icon">
 
     {{ form_label(form.title) }}
     {{ form_widget(form.title) }}
@@ -80,11 +74,11 @@
 
     .contact-icon {
 
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
 
-        margin-right: 9px;
-        margin-top: 5px;
+        margin-right: 7px;
+        margin-bottom: 8px;
     }
     
 

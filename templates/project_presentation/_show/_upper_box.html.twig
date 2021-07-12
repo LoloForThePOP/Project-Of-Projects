@@ -1,8 +1,8 @@
-<div class="pp-upper-box row border boder-success">
+<div class="pp-upper-box row">
 
     <div class="container">
 
-        {# Title Displayed at the top only on small screens #}
+        {# Title Displayed at the top (only for small screens) #}
 
         <div class="row d-md-none">
 
@@ -10,7 +10,7 @@
 
         </div>
 
-        {# Logo Column and Goal Column #}
+        {# Logo Column & {Title + Goal + keywords} Column #}
 
         <div class="row ">
 
@@ -20,7 +20,7 @@
                 
                 {# Logo Column #} {# when fake logo placeholder, it is only displayed for userPresenter (so we add pp-edition-mode class) #}
 
-                <div class="pp-logo-container col-4 col-md-3 col-lg-2 border border-light {% if not presentation.logo and userPresenter %} pp-edition-mode {% endif %}">
+                <div class="pp-logo-container col-4 col-md-3 col-lg-2 {% if not presentation.logo and userPresenter %} pp-edition-mode {% endif %}">
 
                     <div class="">
                         {% include 'project_presentation/_show/_upper_box/_logo.html.twig' %}
@@ -32,7 +32,7 @@
 
             {# Goal Column (+ Title & Keywords only for >= Medium screens) #}
 
-            <div class="col border border-light d-flex align-items-center">
+            <div class="col d-flex align-items-center">
 
                 <div class="container px-0 px-md-2 px-lg-4">
 

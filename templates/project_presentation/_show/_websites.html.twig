@@ -20,22 +20,22 @@
             
         {% set websites = presentation.getOC('websites') %}
 
-        <div id="websites" class="js-elements-list row px-3 ps-lg-5">
+        <div id="websites" class="js-elements-list pp-struct-content row">
 
             {% for website in websites %}
             
-                    <div id="{{website.id}}" class="js-sortable-element pp-website-card col-md-6 col-lg-5 me-md-2 me-lg-4 px-0 ">
+                    <div id="{{website.id}}" class="js-sortable-element deletable-element pp-website-card">
 
                         <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'websites', 'item_id':website.id})}}" class="w-100 h-100 text-decoration-none text-body d-flex align-items-center">
 
                             {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
-                    
+                        </a>
+                        
                         {# delete website (Red Cross) button #}
 
-                        <button type="button" data-elements-type="websites" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{website.id}}"></button> </a>
+                        <button type="button" data-elements-type="websites" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{website.id}}"></button> 
 
                     </div>
-                
                 
             {% endfor %}
 

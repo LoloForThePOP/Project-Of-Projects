@@ -603,7 +603,7 @@ class FakeDataFixtures extends Fixture
 
                     $qa['id'] = uniqid();
                     $qa['position'] = $l;
-                    $qa['question'] = substr($faker->sentence(), 0, -1) .'?';
+                    $qa['question'] = substr($faker->sentence(), 0, -1) .' ?';
                     $qa['answer'] = $faker->paragraph();
 
                     $presentation->addOtherComponentItem('questionsAnswers', $qa);
@@ -612,7 +612,7 @@ class FakeDataFixtures extends Fixture
 
             }
 
-            // Data List creation 
+            // Miscelaneous Data List creation 
 
             $numList = mt_rand(0, 1);
 

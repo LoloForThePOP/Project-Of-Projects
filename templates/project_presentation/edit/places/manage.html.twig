@@ -30,7 +30,7 @@
 
             <div class="form-group mt-2">
 
-                <input type="search" id="autocomplete" class="form-control input-lg border sharp bg-light fs-15" placeholder="Ajouter ici une ville; un département; une région; ou un pays"/>
+                <input id="autocomplete" class="form-control input-lg border sharp bg-light fs-15" placeholder="Ajouter ici une ville; un département; une région; ou un pays"/>
 
             </div>
 
@@ -120,6 +120,7 @@
         .pac-container, .pac-item {
             font-size: 1.05em !important;
         }	  
+
         .pac-item-query {
             font-size: 1.05em !important;
         }
@@ -154,17 +155,15 @@
 
 {% endblock %}
 
-
 {% block specificJavascripts %}
 
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&libraries=places&language=fr"></script>
 
     <script>
 
-        $(document).ready(function(){  
+        $(document).ready(function(){
 
             $('#feedbackBox').hide();
-
 
             // Initialize Google Places Input Field
 

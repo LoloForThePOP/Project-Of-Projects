@@ -1,9 +1,19 @@
 <script>
-
+    
     // this script should be called only for user presenters
-        
+    
     $(document).ready(function(){
         
+        
+            $(".show-delete-items-buttons").click(function() {
+            
+
+                $(".delete-button").css('visibility', 'visible').css('opacity', '1');
+
+            });
+
+            $(".pp-edition-mode").show();
+       
             // when user edit presentation, we enter in edition mode by default, but some elements are only displayed in consultation mode, so we hide them by default
             $(".pp-consultation-mode").hide();
 

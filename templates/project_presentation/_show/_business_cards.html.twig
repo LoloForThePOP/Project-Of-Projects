@@ -12,7 +12,7 @@
 
         {# Add business card button (triggers a modal) #}
 
-        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-lg btn-sm">+ Ajouter</button>        
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-light btn-sm pp-add-element-button">+ Ajouter</button>        
 
     {% endblock %}
 
@@ -21,11 +21,11 @@
             
         {% set bcs = presentation.getOC('businessCards') %}
 
-        <div id="businessCards" class="js-elements-list">
+        <div id="businessCards" class="js-elements-list pp-struct-content">
 
             {% for bc in bcs %}
 
-                <div id="{{bc.id}}" class="js-sortable-element bc-outer">
+                <div id="{{bc.id}}" class="js-sortable-element deletable-element bc-outer">
 
                     <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
 

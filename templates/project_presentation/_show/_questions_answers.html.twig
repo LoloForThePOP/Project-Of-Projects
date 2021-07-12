@@ -12,18 +12,17 @@
 
         {% set qas = presentation.getOC('questionsAnswers') %}
 
-        <div id="questionsAnswers" class="js-elements-list">
+        <div id="questionsAnswers" class="js-elements-list pp-struct-content">
 
             {% for qa in qas %}
 
+                <!-- Question Display (with Collapse Symbol) -->
 
-                    <!-- Question Display (with Collapse Symbol) -->
-
-                    <div id="{{qa.id}}" class="js-sortable-element position-relative mb-2 questionRow row p-1 mb-2 mb-md-3 cursor-pointer collapsed" data-bs-toggle="collapse" href="#collapse-answer-{{ qa.id }}" role="button" aria-expanded="false" aria-controls="collapse-answer-{{ qa.id }}">
+                <div id="{{qa.id}}" class="js-sortable-element position-relative mb-2 questionRow row collapsed" data-bs-toggle="collapse" href="#collapse-answer-{{ qa.id }}" role="button" aria-expanded="false" aria-controls="collapse-answer-{{ qa.id }}">
                       
                         <!-- Question -->
 
-                        <div class="col-11 pl-0 pl-md-3 pr-0">
+                        <div class="col-10 col-sm-11">
 
                             <span class="question">
 
@@ -35,41 +34,38 @@
 
                         <!-- Collapse Symbol -->
 
-                        <div class="collapseSymbolDisplay col-1 px-0" style="display: flex, justify-content-center">
+                        <div class="collapseSymbolDisplay col-2 col-sm-1">
 
                         </div>
 
 
                     <!-- Answer & Action Buttons Display -->
 
-                    <div class="collapse no-transition mb-2 mb-md-3" id="collapse-answer-{{ qa.id }}">
+                    <div id="collapse-answer-{{ qa.id }}" class="answer-container collapse no-transition">
 
-                        <div class="p-2">
-
-                            <div class="answer mb-2">
-                                
-                                {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}
-
-                                    
-                                {# edit q&a button #}
-                                        
-                                <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="pp-edition-mode">
-
-                                    <button type="button" class="btn btn-light btn-sm">Modifier</button>
-
-                                </a>
-
-                                {# delete question & answer button #}
-
-                                <button type="button" data-elements-type="questionsAnswers" class="js-delete-element pp-edition-mode btn btn-light btn-sm" data-id="{{qa.id}}">Supprimer</button>
+                        <div class="answer">
                             
-                            </div>
+                            {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}
 
+                            {# edit q&a button #}
+                                    
+                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="pp-edition-mode text-decoration-none ms-2">
+
+                                <button type="button" class="btn btn-light btn-sm">Modifier</button>
+
+                            </a>
+
+                            {# delete question & answer button #}
+
+                            <button type="button" data-elements-type="questionsAnswers" class="js-delete-element pp-edition-mode btn btn-light btn-sm" data-id="{{qa.id}}">Supprimer</button>
+                        
                         </div>
 
                     </div>
 
                 </div>
+
+                <hr class="qa-separator">
 
             {% endfor %}
 
@@ -77,27 +73,34 @@
 
         <style>
    
+            .questionRow {
+                margin-bottom: 28px;
+            }
+            
             .questionRow:hover {
-                background-color: lavender;
+                background-color: normal;
             }
         
             .question {
         
                 font-size: 1.25em;
-        
                 line-height: 1.15em;
-        
                 font-weight: bold;
         
             } 
+
+            .answer-container{
+
+                padding: 20px 40px 15px 30px;
+            }
         
             .answer {
         
                 font-size: 1.15em;
-        
                 line-height: 1.5em;
         
             }
+
         
             .questionRow .collapseSymbolDisplay:after {
         
@@ -108,28 +111,24 @@
             .collapsed .collapseSymbolDisplay:after {
                 content: "▼";
             }
-    
-    
-                        
-            #qaDisplay .pp-struct-icon {
-                margin-right: 11px;
-                top: 2px;
-                margin-left: 6px;
+
+            #questionsAnswers .qa-separator:last-child{
+                display:none;
             }
+            
     
-        
             @media screen and (max-width: 580px) {
     
-    
-                #qaDisplay.pp-struct-container{
-                    padding-right:10px;
-                }
-        
                 .question{
         
                     font-size:16px;
                     line-height:20px;
         
+                }
+
+                .answer-container{
+
+                    padding: 10px 20px 8px 20px;
                 }
         
                 .answer{
@@ -144,15 +143,12 @@
                     font-size: 1rem !important;
     
                 }
-    
-                #qaDisplay .pp-struct-icon {
-                    width: 18px;
-                    height: 18px;
-                    top: 2px;
-                    margin-right:5px;
-                    margin-left:2px;
-                }
-        
+
+                .collapseSymbolDisplay{
+                    
+                    display: flex;
+                    justify-content: end;
+                }        
             }
         
         </style>

@@ -26,15 +26,15 @@
 
 {% block body %}
 
-<div class="container">
+<div class="container px-0 px-md-4">
 
     <!-- Title with Info Button Container -->
 
-    <div class="mt-3 mt-md-4 mb-md-3">
+    <div class="mt-4 mt-md-5 mb-md-3">
 
         <!-- ui Page Title -->
 
-        <h3 class="fw-bold d-inline me-2">
+        <h3 class="fw-bold d-inline-block me-2 mb-3">
 
             {% if context == 'new' %}
 
@@ -52,10 +52,10 @@
 
         <!-- Button with Collapsable Advice : How to Insert a Youtube Vidéo ? -->
 
-        <a class="fw-bold my-1" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTutorial"
+        <a class="fw-bold d-inline-block mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTutorial"
             aria-expanded="false" aria-controls="collapseTutorial">
 
-            <span class="btn btn-info fw-bold btn-lg fs-15 h5 p-1 px-3" style="letter-spacing: 2px;">Comment faire ?</span>
+            <span class="btn btn-warning fw-bold btn-lg fs-15 h5 p-1 px-3" style="letter-spacing: 2px;">Comment faire ?</span>
 
         </a>
 
@@ -66,26 +66,24 @@
     <div id="collapseTutorial" class="collapse no-transition col-md-7 px-4 py-3 mb-4"
         style="background-color: lavender;">
 
-        <h5 class="fw-bold">Aller sur la page Youtube de la vidéo désirée, regardez son adresse, puis recopier
-            le code situé comme dans l'exemple ci-dessous :</h5>
+        <h5 class="fw-bold mb-3">Sur la page Youtube de la vidéo désirée, recopier son code (zone encadrée en rouge dans l'exemple ci-dessous).</h5>
 
-        <p class="h5 fw-bold">https://www.youtube.com/watch?v=<span
-                class="px-1 border border-2 border-danger rounded">zL1EvGkKb00</span></p>
+        <p class="h5 fw-bold mb-3">https://www.youtube.com/watch?v=<span
+                class="px-1 border border-2 border-danger rounded">xxxxxxxxxx</span></p>
 
-        <p class="h5 fw-bold">!!! Youtube peut désactiver l'affichage des vidéos avec copyright (exemple : certains
-            clips musicaux).</p>
+        <p class="h5 fw-bold">!!! Youtube peut désactiver l'affichage des vidéos avec copyright (par exemple certains clips musicaux).</p>
 
     </div>
 
     <!-- Form Container -->
 
-    <div class="mt-2">
+    <div class="mt-3">
 
         {{form_start(form)}}
 
         <!-- Youtube Video Code Input-->
 
-        <div class="col-md-7 ps-0 mb-4">
+        <div class="form-group col-md-7 ps-0 mb-4">
 
             {{form_row(form.address)}}
 
@@ -99,14 +97,18 @@
 
         </div>
 
-        <!-- Action Buttons -->
+    </div>
 
-        <div class="mt-4 pt-2 pl-0">
+    <!-- Action Buttons -->
+
+    <div class="mt-4">
+
+         <div class="pt-2 ps-0">
 
             <button type="submit" class="btn btn-success bg-green sharp btn-lg h3 mb-4 me-1">Valider</button>
 
             <a class="text-decoration-none text-white" href="{{ path('manage_slides', {'stringId': stringId}) }}">
-                <button type="button" class="btn btn-danger btn-lg mb-4">Retour Images & vidéos</button>
+                <button type="button" class="btn btn-info btn-lg mb-4">Retour Images & vidéos</button>
             </a>
 
         </div>

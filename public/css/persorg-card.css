@@ -1,0 +1,20 @@
+.persorg-card{
+
+    display: inline-block;
+    position: relative;
+
+    width: 140px;
+
+    padding: 10px;
+
+    margin-right: 15px;
+    margin-bottom: 20px;
+
+    border: 1px solid blue;
+    border-radius: 4px;
+
+    cursor: pointer;
+
+
+    
+}

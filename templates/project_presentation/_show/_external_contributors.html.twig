@@ -1,4 +1,12 @@
-<div id="externalContributorsDisplay" class="pp-struct-container">
+
+{% block stylesheet %}
+
+    <link href="/css/persorg-card.css" rel="stylesheet">
+
+{% endblock %}
+
+
+<div id="externalContributorsDisplay" class="">
         
     {% if userPresenter %}
 
@@ -42,21 +50,23 @@
             
         {%  for ecs in presentation.contributorStructures | filter((ecs) => ecs.type == "external") %}
 
+        {# Each ECS display containers #}
+
             <div id="{{ecs.id}}" class="each-ecs-display-container">
 
                 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': ecs.title} %}
 
-                {% block editButtons %}
-                
-                    {# Manage ecs button (title; thumbnails; rich text; deletion) #}
-
-                    <a href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
+                    {% block editButtons %}
                     
-                        <button type="button" class="pp-edition-mode btn btn-light btn-sm">Gérer</button> 
+                        {# Manage ecs button (title; thumbnails; rich text; deletion) #}
 
-                    </a>
-                    
-                {% endblock %}
+                        <a href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}" class="text-decoration-none">
+                        
+                            <button type="button" class="pp-edition-mode btn btn-light btn-sm">Gérer</button> 
+
+                        </a>
+                        
+                    {% endblock %}
 
                     {% block mainContent %}
 
@@ -64,25 +74,25 @@
 
                         {% if ecs.persorgs | length > 0 %}
 
-                            <div id="persorgs{{ecs.id}}" class="js-elements-list each-ecs-persorgs-container">
+                            <div id="persorgs{{ecs.id}}" class="js-elements-list pp-struct-content each-ecs-persorgs-container d-flex align-items-center">
 
                                 {# Add a persorg button (mocks a thumbnail) #}
 
-                                <div data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="js-trigger-persorg-form-modal pp-edition-mode disabled d-inline-block me-2">
+                                <div data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="js-trigger-persorg-form-modal pp-edition-mode disabled me-2">
 
-                                    <div class="border border-primary rounded cursor-pointer d-flex align-items-center justify-content-center p-3" style="height: 216px;">
+                                    <div class="persorg-card" style="height: 200px;">
                                         
-                                        <div class="">
-                                                                        
-                                                <div class="avatar-circle avatar-circle-100 mx-auto">
+                                        <div class="h-100 d-flex align-items-center justify-content-center">
+                                                                    
+                                            <div class="avatar-circle avatar-circle-100 mx-auto">
 
-                                                    <span class="avatar-initial avatar-initial-100">
+                                                <span class="avatar-initial avatar-initial-100">
 
-                                                        +
+                                                    +
 
-                                                    </span>
+                                                </span>
 
-                                                </div>
+                                            </div>
 
                                         </div> 
 
@@ -112,7 +122,7 @@
 
                         {% if ecs.richtextContent is not empty %}
 
-                            <div class="">
+                            <div class="each-ecs-rich-text-content col-lg-10">
 
                                 <p class="fs-15">
 
@@ -167,17 +177,28 @@
     }
 
     .each-ecs-persorgs-container{
+
         margin-bottom: 24px;
-        display:flex;
         align-items: center;
+
     }
+
+    .each-ecs-rich-text-content{
+        padding : 0 20px 0 33px;
+    }
+
 
     @media screen and (max-width: 580px) {
 
         .each-ecs-persorgs-container{
+            display: flex;
             flex-wrap: nowrap;
             overflow-x: auto;
-        }          
+        }      
+   
+        .each-ecs-rich-text-content{
+            padding : 0 7px 0 7px;
+        }    
 
     }
 

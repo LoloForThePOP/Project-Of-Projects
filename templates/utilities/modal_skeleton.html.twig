@@ -2,9 +2,9 @@
 {#
     Skeleton for Bootstrap 5 Modal Box
 
-    Twig parameter(s) : modal_id, modal_title
-
     Blocks : modalBody, footerButtons
+    
+    Parameter(s) : modal_id, modal_title, modal_size
     
 #}
 
@@ -16,7 +16,7 @@
 
             <div class="modal-header">
 
-                <h5 class="modal-title" id="">{{modal_title}}</h5>
+                <h5 class="modal-title fw-bold" id="">{{modal_title}}</h5>
 
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
@@ -30,7 +30,7 @@
 
             <div class="modal-footer">
 
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Retour</button>
+                <button type="button" class="btn btn-info" data-bs-dismiss="modal">Retour</button>
 
                 {% block footerButtons %}{% endblock %}
 
@@ -41,4 +41,11 @@
     </div>
 
 </div>
+
+{# When modal contains a form #}
+{# If form errors, we have to trigger modal box display to show these errors to user #}
+
+{% block formErrors %}
+
+{% endblock %}
   

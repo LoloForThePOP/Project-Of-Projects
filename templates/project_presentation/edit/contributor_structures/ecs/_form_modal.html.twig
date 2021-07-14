@@ -1,5 +1,3 @@
-{% form_theme ecsForm 'bootstrap_4_layout.html.twig' %}
-
 <!-- Add ECS Form Display (in a Modal Box) -->
 
 {# ECS stands for External Contributors Structures #}
@@ -144,10 +142,7 @@
 
 </style>
 
-
-
 <script>
-
 
     $(document).ready(function(){
 
@@ -190,16 +185,24 @@
             return ecsTitle;
 
         });
-    
-        // if form errors are detected, we have to trigger the display of the form modal box
-    
-        {% if not ecsForm.vars.valid %}
-    
-            $('#add_ecs_form_modal').modal('show');
-    
-        {% endif %}
 
-    
     }); 
 
 </script>
+
+    
+{# if form errors are detected, we have to trigger the display of the form modal box #}
+    
+{% if not ecsForm.vars.valid %}
+
+    <script>
+
+        $(document).ready(function(){
+
+            $('#add_ecs_form_modal').modal('show');
+
+        });
+
+    </script>
+
+{% endif %}

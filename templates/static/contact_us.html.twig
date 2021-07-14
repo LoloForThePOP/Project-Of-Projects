@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contactez-Nous{% endblock %}
+
+{% block body %}
+
+    <div class="container px-0 mt-4 mt-md-5">
+
+        <div class="row">
+
+            <div class="col-lg-7">
+
+                <h3 class="mb-4 fw-bold">Nous Contacter</h3>
+
+                <p class="h5 mb-4">
+                    Pour toute question, problème, ou remarque, utilisez le formulaire ci-dessous.
+                </p>
+
+                <div class="row mb-4 ">
+
+                    {{form_start(form)}}
+    
+                    {{form_widget(form)}}
+        
+                </div>
+
+                <!-- Actions Buttons -->
+    
+                <div class="">
+    
+                    <button type="submit" value="" class="btn btn-success me-2 mb-2">
+                        <span class="">Envoyer le message</span> 
+                    </button>
+    
+                    <a href="{{path('homepage')}}">
+                        <button type="button" value="" class="btn btn-info mb-2">
+                            <span class="">Retour</span> 
+                        </button>
+                    </a>
+    
+                </div>
+                
+                {{form_end(form)}}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}

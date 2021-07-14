@@ -1,0 +1,74 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-edit-help", 'modal_title': "Aide", 'modal_size': "modal-lg"} %}
+
+    {% block modalBody %}
+
+        <div class="container help-content">
+
+            <div class="row">
+
+                <div class="col-6 image-container">
+
+                    <img class="" src="{{ asset('drag_and_drop.png', 'tutorial')}}" alt="drag and drop image">
+
+                </div>
+
+                <div class="col-6 text-container">
+
+                    Pour changer l'ordre des éléments, restez appuyer sur un élément puis déplacez-le à l'endroit désiré. 
+
+                </div>
+
+            </div>
+
+            <div class="row">
+                Poser une question
+            </div>
+
+        </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+<style>
+
+    .help-content .image-container{
+
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 15px;
+
+        background-color: rgb(253, 255, 111);
+        
+    }
+
+    .help-content .image-container img{
+
+        max-width: 100%; 
+        height: auto;
+    }
+
+    .help-content .text-container{
+
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+        font-size: 1.18em;
+        font-weight: bold;
+
+        background-color: rgb(250, 198, 102);
+
+        padding: 15px 20px;
+
+    }
+
+    .help-content .row{
+
+        margin-bottom: 25px;
+    }
+
+
+</style>

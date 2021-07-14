@@ -1,69 +1,65 @@
-<div class="pp-edition-mode row p-0 m-0">
+{% if countSlides == 0 %}
 
-    {% if countSlides == 0 %}
+    {# add an image placeholder #}
 
-        {# add an image placeholder #}
-
-        <div id="" class="col-6 py-2 border border-success mb-3">
-            
-            {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_image", 'addElementModal':"#addImageSlideFormModal", 'label': "Images"} %}
-            
-        </div>
-
-        {# add a video placeholder #}
-
-        {% set addVideoRoute = path('add_youtube_slide', {'stringId': stringId}) %}
+    <div id="" class="col-6 py-2 border border-success mb-3">
         
-        <div id="" class="col-6 py-2 border border-success mb-3">
-                
-            {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_youtube_video", 'route': addVideoRoute, 'label': "Vidéos"} %}
+        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_image", 'addElementModal':"#addImageSlideFormModal", 'label': "Images"} %}
+        
+    </div>
+
+    {# add a video placeholder #}
+
+    {% set addVideoRoute = path('add_youtube_slide', {'stringId': stringId}) %}
+    
+    <div id="" class="col-6 py-2 border border-success mb-3">
             
-        </div>
+        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_youtube_video", 'route': addVideoRoute, 'label': "Vidéos"} %}
         
-    {% endif %}
-
-    {% if presentation.textDescription is empty %}
-
-        <div class="col-8 py-2 mb-3 border border-success">
-                        
-            {% set addTextDescriptionRoute = path('edit_pp_text_description', {'stringId': presentation.stringId}) %}
-
-            {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_text_description", 'route' : addTextDescriptionRoute, 'label': "Description texte" } %}
-
-        </div>
+    </div>
     
-    {% endif %}
+{% endif %}
 
-    {% if countWebsites == 0 %}
+{% if presentation.textDescription is empty %}
 
-        <div class="col-6 py-2 mb-3 border border-success">
+    <div class="col-6 py-2 mb-3 border border-success">
+                    
+        {% set addTextDescriptionRoute = path('edit_pp_text_description', {'stringId': presentation.stringId}) %}
 
-            {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "add_website", 'addElementModal':"#newWebsiteFormModal", 'label': "Sites webs" } %}
+        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_text_description", 'route' : addTextDescriptionRoute, 'label': "Description texte" } %}
 
-        </div>
+    </div>
+
+{% endif %}
+
+{% if countWebsites == 0 %}
+
+    <div class="col-6 py-2 mb-3 border border-success">
+
+        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "add_website", 'addElementModal':"#newWebsiteFormModal", 'label': "Sites webs" } %}
+
+    </div>
+
+{% endif %}
+
+{% if countPlaces == 0 %}
+
+    <div class="col-6 py-2 mb-3 border border-success">
+
+        {% set route = path('manage_places', {'stringId': stringId}) %}
     
-    {% endif %}
+        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_place", 'route': route, 'label': "Lieux"} %} 
 
-    {% if countPlaces == 0 %}
+    </div>
 
-        <div class="col-6 py-2 mb-3 border border-success">
+{% endif %}
 
-            {% set route = path('manage_places', {'stringId': stringId}) %}
-        
-            {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_place", 'route': route, 'label': "Lieux"} %} 
+{% if countBC == 0 %} {# No business card #}
 
-        </div>
-    
-    {% endif %}
+    <div class="col-6 py-2 mb-3 border border-success">
+            
+        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_business_card", 'addElementModal':"#add_business_card_form_modal", 'label': "Vous contacter"} %}
 
-    {% if countBC == 0 %} {# No business card #}
+    </div>
 
-        <div class="col-12 py-2 mb-3 border border-success">
-                
-            {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_business_card", 'addElementModal':"#add_business_card_form_modal", 'label': "Vous contacter"} %}
-
-        </div>
-
-    {% endif %}
-
-</div>
+{% endif %}

@@ -5,7 +5,8 @@ namespace App\Controller;
 use App\Entity\PPBase;
 use App\Entity\Message;
 use App\Entity\Conversation;
-use App\Form\PPPrivateMessageType;
+use App\Form\ContactWebsiteType;
+use App\Form\PrivateMessageType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -27,7 +28,7 @@ class MessagesController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
         
         $privateMessage = new Message();
-        $form = $this->createForm(PPPrivateMessageType::class, $privateMessage);
+        $form = $this->createForm(PrivateMessageType::class, $privateMessage);
         $form->handleRequest($request);
 
         
@@ -72,5 +73,65 @@ class MessagesController extends AbstractController
         ]);
 
     }
+
+
+    /**
+     * Allow to access contact website page
+     * 
+     * This action starts a new conversation
+     * 
+     * @Route("/contact-us", name="contact_website")
+     */
+    public function contactWebsite(Request $request): Response
+    {
+        
+        $privateMessage = new Message();
+
+        $form = 
+        
+            $this->createForm(
+
+                ContactWebsiteType::class, 
+                $privateMessage,
+                array(
+
+                    // Time protection
+                    'antispam_time'     => true,
+                    'antispam_time_min' => 4,
+                    'antispam_time_max' => 3600,
+                )
+            );
+
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $privateMessage
+            
+                ->setType("contact_website");
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($privateMessage);
+            $entityManager->flush();
+            
+            $this->addFlash(
+                'success',
+                "✅ Votre Message a été envoyé"
+            );
+
+            return $this->redirectToRoute('homepage', []);
+        }
+
+        return $this->render('/static/contact_us.html.twig', [
+
+            'form' => $form->createView(),
+            
+        ]);
+
+    }
+
+
+
 
 }

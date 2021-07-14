@@ -1,6 +1,35 @@
-{# Displaying each need in a modal #}
+
+{# Modal Box for Menu Buttons #}
 
 {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "non_default_structures_menu", 'modal_title': "Autres possibilités"} %}
+
+    {# Menu Button Pattern #}
+
+    {% macro menuButton(targetModalId, iconFile, title) %}
+            
+        <div data-bs-toggle="modal" data-bs-target="#{{targetModalId}}" data-bs-dismiss="modal" class="menu-button row">
+                        
+            <!-- Icon first Column-->
+                            
+            <div class="icon-container col-auto">
+                
+                <img class="" src="{{ asset(iconFile, 'pp_edition_menu')}}" alt="menu item icon" width="30" height="30">
+                
+            </div>
+
+            <!-- Title Second Column -->
+            
+            <div class="title-container col">
+
+                {{title}}
+
+            </div>
+
+        </div>
+
+    {% endmacro %}
+
+    {# Menu Button Display #}
 
     {% block modalBody %}
 
@@ -10,51 +39,31 @@
 
                 {% if countMiscDataList == 0 %}
 
-                    <div data-bs-toggle="modal" data-bs-target="#addDataListItemFormModal" data-bs-dismiss="modal" class="menu-button">
-                    
-                        Liste de Données en tous genres
-                    
-                    </div>
+                    {{ _self.menuButton("addDataListItemFormModal", "misc_data_list.svg", "Liste de données en tous genres") }}
 
                 {% endif %}
 
                 {% if countDocuments == 0 %}
                     
-                    <div data-bs-toggle="modal" data-bs-target="#AddDocumentFormModal" data-bs-dismiss="modal" class="menu-button">
-                    
-                        Documents du projet
-                    
-                    </div>
+                    {{ _self.menuButton("addDocumentFormModal", "documents.svg", "Ajouter des documents") }}
 
                 {% endif %}
 
                 {% if countQA == 0 %}
                 
-                    <div data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" data-bs-dismiss="modal" class="menu-button">
-                    
-                        Ajouter une Foire aux questions
-                    
-                    </div>
+                    {{ _self.menuButton("add_qa_form_modal", "qa.svg", "Ajouter une foire aux questions") }}
 
                 {% endif %}
 
                 {% if countNeeds == 0 %}
                 
-                    <div data-bs-toggle="modal" data-bs-target="#selectNeedTypeModal" data-bs-dismiss="modal" class="menu-button">
-                    
-                        Besoins du Projet
-                    
-                    </div>
+                    {{ _self.menuButton("selectNeedTypeModal", "needs2.svg", "Besoins pour le Projet") }}
 
                 {% endif %}
 
                 {% if countECS == 0 %}
                 
-                    <div data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" data-bs-dismiss="modal" class="menu-button">
-                    
-                        Vos sponsors, partenaires, remerciements
-                    
-                    </div>
+                    {{ _self.menuButton("add_ecs_form_modal", "external_contributors.svg", "Vos sponsors, partenaires, remerciements") }}
 
                 {% endif %}
 
@@ -73,17 +82,40 @@
 <style>
     
     .menu-button {
-        display:flex;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        cursor: pointer;
+
         width:200px;
         height:100px;
+        
         margin-bottom: 10px;
         margin-top: 10px;
 
-        background-color: rgb(226, 118, 40);
+        border: 1px solid #dee2e6 !important;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+        border-radius: 4px;
+
+        cursor: pointer;
     }
+
+    .icon-container {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
     
+    }
+
+    .title-container {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0;
+
+        text-align: center;
+        
+        font-weight: bold;
+    
+    }
+
 </style>

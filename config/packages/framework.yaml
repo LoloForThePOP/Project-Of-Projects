@@ -17,12 +17,16 @@ framework:
         packages:
             pp_wysiwyg: 
                 base_path: /media/static/images/icons/edit_presentation/wysiwyg/
+            pp_edition_menu: 
+                base_path: /media/static/images/icons/edit_presentation/menu
             pp_consult: 
                 base_path: /media/static/images/icons/consult_presentation/
             business_card: 
                 base_path: /media/static/images/icons/business_card/
             popular_website_logo: 
                 base_path: /media/static/images/icons/popular_websites/
+            tutorial: 
+                base_path: /media/static/images/larger/tutorials/
                 
     #esi: true
     #fragments: true

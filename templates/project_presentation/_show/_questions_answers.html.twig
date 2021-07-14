@@ -49,15 +49,15 @@
 
                             {# edit q&a button #}
                                     
-                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="pp-edition-mode text-decoration-none ms-2">
+                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="text-decoration-none ms-2">
 
-                                <button type="button" class="btn btn-light btn-sm">Modifier</button>
+                                <button type="button" class="pp-edition-mode btn btn-light btn-sm">Modifier</button>
 
                             </a>
 
                             {# delete question & answer button #}
 
-                            <button type="button" data-elements-type="questionsAnswers" class="js-delete-element pp-edition-mode btn btn-light btn-sm" data-id="{{qa.id}}">Supprimer</button>
+                            <button type="button" data-elements-type="questionsAnswers" class="pp-edition-mode js-delete-element btn btn-light btn-sm" data-id="{{qa.id}}">Supprimer</button>
                         
                         </div>
 

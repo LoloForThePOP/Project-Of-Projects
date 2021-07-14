@@ -28,13 +28,15 @@
 			
 				<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
 
-					<button class="pp-edition-mode btn btn-light btn-sm">Ordre</button>
+					<button class="pp-edition-mode btn btn-light btn-sm me-3">Gérer</button>
 					
 				</a>
 			
 			{% endif %}
 		
 		{% endblock %}
+
+		{% block showDeleteElementsButtons %}{% endblock %}
 
 	{% endembed %}
 

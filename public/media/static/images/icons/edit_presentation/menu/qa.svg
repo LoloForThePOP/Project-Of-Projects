@@ -1,0 +1,30 @@
+<svg width="110mm" height="68.4mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.2" preserveAspectRatio="xMidYMid" version="1.2" viewBox="0 0 10951 6840" xmlns="http://www.w3.org/2000/svg" xmlns:ooo="http://xml.openoffice.org/svg/export">
+ <defs class="ClipPathGroup">
+  <clipPath id="presentation_clip_path">
+   <rect width="10951" height="6840"/>
+  </clipPath>
+ </defs>
+ <defs class="TextShapeIndex"></defs>
+ <defs class="EmbeddedBulletChars"></defs>
+ <g class="Master_Slide"></g>
+ <g class="SlideGroup">
+  <g class="Slide" clip-path="url(#presentation_clip_path)">
+   <g class="Page">
+    <g class="com.sun.star.drawing.ClosedBezierShape" transform="matrix(1.11 0 0 1.02 -139 -115)">
+     <rect class="BoundingBox" x="289" y="212" width="3894" height="5089" fill="none"/>
+     <path d="m1794 4888v-1464c0-226 198-410 442-410 294 0 568-110 770-309 203-198 306-458 290-733-28-515-485-926-1038-936-540-10-1e3 356-1074 851-7 45-10 91-10 137 0 228-198 412-442 412s-442-184-442-412c0-83 7-169 19-251 135-895 959-1560 1927-1560 14 0 27 0 40 1 1014 20 1850 773 1903 1715 28 502-161 979-533 1342-262 258-601 436-968 516v1101c0 226-198 411-442 411s-442-185-442-411z" fill="#05852d"/>
+    </g>
+    <g class="com.sun.star.drawing.ClosedBezierShape" transform="matrix(1.17 0 0 1.17 -231 -972)">
+     <rect class="BoundingBox" x="1742" y="5651" width="912" height="913" fill="none"/>
+     <path d="m2653 6107c0 79-21 158-61 227s-98 127-167 167-148 61-228 61-159-21-228-61-125-98-165-167-61-148-61-227c0-80 21-159 61-228s96-127 165-167 148-61 228-61 159 21 228 61 127 98 167 167 61 148 61 228z" fill="#05852d"/>
+    </g>
+    <g class="com.sun.star.drawing.PolyPolygonShape" transform="translate(-675 -1626)">
+     <g transform="translate(521 1411)">
+      <rect class="BoundingBox" x="5212" y="1713" width="5301" height="3670" fill="none"/>
+      <path d="m5213 2631h3973v-917l1325 1832-1325 1835v-918h-3973z" fill="#ffa500"/>
+     </g>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

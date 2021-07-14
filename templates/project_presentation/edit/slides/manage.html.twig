@@ -1,6 +1,5 @@
 {% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
 
-
 {% block title %}Images et Vidéos{% endblock %}
 
 
@@ -11,42 +10,34 @@
 
 {% block moreInfoButtonLabel %}
 
-{% if presentation.slides | length == 0 %}
+    {% if presentation.slides | length == 0 %}
 
-Conseil
+    Conseil
 
-{% else %}
+    {% else %}
 
-Info
+    Info
 
-{% endif %}
+    {% endif %}
 
 {% endblock %}
 
 
 {% block moreInfoContent %}
 
-{% if presentation.slides | length == 0 %}
+    {% if presentation.slides | length == 0 %}
 
-<p class="lh-2 h5">Présenter des images, schémas, ou vidéos est une méthode rapide et efficace pour <strong>transmettre
-        vos Idées</strong>.</p>
+        <p class="lh-2 h5">Présenter des images, schémas, ou vidéos est une méthode rapide et efficace pour <strong>transmettre vos Idées</strong>.</p>
 
-{% else %}
+    {% else %}
 
-<p class="lh-2 h5">Pour modifier l'ordre des images ou vidéos, utiliser le glisser-déposer (= drag and drop).</p>
+        <p class="lh-2 h5">Pour modifier l'ordre des images ou vidéos, utiliser le glisser-déposer (= drag and drop).</p>
 
-<p class="h5">Nombre limite (images + vidéos) : <b>8</b></p>
+        <p class="h5">Nombre limite (images + vidéos) : <b>8</b></p>
 
-{% endif %}
+    {% endif %}
 
 {% endblock %}
-
-
-
-
-
-
-
 
 {% block mainContent %}
 

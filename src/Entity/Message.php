@@ -66,10 +66,8 @@ class Message
     public function __construct()
     {
         $this->createdAt = new \DateTime('now');
+        $this->isConsulted = false;
     }
-
-
-
 
 
     public function getId(): ?int

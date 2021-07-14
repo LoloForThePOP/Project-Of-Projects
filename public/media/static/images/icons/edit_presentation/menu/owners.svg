@@ -1,0 +1,54 @@
+<svg width="10.2mm" height="12.1mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.2" preserveAspectRatio="xMidYMid" version="1.2" viewBox="-14 -14 1015 1211" xmlns="http://www.w3.org/2000/svg">
+ <defs class="EmbeddedBulletChars"></defs>
+ <g class="Page">
+  <g class="Group">
+   <g class="com.sun.star.drawing.PolyPolygonShape">
+    <g>
+     <rect class="BoundingBox" x="538" y="42" width="352" height="366" fill="none"/>
+     <path d="m538 43h350v364h-350v-364z" fill="#ffa500"/>
+    </g>
+   </g>
+   <g class="com.sun.star.drawing.PolyPolygonShape">
+    <g fill="none">
+     <rect class="BoundingBox" x="524" y="28" width="380" height="394"/>
+     <path d="m538 43h350v364h-350v-364z" stroke="#3465a4" stroke-linejoin="round" stroke-width="28"/>
+    </g>
+   </g>
+   <g class="com.sun.star.drawing.ClosedBezierShape">
+    <g>
+     <rect class="BoundingBox" x="62" y="301" width="336" height="896" fill="none"/>
+     <path d="m80 1180c-21-21-24-60-2-84l169-215 45-157-103-345c-8-29 5-62 31-75 27-9 56 6 66 36l109 367c2 11 2 24 0 35l-53 187c-3 9-5 15-11 22l-177 222c-10 16-26 22-39 22-14 0-24-6-35-15z" fill="#05852d"/>
+    </g>
+   </g>
+   <g class="com.sun.star.drawing.ClosedBezierShape">
+    <g>
+     <rect class="BoundingBox" x="293" y="729" width="333" height="468" fill="none"/>
+     <path d="m524 1150-26-209-180-116c-24-16-32-48-16-72 16-23 48-31 72-16l195 130c13 8 21 21 24 37l31 233c3 29-16 55-45 58h-5c-26 0-48-19-50-45z" fill="#05852d"/>
+    </g>
+   </g>
+   <g class="com.sun.star.drawing.ClosedBezierShape">
+    <g>
+     <rect class="BoundingBox" x="246" y="400" width="755" height="201" fill="none"/>
+     <path d="m551 599c-8 0-13 0-20-3l-253-102c-25-9-38-39-27-63 10-24 40-36 65-27l245 100h388c28 0 50 21 50 49-2 27-22 46-50 46h-398z" fill="#05852d"/>
+    </g>
+   </g>
+   <g class="com.sun.star.drawing.ClosedBezierShape">
+    <g>
+     <rect class="BoundingBox" x="486" width="461" height="474" fill="none"/>
+     <path d="m531 473c-25 0-44-21-44-49v-375c0-26 19-48 44-48h368c25 0 46 22 46 48v378c0 25-21 46-44 46h-370zm46-94h278v-284h-278v284z" fill="#ffa500"/>
+    </g>
+   </g>
+   <g class="com.sun.star.drawing.ClosedBezierShape">
+    <rect class="BoundingBox" width="404" height="404" fill="none"/>
+    <path d="m402 201c0 36-9 70-27 101-17 30-43 56-73 73-31 18-65 27-100 27-36 0-70-9-101-27-30-17-56-43-73-73-18-31-27-65-27-100 0-36 9-70 27-101 17-30 43-56 73-73 31-18 65-27 100-27 36 0 70 9 101 27 30 17 56 43 73 73 18 31 27 65 27 100z" fill="#0051fc"/>
+    <path d="m402 201c0 36-9 70-27 101-17 30-43 56-73 73-31 18-65 27-100 27-36 0-70-9-101-27-30-17-56-43-73-73-18-31-27-65-27-100 0-36 9-70 27-101 17-30 43-56 73-73 31-18 65-27 100-27 36 0 70 9 101 27 30 17 56 43 73 73 18 31 27 65 27 100z" fill="none" stroke="#000"/>
+   </g>
+   <g class="com.sun.star.drawing.ClosedBezierShape">
+    <g fill="none">
+     <rect class="BoundingBox" x="-14" y="-14" width="431" height="431"/>
+     <path d="m402 201c0 36-9 70-27 101-17 30-43 56-73 73-31 18-65 27-100 27-36 0-70-9-101-27-30-17-56-43-73-73-18-31-27-65-27-100 0-36 9-70 27-101 17-30 43-56 73-73 31-18 65-27 100-27 36 0 70 9 101 27 30 17 56 43 73 73 18 31 27 65 27 100z" stroke="#05852d" stroke-linejoin="round" stroke-width="28"/>
+    </g>
+   </g>
+  </g>
+ </g>
+</svg>

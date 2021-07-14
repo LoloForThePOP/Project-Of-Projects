@@ -120,3 +120,14 @@
 /* end of One Letter Avatars */
 
 
+
+/* Forms */
+
+
+label, legend {
+    font-size:1.15em !important;
+    font-weight:700;
+    margin-bottom: 10px !important;
+}
+
+

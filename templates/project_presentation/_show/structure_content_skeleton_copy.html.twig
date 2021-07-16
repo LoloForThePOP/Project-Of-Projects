@@ -1,0 +1,74 @@
+{# 
+    
+Skeleton to display a presentation structure content (ex : display websites; display needs; ...)
+    
+It contains :
+
+    - structure icon
+    - structure title
+    - some buttons related to this structure (ex: add a website button)
+    
+#}
+
+{% block structureTitle %} {# Title container with logo and edit button #}
+
+    <div class="pp-struct-title-container {{editionMode ?? ""}}"> {# editionMode is empty or pp-consultation-mode #}
+        
+        {% block icon %}
+
+        <div class="d-inline-block h-100">
+
+            <div class="d-flex align-items-center h-100">
+
+                <img 
+                
+                    src= "{{ asset(iconName ~ '.svg', 'pp_consult') }}"
+                    class= "pp-struct-icon"  
+                    height= "27" 
+                    width= "27" 
+                    alt= "{% block iconName %}{% endblock %}"
+                    
+                >
+                
+            </div>
+
+        </div>
+
+
+
+        {% endblock %}
+
+        {% block title %}
+
+            <h3 class="pp-struct-title">{{title}}</h3>
+
+        {% endblock %}
+
+        {% if userPresenter %}
+
+            {% block editButtons %}{% endblock %}
+
+            {% block showDeleteElementsButtons %}
+
+                <button type="button" class="pp-edition-mode show-delete-items-buttons btn btn-light btn-sm" aria-label="Show delete element buttons">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                    </svg>
+
+                    <span class="fw-bold">...</span>
+
+                </button>
+
+            {% endblock %}
+                
+        {% endif %}
+
+    </div>
+
+    {% block mainContent %}{% endblock %}
+
+{% endblock %}
+
+{% block specificStyles %}{% endblock %}

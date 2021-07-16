@@ -148,7 +148,7 @@ class ContributorStructuresController extends AbstractController
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringId(),
-                '_fragment' => '',
+                '_fragment' => 'cs-'.$cs->getId(),
             ]);
 
         }
@@ -176,7 +176,7 @@ class ContributorStructuresController extends AbstractController
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringId(),
-                '_fragment' => '',
+                '_fragment' => 'cs-'.$cs->getId(),
             ]);
 
         }
@@ -224,7 +224,7 @@ class ContributorStructuresController extends AbstractController
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringId(),
-                'presentation' => $presentation,
+                '_fragment' => 'cs-'.$persorg->getContributorStructure()->getId(),
             ]);
 
         }

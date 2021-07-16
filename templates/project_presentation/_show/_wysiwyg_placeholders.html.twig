@@ -2,7 +2,7 @@
 
     {# add an image placeholder #}
 
-    <div id="" class="col-6 py-2 border border-success mb-3">
+    <div id="" class="pp-edition-mode placeholder-container col-6">
         
         {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_image", 'addElementModal':"#addImageSlideFormModal", 'label': "Images"} %}
         
@@ -12,7 +12,7 @@
 
     {% set addVideoRoute = path('add_youtube_slide', {'stringId': stringId}) %}
     
-    <div id="" class="col-6 py-2 border border-success mb-3">
+    <div id="" class="pp-edition-mode placeholder-container col-6 ">
             
         {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_youtube_video", 'route': addVideoRoute, 'label': "Vidéos"} %}
         
@@ -22,7 +22,7 @@
 
 {% if presentation.textDescription is empty %}
 
-    <div class="col-6 py-2 mb-3 border border-success">
+    <div class="pp-edition-mode placeholder-container col-6">
                     
         {% set addTextDescriptionRoute = path('edit_pp_text_description', {'stringId': presentation.stringId}) %}
 
@@ -34,7 +34,7 @@
 
 {% if countWebsites == 0 %}
 
-    <div class="col-6 py-2 mb-3 border border-success">
+    <div class="pp-edition-mode placeholder-container col-6">
 
         {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "add_website", 'addElementModal':"#newWebsiteFormModal", 'label': "Sites webs" } %}
 
@@ -44,7 +44,7 @@
 
 {% if countPlaces == 0 %}
 
-    <div class="col-6 py-2 mb-3 border border-success">
+    <div class="pp-edition-mode placeholder-container col-6">
 
         {% set route = path('manage_places', {'stringId': stringId}) %}
     
@@ -56,7 +56,7 @@
 
 {% if countBC == 0 %} {# No business card #}
 
-    <div class="col-6 py-2 mb-3 border border-success">
+    <div class="pp-edition-mode placeholder-container col-6">
             
         {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_business_card", 'addElementModal':"#add_business_card_form_modal", 'label': "Vous contacter"} %}
 

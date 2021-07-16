@@ -118,6 +118,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'pp-websites'
     
                     ]
 
@@ -127,6 +128,7 @@ class PPController extends AbstractController
 
             $addBusinessCardForm = $this->createForm(BusinessCardType::class);
             $addBusinessCardForm->handleRequest($request);
+
             if ($addBusinessCardForm->isSubmitted() && $addBusinessCardForm->isValid()) {
 
                 $componentItem = $addBusinessCardForm->getData();
@@ -148,6 +150,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'businessCards',
     
                     ]
 
@@ -178,6 +181,8 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'dataList',
+
     
                     ]
 
@@ -208,6 +213,8 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'questionsAnswers',
+
     
                     ]
 
@@ -215,7 +222,7 @@ class PPController extends AbstractController
 
             }
 
-            $document=new Document();
+            $document= new Document();
             $addDocumentForm = $this->createForm(DocumentType::class, $document);
             $addDocumentForm->handleRequest($request);
             if ($addDocumentForm->isSubmitted() && $addDocumentForm->isValid()) {
@@ -237,6 +244,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'documents',
     
                     ]
 
@@ -266,6 +274,7 @@ class PPController extends AbstractController
                     [
 
                         'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'slides',
 
                     ]
                 );
@@ -327,7 +336,7 @@ class PPController extends AbstractController
 
                     return $this->redirectToRoute('show_presentation', [
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => '',
+                        '_fragment' => 'cs-'.$parentContributorStructureId,
                     ]);
 
                 }

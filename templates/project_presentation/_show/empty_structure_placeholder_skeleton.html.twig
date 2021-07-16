@@ -19,10 +19,10 @@
         
         {% endif %}
 
-        class="pp-edition-mode text-decoration-none"
+        class="text-decoration-none"
     >
 
-        <div class="placeholder-container">
+        <div class="inner-placeholder-container">
     
             <div class="placeholder-label">
 
@@ -30,7 +30,7 @@
 
             </div>
 
-            <div class="image-container">
+            <div class="placeholder-image-container">
 
                 <img class="placeholder-image img-fluid" src="{{ asset(iconName ~'.svg', 'pp_wysiwyg')}}" alt="Placeholder for {{entityType | default ("an empty structure")}}" width="150" height="150">
 
@@ -43,27 +43,19 @@
 
     <style>
 
-        .placeholder-container{
+        .inner-placeholder-container{
 
             cursor: pointer;
 
         }
 
-        .image-container{
+        .placeholder-image-container{
 
             display: flex;
             justify-content: center;
             align-items: center;
 
         }
-
-        .placeholder-container:hover{
-
-            background-color: rgb(239, 239, 248);
-
-        }
-
-       
 
         .placeholder-label{
 

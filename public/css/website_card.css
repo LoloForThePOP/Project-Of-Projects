@@ -19,9 +19,6 @@
     
     cursor: pointer;
 
-
-
-
 }
 
 .pp-website-card, .pp-website-card >* {
@@ -56,9 +53,39 @@
 
 }
 
+@media screen and (max-width: 768px) {
+
+    .pp-website-card {
+
+        width: 315px;
+    
+        padding: 5px 0;
+    
+        margin-bottom: 20px;
+        margin-right: 15px;    
+    
+    
+    }
+    
+
+    .websiteDescription {
+
+        font-size: 15px;
+
+    }
+
+    .websiteUrl {
+        
+        font-size: 13px;
+
+    }
+
+}
+
 @media screen and (max-width: 580px) {
 
     .pp-website-card{
+        margin:0;
         margin-bottom: 9px;
         border: 1px solid #d4e7fa;
     }

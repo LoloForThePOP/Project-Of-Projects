@@ -11,13 +11,14 @@
 
         {# Add document button (triggers a modal) #}
 
-        <button data-bs-toggle="modal" data-bs-target="#AddDocumentFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+        <button data-bs-toggle="modal" data-bs-target="#addDocumentFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
 
     {% endblock %}
 
     {% block mainContent %}
 
         <div id="documents" class="js-elements-list pp-struct-content sm-horiz-scroll row ps-4 ps-md-5">
+
 
             {% for document in presentation.documents %}
                 

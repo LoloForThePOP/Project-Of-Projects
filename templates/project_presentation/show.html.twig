@@ -87,7 +87,7 @@
 
         {% if countMiscDataList > 0 %}
 
-            <div class="pp-struct-container col-lg-10">
+            <div id="" class="pp-struct-container col-lg-10">
 
                 {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
                 
@@ -101,7 +101,7 @@
 
         {% if countWebsites > 0  %}
         
-            <div id="displayWebsites" class="pp-struct-container col-12">
+            <div id="" class="pp-struct-container col-12">
                 
                 {% include 'project_presentation/_show/_websites.html.twig' %}
                 
@@ -116,7 +116,7 @@
 
         {% if countDocuments > 0 %}
 
-            <div id="displayDocuments" class="pp-struct-container col-12">
+            <div id="" class="pp-struct-container col-12">
 
                 {% include 'project_presentation/_show/_documents.html.twig' %}
 
@@ -131,7 +131,7 @@
 
         {% if countQA > 0 %}
             
-            <div id="displayQuestionsAnswers" class="pp-struct-container col-12 col-lg-9">
+            <div id="" class="pp-struct-container col-12 col-lg-9">
                 
                 {% include 'project_presentation/_show/_questions_answers.html.twig' %}
                 
@@ -226,7 +226,7 @@
 
                     {# Trigger Other Possibilities Menu (Button) #}
 
-                    <div class="pp-edition-mode col-6 py-2 mb-3 border border-success">
+                    <div class="pp-edition-mode placeholder-container col-6">
 
                         {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres Possibilités" } %}
 

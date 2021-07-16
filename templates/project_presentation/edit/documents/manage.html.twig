@@ -1,10 +1,16 @@
 {% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
 
 
+{% block stylesheet %}
+
+    <link href="/css/document_representation.css" rel="stylesheet">
+
+{% endblock %}
+
+
 {% block title %}Documents du Projet{% endblock %}
 
 {% block mainContentTitle %}Documents du Projet{% endblock %}
-
 
 {% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
 
@@ -59,7 +65,7 @@
           
                 <!-- Add a Document Button -->
                     
-                <button type="button" data-bs-toggle="modal" data-bs-target="#AddDocumentFormModal" class="btn btn-lg btn-success sharp p-3">+ Ajouter un document</button> 
+                <button type="button" data-bs-toggle="modal" data-bs-target="#addDocumentFormModal" class="btn btn-lg btn-success sharp p-3">+ Ajouter un document</button> 
 
             {% else %}
                 
@@ -72,7 +78,7 @@
 
         <!-- Add a Document Form (displayed in a Modal Box) -->
 
-        {% include "project_presentation/edit/documents/_add_document_form.html.twig" %}
+        {% include "project_presentation/edit/documents/_form.html.twig" %}
 
 
         <!-- Presentation Documents Grid -->
@@ -91,7 +97,7 @@
 
                             <a href="{{path('update_document', {'stringId': stringId, 'id_element' : document.id })}}" class="h-100 text-body text-decoration-none">
 
-                                {% include 'project_presentation/edit/documents/_icons_display.html.twig' %}
+                                {% include 'project_presentation/edit/documents/_inner_representation.html.twig' %}
 
                             </a>
 

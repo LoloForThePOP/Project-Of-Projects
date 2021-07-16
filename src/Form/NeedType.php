@@ -56,16 +56,13 @@ class NeedType extends AbstractType
                 [
 
                     'label' => 'Est-ce payé ?',
+                    'placeholder'    => "Choisir une option",
                     'choices'  => [
                         'Peut-être, à voir' => 'maybe',
                         'Oui' => 'yes',
                         'Non' => 'no',
                     ],
                     'required'   => false,
-                    'attr' => [
-
-                        'placeholder'    => "Choisir une option",
-                    ],
                 ]
             )
             ->add(

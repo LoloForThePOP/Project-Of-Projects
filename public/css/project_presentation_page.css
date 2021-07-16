@@ -78,7 +78,6 @@
     font-family : Verdana, Geneva, Tahoma, sans-serif; 
     font-size: 1.8rem;
     margin:0px;
-    margin-right:17px;
 
 }
 
@@ -91,6 +90,8 @@
     width: 22px;
     height: 22px; 
 
+    margin-bottom: 5px;
+
     /* change svg colors 
     
     filter: invert(73%) sepia(92%) saturate(2564%) hue-rotate(8deg) brightness(112%) contrast(104%); */
@@ -98,6 +99,23 @@
 
 .pp-struct-content{
     padding-left: 30px;
+}
+
+
+.placeholder-container{
+
+    border: 1px solid green;
+
+    margin-bottom: 16px;
+
+    padding: 7px 12px;
+
+}
+
+.placeholder-container:hover{
+
+    background-color: #ecebfc;
+
 }
 
 /* Switch Between Edition Mode and Consultation Mode Button */
@@ -139,6 +157,10 @@ textarea:focus, input:focus{
         padding-right: 0;
         margin-top: 18px;
     }
+            
+    .pp-struct-content{
+        padding-left: 25px;
+    }
 
 }
 
@@ -148,6 +170,7 @@ textarea:focus, input:focus{
         padding: 0;
         margin-top: 10px;
     }
+
     /* 
     .pp-struct-container {
 

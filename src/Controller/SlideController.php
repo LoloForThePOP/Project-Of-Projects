@@ -96,7 +96,7 @@ class SlideController extends AbstractController
             return $this->redirectToRoute('show_presentation', [
 
                 'stringId' => $pp->getStringId(),
-                '_fragment' => 'slideshowDisplay',
+                '_fragment' => 'slides',
 
             ]);
 
@@ -146,10 +146,13 @@ class SlideController extends AbstractController
                 "✅ vidéo ajoutée"
             );
 
-            return $this->redirectToRoute('manage_slides', [
+            return $this->redirectToRoute('show_presentation', [
 
                 'stringId' => $presentation->getStringId(),
+                '_fragment' => 'slides',
+
             ]);
+
         }
 
         return $this->render('project_presentation/edit/slides/edit_youtube_video.html.twig', [
@@ -194,7 +197,7 @@ class SlideController extends AbstractController
             return $this->redirectToRoute('show_presentation', [
 
                 'stringId' => $pp->getStringId(),
-                '_fragment' => 'slideshowDisplay',
+                '_fragment' => 'slides',
 
             ]);
 

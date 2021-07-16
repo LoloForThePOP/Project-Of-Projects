@@ -42,7 +42,7 @@ class TextDescriptionController extends AbstractController
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringId(),
-                '_fragment' => 'textDescriptionDisplay',
+                '_fragment' => 'text_description',
             ]);
         }
 

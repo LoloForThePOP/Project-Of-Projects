@@ -33,7 +33,7 @@
 
     </div>
   
-    <!-- Some Styles -->
+    <!-- Keywords Styles -->
 
     <style>
 
@@ -46,12 +46,10 @@
 
         @media screen and (max-width: 580px) {
 
-            .pp-pkeywords{
+            .pp-keywords{
 
                 font-size: 15px;
                 font-weight:normal;
-
-                margin-top: 0.7rem !important;
 
             }
 
@@ -61,13 +59,13 @@
 
 {% elseif userPresenter and presentation.categories | length == 0  %} {# no keywords (+ no categories), we insert a placeholder #}
 
-    <a class="pp-edition-mode text-decoration-none ps-3 w-100 ps-md-0 text-body mt-4" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
+    <a class="pp-edition-mode text-decoration-none ps-md-0 w-100 text-body" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
         
         <div id="keywordsPlaceholder" class="d-flex align-items-center">
 
-            <img class="keywordsIcon img-fluid" src="{{ asset('hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
+            <img class="keywordsIcon img-fluid" src="{{ asset('flat_hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
 
-            <span class="h4 fw-bold mt-2">Catégorie & Mots-clés</span>
+            <span class="">Catégorie & Mots-clés</span>
 
         </div>
 
@@ -77,14 +75,17 @@
 
 		#keywordsPlaceholder{
 
-			cursor: pointer;
+            width: 400px;
+	
+            padding: 5px 10px;
+            margin-top: 14px;
 
-            padding: 0px 15px;
+            border: 1px solid rgb(221, 221, 177);
 
-			border: 5px dashed rgb(180, 204, 236);
-			border-radius: 6px;
+            font-size: 22px;
+            font-weight: bold;
 
-            width:400px;
+            cursor: pointer;
 
 		}
 
@@ -106,8 +107,19 @@
 			#keywordsPlaceholder{
 
                 width:100%;
+                font-size: 16px;
+                padding-left: 12px;
+                margin-bottom: 5px;
 
 			}
+
+                
+            .keywordsIcon {
+
+                height: 20px;
+                width: 20px;
+                
+            }
 
 		}
 

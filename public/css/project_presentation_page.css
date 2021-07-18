@@ -44,6 +44,7 @@
 
 .pp-container {
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 /* Each Structure Container*/
@@ -102,22 +103,6 @@
 }
 
 
-.placeholder-container{
-
-    border: 1px solid green;
-
-    margin-bottom: 16px;
-
-    padding: 7px 12px;
-
-}
-
-.placeholder-container:hover{
-
-    background-color: #ecebfc;
-
-}
-
 /* Switch Between Edition Mode and Consultation Mode Button */
 
 #pp-switch-edit-consult-mode {
@@ -149,13 +134,18 @@ textarea:focus, input:focus{
     outline: none;
 }
 
+.edit-icon{
+    margin-left: 15px;
+}
+
 
 @media screen and (max-width: 768px) {
 
     .pp-container{
         padding-left: 0;
         padding-right: 0;
-        margin-top: 18px;
+        margin-top: 40px;
+        margin-bottom: 22px;
     }
             
     .pp-struct-content{
@@ -213,6 +203,12 @@ textarea:focus, input:focus{
         
     .pp-struct-content{
         padding-left: 5px;
+    }
+
+
+    .edit-icon{
+        width: 16px;
+        height: 16px;
     }
 
 }

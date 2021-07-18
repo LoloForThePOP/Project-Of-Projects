@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="6.3282003mm"
+   height="6.5296006mm"
+   version="1.1"
+   viewBox="0 0 6.3282004 6.5296004"
+   id="svg12"
+   sodipodi:docname="flat_hashtag.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata18">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs16" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview14"
+     showgrid="false"
+     inkscape:zoom="13.431476"
+     inkscape:cx="4.0994645"
+     inkscape:cy="8.8371092"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg12" />
+  <g
+     transform="translate(-95.658804,-158.2535)"
+     font-size="10.6px"
+     letter-spacing="0px"
+     word-spacing="0px"
+     id="g10"
+     style="font-size:10.60000038px;letter-spacing:0px;word-spacing:0px;stroke:none;fill:#ffc700;fill-opacity:1">
+    <text
+       x="95.171204"
+       y="165.1965"
+       style="line-height:1.25;font-family:Rubik;fill:#ffc700;stroke:none;stroke-width:0.13270834;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1"
+       xml:space="preserve"
+       id="text8"><tspan
+         x="95.171204"
+         y="165.1965"
+         id="tspan6"
+         style="font-family:Rubik;fill:#ffc700;stroke:none;stroke-width:0.13270834;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1">#</tspan></text>
+  </g>
+</svg>

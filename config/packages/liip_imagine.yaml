@@ -39,4 +39,4 @@ liip_imagine:
                 scale:
 
                     # input ?x? px -> output ?x? px (relative down-scale)
-                    dim: [ 170, 170 ]
+                    dim: [ 130, 130 ]

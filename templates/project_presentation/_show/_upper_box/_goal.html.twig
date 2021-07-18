@@ -10,9 +10,9 @@
 
     {% if userPresenter %}
 
-        <a class="pp-edition-mode ms-3 ms-md-0" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
+        <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
-            <button class="btn btn-light btn-sm fs-15" style="font-size:13px !important;">Éditer</button>
+            <img class="edit-icon img-fluid" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
             
         </a>
 

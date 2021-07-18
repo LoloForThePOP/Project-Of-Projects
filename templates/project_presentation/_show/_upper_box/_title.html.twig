@@ -8,7 +8,7 @@
 
         <!-- Project Title Display -->
 
-        <h3 class="pp-title mr-3 mb-0 d-inline-block" >
+        <h3 class="pp-title mb-0 d-inline-block" >
             
             {% if presentation.title | length > 79 %}
 
@@ -31,9 +31,6 @@
                 {{presentation.title[:1] | upper ~ presentation.title[1:]}}
 
             {% endif %}
-   
-        
-        </h3>
                                                      
             <!-- Edit Project Title Button -->
 
@@ -41,18 +38,13 @@
 
                 <a class="pp-edition-mode text-decoration-none" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
-                    {# <img class="editIcon img-fluid" src="/images/icons/edit_presentation/edit.svg" height="18" width="18" alt="edit icon" > #}
-
-                    <button type="button" class="btn btn-light btn-sm">
-
-                        Éditer
-                    </button>
-
+                    <img class="edit-icon img-fluid" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 
                 </a>
 
             {% endif %}
 
+        </h3>
 
     </div>
 

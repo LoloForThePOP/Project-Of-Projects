@@ -39,7 +39,7 @@
 
         .pp-keywords{
 
-            font-size: 17px;
+            font-size: 18px;
             font-weight: bold;
             color:#065fd4;
         }
@@ -49,7 +49,7 @@
             .pp-keywords{
 
                 font-size: 15px;
-                font-weight:normal;
+                font-weight:bold;
 
             }
 
@@ -59,11 +59,11 @@
 
 {% elseif userPresenter and presentation.categories | length == 0  %} {# no keywords (+ no categories), we insert a placeholder #}
 
-    <a class="pp-edition-mode text-decoration-none ps-md-0 w-100 text-body" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
+    <a class="pp-edition-mode text-decoration-none ps-md-0 text-body" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
         
         <div id="keywordsPlaceholder" class="d-flex align-items-center">
 
-            <img class="keywordsIcon img-fluid" src="{{ asset('flat_hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
+            <img class="keywordsIcon img-fluid" src="{{ asset('hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
 
             <span class="">Catégorie & Mots-clés</span>
 
@@ -78,11 +78,10 @@
             width: 400px;
 	
             padding: 5px 10px;
-            margin-top: 14px;
 
-            border: 1px solid rgb(221, 221, 177);
+            margin-top: 3px;
 
-            font-size: 22px;
+            font-size: 20px;
             font-weight: bold;
 
             cursor: pointer;

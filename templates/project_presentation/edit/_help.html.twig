@@ -2,29 +2,33 @@
 
     {% block modalBody %}
 
-        <div class="container help-content">
+    <div class="help-content container">
 
-            <div class="row">
+        <div class="row g-4">
 
-                <div class="col-6 image-container">
+          <div class="col-6 ps-0">
 
-                    <img class="" src="{{ asset('drag_and_drop.png', 'tutorial')}}" alt="drag and drop image">
+            <div class="image-container">
 
-                </div>
-
-                <div class="col-6 text-container">
-
-                    Pour changer l'ordre des éléments, restez appuyer sur un élément puis déplacez-le à l'endroit désiré. 
-
-                </div>
+                <img src="{{ asset('drag_and_drop.png', 'tutorial')}}" alt="drag and drop image">
 
             </div>
 
-            <div class="row">
-                Poser une question
+          </div>
+
+          <div class="col-6 pe-0">
+
+            <div class="text-container">
+
+                Pour changer l'ordre des éléments, restez appuyer sur un élément puis déplacez-le à l'endroit désiré. 
+
             </div>
+            
+          </div>
 
         </div>
+
+    </div>
 
     {% endblock %}
 
@@ -38,9 +42,13 @@
         justify-content: center;
         align-items: center;
 
+        height:100%;
+
         padding: 15px;
 
-        background-color: rgb(253, 255, 111);
+        background-color: #f8f9fa;
+
+        border-radius: 8px;
         
     }
 
@@ -56,18 +64,18 @@
         justify-content: center;
         align-items: center;
 
-        font-size: 1.18em;
-        font-weight: bold;
+        text-align: center;
 
-        background-color: rgb(250, 198, 102);
+        height:100%;
 
         padding: 15px 20px;
 
-    }
+        font-size: 1.18em;
+        font-weight: bold;
 
-    .help-content .row{
+        background-color: rgb(233, 255, 227);
 
-        margin-bottom: 25px;
+
     }
 
 

@@ -39,9 +39,7 @@
 
 <div class="pp-container container">
     
-    {% include 'project_presentation/_show/_upper_box.html.twig' %}
-
-    <div class="row">
+        {% include 'project_presentation/_show/_upper_box.html.twig' %}
 
         {# Slideshow images & videos #}
             
@@ -57,7 +55,7 @@
         {# Text Description #}
 
         {% if presentation.textDescription is not empty %} 
-            
+
             <div class="pp-struct-container col-12 col-md-10">
                 
                 {% include 'project_presentation/_show/_text_description.html.twig' %}
@@ -186,11 +184,6 @@
             </div>
 
         {% endif %}
-
-        
-
-    
-    </div>
     
     {% if userPresenter %}
 
@@ -199,7 +192,6 @@
             {# Placeholders for usual structures (ex: websites; places; images; etc) #}
 
             {% include "project_presentation/_show/_wysiwyg_placeholders.html.twig" %}
-
 
             {# Other Edition Possibilities. Ex: Add Documents; add a Q&A; etc. Placeholder Icons to opens a modal with choices buttons #}
 

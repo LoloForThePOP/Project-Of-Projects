@@ -20,7 +20,7 @@
                 
                 {# Logo Column #} {# when fake logo placeholder, it is only displayed for userPresenter (so we add pp-edition-mode class) #}
 
-                <div class="pp-logo-container col-4 col-md-3 col-lg-2 {% if not presentation.logo and userPresenter %} pp-edition-mode {% endif %}">
+                <div class="pp-logo-container {% if not presentation.logo and userPresenter %} pp-edition-mode {% endif %}">
 
                     {% include 'project_presentation/_show/_upper_box/_logo.html.twig' %}
 
@@ -32,7 +32,7 @@
 
             <div class="col d-flex align-items-center">
 
-                <div class="container px-0 px-md-2 px-lg-4">
+                <div class="container px-0 px-md-2">
 
                     {# Title Display only >= Medium Screens #}
 
@@ -41,7 +41,6 @@
                         {% include 'project_presentation/_show/_upper_box/_title.html.twig' %}
         
                     </div>
-
 
                     {# Goal Display #}
         
@@ -69,7 +68,7 @@
 
         {# Keywords Display only Small Screens #}
 
-        <div class="row d-md-none">
+        <div class="keywords-container row d-md-none">
 
             {% include 'project_presentation/_show/_upper_box/_keywords.html.twig' %}
 
@@ -97,7 +96,10 @@
 
         display: flex;
         align-items: center;
-        justify-content: center;
+
+        flex: 0 0 auto;
+        width: 16.6666666667%;
+
     }
 
     .pp-title{
@@ -115,8 +117,23 @@
         .pp-upper-box {
             margin-bottom: 10px;
         }
+   
+        .keywords-container{
 
+            margin-top: 11px;
+            
+        }
 
+        .pp-logo-container{
+
+            display: flex;
+            align-items: center;
+
+            flex: 0 0 auto;
+            width: 25%;
+
+            padding-right: 0;
+        }
 
     }
 

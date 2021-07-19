@@ -1,11 +1,7 @@
 
 {% if presentation.logo %}
 
-    <div class="">
-
-        <img id="pp-logo" class="img-fluid" src="{{ vich_uploader_asset(presentation) | imagine_filter('logo')}}" alt="Logo du Projet">
-
-    </div>
+    <img id="pp-logo" class="img-fluid" src="{{ vich_uploader_asset(presentation) | imagine_filter('logo')}}" alt="Logo du Projet">
 
 {% else %}
 
@@ -48,8 +44,8 @@
 
         #pp-logo{
             border-radius: 4px;
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
         }
 
 

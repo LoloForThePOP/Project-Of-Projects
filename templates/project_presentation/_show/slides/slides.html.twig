@@ -25,11 +25,15 @@
 			</a>
 
 			{% if countSlides > 0 %}
-			
-				<a class="text-decoration-none" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}">
 
-					<button class="pp-edition-mode btn btn-light btn-sm me-3">Gérer</button>
-					
+				<a href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}" class="text-decoration-none">
+                        
+					<button type="button" class="pp-edition-mode btn btn-light btn-sm" aria-label="Manage Order and Titles Button">
+
+						<img src="{{ asset('settings.svg', 'pp_wysiwyg')}}" alt="Manage Order and Titles Icon" height="17px">
+
+					</button>
+
 				</a>
 			
 			{% endif %}
@@ -45,76 +49,59 @@
 <!-- Project Presentation Slideshow Display -->
 <!-- Structure Container -->
 
-<div id="slides" class="px-0 container mb-4 pb-md-2">
-
 	<!-- Slideshow Container -->
 
-	<div class="container">
+	<div id="slides" class="border border-danger">
+
+		<!-- Caption Container -->
+
+		{# If at least one caption is set, we display caption container #}					
+		<div 
 		
-		<div class="row">
+			class="caption-container col-lg-9 d-none border border-danger"
 
-			<div class="SlideshowContainer">
+				{% for slide in presentation.slides %}
 
-				<!-- Caption Container -->
+					{% if slide.caption is not empty %}
+											
+						style="display: flex !important; align-items: center;"
 
-				{# If at least one caption is set, we display caption container #}					
-				<div 
+					{% endif %}
 				
-					class="caption-container d-none"
+				{% endfor %}
+		>
 
-						{% for slide in presentation.slides %}
+			{# caption are displayed from clicks on slides thumbnails (thumbnail alt attribute) #}	
+	
+			<p id="caption" class="border border-success">
 
-							{% if slide.caption is not empty %}
-													
-								style="display: flex !important; align-items: center;"
+				{# when only one slide with caption, we display its caption by default #}	
 
-							{% endif %}
+				{% if presentation.slides | length == 1 %}
+
+					{% set slide = presentation.slides | first %}
+
+					<div class="ps-md-3">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</div>
+
+				{% endif %}
 						
-						{% endfor %}
-					
-					>
-
-					{# caption are displayed from clicks on slides thumbnails (thumbnail alt attribute) #}	
-			
-					<p id="caption">
-
-						{# when only one slide with caption, we display its caption by default with twig #}	
-
-						{% if presentation.slides | length == 1 %}
-
-							{% set slide = presentation.slides | first %}
-
-							<div class="ps-md-3">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</div>
-
-						{% endif %}
-								
-					</p>
-				
-				</div>
-
-				<div class="slides-thumbnails-container">
-
-					<div class="row">
-							
-						<!-- Slides Container -->
-
-						{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
-			
-				
-						{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
-
-
-					</div>
-						
-				</div>
-
-			</div>
-
+			</p>
+		
 		</div>
+		
+		<div class="row m-0">
+				
+				
+			<!-- Slides Container -->
+
+			{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
+
+	
+			{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+
+		</div>	
 
 	</div>
-
-</div>
 
 <script>
 
@@ -136,7 +123,7 @@
 
 		var i;
 		var slides = document.getElementsByClassName("mySlides");
-		var dots = document.getElementsByClassName("SlideImage");
+		var dots = document.getElementsByClassName("SlideImageThumbnail");
 		var thumbnail = document.getElementsByClassName("thumbnail");
 		var captionText = document.getElementById("caption");
 		
@@ -158,7 +145,7 @@
 		dots[slideIndex-1].className += " active";
 		thumbnail[slideIndex-1].className += " active";
 		
-		captionText.innerHTML = dots[slideIndex-1].alt;
+		captionText.innerHTML = dots[slideIndex-1].getAttribute('data-caption');
 
 	}
 

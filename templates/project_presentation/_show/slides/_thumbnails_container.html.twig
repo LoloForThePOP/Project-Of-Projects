@@ -2,62 +2,64 @@
 
 {% if presentation.slides | length > 1 %}
 
-<div class="col-md-3 pe-0 d-none d-lg-block pt-4">
+
+{% macro youtubeVideoThumbnail(slide) %}
+
+	<div style="position: relative;">
+
+		<img class="SlideImageThumbnail" src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80px" height="50px"
+		
+			data-caption = "{{ slide.caption[:1] | upper ~ slide.caption[1:] }}" 
+
+			alt="{{ slide.caption[:1] | upper ~ slide.caption[1:5] }}"/>
+
+		<!-- ui css video icon -->
+
+		<span class="thumbnail-video-icon"> </span>
+
+	</div>
+
+{% endmacro %}
+
+{% macro imageThumbnail(slide) %}
+	
+	<img class="SlideImageThumbnail" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}"
+
+		data-caption = "{{ slide.caption[:1] | upper ~ slide.caption[1:] }}" 
+
+		alt="{{ slide.caption[:1] | upper ~ slide.caption[1 : 5] }}"/>
+
+{% endmacro %}
+
+
+<div class="col-md-3 pe-0 d-none d-lg-block pt-4 border border-danger">
 
 	<!--Thumbnails Container -->
 
-	<div class="thumbnails-container">
+	<div class="thumbnails-container border border-primary">
 
-		<div class="container">
+		<div class="container border border-success">
 
-			<div class="row">
+			<div class="row border border-primary">
 
 				<!-- first Thumbnail Column (first 4 slides) -->
 
-				<div class="col ps-4">
+				<div class="col ps-4 border border-danger">
 					
 					{% for slide in presentation.slides | slice (0,4) %}
 
-					<div class="row mb-5">
+					<div class="row mb-5 border border-success">
 
 						<div data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="thumbnail">
 
 							{% if slide.type == 'youtube_video' %}	
 
-								<div class="position-relative">
+								{{ _self.youtubeVideoThumbnail(slide) }}
 
-									<img class="SlideImage rounded" src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80px" height="50px"
-								
-								alt="
-									
-									{% if slide.caption %}
-									
-										{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
-
-									{% endif %}
-								
-								"/>
-	
-									<!-- ui css video icon -->
-	
-									<span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
-
-								</div>
-								
 							{% else %}
 
-								<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}"
-								
-								alt="
-									
-									{% if slide.caption %}
-									
-										{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+								{{ _self.imageThumbnail(slide) }}
 
-									{% endif %}
-								
-								"/>
-								
 							{% endif %}
 
 						</div>
@@ -71,49 +73,21 @@
 
 				{% if presentation.slides | length > 4 %}
 				
-					<div class="col px-0">
+					<div class="col px-0 border border-primary">
 						
 						{% for slide in presentation.slides | slice (4,8) %}
 
-						<div class="row mb-5">
+						<div class="row mb-5 border border-success">
 
 							<div data-loop-index="{{loop.index + 4}}" onclick="currentSlide({{loop.index + 4}})" class="thumbnail">
 
 								{% if slide.type == 'youtube_video' %}	
 
-								<div class="position-relative">
-
-									<img class="SlideImage rounded" src="https://img.youtube.com/vi/{{slide.address}}/mqdefault.jpg" width="80px" height="50px"
-								
-								alt="
+									{{ _self.youtubeVideoThumbnail(slide) }}
 									
-									{% if slide.caption %}
-									
-										{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+								{% else %}
 
-									{% endif %}
-								
-								"/>
-	
-									<!-- ui css video icon -->
-	
-									<span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>
-
-								</div>
-								
-							{% else %}
-
-								<img class="SlideImage rounded" src="{{ vich_uploader_asset(slide) | imagine_filter('slide_thumbnail') }}"
-								
-								alt="
-									
-									{% if slide.caption %}
-									
-										{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
-
-									{% endif %}
-								
-								"/>
+								{{ _self.imageThumbnail(slide) }}
 								
 							{% endif %}
 
@@ -123,14 +97,14 @@
 						</div>
 						
 					{% endfor %}
+
 					</div>
 
 				{% endif %}
 				
 			</div>
+
 		</div>
-
-
 
 	</div>
 

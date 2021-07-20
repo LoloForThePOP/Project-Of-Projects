@@ -12,7 +12,7 @@
 
         {# Add business card button (triggers a modal) #}
 
-        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-light btn-sm pp-add-element-button">+ Ajouter</button>        
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-light btn-sm pp-add-element-button">+</button>        
 
     {% endblock %}
 
@@ -39,9 +39,9 @@
                 
                     </a>
 
-                    {# delete website (Red Cross) button #}
+                    {# delete business card (Red Cross) button #}
 
-                    <button type="button" data-elements-type="businessCards" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{bc.id}}"></button>
+                    <button type="button" data-elements-type="businessCards" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{bc.id}}">&times</button>
 
                 </div>
                 

@@ -12,7 +12,7 @@
 
         {# Add website button (triggers a modal) #}
 
-        <button data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+        <button data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" class="pp-edition-mode btn btn-light btn-sm">+</button>
 
     {% endblock %}
 
@@ -31,9 +31,9 @@
                             {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
                         </a>
                         
-                        {# delete website (Red Cross) button #}
+                        {# Delete website (Red Cross) button #}
 
-                        <button type="button" data-elements-type="websites" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{website.id}}"></button> 
+                        <button type="button" data-elements-type="websites" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{website.id}}">&times</button> 
 
                     </div>
                 

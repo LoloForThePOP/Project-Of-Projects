@@ -4,7 +4,7 @@
 
         {# Add a need button (triggers a modal to select need type) #}
 
-        <button data-bs-toggle="modal" data-bs-target="#selectNeedTypeModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+        <button data-bs-toggle="modal" data-bs-target="#selectNeedTypeModal" class="pp-edition-mode btn btn-light btn-sm">+</button>
 
     {% endblock %}
 
@@ -30,9 +30,9 @@
                             
                             </div>
 
-                            {# delete need (Red Cross) button #}
+                            {# Delete need (Red Cross) button #}
 
-                            <button type="button" data-elements-type="needs" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{need.id}}"></button>
+                            <button type="button" data-elements-type="needs" class="js-delete-element delete-button pp-edition-mode btn btn-danger" data-id="{{need.id}}">&times</button>
 
                         </div>
 
@@ -69,6 +69,7 @@
             </div>
 
         {% endif %}
+        
     <style>
 
         .need-card{

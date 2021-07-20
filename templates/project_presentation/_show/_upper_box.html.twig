@@ -36,7 +36,7 @@
 
                     {# Title Display only >= Medium Screens #}
 
-                    <div class="row d-none d-md-block">
+                    <div class="d-none d-md-block">
 
                         {% include 'project_presentation/_show/_upper_box/_title.html.twig' %}
         
@@ -44,7 +44,7 @@
 
                     {# Goal Display #}
         
-                    <div class="row">
+                    <div class="">
 
                         {% include 'project_presentation/_show/_upper_box/_goal.html.twig' %}
                         
@@ -52,7 +52,7 @@
 
                     {# Keywords Display only >= Medium Screens #}
 
-                    <div class="row d-none d-md-block">
+                    <div class="d-none d-md-block">
         
                         {% include 'project_presentation/_show/_upper_box/_keywords.html.twig' %}
 
@@ -98,7 +98,10 @@
         align-items: center;
 
         flex: 0 0 auto;
-        width: 16.6666666667%;
+        
+        width: 14.5%;
+
+        padding-right: 0;
 
     }
 
@@ -111,6 +114,15 @@
     }
 
 
+        
+    @media screen and (max-width: 768px) {
+            
+        .pp-logo-container{
+
+            width: 17.5%;
+
+        }
+    }
         
     @media screen and (max-width: 580px) {
 
@@ -129,10 +141,8 @@
             display: flex;
             align-items: center;
 
-            flex: 0 0 auto;
             width: 25%;
 
-            padding-right: 0;
         }
 
     }

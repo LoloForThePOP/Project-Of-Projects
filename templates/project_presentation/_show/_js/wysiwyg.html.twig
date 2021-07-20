@@ -3,12 +3,28 @@
     // this script should be called only for user presenters
     
     $(document).ready(function(){
-        
+
+
+            // delete item icons appear when clicking trash icon        
         
             $(".show-delete-items-buttons").click(function() {
 
-                $(".delete-button").css('visibility', 'visible').css('opacity', '1');
+                var scope = $(this).closest('.pp-struct-container').find('.delete-button');
 
+                if ($(this).hasClass("inactivated")){
+
+                    scope.css('visibility', 'visible').css('opacity', '1');
+
+                }
+
+                else {
+
+                    scope.css('visibility', 'hidden').css('opacity', '0');
+
+                }
+
+                $(this).toggleClass("inactivated activated");
+                
             });
 
             $(".pp-edition-mode").show();

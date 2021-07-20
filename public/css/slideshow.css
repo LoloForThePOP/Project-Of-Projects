@@ -124,6 +124,8 @@
 
 .thumbnail {
 
+    display: flex;
+    justify-content: center;
     cursor: pointer;
     opacity: 0.8; /* Add a transparency effect for thumnbail images */
 

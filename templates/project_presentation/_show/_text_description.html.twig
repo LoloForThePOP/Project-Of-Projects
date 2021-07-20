@@ -6,7 +6,11 @@
 
         <a class="pp-edition-mode text-decoration-none" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}">
 
-            <button class="btn btn-light btn-sm me-2">Éditer</button>
+            <button class="btn btn-light btn-sm me-2">
+                
+                <img class="img-fluid" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+
+            </button>
             
         </a>
 
@@ -38,7 +42,7 @@
                 
             {% else %}
                 
-                <div id="moduleCollapseTextDescription" class="container px-0 pl-md-3">
+                <div class="long-text container px-0 pl-md-3">
 
                     <!-- Text Description (Display) -->
 
@@ -64,15 +68,15 @@
 
         <style>
                     
-            #moduleCollapseTextDescription button.collapsed:after {
+            .long-text button.collapsed:after {
                 content: 'Afficher +';
             }
             
-            #moduleCollapseTextDescription button:not(.collapsed):after {
+            .long-text button:not(.collapsed):after {
                 content: 'Réduire';
             }
             
-            #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
+            .long-text #collapseTextDescription.collapse:not(.show) {
                 
                 display: block;
                 
@@ -80,11 +84,7 @@
 
                 overflow: hidden;
 
-            }
-            
-            #moduleCollapseTextDescription #collapseTextDescription.collapsing {
-                height: 7.5em;
-            }
+            }   
 
             .pp-text-description{
                 font-size:1.15em;
@@ -93,7 +93,7 @@
             @media screen and (max-width: 580px) {
 
 
-                #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
+                .long-text #collapseTextDescription.collapse:not(.show) {
 
                     height: 3em;
 

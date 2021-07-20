@@ -11,7 +11,7 @@
 
         {# Add document button (triggers a modal) #}
 
-        <button data-bs-toggle="modal" data-bs-target="#addDocumentFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+        <button data-bs-toggle="modal" data-bs-target="#addDocumentFormModal" class="pp-edition-mode btn btn-light btn-sm">+</button>
 
     {% endblock %}
 
@@ -36,9 +36,9 @@
 
                     </a>
 
-                    {# delete document (Red Cross) button #}
+                    {# Delete document (Red Cross) button #}
 
-                    <button type="button" data-elements-type="documents" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{document.id}}"></button>
+                    <button type="button" data-elements-type="documents" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{document.id}}">&times</button>
 
                 </div>
                 

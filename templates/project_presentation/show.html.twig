@@ -240,7 +240,13 @@
 
     {% if userPresenter %}
 
-        <button id="pp-switch-edit-consult-mode" class="edition-mode" title="Switch between edition mode and consultation mode">👁</button>
+        <button id="pp-switch-edit-consult-mode" class="edition-mode" title="Switch between edition mode and consultation mode">👁
+
+            {# <img id="pp-consult-icon" src="{{ asset('consult_mode.svg', 'pp_wysiwyg')}}" height="17" width="17"  alt="eye icon">
+
+            <img id="pp-edit-icon" class="d-none" src="{{ asset('edit_mode.svg', 'pp_wysiwyg')}}" height="17" width="17"  alt="pen icon"> #}
+
+        </button>
 
     {% endif %}
 
@@ -250,7 +256,7 @@
 
 {% endblock %}
 
-{% block javascripts %}
+{% block javascripts %}    
 
     {% if is_granted('edit', presentation) %}
 

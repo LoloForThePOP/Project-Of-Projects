@@ -4,7 +4,7 @@
 
         {# Add a data to the list - button (triggers a modal) #}
 
-        <button data-bs-toggle="modal" data-bs-target="#addDataListItemFormModal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+        <button data-bs-toggle="modal" data-bs-target="#addDataListItemFormModal" class="pp-edition-mode btn btn-light btn-sm">+</button>
 
     {% endblock %}
 
@@ -39,7 +39,7 @@
 
                     {# delete data item (Red Cross) button #}
 
-                    <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{data.id}}"></button>
+                    <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{data.id}}">&times</button>
 
                 </div>
                 

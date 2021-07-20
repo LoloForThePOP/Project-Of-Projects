@@ -1,0 +1,19 @@
+
+.hide-too-long {
+    height: 100%;
+    max-height: 100px;
+    overflow: hidden;
+}
+
+
+.read-more:focus {
+outline: none;
+}
+
+.read-more::-moz-focus-inner {
+border: 0;
+}
+
+.hid {
+display: none;
+}

@@ -22,10 +22,29 @@
                         {% include "persorgs/_card.html.twig" %}
                     
                     </a>
+                                    
+                    {# delete persorg (Red Cross) button #}
 
-                    <!-- Remove Persorg (Button with Red Cross) -->
+                    <button type="button" data-elements-type="persorgs" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{persorg.id}}">&times</button>
 
-                    <button type="button" class="js-delete-element d-inline position-absolute btn btn-danger sharp py-0 px-2" data-id="{{persorg.id}}" style="top:0; right:0; z-index:1000;"><span class="fw-bold">x</span></button>
+                    
+    <style>
+        
+        .delete-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 20px;
+            min-height: 20px;
+            border-radius: 4px;
+            background-color: #dc3545 !important;
+            color: white !important;
+            z-index: 2;
+
+        }
+
+    </style>
+
 
                 </div>
 

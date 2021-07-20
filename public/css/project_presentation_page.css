@@ -15,11 +15,12 @@
 
 .delete-button {
     visibility: hidden;
+    opacity: 0;
     position: absolute;
 	top: 0;
 	right: 0;
-	width: 20px;
-	height: 20px;
+	min-width: 20px;
+	min-height: 20px;
 	padding: 0;
 	line-height: 0;
 	border-radius: 2px;
@@ -27,7 +28,7 @@
     color: white !important;
     z-index: 2;
     transition: visibility 0s, opacity 2s linear;
-    opacity: 0;
+
 }
 
 
@@ -36,6 +37,12 @@
     visibility: visible;
     opacity:1;
 
+}
+
+.delete-button:hover{
+    color: #fff;
+    background-color: #bb2d3b !important;
+    border-color: #b02a37 !important;
 }
 
 

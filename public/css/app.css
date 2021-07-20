@@ -63,19 +63,6 @@
   }
 
 
-
-.delete-button::before {
-    content:"×";
-
-}
-
-.delete-button:hover{
-    color: #fff;
-    background-color: #bb2d3b;
-    border-color: #b02a37;
-}
-
-
   
 /* One Letter Avatars */
 

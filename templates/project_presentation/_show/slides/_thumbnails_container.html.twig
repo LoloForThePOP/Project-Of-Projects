@@ -36,74 +36,70 @@
 
 	<!--Thumbnails Container -->
 
-	<div class="thumbnails-container border border-primary">
+	<div class="thumbnails-container container border border-primary">
 
-		<div class="container border border-success">
+		<div class="row border border-primary">
 
-			<div class="row border border-primary">
+			<!-- first Thumbnail Column (first 4 slides) -->
 
-				<!-- first Thumbnail Column (first 4 slides) -->
+			<div class="col border border-danger">
+				
+				{% for slide in presentation.slides | slice (0,4) %}
 
-				<div class="col ps-4 border border-danger">
+				<div class="row mb-5 border border-success">
+
+					<div data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="thumbnail">
+
+						{% if slide.type == 'youtube_video' %}	
+
+							{{ _self.youtubeVideoThumbnail(slide) }}
+
+						{% else %}
+
+							{{ _self.imageThumbnail(slide) }}
+
+						{% endif %}
+
+					</div>
+
+				</div>
+			
+			{% endfor %}
+			</div>
+
+			<!--Second Thumbnail Column if more than 4 slides -->
+
+			{% if presentation.slides | length > 4 %}
+			
+				<div class="col border border-primary">
 					
-					{% for slide in presentation.slides | slice (0,4) %}
+					{% for slide in presentation.slides | slice (4,8) %}
 
 					<div class="row mb-5 border border-success">
 
-						<div data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="thumbnail">
+						<div data-loop-index="{{loop.index + 4}}" onclick="currentSlide({{loop.index + 4}})" class="thumbnail">
 
 							{% if slide.type == 'youtube_video' %}	
 
 								{{ _self.youtubeVideoThumbnail(slide) }}
-
+								
 							{% else %}
 
-								{{ _self.imageThumbnail(slide) }}
+							{{ _self.imageThumbnail(slide) }}
+							
+						{% endif %}
 
-							{% endif %}
 
 						</div>
 
 					</div>
-				
+					
 				{% endfor %}
+
 				</div>
 
-				<!--Second Thumbnail Column if more than 4 slides -->
-
-				{% if presentation.slides | length > 4 %}
-				
-					<div class="col px-0 border border-primary">
-						
-						{% for slide in presentation.slides | slice (4,8) %}
-
-						<div class="row mb-5 border border-success">
-
-							<div data-loop-index="{{loop.index + 4}}" onclick="currentSlide({{loop.index + 4}})" class="thumbnail">
-
-								{% if slide.type == 'youtube_video' %}	
-
-									{{ _self.youtubeVideoThumbnail(slide) }}
-									
-								{% else %}
-
-								{{ _self.imageThumbnail(slide) }}
-								
-							{% endif %}
-
-
-							</div>
-
-						</div>
-						
-					{% endfor %}
-
-					</div>
-
-				{% endif %}
-				
-			</div>
-
+			{% endif %}
+			
 		</div>
 
 	</div>

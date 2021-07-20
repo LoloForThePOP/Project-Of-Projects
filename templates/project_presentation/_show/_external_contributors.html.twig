@@ -66,10 +66,14 @@
                     
                         {# Manage ecs button (title; thumbnails; rich text; deletion) #}
 
-                        <a href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}" class="text-decoration-none">
-                        
-                            <button type="button" class="pp-edition-mode btn btn-light btn-sm">Gérer</button> 
+                        <a class="pp-edition-mode text-decoration-none" href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
 
+                            <button type="button" class="btn btn-light btn-sm">
+
+                                <img class="img-fluid" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+
+                            </button>
+        
                         </a>
                         
                     {% endblock %}
@@ -107,6 +111,8 @@
                                 </div>
 
                                 {% for persorg in ecs.persorgs %}
+
+                                <div id="{{persorg.id}}" class="js-sortable-element persorg-card">
                 
                                     <!-- Persorg Edition Path -->
                 
@@ -117,6 +123,13 @@
                                         {% include "persorgs/_card.html.twig" %}
                                     
                                     </a>
+
+                                                                        
+                                    {# delete persorg (Red Cross) button #}
+
+                                    <button type="button" data-elements-type="persorgs" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{persorg.id}}">&times</button>
+
+                                </div>
                 
                                 {% endfor %}
 
@@ -124,19 +137,28 @@
                             
                         {% endif %}
 
+
                         {# ecs rich text content #}
 
                         {% if ecs.richtextContent is not empty %}
 
+                            {% block stylesheets %}
+                                <link href="/css/show_more_less_button.css" rel="stylesheet">
+                            {% endblock %}
+
+                            {% block javascripts %}
+
+                                <script src="/js/show_more_less_button.js"></script>
+                            
+                            {% endblock %}
+
                             <div class="each-ecs-rich-text-content col-lg-10">
 
-                                {{ecs.richtextContent | sanitize_html}}
+                                <div class="hide-too-long">
+                                        
+                                    {{ecs.richtextContent | sanitize_html}}
 
-                                <a class="pp-edition-mode text-decoration-none" href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
-
-                                    <img class="edit-icon img-fluid" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-                
-                                </a>
+                                </div>
 
                             </div>
                         

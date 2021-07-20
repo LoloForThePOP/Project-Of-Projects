@@ -4,7 +4,7 @@
 
         {# Add question & answer button (triggers a modal) #}
 
-        <button data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" class="pp-edition-mode btn btn-light btn-sm">+ Ajouter</button>
+        <button data-bs-toggle="modal" data-bs-target="#add_qa_form_modal" class="pp-edition-mode btn btn-light btn-sm">+</button>
 
     {% endblock %}
 
@@ -22,7 +22,7 @@
                       
                         <!-- Question -->
 
-                        <div class="col-10 col-sm-11">
+                        <div class="col-11">
 
                             <span class="question">
 
@@ -34,34 +34,36 @@
 
                         <!-- Collapse Symbol -->
 
-                        <div class="collapseSymbolDisplay col-2 col-sm-1">
+                        <div class="collapseSymbolDisplay col-1"></div>
 
-                        </div>
+                        <!-- Answer Display (+ action buttons for presenters)-->
 
+                        <div id="collapse-answer-{{ qa.id }}" class="answer-container collapse no-transition">
 
-                    <!-- Answer & Action Buttons Display -->
+                            <div class="answer">
+                                
+                                {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}
 
-                    <div id="collapse-answer-{{ qa.id }}" class="answer-container collapse no-transition">
+                                {# edit q&a button #}
+                                        
+                                <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="text-decoration-none ms-2">
 
-                        <div class="answer">
+                                    <button type="button" class="pp-edition-mode btn btn-light btn-sm">Modifier</button>
+
+                                </a>
+
+                                {# delete question & answer button #}
+
+                                <button type="button" data-elements-type="questionsAnswers" class="pp-edition-mode js-delete-element btn btn-light btn-sm" data-id="{{qa.id}}">Supprimer</button>
                             
-                            {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}
+                            </div>
 
-                            {# edit q&a button #}
-                                    
-                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="text-decoration-none ms-2">
-
-                                <button type="button" class="pp-edition-mode btn btn-light btn-sm">Modifier</button>
-
-                            </a>
-
-                            {# delete question & answer button #}
-
-                            <button type="button" data-elements-type="questionsAnswers" class="pp-edition-mode js-delete-element btn btn-light btn-sm" data-id="{{qa.id}}">Supprimer</button>
-                        
                         </div>
 
-                    </div>
+                        {# delete q&a button (Red Cross) #}
+                        {# overriding width and height due to css bs row behaviour #}
+
+                        <button type="button" data-elements-type="questionsAnswers" data-id="{{qa.id}}" class="js-delete-element delete-button pp-edition-mode btn" style="width:30px; height:30px;">&times</button>
 
                 </div>
 

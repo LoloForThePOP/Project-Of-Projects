@@ -1,4 +1,7 @@
-<div class="slides-container px-0 mx-auto col-lg-9 border border-danger">
+
+{# when more than one slide, content is centered with mx-auto  #}
+
+<div class="slides-container px-0 col-lg-9 {{countSlides > 1 ? 'mx-auto'}} border border-danger"> 
 				
 	{% for slide in presentation.slides %}
 

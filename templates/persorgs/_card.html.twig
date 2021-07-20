@@ -1,6 +1,4 @@
-<div id="{{persorg.id}}" class="js-sortable-element persorg-card">
-
-    <!-- Persorg Image Container -->
+<!-- Persorg Image Container -->
     
     <div class="d-flex align-items-center justify-content-center" style="height:120px; margin-top:15px; margin-bottom:8px; border-radius: 4px;">
 
@@ -30,10 +28,4 @@
 
         {{ persorg.name | length < 10 ? persorg.name : persorg.name | slice(0, 10) ~ '...' }}
 
-    </div>
-
-    {# delete persorg (Red Cross) button #}
-
-    <button type="button" data-elements-type="persorgs" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{persorg.id}}"></button>
-
-</div>
+    </div>  

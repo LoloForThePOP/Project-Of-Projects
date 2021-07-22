@@ -6,6 +6,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "require": {
+        "fakerphp/faker": "^1.14",
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",

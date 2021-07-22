@@ -85,6 +85,8 @@
 @media screen and (max-width: 580px) {
 
     .pp-website-card{
+
+        max-width: 100%;
         margin:0;
         margin-bottom: 9px;
         border: 1px solid #d4e7fa;

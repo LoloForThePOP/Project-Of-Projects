@@ -139,9 +139,6 @@ textarea:focus, input:focus{
     outline: none;
 }
 
-.edit-icon{
-    margin-left: 15px;
-}
 
 .edit-icon:hover{
     background-color: #e6e4ff;
@@ -174,6 +171,7 @@ textarea:focus, input:focus{
 
     .pp-struct-container {
 
+        padding-right: 6px;
         margin-bottom: 17px;
 
     }
@@ -209,7 +207,6 @@ textarea:focus, input:focus{
 
 
     .edit-icon{
-        margin-left: 7px;
         width: 16px;
         height: 16px;
     }

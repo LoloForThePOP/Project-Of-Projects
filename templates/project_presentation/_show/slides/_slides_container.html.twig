@@ -1,11 +1,11 @@
 
 {# when more than one slide, content is centered with mx-auto  #}
 
-<div class="slides-container px-0 col-lg-9 {{countSlides > 1 ? 'mx-auto'}} border border-danger"> 
+<div class="slides-container px-0 col-lg-9 {{countSlides > 1 ? 'mx-auto'}}"> 
 				
 	{% for slide in presentation.slides %}
 
-		<div class="mySlides border border-success">
+		<div class="mySlides">
 
 			<!-- Case Slide is an Image -->
 

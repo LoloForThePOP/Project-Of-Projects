@@ -5,12 +5,8 @@
         {# Edit Text Description Button #}
 
         <a class="pp-edition-mode text-decoration-none" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}">
-
-            <button class="btn btn-light btn-sm me-2">
                 
-                <img class="img-fluid" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-
-            </button>
+            <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
             
         </a>
 
@@ -80,7 +76,7 @@
                 
                 display: block;
                 
-                height: 3.9em; /* height = lineheight * no of lines to display */
+                height: 4.9em; /* height = lineheight * no of lines to display */
 
                 overflow: hidden;
 

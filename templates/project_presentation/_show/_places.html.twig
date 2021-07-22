@@ -5,9 +5,9 @@
 
         {# Manage places button #}
 
-        <a class="text-decoration-none" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
+        <a class="pp-edition-mode text-decoration-none" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
 
-            <button class="pp-edition-mode btn btn-light btn-sm">Gérer</button>
+            <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
             
         </a>
 

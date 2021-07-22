@@ -50,14 +50,14 @@
 
 	<!-- Slideshow Container -->
 
-	<div id="slides" class="border border-danger">
+	<div id="slides" class="">
 
 		<!-- Caption Container -->
 
 		{# If at least one caption is set, we display caption container #}					
 		<div 
 		
-			class="caption-container col-lg-9 d-none border border-danger"
+			class="caption-container col-lg-9 d-none"
 
 				{% for slide in presentation.slides %}
 
@@ -72,7 +72,7 @@
 
 			{# caption are displayed from clicks on slides thumbnails (thumbnail alt attribute) #}	
 	
-			<p id="caption" class="border border-success">
+			<p id="caption" class="">
 
 				{# when only one slide with caption, we display its caption by default #}	
 

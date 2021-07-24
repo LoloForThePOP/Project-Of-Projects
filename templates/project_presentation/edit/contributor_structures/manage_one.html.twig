@@ -45,15 +45,22 @@
         
         <!-- Add a persorg button (triggers a modal with a form) -->
 
-        <button type="button" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="btn btn-success btn-lg mb-4 me-3">Ajouter une vignette</button>
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="btn btn-success mb-4 me-3">Ajouter une vignette</button>
             
         {% if cs.richTextContent is empty %}
 
             <!-- Button Display Text Area -->
 
-            <button type="button" class="js-display-textarea btn btn-success btn-lg mb-4"> <span class="mr-2">+</span> Texte libre</button>
+            <button type="button" class="js-display-textarea btn btn-success me-3 mb-4"> <span class="">+</span> Texte libre</button>
 
         {% endif %}
+
+            
+        {# update ECS Title Button #}
+
+        <a class="text-decoration-none" href="{{ path('update_ecs_title', {'stringId': stringId, 'id_ecs': cs.id}) }}">
+            <button type="button" class="btn text-body mb-4" style="background-color:#c5d7e6; color:white;">Modifier le titre</button>
+        </a>
 
     </div>
 
@@ -62,8 +69,12 @@
     {% include "persorgs/_add_form_modal.html.twig" %}
 
 {# Thumbnails display #}
-            
-    {% include "project_presentation/edit/contributor_structures/_thumbnails_display.html.twig" %}
+
+    <div class="col-lg-10 mb-4">
+
+        {% include "project_presentation/edit/contributor_structures/_thumbnails_display.html.twig" %}
+        
+    </div>
 
 {# Textarea display #}
 
@@ -71,16 +82,7 @@
 
 {% endblock %}
 
-
-{% block specificButtons %}
-    
-    {# update ECS Title Button #}
-
-    <a class="text-decoration-none" href="{{ path('update_ecs_title', {'stringId': stringId, 'id_ecs': cs.id}) }}">
-        <button type="button" class="btn btn-lg mb-4" style="background-color:#81661b; color:white;">Modifier le titre</button>
-    </a>
-
-{% endblock %}
+{% block seeResultAnchor %}cs-{{cs.id}}{% endblock %}
 
 
 

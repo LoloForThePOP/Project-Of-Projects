@@ -79,20 +79,14 @@ Here is skeletton structure :
 
                 <div class="action-buttons-container">
 
-                    {# Back To Menu Button #}
-
-                    <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId }) }}">
-                        <button type="button" class="btn btn-info btn-lg mb-4 me-2 sharp">Menu</button>
-                    </a>
-
                     {# See Result (at the right anchor) Button #}
         
                     <a 
                     
                         class="text-decoration-none text-white" 
-                        href="{{path('show_presentation', {'stringId': stringId })}}#{% block seeResultAnchor %}{% endblock %}Display">
+                        href="{{path('show_presentation', {'stringId': stringId })}}#{% block seeResultAnchor %}{% endblock %}">
 
-                        <button type="button" class="btn btn-warning btn-lg mb-4 me-2 ">Résultat</button>
+                        <button type="button" class="btn btn-lg mb-4 me-2 " style="background-color: #c8efb6;">Résultat</button>
 
                     </a>
 

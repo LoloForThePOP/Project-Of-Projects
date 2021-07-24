@@ -49,7 +49,7 @@
 
             <!-- contributor structure item -->
 
-                <div id="{{cs.id}}" class="js-sortable-element fw-bold position-relative cursor-pointer mb-4" style="word-wrap: break-word; max-width: 500px; border: 2px solid blue;">
+                <div id="{{cs.id}}" class="js-sortable-element fw-bold position-relative cursor-pointer mb-4" style="word-wrap: break-word; max-width: 500px; border: 2px solid #40409f;">
 
                     <a href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': cs.id  })}}" class="text-body text-decoration-none">
 
@@ -76,15 +76,13 @@
 {% endblock %}
 
 
-{% block seeResultAnchor %}{% endblock %}
+{% block seeResultAnchor %}externalContributorsDisplay{% endblock %}
 
 
 {% block specificStyles %}
 
 
 {% endblock %}
-
-
 
 
 {% block specificJavascripts %}

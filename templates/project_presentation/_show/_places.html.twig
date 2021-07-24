@@ -1,6 +1,7 @@
 
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "geodomains", 'title': "Lieux du Projet",} %}
 
+
     {% block editButtons %}
 
         {# Manage places button #}
@@ -19,7 +20,7 @@
 
             {% for place in presentation.places %}
 
-                {# create a readable place type #}
+                {# create a human readable place type #}
 
                 {% set readablePlaceType = "" %}
 
@@ -43,7 +44,39 @@
 
                 {# Place card display #}
 
-                <div id="{{place.id}}" class="js-sortable-element col-12 col-md-7 col-lg-6 place-card">
+
+                {# Place can be displayed in a modal on card click #}
+
+                {% set modal_id = 'place-'~ place.id %}
+                         
+                {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': "", 'modal_size': "modal-lg"} %}
+
+                    {% block modalBody %}
+
+                        <div id="googleMap-{{place.id}}" style="width:100%;height:400px;"></div>
+                                    
+                        <script>
+
+                            function myMap() {
+
+                                var mapProp= {
+                                center:new google.maps.LatLng({{place.latitude}},{{place.longitude}}),
+                                zoom:5,
+                                };
+                                var map = new google.maps.Map(document.getElementById("googleMap-{{place.id}}"),mapProp);
+
+                            }
+                            
+                        </script>
+
+                    {% endblock %}
+
+                {% endembed %}
+                
+                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&callback=myMap"></script>
+
+
+                <div id="{{place.id}}" data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal" class="js-sortable-element col-12 col-md-7 col-lg-6 place-card">
 
                         {{readablePlaceType}} {{place.name | capitalize}}
 
@@ -72,12 +105,20 @@
             margin-bottom: 10px;
             font-size: 17px;
             font-weight: bold;
+            cursor: pointer;
+            border-left: 3px solid yellowgreen;
+            background-color: rgb(233, 250, 232);
 
         }
 
-    </style>
-    {% endblock %}
+        .place-card:hover{
+            background-color: inherit;
+        }
 
+    </style>
+
+
+    {% endblock %}
 
 {% endembed %}
 

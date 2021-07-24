@@ -221,10 +221,15 @@
     @media screen and (max-width: 580px) {
 
         .each-ecs-persorgs-container{
-            display: flex;
+          
             flex-wrap: nowrap;
             overflow-x: auto;
-        }      
+        }
+
+        .each-ecs-persorgs-container > * {
+            flex-shrink: 0;
+
+        }
    
         .each-ecs-rich-text-content{
             padding : 0 7px 0 7px;

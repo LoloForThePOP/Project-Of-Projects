@@ -3,6 +3,18 @@
 
     <img id="pp-logo" class="img-fluid" src="{{ vich_uploader_asset(presentation) | imagine_filter('logo')}}" alt="Logo du Projet">
 
+    {# Edit Logo button #}
+
+    <div class="edit-logo-button pp-edition-mode">
+
+        <a class="" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
+
+            <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+
+        </a>
+
+    </div>
+
 {% else %}
 
     <a id="logoPlaceholder" class="pp-edition-mode text-decoration-none" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
@@ -17,6 +29,7 @@
 <style>
 
     #pp-logo{
+        
         border-radius: 4px;
     }
 
@@ -37,6 +50,21 @@
     #logoPlaceholder:hover {
         cursor: pointer;
         background-color: lavender;
+    }
+
+    .edit-logo-button{
+
+        position: absolute; 
+        bottom:0; 
+        right:0; 
+        
+        display: flex; 
+        justify-content:center; 
+        align-items: center;
+        
+        width:30px; 
+        height:30px; 
+        
     }
 
 

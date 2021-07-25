@@ -2,11 +2,13 @@
     
     // this script should be called only for user presenters
     
+    // hiding or showing items : see wysisyg.css
+    
     $(document).ready(function(){
 
         $(".pp-container").addClass("in-edition-mode");
 
-        // make delete item icons appear when clicking on trash icon        
+        // make delete item icons appear when clicking on a trash icon        
     
         $(".show-delete-items-buttons").click(function() {
 
@@ -28,35 +30,18 @@
             
         });
 
-        $(".pp-edition-mode").show();
-    
-        // when user edit presentation, we enter in edition mode by default, but some elements are only displayed in consultation mode, so we hide them by default
-        $(".pp-consultation-mode").hide();
-
         // switching between edition mode and consultation mode
             
         $( "#pp-switch-edit-consult-mode" ).click(function() {
 
-            
-            
             if($(this).hasClass("edition-mode")){
 
                 // entering consultation mode
 
-                // toggling switch button class
-
-                $(this).toggleClass("edition-mode consultation-mode");
                 $(this).html("✎");
-
-                //hiding elements related to edition mode
-                $(".pp-edition-mode").hide();
-
-                //showing elements related to consultation mode
-                $(".pp-consultation-mode").show();
 
                 //disabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', true);
-
 
             }
 
@@ -64,24 +49,18 @@
 
                 //entering edition mode
 
-                //toggling switch button class
-
-                $(this).toggleClass("consultation-mode edition-mode");
                 $(this).html("👁");
-
-                //showing elements related to edition 
-                $(".pp-edition-mode").show();
-
-                //hiding elements related to consultation
-                $(".pp-consultation-mode").hide();
-
 
                 //enabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', false);
 
             }
 
-            // only for _misc_data_list.html.twig
+            // toggling switch button status
+
+            $(this).toggleClass("edition-mode consultation-mode");
+
+            // toggling whole container status
 
             $(".pp-container").toggleClass("in-edition-mode in-consultation-mode");
         

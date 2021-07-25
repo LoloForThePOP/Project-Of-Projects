@@ -1,10 +1,8 @@
-
 {% block stylesheet %}
 
     <link href="/css/business_card.css" rel="stylesheet">
 
 {% endblock %}
-
 
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Nous contacter",} %}
 
@@ -16,32 +14,31 @@
 
     {% endblock %}
 
-
     {% block mainContent %}
             
         {% set bcs = presentation.getOC('businessCards') %}
 
-        <div id="businessCards" class="js-elements-list pp-struct-content">
+        <div id="businessCards" class="js-elements-list pp-struct-content row m-0">
 
             {% for bc in bcs %}
 
                 <div id="{{bc.id}}" class="js-sortable-element deletable-element bc-outer">
 
-                    <div class="text-body">
+                    <!-- Contact Card Content -->
 
-                        <!-- Contact Card Content -->
+                    {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig'%}
 
-                        {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig'%}
-            
-                    </div>
+                    {% if userPresenter %}
 
-                    {# Access edit page on click #}
+                        {# Access edit page on click #}
 
-                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="pp-edition-mode coverable-link"></a>
+                        <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="pp-edition-mode coverable-link"></a>
 
-                    {# delete business card (Red Cross) button #}
+                        {# delete business card (Red Cross) button #}
 
-                    <button type="button" data-elements-type="businessCards" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{bc.id}}">&times</button>
+                        <button type="button" data-elements-type="businessCards" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{bc.id}}">&times</button>
+                    
+                    {% endif %}
 
                 </div>
                 

@@ -1,32 +1,45 @@
+
+
+{% macro helpingRow(params) %}
+
+    <div class="row g-4">
+
+        <div class="col-6 ps-0">
+
+        <div class="image-container">
+
+            <img src="{{ asset('drag_and_drop.png', 'tutorial')}}" alt="drag and drop image">
+
+        </div>
+
+        </div>
+
+        <div class="col-6 pe-0">
+
+        <div class="text-container">
+
+            Pour changer l'ordre des éléments, restez appuyer sur un élément puis déplacez-le à l'endroit désiré. 
+
+        </div>
+        
+        </div>
+
+    </div>
+    
+{% endmacro %}
+
+
+
 {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-edit-help", 'modal_title': "Aide", 'modal_size': "modal-lg"} %}
 
     {% block modalBody %}
 
     <div class="help-content container">
 
-        <div class="row g-4">
+        
+        {{ _self.helpingRow() }}
 
-          <div class="col-6 ps-0">
-
-            <div class="image-container">
-
-                <img src="{{ asset('drag_and_drop.png', 'tutorial')}}" alt="drag and drop image">
-
-            </div>
-
-          </div>
-
-          <div class="col-6 pe-0">
-
-            <div class="text-container">
-
-                Pour changer l'ordre des éléments, restez appuyer sur un élément puis déplacez-le à l'endroit désiré. 
-
-            </div>
-            
-          </div>
-
-        </div>
+       
 
     </div>
 

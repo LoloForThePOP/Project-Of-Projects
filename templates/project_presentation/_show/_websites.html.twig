@@ -28,9 +28,13 @@
 
                         {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
 
+                        {# Display website on click in a blank tab #}
+
                         <a href="{{website.url}}" target="_blank" class="pp-consultation-mode coverable-link"></a>
                         
                         {% if userPresenter %}
+
+                            {# Access item edit page on click #}
         
                             <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'websites', 'item_id':website.id})}}" class="pp-edition-mode coverable-link"></a>
                             

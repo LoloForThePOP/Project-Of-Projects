@@ -27,17 +27,25 @@
 
                 <div id="{{document.id}}" class="js-sortable-element document-outer me-3" >
 
-                    <a href="{{path('update_document', {'stringId': stringId, 'id_element' : document.id })}}" class="h-100 text-body text-decoration-none">
+                    {# document inner representation #}
 
-                        {# inner document representation #}
+                    {% include 'project_presentation/edit/documents/_inner_representation.html.twig' %}
 
-                        {% include 'project_presentation/edit/documents/_inner_representation.html.twig' %}
+                    {# Display document in a new tab #}
 
-                    </a>
+                    <a href="{{ vich_uploader_asset(document)}}" class="pp-consultation-mode coverable-link"></a>
 
-                    {# Delete document (Red Cross) button #}
+                    {% if userPresenter %}
 
-                    <button type="button" data-elements-type="documents" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{document.id}}">&times</button>
+                        {# Access item edit page on click #}
+
+                        <a href="{{path('update_document', {'stringId': stringId, 'id_element' : document.id })}}" class="pp-edition-mode coverable-link"></a>
+
+                        {# Delete document (Red Cross) button #}
+
+                        <button type="button" data-elements-type="documents" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{document.id}}">&times</button>
+
+                    {% endif %}
 
                 </div>
                 

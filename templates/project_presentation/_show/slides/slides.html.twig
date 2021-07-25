@@ -148,4 +148,13 @@
 
 	}
 
+
+	// displaying appropriate image or video when hovering its thumbnail
+
+	$( ".thumbnail" ).mouseover(function() {
+
+		currentSlide($(this).data("loop-index"));
+		
+	});
+
 </script>

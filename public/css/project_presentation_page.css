@@ -1,68 +1,3 @@
-
-
-.pp-edition-mode {
-
-    display:none;
-
-}
-
-.pp-add-element-button{
-    margin-right: 10px;
-}
-
-
-/* Delete Button */
-
-.delete-button {
-    visibility: hidden;
-    opacity: 0;
-    position: absolute;
-	top: 0;
-	right: 0;
-	min-width: 20px;
-	min-height: 20px;
-	padding: 0;
-	line-height: 0;
-	border-radius: 2px;
-    background-color: #dc3545 !important;
-    color: white !important;
-    z-index: 2;
-    transition: visibility 0s, opacity 2s linear;
-
-}
-
-
-.deletable-element:hover .delete-button {
-
-    visibility: visible;
-    opacity:1;
-
-}
-
-.delete-button:hover{
-    color: #fff;
-    background-color: #bb2d3b !important;
-    border-color: #b02a37 !important;
-}
-
-/* Used to swich some links behavior between edition and consultation mode  */
-
-.coverable-link{
-
-    position: absolute;
-
-    top:0; 
-    left:0;
-
-    width: 100%;
-    height: 100%;
-
-    opacity: 0;
-
-}
-
-
-
 /* Whole Presentation Container */
 
 .pp-container {
@@ -81,7 +16,6 @@
     border-radius: 6px;
     
 } 
-
 
 /* Each Structure Title Container (contains title + edit button) */
 
@@ -119,46 +53,15 @@
     filter: invert(73%) sepia(92%) saturate(2564%) hue-rotate(8deg) brightness(112%) contrast(104%); */
 }
 
+/* Each Structure Content */
+
 .pp-struct-content{
     padding-left: 30px;
 }
 
 
-/* Switch Between Edition Mode and Consultation Mode Button */
 
-#pp-switch-edit-consult-mode {
-    position: fixed; /* Fixed/sticky position */
-    top: 450px; /* Place the button at the bottom of the page */
-    right: 30px; /* Place the button 30px from the right */
-    z-index: 99; /* Make sure it does not overlap */
-    border: none; 
-    outline: none; /* Remove outline */
-    background-color: #d6f0ca; 
-    color: rgb(0, 0, 0); /* Text color */
-    cursor: pointer; 
-    padding: 16px; 
-    border-radius: 50%; 
-    font-size: 18px; 
-    }
-
-
-/* Presentation Edition Forms */
-    
-label, legend {
-
-    font-size:1.35em !important;
-    font-weight : bold !important;
-
-}
-
-textarea:focus, input:focus{
-    outline: none;
-}
-
-
-.edit-icon:hover{
-    background-color: #e6e4ff;
-}
+/* Media queries */
 
 
 @media screen and (max-width: 768px) {
@@ -216,15 +119,8 @@ textarea:focus, input:focus{
 
     }
 
-        
     .pp-struct-content{
         padding-left: 5px;
-    }
-
-
-    .edit-icon{
-        width: 16px;
-        height: 16px;
     }
 
 }

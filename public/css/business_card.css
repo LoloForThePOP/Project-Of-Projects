@@ -1,16 +1,30 @@
 
 .bc-outer{
     position: relative;
-    display: inline-block;
     width: 330px;
     max-width: 100%;
     padding: 18px;
-    margin-right: 25px;
     margin-bottom: 16px;
     border: 1px solid rgb(171, 173, 190);
     border-radius: 4px;
 }
 
+.bc-outer:nth-child(odd){
+
+    margin-right: 25px;
+
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .bc-outer{
+
+        width: 290px;
+
+    }
+
+}
 
 @media screen and (max-width: 580px) {
 
@@ -19,4 +33,5 @@
         margin-right:0;
 
     }
+    
 }

@@ -31,9 +31,17 @@
     line-height: 1.6;
 }
 
+/* Flash Messages */
 
+.flash-message{
+    display: flex;
+    align-items: center;
 
-/* Other Styles */
+    margin-top : 28px;
+    margin-bottom : 16px;
+
+    font-size: 1.14em;
+}
 
 
 /* Loader */

@@ -24,26 +24,28 @@
 
             {% for website in websites %}
             
-                    <div id="{{website.id}}" class="js-sortable-element deletable-element pp-website-card">
+                    <div id="{{website.id}}" class="js-sortable-element deletable-element pp-website-card d-flex align-items-center">
 
-                        <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'websites', 'item_id':website.id})}}" class="w-100 h-100 text-decoration-none text-body d-flex align-items-center">
+                        {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
 
-                            {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
-                        </a>
+                        <a href="{{website.url}}" target="_blank" class="pp-consultation-mode coverable-link"></a>
                         
-                        {# Delete website (Red Cross) button #}
+                        {% if userPresenter %}
+        
+                            <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'websites', 'item_id':website.id})}}" class="pp-edition-mode coverable-link"></a>
+                            
+                            {# Delete website (Red Cross) button #}
 
-                        <button type="button" data-elements-type="websites" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{website.id}}">&times</button> 
+                            <button type="button" data-elements-type="websites" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{website.id}}">&times</button>                  
+                        
+                        {% endif %}
+
 
                     </div>
                 
             {% endfor %}
 
         </div>
-
-        <style>
-
-        </style>
 
     {% endblock %}
     

@@ -1,5 +1,7 @@
 {% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
 
+{% block stylesheets %}<link href="/css/places_autocomplete.css" rel="stylesheet">{% endblock %}
+
 {% block title %}Lieux du Projet{% endblock %}
 
 {% block mainContentTitle %}Gérer les lieux du projet{% endblock %}
@@ -15,7 +17,11 @@
 
 {% block moreInfoContent %}
 
-    Si votre projet est relié à des villes ou des lieux, signalez les ici.
+    Si votre projet est relié à des villes ou d'autres lieux (régions; pays; etc.), signalez les ici.
+
+    <br>
+
+    Pour modifier l'ordre des lieux, utilisez le glisser-dépposer (= drag and drop).
 
 {% endblock %}
 
@@ -24,13 +30,13 @@
 
     <!-- Add a Place Search Bar -->
 
-    <div class="p-0 col-sm-6 mb-4">
+    <div>
 
-        <form action="">
+        <form class="p-0 col-md-8 col-lg-6 mb-4" action="">
 
-            <div class="form-group mt-2">
+            <div class="mt-2">
 
-                <input id="autocomplete" class="form-control input-lg border sharp bg-light fs-15" placeholder="Ajouter ici une ville; un département; une région; ou un pays"/>
+                <input id="autocomplete" class="form-control" placeholder="Ajouter ici une ville; un département; une région; ou un pays" />
 
             </div>
 
@@ -40,13 +46,13 @@
 
     <!-- Feedback Box -->
 
-    <div id="feedbackBox" class="alert alert-light lh-2 h5 col-sm-9">;-)</div>
+    <div id="feedbackBox" class="col-sm-9">;-)</div>
 
     <!-- Project Places Table Display -->
 
         <table id="projectPlacesTable" class="table table-bordered table-hover rounded" style="{% if presentation.places | length == 0 %} display:none; {% endif %}">
 
-            <thead class="cursor-pointer fs-15">
+            <thead>
                 <tr>
                     <th id="">Type du lieu</th>
                     <th id="">Nom du lieu</th>
@@ -54,7 +60,7 @@
                 </tr>
             </thead>
     
-            <tbody>
+            <tbody id="elements-list" data-elements-type="places">
 
             {% for place in presentation.places %}
 
@@ -84,7 +90,7 @@
                 
                 {% endif %}
     
-                <tr id="" data-id="{{place.id}}" data-postal-code="{{place.postalCode}}" data-locality="{{place.locality}}" class="cursor-pointer">  
+                <tr id="{{place.id}}" data-id="{{place.id}}" data-postal-code="{{place.postalCode}}" data-locality="{{place.locality}}" class="js-sortable-element cursor-pointer">  
                     
                     <td id="">{{ readablePlaceType | upper  }}</td>
                     <td id="">{{ place.name | upper }}</td>
@@ -109,247 +115,10 @@
 {% block seeResultAnchor %}places{% endblock %}
 
 
-{% block specificStyles %}
-
-    <style>
-
-        #autocomplete{
-            height:54px;
-        }
-            
-        .pac-container, .pac-item {
-            font-size: 1.05em !important;
-        }	  
-
-        .pac-item-query {
-            font-size: 1.05em !important;
-        }
-
-        ul li:hover {
-        background-color: rgb(222, 226, 231);
-        }
-
-        .table > tbody > tr > td {
-            vertical-align: middle;
-            padding: 3px 14px;;
-    }
-
-    /* Place Holders */
-
-        ::-webkit-input-placeholder { /* Edge */
-        font-size:1.15em;
-        color: rgb(49, 25, 93);
-        }
-
-        :-ms-input-placeholder { /* Internet Explorer 10-11 */
-        font-size:1.15em;
-        color: rgb(49, 25, 93);
-        }
-
-        ::placeholder {
-        font-size:1.15em !important;
-        color: rgb(49, 25, 93)  !important;
-        }
-        
-        .pac-container{
-            z-index: 9999 !important;
-        }
-
-    </style>
-
-{% endblock %}
-
 {% block specificJavascripts %}
 
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&libraries=places&language=fr"></script>
-
-    <script>
-
-        $(document).ready(function(){
-
-
-            $('#feedbackBox').hide();
-
-            // Initialize Google Places Input Field
-
-            var input = document.getElementById('autocomplete');
-                            
-            var options = {
-                types: ['(regions)'],
-            };
-    
-            var autocomplete = new google.maps.places.Autocomplete(input, options);
-
-        // Add a Project Place
-
-        google.maps.event.addListener(autocomplete, 'place_changed', function(){
-              
-            var place = autocomplete.getPlace().address_components;
-             
-            place_type = place[0].types[0];
-            place_name = place[0]['long_name'];
-
-            latitude = autocomplete.getPlace().geometry.location.lat(),
-            longitude = autocomplete.getPlace().geometry.location.lng();
-        
-            var componentMap = {
-                country: '',
-                postal_code : '',
-                locality: '',
-                administrative_area_level_1 : '',
-                administrative_area_level_2 : '',
-                sublocality_level_1:'',
-            };
-
-            // getting places components
-
-            for(var i = 0; i < place.length; i++){
-        
-                var types = place[i].types; // get types array of each component 
-        
-                for(var j = 0; j < types.length; j++){ // loop through the types array of each component as types is an array and same thing can be indicated by different name.As you can see in the json object above 
-        
-                    var component_type = types[j];
-                    
-                    // check if this type is in your component map. If so that means you want this component
-        
-                    if(componentMap.hasOwnProperty(component_type)){
-                    
-                        componentMap[component_type]=place[i]['long_name'];
-        
-                    }
-                }
-            }
-
-            // add place ajax request
-                
-                
-            $('#feedbackBox').html('<div class="loader me-2"></div><span class="h5">Demande en Cours...</span>');
-
-            $('#feedbackBox').show();
-
-            $.ajax({
-                url: "{{path('ajax_add_place', {'stringId': stringId}) }}",
-                type:       'POST',   
-                dataType:   'json',
-                data: {
-                    "latitude": latitude,
-                    "longitude": longitude,
-                    "type":  place_type,
-                    "name":  place_name,
-                    "postalCode": componentMap.postal_code,
-                    "country": componentMap.country,                 
-                    "administrativeAreaLevel1": componentMap.administrative_area_level_1,
-                    "administrativeAreaLevel2": componentMap.administrative_area_level_2,
-                    "locality": componentMap.locality,                 
-                    "sublocalityLevel1": componentMap.sublocality_level_1,
-                    //"route": componentMap.route,                 
-
-                },
-
-                async: true,  
-                
-                success: function(data, status) {                
-
-                    $('#projectPlacesTable').show();
-
-                    var placeName = place_name;
-                    var placeType_fr='';
-
-                    switch(place_type) {
-                        case 'locality':
-                            placeType_fr='Ville';
-                            break;
-                        case 'sublocality_level_1':
-                            placeType_fr='Section de Ville';
-                            break;
-                        case 'administrative_area_level_2':
-                            placeType_fr='Département'
-                             break;
-                        case 'administrative_area_level_1':
-                            placeType_fr='Région'
-                             break;
-                        case 'country':
-                            placeType_fr='Pays'
-                             break;
-                        case 'route':
-                            placeType_fr='Rue'
-                            break;
-                        default:
-                          // code block
-                      } 
-
-
-                    $('#autocomplete').val("");
-
-                    $('#feedbackBox').html("✅ Le lieu "+placeName+" a été ajouté </br>↪ Vous pouvez ajouter d'autres lieux si vous voulez");
-                    
-                    $('#projectPlacesTable > tbody:last-child').append(
-                        '<tr>'
-                            +'<td>'+placeType_fr.toUpperCase()+'</td>'
-                            +'<td>'+place_name.toUpperCase()+'</td>'
-                            +'<td class="py-2"><button data-id="'+ data.placeId+'" data-cityname="'+ place_name+'" type="button" class="js-remove-place btn btn-danger btn-sm rounded fw-bold" data-dismiss="alert">&times;</button></td></tr>');
-                    
-                    $('#noResult').hide();
-                
-                },  
-
-                error : function(xhr, textStatus, errorThrown) {  
-                    // alert('Ajax request failed.');  
-                }  
-            });
-        })
-
-                // Remove a Place
-
-                $('#projectPlacesTable').on('click', '.js-remove-place', function (){
-
-                    $('#feedbackBox').show();
-
-                    var placeId = $(this).attr("data-id");
-                    //alert(idCityProject);
-                    //alert(cityName);
-
-                    if (confirm("Confirmez-vous retirer ce lieu?"))
-                    { 
-                        $('#feedbackBox').html('<div class="loader me-2"></div><span class="h5">Demande en Cours...</span>');
-
-                        $(this).html('<div class="loader"></div>');
-                        
-                        $.ajax({  
-
-                            url: "{{path('ajax_remove_place', {'stringId': stringId}) }}",
-                            type:       'POST',   
-                            dataType:   'json',
-                            data: {
-                            "placeId": placeId,
-                            },
-
-                            async: true,  
-                            
-                            success: function(data, status) {
-
-                                $('#feedbackBox').html("✅ Le lieu sélectionné a été retiré de la présentation");
-
-                                $("#projectPlacesTable").find("[data-id="+ data.deletedPlaceId+"]").closest('tr').remove();
-                            
-                            },  
-
-                            error : function(xhr, textStatus, errorThrown) {  
-                                // alert('Ajax request failed.');  
-                            }  
-                        }); 
-                            
-                    }
-
-
-                });
-             
-        });  
-
-    </script>
+    {% include "project_presentation/edit/places/_js.html.twig" %}
 
 {% endblock %}
-   
 
 {% endembed %}

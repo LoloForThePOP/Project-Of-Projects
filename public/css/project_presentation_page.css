@@ -45,6 +45,22 @@
     border-color: #b02a37 !important;
 }
 
+/* Used to swich some links behavior between edition and consultation mode  */
+
+.coverable-link{
+
+    position: absolute;
+
+    top:0; 
+    left:0;
+
+    width: 100%;
+    height: 100%;
+
+    opacity: 0;
+
+}
+
 
 
 /* Whole Presentation Container */

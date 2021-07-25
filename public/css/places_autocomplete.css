@@ -1,0 +1,89 @@
+#autocomplete{
+
+    height: 54px;
+    padding: 0.375rem 0.75rem; 
+
+    color: #7b8a8b;
+    background-color: #ecf0f1;
+    border: 1px solid #dee2e6 !important; 
+}
+    
+.pac-container, .pac-item {
+    font-size: 1.05em !important;
+}	  
+
+
+.pac-container{
+    z-index: 2 !important;
+}
+
+.pac-item-query {
+    font-size: 1.05em !important;
+}
+
+ul li:hover {
+background-color: rgb(222, 226, 231);
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+    padding: 3px 14px;
+
+}
+
+#feedbackBox{
+    
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 1.5rem;
+    
+    color: #212529;
+    font-size: 1.171875rem;
+    font-weight: 500;
+    line-height: 1.6;
+
+    background-color: #ecf0f1;
+
+}
+
+#projectPlacesTable thead{
+
+    font-size: 1.15em;
+    
+}
+
+/* Place Holders */
+
+::-webkit-input-placeholder { /* Edge */
+font-size:1.15em;
+color: rgb(49, 25, 93);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+font-size:1.15em;
+color: rgb(49, 25, 93);
+}
+
+::placeholder {
+font-size:1.15em !important;
+color: rgb(49, 25, 93)  !important;
+}
+
+
+@media screen and (max-width: 580px) {
+    
+    #projectPlacesTable thead{
+
+        font-size: 1em;
+        text-align: center;
+        vertical-align: middle;
+                                                                        
+    }
+    
+    #projectPlacesTable tr{
+
+        font-size: 1em;
+        text-align: center;
+        vertical-align: middle;
+        
+    }
+}

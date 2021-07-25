@@ -16,15 +16,19 @@
 
     border: 1px solid #bedbf8;
     border-radius: 3px;
-    
-    cursor: pointer;
 
 }
+
+/*  
 
 .pp-website-card, .pp-website-card >* {
 
     background-color: white;
 }
+
+*/
+
+
 
 .pp-website-card:hover, .pp-website-card:hover a{
     background-color:rgb(251, 250, 240) !important;

@@ -234,7 +234,7 @@ Here is skeletton structure :
 
                     var elementsPositions = [];
 
-                    $('#elements-list div.js-sortable-element').each(function(index){
+                    $('#elements-list .js-sortable-element').each(function(index){
                         
                         elementsPositions.push($(this).attr('id'));
                    
@@ -261,6 +261,7 @@ Here is skeletton structure :
                         case "documents":
                         case "needs":
                         case "slides":
+                        case "places":
                         case "contributorStructures":
                             
                             path = "{{path('ajax_reorder_component_elements', {'stringId': stringId})}}";

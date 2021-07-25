@@ -1,4 +1,32 @@
+
+{% block stylesheet %}
+
+<link href="/css/misc_data_list.css" rel="stylesheet">
+
+{% endblock %}
+
+
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "data", 'title': "Quelques données",} %}
+
+    {% macro misc_data_card_inner(dataName, dataValue) %}
+
+        <div class="text-body">
+                                        
+            <div class="name">
+
+                {{ dataName }}
+
+            </div>
+
+            <div class="value ps-md-3">
+
+                {{ dataValue }}  
+
+            </div>
+
+        </div>
+        
+    {% endmacro %}
 
     {% block editButtons %}
 
@@ -16,30 +44,19 @@
 
                 <div id="{{data.id}}" class="js-sortable-element misc-data-card edit-mode-outline col-6 col-md-5">
 
-                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="w-100 h-100 text-decoration-none">
+                    {{ _self.misc_data_card_inner(data.name, data.value) }}
 
-                        <div class="text-body">
-                            
-                            <div class="name">
-                
-                                {{ data.name }}
-                
-                            </div>
+                    {% if userPresenter %}
 
-                            <div class="value ps-md-3">
+                        {# Access edit page on click #}
 
-                                {{ data.value }}  
+                        <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="pp-edition-mode coverable-link"></a>
+                        
+                        {# Delete data item (Red Cross) button #}
 
-                            </div>
-                
-                
-                        </div>
-                
-                    </a>
+                        <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{data.id}}">&times</button>
 
-                    {# delete data item (Red Cross) button #}
-
-                    <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{data.id}}">&times</button>
+                    {% endif %}
 
                 </div>
                 
@@ -47,89 +64,6 @@
 
         </div>
 
-        <style>
-
-            #dataList{
-
-                padding-left: 50px;
-                margin-right:0;
-
-            }
-
-            .misc-data-card{
-                position: relative;
-                margin-bottom: 13px;
-            }
-
-            .misc-data-card .name{
-                font-size: 18px;
-                margin-bottom: 7px;
-                font-weight: bold;
-            }
-
-            .misc-data-card .value{
-                font-size: 17px;
-                
-                line-height: 1.05;
-            }
-
-            .pp-container.in-edition-mode .edit-mode-outline{
-                border: 1px solid rgb(221, 221, 177);
-                border-radius: 6px;
-                margin-right: 5px;
-                padding: 6px;
-            }
-
-            .pp-container.in-edition-mode .edit-mode-outline:hover{
-                background-color: lavenderblush;
-            }
-                        
-            @media screen and (max-width: 580px) {
-
-                    
-                #dataList{
-
-                    padding-left: 8px;
-
-                }
-
-                .misc-data-card{
-                    padding: 0 5px;
-                }
-
-                .misc-data-card:nth-child(odd){
-                    padding-right: 12px;
-                }
-
-                .misc-data-card:nth-child(even){
-                    padding-right: 0;
-                }
-
-                .misc-data-card .name{
-                    font-size: 15px;
-                    font-weight: bold;
-                    line-height: 1;
-                    margin-bottom: 5px;
-                }
-
-                .misc-data-card .value{
-                    font-size: 15px;
-                    margin-bottom: 8px;
-                    line-height: 1;
-                }
-
-                .pp-container.in-edition-mode .edit-mode-outline{
-                    margin-right: 0;
-                }
-
-            }
-
-
-
-
-
-
-        </style>
 
     {% endblock %}
 

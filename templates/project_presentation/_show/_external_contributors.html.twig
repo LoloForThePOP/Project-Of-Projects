@@ -110,21 +110,22 @@
                                 {% for persorg in ecs.persorgs %}
 
                                 <div id="{{persorg.id}}" class="js-sortable-element persorg-card">
-                
-                                    <!-- Persorg Edition Path -->
-                
-                                    <a class='text-decoration-none text-body' href="{{path('edit_persorg', {'stringId': stringId, 'id_persorg': persorg.id})}}">
-                
-                                        <!-- Persorg Card Content --> 
-                
-                                        {% include "persorgs/_card.html.twig" %}
+            
+                                    <!-- Persorg Card Content --> 
+            
+                                    {% include "persorgs/_card.html.twig" %}
+
+                                    {% if userPresenter %}
                                     
-                                    </a>
+                                        {# Access edit page on click #}
 
-                                                                        
-                                    {# delete persorg (Red Cross) button #}
+                                        <a href="{{path('edit_persorg', {'stringId': stringId, 'id_persorg': persorg.id})}}" class="pp-edition-mode coverable-link"></a>
+                                                                            
+                                        {# delete persorg (Red Cross) button #}
 
-                                    <button type="button" data-elements-type="persorgs" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{persorg.id}}">&times</button>
+                                        <button type="button" data-elements-type="persorgs" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{persorg.id}}">&times</button>    
+                                    
+                                    {% endif %}
 
                                 </div>
                 

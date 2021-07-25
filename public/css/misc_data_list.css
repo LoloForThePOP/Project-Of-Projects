@@ -1,0 +1,74 @@
+#dataList{
+
+    padding-left: 50px;
+    margin-right:0;
+
+}
+
+.misc-data-card{
+    position: relative;
+    margin-bottom: 13px;
+}
+
+.misc-data-card .name{
+    font-size: 18px;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+.misc-data-card .value{
+    font-size: 17px;
+    
+    line-height: 1.05;
+}
+
+.pp-container.in-edition-mode .edit-mode-outline{
+    border: 1px solid rgb(221, 221, 177);
+    border-radius: 6px;
+    margin-right: 5px;
+    padding: 6px;
+}
+
+.pp-container.in-edition-mode .edit-mode-outline:hover{
+    background-color: #ededec;
+}
+            
+@media screen and (max-width: 580px) {
+
+        
+    #dataList{
+
+        padding-left: 8px;
+
+    }
+
+    .misc-data-card{
+        padding: 0 5px;
+    }
+
+    .misc-data-card:nth-child(odd){
+        padding-right: 12px;
+    }
+
+    .misc-data-card:nth-child(even){
+        padding-right: 0;
+    }
+
+    .misc-data-card .name{
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 1;
+        margin-bottom: 5px;
+    }
+
+    .misc-data-card .value{
+        font-size: 15px;
+        margin-bottom: 8px;
+        line-height: 1;
+    }
+
+    .pp-container.in-edition-mode .edit-mode-outline{
+        margin-right: 0;
+    }
+
+}

@@ -27,17 +27,17 @@
 
                 <div id="{{bc.id}}" class="js-sortable-element deletable-element bc-outer">
 
-                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="w-100 h-100 d-flex align-items-center text-decoration-none">
+                    <div class="text-body">
 
-                        <div class="text-body">
+                        <!-- Contact Card Content -->
 
-                            <!-- Contact Card Content -->
+                        {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig'%}
+            
+                    </div>
 
-                            {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig' with {'context': 'editionMode'} %}
-                
-                        </div>
-                
-                    </a>
+                    {# Access edit page on click #}
+
+                    <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="pp-edition-mode coverable-link"></a>
 
                     {# delete business card (Red Cross) button #}
 

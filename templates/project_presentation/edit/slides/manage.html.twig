@@ -75,9 +75,9 @@
 
     <!-- Slides list displayed in a grid -->
 
-    <div class="container mb-3">
+    <div class="container p-0 mb-3">
 
-        <div id="elements-list" data-elements-type="slides" class="row col-lg-8 pl-0">
+        <div id="elements-list" data-elements-type="slides" class="row col-lg-8 m-0">
 
             {% if presentation.slides | length > 0 %}
 
@@ -138,11 +138,7 @@
 {% endblock %}
 
 
-    {% block seeResultAnchor %}
-
-        slideshow
-    
-    {% endblock %}
+    {% block seeResultAnchor %}slides{% endblock %}
 
     {% block specificStyles %}
 
@@ -164,7 +160,7 @@
 
                 padding:12px;
 
-                margin: 8px;
+                margin: 8px 16px 8px 0;
 
                 border: 5px solid  #3f5cff;
                 border-radius: 4px;

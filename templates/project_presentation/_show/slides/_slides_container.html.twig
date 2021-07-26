@@ -5,13 +5,13 @@
 				
 	{% for slide in presentation.slides %}
 
-		<div class="mySlides">
+		<div id="{{slide.id}}" class="mySlides">
 
 			<!-- Case Slide is an Image -->
 
 			{% if slide.type == 'image' %}
 			
-				<img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
+				<img id="{{slide.id}}" src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
 
 			{% endif %}
 
@@ -19,10 +19,27 @@
 
 			{% if slide.type =='youtube_video' %}
 
-				<iframe width="100%" height="100%" src="https://www.youtube.com/embed/{{slide.address}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				<iframe id="{{slide.id}}" width="100%" height="100%" src="https://www.youtube.com/embed/{{slide.address}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			
 			{% endif %}
-		
+
+
+			{% if userPresenter %}
+
+				{# Edit Slide Button #}
+				
+				<a class="absolute-edit-element-button edit-slide-button pp-edition-mode" href="{{path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}">
+
+					<img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+					
+				</a>
+
+				{# Delete Slide Button (red cross) #}
+
+				<button type="button" data-elements-type="slides" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{slide.id}}" style="width:30px; height:30px;">&times</button>			
+			
+			{% endif %}
+
 		</div>
 		
 	{% endfor %}
@@ -35,7 +52,7 @@
 			
 			<a class="prev text-decoration-none" onclick="plusSlides(-1)">❮</a>
 		
-			<a class="next text-decoration-none" onclick="plusSlides(1)">❯</a>
+			<a id="slide-next" class="next text-decoration-none" onclick="plusSlides(1)">❯</a>
 		
 		</div>	
 

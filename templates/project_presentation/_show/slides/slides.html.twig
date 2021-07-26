@@ -25,7 +25,9 @@
 
 			{% if countSlides > 0 %}
 
-				<a href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}" class="text-decoration-none">
+				{# Access manage slides CRUD ui #}
+
+				<a id="manage-slides" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}" class="text-decoration-none me-3">
                         
 					<button type="button" class="pp-edition-mode btn btn-light btn-sm" aria-label="Manage Order and Titles Button">
 
@@ -38,8 +40,6 @@
 			{% endif %}
 		
 		{% endblock %}
-
-		{% block showDeleteElementsButtons %}{% endblock %}
 
 	{% endembed %}
 

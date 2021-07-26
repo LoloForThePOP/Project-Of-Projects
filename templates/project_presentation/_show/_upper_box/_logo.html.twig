@@ -5,15 +5,16 @@
 
     {# Edit Logo button #}
 
-    <div class="edit-logo-button pp-edition-mode">
+    <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
-        <a class="" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
+        <div class="absolute-edit-element-button ">
 
             <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 
-        </a>
+        </div>
+        
+    </a>
 
-    </div>
 
 {% else %}
 
@@ -52,20 +53,6 @@
         background-color: lavender;
     }
 
-    .edit-logo-button{
-
-        position: absolute; 
-        bottom:0; 
-        right:0; 
-        
-        display: flex; 
-        justify-content:center; 
-        align-items: center;
-        
-        width:30px; 
-        height:30px; 
-        
-    }
 
 
     @media screen and (max-width: 580px) {

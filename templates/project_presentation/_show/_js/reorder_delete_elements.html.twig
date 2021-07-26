@@ -118,80 +118,97 @@
 
 
          
-        // Remove a elements capability
+        // Remove elements capability
 
-        $('.js-elements-list').on('click', '.js-delete-element', function (){
+        $('.js-delete-element').on('click', function (){
 
-                var idElement = $(this).attr("data-id");
-                
-                // getting entity type in order to call appropriate route (ex: presentation website; presentation slide)
-                
-                var path = null;
-                
-                var elementsType = $(this).data('elements-type');
-                
-                switch(elementsType) {
+            var idElement = $(this).attr("data-id");
+            
+            // getting entity type in order to call appropriate route (ex: presentation website; presentation slide)
+            
+            var path = null;
+            
+            var elementsType = $(this).data('elements-type');
+            
+            switch(elementsType) {
 
-                    case "websites":
-                    case "dataList":
-                    case "questionsAnswers":
-                    case "businessCards":
+                case "websites":
+                case "dataList":
+                case "questionsAnswers":
+                case "businessCards":
 
-                        path = "{{path('ajax_delete_item', {'stringId': stringId})}}";
-                        break;
+                    path = "{{path('ajax_delete_item', {'stringId': stringId})}}";
+                    break;
 
-                    case "documents":
-                    case "needs":
-                    case "slides":
-                    case "contributorStructures":
-                    case "places":
+                case "documents":
+                case "needs":
+                case "slides":
+                case "contributorStructures":
+                case "places":
 
-                        path = "{{path('ajax_remove_component_element', {'stringId': stringId})}}";
-                        break;
+                    path = "{{path('ajax_remove_component_element', {'stringId': stringId})}}";
+                    break;
 
-                    case "persorgs":
+                case "persorgs":
 
-                        path = "{{path('ajax_remove_cs_persorg', {'stringId': stringId})}}";
-                        break;
-                        
-                    default:
-
-                        break;
-
-                } 
-                
-                if (confirm("Confimez-vous enlever cet élément ?"))
-                {
-
-                $(this).html('<div class="loader"></div>');
+                    path = "{{path('ajax_remove_cs_persorg', {'stringId': stringId})}}";
+                    break;
                     
-                $.ajax({  
+                default:
 
-                    url: path,
-                    type:       'POST',   
-                    dataType:   'json',
+                    break;
+
+            } 
+            
+            if (confirm("Confimez-vous enlever cet élément ?"))
+            {
+
+            $(this).html('<div class="loader"></div>');
+                
+            $.ajax({  
+
+                url: path,
+                type:       'POST',   
+                dataType:   'json',
+                
+                data: {
+                    "elementsType": elementsType,
+                    "idElement": idElement,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    $("#"+idElement).remove();
+
+                    // when removing a slide, some additionnal display treatments
+
+                    if(elementsType=="slides"){
+
+                        $('[data-slide-thumbnail-id="'+idElement+'"]').remove();
+
+                        $( "#slide-next" ).trigger( "click" );
+
+                        if ( $( ".mySlides" ).length == 0 ) {
+ 
+                            $( "#slides" ).empty();
+
+                            $( "#slides" ).parent().find(".show-delete-items-buttons, #manage-slides").remove();
+                         
+                        }
+                    }
                     
-                    data: {
-                        "elementsType": elementsType,
-                        "idElement": idElement,
-                    },
+                },  
 
-                    async: true,  
-                    
-                    success: function(data, status) {
+                error : function(xhr, textStatus, errorThrown) {  
+                    // alert('Ajax request failed.');  
+                }  
+                }); 
+                
+            }
 
-                        $("#"+idElement).remove();
-                        
-                    },  
-
-                    error : function(xhr, textStatus, errorThrown) {  
-                        // alert('Ajax request failed.');  
-                    }  
-                    }); 
-                    
-                }
-    
-            });
+        });
 
      });
 

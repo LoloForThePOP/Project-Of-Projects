@@ -59,7 +59,9 @@
 
                 {% endembed %}
 
-                <div id="{{place.id}}" data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal" class="js-sortable-element col-12 col-md-7 col-lg-6 place-card">
+                <div id="{{place.id}}" class="js-sortable-element col-12 col-md-7 col-lg-6 place-card">
+
+                    <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal">
 
                         {{readablePlaceType}} {{place.name | capitalize}}
 
@@ -68,6 +70,8 @@
                             ({{place.postalCode}})
                         
                         {% endif %}
+
+                    </div>
                     
                     {# delete place (Red Cross) button #}
 

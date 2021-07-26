@@ -44,6 +44,7 @@
     {% endif %}
 
 
+    
 <div class="pp-container container">
     
         {% include 'project_presentation/_show/_upper_box.html.twig' %}
@@ -54,7 +55,11 @@
 
         {% if countSlides > 0  %}
 
-            {% include 'project_presentation/_show/slides/slides.html.twig' %}
+            <div class="pp-struct-container" style="all: initial;">
+                    
+                {% include 'project_presentation/_show/slides/slides.html.twig' %}
+
+            </div>
     
         {% endif %}
 

@@ -1,45 +1,71 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-edit-help", 'modal_title': "Aide", 'modal_size': "modal-lg"} %}
 
 
-{% macro helpingRow(params) %}
+    {% macro helpRow(image_src, image_alt, text) %}
 
-    <div class="row g-4">
+        <div class="row g-4">
 
-        <div class="col-6 ps-0">
+            <div class="col-6 ps-0">
 
-        <div class="image-container">
+            <div class="image-container">
 
-            <img src="{{ asset('drag_and_drop.png', 'tutorial')}}" alt="drag and drop image">
+                <img src="{{image_src}}" alt="{{image_alt}}">
 
-        </div>
+            </div>
 
-        </div>
+            </div>
 
-        <div class="col-6 pe-0">
+            <div class="col-6 pe-0">
 
-        <div class="text-container">
+                <div class="text-container">
 
-            Pour changer l'ordre des éléments, restez appuyer sur un élément puis déplacez-le à l'endroit désiré. 
+                    {{text}}
+
+                </div>
+                
+            </div>
 
         </div>
         
-        </div>
-
-    </div>
-    
-{% endmacro %}
+    {% endmacro %}
 
 
-
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-edit-help", 'modal_title': "Aide", 'modal_size': "modal-lg"} %}
 
     {% block modalBody %}
 
     <div class="help-content container">
 
+        {# Switch between edition and consultation mode #}
         
-        {{ _self.helpingRow() }}
+        {{ _self.helpRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un basculement entre le mode d'édition, et le mode de consultation.",
+            "Pour voir le résultat, cliquer sur l'icône oeil. Pour modifier la page, cliquer sur l'icône crayon.", 
+        ) }}
 
-       
+        {# Reorder items #}
+        
+        {{ _self.helpRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
+            "Pour changer l'ordre des éléments, restez appuyer sur un élément puis déplacez-le à l'endroit désiré.", 
+        ) }}
+
+        {# Delete item #}
+        
+        {{ _self.helpRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'une poubelle",
+            "Pour supprimer des éléments, cliquer sur cette icône et sélectionner les éléments désirés", 
+        ) }}
+
+        {# Add item #}
+        
+        {{ _self.helpRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un click sur un élément",
+            "Pour modifier un élément, cliquer dessus.", 
+        ) }}
 
     </div>
 
@@ -48,6 +74,10 @@
 {% endembed %}
 
 <style>
+
+    .help-content{
+        margin-bottom: 21px;
+    }
 
     .help-content .image-container{
 

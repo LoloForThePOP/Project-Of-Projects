@@ -57,7 +57,7 @@
 
     </style>
 
-{% elseif userPresenter and presentation.categories | length == 0  %} {# no keywords (+ no categories), we insert a placeholder #}
+{% elseif userPresenter and (presentation.categories | length == 0 or presentation.keywords is empty) %} {# no keywords (+ no categories), we insert a placeholder #}
 
     <a class="pp-edition-mode text-decoration-none ps-md-0 text-body" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
         
@@ -65,7 +65,7 @@
 
             <img class="keywordsIcon img-fluid" src="{{ asset('hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
 
-            <span class="">Catégorie & Mots-clés</span>
+            <span class="">Catégories & Mots-clés</span>
 
         </div>
 

@@ -91,12 +91,29 @@
 		<div class="row m-0">
 				
 				
-			<!-- Slides Container -->
+			{#  Slides Container #}
 
-			{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
+			<div class="slides-container px-0 col-lg-9 {{countSlides > 1 ? 'mx-auto'}}"> 
 
-	
-			{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+				{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
+
+			</div>
+
+			{#  Thumbnails Container #}
+
+			{% if countSlides > 1 %}
+				
+				{% if userPresenter or countSlides > 2 %}
+
+					<div class="col-lg-3 {{countSlides == 2 ? 'pp-edition-mode'}} pe-0 d-none d-lg-flex align-items-center">
+			
+						{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+						
+					</div>
+
+				{% endif %}
+			
+			{% endif %}
 
 		</div>	
 

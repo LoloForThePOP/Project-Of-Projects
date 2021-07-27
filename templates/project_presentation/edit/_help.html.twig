@@ -3,19 +3,19 @@
 
     {% macro helpRow(image_src, image_alt, text) %}
 
-        <div class="row g-4">
+        <div class="row">
 
-            <div class="col-6 ps-0">
+            <div class="col-6 px-0">
 
-            <div class="image-container">
+                <div class="image-container">
 
-                <img src="{{image_src}}" alt="{{image_alt}}">
+                    <img src="{{image_src}}" alt="{{image_alt}}">
+
+                </div>
 
             </div>
 
-            </div>
-
-            <div class="col-6 pe-0">
+            <div class="col-6 px-0">
 
                 <div class="text-container">
 
@@ -33,12 +33,12 @@
 
     {% block modalBody %}
 
-    <div class="help-content container">
+    <div class="help-content px-2">
 
         {# Switch between edition and consultation mode #}
         
         {{ _self.helpRow(
-            asset('drag_and_drop.png', 'tutorial'),
+            asset('switch_edit_consult_mode.png', 'tutorial'),
             "Représentation d'un basculement entre le mode d'édition, et le mode de consultation.",
             "Pour voir le résultat, cliquer sur l'icône oeil. Pour modifier la page, cliquer sur l'icône crayon.", 
         ) }}
@@ -54,17 +54,17 @@
         {# Delete item #}
         
         {{ _self.helpRow(
-            asset('drag_and_drop.png', 'tutorial'),
+            asset('delete_items.png', 'tutorial'),
             "Représentation d'une poubelle",
-            "Pour supprimer des éléments, cliquer sur cette icône et sélectionner les éléments désirés", 
+            "Pour supprimer des éléments, cliquer sur une corbeille, puis sélectionner les éléments désirés", 
         ) }}
 
         {# Add item #}
         
         {{ _self.helpRow(
-            asset('drag_and_drop.png', 'tutorial'),
-            "Représentation d'un click sur un élément",
-            "Pour modifier un élément, cliquer dessus.", 
+            asset('edit_item.png', 'tutorial'),
+            "Représentation d'une sélectin d'élément",
+            "Pour modifier un élément, cliquer dessus, ou cliquer sur un crayon gris.", 
         ) }}
 
     </div>
@@ -77,6 +77,14 @@
 
     .help-content{
         margin-bottom: 21px;
+    }
+
+    .help-content .row{
+        margin-bottom: 21px;
+    }
+
+    .help-content .row:nth-child(even){
+        flex-direction: row-reverse !important;
     }
 
     .help-content .image-container{
@@ -107,17 +115,39 @@
         justify-content: center;
         align-items: center;
 
-        text-align: center;
-
         height:100%;
+        
+        padding: 15px 8px;
 
-        padding: 15px 20px;
-
-        font-size: 1.18em;
-        font-weight: bold;
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.1;
 
         background-color: rgb(233, 255, 227);
 
+    }
+
+
+
+    @media screen and (max-width: 768px) {
+
+        .help-content .text-container{
+
+            font-size: 18px;
+
+        }
+
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .help-content .text-container{
+
+            font-size: 15px;
+
+        }
 
     }
 

@@ -123,15 +123,15 @@
     background-color:inherit;
 
 }
-
+/* 
 .thumbnail {
 
     display: flex;
     justify-content: center;
     cursor: pointer;
-    opacity: 0.8; /* Add a transparency effect for thumnbail images */
+    opacity: 0.8;
+} */
 
-}
 
 .active,
 .thumbnail:hover {

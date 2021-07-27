@@ -56,10 +56,14 @@
 
                         </div>
 
-                        {# delete q&a button (Red Cross) #}
-                        {# overriding width and height due to css bs row behaviour #}
+                        {% if userPresenter %}
 
-                        <button type="button" data-elements-type="questionsAnswers" data-id="{{qa.id}}" class="js-delete-element delete-button pp-edition-mode btn" style="width:30px; height:30px;">&times</button>
+                            {# delete q&a button (Red Cross) #}
+                            {# overriding width and height due to css bs row behaviour #}
+
+                            <button type="button" data-elements-type="questionsAnswers" data-id="{{qa.id}}" class="js-delete-element delete-button pp-edition-mode btn" style="width:30px; height:30px;">&times</button>
+
+                        {% endif %}
 
                 </div>
 

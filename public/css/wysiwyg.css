@@ -1,40 +1,29 @@
+
+/* note : this stylesheet is only called for userPresenter instances. Some page elements are displayed or hidden for regular users, so be aware a few related declarations exist in project_presentation_page.css */
+
+
 /* Toggleing some elements display according to their status (see wysiwyg.js) */
 
 .in-edition-mode .pp-edition-mode{
-    display:initial;
+    display: initial;
 }
 
 .in-edition-mode .pp-consultation-mode{
-    display:none;
+    display: none !important;
 }
 
 .in-consultation-mode .pp-edition-mode{
-    display:none;
+    display: none !important;
 }
 
 .in-consultation-mode .pp-consultation-mode{
-    display:intial;
+    display: initial;
 }
 
 .pp-add-element-button{
     margin-right: 10px;
 }
 
-/* Switch some links behaviors between edition and consultation mode  */
-
-.coverable-link{
-
-    position: absolute;
-
-    top:0; 
-    left:0;
-
-    width: 100%;
-    height: 100%;
-
-    opacity: 0;
-
-}
 
 /* Delete item Button */
 

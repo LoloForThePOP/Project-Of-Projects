@@ -1,35 +1,27 @@
-{% extends 'base.html.twig' %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+{% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
+    {% block title %}Modifier une image ou sa légende{% endblock %}
 
-{% block title %}Modifier une Image ou une légende{% endblock %}
+    {% block mainContentTitle %}Modifier une image ou sa légende{% endblock %}
 
-{% block body %}
+    {% block collapsibleMoreInfo %}{% endblock %}
 
-<div class="container">
-
-    <h2 class="h3 my-4">Modifier une Image ou une légende</h2>
-
-    {{form_start(form)}}
-
-    <div class="mb-1">
-
-        <div class="col-md-7 fw-bold">
-           
+    {% block mainContent %}
+        
+        <div class="">
+            
             <span class="fw-bold h5"> 
-                Modifier l'Image?
+                Modifier l'image ?
             </span>
 
-            <span class="arrowCar">▼ </span>
-
-            <div class="p-0 m-0 alert text-body h5 fw-bold">
+            <div class="">
 
                 {{ form_errors(form.file) }}
 
             </div>
             
-            <div class="mt-1 p-1 bg-warning disabled rounded">
+            <div class="mt-2">
                 
                 {{ form_widget(form.file) }}
 
@@ -43,22 +35,10 @@
 
         </div>
 
-    </div>
+    {% endblock %}
 
-    <div class="mt-5">
-    
-        <button type="submit" class="btn btn-success mb-4 me-1">Valider</button>
-    
-        <a class="text-decoration-none text-white" href="{{ path('manage_slides', {'stringId': stringId}) }}">
-            <button type="button" class="btn btn-info mb-4">Retour images & vidéos</button>
-        </a>
-        
-    </div>
+    {% block seeResultAnchor %}slides{% endblock %}
 
-    {{form_end(form)}}
-
-</div>
-
-{% endblock %}
+{% endembed %}
 
 

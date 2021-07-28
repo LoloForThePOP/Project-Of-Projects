@@ -126,3 +126,22 @@ label, legend {
 }
 
 
+/* App Buttons */
+
+.btn-see-result{
+
+    background-color: #c8efb6;
+}
+
+.btn-validate{
+
+    background-color: #27ae60;
+    color: white;
+}
+
+.btn-go-back{
+
+    background-color: #3498DB;
+    color: white;
+}
+

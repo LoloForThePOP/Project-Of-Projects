@@ -25,6 +25,14 @@
 }
 
 
+
+.in-edition-mode .edit-hoverable-item:hover {
+    cursor: pointer;
+    background-color: #eff5ff;
+    border-radius: 6px;
+}
+
+
 /* Delete item Button */
 
 .delete-button {
@@ -90,13 +98,6 @@ label, legend {
 textarea:focus, input:focus{
     outline: none;
 }
-
-/* Miscelaneous */
-
-.edit-icon:hover{
-    background-color: #e6e4ff;
-}
-
 
 .absolute-edit-element-button{
 

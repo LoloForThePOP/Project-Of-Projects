@@ -1,17 +1,11 @@
 {% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
-    {% block mainContent %}
+    {% block mainContentTitle %}Modifier une question - réponse{% endblock %}
 
-        {{ form_widget(form) }}
+    {% block collapsibleMoreInfo %}{% endblock %}
 
-    {% endblock %}
+    {% block mainContent %}{{ form_widget(form) }}{% endblock %}
 
-
-    {% block seeResultAnchor %}
-
-        questionsAnswers
-        
-    {% endblock %}
-
+    {% block seeResultAnchor %}questionsAnswers{% endblock %}
 
 {% endembed %}

@@ -6,14 +6,7 @@
 
 {% block mainContentTitle %}Gérer les lieux du projet{% endblock %}
 
-{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
-
-
-{% block moreInfoButtonLabel %}
-
-    Info
-
-{% endblock %}
+{% block moreInfoButtonLabel %}Info{% endblock %}
 
 {% block moreInfoContent %}
 
@@ -25,10 +18,19 @@
 
 {% endblock %}
 
+
 {% block mainContent %}
 
 
-    <!-- Add a Place Search Bar -->
+
+    <!-- Doesn't work on mobile disclaimer -->
+
+    <div class="d-lg-none alert alert-warning fw-bold">
+        Attention, l'ajout de lieux ne fonctionne pas encore sur tablettes et smartphones. <br>
+        Veillez nous excuser pour ce désagrément.
+    </div>
+
+    <!-- Place Search Bar -->
 
     <div>
 

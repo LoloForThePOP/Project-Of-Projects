@@ -1,92 +1,47 @@
-{% extends 'base.html.twig' %}
+{% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
+    {% block title %}Modifier un document{% endblock %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+    {% block mainContentTitle %}Modifier un document{% endblock %}
 
-{% block title %}Modifier un Document{% endblock %}
+    {% block collapsibleMoreInfo %}{% endblock %}
 
-{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+    {% block mainContent %}
+        
+        <!-- choose another file -->
+                    
+        <div class="fw-bold mb-5">
 
+            <div class="mb-2 h4 ">
 
-{% block body %}
-    
-    <!-- Content Container -->
+                Choisir un autre fichier :
 
-    <div class="container">
+                <span class="h5">{{ form_errors(form.file) }}</span>
+                
+            </div>
 
-        <!-- Title Container -->
+            {{ form_widget(form.file) }}
 
-        <div class="mt-3 mt-md-5 mb-2">
-
-            <!-- ui Page Title -->
-
-            <h3 class="fw-bold">Modifier un document</h3>
-     
         </div>
 
+        <!-- Change document title -->
 
-        <!-- Form Display -->
+        <div class="fw-bold">
 
-        <div class="col-lg-8 mt-4 mb-5 pl-0">
+            <div class="mb-2 h4">
 
-            {{ form_start(form) }}
+                Modifier le titre du document :
 
-
-                <!-- choose another file -->
-
-                
-                <div class="fw-bold mt-5 mb-5">
-
-                    <div class="mb-2 h4 ">
-
-                        Choisir un autre fichier :
-
-                        <span class="h5">{{ form_errors(form.file) }}</span>
-                        
-                    </div>
-
-                    {{ form_widget(form.file) }}
-
-                </div>
-
-           
-            <!-- Change document title -->
-
-            <div class="fw-bold mb-5">
-
-                <div class="mb-2 h4">
-
-                    Modifier le titre du document :
-
-                    {{ form_errors(form.title) }}
-
-                </div>
-
-                {{ form_widget(form.title) }}
+                {{ form_errors(form.title) }}
 
             </div>
 
+            {{ form_widget(form.title) }}
 
         </div>
 
+    {% endblock %}
 
-        <!-- Action Buttons -->
+    {% block seeResultAnchor %}documents{% endblock %}
 
-        <div>
-
-            <button class="btn btn-success btn-lg sharp me-2">Valider</button>
-
-            <a href="{{ path('manage_documents', {'stringId': stringId}) }}">
-
-                <button type="button" class="btn btn-info btn-lg sharp">Retour</button>
-
-            </a>
-
-        </div>
-
-        {{ form_end(form) }}
-
-    </div>
-
-
-{% endblock %}
+{% endembed %}

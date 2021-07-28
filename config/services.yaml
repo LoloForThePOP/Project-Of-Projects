@@ -11,6 +11,8 @@ parameters:
     # website mailer (ex: mailer@website.com)
     app.mailer_email: "mailer@projetdesprojets.com"
 
+    app.google_map_api_key: AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk
+
 services:
     # default configuration for services in *this* file
     _defaults:

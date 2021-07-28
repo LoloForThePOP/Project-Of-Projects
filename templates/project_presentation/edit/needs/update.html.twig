@@ -1,17 +1,24 @@
 {% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
+    {% block title %}Modifier un besoin{% endblock %}
+
+    {% block mainContentTitle %}Modifier un besoin{% endblock %}
+
+    {% block collapsibleMoreInfo %}{% endblock %}
+
     {% block mainContent %}
 
         {% include "project_presentation/edit/needs/_form.html.twig" %}
 
     {% endblock %}
 
-
     {% block seeResultAnchor %}
 
         needs
         
     {% endblock %}
+
+    {% block actionButtons %}{% endblock %}
 
 
 {% endembed %}

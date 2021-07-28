@@ -16,17 +16,11 @@ Here is skeletton structure :
 
 {% extends 'base.html.twig' %}
 
-    {% block stylesheets %}
-
-        <link rel="stylesheet" href="/css/app_forms.css" />
-        
-    {% endblock %}
-
     {% block title %}{% endblock %}
 
     {% block body %}
 
-        <div class="edit-structure-container">
+        <div class="edit-structure-container container">
 
             <div class="main-title-container">
 
@@ -86,7 +80,7 @@ Here is skeletton structure :
                         class="text-decoration-none text-white" 
                         href="{{path('show_presentation', {'stringId': stringId })}}#{% block seeResultAnchor %}{% endblock %}">
 
-                        <button type="button" class="btn btn-lg mb-4 me-2 " style="background-color: #c8efb6;">Résultat</button>
+                        <button type="button" class="btn btn-lg btn-see-result mb-4 me-2 ">Résultat</button>
 
                     </a>
 

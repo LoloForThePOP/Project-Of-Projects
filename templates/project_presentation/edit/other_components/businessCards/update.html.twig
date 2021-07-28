@@ -1,17 +1,12 @@
+
 {% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
-    {% block mainContent %}
+    {% block mainContentTitle %}Modifier une carte de visite{% endblock %}
 
-        {% include "project_presentation/edit/other_components/businessCards/_form.html.twig" %}
+    {% block collapsibleMoreInfo %}{% endblock %}
 
-    {% endblock %}
+    {% block mainContent %}{% include "project_presentation/edit/other_components/businessCards/_form.html.twig" %}{% endblock %}
 
-
-    {% block seeResultAnchor %}
-
-        businessCards
-        
-    {% endblock %}
-
+    {% block seeResultAnchor %}businessCards{% endblock %}
 
 {% endembed %}

@@ -104,6 +104,7 @@ class ContributorStructuresController extends AbstractController
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringId(),
+                '_fragment' => "cs-".$ecs->getId(),
             ]);
 
         }
@@ -112,6 +113,7 @@ class ContributorStructuresController extends AbstractController
 
             'form' => $form->createView(),
             'stringId' => $presentation->getStringId(),
+            'csId' => $ecs->getId(),
             
         ]);
 

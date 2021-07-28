@@ -6,14 +6,7 @@
 
 {% block mainContentTitle %}Description texte du Projet{% endblock %}
 
-{% block sidebar %}{% endblock %}
-
-
-{% block moreInfoButtonLabel %}
-
-    Info
-
-{% endblock %}
+{% block moreInfoButtonLabel %}Info{% endblock %}
 
 {% block moreInfoContent %}
 
@@ -51,10 +44,10 @@
 
         <div class= "pt-2">
             
-            <button type="submit" class="btn btn-success btn-lg sharp h3 fw-bold mb-4 me-3">Enregistrer</button>
+            <button type="submit" class="btn btn-validate btn-lg mb-4 me-3">Enregistrer</button>
         
-            <a class="text-decoration-none text-white" href="{{ path('edit_pp_menu', {'stringId': stringId}) }}">
-                <button type="button" class="btn btn-info btn-lg sharp fw-bold mb-4">Retour menu</button>
+            <a class="text-decoration-none text-white" href="{{ path('show_presentation', {'stringId': stringId}) }}#text_description">
+                <button type="button" class="btn btn-lg btn-go-back mb-4">Annuler</button>
             </a>
 
         </div>

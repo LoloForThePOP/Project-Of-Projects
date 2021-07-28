@@ -1,4 +1,3 @@
-
 {% block stylesheet %}
 
     <link href="/css/persorg-card.css" rel="stylesheet">
@@ -10,7 +9,11 @@
         
     {% if userPresenter %}
 
-        {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': "Contributions externes", "editionMode" : "pp-edition-mode",} %}
+    {# All structures management bar #}
+
+    <div class="all-ecs-management-bar pp-edition-mode">
+        
+        {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "external_contributors", 'title': "Contributions externes",} %}
 
             {% block editButtons %}
             
@@ -40,19 +43,15 @@
     
         {% endembed %}
 
+    </div>
+
+
     {% endif %}
     
 
     <!-- ECS Display Container -->
 
     <div class="all-ecs-display-container pb-md-2" >
-
-        {% if userPresenter %}
-            
-            {# Add a Persorg Form Displayed in a Modal Box #}
-            {% include "persorgs/_add_form_modal.html.twig" with {'persorgForm': addPersorgForm} %}
-
-        {% endif %}
             
         {%  for ecs in presentation.contributorStructures | filter((ecs) => ecs.type == "external") %}
 
@@ -66,8 +65,7 @@
                     
                         {# Manage ecs button (title; thumbnails; rich text; deletion) #}
 
-                        <a class="pp-edition-mode text-decoration-none" href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
-
+                        <a class="pp-edition-mode text-decoration-none me-2" href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
 
                             <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
         
@@ -83,9 +81,9 @@
 
                             <div id="persorgs{{ecs.id}}" class="js-elements-list pp-struct-content each-ecs-persorgs-container">
 
-                                {# Add a persorg button (mocks a thumbnail) #}
+                                {# Add a persorg button (mocks a thumbnail and trigger a form in a modal ) #}
 
-                                <div data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="js-trigger-persorg-form-modal pp-edition-mode disabled me-2">
+                                <div data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="js-trigger-persorg-form-modal pp-edition-mode disabled add-persorg-card me-2">
 
                                     <div class="persorg-card" style="height: 200px;">
                                         
@@ -136,7 +134,7 @@
                         {% endif %}
 
 
-                        {# ecs rich text content #}
+                        {# ecs rich text content with show more or less text capability #}
 
                         {% if ecs.richtextContent is not empty %}
 
@@ -152,9 +150,13 @@
 
                             <div class="each-ecs-rich-text-content col-lg-10">
 
-                                <div class="hide-too-long">
+                                <div class="hide-too-long edit-hoverable-item position-relative">
                                         
                                     {{ecs.richtextContent | sanitize_html}}
+
+                                    {# Access Textarea Edition Page on click #}
+
+                                    <a href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id})}}#js-textarea-container" class="pp-edition-mode coverable-link"></a>
 
                                 </div>
 
@@ -195,6 +197,15 @@
 
 
 <style>
+
+    .all-ecs-management-bar{
+        margin-bottom: 20px;
+    }
+
+    .all-ecs-management-bar h3{
+        color: #1d4f20;
+        font-weight: bold;
+    }
     
     .each-ecs-display-container{
         margin-bottom: 48px;
@@ -214,8 +225,18 @@
 
     }
 
+    .add-persorg-card{
+        cursor: pointer;
+    }
+
+    .add-persorg-card:hover .avatar-circle {
+        background-color: #81ec87;
+    }
+
     .each-ecs-rich-text-content{
         padding : 0 20px 0 32px;
+        margin-top: 10px;
+        margin-bottom: 18px;
     }
 
 

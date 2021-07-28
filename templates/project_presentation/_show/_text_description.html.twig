@@ -21,48 +21,53 @@
         <div id="text_description" class="pp-struct-content">
 
             {% set textDescription = presentation.textDescription %}
+            
+            {% set longText = false %}
+            
+            {% set length = textDescription | length %}
+
+            {% if length > 300 %}
+            
+                {% set longText = true %}
+
+            {% endif %}
 
             {# Text Description Display (2 cases : short text description; collapsible long text description) #}
-
-            <!-- Case 1: short Text: entire text is displayed by default-->
-
-            {% if textDescription | length < 300 %}
             
-                <div class="container pp-text-description">
-                    
+            <div class="{{ longText ? 'long-text' }} container px-0 pl-md-3">
+
+                <!-- Text Description (Display) -->
+
+                <div id="collapseTextDescription" class="pp-text-description position-relative edit-hoverable-item {{ longText ? 'collapse no-transition'}}">
+
                     {{ textDescription | sanitize_html }}
+
+                    <a class="pp-edition-mode coverable-link" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}"></a>
 
                 </div>
 
-            <!-- Case 2: long Text: we use a collapsible text -->
-                
-            {% else %}
-                
-                <div class="long-text container px-0 pl-md-3">
-
-                    <!-- Text Description (Display) -->
-
-                    <div id="collapseTextDescription" class="pp-text-description collapse no-transition" aria-expanded="false">
-
-                        {{ textDescription | sanitize_html }}
-
-                    </div>
-
+                {% if longText %}
+                    
                     <!-- Toggle Collapse Button -->
 
                     <div class="mt-4 mb-2">
 
-                        <button class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
+                        <button style="z-index: index 5;" class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
                         
                     </div>
-                    
-                </div>
-                    
-            {% endif %}
+                
+                {% endif %}
+
+                
+            </div>
 
         </div>
 
         <style>
+
+            .edit-text-highlight{
+                background-color: blue;
+            }
                     
             .long-text button.collapsed:after {
                 content: 'Afficher +';

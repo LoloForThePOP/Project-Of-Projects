@@ -151,12 +151,12 @@ class OtherComponentsController extends AbstractController
                 );
                 
                 return $this->redirectToRoute(
-                    'manage_other_components',
+                    'show_presentation',
     
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        'component_type' => $component_type,
+                        '_fragment' => $component_type,
     
                     ]
                 );

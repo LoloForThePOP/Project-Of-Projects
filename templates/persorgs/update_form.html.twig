@@ -1,110 +1,96 @@
 {% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
-    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    {% block mainContentTitle %}Modifier un profil{% endblock %}
+
+    {% block collapsibleMoreInfo %}{% endblock %}
 
     {% block mainContent %}
+    
+         <!-- Form Display -->
 
-        <!-- Content Container -->
+         <div class="">
 
-        <div class="container">
+            <!-- Persorg Name -->
 
-            <!-- Title Container -->
+            <div class="mt-3 mb-3">
 
-            <div class="mt-3 mt-md-5 mb-2">
+                {{ form_row(form.name) }}
 
-                <!-- ui Page Title -->
-
-                <h3 class="font-weight-bold d-inline mr-3">Modifier un profil</h3>
-        
             </div>
 
-
-            <!-- Form Display -->
-
-            <div class="col-md-7 mt-4 mb-5 pl-0">
-
-                <!-- Persorg Name -->
+            
+            {% if context == 'teammates' %}
+                    
+                <!-- Persorg Missions -->
 
                 <div class="mt-3 mb-3">
 
-                    {{ form_row(form.name) }}
+                    {{ form_row(form.missions) }}
 
                 </div>
 
-                
-                {% if context == 'teammates' %}
-                        
-                    <!-- Persorg Missions -->
+            {% endif %}   
 
-                    <div class="mt-3 mb-3">
+            <!-- Persorg Image -->
 
-                        {{ form_row(form.missions) }}
+            <div class="mb-4 px-3 rounded" style="border:1px solid black;">
+
+                <h5 class="mt-2 mb-3 font-weight-bold">Image</h5>
+
+                <!-- If an image already exists, we display it -->
+
+                {% if persorg.image is not null %}
+
+                    <div class="mb-4">
+
+                        <img class="" src="{{ vich_uploader_asset(persorg) | imagine_filter('persorg_thumbnail_sm') }}">
 
                     </div>
+                    
+                    <h5 class="mt-2 mb-3 font-weight-bold">Modifier l'image</h5>
+                                    
+                {% endif %}
 
-                {% endif %}   
+                {{ form_widget(form.imageFile) }}
 
-                <!-- Persorg Image -->
+            </div>
 
-                <div class="mb-4 px-3 rounded" style="border:1px solid black;">
+            <div class="mb-3">
 
-                    <h5 class="mt-2 mb-3 font-weight-bold">Image</h5>
+                <h4 class="font-weight-bold h5">Site web ou réseau social (facultatif)</h4>
 
-                    <!-- If an image already exists, we display it -->
+                {{ form_widget(form.website1) }}
 
-                    {% if persorg.image is not null %}
+            </div>
 
-                        <div class="mb-4">
+            <div class="mb-3">
 
-                            <img class="" src="{{ vich_uploader_asset(persorg) | imagine_filter('persorg_thumbnail_sm') }}">
+                <h4 class="font-weight-bold h5">Adresse e-mail (facultatif)</h4>
 
-                        </div>
-                        
-                        <h5 class="mt-2 mb-3 font-weight-bold">Modifier l'image</h5>
-                                        
-                    {% endif %}
+                {{ form_widget(form.email) }}
 
-                    {{ form_widget(form.imageFile) }}
+            </div>
 
-                </div>
+            <div class="mb-3">
 
-                <div class="mb-3">
+                <h4 class="font-weight-bold h5">Commentaire ou description (facultatif)</h4>
 
-                    <h4 class="font-weight-bold h5">Site web ou réseau social (facultatif)</h4>
+                {{ form_widget(form.description) }}
 
-                    {{ form_widget(form.website1) }}
-
-                </div>
-
-                <div class="mb-3">
-
-                    <h4 class="font-weight-bold h5">Adresse e-mail (facultatif)</h4>
-
-                    {{ form_widget(form.email) }}
-
-                </div>
-
-                <div class="mb-3">
-
-                    <h4 class="font-weight-bold h5">Commentaire ou description (facultatif)</h4>
-
-                    {{ form_widget(form.description) }}
-
-                </div>
+            </div>
 
 
-                <div class="d-none">
+            <div class="d-none">
 
-                    {{ form_rest(form) }}
-
-                </div>
+                {{ form_rest(form) }}
 
             </div>
 
         </div>
-
+        
     {% endblock %}
 
+    {% block seeResultAnchor %}externalContributorsDisplay{% endblock %}
 
 {% endembed %}
 
@@ -118,7 +104,7 @@
       $(document).ready(function(){
 
         $(".form-check-label").html("Supprimer l'image");
-        $(".custom-file").addClass("mt-1").addClass("mb-2");
+        $(".form-check").addClass("mt-3").addClass("mb-2");
 
       });
 

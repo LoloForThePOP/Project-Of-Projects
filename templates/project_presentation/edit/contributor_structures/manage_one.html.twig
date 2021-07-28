@@ -1,38 +1,19 @@
 {% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
 
-
 {% set ecsTitle = cs.title[:1] | upper ~ cs.title[1:] %}
 
+{% block title %}{{ecsTitle}}{% endblock %}
 
-{% block title %}
-
-    {{ecsTitle}}
-
-{% endblock %}
-
-{% block mainContentTitle %}
-
-    {{ecsTitle}}
-
-{% endblock %}
+{% block mainContentTitle %}{{ecsTitle}}{% endblock %}
 
 
-{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
-
-
-{% block moreInfoButtonLabel %}
-
-    Info
-
-{% endblock %}
+{% block moreInfoButtonLabel %}Info{% endblock %}
 
 {% block moreInfoContent %}
     
-    <p class="h5">
+    <p class="h5">Les vignettes permettent d'ajouter des photos ou des logos.</p>
 
-        Les vignettes permettent d'ajouter des photos ou des logos.
-
-    </p>
+    <p class="h5">Le texte permet de présenter rapidement les personnes et les organisations que vous souhaitez remercier.</p>
 
 {% endblock %}
 
@@ -41,7 +22,7 @@
 
     <!-- Add Items Buttons-->
 
-    <div class="mt-md-5 mb-4"> 
+    <div class="mt-md-4 mb-4"> 
         
         <!-- Add a persorg button (triggers a modal with a form) -->
 

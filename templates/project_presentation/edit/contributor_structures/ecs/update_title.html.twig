@@ -2,9 +2,11 @@
 
     {% block mainContentTitle %}Modifier le titre{% endblock %}
 
+    {% block collapsibleMoreInfo %}{% endblock %}
+
     {% block mainContent %}
 
-        <div class="mt-3 mb-3 px-3">
+        <div class="mt-3 mb-3">
 
             {{ form_widget(form.title) }}
 
@@ -15,17 +17,9 @@
             {{ form_rest(form) }}
 
         </div>
-
-        
-
+    
     {% endblock %}
 
-
-    {% block seeResultAnchor %}
-
-        ecs
-        
-    {% endblock %}
-
+    {% block seeResultAnchor %}cs-{{csId}}{% endblock %}
 
 {% endembed %}

@@ -16,53 +16,45 @@
                 
                 {% for need in presentation.needs %}
 
-                    <div id="{{need.id}}" class="js-sortable-element deletable-element need-card">
+                    {% set modal_id = 'need'~ need.id %}
 
-                        {# Need description is displayed in a modal #}
+                    {# Need description is displayed in a modal (see below) #}
 
-                        {% set modal_id = 'need'~ need.id %}
+                    <div id="{{need.id}}" data-bs-toggle="modal" data-bs-target="#{{modal_id}}" class="js-sortable-element need-card">
 
-                        <div class="">
+                        <span>{{ need.title | capitalize }}</span>
 
-                            <div class="fs-15" data-bs-toggle="modal" data-bs-target="#{{modal_id}}">
+                        {# Delete need (Red Cross) button #}
 
-                                <span>{{ need.title }}</span>
-                            
-                            </div>
-
-                            {# Delete need (Red Cross) button #}
-
-                            <button type="button" data-elements-type="needs" class="js-delete-element delete-button pp-edition-mode btn btn-danger" data-id="{{need.id}}">&times</button>
-
-                        </div>
-
-                        {# Displaying each need in a modal #}
-
-                        {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': need.title} %}
-
-                            {% block modalBody %}
-
-                                {{need.description}}
-                            
-                            {% endblock %}
-
-                            {% block footerButtons %}
-
-                                {% if userPresenter %}
-
-                                    <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
-                                        
-                                        <button type="button" class="btn btn-info">Modifier</button>
-                                
-                                    </a>
-
-                                {% endif %}
-                            
-                            {% endblock %}
-                            
-                        {% endembed %}
+                        <button type="button" data-elements-type="needs" class="js-delete-element delete-button pp-edition-mode btn btn-danger" data-id="{{need.id}}">&times</button>
 
                     </div>
+
+                    {# Displaying each need in a modal box #}
+
+                    {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': need.title } %}
+
+                    {% block modalBody %}
+
+                        {{need.description}}
+                    
+                    {% endblock %}
+
+                    {% block footerButtons %}
+
+                        {% if userPresenter %}
+
+                            <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
+                                
+                                <button type="button" class="btn btn-light">Modifier</button>
+                        
+                            </a>
+
+                        {% endif %}
+                    
+                    {% endblock %}
+                    
+                {% endembed %}
                 
                 {% endfor %}
 
@@ -77,11 +69,18 @@
             position:relative;
             cursor: pointer;
             font-weight: bold;
+            font-size: 1.15em;
             margin-bottom : 15px;
             padding: 15px;
             padding-left: 17px;
             background-color: rgb(239, 239, 252);
             border-left: 2px solid blue;
+
+        }
+
+        .need-card:hover{
+
+            background-color: rgb(244, 244, 248);
 
         }
 

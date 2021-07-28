@@ -28,6 +28,7 @@ class PlaceController extends AbstractController
         return $this->render('project_presentation/edit/places/manage.html.twig', [
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
+            'googleMapApiKey' => $this->getParameter('app.google_map_api_key'),
         ]);
     }
 

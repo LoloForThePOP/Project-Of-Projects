@@ -427,7 +427,7 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les modifications ont été enregistrées ✅"
+                "✅ Les modifications ont été enregistrées"
             );
 
             return $this->redirectToRoute('show_presentation', [

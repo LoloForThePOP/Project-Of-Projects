@@ -1,153 +1,123 @@
-{% extends 'base.html.twig' %}
 
-{% block sidebar %}{% include '_partials/sidebar.html.twig' %}{% endblock %}
+{% embed "project_presentation/edit/update_element_skeleton.html.twig" with {'colWidths': 'col-md-12'} %}
 
+{% block title %}Modifier une présentation{% endblock %}
 
-{% block title %}Modifier une Présentation de Projet{% endblock %}
+{% block mainContentTitle %}Modifier une présentation{% endblock %}
 
+{% block collapsibleMoreInfo %}{% endblock %}
 
-{% block body %}
-
-<div class="mt-5">
-
-    {{form_start(form)}}
-
-    <div class="mb-4">
-
-      <div class="container">
-          
-        <div class="row">
-    
-          <!-- First Column -->
-    
-          <!-- Project Goal & Title Edition -->
-    
-          <div class="col-md-6 col-lg-5 me-md-3 mb-3 mb-md-0 p-3 bg-light border border-warning">
-    
-            <!-- Project Goal -->
-    
-            <div class="">
+{% block mainContent %}
         
-              {{form_row(form.goal)}}
-        
-            </div>
-    
-            <!-- Project Title -->        
-        
-            <div class="">
-        
-              {{form_row(form.title)}}
-        
-            </div>
-    
-            <!-- Project Keywords -->        
-        
-            <div class="">
-        
-              {{form_row(form.keywords)}}
-        
-            </div>
-            
-          </div>
-    
-          <!-- Second Column -->
-    
-          <!-- Project Logo Edition -->
-    
-          <div class="col-md-5 col-lg-4 p-3 bg-light border border-warning">
-    
-            <!-- Form Logo Label -->
-    
-            <div class="mb-2">
-    
-              <span class="textblack"> {{form_label(form.logoFile)}}</span>
-    
-            </div>
-    
-            <!-- Case a Logo already Exist -->
-    
-            {% if presentation.logo %}
-    
-              <div class="row mx-md-1 border rounded alert bg-white text-body">
-    
-                <div class="col-md-auto mb-sm-2 mb-md-0">
-    
-                    <div class="d-inline-block position-relative">
-    
-                      <div class="m-0 p-0 d-flex align-items-center justify-content-center ">
-    
-                        <img class="d-block" src="/media/uploads/pp/logos/{{presentation.logo}}" style="min-width:100px; min-height:100px;max-width:150px; max-height:150px" alt="">
-    
-                      </div>
-    
-    
-                    </div>
-    
-                </div> 
-    
-                <div class="col pl-md-3">
-    
-                  <div class="row d-inline-block">
-                    
-                      <div class="h5 fw-bold my-2">
-    
-                        Changer
-    
-                      </div>
-    
-                      {{form_errors(form.logoFile)}}
-                      {{form_widget(form.logoFile)}}
-    
-                  </div> 
-    
-                </div>
-    
-              </div>
-    
-            <!-- Case no logo yet -->
-    
-            {% else %}
-    
-              <div class="pt-3 px-2 pb-3 rounded cursor-pointer">
-                
-                {{form_widget(form.logoFile)}}
-    
-              </div>
-    
-            {% endif %}
-    
-          </div>
-    
-        </div>
-      
-      </div>
-      
-    </div>
-
-    <!-- Action buttons -->
+      <div class="row m-0">
   
-    <div class="ps-md-2">
-
-        <!-- Save Button -->
-    
-        <button type="submit" class="btn btn-success bg-green sharp fs-15 fw-bold me-2">Enregistrer</button>
-    
-        <!-- Cancel Button -->
-    
-        <a href="{{path('edit_pp_menu', {'stringId':presentation.stringId})}}">
-          <button type="button" value="" class="btn btn-info sharp fs-15">
-              <span class=" fw-bold">Retour menu</span> 
-          </button>
-        </a>
-    
-      </div>  
-
-    {{form_end(form)}}
-
-</div>
+        <!-- First Column -->
+  
+        <!-- Project Goal & Title Edition -->
+  
+        <div class="col-md-6 col-lg-5 me-md-3 mb-3 mb-md-0 p-3 bg-light border border-warning">
+  
+          <!-- Project Goal -->
+  
+          <div class="">
+      
+            {{form_row(form.goal)}}
+      
+          </div>
+  
+          <!-- Project Title -->        
+      
+          <div class="">
+      
+            {{form_row(form.title)}}
+      
+          </div>
+  
+          <!-- Project Keywords -->        
+      
+          <div class="">
+      
+            {{form_row(form.keywords)}}
+      
+          </div>
+          
+        </div>
+  
+        <!-- Second Column -->
+  
+        <!-- Project Logo Edition -->
+  
+        <div class="col-md-5 col-lg-4 p-3 bg-light border border-warning">
+  
+          <!-- Form Logo Label -->
+  
+          <div class="mb-2">
+  
+            <span class="textblack"> {{form_label(form.logoFile)}}</span>
+  
+          </div>
+  
+          <!-- Case a Logo already Exist -->
+  
+          {% if presentation.logo %}
+  
+            <div class="row mx-md-1 border rounded alert bg-white text-body">
+  
+              <div class="col-md-auto mb-sm-2 mb-md-0">
+  
+                  <div class="d-inline-block position-relative">
+  
+                    <div class="m-0 p-0 d-flex align-items-center justify-content-center ">
+  
+                      <img class="d-block" src="/media/uploads/pp/logos/{{presentation.logo}}" style="min-width:100px; min-height:100px;max-width:150px; max-height:150px" alt="">
+  
+                    </div>
+  
+  
+                  </div>
+  
+              </div> 
+  
+              <div class="col pl-md-3">
+  
+                <div class="row d-inline-block">
+                  
+                    <div class="h5 fw-bold my-2">
+  
+                      Changer
+  
+                    </div>
+  
+                    {{form_errors(form.logoFile)}}
+                    {{form_widget(form.logoFile)}}
+  
+                </div> 
+  
+              </div>
+  
+            </div>
+  
+          <!-- Case no logo yet -->
+  
+          {% else %}
+  
+            <div class="pt-3 px-2 pb-3 rounded cursor-pointer">
+              
+              {{form_widget(form.logoFile)}}
+  
+            </div>
+  
+          {% endif %}
+  
+        </div>
+  
+      </div>
 
 
 {% endblock %}
+
+{% endembed %}
+
 
 
 {% block javascripts %}

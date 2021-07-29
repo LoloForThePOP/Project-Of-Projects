@@ -12,7 +12,7 @@
 
     {% block body %}
 
-        <div class="edit-structure-container container col-md-10 col-lg-6">
+        <div class="edit-structure-container container {{colWidths ?? 'col-md-10 col-lg-6' }} ">
 
             {# ui page title with potential advice collapsible #}
 
@@ -39,7 +39,7 @@
 
                         <!-- Collapsible Info Container -->
 
-                    <div id="collapseTutorial" class="collapse no-transition col-md-7 px-4 py-3 mb-4"
+                    <div id="collapseTutorial" class="collapse no-transition px-4 py-3 mt-2 mb-4"
                     style="background-color: lavender;">
 
                         {% block moreInfoContent %}{% endblock %}    

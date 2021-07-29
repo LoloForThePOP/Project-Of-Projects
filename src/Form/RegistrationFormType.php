@@ -22,7 +22,7 @@ class RegistrationFormType extends AbstractType
 
             ->add('userName', TextType::class, [
                 'label' => "Choisir un nom d'utilisateur",
-                'attr' => ['placeholder' => 'Ex: Michel Dupond; aviatorCorp; Lolo14...'],
+                'attr' => ['placeholder' => 'Ex: Michel Dupond; Aviator Organisation; Lolo14...'],
             ])
 
             ->add('email', EmailType::class, [

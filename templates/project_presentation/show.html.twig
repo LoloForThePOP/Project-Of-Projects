@@ -55,7 +55,7 @@
 
         {% if countSlides > 0  %}
 
-            <div class="pp-struct-container" style="all: initial;">
+            <div id="slideshow-struct-container" class="pp-struct-container">
                     
                 {% include 'project_presentation/_show/slides/slides.html.twig' %}
 
@@ -235,12 +235,10 @@
         
     {% endif %}
 
-    <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn mt-4" style="border-color: rgb(216, 216, 201);">
-        
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-question-lg mb-1" viewBox="0 0 16 16">
-            <path d="M3 4.075a.423.423 0 0 0 .43.44H4.9c.247 0 .442-.2.475-.445.159-1.17.962-2.022 2.393-2.022 1.222 0 2.342.611 2.342 2.082 0 1.132-.668 1.652-1.72 2.444-1.2.872-2.15 1.89-2.082 3.542l.005.386c.003.244.202.44.446.44h1.445c.247 0 .446-.2.446-.446v-.188c0-1.278.487-1.652 1.8-2.647 1.086-.826 2.217-1.743 2.217-3.667C12.667 1.301 10.393 0 7.903 0 5.645 0 3.17 1.053 3.001 4.075zm2.776 10.273c0 .95.758 1.652 1.8 1.652 1.085 0 1.832-.702 1.832-1.652 0-.985-.747-1.675-1.833-1.675-1.04 0-1.799.69-1.799 1.675z"/>
-        </svg>
+    <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn mt-5" style="border-color: rgb(216, 216, 201);">
 
+        <img class="mb-1" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
+        
         <span class="ps-1">Aide</span>
     
     </button>
@@ -252,11 +250,11 @@
 
     {% if userPresenter %}
 
-        <button id="pp-switch-edit-consult-mode" class="edition-mode" title="Switch between edition mode and consultation mode">👁
+        <button id="pp-switch-edit-consult-mode" title="Switch between edition mode and consultation mode">
 
-            {# <img id="pp-consult-icon" src="{{ asset('consult_mode.svg', 'pp_wysiwyg')}}" height="17" width="17"  alt="eye icon">
+            <img id="pp-consult-icon" class="pp-edition-mode" src="{{ asset('eye.svg', 'pp_wysiwyg')}}" height="30" width="30"  alt="eye icon">
 
-            <img id="pp-edit-icon" class="d-none" src="{{ asset('edit_mode.svg', 'pp_wysiwyg')}}" height="17" width="17"  alt="pen icon"> #}
+            <img id="pp-edit-icon" class="pp-consultation-mode" src="{{ asset('pen.svg', 'pp_wysiwyg')}}" height="30" width="30"  alt="pen icon">
 
         </button>
 

@@ -1,8 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page Utilisateur {% endblock %}
+{% block title %}Page Utilisateur{% endblock %}
 
 {% block body %}
+
+
+<div class="container">
+
+    <!-- User Name and Image Area -->
+
+    <div class="row mb-3 mb-md-4">
+
+        {# user image #}
+
+        <div class="col-auto pr-3 d-flex align-items-center justify-content-center">
+
+            <!-- user image -->
+
+                {% if user.persorg.image is not null %}
+
+                <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ user.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+
+            <!-- else default one letter image -->
+
+            {% else %}
+                                    
+                <div class="avatar-circle">
+
+                    <span class="initials">
+
+                        {{user.persorg.name | slice (0,1) | capitalize }}
+
+                    </span>
+
+                </div>
+
+                <style>
+
+                    /* One Letter Avatars */
+
+                    .avatar-circle {
+                        width: 60px;
+                        height: 60px;
+                        background-color: #27ae60;
+                    }
+
+                    
+                    .initials {
+                    
+                        top: 16px; /* 25% of parent */
+                        font-size: 40px; /* 50% of parent */
+                        line-height: 25px; /* 50% of parent */
+                        color: #fff;
+                        font-family: Georgia, 'Times New Roman', Times, serif;
+                        
+                    }
+                </style>
+            
+            {% endif %}
+
+        </div>
+
+        {# user name #}
+
+        <div class="col pl-0 ml-md-2 d-flex align-items-center">
+
+            <h3><b></b>{{user.username | capitalize}}</h3>
+
+        </div>
+
+    </div>
+
+</div>
+
 
     <div class="p-4">
 

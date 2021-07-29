@@ -25,6 +25,8 @@ framework:
                 base_path: /media/static/images/icons/business_card/
             popular_website_logo: 
                 base_path: /media/static/images/icons/popular_websites/
+            misc: 
+                base_path: /media/static/images/icons/miscellaneous/
             tutorial: 
                 base_path: /media/static/images/larger/tutorials/
                 

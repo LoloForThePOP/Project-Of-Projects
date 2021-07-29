@@ -8,6 +8,7 @@
 
         $(".pp-container").addClass("in-edition-mode");
 
+
         // make delete item icons appear when clicking on a trash icon        
     
         $(".show-delete-items-buttons").click(function() {
@@ -38,8 +39,6 @@
 
                 // entering consultation mode
 
-                $(this).html("✎");
-
                 //disabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', true);
 
@@ -48,8 +47,6 @@
             else{
 
                 //entering edition mode
-
-                $(this).html("👁");
 
                 //enabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', false);

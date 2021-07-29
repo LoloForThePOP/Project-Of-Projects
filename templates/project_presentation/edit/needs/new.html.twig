@@ -1,15 +1,24 @@
-{% extends 'base.html.twig' %}
+{% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+    {% block title %}Ajouter un besoin{% endblock %}
 
-{% block title %}Ajouter un Besoin{% endblock %}
+    {% block mainContentTitle %}Ajouter un besoin{% endblock %}
 
-{% block body %}
+    {% block collapsibleMoreInfo %}{% endblock %}
 
-    <div class="container p-0 p-md-3 pt-md-4">
-    
-        {{ include('/project_presentation/edit/needs/_form.html.twig') }}
+    {% block mainContent %}
 
-    </div>
+        {% include "project_presentation/edit/needs/_form.html.twig" %}
 
-{% endblock %}
+    {% endblock %}
+
+    {% block seeResultAnchor %}
+
+        needs
+        
+    {% endblock %}
+
+    {% block actionButtons %}{% endblock %}
+
+
+{% endembed %}

@@ -76,12 +76,11 @@
     border: none; 
     outline: none; /* Remove outline */
     background-color: #d6f0ca; 
-    color: rgb(0, 0, 0); /* Text color */
+    
     cursor: pointer; 
     padding: 16px; 
     border-radius: 50%; 
-    font-size: 18px; 
-
+    
 }
 
 
@@ -114,29 +113,6 @@ textarea:focus, input:focus{
 
     background-color: #fff;
     
-}
-
-
-.edit-slide-button{
-    top: 0;
-    right: 47px;
-    width:35px;
-    height:35px;
-    background-color: rgb(243, 243, 243);
-    border: 1px solid #c0c0ed;
-    border-radius: 4px;
-}
-
-
-@media screen and (max-width: 768px) {
-
-    .edit-slide-button{
-        top: 0;
-        right:40px;
-        width:30px;
-        height:30px;
-    }
-
 }
 
 

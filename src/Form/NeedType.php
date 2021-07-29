@@ -75,6 +75,8 @@ class NeedType extends AbstractType
                     'attr' => [
 
                         'placeholder'    => "Exemple : Nous recherchons un local pour pouvoir développer notre projet. L'idéal serait 30 m² au minimum, si possible à une distance raisonnable du centre ville.",
+
+                        'rows' => '7',
                     ],
                 ]
             )

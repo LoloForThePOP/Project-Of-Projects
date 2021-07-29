@@ -38,7 +38,7 @@
 
         <!-- Youtube Video Code Input-->
 
-        <div class="col-md-9 col-lg-5 mb-4">
+        <div class="mb-4">
 
             {{form_row(form.address)}}
 
@@ -46,12 +46,14 @@
 
         <!-- Youtube Video Caption Input-->
 
-        <div class="col-md-9 col-lg-5 mb-5">
+        <div class="mb-5">
 
             {{ form_row(form.caption) }}
 
         </div>
    
     {% endblock %}
+
+    {% block seeResultAnchor %}slides{% endblock %}
 
 {% endembed %}

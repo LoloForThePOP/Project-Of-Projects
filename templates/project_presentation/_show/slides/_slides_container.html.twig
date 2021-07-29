@@ -21,9 +21,13 @@
 
 		{% if userPresenter %}
 
-			{# Edit Slide Button #}
+			{# Edit Slide on slide click (only for large screens) #}
 			
-			<a class="absolute-edit-element-button edit-slide-button pp-edition-mode" href="{{path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}">
+			<a href="{{path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}" class="pp-edition-mode coverable-link d-none d-lg-block"></a>
+
+			{# Edit Slide Icon (only for small to medium screens) #}
+			
+			<a class="btn btn-sm edit-slide-button pp-edition-mode d-lg-none" href="{{path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}">
 
 				<img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 				

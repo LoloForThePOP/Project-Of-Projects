@@ -88,4 +88,52 @@
 
     </style>
 
+{% elseif userPresenter %} {# No title, we use a placeholder #}
+
+    <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
+
+        <div class="title-placeholder">
+            Titre du Projet
+        </div>
+        
+    </a>
+
+    <style>
+
+        .title-placeholder{
+
+            display: inline-block;
+            width: 400px;
+            margin-bottom: 13px;
+
+            color: #397ee7;
+            font-size: 24px;
+            font-weight: bold;
+            text-decoration: line-through;
+
+            cursor: pointer;
+            
+        }
+
+        .title-placeholder:hover {
+
+            background-color: rgb(237, 237, 248);
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .title-placeholder{
+
+                font-size: 20px;
+                margin-bottom: 14px;
+
+                width: 80%;
+
+            }
+
+        }
+
+
+    </style>
+
 {% endif %}

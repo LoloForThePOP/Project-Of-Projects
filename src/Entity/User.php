@@ -100,6 +100,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $persorg;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $userNameSlug;
+
 
     public function __construct()
     {
@@ -110,10 +115,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->messages = new ArrayCollection();
     }
 
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
+
 
     public function getEmail(): ?string
     {
@@ -133,6 +141,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @see UserInterface
      */
     public function getUserName(): string
+    {
+        return (string) $this->userName;
+    }
+
+    public function getUserIdentifier(): string
     {
         return (string) $this->userName;
     }
@@ -315,6 +328,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPersorg(?Persorg $persorg): self
     {
         $this->persorg = $persorg;
+
+        return $this;
+    }
+
+    public function getUserNameSlug(): ?string
+    {
+        return $this->userNameSlug;
+    }
+
+    public function setUserNameSlug(string $userNameSlug): self
+    {
+        $this->userNameSlug = $userNameSlug;
 
         return $this;
     }

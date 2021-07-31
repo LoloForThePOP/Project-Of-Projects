@@ -108,7 +108,7 @@
 
                 <li>
 
-                  <a class="dropdown-item" href="{{path("show_user_profile")}}">
+                  <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
                     Mes Projets présentés
                   </a>
 
@@ -125,7 +125,7 @@
 
                 <li>
 
-                  <a class="dropdown-item" href="{{path("show_user_profile")}}">
+                  <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
                     Mon Compte
                   </a>
 

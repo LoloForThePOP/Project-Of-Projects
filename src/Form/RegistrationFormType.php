@@ -26,7 +26,7 @@ class RegistrationFormType extends AbstractType
             ])
 
             ->add('email', EmailType::class, [
-                'label' => "Adresse E-mail",
+                'label' => "Adresse e-mail",
             ])
 
             ->add('plainPassword', PasswordType::class, [

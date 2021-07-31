@@ -29,6 +29,8 @@ framework:
                 base_path: /media/static/images/icons/miscellaneous/
             tutorial: 
                 base_path: /media/static/images/larger/tutorials/
+            persorgs: 
+                base_path: /media/static/images/larger/tutorials/
                 
     #esi: true
     #fragments: true

@@ -26,7 +26,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * @Vich\Uploadable
  * 
  */
-class Persorg
+class Persorg implements \Serializable
 {
     /**
      * @ORM\Id
@@ -388,6 +388,17 @@ class Persorg
         $this->contributorStructure = $contributorStructure;
 
         return $this;
+    }
+    
+    public function serialize()
+    {
+        return serialize($this->id);
+    }
+    
+    public function unserialize($serialized)
+    {
+    $this->id = unserialize($serialized);
+    
     }
 
 }

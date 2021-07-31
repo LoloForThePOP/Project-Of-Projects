@@ -5,86 +5,107 @@
 {% block body %}
 
 
-<div class="container">
+<div class="container col-md-10 col-lg-8 my-5 p-0 pb-3">
 
     <!-- User Name and Image Area -->
 
-    <div class="row mb-3 mb-md-4">
+    <div class="row mb-4">
 
         {# user image #}
 
         <div class="col-auto pr-3 d-flex align-items-center justify-content-center">
 
-            <!-- user image -->
+            <!-- user personalized image -->
 
-                {% if user.persorg.image is not null %}
+            {% if user.persorg.image is not empty %}
 
-                <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ user.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+            <img class="img-fluid" src="{{ vich_uploader_asset(user.persorg)  | imagine_filter('persorg_thumbnail_sm') }}" width="90" height="90">
 
             <!-- else default one letter image -->
 
             {% else %}
                                     
-                <div class="avatar-circle">
+                <div class="avatar-circle avatar-circle-100">
 
-                    <span class="initials">
+                    <span class="avatar-initial avatar-initial-100">
 
-                        {{user.persorg.name | slice (0,1) | capitalize }}
+                        {{user.userName | slice (0,1) | capitalize }}
 
                     </span>
 
                 </div>
 
-                <style>
-
-                    /* One Letter Avatars */
-
-                    .avatar-circle {
-                        width: 60px;
-                        height: 60px;
-                        background-color: #27ae60;
-                    }
-
-                    
-                    .initials {
-                    
-                        top: 16px; /* 25% of parent */
-                        font-size: 40px; /* 50% of parent */
-                        line-height: 25px; /* 50% of parent */
-                        color: #fff;
-                        font-family: Georgia, 'Times New Roman', Times, serif;
-                        
-                    }
-                </style>
-            
             {% endif %}
 
         </div>
 
         {# user name #}
 
-        <div class="col pl-0 ml-md-2 d-flex align-items-center">
+        <div class="col ps-0 ps-md-3 d-flex align-items-center">
 
-            <h3><b></b>{{user.username | capitalize}}</h3>
+            <h3><b>{{user.username}}</b></h3>
 
         </div>
 
     </div>
 
-</div>
+    <!-- End of User Name and Image Area -->
 
 
-    <div class="p-4">
 
-        {% if app.user %}
+    <!-- Actions Possibilities -->
 
-            {% set user = app.user %}
+    <div class="row mb-4">
 
-            User Name: {{user.userName}}
+        {% if user is same as(app.user) %}
             
-            {% if user.createdPresentations | length > 0 %}
+            <div class="mt-0 mt-md-3">
 
-                {% for presentation in user.createdPresentations %}
+                <a href="{{ path ('edit_public_profile')}} " class="btn btn-light me-3 mb-2">Mes informations publiques</a>
+
+                <a href="{{ path ('update_account_menu') }}" class="btn btn-light me-2 mb-2">Mon compte utilisateur</a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+    <!--End of Actions Possibilities -->
+
+
+
+    <!-- User Created Project Presentations -->
+    
+    <div class="row mb-5">
+        
+        {% if user.createdPresentations | length > 0 %}
+        
+        <div class="">
+
+                <!-- User CREATED Presentations Count -->
+
+                <h4 class="mb-4">
+
+                    <span class="fw-bold">
+
+                        {% if user.createdPresentations | length == 1 %}
+
+                            1 présentation créée
+
+                        {% else %}
+
+                            {{user.createdPresentations | length}} présentations créées
+
+                        {% endif %}
+
+                    </span>
+
+                </h4>
+
+                <!-- User CREATED presentations display -->
+
+                {% for presentation in user.createdPresentations | reverse %}
 
                     <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
 
@@ -96,10 +117,51 @@
 
                 {% endfor %}
 
-            {% endif %}
-        
+            </div>
+
         {% endif %}
 
     </div>
+
+    <!-- End of User Created Project Presentations -->
+
+
+   <!-- User Description --> 
+
+    <div class="row m-0 mb-4">
+        
+        <div class="col-md-11 col-lg-8 p-3 border border-primary rounded">
+                        
+            {% if not user.persorg.description %}
+
+                <span class="h5"> 
+                    Aucune description de profil n'a été renseignée. 
+                </span>   
+
+                {% if user is same as app.user %}
+
+                    <div class="h5"> 
+
+                        Vous pouvez remplir une description 
+                        
+                        <a class="h5" href=""> <span class="badge bg-primary">ici</span></a>
+
+                    </div>
+
+                {% endif %}
+
+            {% else %}
+            
+                {{ user.persorg.description | nl2br }}
+
+            {% endif %}
+                
+        </div>
+
+    </div>
+
+    <!-- end of User Description --> 
+
+</div>
 
 {% endblock %}

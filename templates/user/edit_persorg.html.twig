@@ -1,0 +1,171 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Informations publiques{% endblock %}
+
+{% block body %}
+
+    <div class="container px-0 px-md-3 col-md-10 col-lg-6 my-4 my-md-5">
+
+        <h3 class="fw-bold mb-3">Informations visibles par les autres utilisateurs</h3>
+
+        <div class="row">
+
+            <div class="">
+
+                <!-- Form Display -->
+
+                <div class="mt-4">
+
+                    {{ form_start(persorgForm) }}
+
+                    <!-- Persorg Name -->
+
+                    <div class="mb-5">
+
+                        <h4 class="fw-bold h5 mb-4">Votre nom d'utilisateur (ou celui de l'organisation que vous représentez)</h4>
+
+                        {{ form_widget(persorgForm.name) }}
+
+                    </div>
+
+                    <!-- Persorg Image -->
+
+                    <div class="mb-5 p-5" style="border:1px solid black;">
+
+                        <h5 class="mt-2 mb-5 fw-bold">Une photo, image ou logo ?</h5>
+
+                        <!-- If an image already exists, we display it -->
+
+                        {% if userPersorg.image is not null %}
+
+                            <img class="img-fluid mb-5" src="{{ asset('/images/persorgs/' ~ userPersorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+
+                        {% else %}
+                            
+                            {{ form_widget(persorgForm.imageFile) }}
+                                            
+                        {% endif %}
+
+                    </div>
+
+                    <div class="mb-5">
+
+                        <h4 class="fw-bold h5 mb-4">Une description de vous ou de votre organisation</h4>
+
+                        {{ form_widget(persorgForm.description) }}
+
+                    </div>
+
+                    <div class="mb-5">
+
+                        <h4 class="fw-bold h5 mb-4">Site web ou réseau social </h4>
+
+                        {{ form_widget(persorgForm.website1) }}
+
+                    </div>
+
+
+                    <!-- Other Websites -->
+
+                    
+                <!-- Form Set Event Dates (in a Collapsible) -->
+
+                    <div class="my-4">
+
+                        <!-- Collapsible Trigger Button -->
+    
+                        <div class="mt-4 mb-5">
+    
+                            <a class="btn btn-lg btn-light sharp" onclick="this.remove();" data-bs-toggle="collapse" href="#collapseOtherWebsites" role="button" aria-expanded="false" aria-controls="collapseOtherWebsites">Autres sites webs ou réseaux sociaux</a>
+    
+                        </div>
+    
+    
+                        <!-- Collapsible Other Websites Container -->
+    
+                        <div class="collapse" id="collapseOtherWebsites">
+                            
+                            <div class="mb-md-5">
+
+                                <h4 class="fw-bold h5 mb-4">Site web ou réseau social 2 </h4>
+        
+                                {{ form_widget(persorgForm.website2) }}
+        
+                            </div>
+        
+                            <div class="mb-md-5">
+        
+                                <h4 class="fw-bold h5">Site web ou réseau social 3 </h4>
+        
+                                {{ form_widget(persorgForm.website3) }}
+        
+                            </div>
+        
+                            <div class="mb-md-5">
+        
+                                <h4 class="fw-bold h5">Site web ou réseau social 4 </h4>
+        
+                                {{ form_widget(persorgForm.website4) }}
+        
+                            </div>
+    
+                        </div>
+    
+                    </div>
+
+                    {#
+                    <div class="mb-md-5">
+
+                        <h4 class="fw-bold h5">Adresse e-mail</h4>
+
+                        {{ form_widget(persorgForm.email) }}
+
+                    </div>
+
+                    #}
+
+                    <div class="d-none">
+
+                        {{ form_rest(persorgForm) }}
+
+                    </div>
+
+                    <!-- Action Buttons -->
+
+                    <div class="mt-4">
+
+                        <button class="btn btn-validate me-2">Enregistrer</button>
+    
+                        <a href="{{path('show_user_profile', {'userNameSlug': app.user.userNameSlug})}}">
+                            <button type="button" class="btn btn-go-back">Retour</button>
+                        </a>
+                        
+                    </div>
+
+                    {{ form_end(persorgForm) }}
+
+                </div> 
+
+            </div>
+
+        </div>
+        
+    </div>
+    
+{% endblock %}
+
+
+{% block javascripts %}
+
+  <script>
+    
+      $(document).ready(function(){
+
+        $(".form-check-label").html("Supprimer l'image");
+        $(".custom-file").addClass("mt-1").addClass("mb-4");
+
+      });
+
+  </script>
+
+{% endblock %}

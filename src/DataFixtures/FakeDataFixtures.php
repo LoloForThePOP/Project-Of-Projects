@@ -14,16 +14,19 @@ use App\Entity\Document;
 use App\Entity\ContributorStructure;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class FakeDataFixtures extends Fixture
 {
 
     protected $encoder;
+    protected $slugger;
 
-    public function __construct(UserPasswordEncoderInterface $encoder)
+    public function __construct(UserPasswordEncoderInterface $encoder, SluggerInterface $slugger)
     {
         $this->encoder = $encoder;
+        $this->slugger = $slugger;
     }
 
 
@@ -285,7 +288,8 @@ class FakeDataFixtures extends Fixture
         $admin = new User();
 
         $admin
-            ->setUsername('TestUserName')
+            ->setUserName('TestUserName')
+            ->setUserNameSlug(strtolower($this->slugger->slug($admin->getUserName())))
             ->setEmail('test@test.com')
             ->setPassword(
                 $this->encoder->encodePassword(
@@ -295,6 +299,14 @@ class FakeDataFixtures extends Fixture
             )
             ->setParameter('isVerified', true)
             ->setRoles(['ROLE_ADMIN']);
+
+
+        // admin avatar creation
+
+        $adminPersorg = new Persorg();
+        $adminPersorg->setName($admin->getUserName());
+        $admin->setPersorg($adminPersorg);
+
 
         $manager->persist($admin);
 
@@ -308,12 +320,19 @@ class FakeDataFixtures extends Fixture
 
             $user
                 ->setUsername($faker->userName())            
+                ->setUserNameSlug(strtolower($this->slugger->slug($user->getUserName())))            
                 ->setEmail($faker->email())
                 ->setPassword($this->encoder->encodePassword(
                     $admin,
                     'test'
                 ))
                 ->setParameter('isVerified', true);
+
+            // user avatar creation
+
+            $userPersorg = new Persorg();
+            $userPersorg->setName($user->getUserName());
+            $user->setPersorg($userPersorg);
 
             $manager->persist($user);
 

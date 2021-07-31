@@ -75,6 +75,7 @@
 /* One Letter Avatars */
 
 .avatar-circle {
+    position: relative;
     background-color: #27ae60;
     text-align: center;
     border-radius: 50%;
@@ -94,20 +95,22 @@
 
 
 .avatar-initial {
-    position: relative;
+    position: absolute;
     color: #fff;
     font-family: "Courier New", monospace;
     font-weight: bold;
 }
 
 .avatar-initial-50 {
-    top: 16px; /* 25% of parent */
+    top: 14px; /* 25% of parent */
+    left: 14px;
     font-size: 40px; /* 50% of parent */
     line-height: 25px; /* 50% of parent */
 }
 
 .avatar-initial-100 {
-    top: 35px; /* 25% of parent */
+    top: 31px; /* 25% of parent */
+    left: 27px;
     font-size: 80px; /* 50% of parent */
     line-height: 40px; /* 50% of parent */
 }

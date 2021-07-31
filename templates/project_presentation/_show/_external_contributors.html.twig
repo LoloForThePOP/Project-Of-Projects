@@ -75,64 +75,59 @@
 
                     {% block mainContent %}
 
-                        {# ecs thumbnails #}
+                        {# ecs thumbnails and add thumbnail button #}
 
-                        {% if ecs.persorgs | length > 0 %}
+                        <div id="persorgs{{ecs.id}}" class="js-elements-list pp-struct-content each-ecs-persorgs-container">
 
-                            <div id="persorgs{{ecs.id}}" class="js-elements-list pp-struct-content each-ecs-persorgs-container">
+                            {# Add a persorg button (mocks a thumbnail and trigger a form in a modal ) #}
 
-                                {# Add a persorg button (mocks a thumbnail and trigger a form in a modal ) #}
+                            <div data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="js-trigger-persorg-form-modal pp-edition-mode disabled add-persorg-card me-2">
 
-                                <div data-structure-id="{{ecs.id}}" data-bs-toggle="modal" data-bs-target="#add-persorg-modal" class="js-trigger-persorg-form-modal pp-edition-mode disabled add-persorg-card me-2">
+                                <div class="persorg-card" style="height: 200px;">
+                                    
+                                    <div class="h-100 d-flex align-items-center justify-content-center">
+                                                                
+                                        <div class="avatar-circle avatar-circle-100 mx-auto">
 
-                                    <div class="persorg-card" style="height: 200px;">
-                                        
-                                        <div class="h-100 d-flex align-items-center justify-content-center">
-                                                                    
-                                            <div class="avatar-circle avatar-circle-100 mx-auto">
+                                            <span class="avatar-initial avatar-initial-100">
 
-                                                <span class="avatar-initial avatar-initial-100">
+                                                +
 
-                                                    +
+                                            </span>
 
-                                                </span>
+                                        </div>
 
-                                            </div>
-
-                                        </div> 
-
-                                    </div>
+                                    </div> 
 
                                 </div>
-
-                                {% for persorg in ecs.persorgs %}
-
-                                <div id="{{persorg.id}}" class="js-sortable-element persorg-card">
-            
-                                    <!-- Persorg Card Content --> 
-            
-                                    {% include "persorgs/_card.html.twig" %}
-
-                                    {% if userPresenter %}
-                                    
-                                        {# Access edit page on click #}
-
-                                        <a href="{{path('edit_persorg', {'stringId': stringId, 'id_persorg': persorg.id})}}" class="pp-edition-mode coverable-link"></a>
-                                                                            
-                                        {# delete persorg (Red Cross) button #}
-
-                                        <button type="button" data-elements-type="persorgs" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{persorg.id}}">&times</button>    
-                                    
-                                    {% endif %}
-
-                                </div>
-                
-                                {% endfor %}
 
                             </div>
-                            
-                        {% endif %}
 
+                            {% for persorg in ecs.persorgs %}
+
+                            <div id="{{persorg.id}}" class="js-sortable-element persorg-card">
+        
+                                <!-- Persorg Card Content --> 
+        
+                                {% include "persorgs/_card.html.twig" %}
+
+                                {% if userPresenter %}
+                                
+                                    {# Access edit page on click #}
+
+                                    <a href="{{path('edit_persorg', {'stringId': stringId, 'id_persorg': persorg.id})}}" class="pp-edition-mode coverable-link"></a>
+                                                                        
+                                    {# delete persorg (Red Cross) button #}
+
+                                    <button type="button" data-elements-type="persorgs" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{persorg.id}}">&times</button>    
+                                
+                                {% endif %}
+
+                            </div>
+            
+                            {% endfor %}
+
+                        </div>
 
                         {# ecs rich text content with show more or less text capability #}
 
@@ -237,6 +232,7 @@
         padding : 0 20px 0 32px;
         margin-top: 10px;
         margin-bottom: 18px;
+        font-size: 1.14em;
     }
 
 

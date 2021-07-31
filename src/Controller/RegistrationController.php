@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Persorg;
 use App\Form\RegistrationFormType;
 use Symfony\Component\Mime\Address;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -10,9 +11,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class RegistrationController extends AbstractController
@@ -20,7 +22,7 @@ class RegistrationController extends AbstractController
     /**
      * @Route("/register", name="app_register")
      */
-    public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator): Response
+    public function register(Request $request, UserPasswordHasherInterface $passwordHasher, MailerInterface $mailer, TokenGeneratorInterface $tokenGenerator, SluggerInterface $slugger): Response
     {
         $user = new User();
         $form = $this->createForm(
@@ -40,15 +42,31 @@ class RegistrationController extends AbstractController
 
             // encode the plain password
             $user->setPassword(
-                $passwordEncoder->encodePassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+                $passwordHasher->hashPassword($user, $form->get('plainPassword')->getData()));
 
             // email validation
             // generate a token
             $token = $tokenGenerator->generateToken();
+
+                
+            // creating a unique username slug
+            $slug = strtolower($slugger->slug($user->getUserName()));
+
+            $slugs = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')->where('u.userNameSlug LIKE :slug')->setParameter('slug', $slug.'%')->getQuery()->getResult();
+
+            if (! empty($slugs)) {
+
+                $slug .= '-' . count($slugs); //this method does not work if user rows can be deleted + it does not provide reliable increment (ex : 1) My post -> my-post 2) My -> my-1 (instead of my))
+
+            }    
+
+            $user->setUserNameSlug($slug);  
+
+            // creating an user's public profile
+
+            $persorg = new Persorg();
+            $persorg->setName($user->getUserName());
+            $user->setPersorg($persorg);
 
             // save new user in database
             try {
@@ -58,6 +76,7 @@ class RegistrationController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
+
             } catch (\Exception $e) {
                 $this->addFlash('warning', $e->getMessage());
                 return $this->redirectToRoute('app_login');

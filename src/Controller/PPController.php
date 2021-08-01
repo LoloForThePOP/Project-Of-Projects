@@ -13,6 +13,7 @@ use App\Form\DataListType;
 use App\Form\DocumentType;
 use App\Form\ImageSlideType;
 use App\Form\BusinessCardType;
+use App\Form\DeleteEntityType;
 use App\Form\QuestionAnswerType;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
@@ -22,6 +23,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PPController extends AbstractController
@@ -380,6 +382,90 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
         ]);
     }
+
+
+
+    /**
+     * Allow to Delete a Project Presentation Page
+     * 
+     * @Route("/projects/{stringId}/delete", name="delete_presentation")
+     * 
+     * @return Response
+     */
+    public function delete(PPBase $presentation, Request $request)
+    {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        $confirmForm = $this->createForm(DeleteEntityType::class);
+
+        $confirmForm->handleRequest($request);
+
+        if ($confirmForm->isSubmitted() && $confirmForm->isValid()){
+
+            $this->addFlash(
+                'success',
+                "✅ Présentation supprimée."
+            );
+
+            return $this->redirectToRoute('homepage', [
+                
+            ]);
+
+        }
+
+        return $this->render('/project_presentation/delete.html.twig', [
+
+            'presentation' => $presentation,            
+            'stringId' => $presentation->getStringId(),
+            'form' => $confirmForm->createView(),
+        ]);
+
+    }
+
+
+        
+    /** 
+     * Allow to ajax switch some presentation settings
+     * 
+     * @Route("/projects/{stringId}/ajax-switch-setting", name="ajax_switch_presentation_setting") 
+     * 
+    */ 
+
+    public function ajaxSwitchSetting(Request $request, PPBase $presentation,EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        if ($request->isXmlHttpRequest()) {
+
+            $settingItem = $request->request->get('settingItem');
+            $jsonSwitchState = $request->request->get('switchState');
+
+            $switchState = json_decode($jsonSwitchState,true);
+
+            switch ($settingItem) {
+
+                case 'publish-presentation-switch':
+                    
+                    $presentation->setIsPublished($switchState);
+                    break;
+                
+                default:
+                    
+                    break;
+            }
+
+            $manager->flush();
+          
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+
+    }
+
+
 
     /**
      * Allow to Display a Project Presentation Edition Menu

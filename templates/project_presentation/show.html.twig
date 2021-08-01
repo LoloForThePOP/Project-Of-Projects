@@ -230,6 +230,18 @@
                 {% include "project_presentation/_show/_non_default_structures_menu.html.twig" %}
 
             {% endif %}
+
+            {# Presentation Manage Parameters Button #}
+
+            <div class="pp-edition-mode col-6">
+
+                {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "settings", 'addElementModal':"#pp-settings", 'label': "Réglages" } %}
+
+            </div>
+
+             {# menu displayed in a modal #}
+                
+             {% include "project_presentation/edit/_settings.html.twig" %}
             
         </div>
 

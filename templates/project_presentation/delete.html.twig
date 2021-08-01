@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer un Projet{% endblock %}
+
+{% block body %}
+
+    {#
+        
+        Processus :
+
+            - js : we ask user to confirm presentation deletion by typing 'confirm'
+
+            - js : we check if user typed 'confirm' (javascript). If so, form validation event is not prevented.
+        
+    #}
+
+    <div class="container pt-md-4">
+
+        <div class="row mt-5">
+
+            <div class="col-md-7">
+
+                <div class="h4 fw-bold mb-4">
+                    Supprimer la présentation
+                </div>
+
+                <h4 class="mb-4">{{ presentation.goal | length > 32 ? presentation.goal | slice(0, 49) ~ '...' : presentation.goal }}</h4>
+
+                {{ form_start(form) }}
+            
+            
+                {{ form_widget(form) }}
+
+                {# Delete Presentation Button #}
+
+                <button id="deleteProjectLink" onclick="confirmDeletion()" class="btn btn-danger mb-2 me-3">Supprimer</button>
+
+                {# Back Button #}
+
+                <a class="text-decoration-none text-white" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
+                    
+                    <button type="button" class="btn btn-go-back mb-2 me-2">Annuler</button>
+                
+                </a>
+
+                {{ form_end(form) }}
+
+                        
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+        function confirmDeletion() {
+
+            var userConfirmation = prompt("Attention, cette action est irréversible. Pour confirmer, écrire confirmer", "Écrire ici");
+
+            if (userConfirmation !== "confirmer" && userConfirmation !== "Confirmer") {
+                
+                event.preventDefault();
+            } 
+
+        }
+
+    </script>
+
+{% endblock %}

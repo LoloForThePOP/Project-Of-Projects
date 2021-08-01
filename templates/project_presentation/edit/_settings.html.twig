@@ -1,0 +1,216 @@
+{# Modal Box for Project Presentation Parameters #}
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-settings", 'modal_title': "Réglages"} %}
+
+    {% macro menuButton(route, iconFile, iconAlt, title) %}
+                    
+        <div class="menu-button row">
+                        
+            <!-- Icon first Column-->
+                            
+            <div class="icon-container col-auto">
+                
+                <img class="" src="{{ asset(iconFile, 'pp_edit')}}" alt="{{iconAlt}}" width="30" height="30">
+                
+            </div>
+
+            <!-- Title Second Column -->
+            
+            <div class="title-container col">
+
+                {{title}}
+
+            </div>
+
+        </div>
+
+    {% endmacro %}
+
+    {# Menu Button Display #}
+
+    {% block modalBody %}
+
+        <div class="container">
+
+            <div class="row justify-content-around">
+
+                <a href="{{path ('delete_presentation', {'stringId': stringId})}}" class="text-decoration-none">
+
+                    {{ _self.menuButton("route", "delete.svg","delete icon", "Supprimer la présentation") }}
+
+                </a>
+
+            </div>
+
+            <div class="h5 fw-bold">
+
+                <span class="pe-2">Non</span>
+              
+                <input type="checkbox" id="publish-presentation-switch" class="toggle-switch" /><label for="publish-presentation-switch">Publish presentation switch</label>
+            
+                <span class="ps-2">Oui</span>
+
+            </div>              
+
+
+        </div>
+
+    {% endblock %}
+
+    {% block footerButtons %}
+
+    {% endblock %}
+
+{% endembed %}
+
+{% block javascripts %}
+
+<script>
+
+    $(document).ready(function(){ 
+
+        $('input[type=checkbox].toggle-switch').change(
+
+            function(event){
+
+                var settingItem = $(this).attr('id');
+
+                var switchState;
+
+                if (this.checked) {
+
+                    switchState = true;
+                }
+
+                else {
+
+                    switchState = false;
+
+                }
+
+                 
+                $.ajax({
+
+                    url: "{{path ('ajax_switch_presentation_setting', {'stringId': presentation.stringId}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "settingItem": settingItem,
+                        "switchState": switchState,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        console.log('Ajax request failed.');  
+                    }  
+
+                });
+
+            }
+
+        );
+        
+    });  
+
+</script>
+
+{% endblock %}
+
+
+<style>
+    
+    .menu-button {
+
+        width:200px;
+        height:100px;
+        
+        margin-bottom: 10px;
+        margin-top: 10px;
+
+        border: 1px solid #dee2e6 !important;
+        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+        border-radius: 4px;
+
+        cursor: pointer;
+    }
+
+    .icon-container {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    
+    }
+
+    .title-container {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 0;
+
+        text-align: center;
+        
+        font-weight: bold;
+    
+    }
+
+
+
+
+
+    /* Toggle Switch Buttons */
+
+    input[type=checkbox]{
+        height: 0;
+        width: 0;
+        visibility: hidden;
+    }
+    
+    label {
+        cursor: pointer;
+        text-indent: -9999px;
+        width: 84px;
+        height: 37px;
+        background: #e74c3c;
+        display: block;
+        border-radius: 6px;
+        position: relative;
+        
+    }
+    
+    label:after {
+        content: '';
+        position: absolute;
+        top: -3px;
+        left: 5px;
+        width: 15px;
+        height: 43px;
+        background: #fff;
+        border-radius: 4px;
+        transition: 0.3s;
+        border : 1px solid black;
+    }
+    
+    input:checked + label {
+        background: #18bc9c;
+    }
+    
+    input:checked + label:after {
+        left: calc(100% - 5px);
+        transform: translateX(-100%);
+    }
+    
+    label:active:after {
+        width: 130px;
+    }
+    
+
+</style>

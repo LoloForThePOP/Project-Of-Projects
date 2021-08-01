@@ -15,6 +15,10 @@ framework:
     assets:
         base_path: /media/static/images/
         packages:
+            icons:
+                base_path: /media/static/images/icons/
+            pp_edit:
+                base_path: /media/static/images/icons/edit_presentation/
             pp_wysiwyg: 
                 base_path: /media/static/images/icons/edit_presentation/wysiwyg/
             pp_edition_menu: 

@@ -1,5 +1,5 @@
 
-<h4 class="pp-goal 
+<h4 class="pp-goal edit-hoverable-item 
     {% if presentation.title is empty %} untitledProject
     {% endif %}
 ">
@@ -11,13 +11,13 @@
     {% if userPresenter %}
 
 
-    
-
         <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
-            <img class="edit-icon ms-md-2" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+            <img class="edit-icon d-lg-none ms-md-2" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
             
         </a>
+
+        <a class="pp-edition-mode coverable-link" href="{{ path ('edit_pp_base', {'stringId': presentation.stringId}) }}"></a>
 
     {% endif %}
 
@@ -29,6 +29,7 @@
 
     .pp-goal{
         display: inline-block;
+        position: relative;
         font-size: 1.45em;
         font-family: Tahoma, Geneva, Verdana, sans-serif;
     }

@@ -20,7 +20,7 @@
                 
                 {# Logo Column #} {# when fake logo placeholder, it is only displayed for userPresenter (so we add pp-edition-mode class) #}
 
-                <div class="pp-logo-container {% if not presentation.logo and userPresenter %} pp-edition-mode {% endif %}">
+                <div class="pp-logo-container edit-hoverable-item {% if not presentation.logo and userPresenter %} pp-edition-mode {% endif %}">
 
                     {% include 'project_presentation/_show/_upper_box/_logo.html.twig' %}
 
@@ -107,13 +107,6 @@
 
     }
 
-    .pp-title{
-        display: inline-block;
-    }
-
-    .pp-goal{
-        display: inline-block;
-    }
 
 
         

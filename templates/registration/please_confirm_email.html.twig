@@ -6,16 +6,20 @@
 
   <div class="row align-items-center g-5 py-5">
 
-    <div class="col-lg-6">
+    <div class="col-md-6">
 
-      <h3 class="display-5 fw-bold lh-1 mb-3">Merci pour votre inscription</h3>
+      <h4 class="fw-bold lh-1 mb-3">Dernière étape : confirmer votre adresse e-mail</h4>
 
-      <p class="lead">Un e-mail de confirmation vous a été envoyé à l'adresse <br>
+      <p class="lead">Un e-mail vous a été envoyé à l'adresse <br>
 
-        <span class="fs-4"><b>{{userEmailToConfirm}}</b></span>
+        <span class="fs-4"><b>{{userEmailToConfirm}}</b></span> <br>
+
+        Ouvrez le pour vous connecter sur le site. 
+
+      </p>
 
       <p>
-
+        
         Note : si vous ne recevez pas votre e-mail d'ici à quelques minutes :
 
       </p>
@@ -32,10 +36,10 @@
 
     </div>
     
-    <div class="col-12 col-lg-6">
+    <div class="col-12 col-md-6" style="background-color: #c9dfe7;">
 
-      <img src="https://www.place-hold.it/700x500" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
-        loading="lazy" width="700" height="500">
+      <img src="{{ asset('account/confirm_email.png', 'larger')}}" class="d-block mx-lg-auto img-fluid" alt="Person receive an email"
+        loading="lazy" width="350" height="350">
 
     </div>
 

@@ -2,27 +2,37 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
-class UpdateEmailType extends AbstractType
+class EmailFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-        ->add('email', EmailType::class, [
-            'label' => "Adresse e-mail",
-        ])
+            ->add(
+                'email',
+                EmailType::class,
+                [
+                    'label' => 'Écrire votre adresse email :',
+
+                    'attr' => [
+
+                        'placeholder'    => '',
+                    ],
+
+                    'required'   => true,
+                ]
+            )
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            // Configure your form options here
         ]);
     }
 }

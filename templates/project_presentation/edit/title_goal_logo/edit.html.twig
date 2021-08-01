@@ -47,7 +47,7 @@
   
         <!-- Project Logo Edition -->
   
-        <div class="col-md-5 col-lg-4 p-3 bg-light border border-warning">
+        <div class="col-md-5 col-lg-6 p-3 bg-light border border-warning">
   
           <!-- Form Logo Label -->
   
@@ -63,16 +63,15 @@
   
             <div class="row mx-md-1 border rounded alert bg-white text-body">
   
-              <div class="col-md-auto mb-sm-2 mb-md-0">
+              <div class="col-md-auto d-flex align-items-center justify-content-center align mb-sm-2 mb-md-0">
   
                   <div class="d-inline-block position-relative">
   
-                    <div class="m-0 p-0 d-flex align-items-center justify-content-center ">
+                    <div class="m-0 p-0 ">
   
-                      <img class="d-block" src="/media/uploads/pp/logos/{{presentation.logo}}" style="min-width:100px; min-height:100px;max-width:150px; max-height:150px" alt="">
+                      <img class="d-block" src="{{vich_uploader_asset(presentation)}}" style="min-width:100px; min-height:100px; max-width:150px; max-height:150px" alt="">
   
                     </div>
-  
   
                   </div>
   
@@ -82,9 +81,9 @@
   
                 <div class="row d-inline-block">
                   
-                    <div class="h5 fw-bold my-2">
+                    <div class="h5 fw-bold my-4">
   
-                      Changer
+                      Changer le logo
   
                     </div>
   
@@ -129,7 +128,8 @@
 
       // delete logo label : english to french translation
 
-      $(".form-check-label").html("Supprimer");
+      $(".form-check-label").html("Supprimer le logo");
+      $(".form-check").addClass("my-4");
 
     });
 

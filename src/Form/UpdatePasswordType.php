@@ -23,7 +23,7 @@ class UpdatePasswordType extends AbstractType
 
                     'attr' => [
                             
-                        'placeholder'    => 'Votre ancien mot de passe"',
+                        'placeholder'    => 'Votre ancien mot de passe',
                     ],
 
                     'required'   => true,

@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\EmailFormType;
 use App\Repository\UserRepository;
 use Symfony\Component\Mime\Address;
-use App\Form\ForgottenPasswordRequestType;
 use App\Form\ForgottenPasswordCreationType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 class ResetUserPasswordController extends AbstractController
@@ -22,19 +22,19 @@ class ResetUserPasswordController extends AbstractController
 
     /**
      * 
-     * forgotten password : user request an email with reset page link
+     * forgotten password : user provides her email and receive an email with reset password token. 
      * 
      * @Route("/forgotten-password-request", name="forgotten_password_request")
      * 
      */
-    public function forgottenPass(
+    public function forgottenPassword(
         Request $request,
         UserRepository $userRepo,
         TokenGeneratorInterface $tokenGenerator,
         MailerInterface $mailer
     ): Response {
 
-        $form = $this->createForm(ForgottenPasswordRequestType::class);
+        $form = $this->createForm(EmailFormType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,7 +60,7 @@ class ResetUserPasswordController extends AbstractController
                 return $this->redirectToRoute('app_login');
             }
 
-            // On génère l'URL de réinitialisation de mot de passe
+            // Password re-initialisation link
             $url = $this->generateUrl('forgotten_password_create', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
             // send an email to verify user adress
@@ -99,7 +99,7 @@ class ResetUserPasswordController extends AbstractController
      * @Route("/forgotten-password-create-new/{token}", name="forgotten_password_create")
      * 
      */
-    public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPassword(Request $request, string $token, UserPasswordHasherInterface  $hasher)
     {
 
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(['resetPasswordToken' => $token]);
@@ -124,7 +124,7 @@ class ResetUserPasswordController extends AbstractController
             // encoding new user password
 
             $user->setPassword(
-                $passwordEncoder->encodePassword(
+                $hasher->hashPassword(
                     $user,
                     $form->get('newPassword')->getData()
                 )

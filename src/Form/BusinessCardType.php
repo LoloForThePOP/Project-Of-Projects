@@ -3,10 +3,11 @@
 namespace App\Form;
 
 
-use App\Form\ImageUploadType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Valid;
+use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Constraints\Email;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
@@ -31,6 +32,18 @@ class BusinessCardType extends AbstractType
                     ],
 
                     'required'   => true,
+
+                    'constraints' => array(
+                        new \Symfony\Component\Validator\Constraints\NotBlank(['message' => 'Veuillez ne pas laisser ce champ vide.']),
+                        new \Symfony\Component\Validator\Constraints\Length(
+                            [
+                                "min" => 2,
+                                "max" => 250,
+                                "minMessage" => "Le nom doit contenir au minimum {{ limit }} caractères",
+                                "maxMessage" => "Le nom doit contenir au maximum {{ limit }} caractères",
+                            ]
+                        ),
+                    )
                 ]
             )
 
@@ -47,6 +60,10 @@ class BusinessCardType extends AbstractType
                     ],
 
                     'required'   => false,
+
+                    'constraints' => array(
+                        new \Symfony\Component\Validator\Constraints\Email(['message' => 'Veuillez saisir une adresse e-mail valide']),
+                    )
                 ]
             )
 
@@ -80,6 +97,11 @@ class BusinessCardType extends AbstractType
 
                     'required'   => false,
 
+                    'constraints' => array(
+
+                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Veuillez utiliser une addresse web valide']),
+                    )
+
                  
                 ]
             )
@@ -96,6 +118,11 @@ class BusinessCardType extends AbstractType
                     ],
 
                     'required'   => false,
+
+                    'constraints' => array(
+
+                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Veuillez utiliser une addresse web valide']),
+                    )
 
                  
                 ]

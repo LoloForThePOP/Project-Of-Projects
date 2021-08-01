@@ -19,7 +19,7 @@
             
                 {# Add an external contributor structure button (triggers a modal) #}
             
-                <button type="button" data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" class="pp-edition-mode btn btn-light btn-sm me-2">+ Nouvelle partie</button> 
+                <button type="button" data-bs-toggle="modal" data-bs-target="#add_ecs_form_modal" class="pp-edition-mode btn btn-light btn-sm me-3">+ Nouvelle partie</button> 
 
                 {# button to access reorder ecs when more than two ecs #}
 
@@ -27,7 +27,7 @@
 
                     <a href="{{path('manage_all_ecs', {'stringId': stringId})}}" class="text-decoration-none">
                         
-                        <button type="button" class="pp-edition-mode btn btn-light btn-sm" aria-label="Manage Order and Titles Button">
+                        <button type="button" class="pp-edition-mode btn btn-light btn-sm me-3" aria-label="Manage Order and Titles Button">
 
                             <img src="{{ asset('settings.svg', 'pp_wysiwyg')}}" alt="Manage Order and Titles Icon" height="17px">
 
@@ -65,7 +65,7 @@
                     
                         {# Manage ecs button (title; thumbnails; rich text; deletion) #}
 
-                        <a class="pp-edition-mode text-decoration-none me-2" href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
+                        <a class="pp-edition-mode text-decoration-none me-3" href="{{path('manage_one_cs', {'stringId': stringId, 'id_cs': ecs.id,})}}">
 
                             <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
         

@@ -20,15 +20,12 @@
     display: initial;
 }
 
-.pp-add-element-button{
-    margin-right: 10px;
-}
 
-
+/* This class is applied when we want an editable zone to react on mouse hover */
 
 .in-edition-mode .edit-hoverable-item:hover {
     cursor: pointer;
-    background-color: #eff5ff;
+    background-color: #e0ecff;
     border-radius: 6px;
 }
 
@@ -98,22 +95,6 @@ textarea:focus, input:focus{
     outline: none;
 }
 
-.absolute-edit-element-button{
-
-    position: absolute; 
-    bottom:0; 
-    right:0; 
-    
-    display: flex !important; 
-    justify-content:center; 
-    align-items: center;
-    
-    width:30px; 
-    height:30px;
-
-    background-color: #fff;
-    
-}
 
 
 /* Media Queries */
@@ -123,12 +104,6 @@ textarea:focus, input:focus{
     .edit-icon{
         width: 16px;
         height: 16px;
-    }
-
-    .absolute-edit-element-button{
-        width:22px;
-        height:22px;
-        
     }
 
 }

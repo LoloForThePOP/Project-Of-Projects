@@ -2,7 +2,7 @@
 
 {% if presentation.keywords is not empty %}
 
-    <div class="pp-keywords text-left" >
+    <div class="pp-keywords edit-hoverable-item text-left" >
 
         <!-- Project Keywords Display -->
 
@@ -24,9 +24,11 @@
 
             <a class="pp-edition-mode ms-3 ms-md-0" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">
 
-                <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+                <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
                 
             </a>
+
+            <a class="pp-edition-mode coverable-link" href="{{ path ('edit_pp_base', {'stringId': presentation.stringId}) }}"></a>
 
         {% endif %}
 
@@ -38,6 +40,8 @@
     <style>
 
         .pp-keywords{
+
+            position: relative;
 
             font-size: 18px;
             font-weight: bold;

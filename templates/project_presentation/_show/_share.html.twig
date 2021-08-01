@@ -1,0 +1,68 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-share", 'modal_title': "Partager cette présentation", 'modal_size': "modal-lg"} %}
+
+    {% block modalBody %}
+
+        <div class="">
+
+            <p class="fs-15">
+                
+                Pour faire connaître ce projet, copiez son adresse et partagez-là.
+
+                <br><br>
+
+                <span class="mr-2">Voici son adresse :</span>
+
+                <input id="presentationAbsoluteURL" value="{{ url('show_presentation', {"stringId": presentation.stringId}) }}" size="50">
+
+                </input>
+
+                <br>
+                <br>
+
+                <button type="button" onclick="copyToClipboard('presentationAbsoluteURL', 'copyURLFeedbackBox', 'Adresse copiée ✅')" class="btn btn-light fw-bold me-3" style="border:2px solid orange !important">Copier cette adresse</button>
+
+                <span id="copyURLFeedbackBox" class="fw-bold"></span>
+
+                
+    
+            </p>
+
+        </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+
+<script>
+
+    function copyToClipboard(elementId, feedbackId, feedbackMessage) {
+
+        /* Get the text field */
+        var copyText = document.getElementById(elementId);
+    
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+    
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+    
+        var feedback = document.getElementById(feedbackId);
+        feedback.innerHTML = feedbackMessage;   
+
+    } 
+
+</script>
+
+<style>
+    
+    #pp-share input {
+
+        border: none;
+        background-color: inherit;
+        font-weight: bold;
+    }
+
+
+</style>

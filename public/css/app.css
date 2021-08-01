@@ -9,6 +9,11 @@
     background-color: #ecf0f1;
 }
 
+.invalid-feedback{
+    font-size: 1.15em;
+    font-weight: bold;
+}
+
 /* Extend Bootstrap 5 */
 
 .sharp {
@@ -148,3 +153,6 @@ label, legend {
     color: white;
 }
 
+.btn-validate:hover, .btn-go-back:hover{
+    color: #fff;
+}

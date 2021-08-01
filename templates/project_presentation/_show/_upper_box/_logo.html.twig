@@ -7,13 +7,15 @@
 
     <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
-        <div class="absolute-edit-element-button ">
+        <div class="logo-edit-icon-position d-lg-none">
 
             <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 
         </div>
         
     </a>
+
+    <a class="pp-edition-mode coverable-link" href="{{ path ('edit_pp_base', {'stringId': presentation.stringId}) }}"></a>
 
 
 {% else %}
@@ -32,6 +34,19 @@
     #pp-logo{
         
         border-radius: 4px;
+    }
+
+    .logo-edit-icon-position{
+
+        position: absolute; 
+        bottom:0; 
+        right:0; 
+        
+        width:30px; 
+        height:30px;
+
+        background-color: #fff;
+    
     }
 
     #logoPlaceholder{
@@ -61,6 +76,13 @@
             border-radius: 4px;
             width: 55px;
             height: 55px;
+        }
+
+        .logo-edit-icon-position{
+        
+            width:22px;
+            height:22px;
+        
         }
 
 

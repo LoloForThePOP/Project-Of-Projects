@@ -4,8 +4,9 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\PersorgType;
-use App\Form\UpdateEmailType;
-use App\Form\RegistrationFormType;
+use App\Form\EmailFormType;
+use App\Form\UpdatePasswordType;
+use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -79,7 +80,7 @@ class RegisteredUserController extends AbstractController
      * 
      * @return Response
      */
-    public function accessUpdateAccountMenu(Request $request, EntityManagerInterface $manager){
+    public function accessUpdateAccountMenu(){
 
         return $this->render('user/update_account_menu.html.twig',[
         ]);
@@ -100,7 +101,7 @@ class RegisteredUserController extends AbstractController
 
         $user = $this->getUser();
 
-        $form = $this->createForm(UpdateEmailType::class, $user);
+        $form = $this->createForm(EmailFormType::class, $user);
 
         $form->handleRequest($request);
 
@@ -123,19 +124,15 @@ class RegisteredUserController extends AbstractController
         ]);
     }
 
-
-    
     
     /**
      * Allow user to update his password
      * 
      * @Route("/account/update-password",name="update_account_password")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @return Response
      */
     public function updatePassword(Request $request, UserPasswordHasherInterface $hasher, EntityManagerInterface $manager){
-
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $user = $this->getUser();
         
@@ -143,17 +140,39 @@ class RegisteredUserController extends AbstractController
 
         $form->handleRequest($request);
 
-        return $this->render('/user/update_password.html.twig',[
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            // check if user has given his current correct password
+            
+            if (!$hasher->isPasswordValid(
+                    $user, 
+                    $form->get('oldPassword')->getData()
+                )
+            ){
+                $form->get('oldPassword')->addError(new FormError("Il faut écrire ici votre mot de passe actuel"));
+
+            }else{ //set new password
+
+                $newPassword = $form->get('newPassword')->getData();
+                $hash = $hasher->hashPassword($user, $newPassword);
+                $user->setPassword($hash);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    'Votre Mot de Passe a été Modifié avec Succès'
+                );
+
+                return $this->redirectToRoute('homepage');
+            }
+        }
+
+        return $this->render('user/update_account_password.html.twig',[
             'form' => $form->createView(),
             
         ]);
 
     }
-
-
-
-
-
-
     
 }

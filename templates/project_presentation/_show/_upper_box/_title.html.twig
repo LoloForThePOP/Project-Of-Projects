@@ -8,7 +8,7 @@
 
         <!-- Project Title Display -->
 
-        <h3 class="pp-title mb-0 d-inline-block" >
+        <h3 class="pp-title edit-hoverable-item mb-0" >
             
             {% if presentation.title | length > 79 %}
 
@@ -38,9 +38,11 @@
 
                 <a class="pp-edition-mode text-decoration-none" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
-                    <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+                    <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 
                 </a>
+
+                <a class="pp-edition-mode coverable-link" href="{{ path ('edit_pp_base', {'stringId': presentation.stringId}) }}"></a>
 
             {% endif %}
 
@@ -53,6 +55,10 @@
     <style>
 
         .pp-title{
+
+            display: inline-block;
+
+            position: relative;
 
             color:navy !important;
             font-family: Tahoma, Geneva, Verdana, sans-serif;

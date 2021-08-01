@@ -27,9 +27,9 @@ framework:
                 base_path: /media/static/images/icons/popular_websites/
             misc: 
                 base_path: /media/static/images/icons/miscellaneous/
+            larger: 
+                base_path: /media/static/images/larger/
             tutorial: 
-                base_path: /media/static/images/larger/tutorials/
-            persorgs: 
                 base_path: /media/static/images/larger/tutorials/
                 
     #esi: true

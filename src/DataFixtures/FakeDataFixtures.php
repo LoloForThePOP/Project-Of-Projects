@@ -44,7 +44,7 @@ class FakeDataFixtures extends Fixture
 
         switch ($type) {
             case 'person':
-                $persorg->setName($faker->setName());
+                $persorg->setName($faker->name());
                 $persorg->setImage($personImages[array_rand($personImages)]);
                 break;
             
@@ -54,13 +54,12 @@ class FakeDataFixtures extends Fixture
                 break;
             
             default:
-                $persorg->setName($faker->setName());
+                $persorg->setName($faker->name());
                 break;
         }
 
         $description = $faker->boolean(50) ? $faker->paragraphs(mt_rand(1,3), true) : null;
         $email = $faker->boolean(50) ? $faker->email() : null;
-        $missions = $faker->boolean(20) ? $faker->words(mt_rand(1,7), true) : null;
         $website1 = $faker->boolean(50) ? $faker->url() : null;
         $website2 = $faker->boolean(30) ? $faker->url() : null;
         $website3 = $faker->boolean(20) ? $faker->url() : null;
@@ -71,7 +70,6 @@ class FakeDataFixtures extends Fixture
         
         $persorg->setEmail($email)
                 ->setDescription($description)
-                ->setMissions($missions)
                 ->setWebsite1($website1)
                 ->setWebsite2($website2)
                 ->setWebsite3($website3)
@@ -301,12 +299,12 @@ class FakeDataFixtures extends Fixture
             ->setRoles(['ROLE_ADMIN']);
 
 
-        // admin avatar creation
+        // admin's avatar creation
 
         $adminPersorg = new Persorg();
-        $adminPersorg->setName($admin->getUserName());
-        $admin->setPersorg($adminPersorg);
-
+        $hydratedPersorg = FakeDataFixtures::hydratePersorg($adminPersorg, 'person');
+        $hydratedPersorg->setName($admin->getUserName());
+        $admin->setPersorg($hydratedPersorg);
 
         $manager->persist($admin);
 
@@ -372,7 +370,7 @@ class FakeDataFixtures extends Fixture
 
             $textDescription = null;
 
-            if ($faker->boolean(75)) {
+            if ($faker->boolean(85)) {
 
                 $paragraphsCount = mt_rand(1, 5);
 

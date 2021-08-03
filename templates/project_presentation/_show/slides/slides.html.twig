@@ -53,24 +53,10 @@
 	<div id="slides" class="">
 
 		<!-- Caption Container -->
+					
+		<div class="caption-container col-lg-9 d-flex align-items-center" >
 
-		{# If at least one caption is set, we display caption container #}					
-		<div 
-		
-			class="caption-container col-lg-9 d-none"
-
-				{% for slide in presentation.slides %}
-
-					{% if slide.caption is not empty %}
-											
-						style="display: flex !important; align-items: center;"
-
-					{% endif %}
-				
-				{% endfor %}
-		>
-
-			{# caption are displayed from clicks on slides thumbnails (thumbnail alt attribute) #}	
+			{# caption are displayed from event "click on a slides thumbnails" (thumbnail img alt attribute) #}	
 	
 			<p id="caption" class="">
 

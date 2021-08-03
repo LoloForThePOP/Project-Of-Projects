@@ -12,15 +12,27 @@
 
             <div class="container">
 
-                <!-- to do : Edit Emails Reception Preferences button -->
-    
-                <!-- change account email button -->
+                <div class="mb-3">
 
-                <a href="{{ path ('update_account_email') }}" class="btn btn-primary fw-bold me-3 my-2">Modifier l'e-mail de mon compte</a>
-    
-                <!-- change password button -->
+                    <!-- access update account email -->
 
-                <a href="{{ path ('update_account_password') }}" class="btn btn-primary fw-bold me-2 my-2">Modifier mon mot de passe</a>
+                    <a href="{{ path ('update_account_email') }}" class="btn btn-primary fw-bold me-3 my-2">Modifier l'e-mail de mon compte</a>
+        
+                    <!-- access change password -->
+
+                    <a href="{{ path ('update_account_password') }}" class="btn btn-primary fw-bold me-2 my-2">Modifier mon mot de passe</a>
+
+                </div>
+
+                <div class="">
+
+                    <!-- access other possibilities -->
+
+                    <a href="" class="btn btn-light fw-bold me-2 my-2">Autres possibilités</a>
+
+                </div>
+
+    
 
             </div>
 

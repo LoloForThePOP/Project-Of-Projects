@@ -15,6 +15,7 @@ use App\Form\ImageSlideType;
 use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
 use App\Form\QuestionAnswerType;
+use App\Service\DeletePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use App\Form\ContributorStructureType;
@@ -392,7 +393,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function delete(PPBase $presentation, Request $request)
+    public function delete(PPBase $presentation, Request $request, DeletePresentation $deletePresentationService)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -403,14 +404,14 @@ class PPController extends AbstractController
 
         if ($confirmForm->isSubmitted() && $confirmForm->isValid()){
 
+            $deletePresentationService->removePresentation($presentation);
+
             $this->addFlash(
                 'success',
                 "✅ Présentation supprimée."
             );
 
-            return $this->redirectToRoute('homepage', [
-                
-            ]);
+            return $this->redirectToRoute('homepage', []);
 
         }
 

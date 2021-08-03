@@ -42,8 +42,8 @@ class Slide
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      *  @Assert\Image(
-     *     maxSize = "1500k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
+     *     maxSize = "4500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 4500 k",
      *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif", "image/apng", "image/webp", "image/x-ms-bmp", "image/bmp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )

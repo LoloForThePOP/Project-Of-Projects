@@ -80,11 +80,6 @@ class AccessPresentationVoter extends Voter
             return false;
         }
 
-        // if presentation has been deleted, other users can not view it
-        if ($presentation->getIsDeleted()) {
-            return false;
-        }
-
         return true;
     }
 }

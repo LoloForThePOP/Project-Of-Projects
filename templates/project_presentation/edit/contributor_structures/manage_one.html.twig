@@ -36,13 +36,6 @@
 
         {% endif %}
 
-            
-        {# update ECS Title Button #}
-
-        <a class="text-decoration-none" href="{{ path('update_ecs_title', {'stringId': stringId, 'id_ecs': cs.id}) }}">
-            <button type="button" class="btn text-body mb-4" style="background-color:#c5d7e6; color:white;">Modifier le titre</button>
-        </a>
-
     </div>
 
     <!-- Add a Persorg Form (displayed in a modal box) -->
@@ -63,6 +56,17 @@
 
 {% endblock %}
 
+{% block specificButtons %}
+
+    {# update ECS Title Button #}
+
+    <a class="text-decoration-none" href="{{ path('update_ecs_title', {'stringId': stringId, 'id_ecs': cs.id}) }}">
+        <button type="button" class="btn btn-lg text-body mb-4" style="background-color:#c5d7e6; color:white;">Modifier le titre</button>
+    </a>
+
+{% endblock %}
+
+   
 {% block seeResultAnchor %}cs-{{cs.id}}{% endblock %}
 
 

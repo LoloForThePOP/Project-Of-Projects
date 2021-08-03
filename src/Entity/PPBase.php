@@ -237,6 +237,7 @@ class PPBase implements \Serializable
         return $this->id;
     }
 
+
     public function getGoal(): ?string
     {
         return $this->goal;

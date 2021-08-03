@@ -35,6 +35,26 @@ class PersorgType extends AbstractType
                 ]
             )
 
+            
+            ->add(
+                'imageFile',
+                VichImageType::class, 
+
+                array(
+
+                    'label' => 'Une photo, une image, ou un logo ?',
+
+                    'required' => false,
+                    'allow_delete' => true,
+                    'download_label' => false,
+                    'download_uri' => false,
+                    'image_uri' => false,
+                    'asset_helper' => true,
+
+                )
+
+            )
+
             ->add(
                 'description',
                 TextareaType::class, 
@@ -43,7 +63,9 @@ class PersorgType extends AbstractType
 
                     'attr' => [
                         
-                        'placeholder'    => 'Exemple : aime la lecture, la musique, et la marche.',
+                        'placeholder'    => "Exemple (cas d'une personne) : Aime la lecture, la musique, et la marche. Autre exemple (cas d'une organisation) : Leader dans le domaine de la construction écologique.",
+
+                        'rows' => '4',
                     ],
 
                     'required'   => false,
@@ -51,25 +73,10 @@ class PersorgType extends AbstractType
             )
 
             ->add(
-                'missions', 
-                TextType::class, 
-                    [
-                        'label' => 'Missions, Rôle dans l\'équipe',
-
-                        'attr' => [
-                            
-                            'placeholder'    => 'Écrire ici',
-                        ],
-
-                        'required'   => false,
-                    ]
-                )
-
-            ->add(
                 'email',
                 EmailType::class, 
                 [
-                    'label' => 'Email',
+                    'label' => 'Une adresse e-mail ?',
 
                     'attr' => [
                         
@@ -84,7 +91,7 @@ class PersorgType extends AbstractType
                 'website1',
                 UrlType::class, 
                 [
-                    'label' => 'Réseau Social ou Site Web 1',
+                    'label' => 'Réseau social ou site web',
 
                     'attr' => [
                         
@@ -99,7 +106,7 @@ class PersorgType extends AbstractType
                 'website2',
                 UrlType::class, 
                 [
-                    'label' => 'Réseau Social ou Site Web 2',
+                    'label' => 'Réseau social ou site web 2',
 
                     'attr' => [
                         
@@ -114,7 +121,7 @@ class PersorgType extends AbstractType
                 'website3',
                 UrlType::class, 
                 [
-                    'label' => 'Réseau Social ou Site Web 3',
+                    'label' => 'Réseau social ou site web 3',
 
                     'attr' => [
                         
@@ -129,7 +136,7 @@ class PersorgType extends AbstractType
                 'website4',
                 UrlType::class, 
                 [
-                    'label' => 'Réseau Social ou Site Web 4',
+                    'label' => 'Réseau social ou site web 4',
 
                     'attr' => [
                         
@@ -190,26 +197,7 @@ class PersorgType extends AbstractType
 
             )
 
-            ->add(
-                'imageFile',
-                VichImageType::class, 
-
-                array(
-
-                    'label' => 'Choisir une image, un logo, ou une photo',
-
-                    'required' => false,
-                    'allow_delete' => true,
-                    'download_label' => false,
-                    'download_uri' => false,
-                    'image_uri' => false,
-                    'asset_helper' => true,
-
-                )
-
-            )
-
-            // Storing Potential
+            // Storing Potential Parent Structure
                         
             ->add('parentStuctureId', HiddenType::class, 
                 [

@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\PersorgType;
 use App\Form\EmailFormType;
+use App\Form\DeleteEntityType;
 use App\Form\UpdatePasswordType;
+use App\Service\DeletePresentation;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -74,7 +77,7 @@ class RegisteredUserController extends AbstractController
       /**
      * Allow user to access update account possibilities menu
      * 
-     * @Route("account/update-menu",name="update_account_menu")
+     * @Route("user/account/update-menu",name="update_account_menu")
      * 
      * @Security("is_granted('ROLE_USER')")
      * 
@@ -128,7 +131,7 @@ class RegisteredUserController extends AbstractController
     /**
      * Allow user to update his password
      * 
-     * @Route("/account/update-password",name="update_account_password")
+     * @Route("/user/account/update-password",name="update_account_password")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @return Response
      */
@@ -161,7 +164,7 @@ class RegisteredUserController extends AbstractController
 
                 $this->addFlash(
                     'success',
-                    'Votre Mot de Passe a été Modifié avec Succès'
+                    'Votre mot de passe a été modifié avec succès'
                 );
 
                 return $this->redirectToRoute('homepage');
@@ -174,5 +177,56 @@ class RegisteredUserController extends AbstractController
         ]);
 
     }
+
+
+    
+    /**
+     * Allow user to delete her account
+     * 
+     * @Route("/user/account/delete",name="delete_account")
+     * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
+     * @return Response
+     */
+    public function deleteAccount(Request $request, EntityManagerInterface $manager, DeletePresentation $deletePresentationService){
+        
+        $form=$this->createForm(DeleteEntityType::class);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $user = $this->getUser();
+
+            foreach ($user->getCreatedPresentations() as $presentation) {
+                $deletePresentationService->removePresentation($presentation);
+            }
+
+            $manager->remove($user);
+
+            $manager->flush($user);
+
+            $session = $this->get('session');
+            $session = new Session();
+            $session->invalidate();
+                   
+            $this->addFlash(
+                'success',
+                'Votre compte a été supprimé.'
+            );
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('user/delete_account.html.twig',[
+            'form' => $form->createView(),
+            
+        ]);
+
+    }
+
+
+
+
+
     
 }

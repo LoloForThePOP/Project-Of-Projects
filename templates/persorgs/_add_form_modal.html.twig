@@ -8,7 +8,7 @@
 
       <div class="modal-header">
 
-        <h5 class="modal-title" id="add-persorg-modal-label">Ajouter une vignette</h5>
+        <h5 class="modal-title" id="add-persorg-modal-label">Ajout d'une vignette</h5>
 
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 
@@ -18,7 +18,39 @@
 
         <div class="modal-body">
 
-          {{ form_widget(persorgForm) }}
+          {{ form_row(persorgForm.name) }}
+          {{ form_row(persorgForm.imageFile) }}
+          {{ form_row(persorgForm.website1) }}
+
+          {# Add other websites collapsible #}
+          
+          <div>
+
+              <!-- Collapsible Trigger Button -->
+
+              <div class="my-3">
+
+                  <a class="btn btn-light" onclick="this.remove();" data-bs-toggle="collapse" href="#collapseOtherWebsites" role="button" aria-expanded="false" aria-controls="collapseOtherWebsites">+ Ajouter des sites webs ou réseaux sociaux</a>
+
+              </div>
+
+              <!-- Collapsible Other Websites Container -->
+
+              <div class="collapse" id="collapseOtherWebsites">
+                  
+                {{ form_row(persorgForm.website2) }}
+                {{ form_row(persorgForm.website3) }}
+                {{ form_row(persorgForm.website4) }}
+
+              </div>
+
+          </div>
+
+          {{ form_row(persorgForm.email) }}
+          {{ form_row(persorgForm.postalMail) }}
+          {{ form_row(persorgForm.tel1) }}
+          {{ form_row(persorgForm.tel2) }}
+          {{ form_row(persorgForm.description) }}
             
         </div>
 
@@ -43,20 +75,21 @@
 
   </div>
   
+  
+  
+  {% if not persorgForm.vars.valid %}
 
-  <script>
+    <script>
 
-    $(document).ready(function(){
+      $(document).ready(function(){
 
-      // if form errors are detected, we have to trigger modal box display
+        // if form errors are detected, we have to trigger modal box display
 
-      {% if not persorgForm.vars.valid %}
+        $('#add-persorg-modal').modal('show');
 
-          $('#add-persorg-modal').modal('show');
-
-      {% endif %}
-
-    });
+      });
 
 
-  </script>
+    </script>      
+  
+  {% endif %}

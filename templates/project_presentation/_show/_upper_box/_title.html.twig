@@ -11,24 +11,8 @@
         <h3 class="pp-title edit-hoverable-item mb-0" >
             
             {% if presentation.title | length > 79 %}
-
-                {% apply spaceless %}
-
-                    <span class="cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">
-                        
-                        {{presentation.title[:1] | upper ~ presentation.title[1:] | slice (0,79)}}
-                    
-                    </span>
-                    
-                    <span class="collapse cursor-pointer" id="collapsedProjectTitle">
-                        
-                        {{presentation.title [80:] }}
-                    
-                    </span>
-                    
-                    <span class="title-collapse-hide-me cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">... ▼</span>
-
-                {% endapply %}
+            
+                <span class="cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">{{presentation.title[:1] | upper ~ presentation.title[1:] | slice (0,79)}}</span><span class="collapse cursor-pointer" id="collapsedProjectTitle">{{presentation.title [80:] }}</span><span class="title-collapse-hide-me cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">... ▼</span>
 
             {% else %}
 

@@ -4,49 +4,50 @@
 
 {% block body %}
 
-    <div class="container px-0 mt-4 mt-md-5">
+    <div class="container col-md-9 col-lg-6 px-0 mt-4 mt-md-5">
 
-        <div class="row">
+        <h3 class="text-success fw-bold mb-4">Nous Contacter</h3>
 
-            <div class="col-lg-7">
+        <p class="h5 mb-4">
+            Pour toute question, problème, ou remarque, utilisez le formulaire ci-dessous. Nous vous recontacterons dans les délais les plus brefs.
+        </p>
 
-                <h3 class="mb-4 fw-bold">Nous Contacter</h3>
+        <div class="contact-form row mb-4 ">
 
-                <p class="h5 mb-4">
-                    Pour toute question, problème, ou remarque, utilisez le formulaire ci-dessous.
-                </p>
+            {{form_start(form)}}
 
-                <div class="row mb-4 ">
-
-                    {{form_start(form)}}
-    
-                    {{form_widget(form)}}
-        
-                </div>
-
-                <!-- Actions Buttons -->
-    
-                <div class="">
-    
-                    <button type="submit" value="" class="btn btn-success me-2 mb-2">
-                        <span class="">Envoyer le message</span> 
-                    </button>
-    
-                    <a href="{{path('homepage')}}">
-                        <button type="button" value="" class="btn btn-info mb-2">
-                            <span class="">Retour Accueil</span> 
-                        </button>
-                    </a>
-    
-                </div>
-                
-                {{form_end(form)}}
-
-
-            </div>
+            {{form_widget(form)}}
 
         </div>
 
+        <!-- Actions Buttons -->
+
+        <div class="">
+
+            <button type="submit" value="" class="btn btn-validate me-2 mb-2">
+                <span class="">Envoyer le message</span> 
+            </button>
+
+            <a href="{{path('homepage')}}">
+                <button type="button" value="" class="btn btn-go-back mb-2">
+                    <span class="">Retour Accueil</span> 
+                </button>
+            </a>
+
+        </div>
+        
+        {{form_end(form)}}
+
     </div>
+
+
+    <style>
+
+        .contact-form label{
+            font-size: 1.1em;
+            color:rgb(26, 26, 56);
+        }
+
+    </style>
 
 {% endblock %}

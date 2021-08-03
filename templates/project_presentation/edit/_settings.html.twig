@@ -2,30 +2,6 @@
 
 {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-settings", 'modal_title': "Réglages"} %}
 
-    {% macro menuButton(route, iconFile, iconAlt, title) %}
-                    
-        <div class="menu-button row">
-                        
-            <!-- Icon first Column-->
-                            
-            <div class="icon-container col-auto">
-                
-                <img class="" src="{{ asset(iconFile, 'pp_edit')}}" alt="{{iconAlt}}" width="30" height="30">
-                
-            </div>
-
-            <!-- Title Second Column -->
-            
-            <div class="title-container col">
-
-                {{title}}
-
-            </div>
-
-        </div>
-
-    {% endmacro %}
-
     {# Menu Button Display #}
 
     {% block modalBody %}
@@ -33,25 +9,59 @@
         <div class="container">
 
             <div class="row justify-content-around">
+                
+                <div class="menu-button py-3 fw-bold">
 
-                <a href="{{path ('delete_presentation', {'stringId': stringId})}}" class="text-decoration-none">
+                    <h6 class="text-primary text-center fw-bold" style="font-size: normal;">Publier la présentation</h6>
 
-                    {{ _self.menuButton("route", "delete.svg","delete icon", "Supprimer la présentation") }}
+                    <div class="d-flex justify-content-center">
 
-                </a>
+                        <div>
+
+                            <span class="">Non</span>
+                    
+                            <input type="checkbox" id="publish-presentation-switch" class="toggle-switch" {% if presentation.isPublished %} checked {% endif %} /><label class="toggle-switch-label" for="publish-presentation-switch">Publish presentation switch</label>
+                        
+                            <span class="ps-2">Oui</span>
+
+                        </div>
+                        
+                      
+
+                    </div>
+
+
+                </div> 
+
+                <div class="menu-button row">
+                    
+                        <!-- Icon first Column-->
+                                        
+                        <div class="icon-container col-auto">
+                            
+                            <a href="{{path ('delete_presentation', {'stringId': stringId})}}" class="text-decoration-none">
+                            
+                                <img class="" src="{{ asset("delete.svg", 'pp_edit')}}" alt="Delete symbol" width="30" height="30">
+                            </a>
+
+                        </div>
+
+                        <!-- Title Second Column -->
+                        
+                        <div class="title-container col">
+
+                            
+                            <a href="{{path ('delete_presentation', {'stringId': stringId})}}" class="text-decoration-none">
+
+                                Supprimer la présentation
+                            
+                            </a>
+
+                        </div>
+
+                </div>
 
             </div>
-
-            <div class="h5 fw-bold">
-
-                <span class="pe-2">Non</span>
-              
-                <input type="checkbox" id="publish-presentation-switch" class="toggle-switch" /><label for="publish-presentation-switch">Publish presentation switch</label>
-            
-                <span class="ps-2">Oui</span>
-
-            </div>              
-
 
         </div>
 
@@ -121,96 +131,3 @@
 </script>
 
 {% endblock %}
-
-
-<style>
-    
-    .menu-button {
-
-        width:200px;
-        height:100px;
-        
-        margin-bottom: 10px;
-        margin-top: 10px;
-
-        border: 1px solid #dee2e6 !important;
-        box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
-        border-radius: 4px;
-
-        cursor: pointer;
-    }
-
-    .icon-container {
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    
-    }
-
-    .title-container {
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        padding: 0;
-
-        text-align: center;
-        
-        font-weight: bold;
-    
-    }
-
-
-
-
-
-    /* Toggle Switch Buttons */
-
-    input[type=checkbox]{
-        height: 0;
-        width: 0;
-        visibility: hidden;
-    }
-    
-    label {
-        cursor: pointer;
-        text-indent: -9999px;
-        width: 84px;
-        height: 37px;
-        background: #e74c3c;
-        display: block;
-        border-radius: 6px;
-        position: relative;
-        
-    }
-    
-    label:after {
-        content: '';
-        position: absolute;
-        top: -3px;
-        left: 5px;
-        width: 15px;
-        height: 43px;
-        background: #fff;
-        border-radius: 4px;
-        transition: 0.3s;
-        border : 1px solid black;
-    }
-    
-    input:checked + label {
-        background: #18bc9c;
-    }
-    
-    input:checked + label:after {
-        left: calc(100% - 5px);
-        transform: translateX(-100%);
-    }
-    
-    label:active:after {
-        width: 130px;
-    }
-    
-
-</style>

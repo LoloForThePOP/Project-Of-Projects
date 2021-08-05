@@ -59,7 +59,7 @@
   
           <!-- Case a Logo already Exist -->
   
-          {% if presentation.logo %}
+          {% if not presentation.logo is empty %}
   
             <div class="row mx-md-1 border rounded alert bg-white text-body">
   

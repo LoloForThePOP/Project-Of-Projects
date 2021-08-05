@@ -183,7 +183,7 @@ class RegisteredUserController extends AbstractController
     /**
      * Allow user to delete her account
      * 
-     * @Route("/user/account/delete",name="delete_account")
+     * @Route("/user/account/delete", name="delete_account")
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @return Response
      */

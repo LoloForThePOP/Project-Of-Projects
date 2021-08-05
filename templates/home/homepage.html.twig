@@ -4,73 +4,102 @@
 
 {% block body %}
 
-<div class="" style="padding-bottom: 30px;">
-
-  <div class="container col-xxl-8 px-4">
     
-    <!-- Last Inserted Presentations -->
+    {% if app.user %} {# Displaying user presentations #}
 
-  <div class="container px-1 px-md-3 pt-md-5">
+      {% set user_presentations = app.user.createdPresentations %}
 
-    <h3 class="fw-bold mb-3" style="color: navy;">
-      Derniers projets présentés
-    </h3>
+      {% if user_presentations %}
+              
+        <div class="">
 
-    <div class="mt-4">
+          <!-- User CREATED Presentations Count -->
 
-      {% for presentation in lastInsertedPresentations %}
-          
-        <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
+          <h3 class="fw-bold mb-4" style="color: navy;">
 
-          <h5 class="mb-2">
-            {{presentation.title}}
-          </h5>
+            {% if user_presentations | length == 1 %}Mon projet présenté
+            
+            {% else %}Mes {{user_presentations | length}} projets présentés
 
-        </a>
+            {% endif %}
 
-      {% endfor %}
+          </h3>
 
-    </div>
+          <!-- User CREATED presentations display -->
+
+          {% for presentation in user_presentations | reverse %}
+
+              <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
+
+                  <h5 class="mb-2">
+                      {{presentation.goal}}
+                  </h5>
       
-  </div>
+              </a>
 
-    {# Jumbotron #}
-
-    {#
-      <div class="row flex-lg-row-reverse align-items-center g-5 py-5">
-
-        <div class="col-12 col-md-8 col-lg-6">
-
-          <img src="https://www.place-hold.it/700x500" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
-            loading="lazy" width="700" height="500">
+          {% endfor %}
 
         </div>
+          
+      {% endif %}
+  
+    {% else %} {# User not logged in : displaying homepage jumbotron #}
 
-        <div class="col-lg-6">
+      {% embed "utilities/jumbotron_skeleton.html.twig" %}
 
-          <h1 class="display-5 fw-bold lh-1 mb-3">La carte de visite de votre projet</h1>
+        {% block image %}
+
+          <img src="{{asset ('website/homepage_jumbotron3.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="430" height="360">
+
+        {% endblock %}
+
+        {% block text %}
+
+          <h1 class="jumbotron-title display-5 lh-1">La carte de visite de votre projet</h1>
 
           <p class="lead">
-            Vous souhaitez faire connaître votre Projet ? Créez la carte de visite de votre projet ! Elle
-            concentre et toutes les informations utiles à partager, et s'affiche correctement sur tous les appareils.
-            Donnez son adresse aux personnes qui aimeraient connaître votre projet. C'est simple, rapide, et gratuit.
+            Si vous souhaitez faire connaître votre Projet, créez la carte de visite de votre projet. <b>Elle concentre toutes les informations utiles à partager, et s'affiche correctement sur tous les écrans</b>. C'est simple, rapide, et gratuit.
           </p>
-
+    
           <div class="d-grid gap-2 d-md-flex justify-content-md-start pt-3">
-
-            <button type="button" class="btn btn-secondary btn-lg fw-bold px-4 me-md-2">Voir un Exemple</button>
-
-            <a href="{{path('create_presentation')}}"><button type="button" class="btn btn-primary btn-lg fw-bold px-4">Ajouter un Projet</button></a>
-
+    
+            <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Voir un Exemple</button>
+    
+            <a href="{{path('create_presentation')}}"><button type="button" class="jumbotron-btn btn btn-primary">Ajouter un Projet</button></a>
+    
           </div>
+        
+        {% endblock %}
 
-        </div>
+      {% endembed %}
+
+    {% endif %}
+
+
+    {#In any case : Last Inserted Presentations #}
+
+    <div>
+
+      <h3 class="fw-bold mb-3" style="color: navy;">
+        Derniers projets présentés
+      </h3>
+
+      <div class="mt-4">
+
+        {% for presentation in lastInsertedPresentations %}
+            
+          <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
+
+            <h5 class="mb-2">
+              {{presentation.title}}
+            </h5>
+
+          </a>
+
+        {% endfor %}
 
       </div>
-    #}
-
-  </div>
-
-</div>
+        
+    </div>
 
 {% endblock %}

@@ -55,7 +55,7 @@
 
     <!-- Actions Possibilities -->
 
-    <div class="row mb-4">
+    <div class="row mb-5">
 
         {% if user is same as(app.user) %}
             
@@ -130,7 +130,7 @@
 
     <div class="row m-0 mb-5">
         
-        <div class="col-md-11 col-lg-8 p-3 border border-primary rounded">
+        <div class="user-persorg-description col-md-11 col-lg-8 p-3 border border-primary rounded">
                         
             {% if not user.persorg.description %}
 
@@ -165,23 +165,61 @@
 
     <!-- User Websites --> 
 
-    <div class="row mb-4">
+    {% if user.persorg.website1 is not empty or user.persorg.website2 is not empty %}
 
-        <h4>Sites web ou réseaux sociaux</h4>
+        <div class="row mb-4">
 
-        {% if user.persorg.website1 is not empty %}
+            <h4 class="fw-bold mb-4">Sites web ou réseaux sociaux</h4>
 
+            <div class="ms-md-4">
 
-        {% endif %}
+                {% if user.persorg.website1 is not empty %}
 
+                    <a class="user-persorg-website" href="{{user.persorg.website1}}" target="_blank">{{user.persorg.website1}}</a>
 
+                {% endif %}
 
+                {% if user.persorg.website2 is not empty %}
 
-    </div>
+                    <a class="user-persorg-website" href="{{user.persorg.website2}}" target="_blank">{{user.persorg.website2}}</a>
 
+                {% endif %}
 
-    <!-- end of User Description --> 
+                {% if user.persorg.website3 is not empty %}
+
+                    <a class="user-persorg-website" href="{{user.persorg.website3}}" target="_blank">{{user.persorg.website3}}</a>
+
+                {% endif %}
+
+                {% if user.persorg.website4 is not empty %}
+
+                    <a class="user-persorg-website" href="{{user.persorg.website4}}" target="_blank">{{user.persorg.website4}}</a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    
+    {% endif %}
+
+    <!-- end of User Websites --> 
 
 </div>
+
+<style>
+
+    .user-persorg-description{
+        font-size: 1.1em;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+    }
+
+    .user-persorg-website{
+        font-size: 1.1em;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        text-decoration: none;
+    }
+
+</style>
 
 {% endblock %}

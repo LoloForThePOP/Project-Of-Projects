@@ -2,7 +2,7 @@
 
 namespace App\Service;
 
-class TreatOtherComponentItem {
+class TreatItem {
 
     /**
     * When a presentation structure is created or updated (ex: an image is added), we might do some routine task (ex: reduce image size). This class gather these tasks.

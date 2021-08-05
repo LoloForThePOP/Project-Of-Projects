@@ -12,7 +12,7 @@
 
             <div class="container">
 
-                <div class="mb-3">
+                <div class="mb-4">
 
                     <!-- access update account email -->
 
@@ -24,11 +24,24 @@
 
                 </div>
 
+                <!-- Other possibilities -->
+
                 <div class="">
 
-                    <!-- access other possibilities -->
+                    <!-- Access other possibilities trigger collapsible -->
 
-                    <a href="" class="btn btn-light fw-bold me-2 my-2">Autres possibilités</a>
+
+                    <a class="btn btn-light" onclick="this.remove();" data-bs-toggle="collapse" href="#collapseOtherPossibilities" role="button" aria-expanded="false">Autres possibilités</a>
+
+                    <!-- Collapsible Other Possibilities Container -->
+
+                    <div class="collapse" id="collapseOtherPossibilities">
+
+                        <!-- access delete user account page -->
+
+                        <a href="{{path ("delete_account")}}" class="btn btn-danger fw-bold me-2 my-2">Suppression du compte utilisateur</a>
+
+                    </div>
 
                 </div>
 

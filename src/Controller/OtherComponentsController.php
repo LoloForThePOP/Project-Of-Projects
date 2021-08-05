@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PPBase;
 use App\Repository\PPBaseRepository;
-use App\Service\TreatOtherComponentItem;
+use App\Service\TreatItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -57,7 +57,7 @@ class OtherComponentsController extends AbstractController
      * 
      * @Route("/projects/{stringId}/other-components/{component_type}/", name="manage_other_components")
      */
-    public function manage(PPBase $presentation, $component_type, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager): Response
+    public function manage(PPBase $presentation, $component_type, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -116,7 +116,7 @@ class OtherComponentsController extends AbstractController
      * 
      * @Route("/projects/{stringId}/other_components/{component_type}/{item_id}", name="update_other_components_item")
      */
-    public function update(PPBase $presentation, $component_type, $item_id, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager): Response
+    public function update(PPBase $presentation, $component_type, $item_id, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);

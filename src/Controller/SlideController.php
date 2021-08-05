@@ -6,6 +6,7 @@ use App\Entity\Slide;
 use App\Entity\PPBase;
 use App\Form\ImageSlideType;
 use App\Form\AddVideoSlideType;
+use App\Service\CacheThumbnail;
 use App\Repository\SlideRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,49 +20,14 @@ class SlideController extends AbstractController
     /**
      * @Route("/projects/{stringId}/slides/", name="manage_slides", priority="3")
      */
-    public function manage(PPBase $presentation, Request $request, EntityManagerInterface $manager): Response
+    public function manage(PPBase $presentation): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
-        // add image slide form (add youtube slide treated in another method of this controller)
-
-        $imageSlide = new Slide();
-
-        $imageSlide->setType('image');
-
-        $addImageForm = $this->createForm(ImageSlideType::class, $imageSlide);
-
-        $addImageForm->handleRequest($request);
-
-        if ($addImageForm->isSubmitted() && $addImageForm->isValid()) {
-
-            $imageSlide->setPosition(count($presentation->getSlides()));
-
-            $presentation->addSlide($imageSlide);
-
-            $manager->persist($imageSlide);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "✅ Image ajoutée"
-            );
-
-            return $this->redirectToRoute(
-                'manage_slides',
-                [
-
-                    'stringId' => $presentation->getStringId(),
-
-                ]
-            );
-        }
-
         return $this->render('project_presentation/edit/slides/manage.html.twig', [
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
-            'addImageForm' => $addImageForm->createView(),
         ]);
     }
     
@@ -117,7 +83,7 @@ class SlideController extends AbstractController
      * 
      * @return Response
      */
-    public function addYoutubeSlide(PPBase $presentation, Request $request, EntityManagerInterface $manager)
+    public function addYoutubeSlide(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -135,11 +101,12 @@ class SlideController extends AbstractController
             // count previous slide in order to set new slides positions
 
             $videoSlide->setPosition(count($presentation->getSlides()));
-
-            $videoSlide->setPresentation($presentation);
+            $presentation->addSlide($videoSlide);
             $manager->persist($videoSlide);
 
-            $manager->flush();
+            $cacheThumbnail->cacheThumbnail($presentation);
+
+            $manager->flush();            
 
             $this->addFlash(
                 'success',

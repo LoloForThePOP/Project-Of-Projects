@@ -15,7 +15,7 @@ use App\Entity\ContributorStructure;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class FakeDataFixtures extends Fixture
 {
@@ -23,7 +23,7 @@ class FakeDataFixtures extends Fixture
     protected $encoder;
     protected $slugger;
 
-    public function __construct(UserPasswordEncoderInterface $encoder, SluggerInterface $slugger)
+    public function __construct(UserPasswordHasherInterface $encoder, SluggerInterface $slugger)
     {
         $this->encoder = $encoder;
         $this->slugger = $slugger;
@@ -290,7 +290,7 @@ class FakeDataFixtures extends Fixture
             ->setUserNameSlug(strtolower($this->slugger->slug($admin->getUserName())))
             ->setEmail('test@test.com')
             ->setPassword(
-                $this->encoder->encodePassword(
+                $this->encoder->hashPassword(
                     $admin,
                     'test'
                 )
@@ -320,7 +320,7 @@ class FakeDataFixtures extends Fixture
                 ->setUsername($faker->userName())            
                 ->setUserNameSlug(strtolower($this->slugger->slug($user->getUserName())))            
                 ->setEmail($faker->email())
-                ->setPassword($this->encoder->encodePassword(
+                ->setPassword($this->encoder->hashPassword(
                     $admin,
                     'test'
                 ))
@@ -329,6 +329,13 @@ class FakeDataFixtures extends Fixture
             // user avatar creation
 
             $userPersorg = new Persorg();
+
+            if ($faker->boolean(70)) { // some users fill their profile
+                
+                $userPersorg = FakeDataFixtures::hydratePersorg($userPersorg, 'person');
+
+            }
+
             $userPersorg->setName($user->getUserName());
             $user->setPersorg($userPersorg);
 

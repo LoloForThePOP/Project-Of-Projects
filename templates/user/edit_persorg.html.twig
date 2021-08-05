@@ -36,15 +36,16 @@
 
                         <!-- If an image already exists, we display it -->
 
-                        {% if userPersorg.image is not null %}
+                        {% if userPersorg.image is not empty %}
 
-                            <img class="img-fluid mb-5" src="{{ asset('/images/persorgs/' ~ userPersorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+                            <img class="img-fluid mb-5" src="{{ vich_uploader_asset(app.user.persorg)  | imagine_filter('persorg_thumbnail_sm') }}" width="90" height="90">
 
-                        {% else %}
-                            
-                            {{ form_widget(persorgForm.imageFile) }}
-                                            
+                            <h5 class="mt-2 mb-3 font-weight-bold">Modifier l'image</h5>
+
                         {% endif %}
+                            
+                        {{ form_widget(persorgForm.imageFile) }}
+                                            
 
                     </div>
 
@@ -74,11 +75,7 @@
 
                         <!-- Collapsible Trigger Button -->
     
-                        <div class="mt-4 mb-5">
-    
-                            <a class="btn btn-light sharp" onclick="this.remove();" data-bs-toggle="collapse" href="#collapseOtherWebsites" role="button" aria-expanded="false" aria-controls="collapseOtherWebsites">Ajouter des sites webs ou réseaux sociaux</a>
-    
-                        </div>
+                        <a class="btn btn-light mb-4" onclick="this.remove();" data-bs-toggle="collapse" href="#collapseOtherWebsites" role="button" aria-expanded="false" aria-controls="collapseOtherWebsites">Ajouter des sites webs ou réseaux sociaux</a>
     
     
                         <!-- Collapsible Other Websites Container -->
@@ -113,16 +110,7 @@
     
                     </div>
 
-                    {#
-                    <div class="mb-md-5">
 
-                        <h4 class="fw-bold h5">Adresse e-mail</h4>
-
-                        {{ form_widget(persorgForm.email) }}
-
-                    </div>
-
-                    #}
 
                     <div class="d-none">
 
@@ -162,7 +150,7 @@
       $(document).ready(function(){
 
         $(".form-check-label").html("Supprimer l'image");
-        $(".custom-file").addClass("mt-1").addClass("mb-4");
+        $(".form-check").addClass("mt-5").addClass("mb-2");
 
       });
 

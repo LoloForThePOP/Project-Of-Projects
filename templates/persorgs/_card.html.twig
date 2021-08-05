@@ -1,10 +1,22 @@
+
+    {# if persorg profile is fully feeded, we can't display all its informations in a tiny thumbnail. In that case we insert somes of these informations in a modal, and bellow is a flag in order to do it when times come #}
+
+    {% set hasMoreToShow = false %}
+
+    {% if persorg.description is not empty or persorg.website1 is not empty or persorg.website2 is not empty or persorg.website3 is not empty or persorg.website4 is not empty  %}
+
+        {% set hasMoreToShow = true %}
+
+    {% endif %}
+
+
 <!-- Persorg Image Container -->
     
     <div class="d-flex align-items-center justify-content-center" style="height:120px; margin-top:15px; margin-bottom:8px; border-radius: 4px;">
 
         {% if persorg.image is not null %}
 
-            <img class="img-fluid rounded-lg" src="{{ vich_uploader_asset(persorg)  | imagine_filter('persorg_thumbnail_sm') }}">
+            <img class="img-fluid rounded-3" src="{{ vich_uploader_asset(persorg)  | imagine_filter('persorg_thumbnail_sm') }}">
         
         {% else %}
                                     
@@ -24,8 +36,87 @@
 
     <!-- Persorg Name -->
 
-    <div class="d-flex justify-content-center font-weight-bold" style="margin-bottom:8px; font-size:1.15em;">
+    <div class="d-flex justify-content-center fw-bold" style="margin-bottom:8px; font-size: 15px; color: #212529;   ">
 
         {{ persorg.name | length < 10 ? persorg.name : persorg.name | slice(0, 10) ~ '...' }}
 
     </div>  
+
+
+     <!-- Persorg "Show More Info Button" + Modal (if we have more info available) -->
+
+     {% if hasMoreToShow %}
+
+        {% set modal_id = 'persorgDisplayModal' ~ loop.index %}
+
+        <div class="pp-consultation-mode d-flex justify-content-center cursor-pointer fw-bold">
+    
+            <span href="#" class="badge" data-bs-toggle="modal" data-bs-target="#{{modal_id}}" style="background-color:#2C3E50;">Voir +</span>
+
+        </div>          
+                    
+        {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': "", 'modal_size': ""} %}
+
+            {% block modalBody %}
+
+                {% if persorg.description %}
+
+                    <div class="my-4" style="font-size:1.09em;">
+
+                        {{ persorg.description | nl2br }}
+
+                    </div>
+
+                {% endif %}
+
+                {% if persorg.website1 is not empty or persorg.website2 is not empty or persorg.website3 is not empty or persorg.website4 is not empty  %}
+
+                <!-- Label for Persorg Potential Websites or Social Networks -->
+
+                <div class="h5 fw-bold mb-3">
+
+                    Sites Webs / Réseaux Sociaux
+
+                </div>
+
+                <div class="ps-3 mb-5">
+                            
+                    {% if persorg.website1 is not empty %}
+
+                        <!-- Persorg website 1 (Potential) -->
+
+                        <div class="fw-bold mb-2">
+
+                            ● <a class="text-decoration-none" href="{{ persorg.website1}}"> 
+                                
+                                {{ persorg.website1 | length < 30 ? persorg.website1 : persorg.website1 | slice(0, 30) ~ '...' }}
+
+                            </a>
+
+                        </div>
+                    
+                    {% endif %}
+
+                    <!-- Persorg website 2 (Potential) -->
+
+                    {% if persorg.website2 is not empty %}
+                    
+                        <div class="fw-bold mb-2">
+
+                            ● <a class="text-decoration-none" href="{{ persorg.website2}}"> 
+                                
+                                {{ persorg.website2 | length < 30 ? persorg.website2 : persorg.website2 | slice(0, 30) ~ '...' }}
+
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+                {% endif %}
+
+            {% endblock %}
+
+        {% endembed %}
+    
+    {% endif %}

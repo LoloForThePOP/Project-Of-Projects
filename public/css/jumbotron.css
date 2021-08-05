@@ -1,0 +1,85 @@
+
+/* Jumbotrons */
+
+.jumbotron-title{
+
+    font-size: 38px;
+    font-weight: bold;
+    margin-bottom: 16px;
+
+}
+
+.jumbotron-btn{
+    padding: 0.5rem 1.5rem;
+    font-size: 1.25rem;
+
+}
+
+@media screen and (max-width: 768px) {
+
+ 
+    .jumbotron{
+
+        margin-top: 0;
+
+    }
+ 
+    .jumbotron-btn{
+
+        font-size: 1rem;
+        padding: 0.375rem 0.5rem;
+        margin-bottom: 15px;
+
+    }
+
+    .jumbotron-img-ctn{
+
+        margin-top: 0px;
+    }
+
+    .jumbotron-text{
+
+        margin-top: 0px;
+        padding: 0;
+    }
+
+    
+}
+
+
+
+@media screen and (max-width: 580px) {
+
+    .jumbotron{
+        margin:0;
+        margin-bottom: 25px;
+    }
+
+    
+    .jumbotron-img-ctn{
+
+        padding: 0 10px;
+        margin-bottom: 10px;
+    }
+    
+    .jumbotron-img{
+
+        max-width: 230px;
+        margin:auto;
+    }
+
+    .jumbotron-title{
+        font-size: 1.7em;
+        text-align: center;
+    }
+
+    .jumbotron-text{
+        margin-top: 20px;
+    }
+
+    .jumbotron-btn{
+        width: 100%;
+    }
+
+    
+}

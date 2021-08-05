@@ -1,5 +1,5 @@
 
-{% if presentation.logo %}
+{% if not presentation.logo is empty %}
 
     <img id="pp-logo" class="img-fluid" src="{{ vich_uploader_asset(presentation) | imagine_filter('logo')}}" alt="Logo du Projet">
 

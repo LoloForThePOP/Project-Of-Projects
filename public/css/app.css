@@ -156,3 +156,16 @@ label, legend {
 .btn-validate:hover, .btn-go-back:hover{
     color: #fff;
 }
+
+
+/* (test) page container */
+
+.page-container{
+   padding-top: 30px;
+} 
+
+
+@media screen and (max-width: 580px) {
+
+
+}

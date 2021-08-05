@@ -1,0 +1,26 @@
+
+{#
+    Skeleton for Jumbotron Display (text left column + large image right column, and adjustment on mobile)
+
+    Blocks : image, text
+    
+#}
+
+{% block stylesheets %}<link href="/css/jumbotron.css" rel="stylesheet">{% endblock %}
+
+
+<div class="jumbotron row flex-md-row-reverse align-items-center g-5 py-md-4">
+
+    <div class="jumbotron-img-ctn col-12 col-md-6">
+
+      {% block image %}{% endblock %}
+
+    </div>
+
+    <div class="jumbotron-text col-md-6">
+
+        {% block text %}{% endblock %}
+
+    </div>
+
+</div>

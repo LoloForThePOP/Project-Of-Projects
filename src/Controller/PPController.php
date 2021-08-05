@@ -11,20 +11,22 @@ use App\Form\PersorgType;
 use App\Form\WebsiteType;
 use App\Form\DataListType;
 use App\Form\DocumentType;
+use App\Service\TreatItem;
 use App\Form\ImageSlideType;
 use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
+use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
 use App\Service\DeletePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use App\Form\ContributorStructureType;
-use App\Service\TreatOtherComponentItem;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PPController extends AbstractController
@@ -89,7 +91,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatOtherComponentItem $specificTreatments, EntityManagerInterface $manager)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
@@ -260,12 +262,15 @@ class PPController extends AbstractController
             $addImageForm = $this->createForm(ImageSlideType::class, $imageSlide);
             $addImageForm->handleRequest($request);
             if ($addImageForm->isSubmitted() && $addImageForm->isValid()) {
+
                 $imageSlide->setPosition(count($presentation->getSlides()));
 
                 $presentation->addSlide($imageSlide);
 
                 $manager->persist($imageSlide);
                 $manager->flush();
+ 
+                $cacheThumbnail->cacheThumbnail($presentation);
 
                 $this->addFlash(
                     'success',
@@ -467,30 +472,6 @@ class PPController extends AbstractController
     }
 
 
-
-    /**
-     * Allow to Display a Project Presentation Edition Menu
-     * 
-     * @Route("/projects/{stringId}/edit/menu", name="edit_pp_menu", priority="5")
-     * 
-     * @return Response
-     */
-    public function showMenu(PPBase $presentation)
-    {
-
-        $user = $this->getUser();
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
-        return $this->render('/project_presentation/edit/menu.html.twig', [
-            'presentation' => $presentation,
-            'stringId' => $presentation->getStringId(),
-        ]);
-    }
-
-
-
-
     /**
      * Allow to edit pp title; goal; keywords & logo
      * 
@@ -498,7 +479,7 @@ class PPController extends AbstractController
      * 
      * @return void
      */
-    public function editBase(PPBase $presentation, Request $request, EntityManagerInterface $manager)
+    public function editBase(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -509,8 +490,10 @@ class PPController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $manager->persist($presentation);
             $manager->flush();
+            
+            $cacheThumbnail->cacheThumbnail($presentation);
+                       
 
             $this->addFlash(
                 'success',

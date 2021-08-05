@@ -79,7 +79,6 @@ class PPBase implements \Serializable
      */
     public $logoFile;
 
-
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -135,10 +134,6 @@ class PPBase implements \Serializable
      */
     private $creator;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $thumbnail;
 
     /**
      * Used in urls as an unique short identifier
@@ -196,6 +191,11 @@ class PPBase implements \Serializable
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $contributorStructures;
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $cache = [];
 
 
 
@@ -272,10 +272,6 @@ class PPBase implements \Serializable
     {
         $this->logo = $logo;
 
-        if (!$logo == null) {
-            $this->thumbnail = $logo;
-        }
-
         return $this;
     }
 
@@ -299,6 +295,7 @@ class PPBase implements \Serializable
     {
         return $this->logoFile;
     }
+
 
     public function getKeywords(): ?string
     {
@@ -432,17 +429,6 @@ class PPBase implements \Serializable
         return $this;
     }
 
-    public function getThumbnail(): ?string
-    {
-        return $this->thumbnail;
-    }
-
-    public function setThumbnail(?string $thumbnail): self
-    {
-        $this->thumbnail = $thumbnail;
-
-        return $this;
-    }
 
     public function getStringId(): ?string
     {
@@ -849,6 +835,29 @@ class PPBase implements \Serializable
         return $this;
     }
 
+    public function getCache(): ?array
+    {
+        return $this->cache;
+    }
+
+    public function setCache(?array $cache): self
+    {
+        $this->cache = $cache;
+
+        return $this;
+    }
+    
+    public function getCacheItem($key)
+    {
+        return $this->cache[$key];
+    }
+
+    public function setCacheItem($key, $value): self
+    {
+        $this->cache[$key] = $value;
+
+        return $this;
+    }
 
 
 

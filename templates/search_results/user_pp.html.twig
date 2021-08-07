@@ -1,0 +1,26 @@
+    <!-- User CREATED Presentations Count -->
+
+    <h4 class="fw-bold mb-4">
+
+        {% if user.createdPresentations | length == 1 %}
+
+            1 présentation créée
+
+        {% else %}
+
+            {{user.createdPresentations | length}} présentations créées
+
+        {% endif %}
+
+
+    </h4>
+
+    <!-- User CREATED presentations display -->
+
+    {% import "search_results/_macro_result_row.html.twig" as row %}
+
+    {% for presentation in user.createdPresentations | reverse %}
+
+        {{ row.presentation_row(presentation.stringId, presentation.cache.thumbnail, presentation.goal, presentation.title, presentation.keywords) }}
+
+    {% endfor %}

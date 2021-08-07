@@ -2,6 +2,8 @@
 
 {% block title %}Page Utilisateur{% endblock %}
 
+{% block stylesheets %}<link href="/css/search_results.css" rel="stylesheet">{% endblock %}
+
 {% block body %}
 
 
@@ -80,44 +82,27 @@
     <div class="row mb-5">
         
         {% if user.createdPresentations | length > 0 %}
-        
-        <div class="">
 
-                <!-- User CREATED Presentations Count -->
+            {% import "search_results/_macro_display_collection.html.twig" as display %}
 
-                <h4 class="mb-4">
+            {% set user_presentations = user.createdPresentations %}
 
-                    <span class="fw-bold">
+            {% set user_presentations_label %}
 
-                        {% if user.createdPresentations | length == 1 %}
+                {% if user.createdPresentations | length == 1 %}
 
-                            1 présentation créée
+                    1 présentation créée
 
-                        {% else %}
+                {% else %}
 
-                            {{user.createdPresentations | length}} présentations créées
+                    {{user.createdPresentations | length}} présentations créées
 
-                        {% endif %}
+                {% endif %}
 
-                    </span>
-
-                </h4>
-
-                <!-- User CREATED presentations display -->
-
-                {% for presentation in user.createdPresentations | reverse %}
-
-                    <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
-
-                        <h5 class="mb-2">
-                            {{presentation.goal}}
-                        </h5>
+            {% endset %}
             
-                    </a>
 
-                {% endfor %}
-
-            </div>
+            {{ display.collection(user_presentations_label, user.createdPresentations | reverse) }}
 
         {% endif %}
 

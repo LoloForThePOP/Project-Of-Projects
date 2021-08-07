@@ -1,0 +1,44 @@
+
+.static-content h1, .static-content h2, .static-content h3 {
+
+    font-weight: bold;
+    
+}
+
+.static-content h1{
+
+    margin-bottom: 36px;
+    
+}
+
+.static-content h2{
+
+    color: navy;
+
+    margin-bottom: 26px;
+    
+}
+
+.static-content h3::before{
+
+    content: '• ';
+    
+}
+
+.static-content section{
+
+    margin-bottom: 36px;
+
+}
+
+.static-content ul li{
+
+    margin-bottom: 16px;
+
+}
+
+.static-content p, .static-content li{
+
+    font-size: 1.1em;
+
+}

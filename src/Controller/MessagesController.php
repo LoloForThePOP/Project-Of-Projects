@@ -80,9 +80,9 @@ class MessagesController extends AbstractController
      * 
      * This action starts a new conversation
      * 
-     * @Route("/contact-us", name="contact_website")
+     * @Route("/contact-us/{context}/{item}/{identifier}", name="contact_website")
      */
-    public function contactWebsite(Request $request): Response
+    public function contactWebsite($context=null, $item=null, $identifier=null, Request $request): Response
     {
         
         $privateMessage = new Message();
@@ -106,6 +106,8 @@ class MessagesController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $context= $context.'-'.$item.'-'.$identifier;
 
             $privateMessage
             

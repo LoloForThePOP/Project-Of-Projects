@@ -12,7 +12,7 @@
 
 <!-- Persorg Image Container -->
     
-    <div class="d-flex align-items-center justify-content-center" style="height:120px; margin-top:15px; margin-bottom:8px; border-radius: 4px;">
+    <div class="d-flex align-items-center justify-content-center" style="height:110px; margin-top:15px; margin-bottom:8px; border-radius: 4px;">
 
         {% if persorg.image is not null %}
 
@@ -36,7 +36,7 @@
 
     <!-- Persorg Name -->
 
-    <div class="d-flex justify-content-center fw-bold" style="margin-bottom:8px; font-size: 15px; color: #212529;   ">
+    <div class="d-flex justify-content-center fw-bold" style="margin-bottom:8px; font-size: 15px; color: #212529;" >
 
         {{ persorg.name | length < 10 ? persorg.name : persorg.name | slice(0, 10) ~ '...' }}
 
@@ -71,47 +71,49 @@
 
                 {% if persorg.website1 is not empty or persorg.website2 is not empty or persorg.website3 is not empty or persorg.website4 is not empty  %}
 
-                <!-- Label for Persorg Potential Websites or Social Networks -->
+                    <!-- Label for Persorg Potential Websites or Social Networks -->
 
-                <div class="h5 fw-bold mb-3">
+                    <div class="h5 fw-bold mb-3">
 
-                    Sites Webs / Réseaux Sociaux
+                        Sites Webs / Réseaux Sociaux
 
-                </div>
+                    </div>
 
-                <div class="ps-3 mb-5">
-                            
-                    {% if persorg.website1 is not empty %}
-
-                        <!-- Persorg website 1 (Potential) -->
-
-                        <div class="fw-bold mb-2">
-
-                            ● <a class="text-decoration-none" href="{{ persorg.website1}}"> 
+                    <div class="ps-3 mb-5">
                                 
-                                {{ persorg.website1 | length < 30 ? persorg.website1 : persorg.website1 | slice(0, 30) ~ '...' }}
+                        {% if persorg.website1 is not empty %}
 
-                            </a>
+                            <!-- Persorg website 1 (Potential) -->
 
-                        </div>
-                    
-                    {% endif %}
+                            <div class="fw-bold mb-2">
 
-                    <!-- Persorg website 2 (Potential) -->
+                                ● <a class="text-decoration-none" href="{{ persorg.website1}}"> 
+                                    
+                                    {{ persorg.website1 | length < 30 ? persorg.website1 : persorg.website1 | slice(0, 30) ~ '...' }}
 
-                    {% if persorg.website2 is not empty %}
-                    
-                        <div class="fw-bold mb-2">
+                                </a>
 
-                            ● <a class="text-decoration-none" href="{{ persorg.website2}}"> 
-                                
-                                {{ persorg.website2 | length < 30 ? persorg.website2 : persorg.website2 | slice(0, 30) ~ '...' }}
+                            </div>
+                        
+                        {% endif %}
 
-                            </a>
+                        <!-- Persorg website 2 (Potential) -->
 
-                        </div>
+                        {% if persorg.website2 is not empty %}
+                        
+                            <div class="fw-bold mb-2">
 
-                    {% endif %}
+                                ● <a class="text-decoration-none" href="{{ persorg.website2}}"> 
+                                    
+                                    {{ persorg.website2 | length < 30 ? persorg.website2 : persorg.website2 | slice(0, 30) ~ '...' }}
+
+                                </a>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
 
                 {% endif %}
 

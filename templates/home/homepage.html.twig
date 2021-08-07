@@ -2,10 +2,18 @@
 
 {% block title %}Bienvenue sur le Projet des Projets !{% endblock %}
 
+{% block stylesheets %}<link href="/css/search_results.css" rel="stylesheet">{% endblock %}
+
+{% import "search_results/_macro_display_collection.html.twig" as display %}
+
 {% block body %}
 
+  <div class="page-container container px-0 px-lg-5 col-xxl-8">
+
+
+    {% if app.user %} 
     
-    {% if app.user %} {# Displaying user presentations #}
+      {# Displaying user presentations #}
 
       {% set user_presentations = app.user.createdPresentations %}
 
@@ -13,43 +21,34 @@
               
         <div class="">
 
-          <!-- User CREATED Presentations Count -->
+          <!-- User CREATED Presentations Count & Label -->
 
-          <h3 class="fw-bold mb-4" style="color: navy;">
-
+          {% set user_presentations_label %}
+            
             {% if user_presentations | length == 1 %}Mon projet présenté
             
             {% else %}Mes {{user_presentations | length}} projets présentés
 
             {% endif %}
 
-          </h3>
+          {% endset %}
 
-          <!-- User CREATED presentations display -->
 
-          {% for presentation in user_presentations | reverse %}
-
-              <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
-
-                  <h5 class="mb-2">
-                      {{presentation.goal}}
-                  </h5>
-      
-              </a>
-
-          {% endfor %}
+          {{ display.collection(user_presentations_label, user_presentations | reverse) }}
 
         </div>
           
       {% endif %}
   
-    {% else %} {# User not logged in : displaying homepage jumbotron #}
+    {% else %} 
+    
+      {# User not logged in : displaying homepage jumbotron #}
 
       {% embed "utilities/jumbotron_skeleton.html.twig" %}
 
         {% block image %}
 
-          <img src="{{asset ('website/homepage_jumbotron3.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="430" height="360">
+          <img src="{{asset ('website/homepage_jumbotron3.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
 
         {% endblock %}
 
@@ -76,30 +75,20 @@
     {% endif %}
 
 
-    {#In any case : Last Inserted Presentations #}
+    {# In any case : Displaying Last Inserted Presentations #}
 
-    <div>
 
-      <h3 class="fw-bold mb-3" style="color: navy;">
-        Derniers projets présentés
-      </h3>
+    <div class="row">
 
-      <div class="mt-4">
+      <div class="col-lg-6">
 
-        {% for presentation in lastInsertedPresentations %}
-            
-          <a class="text-primary text-decoration-none" href="{{path('show_presentation', {'stringId': presentation.stringId})}}">
-
-            <h5 class="mb-2">
-              {{presentation.title}}
-            </h5>
-
-          </a>
-
-        {% endfor %}
+        {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
 
       </div>
-        
+      
     </div>
+
+      
+  </div>
 
 {% endblock %}

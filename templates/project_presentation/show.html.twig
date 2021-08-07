@@ -287,7 +287,7 @@
 
         {# Help Button #}
             
-        <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn mt-5" style="border-color: rgb(216, 216, 201);">
+        <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn my-5" style="border-color: rgb(216, 216, 201);">
 
             <img class="mb-1" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
             
@@ -296,6 +296,23 @@
         </button>
 
         {% include 'project_presentation/edit/_help.html.twig' %}
+
+
+
+        {# Buttons row #}
+
+        <div class="my-5">
+
+            {# Report Abuse Button #}
+
+            <a class="text-decoration-none" href="{{ path('contact_website', {'context': 'report_abuse', 'item' : 'presentation', 'identifier': stringId }) }}">
+
+                <button type="button" class="pp-consultation-mode btn btn-light fw-normal me-2 mb-2 ">Signaler un abus</button>
+                
+            </a>
+
+        </div>
+
 
         
     {% endif %}

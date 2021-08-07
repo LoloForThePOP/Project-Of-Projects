@@ -1,0 +1,74 @@
+{% macro collection(title, items) %}
+
+    <h3 class="collection-title">{{title}}</h3>
+
+    {% for item in items %}
+    
+        <a href="{{path('show_presentation', {'stringId': item.stringId})}}">
+
+            <div class="collection-row d-flex align-items-center border p-2 mb-4">
+
+                <div class="flex-shrink-0">
+
+                    {% if item.cache.thumbnail is not empty %}
+                    
+                    <img src="{{item.cache.thumbnail}}" alt="Presentation Thumbnail">
+
+                    {% else %}
+
+                        <div class="avatar-circle avatar-circle-80 mx-auto bg-primary">
+
+                            <span class="avatar-initial avatar-initial-80">
+
+                            {{item.goal | slice (0,1) | upper }}
+
+                            </span>
+
+                        </div>       
+
+                    {% endif %}
+                    
+                </div>
+
+                <div class="flex-grow-1 ms-3">
+                    
+                    <h6 class="project-goal {% if title is empty %}no-title{% endif %} ">
+
+                    {{item.goal[:1] | upper ~ item.goal[1:] | slice(0, 140)}}{% if item.goal | length > 141 %}...{% endif %}
+                    </h6>
+
+                    {% if title is not empty %}
+
+                    <h6 class="project-title">{{ item.title[:1] | upper ~ item.title[1:] | slice(0, 63)}}</h6>
+
+                    {% endif %}
+                    
+                    {% if item.keywords | length > 0 %}
+                    
+                    <div class="project-keywords">
+                        
+                        <span class="text-break">
+
+                            {% set keywords = item.keywords | replace({" " : ""}) | split(',') %}
+
+                            {% for keyword in keywords [0:6] %}
+                
+                                #{{keyword | first | capitalize ~ keyword[1:] }}
+                
+                            {% endfor %}
+
+                        </span>
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </a>   
+
+    {% endfor %}
+
+{% endmacro %}

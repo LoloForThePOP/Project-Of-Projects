@@ -1,5 +1,9 @@
 /* Overide Bootstrap 5 */
 
+a{
+    text-decoration: none;
+}
+
 .btn{
     font-weight: bold;
     border-radius: 0;
@@ -88,9 +92,9 @@
     -moz-border-radius: 50%;
   }
 
-.avatar-circle-50 {
-    width: 50px;
-    height: 50px;
+.avatar-circle-80 {
+    width: 80px;
+    height: 80px;
 }
 
 .avatar-circle-100 {
@@ -106,18 +110,19 @@
     font-weight: bold;
 }
 
-.avatar-initial-50 {
-    top: 14px; /* 25% of parent */
-    left: 14px;
-    font-size: 40px; /* 50% of parent */
-    line-height: 25px; /* 50% of parent */
+
+.avatar-initial-80 {
+    top: 26px; 
+    left: 24px;
+    font-size: 60px; 
+    line-height: 32px; 
 }
 
 .avatar-initial-100 {
-    top: 31px; /* 25% of parent */
+    top: 31px; 
     left: 27px;
-    font-size: 80px; /* 50% of parent */
-    line-height: 40px; /* 50% of parent */
+    font-size: 80px; 
+    line-height: 40px; 
 }
 
 /* end of One Letter Avatars */
@@ -161,8 +166,19 @@ label, legend {
 /* (test) page container */
 
 .page-container{
-   padding-top: 30px;
+   padding-top: 60px;
+   padding-bottom: 50px;
 } 
+
+
+@media screen and (max-width: 768px) {
+
+    .page-container{
+        padding-top: 30px;
+     } 
+     
+
+}
 
 
 @media screen and (max-width: 580px) {

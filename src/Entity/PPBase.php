@@ -206,6 +206,7 @@ class PPBase implements \Serializable
         $this->isAdminValidated = true;
         $this->overallQualityAssessment = 3;
         $this->parameters['arePrivateMessagesActivated'] = true;
+        $this->cache['thumbnail'] = null;
         $this->isPublished = true;
         $this->isDeleted = false;
         $this->viewsCount = 0;

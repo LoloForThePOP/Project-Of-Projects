@@ -1,6 +1,10 @@
 
 /* Jumbotrons */
 
+.jumbotron{
+    margin-bottom: 40px;;
+}
+
 .jumbotron-title{
 
     font-size: 38px;
@@ -40,7 +44,6 @@
     .jumbotron-text{
 
         margin-top: 0px;
-        padding: 0;
     }
 
     
@@ -75,6 +78,7 @@
 
     .jumbotron-text{
         margin-top: 20px;
+        padding: 0;
     }
 
     .jumbotron-btn{

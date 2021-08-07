@@ -1,80 +1,71 @@
 {% extends 'base.html.twig' %}
 
-{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
-
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
-
-
 {% block title %}Ajouter un Projet{% endblock %}
 
 {% block body %}
 
-    <div class="container">
+    <div class="container col-lg-6 px-0 px-md-4">
 
         <div class="row mt-5">
+                    
+            {{form_start(form)}}
 
-            <div class="col-md-8">
+                {# Project Goal #}
 
-                {# Create Presentation Form #}
-                            
-                    {{form_start(form)}}
+                <div class="mb-4">
 
-                        {# Project Goal #}
+                    <div class="mb-md-3">
 
-                        <div class="mb-4">
+                        <span class="fw-bold h5">
 
-                            <div class="mb-md-3">
+                            {{form_label(form.goal)}}
 
-                                <span class="fw-bold h5">
+                        </span>
+                    </div>
 
-                                    {{form_label(form.goal)}}
+                    <div class="mb-md-3">
 
-                                </span>
-                            </div>
+                        {{form_widget(form.goal)}}
 
-                            <div class="mb-md-3">
-                                {{form_widget(form.goal)}}
-                            </div>
-
-                        </div>
-
-                        {# Project Goals Exemples #}
-
-                        <div class="card shadow mb-4">
-
-                            <div class="card-body p-3">
-
-                                <h4 class="mb-3">Exemples</h4>
-
-                                <!-- Unordered list -->
-
-                                <ul class="fs-15">
-                                    
-                                    <li class="mb-2 text-dark">Créer un journal d'investigation</li>
-                                    <li class="mb-2 text-dark">Restaurer un moulin</li>
-                                    <li class="mb-2 text-dark">Créer un jeu vidéo d'action</li>
-
-                                </ul>
-                                
-                            </div>
-
-                        </div>
-
-                        {# Action Buttons #}
-
-                        <div class="mb-3">
-
-                            <button type="submit" class="btn btn-primary btn-lg sharp fw-bold me-2 mb-2">Ajouter le Projet</button>
-
-                            <a href="{{ path('homepage') }}">
-                                <button type="button" class="btn btn-light btn-lg fw-bold sharp mb-2">Annuler</button>
-                            </a>
-                        
-                        </div>
-
-                    {{ form_end(form) }}
+                    </div>
 
                 </div>
+
+                {# Project Goals Exemples #}
+
+                <div class="card shadow mb-4 mb-lg-5">
+
+                    <div class="card-body p-3">
+
+                        <h4 class="mb-3">Exemples</h4>
+
+                        <!-- Unordered list -->
+
+                        <ul class="fs-15">
+                            
+                            <li class="mb-2 text-dark">Créer un journal d'investigation</li>
+                            <li class="mb-2 text-dark">Restaurer un moulin</li>
+                            <li class="mb-2 text-dark">Créer un jeu vidéo d'action</li>
+
+                        </ul>
+                        
+                    </div>
+
+                </div>
+
+                {# Action Buttons #}
+
+                <div class="mb-3">
+
+                    <button type="submit" class="btn btn-primary btn-lg me-2 mb-2">Ajouter le Projet</button>
+
+                    <a href="{{ path('homepage') }}">
+                        <button type="button" class="btn btn-light btn-lg mb-2">Annuler</button>
+                    </a>
+                
+                </div>
+
+            {{ form_end(form) }}
 
             </div>
 

@@ -1,21 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
-
-{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
-
 {% block title %}Envoyer un Message{% endblock %}
 
 {% block body %}
 
 
     <style>
-
-        ::placeholder {
-            font-size:1.10em !important;
-            font-weight:bold;
-            color: #66666d  !important;
-        }
 
         textarea::placeholder {
             font-size:1.15em !important;

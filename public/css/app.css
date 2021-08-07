@@ -139,6 +139,13 @@ label, legend {
 }
 
 
+::placeholder {
+    font-size:1.15em !important;
+    font-weight:bold;
+    color: #7b8a8b  !important;
+  }
+
+
 /* App Buttons */
 
 .btn-see-result{
@@ -166,7 +173,7 @@ label, legend {
 /* (test) page container */
 
 .page-container{
-   padding-top: 60px;
+   padding-top: 40px;
    padding-bottom: 50px;
 } 
 
@@ -175,7 +182,7 @@ label, legend {
 
     .page-container{
         padding-top: 30px;
-     } 
+    } 
      
 
 }

@@ -18,17 +18,18 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class SlideController extends AbstractController
 {
     /**
-     * @Route("/projects/{stringId}/slides/", name="manage_slides", priority="3")
+     * @Route("/projects/{stringId}/slides/order", name="order_slides", priority="3")
      */
-    public function manage(PPBase $presentation): Response
+    public function order(PPBase $presentation): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
-        return $this->render('project_presentation/edit/slides/manage.html.twig', [
+        return $this->render('project_presentation/edit/slides/order.html.twig', [
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
         ]);
+
     }
     
     
@@ -39,7 +40,7 @@ class SlideController extends AbstractController
      * 
      * @return Response
      */
-    public function updateImageSlide (PPBase $pp, $id_slide, SlideRepository $repo, Request $request, EntityManagerInterface $manager){
+    public function updateImageSlide (PPBase $pp, $id_slide, SlideRepository $repo, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail){
 
         $this->denyAccessUnlessGranted('edit', $pp);
 
@@ -53,6 +54,7 @@ class SlideController extends AbstractController
                              
             $manager->flush();
 
+            $cacheThumbnail->cacheThumbnail($pp);
 
             $this->addFlash(
                 'success',
@@ -140,7 +142,7 @@ class SlideController extends AbstractController
      * 
      * @return Response
      */
-    public function editVideoSlide (PPBase $pp, $slide_id, SlideRepository $repo, Request $request, EntityManagerInterface $manager) {
+    public function editVideoSlide (PPBase $pp, $slide_id, SlideRepository $repo, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail) {
 
         $this->denyAccessUnlessGranted('edit', $pp);
 
@@ -155,6 +157,8 @@ class SlideController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
 
             $manager->flush();
+
+            $cacheThumbnail->cacheThumbnail($pp);
 
             $this->addFlash(
                 'success',

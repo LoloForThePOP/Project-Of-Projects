@@ -6,7 +6,7 @@
 
 {% if userPresenter %}
 
-	{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama", 'additionalClasses': "pp-edition-mode"} %}
+	{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama", 'additionalClasses': "pp-edition-mode", 'helpContext': "slides",} %}
 
 		{% block editButtons %}
 		
@@ -27,7 +27,7 @@
 
 				{# Access manage slides CRUD ui #}
 
-				<a id="manage-slides" href="{{ path('manage_slides', {'stringId': presentation.stringId}) }}" class="text-decoration-none me-3">
+				<a id="manage-slides" href="{{ path('order_slides', {'stringId': presentation.stringId}) }}" class="text-decoration-none me-3">
                         
 					<button type="button" class="pp-edition-mode btn btn-light btn-sm" aria-label="Manage Order and Titles Button">Ordre
 
@@ -50,7 +50,7 @@
 
 	<!-- Slideshow Container -->
 
-	<div id="slides" class="">
+	<div id="slides" class="slideshow-container">
 
 		<!-- Caption Container -->
 					

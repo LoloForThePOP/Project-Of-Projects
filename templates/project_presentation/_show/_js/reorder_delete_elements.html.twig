@@ -188,15 +188,20 @@
 
                         $('[data-slide-thumbnail-id="'+idElement+'"]').remove();
 
-                        $( "#slide-next" ).trigger( "click" );
-
                         if ( $( ".mySlides" ).length == 0 ) {
  
-                            $( "#slides" ).empty();
 
                             $( "#slides" ).parent().find(".show-delete-items-buttons, #manage-slides").remove();
                          
+                            $( "#slides" ).empty();
+
                         }
+
+                        else{
+                            
+                            $( "#slide-next" ).trigger( "click" );
+                        }
+
                     }
                     
                 },  

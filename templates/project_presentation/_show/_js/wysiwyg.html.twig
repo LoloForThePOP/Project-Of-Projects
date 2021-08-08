@@ -8,7 +8,6 @@
 
         $(".pp-container").addClass("in-edition-mode");
 
-
         // make delete item icons appear when clicking on a trash icon        
     
         $(".show-delete-items-buttons").click(function() {
@@ -61,6 +60,43 @@
 
             $(".pp-container").toggleClass("in-edition-mode in-consultation-mode");
         
+        });
+
+
+        // switching between edition mode and consultation mode
+        
+        $( ".js-show-info-box" ).click(function() {
+
+            var context = $(this).data('help-context');
+
+            $('#global_modal .modal-body').html('<div class="loader text-center"></div>');
+
+
+
+            $.ajax({  
+
+                url: "{{path('ajax_contextual_help')}}",
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                   "context": context,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    //alert(data.html);
+
+                    $('#global_modal .modal-body').html(data.html);
+                         
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    // alert('Ajax request failed.');  
+                }  
+             }); 
+
         });
 
     });

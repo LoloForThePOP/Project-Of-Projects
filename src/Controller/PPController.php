@@ -277,31 +277,15 @@ class PPController extends AbstractController
                     "✅ Image ajoutée"
                 );
 
-                if ($presentation->getSlides()->count()==1) {
+                return $this->redirectToRoute(
+                    'show_presentation',
+                    [
 
-                    return $this->redirectToRoute(
-                        'show_presentation',
-                        [
-    
-                            'stringId' => $presentation->getStringId(),
-                            '_fragment' => 'slides',
-    
-                        ]
-                    );
+                        'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'slides',
 
-                }
-
-                else { //more than one slide, user will manage slides positions
-                        
-                    return $this->redirectToRoute(
-                        'manage_slides',
-                        [
-
-                            'stringId' => $presentation->getStringId(),
-                        ]
-                    );
-
-                }
+                    ]
+                );
 
             }
 

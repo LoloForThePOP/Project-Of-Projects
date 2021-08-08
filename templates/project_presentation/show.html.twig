@@ -285,7 +285,7 @@
 
         {% include 'project_presentation/_show/_share.html.twig' %}
 
-        {# Help Button #}
+        {# Global Help Button #}
             
         <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn my-5" style="border-color: rgb(216, 216, 201);">
 
@@ -296,6 +296,18 @@
         </button>
 
         {% include 'project_presentation/edit/_help.html.twig' %}
+
+        {# Contextual Help Modal #}
+
+        {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "global_modal", 'modal_title': ""} %}
+
+            {% block modalBody %}
+
+                <div> Yo !</div>
+
+            {% endblock %}
+
+        {% endembed %}
 
 
 
@@ -313,14 +325,7 @@
 
         </div>
 
-
-        
-    {% endif %}
-
-
-    {# Switch Between Edition Mode and Consultation Mode Button #}
-
-    {% if userPresenter %}
+        {# Switch Between Edition Mode and Consultation Mode Button #}
 
         <button id="pp-switch-edit-consult-mode" title="Switch between edition mode and consultation mode">
 

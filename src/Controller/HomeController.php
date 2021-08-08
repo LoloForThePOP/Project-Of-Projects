@@ -22,7 +22,7 @@ class HomeController extends AbstractController
 
         // last 20 inserted projects presentations
 
-        $lastInsertedPresentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->setMaxResults('20')->getResult();
+        $lastInsertedPresentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
 
         return $this->render("/home/homepage.html.twig", [
             'lastInsertedPresentations' => $lastInsertedPresentations,

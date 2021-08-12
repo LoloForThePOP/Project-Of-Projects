@@ -34,11 +34,15 @@
 
         {% if app.user %}
 
-          <li class="nav-item fs-5 me-3 d-none d-md-inline">
+          <a href="{{path ('user_manage_messages')}}">
 
-            {{ render ( path ('count_user_unread_messages')) }}
+            <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
-          </li>
+              {{ render ( path ('count_user_unread_messages')) }}
+
+            </li>
+
+          </a>
 
         {% endif %}
 

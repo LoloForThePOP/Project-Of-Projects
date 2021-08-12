@@ -105,6 +105,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $userNameSlug;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Conversation::class, mappedBy="users")
+     */
+    private $conversations;
+
 
     public function __construct()
     {
@@ -113,6 +118,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->PPBases = new ArrayCollection();
         $this->createdPresentations = new ArrayCollection();
         $this->messages = new ArrayCollection();
+        $this->conversations = new ArrayCollection();
     }
 
 
@@ -340,6 +346,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setUserNameSlug(string $userNameSlug): self
     {
         $this->userNameSlug = $userNameSlug;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getConversations(): Collection
+    {
+        return $this->conversations;
+    }
+
+    public function addConversation(Conversation $conversation): self
+    {
+        if (!$this->conversations->contains($conversation)) {
+            $this->conversations[] = $conversation;
+            $conversation->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConversation(Conversation $conversation): self
+    {
+        if ($this->conversations->removeElement($conversation)) {
+            $conversation->removeUser($this);
+        }
 
         return $this;
     }

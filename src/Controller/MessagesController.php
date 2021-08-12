@@ -89,7 +89,7 @@ class MessagesController extends AbstractController
     /**
      * Allow registered user to display / manage hiser conversations & messages list
      * 
-     * @Route("/user/messages/", name="manage_user_messages")
+     * @Route("/user/messages/", name="user_manage_messages")
      */
     public function manageConversations(MessageRepository $repo): Response
     {
@@ -107,7 +107,7 @@ class MessagesController extends AbstractController
         );
 
 
-        return $this->render('project_presentation/conversations/new.html.twig', [
+        return $this->render('user/manage_messages.html.twig', [
 
             'userMessages' => $userMessages,
             

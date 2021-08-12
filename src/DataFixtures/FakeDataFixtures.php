@@ -760,6 +760,9 @@ class FakeDataFixtures extends Fixture
 
                         $conversationUsers=[$presentation->getCreator(), $users[array_rand($users)]];
 
+                        $conversation->addUser($conversationUsers[0]);
+                        $conversation->addUser($conversationUsers[1]);
+
                         $messagesCount = mt_rand(1,12);
 
                         for ($k=0; $k <= $messagesCount; $k++) { 

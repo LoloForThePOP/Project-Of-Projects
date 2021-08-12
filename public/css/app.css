@@ -189,6 +189,19 @@ label, legend {
 
 
 @media screen and (max-width: 580px) {
+        
+    .avatar-circle-80 {
+        width: 70px;
+        height: 70px;
+    }
+
+        
+    .avatar-initial-80 {
+        top: 20px;
+        left: 22px;
+        font-size: 50px;
+        line-height: 32px;
+    }
 
 
 }

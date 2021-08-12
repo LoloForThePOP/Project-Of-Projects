@@ -57,20 +57,20 @@
         <ul class="navbar-nav ms-md-auto gap-2">
 
           {% if not app.user %}
-          
-            {# login button #}
-
-            <a href="{{path('app_login')}}">
-
-              <button type="button" class="btn btn-primary fw-bold me-2">Connexion</button>
-
-            </a>
 
             {# register button #}
 
             <a href="{{path('app_register')}}">
 
               <button type="button" class="btn btn-warning fw-bold me-2">Inscription</button>
+
+            </a>  
+
+            {# login button #}
+
+            <a href="{{path('app_login')}}">
+
+              <button type="button" class="btn btn-primary fw-bold me-2">Connexion</button>
 
             </a>
 

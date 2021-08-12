@@ -2,8 +2,14 @@
 /* Jumbotrons */
 
 .jumbotron{
-    margin-bottom: 40px;;
+    margin-bottom: 40px;
 }
+
+    
+.jumbotron-img-ctn{
+        
+    padding-left: 0px;
+} 
 
 .jumbotron-title{
 
@@ -24,10 +30,23 @@
  
     .jumbotron{
 
+        padding: 0 8px;
         margin-top: 0;
 
     }
- 
+    
+    .jumbotron-text{
+
+        padding-right: 10px;
+        
+        margin-top: 0px;
+    }
+    
+    .jumbotron-img-ctn{
+        
+        margin-top: 0px;
+    } 
+
     .jumbotron-btn{
 
         font-size: 1rem;
@@ -35,17 +54,6 @@
         margin-bottom: 15px;
 
     }
-
-    .jumbotron-img-ctn{
-
-        margin-top: 0px;
-    }
-
-    .jumbotron-text{
-
-        margin-top: 0px;
-    }
-
     
 }
 

@@ -10,77 +10,52 @@
 
   <div class="page-container container px-0 px-lg-5 col-xxl-8">
 
+    {# Displaying registered user presentations #}
 
     {% if app.user %} 
-    
-      {# Displaying user presentations #}
 
-      {% set user_presentations = app.user.createdPresentations %}
+      <div class="row">
 
-      {% if user_presentations %}
-              
-        <div class="">
+        <div class="col-md-9 col-lg-6 px-1 px-md-3">
 
-          <!-- User CREATED Presentations Count & Label -->
+          {% set user_presentations = app.user.createdPresentations %}
 
-          {% set user_presentations_label %}
-            
-            {% if user_presentations | length == 1 %}Mon projet présenté
-            
-            {% else %}Mes {{user_presentations | length}} projets présentés
+          {% if user_presentations %}
+                  
+              {% set user_presentations_label %}
+                
+                {% if user_presentations | length == 1 %}Mon projet présenté
+                
+                {% else %}Mes {{user_presentations | length}} projets présentés
 
-            {% endif %}
+                {% endif %}
 
-          {% endset %}
+              {% endset %}
 
+              {{ display.collection(user_presentations_label, user_presentations | reverse) }}
 
-          {{ display.collection(user_presentations_label, user_presentations | reverse) }}
-
+          {% endif %}
+      
         </div>
-          
-      {% endif %}
-  
-    {% else %} 
-    
-      {# User not logged in : displaying homepage jumbotron #}
 
-      {% embed "utilities/jumbotron_skeleton.html.twig" %}
-
-        {% block image %}
-
-          <img src="{{asset ('website/homepage_jumbotron3.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
-
-        {% endblock %}
-
-        {% block text %}
-
-          <h1 class="jumbotron-title display-5 lh-1">La carte de visite de votre projet</h1>
-
-          <p class="lead">
-            Si vous souhaitez faire connaître votre Projet, créez la carte de visite de votre projet. <b>Elle concentre toutes les informations utiles à partager, et s'affiche correctement sur tous les écrans</b>. C'est simple, rapide, et gratuit.
-          </p>
-    
-          <div class="d-grid gap-2 d-md-flex justify-content-md-start pt-3">
-    
-            <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Voir un Exemple</button>
-    
-            <a href="{{path('create_presentation')}}"><button type="button" class="jumbotron-btn btn btn-primary">Ajouter un Projet</button></a>
-    
-          </div>
-        
-        {% endblock %}
-
-      {% endembed %}
+      </div>
 
     {% endif %}
 
 
-    {# In any case : Displaying Last Inserted Presentations #}
+    {# Case user not logged in : displaying homepage jumbotron #}
 
+    {% if not app.user %}
+      
+      {% include "home/_jumbotron.html.twig" %}
+    
+    {% endif %}
+
+    {# In any case : Displaying Last Inserted Presentations #}
 
     <div class="row">
 
-      <div class="col-lg-6">
+      <div class="col-md-9 col-lg-6 px-1 px-md-3">
 
         {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
 

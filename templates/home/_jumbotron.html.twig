@@ -1,0 +1,27 @@
+{% embed "utilities/jumbotron_skeleton.html.twig" %}
+
+    {% block image %}
+
+    <img src="{{asset ('misc/homepage_jumbotron.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
+
+    {% endblock %}
+
+    {% block text %}
+
+    <h1 class="jumbotron-title display-5 lh-1">La carte de visite de votre projet</h1>
+
+    <p class="lead">
+        Si vous souhaitez faire connaître votre Projet, créez la carte de visite de votre projet. <b>Elle concentre toutes les informations utiles à partager, et s'affiche correctement sur tous les écrans. C'est simple, rapide, et gratuit</b>.
+    </p>
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start pt-3">
+
+        <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Voir un Exemple</button>
+
+        <a href="{{path('create_presentation')}}"><button type="button" class="jumbotron-btn btn btn-primary">Ajouter un Projet</button></a>
+
+    </div>
+    
+    {% endblock %}
+
+{% endembed %}

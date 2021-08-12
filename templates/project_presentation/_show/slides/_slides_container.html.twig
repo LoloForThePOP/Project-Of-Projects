@@ -21,13 +21,27 @@
 
 		{% if userPresenter %}
 
+			{% set path = null %}
+
+			{% if slide.type == 'image' %}
+		
+				{% set path = path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id }) %}
+
+			{% endif %}
+
+			{% if slide.type == 'youtube_video' %}
+		
+				{% set path = path('update_youtube_slide', {'stringId': stringId, 'presentation': presentation, 'slide_id' : slide.id }) %}
+
+			{% endif %}
+
 			{# Edit Slide on slide click (only for large screens) #}
 			
-			<a href="{{path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}" class="pp-edition-mode coverable-link d-none d-lg-block"></a>
+			<a href="{{path}}" class="pp-edition-mode coverable-link d-none d-lg-block"></a>
 
 			{# Edit Slide Icon (only for small to medium screens) #}
 			
-			<a class="btn btn-sm edit-slide-button pp-edition-mode d-lg-none" href="{{path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}">
+			<a class="btn btn-sm edit-slide-button pp-edition-mode d-lg-none" href="{{path}}">
 
 				<img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 				

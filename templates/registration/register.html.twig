@@ -1,75 +1,70 @@
 {% extends 'base.html.twig' %}
 
 
-{% block title %}
-
-Inscription
-
-{% endblock %}
+{% block title %}Inscription{% endblock %}
 
 {% block body %}
 
-<div class="container col-sm-8 col-xxl-8">
+    <div class="page-container container col-sm-8 col-xxl-8">
 
-    <div class="row align-items-center g-5 py-5">
+        <div class="row align-items-center py-3">
 
-        <div class="col-lg-6">
+            <div class="col-lg-6">
 
-            <h3 class="fw-bold mb-4">Inscription sur le site</h3>
+                <h3 class="fw-bold mb-4">Inscription sur le site</h3>
 
-            {{form_start(registrationForm)}}
+                {{form_start(registrationForm)}}
 
-            <div class="mb-3">
-                {{ form_label(registrationForm.userName) }}
-                {{ form_widget(registrationForm.userName) }}
-            </div>
+                <div class="mb-3">
+                    {{ form_label(registrationForm.userName) }}
+                    {{ form_widget(registrationForm.userName) }}
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(registrationForm.email) }}
-                {{ form_widget(registrationForm.email) }}
-            </div>
+                <div class="mb-3">
+                    {{ form_label(registrationForm.email) }}
+                    {{ form_widget(registrationForm.email) }}
+                </div>
 
-            <div class="mb-3">
-                {{ form_label(registrationForm.plainPassword) }}
-                {{ form_widget(registrationForm.plainPassword) }}
-            </div>
+                <div class="mb-3">
+                    {{ form_label(registrationForm.plainPassword) }}
+                    {{ form_widget(registrationForm.plainPassword) }}
+                </div>
 
-            {#   <div>
-                {{ form_label(registrationForm.agreeTerms) }}
-                {{ form_widget(registrationForm.agreeTerms) }}
-            </div> #}
+                {#   <div>
+                    {{ form_label(registrationForm.agreeTerms) }}
+                    {{ form_widget(registrationForm.agreeTerms) }}
+                </div> #}
 
 
 
-            <!-- ui Actions Buttons -->
+                <!-- ui Actions Buttons -->
 
-            <div class="mt-4">
+                <div class="mt-4">
 
-                <button type="submit" value="" class="btn btn-success me-3 mb-2">
-                    <span class="h5 fw-bold">Valider</span>
-                </button>
-
-                <a href="{{path('homepage')}}">
-                    <button type="button" value="" class="btn btn-primary mb-2">
-                        <span class="h5 fw-bold">Retour</span>
+                    <button type="submit" value="" class="btn btn-success me-3 mb-2">
+                        <span class="h5 fw-bold">Valider</span>
                     </button>
-                </a>
+
+                    <a href="{{path('homepage')}}">
+                        <button type="button" value="" class="btn btn-primary mb-2">
+                            <span class="h5 fw-bold">Retour</span>
+                        </button>
+                    </a>
+
+                </div>
+
+                {{form_end(registrationForm)}}
 
             </div>
 
-            {{form_end(registrationForm)}}
+            <div class="d-none d-lg-block col-12 col-md-8 col-lg-6">
 
-        </div>
+                <img src="{{asset('account/register.png', 'larger')}}" class="d-block mx-lg-auto img-fluid" alt="Two men, one is showing an entry door." loading="lazy" width="700" height="500">
 
-        <div class="col-12 col-md-8 col-lg-6">
-
-            <img src="https://www.place-hold.it/700x500" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes"
-                loading="lazy" width="700" height="500">
+            </div>
 
         </div>
 
     </div>
-
-</div>
 
 {% endblock %}

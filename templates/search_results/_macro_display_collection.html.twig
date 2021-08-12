@@ -4,23 +4,34 @@
 
     {% for item in items %}
     
-        <a href="{{path('show_presentation', {'stringId': item.stringId})}}">
+        <a href="{{path('show_presentation', {'stringId': item.stringId})}}" class="text-decoration-none">
 
-            <div class="collection-row d-flex align-items-center border p-2 mb-4">
+            <div class="collection-row">
 
-                <div class="flex-shrink-0">
+                <div class="thumb-container">
 
                     {% if item.cache.thumbnail is not empty %}
-                    
-                    <img src="{{item.cache.thumbnail}}" alt="Presentation Thumbnail">
 
-                    {% else %}
+                        {# case thumbnail is stored locally #}
 
-                        <div class="avatar-circle avatar-circle-80 mx-auto bg-primary">
+                        {% if not item.cache.thumbnail [0:4] is same as "http" %}
 
+                            <img src="{{ item.cache.thumbnail | imagine_filter('standard_thumbnail_sm') }}" alt="Presentation Thumbnail">
+
+                        {% else %} {# case thumbnail is stored externaly #}
+
+                            <img src="{{ item.cache.thumbnail }}" alt="Presentation Thumbnail">
+                            
+                        {% endif %}
+
+                            
+                    {% else %} {# no cached thumbnail : default avatar #}
+
+                        <div class="avatar-circle avatar-circle-80 mx-auto bg-primary" style="background-color: {{ random (['#9c27b0 ', '#3f51b5 ', '#009688 ', '#26B92C  ', '#ff9800  ', '#0d6efd  ', '#ffc107  ']) }} !important;" >
+                             
                             <span class="avatar-initial avatar-initial-80">
 
-                            {{item.goal | slice (0,1) | upper }}
+                            {{ item.goal | slice (0,1) | upper }}
 
                             </span>
 
@@ -30,7 +41,7 @@
                     
                 </div>
 
-                <div class="flex-grow-1 ms-3">
+                <div class="text-container">
                     
                     <h6 class="project-goal {% if title is empty %}no-title{% endif %} ">
 

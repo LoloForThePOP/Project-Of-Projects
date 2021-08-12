@@ -176,24 +176,6 @@ label:active:after {
 }
 
 
-/* Info Button */
-
-.info-button-container{
-                       
-    padding: 2px 7px 2px 7px;
-        
-}
-
-.info-button-letter{
-
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 16px;
-    color: rgb(68, 67, 67);
-    
-}
-
-
-
 /* Some Forms Styling */
     
 label, legend {

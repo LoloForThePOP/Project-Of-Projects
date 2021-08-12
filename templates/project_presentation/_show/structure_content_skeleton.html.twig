@@ -47,20 +47,6 @@ It contains :
                     </button>
 
                 {% endblock %}
-
-                {% block inFoButton %}
-
-                {# Contextual Informations (triggers a modal) #}
-
-                    <button data-bs-toggle="modal" data-bs-target="#global_modal" data-help-context="{{helpContext ?? ""}}" type="button" class="js-show-info-box pp-edition-mode btn btn-light btn-sm lh-1" aria-label="Show more info">
-
-                        <div class="info-button-container">
-                            <span class="info-button-letter">i</span>
-                        </div>
-                    
-                    </button>
-                
-                {% endblock %}
                     
             {% endif %}
 

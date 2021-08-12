@@ -2,11 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\MessageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\MessageRepository;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Choice;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MessageRepository::class)
@@ -20,8 +21,13 @@ class Message
      */
     private $id;
 
+
+    const TYPE = ["between_users", "to_website"];
+   
+
     /**
      * @ORM\Column(type="string", length=50)
+     * @Assert\Choice(choices=Message::TYPE, message="Veuillez renseigner un type de transaction valide (payé ou non ou peut-être)")
      */
     private $type;
 

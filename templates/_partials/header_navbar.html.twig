@@ -6,7 +6,7 @@
 
     <div class="container-fluid ps-5">
 
-      {# Navbar Toggler Button (only displayed on mobile)
+      {# Left Navbar Toggler Button (only displayed on mobile)
 
       <button class="d-md-none" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="false" aria-controls="collapseExample">
         Outils
@@ -30,16 +30,22 @@
 
         </li>
 
-        <li class="nav-item fs-5 me-3 d-none d-md-inline">
+        {# User New Messages Count #}
 
-          <a class="nav-link text-white" href="#">Projets</a>
+        {% if app.user %}
 
-        </li>
+          <li class="nav-item fs-5 me-3 d-none d-md-inline">
+
+            {{ render ( path ('count_user_unread_messages')) }}
+
+          </li>
+
+        {% endif %}
 
       </ul>
 
 
-      {# hide /show Elements (small screens) (sandwich icon) #}
+      {# hide / show overall menu button (small screens) #}
 
       {# Trigger Button #}
 

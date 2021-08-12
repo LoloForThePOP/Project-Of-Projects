@@ -7,6 +7,8 @@ use App\Entity\Message;
 use App\Entity\Conversation;
 use App\Form\ContactWebsiteType;
 use App\Form\PrivateMessageType;
+use App\Repository\MessageRepository;
+use Doctrine\ORM\Query\AST\BetweenExpression;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,7 +30,16 @@ class MessagesController extends AbstractController
         $this->denyAccessUnlessGranted('ROLE_USER');
         
         $privateMessage = new Message();
-        $form = $this->createForm(PrivateMessageType::class, $privateMessage);
+
+        $form = $this->createForm(PrivateMessageType::class, $privateMessage,
+        array(
+
+            // Time protection
+            'antispam_time'     => true,
+            'antispam_time_min' => 7,
+            'antispam_time_max' => 3600,
+        ));
+
         $form->handleRequest($request);
 
         
@@ -36,7 +47,7 @@ class MessagesController extends AbstractController
 
             $privateMessage
             
-                ->setType("private_message")
+                ->setType("between_users")
                 ->setAuthorUser($this->getUser());
 
             $conversation = new Conversation();
@@ -76,7 +87,37 @@ class MessagesController extends AbstractController
 
 
     /**
-     * Allow to access contact website page
+     * Allow registered user to display / manage hiser conversations & messages list
+     * 
+     * @Route("/user/messages/", name="manage_user_messages")
+     */
+    public function manageConversations(MessageRepository $repo): Response
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_USER');
+        
+        $userMessages = $repo->findBy(
+
+            [
+                'authorUser' => $this->getUser(),
+                'isConsulted' => false,     
+            
+            ]
+
+        );
+
+
+        return $this->render('project_presentation/conversations/new.html.twig', [
+
+            'userMessages' => $userMessages,
+            
+        ]);
+
+    }
+
+
+    /**
+     * Allow any user to access contact website page
      * 
      * This action starts a new conversation
      * 
@@ -109,9 +150,7 @@ class MessagesController extends AbstractController
 
             $context= $context.'-'.$item.'-'.$identifier;
 
-            $privateMessage
-            
-                ->setType("contact_website");
+            $privateMessage->setType("to_website");
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($privateMessage);
@@ -130,6 +169,35 @@ class MessagesController extends AbstractController
             'form' => $form->createView(),
             
         ]);
+
+    }
+
+
+
+    /**
+     * 
+     * Count registred user unread messages
+     * 
+     * @Route("/count-user-unread-messages", name="count_user_unread_messages")
+     */
+    public function countUserUnreadMessages(MessageRepository $repo): Response
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $rows = $repo->findBy(
+
+            [
+                'authorUser' => $this->getUser(),
+                'isConsulted' => false,     
+            
+            ]
+
+        );
+       
+        return new Response(
+            count($rows)
+        );
 
     }
 

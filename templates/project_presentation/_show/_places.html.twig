@@ -6,10 +6,14 @@
 
         {# Manage places button #}
 
-        <a class="pp-edition-mode text-decoration-none me-3 " href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
+        <a class="pp-edition-mode text-decoration-none mx-3" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
 
-            <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-            
+            <button class="btn btn-light">
+                
+                <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+
+            </button>
+
         </a>
 
     {% endblock %}

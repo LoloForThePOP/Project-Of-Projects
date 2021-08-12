@@ -23,7 +23,9 @@ class PrivateMessageType extends AbstractType
 
                     'attr' => [
 
-                        'placeholder'    => "Écrire ici",
+                        'placeholder'    => "Votre message",
+
+                        'rows' => '7',
                     ],
                 ]
                 

@@ -8,9 +8,11 @@ use App\Entity\User;
 use App\Entity\Place;
 use App\Entity\Slide;
 use App\Entity\PPBase;
+use App\Entity\Message;
 use App\Entity\Persorg;
 use App\Entity\Category;
 use App\Entity\Document;
+use App\Entity\Conversation;
 use App\Entity\ContributorStructure;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -703,7 +705,7 @@ class FakeDataFixtures extends Fixture
 
             $privateMessagesActivation = false;
 
-            if ($faker->boolean(70)) {
+            if ($faker->boolean(90)) {
 
                 $privateMessagesActivation = true;
             }
@@ -742,6 +744,81 @@ class FakeDataFixtures extends Fixture
                     }
                 }
             }
+
+            
+            // Conversations Creation (private messages)
+
+            if($privateMessagesActivation == true) {
+
+                if ($faker->boolean(90)) {
+
+                    for ($i=0; $i < mt_rand(1,10); $i++) { 
+                        
+                        $conversation = new Conversation();
+
+                        $conversation->setPresentation($presentation);
+
+                        $conversationUsers=[$presentation->getCreator(), $users[array_rand($users)]];
+
+                        $messagesCount = mt_rand(1,12);
+
+                        for ($k=0; $k <= $messagesCount; $k++) { 
+                            
+                            $message = new Message();
+
+                            $author = $conversationUsers[array_rand($conversationUsers)];
+
+                            $content = $faker->boolean(50) ? $faker->paragraph(mt_rand(1,2)) : $faker->paragraphs(mt_rand(1,3), true);
+
+                            $message->setAuthorUser($author)
+                                    ->setContent($content)
+                                    ->setType("between_users");
+
+                            if ($k = $messagesCount) {
+
+                                $message->setIsConsulted($faker->boolean(50));
+
+                            }
+
+                            $conversation->addMessage($message);
+
+                            $manager->persist($message);
+
+                        }
+
+                        $manager->persist($conversation);
+
+                    }
+
+                }
+                
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             $manager->persist($presentation);
         }

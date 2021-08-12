@@ -210,15 +210,19 @@
     {% endif %}
 
         
-    {# Business Cards #}
+    {# Contact Project Team : Business Cards & Private Message Button #}
 
     {% set countBC = presentation.getOC('businessCards') | length %}
 
-    {% if countBC > 0 %}
-        
-        <div class="pp-struct-container col-12">
+    {% set privateMessagesActive = presentation.getParameter('arePrivateMessagesActivated') %}
 
-            {% include 'project_presentation/_show/_business_cards.html.twig' %}
+    {% if countBC > 0 or userPresenter %}
+
+        {# if no business card and private messages disactivated, display matters only for userPresenters (so pp-edition-mode) #}
+        
+        <div class="pp-struct-container col-12 {{ not countBC and not privateMessagesActive ? 'pp-edition-mode' }}">
+
+            {% include 'project_presentation/_show/_contact_team.html.twig' %}
 
         </div>
 

@@ -439,6 +439,11 @@ class PPController extends AbstractController
                     
                     $presentation->setIsPublished($switchState);
                     break;
+
+                case 'pm-activation-switch':
+                    
+                    $presentation->setParameter('arePrivateMessagesActivated', $switchState);
+                    break;
                 
                 default:
                     

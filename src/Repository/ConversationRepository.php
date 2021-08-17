@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use App\Entity\User;
 use App\Entity\Conversation;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Conversation|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,15 @@ class ConversationRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Conversation::class);
+    }
+
+    public function getConversations(User $user)
+    {
+        $qb = $this->createQueryBuilder("c")
+            ->where(':user MEMBER OF c.users')
+            ->setParameters(array('user' => $user))
+        ;
+        return $qb->getQuery()->getResult();
     }
 
     // /**

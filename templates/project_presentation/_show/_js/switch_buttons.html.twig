@@ -1,0 +1,56 @@
+
+<script>
+
+    $(document).ready(function(){ 
+
+        $('input[type=checkbox].toggle-switch').change(
+
+            function(event){
+
+                var switchState = this.checked ? true : false;
+                
+                var settedItem = $(this).attr('id');
+
+                if (settedItem == "pm-activation-switch")
+                {
+
+                    displayCreatePMCard = switchState == false ? "false" : "true";
+
+                    $("#createPrivateMessageCard").attr("data-display", displayCreatePMCard);
+
+                    displayContacts = $(".business-card").length==0 && switchState == false ? "false" : "true";
+                    
+                    $("#contact-struct-container").attr("data-display", displayContacts);
+
+                }
+
+                $.ajax({
+
+                    url: "{{path ('ajax_switch_presentation_setting', {'stringId': presentation.stringId}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "settedItem": settedItem,
+                        "switchState": switchState,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        console.log('Ajax request failed.');  
+                    }  
+
+                });
+
+            }
+
+        );
+        
+    });  
+
+</script>

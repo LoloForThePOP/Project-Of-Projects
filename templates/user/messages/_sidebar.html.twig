@@ -1,0 +1,136 @@
+
+{# sidebar content (togglable on small screens; always visible for medium screens) #}
+
+<div id="user_messages_sidebar" class="collapse d-md-block no-transition col-4 col-sm-3 col-md-2 bg-warning">
+
+    <div id="conversations-list">
+
+
+        {% for conversation in userConversations | reverse %}
+
+            <div class="conversation-item">
+
+                <img class="menu-icon" src="https://www.place-hold.it/250x250" alt="" loading="lazy" width="25" height="25">
+
+                <span class="conversation-label">
+
+                    {{conversation.messages.last.content [0:24] }}
+
+                </span>
+                
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+
+
+{# css for sidebar #}
+
+
+<style>
+
+#user_messages_sidebar {
+
+    margin: 0px;
+    padding: 0px;
+
+}
+
+#user_messages_sidebar #conversations-list{
+
+    margin-top: 20px;
+
+}
+
+#user_messages_sidebar .conversation-item{
+
+    margin-bottom: 6px;
+    cursor: pointer;
+
+}
+
+#user_messages_sidebar a{
+
+   text-decoration: none;
+   color: inherit;
+
+}
+
+#user_messages_sidebar .conversation-item:hover{
+
+    font-weight: bold;
+    background-color: aliceblue;
+    transition: all 0.3s;
+
+}
+
+#user_messages_sidebar .menu-icon{
+
+    width: 25px;
+    height: 25px;
+
+    margin-left: 10px;
+    margin-right: 3px;
+    margin-bottom: 2px;
+
+}
+
+
+
+@media (min-width: 576px) {
+
+        
+    #user_messages_sidebar .conversation-item{
+
+        font-size: 1.05em;
+
+    }
+
+}
+
+@media (min-width: 992px) {
+
+        
+    #user_messages_sidebar #conversations-list{
+
+        margin-top: 45px;
+
+    }
+
+        
+    #user_messages_sidebar .conversation-item{
+
+        padding-top: 4px;
+        padding-bottom: 4px;
+        padding-left: 10px;
+        font-size: 1.15em;
+
+    }
+
+    #user_messages_sidebar .menu-icon{
+
+        width: 30px;
+        height: 30px;
+
+        margin-right: 7px;
+
+    }
+
+}
+
+@media (min-width: 1200px) {
+        
+    #user_messages_sidebar .conversation-item{
+
+        padding-left: 20px;
+        font-size: 1.2em;
+
+    }
+}
+
+
+</style>

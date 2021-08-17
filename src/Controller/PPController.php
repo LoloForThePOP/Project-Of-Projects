@@ -428,12 +428,12 @@ class PPController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $settingItem = $request->request->get('settingItem');
+            $settedItem = $request->request->get('settedItem');
             $jsonSwitchState = $request->request->get('switchState');
 
             $switchState = json_decode($jsonSwitchState,true);
 
-            switch ($settingItem) {
+            switch ($settedItem) {
 
                 case 'publish-presentation-switch':
                     

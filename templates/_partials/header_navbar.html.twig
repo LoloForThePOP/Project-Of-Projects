@@ -34,15 +34,17 @@
 
         {% if app.user %}
 
-          <a href="{{path ('user_manage_messages')}}">
+          <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
-            <li class="nav-item fs-5 me-3 d-none d-md-inline">
+            <a href="{{path ('user_manage_messages')}}">
 
-              {{ render ( path ('count_user_unread_messages')) }}
+              <button type="button" class="btn btn-success rounded">
+                Messages <span class="badge bg-warning text-body">{{ render ( path ('count_user_unread_messages')) }}</span>
+              </button>
 
-            </li>
+            </a>
 
-          </a>
+          </li>
 
         {% endif %}
 

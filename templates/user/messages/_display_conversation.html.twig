@@ -1,0 +1,17 @@
+
+{% for message in messages %}
+
+
+    <div class="message text-only">
+
+        <div class="text-content {{ message.authorUser == app.user ? 'response' }}">
+
+            <p class="text">{{ message.content | nl2br }}</p>
+
+        </div>
+
+        <p class="time">{{ message.createdAt | date("d/m/Y") }}</p>
+
+    </div>
+    
+{% endfor %}

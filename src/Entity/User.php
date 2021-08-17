@@ -110,6 +110,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $conversations;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $data = [];
+
 
     public function __construct()
     {
@@ -119,6 +124,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->createdPresentations = new ArrayCollection();
         $this->messages = new ArrayCollection();
         $this->conversations = new ArrayCollection();
+
+        $this->setDataItem("messagesCount", 0);
+
     }
 
 
@@ -376,6 +384,31 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    public function setData(?array $data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+     
+    public function getDataItem($key)
+    {
+        return $this->data[$key];
+    }
+
+    public function setDataItem($key, $value): self
+    {
+        $this->data[$key] = $value;
+
+        return $this;
+    }
+
 
     
 

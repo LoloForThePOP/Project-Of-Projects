@@ -22,7 +22,7 @@ class Conversation
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="conversations")
      * @ORM\JoinColumn(onDelete="CASCADE")
-     */
+    */ 
     private $presentation;
 
     /**
@@ -40,6 +40,16 @@ class Conversation
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $cache = [];
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $context;
+
 
 
 
@@ -49,6 +59,14 @@ class Conversation
         $this->messages = new ArrayCollection();
         $this->createdAt = new \DateTime('now');
         $this->users = new ArrayCollection();
+
+        
+        $this->setCacheItem("lastMessAuthorId", null);
+        $this->setCacheItem("lastMessAuthorName", null);
+        $this->setCacheItem("lastMessExtract", null);
+        $this->setCacheItem("lastMessIsConsulted", null);
+        $this->setCacheItem("lastMessDate", null);
+
     }
 
 
@@ -67,6 +85,8 @@ class Conversation
     {
         $this->presentation = $presentation;
 
+        $this->setContext(substr($presentation->getGoal(), 0 , 120));
+
         return $this;
     }
 
@@ -81,8 +101,16 @@ class Conversation
     public function addMessage(Message $message): self
     {
         if (!$this->messages->contains($message)) {
+
             $this->messages[] = $message;
             $message->setConversation($this);
+
+            $this->setCacheItem("lastMessAuthorId", $message->getAuthorUser()->getId());
+            $this->setCacheItem("lastMessAuthorName", $message->getAuthorUser()->getUserName());
+            $this->setCacheItem("lastMessIsConsulted", false);
+            $this->setCacheItem("lastMessExtract", substr($message->getContent(), 0, 25));
+            $this->setCacheItem("lastMessDate", $message->getCreatedAt());
+
         }
 
         return $this;
@@ -135,4 +163,47 @@ class Conversation
 
         return $this;
     }
+
+    public function getCache(): ?array
+    {
+        return $this->cache;
+    }
+
+    public function setCache(?array $cache): self
+    {
+        $this->cache = $cache;
+
+        return $this;
+    }
+      
+    public function getCacheItem($key)
+    {
+        return $this->cache[$key];
+    }
+
+    public function setCacheItem($key, $value): self
+    {
+        $this->cache[$key] = $value;
+
+        return $this;
+    }
+
+    public function getContext(): ?string
+    {
+        return $this->context;
+    }
+
+    public function setContext(?string $context): self
+    {
+        $this->context = $context;
+
+        return $this;
+    }
+
+
+
+
+
+
+
 }

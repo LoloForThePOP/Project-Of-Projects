@@ -6,8 +6,6 @@
     
     $(document).ready(function(){
 
-        $(".pp-container").addClass("in-edition-mode");
-
         // make delete item icons appear when clicking on a trash icon        
     
         $(".show-delete-items-buttons").click(function() {
@@ -36,33 +34,34 @@
 
             if($(this).hasClass("edition-mode")){
 
-                // entering consultation mode
+                // Entering edition mode
 
-                //disabling sortable capabilities
+                // enabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', true);
 
             }
 
             else{
 
-                //entering edition mode
+                // Entering consultation mode
 
-                //enabling sortable capabilities
+                // disabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', false);
 
             }
 
-            // toggling switch button status
+            // toggling "switch display mode" button status
 
             $(this).toggleClass("edition-mode consultation-mode");
 
             // toggling whole container status
 
             $(".pp-container").toggleClass("in-edition-mode in-consultation-mode");
-        
+
+
         });
 
-
+        // When a structure is made empty on edition mode, we do not display it on consultation mode. See : reorder_delete_elements.html.twig (when deleting elements), and switch_buttons.html.twig (hide or show private messages card). 
 
     });
 

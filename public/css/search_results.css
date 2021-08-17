@@ -1,6 +1,11 @@
 
+.projects-collection{
+
+    margin-bottom: 25px;
+}
+
 .collection-title{
-    color: blue;
+    color: #242456;
     font-weight: 700;
     margin-bottom: 40px;
 }

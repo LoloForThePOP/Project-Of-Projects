@@ -258,7 +258,7 @@ class ContributorStructuresController extends AbstractController
             
             $parentStructure = $csRepo->findOneById($parentContributorStructureId);
 
-            dump($parentStructure);
+            //dump($parentStructure);
 
             if ($presentation->getContributorStructures()->contains($parentStructure)) {
 

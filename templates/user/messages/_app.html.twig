@@ -1,0 +1,81 @@
+
+
+<script>
+
+   function truncate(str, n){
+      return (str.length > n) ? str.substr(0, n-1) + '&hellip;' : str;
+    };
+
+   $(document).ready(function(){
+
+      var tinyScreen = false;
+
+      if($('#tiny-screen-flag').css('display')=='none')
+      {
+         tinyScreen = true;
+      }
+
+      $("#show-conversations-list").click(function() {
+
+         $('#discussions').show();
+         $('#messages').hide();
+
+      });
+
+      $(".discussion").click(function() {
+
+         if(tinyScreen){
+            $('#discussions').hide();
+            $('#messages').show();
+         }
+
+         $('.message-active').removeClass('message-active');
+         $(this).addClass('message-active');
+         $(this).removeClass('fw-bold');
+
+         $("#header-title").html(truncate($(this).data("label"), 45));
+
+         var idConversation = $(this).attr("id");
+
+         $('#messages-chat').html('<div class="loader" style="position:absolute; left:50%; top:50%;"></div>');
+
+         path = "{{path('ajax_display_conversation')}}";
+         
+         $('#private_message_parentConversation').attr('value',idConversation);
+
+         $.ajax({  
+
+            url: path,
+            type:       'POST',   
+            dataType:   'json',
+            
+            data: {
+            "idConversation": idConversation,
+            },
+            async: true,  
+            
+            success: function(data, status) {
+               //alert(data.html);
+               $('#messages-chat').html(data.html);
+
+               
+            },  
+
+            error : function(xhr, textStatus, errorThrown) {  
+               // alert('Ajax request failed.');  
+            } 
+
+        }); 
+
+      });
+
+
+        $(".discussion").first().trigger("click");
+
+   });
+
+</script>
+
+    
+    
+   

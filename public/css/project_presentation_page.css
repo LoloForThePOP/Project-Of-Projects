@@ -17,6 +17,14 @@
     
 } 
 
+    /* Slideshow container : removing horizontal padding and border */
+
+    #slideshow-struct-container{
+        padding: 15px 0px 10px 0px;
+        border: none;
+    }
+
+
 /* Each Structure Title Container (contains title + edit button) */
 
 .pp-struct-title-container{
@@ -146,5 +154,6 @@
     .pp-struct-content{
         padding-left: 5px;
     }
+
 
 }

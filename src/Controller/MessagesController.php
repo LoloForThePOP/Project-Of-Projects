@@ -8,10 +8,12 @@ use App\Entity\Conversation;
 use App\Form\ContactWebsiteType;
 use App\Form\PrivateMessageType;
 use App\Repository\MessageRepository;
-use Doctrine\ORM\Query\AST\BetweenExpression;
+use Doctrine\Common\Collections\Criteria;
+use App\Repository\ConversationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MessagesController extends AbstractController
@@ -22,9 +24,9 @@ class MessagesController extends AbstractController
      * 
      * This action starts a new conversation
      * 
-     * @Route("/projects/{stringId}/conversation/new/", name="new_pp_conversation")
+     * @Route("/projects/{stringId}/conversation/new/{context}", name="new_pp_conversation")
      */
-    public function newPPConversation(PPBase $presentation, Request $request): Response
+    public function newPPConversation(PPBase $presentation, $context=null, Request $request): Response
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -42,7 +44,6 @@ class MessagesController extends AbstractController
 
         $form->handleRequest($request);
 
-        
         if ($form->isSubmitted() && $form->isValid()) {
 
             $privateMessage
@@ -54,6 +55,10 @@ class MessagesController extends AbstractController
 
             $conversation 
                 
+                ->setContext($context)
+                ->addUser($this->getUser())
+                ->addUser($presentation->getCreator())
+                ->setContext($context)
                 ->setPresentation($presentation)
                 ->addMessage($privateMessage);            ;
 
@@ -74,8 +79,6 @@ class MessagesController extends AbstractController
             ]);
         }
 
-
-
         return $this->render('project_presentation/conversations/new.html.twig', [
 
             'stringId' => $presentation->getStringId(),
@@ -91,27 +94,121 @@ class MessagesController extends AbstractController
      * 
      * @Route("/user/messages/", name="user_manage_messages")
      */
-    public function manageConversations(MessageRepository $repo): Response
+    public function manageConversations(Request $request, ConversationRepository $repo): Response
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
+          
+        $newMessage = new Message();
+
+        $form = $this->createForm(PrivateMessageType::class, $newMessage,
+        array(
+
+            // Time protection
+            'antispam_time'     => true,
+            'antispam_time_min' => 7,
+            'antispam_time_max' => 3600,
+        ));
+
+        $form->handleRequest($request);
         
-        $userMessages = $repo->findBy(
+        if ($form->isSubmitted() && $form->isValid()) {
 
-            [
-                'authorUser' => $this->getUser(),
-                'isConsulted' => false,     
+            $user = $this->getUser();
+
+            $conversationId = $form->get('parentConversation')->getData();
+
+            $conversation = $repo->findOneById($conversationId);
+
+            if ($conversation->getUsers()->contains($user)) {
+                    
+                $newMessage ->setType("between_users")
+                            ->setAuthorUser($user);
+
+                $conversation->addMessage($newMessage);  
+                
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($newMessage);
+                $entityManager->flush();   
+
+            }
             
-            ]
+            $this->addFlash(
+                'success',
+                "✅ Votre Message a été envoyé"
+            );
 
-        );
+            //  to do : email notification to message receiver
 
+            return $this->redirectToRoute('user_manage_messages');
+        }
 
-        return $this->render('user/manage_messages.html.twig', [
+        return $this->render('user/messages/manage_messages.html.twig', [
 
-            'userMessages' => $userMessages,
+            'userConversations' => $repo->getConversations($this->getUser()),
+            'form' => $form->createView(),
             
         ]);
+
+    }
+
+    
+    /**
+     * 
+     * @Route("/user/messages/ajax-display-conversation", name="ajax_display_conversation")
+     * 
+     */
+    public function ajaxDisplayConversation(Request $request, ConversationRepository $repo)
+    {
+        
+        if ($request->isXmlHttpRequest()) {
+
+            $this->denyAccessUnlessGranted('ROLE_USER');
+            
+            $idConversation = $request->request->get('idConversation');
+            
+            $conversation = $repo->findOneById($idConversation);
+            
+            if($conversation->getUsers()->contains($this->getUser())){
+
+                $messages = $conversation->getMessages();
+                
+                $dataResponse = [
+
+                    'html' => $this->renderView(
+                        
+                        'user/messages/_display_conversation.html.twig', 
+
+                        [
+                            'messages' => $messages,
+                        ]
+                    ),
+                ];
+
+                // Updating that conversation is consulted
+
+
+                if ($messages->last()->getAuthorUser() != $this->getUser()) {
+
+                    $conversation->setCacheItem('lastMessIsConsulted', true);
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->flush();   
+
+                }
+
+            }
+
+            else {
+
+                $dataResponse = false;
+
+            }
+
+            //dump($dataResponse);
+
+            return new JsonResponse($dataResponse);
+
+        }
 
     }
 
@@ -185,19 +282,11 @@ class MessagesController extends AbstractController
 
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        $rows = $repo->findBy(
+        $result = $repo->getUnreadMessages($this->getUser());
 
-            [
-                'authorUser' => $this->getUser(),
-                'isConsulted' => false,     
-            
-            ]
-
-        );
-       
-        return new Response(
-            count($rows)
-        );
+            return new Response(
+                count($result)
+            );
 
     }
 

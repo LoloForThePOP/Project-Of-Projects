@@ -1,0 +1,134 @@
+{% block stylesheet %}
+
+    <link href="/css/business_card.css" rel="stylesheet">
+
+{% endblock %}
+
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "businessCard", 'title': "Contact",} %}
+
+    {% block editButtons %}
+
+        {# Add business card button (triggers a modal) #}
+
+        <button type="button" data-bs-toggle="modal" data-bs-target="#add_business_card_form_modal" class="pp-edition-mode btn btn-light btn-sm me-3">+</button>
+
+    {% endblock %}
+
+    {% block mainContent %}
+            
+        {% set bcs = presentation.getOC('businessCards') %}
+
+        <div id="businessCards" class="js-elements-list pp-struct-content row m-0">
+
+            {# Business Cards Display #}
+
+            {% for bc in bcs %}
+
+                <div id="{{bc.id}}" class="business-card bc-outer js-sortable-element  edit-hoverable-item">
+
+                    <!-- Contact Card Content -->
+
+                    {% include 'project_presentation/edit/other_components/businessCards/_business_card.html.twig'%}
+
+                    {% if userPresenter %}
+
+                        {# Access card edition page on click #}
+
+                        <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'businessCards', 'item_id':bc.id})}}" class="pp-edition-mode coverable-link"></a>
+
+                        {# delete business card (Red Cross) button #}
+
+                        <button type="button" data-elements-type="businessCards" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{bc.id}}">&times</button>
+                    
+                    {% endif %}
+
+                </div>
+                
+            {% endfor %}
+
+            {# Private Messages Button Display #}
+
+            {% if privateMessagesActive or userPresenter %}
+
+                <div id="createPrivateMessageCard" data-display="{{privateMessagesActive ? "true" : "false"}}" class="privateMessagesCard pp-consultation-mode disabled bc-outer">
+
+                    <a href="{{path ('new_pp_conversation', {'stringId': stringId, 'context': presentation.goal})}}" class="text-decoration-none">
+
+                        Envoyer un message privé 
+                    
+                    </a>
+
+                </div>
+
+                {% if userPresenter %}
+
+                    <div id="managePrivateMessagesCard" class="privateMessagesCard pm-activation-box bc-outer pp-edition-mode">
+
+                        <h6 class="" style="font-weight: bold; font-size: 19px; text-align:center; color: #263c7d">Activer les messages privés</h6>
+    
+                        <div class="d-flex justify-content-center">
+    
+                            <div>
+    
+                                <span class="">Non</span>
+                        
+                                <input id="pm-activation-switch" type="checkbox" class="toggle-switch"{{ privateMessagesActive ? ' checked ' }} /><label class="toggle-switch-label" for="pm-activation-switch">Activer les messages privés</label>
+                            
+                                <span class="ps-2">Oui</span>
+    
+                            </div>
+    
+    
+                        </div> 
+
+                    </div>
+                
+                {% endif %}
+
+
+                <style>
+
+                    /* Private Messages Card "herites" from business_card.css */
+
+                    #createPrivateMessageCard{
+                        display: flex;
+                        align-items:center; 
+                        justify-content:center; 
+                        text-align: center;
+                        height: 154px;
+                        font-weight: bold;
+                        font-size: 18px;
+                    }
+
+                    #createPrivateMessageCard:hover{
+                        background-color: #ececff;
+                    }
+
+                    .pm-1{
+                        background-color: rgb(227, 255, 227);
+                    }
+
+                    .pm-{
+                        background-color: rgb(251, 198, 198);
+                    }
+
+                    #managePrivateMessagesCard {
+                        height: 151px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: space-evenly;
+                        font-weight: bold;
+                        text-align: center;
+                        font-size: 18px;
+                    }
+
+                </style>
+            
+            {% endif %}
+
+        </div>
+
+    {% endblock %}
+        
+{% endembed %}

@@ -312,6 +312,35 @@ class FakeDataFixtures extends Fixture
 
         $users[] = $admin;
 
+
+        // Another test user creation
+
+        $otherTestUser = new User();
+
+        $otherTestUser
+            ->setUserName('OtherTestUserName')
+            ->setUserNameSlug(strtolower($this->slugger->slug( $otherTestUser->getUserName())))
+            ->setEmail('test1@test.com')
+            ->setPassword(
+                $this->encoder->hashPassword(
+                    $otherTestUser,
+                    'test'
+                )
+            )
+            ->setParameter('isVerified', true);
+
+        
+        // admin's avatar creation
+
+        $otherTestUserPersorg = new Persorg();
+        $hydratedPersorg = FakeDataFixtures::hydratePersorg($otherTestUserPersorg, 'person');
+        $hydratedPersorg->setName($otherTestUser->getUserName());
+        $otherTestUser->setPersorg($hydratedPersorg);
+
+        $manager->persist($otherTestUser);
+
+        $users[] = $otherTestUser;
+
         // Casual users creation
 
         for ($i = 0; $i < 5; $i++) {
@@ -746,26 +775,35 @@ class FakeDataFixtures extends Fixture
             }
 
             
-            // Conversations Creation (private messages)
+            // Conversations Creation About This Presentation (private messages)
 
             if($privateMessagesActivation == true) {
 
-                if ($faker->boolean(90)) {
+                if ($faker->boolean(70)) {
 
-                    for ($i=0; $i < mt_rand(1,10); $i++) { 
+                    for ($i=0; $i < mt_rand(1,12); $i++) { 
                         
                         $conversation = new Conversation();
 
-                        $conversation->setPresentation($presentation);
+                        $conversation->setContext($faker->sentence(mt_rand(7,20)))
+                                     ->setPresentation($presentation);
 
-                        $conversationUsers=[$presentation->getCreator(), $users[array_rand($users)]];
+                        $user1 = $presentation->getCreator();
+                        $user2 = $users[array_rand($users)];
 
-                        $conversation->addUser($conversationUsers[0]);
-                        $conversation->addUser($conversationUsers[1]);
+                        while ($user2 == $user1) {
+                            $user2 = $users[array_rand($users)];
+                        }
+
+                        $conversationUsers=[$user1, $user2];
+
+                        $conversation->addUser($user1);
+                        $conversation->addUser($user2);
 
                         $messagesCount = mt_rand(1,12);
 
-                        for ($k=0; $k <= $messagesCount; $k++) { 
+
+                        for ($i=0; $i <= $messagesCount; $i++) { 
                             
                             $message = new Message();
 
@@ -775,17 +813,20 @@ class FakeDataFixtures extends Fixture
 
                             $message->setAuthorUser($author)
                                     ->setContent($content)
+                                    ->setConversation($conversation)
                                     ->setType("between_users");
 
-                            if ($k = $messagesCount) {
+                                    
+                            if ($i == $messagesCount) {
 
                                 $message->setIsConsulted($faker->boolean(50));
 
                             }
 
-                            $conversation->addMessage($message);
 
                             $manager->persist($message);
+
+                            $conversation->addMessage($message);
 
                         }
 

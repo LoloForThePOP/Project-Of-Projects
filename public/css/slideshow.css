@@ -155,14 +155,6 @@
     }
 
 @media screen and (max-width: 580px) {
-
-
-    /* External borders are removed on tiny screens in order to get more videos & pictures width */
-
-    #slideshow-struct-container{
-        all: initial;
-    }
-
         
     #slides{
         margin-bottom: 23px;

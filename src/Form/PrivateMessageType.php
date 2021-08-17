@@ -6,6 +6,7 @@ use App\Entity\Message;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PrivateMessageType extends AbstractType
@@ -30,6 +31,18 @@ class PrivateMessageType extends AbstractType
                 ]
                 
             )
+            
+            // Storing Potential Parent Conversation
+                        
+            ->add('parentConversation', HiddenType::class, 
+                [
+
+                    'required'   => false,
+
+                    "mapped" => false,
+                ]
+            )
+
         ;
     }
 

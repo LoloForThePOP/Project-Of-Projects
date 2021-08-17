@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages{% endblock %}
+
+{% block stylesheets %}<link href="/css/messages.css" rel="stylesheet">{% endblock %}
+
+
+{% block body %}
+
+    <div id="tiny-screen-flag"></div>
+
+    <style>
+            
+        @media only screen and (max-width: 580px)
+        {
+            #tiny-screen-flag { display: none; }
+        }
+
+    </style>
+
+
+    <div class="messages-container container">
+
+        <div class="row g-0">
+
+            <section id="discussions" class="discussions">
+
+
+                {% for conversation in userConversations | reverse %}
+
+                {% set cache = conversation.cache %}
+
+                    <div id="{{conversation.id}}" data-label="{{conversation.context}}" class="discussion {{not cache.lastMessIsConsulted and not app.user.id == cache.lastMessAuthorId ? 'fw-bold'}} {{loop.first ? 'message-active' }} ">
+
+                        <div class="desc-contact">
+
+                            <p class="name">{{cache.lastMessAuthorName}}</p>
+                            <p class="message ">{{cache.lastMessExtract [0:24] }}</p>
+                            <p class="timer">{{cache.lastMessDate.date | date("d/m/Y")}}</p>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+                
+            </section>
+
+            <section id="messages" class="chat">
+
+                <div class="header-chat">
+
+                    <p id="header-title" class="name"></p>
+
+                    <button id="show-conversations-list" type="button" class="collapse-button d-md-none btn btn-light" aria-expanded="false">liste</button>
+
+                </div>
+
+
+                <div id="messages-chat" class="messages-chat">
+
+                    {# conversation display #}
+
+                </div>
+
+
+
+                <div class="footer-chat">
+
+                    {{ form_start(form) }}
+                    {{ form_widget(form.content) }}
+                    
+                    <button class="validation-button btn btn-validate">{{ button_label|default('Envoyer') }}</button>
+                    
+                    {{ form_end(form) }}
+                    
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </div>
+    
+{% endblock %}
+
+{% block javascripts %} {% include "user/messages/_app.html.twig" %} {% endblock %}

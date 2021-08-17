@@ -42,6 +42,14 @@
 
                     {% block footerButtons %}
 
+                        <a href="{{path("new_pp_conversation", {'stringId': stringId, 'context': need.title})}}" class="pp-consultation-mode text-decoration-none">
+                                    
+                            <button type="button" class="btn btn-light">
+                                Contacter
+                            </button>
+                    
+                        </a>
+
                         {% if userPresenter %}
 
                             <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
@@ -74,7 +82,7 @@
             padding: 15px;
             padding-left: 17px;
             background-color: rgb(239, 239, 252);
-            border-left: 2px solid blue;
+            border-left: 3px solid rgb(129, 167, 255);
 
         }
 

@@ -1,0 +1,322 @@
+
+/* design inspired by : https://www.uplabs.com/posts/messaging-app-2db4a257-7f1d-4d1c-970d-4cf6527247ff by Anastasia Marinicheva */
+
+body {
+
+  background-color: #F5F5F5;
+}
+
+.messages-container {
+  padding:0;
+  background-color: #FFF; 
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  height: 700px;
+  
+  margin-top: 24px;
+  margin-bottom: 50px;
+
+}
+   
+
+/* === CONVERSATIONS === */
+
+.discussions {
+  padding: 0;
+  width: 25%;
+  height: 700px;
+  box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
+  overflow: hidden;
+  overflow-y: auto;
+  background-color: #ffffff;
+  display: inline-block;
+
+}
+
+
+.discussions .discussion {
+  width: 100%;
+  height: 90px;
+  background-color: #FAFAFA;
+  border-bottom: solid 1px #E0E0E0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.discussions .discussion:hover {
+  
+  background-color: #e3e5ff;
+  
+}
+
+.discussions .message-active {
+  width: 98.5%;
+  height: 90px;
+  background-color: #FFF;
+  border-bottom: solid 1px #E0E0E0;
+}
+
+.desc-contact {
+  height: 90%;
+  width: 90%;
+  margin: 0 0 0 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.discussions .discussion .name {
+  
+  margin: 0 0 6px 0;
+  font-family:'Montserrat', sans-serif;
+  font-size: 17px;
+  color:#515151;
+  line-height: normal;
+}
+
+.discussions .discussion .message {
+
+  margin: 0 0 6px 0;
+  font-family:'Montserrat', sans-serif;
+  font-size: 17px;
+  line-height: normal;
+  color:#515151;
+}
+
+.timer {
+
+  display: inline-block;
+  font-family:'Open Sans', sans-serif;
+  font-size: 11px;
+  padding: 3px 8px;
+  color: rgb(107, 107, 107);
+  background-color: #FFF;
+  border: 1px solid #E5E5E5;
+  border-radius: 15px;
+}
+
+.chat {
+  width: 75% ;
+  position: relative;
+  padding: 0;
+}
+
+.header-chat {
+  background-color: #FFF;
+  height: 90px;
+  box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
+  display:flex;
+  align-items: center;
+}
+
+.chat .header-chat .icon {
+  margin-left: 30px;
+  color:#515151;
+  font-size: 14pt;
+}
+
+.chat .header-chat .name {
+  margin: 0 0 0 20px;
+  text-transform: uppercase;
+  font-family:'Montserrat', sans-serif;
+  font-size: 13pt;
+  color:#515151;
+}
+
+
+
+.chat .messages-chat {
+  position: relative;
+	padding: 25px 35px;
+	height: 400px;
+	overflow-y: auto;
+}
+
+.chat .messages-chat .message {
+  display:flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+
+.chat .messages-chat .text {
+  margin: 0;
+  background-color: #f6f6f6;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.text-only {
+  margin-left: 5px;
+}
+
+.time {
+  font-size: 10px;
+  color:#616161;
+  margin-bottom:10px;
+  margin-left: 5px;
+}
+
+.response-time {
+  float: right;
+  margin-right: 40px !important;
+}
+
+.response {
+  float: right;
+
+  margin-right: 0px !important;
+  margin-left: auto; /* flexbox alignment rule */
+}
+
+.text-content{
+  max-width: 80%;
+}
+
+.response .text {
+  background-color: #e3effd !important;
+}
+
+.footer-chat {
+
+  width: 100%;
+  height: 200px;
+
+  background-color: transparent;
+  border-top: 2px solid #EEE;
+  
+}
+
+.footer-chat form{
+  width: 100%;
+  padding: 5%;
+  display: inline-block;
+}
+
+.footer-chat form textarea{
+  height: 116px;
+  max-width: 500px;
+  display: inline-block;
+  resize: none;
+}
+
+.footer-chat form .validation-button{
+  margin : 0 0 21px 10px;
+}
+
+.chat .footer-chat .send {
+  color:#fff;
+  background-color: #4f6ebd;
+  position: absolute;
+  right: 50px;
+  padding: 12px 12px 12px 12px;
+  border-radius: 50px;
+  font-size: 14pt;
+}
+
+.write-message {
+  border: 1px solid blue;
+  width: 80%;
+  height: 50px;
+  margin-left: 20px;
+  padding: 10px;
+}
+
+.footer-chat *::-webkit-input-placeholder {
+  color: #C0C0C0;
+  font-size: 13pt;
+}
+
+.footer-chat input *::-moz-placeholder {
+  color: #C0C0C0;
+  font-size: 13pt;
+  margin-left:5px;
+}
+
+.footer-chat input *:-ms-input-placeholder {
+  color: #C0C0C0;
+  font-size: 13pt;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+
+@media screen and (max-width: 780px) {
+
+    
+  .messages-container {
+    margin-top: 24px;
+    margin-bottom: 30px;
+  }
+
+  .desc-contact {
+   
+    margin: 0 10px 0 10px;
+  }
+    
+  .footer-chat form .validation-button{
+    margin : 15px 0 0 0;
+  }
+
+}
+
+
+
+@media screen and (max-width: 580px) {
+
+  .messages-container{
+    position: relative;
+  }
+
+  .collapse-button{
+
+    margin: 0px 7px 0 0;
+    
+  }
+
+  #header-title{
+    
+    margin: 0px 0 0 15px;
+
+  }
+
+  .discussions{
+    position: absolute;
+    width: 100%;
+  }
+    
+  .chat {
+    width: 100%;
+    display:none;
+  }
+
+  .text-content{
+    max-width: 100%;
+  }
+
+  .write-message {
+    width: 80%;
+    margin-left: 10px;
+    padding: 5px;
+  }
+    
+  .chat .footer-chat .send {
+
+    right: 5px;
+    padding: 8px;
+    font-size: 14pt;
+  }
+
+  .chat .messages-chat {
+    padding: 20px 0px 10px 0px;
+  }
+
+  .chat .messages-chat .text {
+    margin: 0 14px;
+    padding: 10px;
+  }
+
+}

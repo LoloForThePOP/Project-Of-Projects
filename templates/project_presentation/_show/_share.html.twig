@@ -2,31 +2,48 @@
 
     {% block modalBody %}
 
-        <div class="">
+        <div class="share-whole-content">
 
-            <p class="fs-15">
-                
-                Pour faire connaître ce projet, copiez son adresse et partagez-là.
+            <div class="row">
 
-                <br><br>
+                <div class="col-12 col-lg-7 px-0">
 
-                <span class="mr-2">Voici son adresse :</span>
+                    <div class="text-container">
 
-                <input id="presentationAbsoluteURL" value="{{ url('show_presentation', {"stringId": presentation.stringId}) }}" size="50">
+                        <p class="mb-3">
+                          Pour faire connaître ce projet, copiez son adresse et partagez-là.  
+                        </p>
 
-                </input>
+                        <div class="mb-2">Voici son adresse :</div>
 
-                <br>
-                <br>
+                        
 
-                <button type="button" onclick="copyToClipboard('presentationAbsoluteURL', 'copyURLFeedbackBox', 'Adresse copiée ✅')" class="btn btn-light fw-bold me-3" style="border:2px solid orange !important">Copier cette adresse</button>
+                        <div class="d-md-none mb-3">{{ url ('show_presentation', {"stringId": presentation.stringId}) }}</div>
 
-                <span id="copyURLFeedbackBox" class="fw-bold"></span>
+                        {# Copy lionk do not work on mobile #}
 
-                
-    
-            </p>
+                        <input id="presentationAbsoluteURL" class="d-none d-md-block mb-3" value="{{ url ('show_presentation', {"stringId": presentation.stringId}) }}" size="50"></input>
 
+                        <button type="button" onclick="copyToClipboard('presentationAbsoluteURL', 'copyURLFeedbackBox', 'Adresse copiée ✅')" class="d-none d-md-inline btn btn-light fw-bold me-3 mb-4" style="border:2px solid orange !important">Copier cette adresse</button>
+
+                        <span id="copyURLFeedbackBox" class="d-block d-md-inline fw-bold"></span>
+
+                    </div>
+                    
+                </div>
+
+                <div class="col-12 col-lg-5 px-0">
+
+                    <div class="image-container">
+
+                        <img src="{{asset('share_object.svg', 'pp_consult')}}" alt="Un cercle de personnes en interactions" width="200">
+
+                    </div>
+
+                </div>
+
+            </div>
+            
         </div>
 
     {% endblock %}
@@ -62,6 +79,75 @@
         border: none;
         background-color: inherit;
         font-weight: bold;
+    }
+
+
+    .share-whole-content{
+        margin-bottom: 21px;
+        padding:  0 8px;
+    }
+
+    .share-whole-content .row{
+        margin-bottom: 21px;
+    }
+
+    .share-whole-content .image-container{
+
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+        height:100%;
+
+        padding: 15px;
+
+        background-color: #f8f9fa;
+
+        border-radius: 8px;
+        
+    }
+
+    .share-whole-content .image-container img{
+
+        max-width: 100%; 
+        height: auto;
+    }
+
+    .share-whole-content .text-container{
+
+        height:100%;
+        
+        padding: 15px 8px;
+
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 1.1;
+
+        background-color: rgb(255, 255, 255);
+
+    }
+
+
+
+    @media screen and (max-width: 768px) {
+
+        .share-whole-content .text-container{
+
+            font-size: 18px;
+
+        }
+
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .share-whole-content .text-container{
+
+            font-size: 15px;
+
+        }
+
     }
 
 

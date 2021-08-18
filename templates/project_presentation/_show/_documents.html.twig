@@ -17,7 +17,7 @@
 
     {% block mainContent %}
 
-        <div id="documents" class="js-elements-list pp-struct-content sm-horiz-scroll row ps-4 ps-md-5">
+        <div id="documents" class="js-elements-list pp-struct-content sm-horiz-scroll row ps-4 ps-md-5" style="margin-right: 0 !important;">{# margin 0 otherwise documents overflow container #}
 
             {% for document in presentation.documents %}
                 

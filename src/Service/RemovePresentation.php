@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\PPBase;
 use Doctrine\ORM\EntityManagerInterface;
 
-class DeletePresentation {
+class RemovePresentation {
 
     protected $manager;
 
@@ -31,6 +31,18 @@ class DeletePresentation {
             ->setIsDeleted(true);
 
         $stringId = $presentation->getStringId();
+
+        // Decoupling presentation with its conversations
+
+        foreach ($presentation->getConversations() as $conversation) {
+
+            $presentation->removeConversation($conversation);
+
+        }
+
+        $this->manager->flush();
+
+        
 
         //removing project presentation with all its childs
 

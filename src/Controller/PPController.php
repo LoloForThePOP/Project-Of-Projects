@@ -17,7 +17,7 @@ use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
-use App\Service\DeletePresentation;
+use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use App\Form\ContributorStructureType;
@@ -381,8 +381,8 @@ class PPController extends AbstractController
      * @Route("/projects/{stringId}/delete", name="delete_presentation")
      * 
      * @return Response
-     */
-    public function delete(PPBase $presentation, Request $request, DeletePresentation $deletePresentationService)
+    */
+    public function delete(PPBase $presentation, Request $request, RemovePresentation $deletePresentationService)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);

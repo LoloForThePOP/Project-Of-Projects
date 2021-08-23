@@ -21,7 +21,6 @@ class Conversation
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="conversations")
-     * @ORM\JoinColumn(onDelete="CASCADE")
     */ 
     private $presentation;
 
@@ -85,7 +84,9 @@ class Conversation
     {
         $this->presentation = $presentation;
 
-        $this->setContext(substr($presentation->getGoal(), 0 , 120));
+        if ($presentation != null) {
+            $this->setContext(substr($presentation->getGoal(), 0 , 120));
+        }
 
         return $this;
     }

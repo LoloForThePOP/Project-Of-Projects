@@ -4,16 +4,12 @@
     width: 330px;
     max-width: 100%;
     padding: 18px;
-    margin-bottom: 16px;
+    margin-bottom: 22px;
     border: 1px solid rgb(171, 173, 190);
     border-radius: 4px;
-}
-
-.bc-outer:nth-child(odd){
-
     margin-right: 25px;
-
 }
+
 
 
 @media screen and (max-width: 768px) {

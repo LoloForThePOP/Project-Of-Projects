@@ -381,10 +381,11 @@ class FakeDataFixtures extends Fixture
 
         // Project Presentations Creation
 
-        for ($j = 0; $j < 15; $j++) {
+        
+
+        for ($j = 0; $j < 25; $j++) {
 
             $presentation = new PPBase();
-
             // Title Creation
 
             $title = null;
@@ -571,13 +572,13 @@ class FakeDataFixtures extends Fixture
 
                         $persorgsCount = mt_rand(1,10);
 
-                        for ($j=0; $j < $persorgsCount; $j++) {
+                        for ($t=0; $t < $persorgsCount; $t++) {
 
                             $persorg = new Persorg();
 
                             $hydratedPersorg = FakeDataFixtures::hydratePersorg($persorg, 'organisation');
 
-                            $hydratedPersorg->setPosition($j);
+                            $hydratedPersorg->setPosition($t);
 
                             $structure->addPersorg($hydratedPersorg);
 
@@ -785,8 +786,7 @@ class FakeDataFixtures extends Fixture
                         
                         $conversation = new Conversation();
 
-                        $conversation->setContext($faker->sentence(mt_rand(7,20)))
-                                     ->setPresentation($presentation);
+                        // conversation users
 
                         $user1 = $presentation->getCreator();
                         $user2 = $users[array_rand($users)];
@@ -795,13 +795,20 @@ class FakeDataFixtures extends Fixture
                             $user2 = $users[array_rand($users)];
                         }
 
-                        $conversationUsers=[$user1, $user2];
-
                         $conversation->addUser($user1);
                         $conversation->addUser($user2);
 
+                        $user2->addConversation($conversation);
+                        $user2->addConversation($conversation);
+
+                        $conversation
+                                    ->setContext($faker->sentence(mt_rand(7,20)))
+                                    ->setAuthorUser($user2)
+                                    ->setPresentation($presentation);
+
                         $messagesCount = mt_rand(1,12);
 
+                        $conversationUsers=[$user1, $user2];
 
                         for ($i=0; $i <= $messagesCount; $i++) { 
                             
@@ -814,15 +821,30 @@ class FakeDataFixtures extends Fixture
                             $message->setAuthorUser($author)
                                     ->setContent($content)
                                     ->setConversation($conversation)
-                                    ->setType("between_users");
+                                    ->setType("between_users")
+                                    ->setIsConsulted(true);
 
+                            $conversation->setCacheItem("lastMessIsConsulted", true);
+
+                            // sometimes last message is not consulted
                                     
-                            if ($i == $messagesCount) {
+                            if ($i == $messagesCount && $faker->boolean(80)) {
 
-                                $message->setIsConsulted($faker->boolean(50));
+                                $message->setIsConsulted(false);
+                                $conversation->setCacheItem("lastMessIsConsulted", false);
+
+                                    // update receiver unread messages count
+
+                                    foreach ($conversation->getUsers() as $participant) {
+                                        if ($message->getAuthorUser() != $participant) {
+    
+                                            $unreadMessagesCount= $participant->getDataItem("unreadMessagesCount");
+    
+                                            $participant->setDataItem("unreadMessagesCount", $unreadMessagesCount+1);
+                                        }
+                                    }
 
                             }
-
 
                             $manager->persist($message);
 
@@ -838,44 +860,35 @@ class FakeDataFixtures extends Fixture
                 
             }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
             $manager->persist($presentation);
+
         }
 
         // End of Project Presentation Creation
 
+        // update users unread messages count
 
+    /*     foreach ($users as $user) {
 
+            $unreadMessagesCount=0;
+            
+            foreach ($user->getConversations() as $conversation) {
 
+                foreach ($conversation->getMessages() as $message) {
+                    
+                    if ($message->getAuthorUser() != $user && $message->getIsConsulted()==false) {
+                        
+                        $unreadMessagesCount ++;
+                    }
+                }
+            }
 
-
+            $user->setDataItem("unreadMessagesCount", $unreadMessagesCount);
+        }
+ */
 
 
         $manager->flush();
+
     }
 }

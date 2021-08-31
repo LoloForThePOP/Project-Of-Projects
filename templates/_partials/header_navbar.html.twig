@@ -34,12 +34,46 @@
 
         {% if app.user %}
 
-          <li class="nav-item fs-5 me-3 d-none d-md-inline">
+          {% set unreadMessagesCount = app.user.data.unreadMessagesCount %}
 
-            <a href="{{path ('user_manage_messages')}}">
+          {% if unreadMessagesCount > 0 %}
 
-              <button type="button" class="btn btn-success rounded">
-                Messages <span class="badge bg-warning text-body">{{ render ( path ('count_user_unread_messages')) }}</span>
+            <li class="nav-item fs-5 me-3 d-none d-md-inline">
+
+              <a href="{{path ('user_manage_messages')}}">
+
+                <button type="button" class="btn btn-success rounded">
+                  Messages <span class="badge bg-warning text-body">{{unreadMessagesCount}}</span>
+                </button>
+
+              </a>
+
+            </li>
+
+            {# mobile display #}
+
+            <li class="nav-item d-md-none">
+
+              <a href="{{path ('user_manage_messages')}}">
+
+                <button type="button" class="btn btn-sm btn-success rounded">
+                  Messages <span class="badge bg-warning text-body">{{unreadMessagesCount}}</span>
+                </button>
+
+              </a>
+
+            </li>
+
+          {% endif %}
+
+        {% else %}
+            
+          <li class="nav-item d-md-none">
+
+            <a href="{{path ('app_login')}}">
+
+              <button type="button" class="btn btn-sm btn-success rounded">
+                Connexion
               </button>
 
             </a>
@@ -109,8 +143,7 @@
               <ul aria-labelledby="userAccountDropdown" class="dropdown-menu dropdown-menu-end" style="width: 260px;">
 
                 <div class="container d-flex align-items-center justify-content-center text-center mb-3">
-                  Yo! Lorem ipsum dolor sit, amet consectetur adipisicing elit. Odit voluptate placeat ab magnam
-                  recusandae. Molestias totam ullam dolore inventore et.
+                  {{app.user.userName}}
                 </div>
 
                 <li>

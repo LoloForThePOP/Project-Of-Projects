@@ -7,10 +7,11 @@ use App\Entity\Message;
 use App\Entity\Conversation;
 use App\Form\ContactWebsiteType;
 use App\Form\PrivateMessageType;
-use App\Repository\MessageRepository;
-use Doctrine\Common\Collections\Criteria;
+use Symfony\Component\Mime\Address;
 use App\Repository\ConversationRepository;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,7 +27,7 @@ class MessagesController extends AbstractController
      * 
      * @Route("/projects/{stringId}/conversation/new/{context}", name="new_pp_conversation")
      */
-    public function newPPConversation(PPBase $presentation, $context=null, Request $request): Response
+    public function newPPConversation(PPBase $presentation, $context=null, Request $request, MailerInterface $mailer): Response
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -53,26 +54,46 @@ class MessagesController extends AbstractController
 
             $conversation = new Conversation();
 
+
+            $receiver=$presentation->getCreator();
+
             $conversation 
                 
                 ->setContext($context)
                 ->addUser($this->getUser())
-                ->addUser($presentation->getCreator())
+                ->addUser($receiver)
                 ->setContext($context)
                 ->setPresentation($presentation)
-                ->addMessage($privateMessage);            ;
+                ->addMessage($privateMessage);
+
+            // updating receiver unread messages count
+
+            $receiver->setDataItem("unreadMessagesCount", $receiver->getDataItem('unreadMessagesCount')+1);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($privateMessage);
             $entityManager->persist($conversation);
             $entityManager->flush();
+
+            $email = (new TemplatedEmail())
+                ->from($this->getParameter('app.mailer_email'))
+                ->to(new Address($receiver->getEmail()))
+                ->subject('Projet des Projets - Vous avez reçu un nouveau message')
+
+                // path of the Twig template to render
+                ->htmlTemplate('user/messages/email_got_new_message.html.twig')
+
+                // pass variables (name => value) to the template
+                ->context([
+                    'projectGoal' => $presentation->getGoal(),
+                ]);
+
+            $mailer->send($email);
             
             $this->addFlash(
                 'success',
                 "✅ Votre Message a été envoyé"
             );
-
-            //  to do : email notification to presentation creator
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringID(),
@@ -94,7 +115,7 @@ class MessagesController extends AbstractController
      * 
      * @Route("/user/messages/", name="user_manage_messages")
      */
-    public function manageConversations(Request $request, ConversationRepository $repo): Response
+    public function manageConversations(Request $request, ConversationRepository $repo, MailerInterface $mailer): Response
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -125,7 +146,35 @@ class MessagesController extends AbstractController
                 $newMessage ->setType("between_users")
                             ->setAuthorUser($user);
 
-                $conversation->addMessage($newMessage);  
+                $conversation->addMessage($newMessage);
+                
+                // updating unread messages count
+
+                foreach ($conversation->getUsers() as $receiver) {
+
+                    if ($user != $receiver) {
+
+                        $unreadMessagesCount= $receiver->getDataItem("unreadMessagesCount");
+
+                        $receiver->setDataItem("unreadMessagesCount", $unreadMessagesCount+1);
+
+                        $email = (new TemplatedEmail())
+                            ->from($this->getParameter('app.mailer_email'))
+                            ->to(new Address($receiver->getEmail()))
+                            ->subject('Projet des Projets - Vous avez reçu un nouveau message')
+
+                            // path of the Twig template to render
+                            ->htmlTemplate('user/messages/email_got_new_message.html.twig')
+
+                            // pass variables (name => value) to the template
+                            ->context([
+                                'projectGoal' => $conversation->getPresentation()->getGoal(),
+                            ]);
+
+                        $mailer->send($email);
+                    }
+                    
+                }
                 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($newMessage);
@@ -158,7 +207,7 @@ class MessagesController extends AbstractController
      * @Route("/user/messages/ajax-display-conversation", name="ajax_display_conversation")
      * 
      */
-    public function ajaxDisplayConversation(Request $request, ConversationRepository $repo)
+    public function ajaxDisplayConversation(Request $request, ConversationRepository $conversationsRepo)
     {
         
         if ($request->isXmlHttpRequest()) {
@@ -167,9 +216,11 @@ class MessagesController extends AbstractController
             
             $idConversation = $request->request->get('idConversation');
             
-            $conversation = $repo->findOneById($idConversation);
+            $conversation = $conversationsRepo->findOneById($idConversation);
+
+            $user= $this->getUser();
             
-            if($conversation->getUsers()->contains($this->getUser())){
+            if($conversation->getUsers()->contains($user)){
 
                 $messages = $conversation->getMessages();
                 
@@ -185,12 +236,29 @@ class MessagesController extends AbstractController
                     ),
                 ];
 
-                // Updating that conversation is consulted
+                // Updating that now conversation is consulted
+                // & updating read / unread messages states and count
 
-
-                if ($messages->last()->getAuthorUser() != $this->getUser()) {
+                if ($messages->last()->getAuthorUser() != $user) {
 
                     $conversation->setCacheItem('lastMessIsConsulted', true);
+
+                    $unreadMessagesCount = $user->getDataItem("unreadMessagesCount");
+                    $newlyConsultedMessagesCount=0;
+
+                    $conversationMessages = $conversation->getMessages();
+
+                    foreach ($conversationMessages as $message) {
+
+                        if ($message->getIsConsulted()==false) {
+                            $message->setIsConsulted(true);
+                            $newlyConsultedMessagesCount++;
+                        }
+                        
+                    }
+
+                    $user->setDataItem("unreadMessagesCount",$unreadMessagesCount-$newlyConsultedMessagesCount);
+
                     $entityManager = $this->getDoctrine()->getManager();
                     $entityManager->flush();   
 
@@ -277,7 +345,7 @@ class MessagesController extends AbstractController
      * 
      * @Route("/count-user-unread-messages", name="count_user_unread_messages")
      */
-    public function countUserUnreadMessages(MessageRepository $repo): Response
+    /* public function countUserUnreadMessages(MessageRepository $repo): Response
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -288,7 +356,7 @@ class MessagesController extends AbstractController
                 count($result)
             );
 
-    }
+    } */
 
 
 

@@ -115,6 +115,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $data = [];
 
+    /**
+     * @ORM\OneToMany(targetEntity=Conversation::class, mappedBy="authorUser")
+     */
+    private $createdConversations;
+
 
     public function __construct()
     {
@@ -125,7 +130,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->messages = new ArrayCollection();
         $this->conversations = new ArrayCollection();
 
-        $this->setDataItem("messagesCount", 0);
+        $this->setDataItem("unreadMessagesCount", 0);
+        $this->createdConversations = new ArrayCollection();
 
     }
 
@@ -405,6 +411,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setDataItem($key, $value): self
     {
         $this->data[$key] = $value;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Conversation[]
+     */
+    public function getCreatedConversations(): Collection
+    {
+        return $this->createdConversations;
+    }
+
+    public function addCreatedConversation(Conversation $createdConversation): self
+    {
+        if (!$this->createdConversations->contains($createdConversation)) {
+            $this->createdConversations[] = $createdConversation;
+            $createdConversation->setAuthorUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedConversation(Conversation $createdConversation): self
+    {
+        if ($this->createdConversations->removeElement($createdConversation)) {
+            // set the owning side to null (unless already changed)
+            if ($createdConversation->getAuthorUser() === $this) {
+                $createdConversation->setAuthorUser(null);
+            }
+        }
 
         return $this;
     }

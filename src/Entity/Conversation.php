@@ -49,6 +49,11 @@ class Conversation
      */
     private $context;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="createdConversations")
+     */
+    private $authorUser;
+
 
 
 
@@ -197,6 +202,18 @@ class Conversation
     public function setContext(?string $context): self
     {
         $this->context = $context;
+
+        return $this;
+    }
+
+    public function getAuthorUser(): ?User
+    {
+        return $this->authorUser;
+    }
+
+    public function setAuthorUser(?User $authorUser): self
+    {
+        $this->authorUser = $authorUser;
 
         return $this;
     }

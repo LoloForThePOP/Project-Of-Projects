@@ -2,6 +2,8 @@
 
 <script>
 
+   // truncate function used to create message headline
+
    function truncate(str, n){
       return (str.length > n) ? str.substr(0, n-1) + '&hellip;' : str;
     };
@@ -57,6 +59,11 @@
             success: function(data, status) {
                //alert(data.html);
                $('#messages-chat').html(data.html);
+
+               //scroll to bottom of the "chat"
+
+               var objDiv = document.getElementById("messages-chat");
+               objDiv.scrollTop = objDiv.scrollHeight;
 
                
             },  

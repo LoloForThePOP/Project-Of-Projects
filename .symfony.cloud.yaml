@@ -9,7 +9,10 @@ runtime:
         - sodium
         - ctype
         - iconv
+        - pdo_mysql
         
+relationships:
+    database: "mydatabase:mysql"
 
 #variables:
 #    php:

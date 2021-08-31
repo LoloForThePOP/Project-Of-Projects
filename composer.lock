@@ -2277,7 +2277,7 @@
             "require": {
                 "laminas/laminas-eventmanager": "^2.6 || ^3.0",
                 "laminas/laminas-zendframework-bridge": "^1.0",
-                "php": "^7.1"
+                "php": "^7.1 || ^8.0"
             },
             "conflict": {
                 "phpspec/prophecy": "<1.9.0"

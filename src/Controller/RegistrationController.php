@@ -100,7 +100,7 @@ class RegistrationController extends AbstractController
                     'confirmationURL' => $confirmationURL,
                 ]);
 
-            //$mailer->send($email);
+            $mailer->send($email);
 
             // asking user to validate his email adress
 

@@ -13,6 +13,7 @@ use App\Form\DataListType;
 use App\Form\DocumentType;
 use App\Service\TreatItem;
 use App\Form\ImageSlideType;
+use App\Service\ImageResizer;
 use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
 use App\Service\CacheThumbnail;
@@ -20,6 +21,7 @@ use App\Form\QuestionAnswerType;
 use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
+use Symfony\Component\Form\FormError;
 use App\Form\ContributorStructureType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -91,7 +93,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
@@ -230,6 +232,7 @@ class PPController extends AbstractController
             $document= new Document();
             $addDocumentForm = $this->createForm(DocumentType::class, $document);
             $addDocumentForm->handleRequest($request);
+            
             if ($addDocumentForm->isSubmitted() && $addDocumentForm->isValid()) {
 
                 $document->setPresentation($presentation);
@@ -261,7 +264,9 @@ class PPController extends AbstractController
             $imageSlide->setType('image');
             $addImageForm = $this->createForm(ImageSlideType::class, $imageSlide);
             $addImageForm->handleRequest($request);
+            
             if ($addImageForm->isSubmitted() && $addImageForm->isValid()) {
+                
 
                 $imageSlide->setPosition(count($presentation->getSlides()));
 
@@ -269,6 +274,8 @@ class PPController extends AbstractController
 
                 $manager->persist($imageSlide);
                 $manager->flush();
+
+                $imageResizer->edit($imageSlide);
  
                 $cacheThumbnail->cacheThumbnail($presentation);
 
@@ -337,6 +344,8 @@ class PPController extends AbstractController
                     $manager->persist($persorg);
 
                     $manager->flush();
+
+                    $imageResizer->edit($persorg);
 
                     $this->addFlash(
                         'success',
@@ -468,7 +477,7 @@ class PPController extends AbstractController
      * 
      * @return void
      */
-    public function editBase(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
+    public function editBase(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -480,6 +489,8 @@ class PPController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $manager->flush();
+
+            $imageResizer->edit($presentation);
             
             $cacheThumbnail->cacheThumbnail($presentation);
                        

@@ -86,6 +86,7 @@ class NeedController extends AbstractController
 
             return $this->redirectToRoute('show_presentation',[
                 'stringId' => $presentation->getStringId(),
+                '_fragment' => 'needs',
             ]);
         }
 

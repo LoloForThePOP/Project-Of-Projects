@@ -158,6 +158,8 @@ class PPBase implements \Serializable
      */
     private $slides;
 
+    const MAX_SLIDES = 8;
+
     /**
      * @ORM\OneToMany(targetEntity=Place::class, mappedBy="presentation")
      * @ORM\OrderBy({"position" = "ASC"})

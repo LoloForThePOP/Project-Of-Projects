@@ -1,0 +1,69 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crédits et Remerciements{% endblock %}
+
+{% block stylesheets %}<link href="/css/static_content.css" rel="stylesheet">{% endblock %}
+
+{% block body %}
+
+    <div class="page-container static-content container px-0 col-md-11 col-lg-7">
+        
+        <h1 style="color: green;">Crédits et remerciements</h1>
+
+        <section>
+
+            <h2>Remerciements</h2>
+
+                <p>
+                    ❤️❤️❤️ Merci à toutes les personnes qui rendent possible la création et l'utilisation de ce site. Merci également à tous les contributeurs du web qui partagent des outils qu'ils ont créés. Ce site web ne serait pas réalisé sans vous.
+                </p>
+
+                <p>
+                   <a href="https://symfony.com/" target="_blank" class="fw-bold">Ce site web est fabriqué avec le framework PHP Symfony</a>.
+                </p>
+
+        </section>
+
+        <section>
+
+            <h2 class="">Crédits images</h2>
+            
+            {# Flaticon #}
+
+            <p class="">
+
+                Ce site utilise plusieurs icônes disponibles sur le site <a href="https://www.flaticon.com" target="_blank" rel="noopener noreferrer"><b>flaticon.com</b></a>.
+    
+            </p>
+
+            <h5>Auteurs de ces icônes :</h5>
+
+            <ul>
+                <li>freepik</li>
+                <li>DinosoftLabs</li>
+                <li>Vitaly Gorbachev</li>
+                <li>pixelmeetup</li>
+                <li>smalllikeart</li>
+                <li>mynamepong</li>
+            </ul>
+
+            {# The noun project #}
+
+            <p class="">
+
+                Ce site utilise plusieurs icônes disponibles sur le site <a href="https://www.thenounproject.com" target="_blank" rel="noopener noreferrer"><b>thenounproject.com</b></a>.
+
+            </p>
+
+            <h5>Auteurs de ces icônes :</h5>
+
+            <ul>
+                <li>shashank singh</li>
+                <li>shwepes</li>
+            </ul>
+
+        </section>
+
+    </div>
+
+{% endblock %}

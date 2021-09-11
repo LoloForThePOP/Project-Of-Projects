@@ -8,15 +8,13 @@
 
       <div class="col col-sm-3">
 
-        <h5 class="">Get started</h5>
+        <h5 class="">Démarrer</h5>
 
         <ul class="">
 
-          <li class=""><a href="#">Home</a></li>
+          <li class=""><a href="#">Accueil</a></li>
 
-          <li><a href="#">Sign up</a></li>
-
-          <li><a href="#">Downloads</a></li>
+          <li><a href="#">Connexion</a></li>
 
         </ul>
 
@@ -24,45 +22,43 @@
 
       <div class="col col-sm-3">
 
-        <h5>About us</h5>
+        <h5>Le Projet des Projets</h5>
 
         <ul>
 
-          <li><a href="#">Company Information</a></li>
+          <li><a href="{{path('static', {'page_name': "about_us",})}}">Qui sommes-nous</a></li>
+
+          <li><a href="#">Manifeste du Projet des Projets</a></li>
 
           <li><a href="{{path('contact_website')}}">Contactez-nous</a></li>
 
-          <li><a href="#">Reviews</a></li>
-
         </ul>
 
       </div>
 
-      <div class="col col-sm-3">
-
-        <h5>Support</h5>
-
-        <ul>
-
-          <li><a href="#">FAQ</a></li>
-
-          <li><a href="#">Help desk</a></li>
-
-          <li><a href="#">Forums</a></li>
-
-        </ul>
-
-      </div>
 
       <div class="col col-sm-3">
 
-        <h5>Legal</h5>
+        <h5>Régulations</h5>
 
         <ul>
 
           <li><a href="{{path('static', {'page_name': "terms",})}}">Conditions d'utilisation</a></li>
 
           <li><a href="{{path ('static', {'page_name': "privacy",})}}">Politique de confidentialité</a></li>
+
+        </ul>
+
+      </div>
+
+      
+      <div class="col col-sm-3">
+
+        <h5>Divers</h5>
+
+        <ul>
+
+          <li><a href="{{path('static', {'page_name': "credits",})}}">Crédits et remerciements</a></li>
 
         </ul>
 

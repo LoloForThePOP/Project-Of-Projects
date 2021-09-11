@@ -9,6 +9,8 @@
 	{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "slideshow", 'title': "Diaporama", 'additionalClasses': "pp-edition-mode", 'helpContext': "slides",} %}
 
 		{% block editButtons %}
+
+			{% if countSlides <= constant('MAX_SLIDES', presentation) %}
 		
 			{# Add an image button (triggers a modal with a form) #}
 		
@@ -22,6 +24,8 @@
 				<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
 
 			</a>
+
+			{% endif %}
 
 			{% if countSlides > 0 %}
 
@@ -146,7 +150,6 @@
 		captionText.innerHTML = dots[slideIndex-1].getAttribute('data-caption');
 
 	}
-
 
 	// displaying appropriate image or video when hovering its thumbnail
 

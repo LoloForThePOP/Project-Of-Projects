@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\PersorgType;
 use App\Form\EmailFormType;
+use App\Service\ImageResizer;
 use App\Form\DeleteEntityType;
 use App\Form\UpdatePasswordType;
 use App\Service\DeletePresentation;
@@ -41,7 +42,7 @@ class RegisteredUserController extends AbstractController
      * 
      * @return Response
      */
-    public function publicProfile(Request $request, EntityManagerInterface $manager){
+    public function publicProfile(Request $request, EntityManagerInterface $manager, ImageResizer $imageResizer){
 
         $userPersorg = $this->getUser()->getPersorg();
 
@@ -54,6 +55,8 @@ class RegisteredUserController extends AbstractController
             $this->getUser()->setUserName($persorgForm->get('name')->getData());
 
             $manager->flush();
+
+            $imageResizer->edit($userPersorg);
 
             $this->addFlash(
                 'success',

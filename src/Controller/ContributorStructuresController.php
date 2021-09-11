@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\PPBase;
 use App\Entity\Persorg;
 use App\Form\PersorgType;
+use App\Service\ImageResizer;
 use App\Entity\ContributorStructure;
 use App\Repository\PersorgRepository;
 use App\Form\ContributorStructureType;
@@ -126,7 +127,7 @@ class ContributorStructuresController extends AbstractController
      * @Route("/projects/{stringId}/contributor-structures/{id_cs}/manage", name="manage_one_cs")
      * 
      */
-    public function manageOneCS ($id_cs, PPBase $presentation, Request $request, EntityManagerInterface $manager, ContributorStructureRepository $ecsRepository)
+    public function manageOneCS ($id_cs, PPBase $presentation, Request $request, EntityManagerInterface $manager, ContributorStructureRepository $ecsRepository, ImageResizer $imageResizer)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -171,6 +172,8 @@ class ContributorStructuresController extends AbstractController
 
             $manager->flush();
 
+            $imageResizer->edit($persorg);
+
             $this->addFlash(
                 'success',
                 "✅ Ajout effectué"
@@ -202,7 +205,7 @@ class ContributorStructuresController extends AbstractController
      * @Route("/projects/{stringId}/contributor-structures/persorgs/edit/{id_persorg}", name="edit_persorg")
      * 
      */
-    public function editPersorg (PPBase $presentation, $id_persorg, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager)
+    public function editPersorg (PPBase $presentation, $id_persorg, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager, ImageResizer $imageResizer)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -218,6 +221,8 @@ class ContributorStructuresController extends AbstractController
             $manager->persist($persorg);
 
             $manager->flush();
+
+            $imageResizer->edit($persorg);
 
             $this->addFlash(
                 'success',

@@ -87,6 +87,7 @@
     <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
         <div class="title-placeholder">
+            <div class="line-through"></div>
             Titre du Projet
         </div>
         
@@ -97,16 +98,24 @@
         .title-placeholder{
 
             display: inline-block;
+            position: relative;
             width: 400px;
             margin-bottom: 13px;
 
             color: #397ee7;
             font-size: 24px;
             font-weight: bold;
-            text-decoration: line-through;
 
             cursor: pointer;
             
+        }
+
+        .line-through{
+            position: absolute;
+            width: 180px;
+            height: 2px;
+            top:51%;
+            background-color: #397ee7;
         }
 
         .title-placeholder:hover {
@@ -123,6 +132,10 @@
 
                 width: 80%;
 
+            }
+
+            .line-through{
+                width: 150px;
             }
 
         }

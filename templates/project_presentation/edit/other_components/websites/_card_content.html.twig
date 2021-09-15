@@ -15,7 +15,35 @@
 
                 {% else %}
 
-                    <div id="" class="" style="display: flex; align-items: center; justify-content: center; background-color: rgb(225, 234, 255); text-transform: uppercase; width: 40px; height: 40px; font-size: 18px; font-weight: bold;">n</div>
+                    <div id="" class="default-website-logo" >
+
+                        {# Twig URL parser (https://gist.github.com/olets/a835d4f8df5028fb30649d6a8aa03de2) #}
+                        {% set url= website.url %}
+                        {% set noprotocol = url|split('//')[1] ?: url %}
+                        {% set domains = noprotocol|split('/')[0] ?: noprotocol %}
+                        {% if domains|split('.')[2] is defined %}
+                            {% set domain = domains|split('.')[1] %}
+                        {% else %}
+                            {% set domain = domains|split('.')[0] %}
+                        {% endif %}
+
+                        {{domain | first}}
+
+                    </div>
+
+                    <style>
+                        .default-website-logo{
+                            display: flex; 
+                            align-items: center; 
+                            justify-content: center; 
+                            background-color: rgb(241, 242, 255); 
+                            text-transform: uppercase; 
+                            width: 40px; height: 40px; 
+                            font-size: 18px; 
+                            font-weight: bold; 
+                            border-radius: 4px;
+                        }
+                    </style>
 
                 {% endif %}
 

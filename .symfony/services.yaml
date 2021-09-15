@@ -1,3 +1,0 @@
-mydatabase:
-    type: mariadb:10.5
-    disk: 1024

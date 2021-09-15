@@ -20,7 +20,9 @@
 
           {% set user_presentations = app.user.createdPresentations %}
 
-          {% if user_presentations %}
+          {% if user_presentations | length > 0 %}
+
+              {# Plural forms #}
                   
               {% set user_presentations_label %}
                 
@@ -62,7 +64,6 @@
       </div>
       
     </div>
-
       
   </div>
 

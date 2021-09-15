@@ -88,7 +88,7 @@ class RegistrationController extends AbstractController
             // send an email to verify user adress
 
             $email = (new TemplatedEmail())
-                ->from($this->getParameter('app.mailer_email'))
+                ->from (new Address($this->getParameter('app.mailer_email'), 'Propon'))
                 ->to(new Address($user->getEmail()))
                 ->subject('Merci de confirmer votre email')
 

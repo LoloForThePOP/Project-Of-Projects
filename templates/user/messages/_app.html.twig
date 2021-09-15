@@ -76,8 +76,11 @@
 
       });
 
+      //Displaying first message on large screens
 
-        $(".discussion").first().trigger("click");
+      if(!tinyScreen){
+         $(".discussion").first().trigger("click");
+      }
 
    });
 

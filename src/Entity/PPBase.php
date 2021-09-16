@@ -70,7 +70,7 @@ class PPBase implements \Serializable
      *  @Assert\Image(
      *     maxSize = "1500k",
      *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/apng", "image/gif", "image/webp", "image/x-ms-bmp", "image/svg", "image/svg+xml", "image/bmp"},
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="project_logo_image", fileNameProperty="logo")

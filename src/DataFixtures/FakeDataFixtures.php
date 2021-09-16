@@ -280,7 +280,7 @@ class FakeDataFixtures extends Fixture
 
 
         // Users Creation
-/* 
+
         $users = []; // contains all users, we'll use this array to hydrate project presentation creators
 
         // One admin user creation
@@ -298,7 +298,7 @@ class FakeDataFixtures extends Fixture
                 )
             )
             ->setParameter('isVerified', true)
-            ->setRoles(['ROLE_ADMIN']) ;
+            ->setRoles(['ROLE_ADMIN']);
 
 
         // admin's avatar creation
@@ -330,7 +330,7 @@ class FakeDataFixtures extends Fixture
             ->setParameter('isVerified', true);
 
         
-        // other test user avatar creation
+        // admin's avatar creation
 
         $otherTestUserPersorg = new Persorg();
         $hydratedPersorg = FakeDataFixtures::hydratePersorg($otherTestUserPersorg, 'person');
@@ -375,14 +375,14 @@ class FakeDataFixtures extends Fixture
             $users[] = $user;
 
         }
-         */
+        
         // End Of casual users creation
 
 
         // Project Presentations Creation
 
         
-/* 
+
         for ($j = 0; $j < 25; $j++) {
 
             $presentation = new PPBase();
@@ -862,7 +862,7 @@ class FakeDataFixtures extends Fixture
 
             $manager->persist($presentation);
 
-        } */
+        }
 
         // End of Project Presentation Creation
 

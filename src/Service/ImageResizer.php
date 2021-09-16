@@ -28,8 +28,16 @@ class ImageResizer {
 
         
         $imagePath = substr($this->uploaderHelper->asset($imageEntity),1);
-        
-        //dd($imagePath);
+
+        $imageExt = strtolower(substr($imagePath, strrpos($imagePath, '.') + 1));
+
+        //file extension below are not resized due to gumlet limitations
+
+        if ($imageExt == 'svg') {
+
+            return false;
+            
+        }
 
         $image = new ImageResize($imagePath);
         $image->quality_jpg = 100;

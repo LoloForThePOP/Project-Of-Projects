@@ -34,6 +34,14 @@
 
 	{% for slide in presentation.slides %}
 
+		{# Flag if we have some captions #}
+
+		{% if slide.caption is not empty %}
+
+			<span class="hasCaptionFlag d-none"></span>
+		
+		{% endif %}
+
 		<div class="flex-child thumbnail" data-slide-thumbnail-id="{{slide.id}}"  data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="">
 
 			{% if slide.type == 'youtube_video' %}	

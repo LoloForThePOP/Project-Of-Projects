@@ -6,10 +6,10 @@
 parameters:
 
     # website support email adress (ex: support@website.com)
-    app.support_email: "support@projetdesprojets.com"
+    app.support_email: "contact@propon.org"
 
     # website mailer (ex: mailer@website.com)
-    app.mailer_email: "mailer@projetdesprojets.com"
+    app.mailer_email: "mailer@propon.org"
 
     app.google_map_api_key: AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk
 

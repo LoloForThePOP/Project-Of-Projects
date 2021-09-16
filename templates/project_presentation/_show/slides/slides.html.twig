@@ -151,12 +151,24 @@
 
 	}
 
-	// displaying appropriate image or video when hovering its thumbnail
+	
+	// remove caption container if we have no slide with caption (see caption flag in _thumbnail_container.html.twig)
+
+	if ($('.hasCaptionFlag').length == 0) {
+
+		alert($('.hasCaptionFlag').length);
+
+		$('.caption-container').remove();
+
+	}
+
+	// displaying appropriate image or video slide when hovering its thumbnail
 
 	$( ".thumbnail" ).mouseover(function() {
 
 		currentSlide($(this).data("loop-index"));
 		
 	});
+
 
 </script>

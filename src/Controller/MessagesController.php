@@ -284,21 +284,17 @@ class MessagesController extends AbstractController
     /**
      * Allow any user to access contact website page
      * 
-     * This action starts a new conversation
-     * 
      * @Route("/contact-us/{context}/{item}/{identifier}", name="contact_website")
      */
-    public function contactWebsite($context=null, $item=null, $identifier=null, Request $request): Response
+    public function contactWebsite($context=null, $item=null, $identifier=null, Request $request, MailerInterface $mailer): Response
     {
-        
-        $privateMessage = new Message();
 
         $form = 
         
             $this->createForm(
 
                 ContactWebsiteType::class, 
-                $privateMessage,
+                null,
                 array(
 
                     // Time protection
@@ -315,11 +311,26 @@ class MessagesController extends AbstractController
 
             $context= $context.'-'.$item.'-'.$identifier;
 
-            $privateMessage->setType("to_website");
+            $sender = $form->get('authorEmail')->getData();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($privateMessage);
-            $entityManager->flush();
+            $receiver = $this->getParameter('app.support_email');
+
+            $email = (new TemplatedEmail())
+                ->from($sender)
+                ->to($receiver)
+                ->subject('New Message from Contact Form')
+
+                // path of the Twig template to render
+                ->htmlTemplate('static/email_contact_form_to_website.html.twig')
+
+                // pass variables (name => value) to the template
+                ->context([
+                    'context' => $context,
+                    'messageContent' => $form->get('content')->getData(),
+                    'sender' => $sender,
+                ]);
+
+            $mailer->send($email);
             
             $this->addFlash(
                 'success',

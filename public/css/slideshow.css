@@ -102,7 +102,6 @@
 
     min-height: 72px;
 
-    padding: 8px 0px 8px 35px;
     margin-bottom: 10px;
     
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -113,8 +112,12 @@
 
 
 .caption-container p {
-    
+
+    width: 100%;
+
+    text-align: center  ;
     margin-bottom: 0;
+    padding: 0 8%;
 }
 
 
@@ -196,13 +199,17 @@
     .caption-container {
 
         min-height: 50px;
-
-        padding: 4px 9px;
         
         font-size: 15px;
         font-weight:normal;
 
         margin-bottom : 7px;
+          
+    }
+        
+    .caption-container p {
+
+        padding: 4px 0;
           
     }
 

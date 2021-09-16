@@ -60,13 +60,13 @@
 	
 			<p id="caption" class="">
 
-				{# when only one slide with caption, we display its caption by default #}	
+				{# when only one slide, we display its potential caption by default #}	
 
 				{% if countSlides == 1 %}
 
 					{% set slide = presentation.slides | first %}
 
-					<div class="ps-md-3">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</div>
+					{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
 
 				{% endif %}
 						
@@ -79,7 +79,7 @@
 				
 			{#  Slides Container #}
 
-			<div class="slides-container px-0 col-lg-9 {{countSlides > 1 ? 'mx-auto'}} edit-hoverable-item"> 
+			<div class="slides-container px-0 col-lg-9 edit-hoverable-item"> 
 
 				{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
 

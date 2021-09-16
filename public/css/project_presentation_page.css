@@ -17,7 +17,7 @@
     
 } 
 
-    /* Slideshow container : removing horizontal padding and border */
+    /* Slideshow container : removing horizontal padding and structure border by default (these are added in edition mode, see wysiwyg.css) */
 
     #slideshow-struct-container{
         padding: 15px 0px 10px 0px;
@@ -153,6 +153,11 @@
 
     .pp-struct-content{
         padding-left: 5px;
+    }
+
+    #slideshow-struct-container{
+        padding: 0px;
+        border: none;
     }
 
 

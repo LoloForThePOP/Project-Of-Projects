@@ -7,7 +7,7 @@
 
     <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
 
-        <div class="logo-edit-icon-position d-lg-none">
+        <div class="edit-icon-position d-lg-none">
 
             <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 
@@ -36,7 +36,7 @@
         border-radius: 4px;
     }
 
-    .logo-edit-icon-position{
+    .pp-logo-container .edit-icon-position{
 
         position: absolute; 
         bottom:0; 
@@ -74,14 +74,17 @@
 
         #pp-logo{
             border-radius: 4px;
-            width: 55px;
-            height: 55px;
+            max-width: 55px;
+            max-height: 55px;
         }
 
-        .logo-edit-icon-position{
-        
-            width:22px;
-            height:22px;
+        .pp-logo-container .edit-icon-position{
+    
+            width: 22px;
+            height: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         
         }
 

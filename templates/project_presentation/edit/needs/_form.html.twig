@@ -7,6 +7,7 @@
 
         <div class="form-row">
 
+            {{ form_errors(form.type) }}
             {{ form_label(form.type) }}
             {{ form_widget(form.type) }}
 
@@ -15,6 +16,8 @@
     {% endif %}
 
 <div class="form-row">
+
+    {{ form_errors(form.title) }}
 
     <div class="label-box">
 
@@ -30,6 +33,8 @@
 
 <div class="form-row">
 
+    {{ form_errors(form.isPaid) }}
+
     <div class="label-box">
 
         <img class="needs-icon-money" src="/media/static/images/icons/edit_presentation/needs/edit_form/money.svg" alt="money icon">
@@ -43,6 +48,8 @@
 </div>
 
 <div class="form-row">
+
+    {{ form_errors(form.description) }}
 
     <div class="label-box">
 

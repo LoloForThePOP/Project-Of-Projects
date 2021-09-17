@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Need;
 use App\Entity\PPBase;
 use App\Form\NeedType;
+use App\Repository\NeedRepository;
 use App\Repository\PPBaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,22 +73,27 @@ class NeedController extends AbstractController
     /**
     * @Route("/projects/{stringId}/needs/update/{need_id}", name="update_need", methods={"GET","POST"}) 
     */
-    public function update(PPBase $presentation, Request $request, Need $need): Response
+    public function update(PPBase $presentation, Request $request, $need_id, NeedRepository $needRepo): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
-        $form = $this->createForm(NeedType::class, $need);
+        $need = $needRepo->findOneById($need_id);
 
-        $form->handleRequest($request);
+        if ($need->getPresentation() == $presentation) {
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+            $form = $this->createForm(NeedType::class, $need);
 
-            return $this->redirectToRoute('show_presentation',[
-                'stringId' => $presentation->getStringId(),
-                '_fragment' => 'needs',
-            ]);
+            $form->handleRequest($request);
+    
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->getDoctrine()->getManager()->flush();
+    
+                return $this->redirectToRoute('show_presentation',[
+                    'stringId' => $presentation->getStringId(),
+                    '_fragment' => 'needs',
+                ]);
+            }
         }
 
         return $this->render('project_presentation/edit/needs/update.html.twig', [

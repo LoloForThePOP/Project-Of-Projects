@@ -22,7 +22,7 @@ class Need
      */
     private $id;
 
-    const TYPES = ["skill", "task", "advice", "area", "money", "other"];
+    const TYPES = ["skill", "task", "material", "advice", "area", "money", "other"];
 
     /**
      * @ORM\Column(type="string", length=100, nullable=true)

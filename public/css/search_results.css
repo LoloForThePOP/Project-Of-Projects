@@ -11,7 +11,8 @@
 }
 
 .collection-row{
-    
+
+    min-height: 105px;    
     padding: 12px;
     margin-bottom: 24px;
     display: flex;
@@ -84,6 +85,8 @@
     }
 
     .collection-row {
+
+        min-height: 80px;
 
         padding: 6px 5px 6px 3px;
         margin-bottom: 18px;

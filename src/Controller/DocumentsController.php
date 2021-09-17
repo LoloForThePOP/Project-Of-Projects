@@ -47,9 +47,9 @@ class DocumentsController extends AbstractController
                 "✅ Ajout effectué"
             );
 
-            return $this->redirectToRoute('manage_documents', [
+            return $this->redirectToRoute('show_presentation',[
                 'stringId' => $presentation->getStringId(),
-                'presentation' => $presentation,
+                '_fragment' => 'documents',
             ]);
 
         }
@@ -75,27 +75,29 @@ class DocumentsController extends AbstractController
 
         $document = $documentRepo->findOneById($id_element);
 
-        $form = $this->createForm(DocumentType::class, $document);
-        /*->remove('file')*/
+        if ($document->getPresentation()==$presentation) {
+
+            $form = $this->createForm(DocumentType::class, $document);
+            
+            $form->handleRequest($request);
     
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-
-            $document->setPresentation($presentation);
-
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "✅ Modification Effectué"
-            );
-
-            return $this->redirectToRoute('manage_documents', [
-                'stringId' => $presentation->getStringId(),
-                'presentation' => $presentation,
-            ]);
-
+            if ($form->isSubmitted() && $form->isValid()){
+    
+                $document->setPresentation($presentation);
+    
+                $manager->flush();
+    
+                $this->addFlash(
+                    'success',
+                    "✅ Modification Effectué"
+                );
+    
+                return $this->redirectToRoute('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                    '_fragment' => 'documents',
+                ]);
+    
+            }
         }
     
         return $this->render('project_presentation/edit/documents/update.html.twig', [

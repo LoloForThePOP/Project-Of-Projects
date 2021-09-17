@@ -40,6 +40,7 @@ class ContactWebsiteType extends AbstractType
                     'attr' => [
 
                         'placeholder'    => "Écrire ici",
+                        'rows' => '7',
                     ],
                 ]
                 

@@ -152,11 +152,9 @@
 	}
 
 	
-	// remove caption container if we have no slide with caption (see caption flag in _thumbnail_container.html.twig)
+	// remove caption container when no slide with caption (see caption flag in _thumbnail_container.html.twig)
 
 	if ($('.hasCaptionFlag').length == 0) {
-
-		alert($('.hasCaptionFlag').length);
 
 		$('.caption-container').remove();
 

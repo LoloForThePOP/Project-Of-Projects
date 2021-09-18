@@ -87,7 +87,7 @@
 
                             <div class="fw-bold mb-2">
 
-                                ● <a class="text-decoration-none" href="{{ persorg.website1}}"> 
+                                ● <a class="text-decoration-none" target="_blank" href="{{ persorg.website1}}"> 
                                     
                                     {{ persorg.website1 | length < 30 ? persorg.website1 : persorg.website1 | slice(0, 30) ~ '...' }}
 
@@ -103,7 +103,7 @@
                         
                             <div class="fw-bold mb-2">
 
-                                ● <a class="text-decoration-none" href="{{ persorg.website2}}"> 
+                                ● <a class="text-decoration-none" href="{{ persorg.website2}}" target="_blank" > 
                                     
                                     {{ persorg.website2 | length < 30 ? persorg.website2 : persorg.website2 | slice(0, 30) ~ '...' }}
 

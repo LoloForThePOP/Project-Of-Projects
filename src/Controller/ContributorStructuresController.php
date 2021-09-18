@@ -212,27 +212,31 @@ class ContributorStructuresController extends AbstractController
    
         $persorg = $persorgRepository->findOneById($id_persorg);
 
-        $form = $this->createForm(PersorgType::class, $persorg);
-    
-        $form->handleRequest($request);
+        if ($persorg->getContributorStructure()->getPresentation() == $presentation) {
+                
+            $form = $this->createForm(PersorgType::class, $persorg);
+        
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+            if ($form->isSubmitted() && $form->isValid()){
 
-            $manager->persist($persorg);
+                $manager->persist($persorg);
 
-            $manager->flush();
+                $manager->flush();
 
-            $imageResizer->edit($persorg);
+                $imageResizer->edit($persorg);
 
-            $this->addFlash(
-                'success',
-                "✅ modifications effectuées"
-            );
+                $this->addFlash(
+                    'success',
+                    "✅ modifications effectuées"
+                );
 
-            return $this->redirectToRoute('show_presentation', [
-                'stringId' => $presentation->getStringId(),
-                '_fragment' => 'cs-'.$persorg->getContributorStructure()->getId(),
-            ]);
+                return $this->redirectToRoute('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                    '_fragment' => 'cs-'.$persorg->getContributorStructure()->getId(),
+                ]);
+
+            }
 
         }
     
@@ -242,6 +246,7 @@ class ContributorStructuresController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'context' => '',
         ]);
+        
     }
 
     /**

@@ -2,18 +2,20 @@
 
 namespace App\Entity;
 
-use App\Repository\PersorgRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PersorgRepository;
 
 
 use Symfony\Component\HttpFoundation\File\File;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Constraints\Image;
-
-
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+
+use Symfony\Component\Validator\Constraints\NotBlank;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
@@ -69,18 +71,28 @@ class Persorg implements \Serializable
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url()
+     * 
      */
     private $website1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url()
      */
     private $website2;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url()
      */
     private $website3;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Url()
+     */
+    private $website4;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -123,13 +135,9 @@ class Persorg implements \Serializable
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $website4;
 
     /**
      * @ORM\ManyToOne(targetEntity=ContributorStructure::class, inversedBy="persorgs")

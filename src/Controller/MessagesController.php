@@ -76,9 +76,9 @@ class MessagesController extends AbstractController
             $entityManager->flush();
 
             $email = (new TemplatedEmail())
-                ->from($this->getParameter('app.mailer_email'))
+                ->from(new Address($this->getParameter('app.mailer_email'), 'Propon'))
                 ->to(new Address($receiver->getEmail()))
-                ->subject('Projet des Projets - Vous avez reçu un nouveau message')
+                ->subject('Nouveau message sur Propon')
 
                 // path of the Twig template to render
                 ->htmlTemplate('user/messages/email_got_new_message.html.twig')
@@ -159,9 +159,9 @@ class MessagesController extends AbstractController
                         $receiver->setDataItem("unreadMessagesCount", $unreadMessagesCount+1);
 
                         $email = (new TemplatedEmail())
-                            ->from($this->getParameter('app.mailer_email'))
+                            ->from(new Address($this->getParameter('app.mailer_email'), 'Propon'))
                             ->to(new Address($receiver->getEmail()))
-                            ->subject('Projet des Projets - Vous avez reçu un nouveau message')
+                            ->subject('Nnouveau message sur Propon')
 
                             // path of the Twig template to render
                             ->htmlTemplate('user/messages/email_got_new_message.html.twig')

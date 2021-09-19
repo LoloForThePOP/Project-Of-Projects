@@ -11,19 +11,19 @@
 		{% block editButtons %}
 
 			{% if countSlides <= constant('MAX_SLIDES', presentation) %}
-		
-			{# Add an image button (triggers a modal with a form) #}
-		
-			<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
-			class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
+			
+				{# Add an image button (triggers a modal with a form) #}
+			
+				<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
+				class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
 
-			{# Add a video button (triggers a modal) #}
+				{# Add a video button (triggers a modal) #}
 
-			<a class="text-decoration-none" href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
+				<a class="text-decoration-none" href="{{ path('add_youtube_slide', {'stringId': presentation.stringId}) }}">
 
-				<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
+					<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
 
-			</a>
+				</a>
 
 			{% endif %}
 

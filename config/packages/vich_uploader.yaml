@@ -43,16 +43,6 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
             
-        test_embed_form:
-                    
-            uri_prefix: /media/uploads/pp/test
-            upload_destination: '%kernel.project_dir%/public/media/uploads/pp/test'
-            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
-            
-            inject_on_load: true
-            delete_on_update: true
-            delete_on_remove: true
-            
         category_icon:
                     
             uri_prefix: /media/static/images/icons/project_categories

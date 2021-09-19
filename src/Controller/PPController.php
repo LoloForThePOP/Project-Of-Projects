@@ -296,6 +296,57 @@ class PPController extends AbstractController
 
             }
 
+
+            $addLogoForm = $this->createForm(PPBaseType::class, $presentation);
+            $addLogoForm->handleRequest($request);
+            
+            if ($addLogoForm->isSubmitted() && $addLogoForm->isValid()) {
+
+                $manager->flush();
+
+                $imageResizer->edit($presentation);
+                $cacheThumbnail->cacheThumbnail($presentation);
+
+                $this->addFlash(
+                    'success',
+                    "✅ Logo ajouté"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+                    [
+
+                        'stringId' => $presentation->getStringId(),
+
+                    ]
+                );
+
+            }
+
+            $addTitleForm = $this->createForm(PPBaseType::class, $presentation);
+            $addTitleForm->handleRequest($request);
+            
+            if ($addTitleForm->isSubmitted() && $addTitleForm->isValid()) {
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Titre ajouté"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+                    [
+
+                        'stringId' => $presentation->getStringId(),
+
+                    ]
+                );
+
+            }
+
+
             $newECS = new ContributorStructure();
             $ecsForm = $this->createForm(ContributorStructureType::class, $newECS);
             $ecsForm->handleRequest($request);
@@ -371,6 +422,8 @@ class PPController extends AbstractController
                 'addBusinessCardForm' => $addBusinessCardForm->createView(),
                 'addDocumentForm' => $addDocumentForm->createView(),
                 'addImageForm' => $addImageForm->createView(),
+                'addLogoForm' => $addLogoForm->createView(),
+                'addTitleForm' => $addTitleForm->createView(),
             ]);
 
         }

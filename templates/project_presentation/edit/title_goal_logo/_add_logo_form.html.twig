@@ -1,0 +1,54 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "add_logo_form_modal", 'modal_title': "Ajouter un Logo"} %}
+    
+{% block modalBody %}
+
+        {{ form_start(form) }}
+
+        <div class="mb-3">
+
+            {{ form_label(form.logoFile) }}
+
+            <div class="mb-3">
+                {{ form_errors(form.logoFile) }}
+            </div>
+            
+            {{ form_widget(form.logoFile) }}
+
+        </div>
+
+        <div class="d-none">
+
+            {{ form_rest(form) }}
+
+        </div>
+
+    {% endblock %}
+
+    {% block footerButtons %}
+
+        <button type="submit" class="btn btn-success">Valider</button>
+
+        {{ form_end(form) }}
+
+    {% endblock %}
+
+
+    {% block formErrors %}
+        
+        {% if not form.vars.valid %}
+
+            <script>
+            
+                $(document).ready(function(){
+            
+                    $('#{{modal_id}}').modal('show');
+            
+                });
+            
+            </script>
+
+        {% endif %}
+    
+    {% endblock %}
+
+{% endembed %}

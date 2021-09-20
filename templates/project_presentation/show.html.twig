@@ -111,7 +111,7 @@
 
     {% if countMiscDataList > 0 %}
 
-        <div id="" class="pp-struct-container col-lg-10">
+        <div id="data-list-struct-container" class="pp-struct-container col-lg-10">
 
             {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
             
@@ -125,7 +125,7 @@
 
     {% if countWebsites > 0  %}
     
-        <div id="" class="pp-struct-container col-12">
+        <div id="websites-struct-container" class="pp-struct-container col-12">
             
             {% include 'project_presentation/_show/_websites.html.twig' %}
             
@@ -139,7 +139,7 @@
 
     {% if countDocuments > 0 %}
 
-        <div id="" class="pp-struct-container col-12">
+        <div id="documents-struct-container" class="pp-struct-container col-12">
 
             {% include 'project_presentation/_show/_documents.html.twig' %}
 
@@ -154,7 +154,7 @@
 
     {% if countQA > 0 %}
         
-        <div id="" class="pp-struct-container col-12 col-lg-9">
+        <div id="qa-struct-container" class="pp-struct-container col-12 col-lg-9">
             
             {% include 'project_presentation/_show/_questions_answers.html.twig' %}
             
@@ -169,7 +169,7 @@
 
     {% if countNeeds > 0 %}
         
-        <div class="pp-struct-container col-12 col-md-9 col-lg-7">
+        <div id="needs-struct-container" class="pp-struct-container col-12 col-md-9 col-lg-7">
             
             {% include 'project_presentation/_show/needs/main.html.twig' %}
             
@@ -184,7 +184,7 @@
 
     {% if countPlaces > 0 %}
         
-        <div class="pp-struct-container col-12">
+        <div id="places-struct-container" class="pp-struct-container col-12">
             
             {% include 'project_presentation/_show/_places.html.twig' %}
         
@@ -201,7 +201,7 @@
 
     {% if countECS > 0 %}
 
-        <div class="pp-struct-container col-12">
+        <div id="ecs-struct-container" class="pp-struct-container col-12">
 
             {% include 'project_presentation/_show/_external_contributors.html.twig' %}
 

@@ -125,7 +125,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'websites'
+                        '_fragment' => 'websites-struct-container'
     
                     ]
 
@@ -157,7 +157,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'businessCards',
+                        '_fragment' => 'contact-struct-container',
     
                     ]
 
@@ -188,7 +188,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'dataList',
+                        '_fragment' => 'data-list-struct-container',
 
     
                     ]
@@ -220,7 +220,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'questionsAnswers',
+                        '_fragment' => 'qa-struct-container',
 
     
                     ]
@@ -252,7 +252,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'documents',
+                        '_fragment' => 'documents-struct-container',
     
                     ]
 
@@ -289,7 +289,7 @@ class PPController extends AbstractController
                     [
 
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'slides',
+                        '_fragment' => 'slides-struct-container',
 
                     ]
                 );

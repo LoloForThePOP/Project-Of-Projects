@@ -92,12 +92,21 @@ a{
     -moz-border-radius: 50%;
   }
 
-.avatar-circle-80 {
+.avatar-square-rounded {
+    position: relative;
+    background-color: #27ae60;
+    text-align: center;
+    border-radius: 9%;
+    -webkit-border-radius: 9%;
+    -moz-border-radius: 9%;
+  }
+
+.avatar-80 {
     width: 80px;
     height: 80px;
 }
 
-.avatar-circle-100 {
+.avatar-100 {
     width: 100px;
     height: 100px;
 }

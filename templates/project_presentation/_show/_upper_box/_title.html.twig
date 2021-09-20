@@ -84,9 +84,9 @@
 
     </style>
 
-{% elseif userPresenter %} {# No title, we use a placeholder #}
+{% elseif userPresenter %} {# No title, we use a placeholder and display a form on click #}
 
-    <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
+    <a id="show-input" data-bs-toggle="modal" data-bs-target="#add_title_form_modal"  class="pp-edition-mode">
 
         <div class="title-placeholder">
             <div class="line-through"></div>
@@ -94,18 +94,6 @@
         </div>
         
     </a>
-        
-    <script>
-
-        $(document).ready(function(){
-
-            $('#addTitle').click(function(){
-
-            });
-
-        });
-
-    </script>
 
     <style>
 
@@ -128,7 +116,7 @@
             position: absolute;
             width: 180px;
             height: 2px;
-            top:51%;
+            top:53%;
             background-color: #397ee7;
         }
 

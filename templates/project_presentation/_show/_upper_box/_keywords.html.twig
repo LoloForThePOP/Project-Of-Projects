@@ -8,11 +8,11 @@
 
         <span class="d-inline-block me-2">
 
-            {% set keywords = presentation.keywords | replace({" " : ""}) | split(',') %}
+            {% set keywords = presentation.keywords | split(',') %}
 
             {% for keyword in keywords %}
 
-                #{{keyword | first | capitalize ~ keyword[1:] }}
+                #{{keyword | title | replace({" " : ""}) }}
 
             {% endfor %}
 

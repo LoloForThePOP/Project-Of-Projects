@@ -6,7 +6,7 @@
 {% block body %}
 
 
-<div class="page-container container">
+<div class="page-container container px-2 px-md-4">
 
     <div class="row mt-2">
 
@@ -89,19 +89,19 @@
                 </form>
 
 
-                <div>
+                <div id="login-other-choices" class="mt-4">
 
                     <!-- New account access button -->
 
                     <div class="fw-bold h5 mb-3">
                         Pas encore inscrit ?
-                        <a href="{{path('app_register')}}" class="text-decoration-none">Rejoignez-nous !</a>
+                        <a href="{{path('app_register')}}" class="text-decoration-none">Rejoignez-nous.</a>
                     </div>
 
                     <!-- Forgotten password access button -->
 
                     <div class="fw-bold h5">Mot de passe oublié ?
-                        <a href="{{path('forgotten_password_request')}}" class="text-decoration-none">C'est ici</a>
+                        <a href="{{path('forgotten_password_request')}}" class="text-decoration-none">C'est ici.</a>
                     </div>
 
                 </div>
@@ -113,5 +113,22 @@
     </div>
 
 </div>
+
+<style>
+
+        
+    @media screen and (max-width: 580px) {
+
+        #login-other-choices > * {
+            font-size: 16px;
+        }
+
+
+
+    }
+
+
+
+</style>
 
 {% endblock %}

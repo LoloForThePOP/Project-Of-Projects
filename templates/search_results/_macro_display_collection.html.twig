@@ -60,11 +60,11 @@
                         
                         <span class="text-break">
 
-                            {% set keywords = item.keywords | replace({" " : ""}) | split(',') %}
+                            {% set keywords = item.keywords | split(',') %}
 
                             {% for keyword in keywords [0:6] %}
                 
-                                #{{keyword | first | capitalize ~ keyword[1:] }}
+                                #{{keyword | title | replace({" " : ""}) }}
                 
                             {% endfor %}
 

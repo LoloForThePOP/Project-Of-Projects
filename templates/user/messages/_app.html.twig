@@ -12,9 +12,12 @@
 
       var tinyScreen = false;
 
+      //if tiny screen
+
       if($('#tiny-screen-flag').css('display')=='none')
       {
          tinyScreen = true;
+
       }
 
       $("#show-conversations-list").click(function() {
@@ -30,6 +33,8 @@
             $('#discussions').hide();
             $('#messages').show();
          }
+
+         //changing message title display on title panel
 
          $('.message-active').removeClass('message-active');
          $(this).addClass('message-active');
@@ -80,6 +85,8 @@
 
       if(!tinyScreen){
          $(".discussion").first().trigger("click");
+      } else{ //no active message when entering when on mobile
+         $('.message-active').removeClass('message-active');
       }
 
    });

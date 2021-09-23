@@ -73,6 +73,8 @@ class SlideController extends AbstractController
         return $this->render('project_presentation/edit/slides/update_image.html.twig', [
             'stringId' => $pp->getStringId(),
             'form' => $form->createView(),
+            'slide' => $slide,
+
         ]);
 
     }

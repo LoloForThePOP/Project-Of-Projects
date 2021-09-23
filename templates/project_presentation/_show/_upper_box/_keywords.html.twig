@@ -6,7 +6,7 @@
 
         <!-- Project Keywords Display -->
 
-        <span class="d-inline-block me-2">
+        <span class="d-inline">
 
             {% set keywords = presentation.keywords | split(',') %}
 
@@ -22,7 +22,7 @@
 
         {% if userPresenter %}
 
-            <a class="pp-edition-mode ms-3 ms-md-0" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">
+            <a class="pp-edition-mode ms-2 ms-md-0" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">
 
                 <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
                 
@@ -54,6 +54,7 @@
 
                 font-size: 15px;
                 font-weight:bold;
+                text-align: center;
 
             }
 
@@ -115,7 +116,6 @@
                 margin-bottom: 5px;
 
 			}
-
                 
             .keywordsIcon {
 

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Slide;
 use App\Entity\PPBase;
 use App\Entity\Persorg;
+use App\Form\TitleType;
 use App\Entity\Document;
 use App\Form\PPBaseType;
 use App\Form\PersorgType;
@@ -322,8 +323,29 @@ class PPController extends AbstractController
 
             }
 
-            // this form seems handled by $addLogoForm above because it's same type.
-            $addTitleForm = $this->createForm(PPBaseType::class, $presentation);
+           
+            $addTitleForm = $this->createForm(TitleType::class, $presentation);
+            $addTitleForm->handleRequest($request);
+            
+            if ($addTitleForm->isSubmitted() && $addTitleForm->isValid()) {
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Modification Effectuée"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+                    [
+
+                        'stringId' => $presentation->getStringId(),
+
+                    ]
+                );
+
+            }
           
             $newECS = new ContributorStructure();
             $ecsForm = $this->createForm(ContributorStructureType::class, $newECS);

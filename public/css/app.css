@@ -5,8 +5,8 @@ a{
 }
 
 .btn{
+    border-radius: 3px;
     font-weight: bold;
-    border-radius: 0;
 }
 
 .btn-light{
@@ -170,12 +170,7 @@ label, legend {
 
 .btn-go-back{
 
-    background-color: #3498DB;
-    color: white;
-}
-
-.btn-validate:hover, .btn-go-back:hover{
-    color: #fff;
+    background-color: #D1EAFB;
 }
 
 

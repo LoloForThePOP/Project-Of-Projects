@@ -1,52 +1,44 @@
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "add_title_form_modal", 'modal_title': "Titre du Projet"} %}
+
+    {{ form_start(form) }}
+
+   
+
+    <div class="mb-3">
+        {{ form_errors(form.title) }}
+    </div>
     
-{% block modalBody %}
+    {{ form_widget(form.title) }}
 
-        {{ form_start(form) }}
+    <button id="submit-title-form" type="submit" class="btn btn-success">Ok</button>
 
-        <div class="mb-3">
-
-            <div class="mb-3">
-                {{ form_errors(form.title) }}
-            </div>
-            
-            {{ form_widget(form.title) }}
-
-        </div>
-
-        <div class="d-none">
-
-            {{ form_rest(form) }}
-
-        </div>
-
-    {% endblock %}
-
-    {% block footerButtons %}
-
-        <button type="submit" class="btn btn-success">Valider</button>
-
-        {{ form_end(form) }}
-
-    {% endblock %}
+    {{ form_end(form) }}
 
 
-    {% block formErrors %}
+
+
+
+    <style>
+
         
-        {% if not form.vars.valid %}
 
-            <script>
-            
-                $(document).ready(function(){
-            
-                    $('#{{modal_id}}').modal('show');
-            
-                });
-            
-            </script>
+        #title_title{
+            display: inline;
+            width: 85%;
+        }
 
-        {% endif %}
-    
-    {% endblock %}
+        #submit-title-form{
+            vertical-align: baseline;
+        }
 
-{% endembed %}
+        
+        @media (max-width: 580px) {
+
+            #title_title {
+                width: 80%;
+                margin-right: 3px;
+            }
+
+        }
+
+
+    </style>

@@ -1,5 +1,13 @@
 <!-- Project Title Presentation -->
 
+<script>
+
+    // Inline add title form is hidden by default
+
+    $('form[name="title"]').hide();
+
+</script>
+
 {% if presentation.title is not empty %}
 
     <!-- Structure Container -->
@@ -86,7 +94,7 @@
 
 {% elseif userPresenter %} {# No title, we use a placeholder and display a form on click #}
 
-    <a id="show-input" data-bs-toggle="modal" data-bs-target="#add_title_form_modal"  class="pp-edition-mode">
+    <a class="pp-edition-mode">
 
         <div class="title-placeholder">
             <div class="line-through"></div>
@@ -94,6 +102,30 @@
         </div>
         
     </a>
+
+
+    
+
+    <script>
+
+        $(document).ready(function(){
+
+            $(".title-placeholder").on('click', function (){
+                
+                $(this).html($('form[name="title"]'));
+                $('form[name="title"]').show();
+                $(".title-placeholder").addClass("active"); //flag for input is displayed
+                $(".title-placeholder").off();
+                $("#title_title").focus();
+
+            });
+
+        });
+
+    </script>
+
+
+
 
     <style>
 
@@ -125,6 +157,15 @@
             background-color: rgb(237, 237, 248);
         }
 
+        .title-placeholder.active{
+            width: 500px;
+        }
+
+        .title-placeholder.active:hover {
+
+            background-color: unset;
+        }
+
         @media screen and (max-width: 580px) {
 
             .title-placeholder{
@@ -132,8 +173,12 @@
                 font-size: 20px;
                 margin-bottom: 14px;
 
-                width: 80%;
+                width: 100%;
 
+            }
+
+            .title-placeholder.active{
+                width: 100%;
             }
 
             .line-through{

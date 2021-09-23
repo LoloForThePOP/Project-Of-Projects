@@ -31,15 +31,13 @@ class BusinessCardType extends AbstractType
                         'placeholder'    => 'Ex : Laurent Dupond ; Responsable Communication',
                     ],
 
-                    'required'   => true,
+                    'required'   => false,
 
                     'constraints' => array(
-                        new \Symfony\Component\Validator\Constraints\NotBlank(['message' => 'Veuillez ne pas laisser ce champ vide.']),
+                       
                         new \Symfony\Component\Validator\Constraints\Length(
                             [
-                                "min" => 2,
-                                "max" => 250,
-                                "minMessage" => "Le nom doit contenir au minimum {{ limit }} caractères",
+                                "max" => 50,
                                 "maxMessage" => "Le nom doit contenir au maximum {{ limit }} caractères",
                             ]
                         ),

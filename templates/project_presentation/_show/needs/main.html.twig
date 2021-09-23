@@ -36,7 +36,60 @@
 
                     {% block modalBody %}
 
-                        {{need.description}}
+                        <!-- Date Display -->
+
+                        <div class = "mb-2" >
+
+                            <span class="">
+                                Publié le 
+                            </span>
+
+                            <span>
+                                {{need.createdAt | date('d-m-Y')}}
+                            </span>
+
+                        </div>
+
+                        <!-- is it Payed ? -->
+
+                        <div class = "mb-4" >
+
+                            <span class="fw-bold">
+                                Payé ?  
+                            </span>
+                            
+                            <span class="is-paid-badge">
+
+                                {% set isPaid = need.isPaid %}
+
+                                {% if isPaid == 'yes' %}
+
+                                    Oui
+                                
+                                {% elseif isPaid == 'no' %}
+
+                                    Non
+
+                                {% elseif isPaid == 'maybe' %}
+
+                                    Peut-être
+
+                                {% elseif isPaid is null %}
+
+                                    Non précisé
+                                    
+                                {% endif %}
+
+                            </span>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            {{ need.description[:1]|upper ~ need.description[1:] }}
+
+                        </div>
+
                     
                     {% endblock %}
 
@@ -90,6 +143,15 @@
 
             background-color: rgb(244, 244, 248);
 
+        }
+
+        .is-paid-badge {
+            background-color: #d3d3ff;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 1px 9px;
+            margin-left: 5px;
         }
 
     </style>

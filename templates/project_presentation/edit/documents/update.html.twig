@@ -12,9 +12,26 @@
                     
         <div class="fw-bold mb-5">
 
+            <div class="mb-5">
+
+                <h4 class="mb-3">Document actuel :</h4>
+
+                <div class="ps-md-3">
+
+                    {% if document.filename %}
+
+                        {{document.filename}}
+                    
+                    {% endif %}   
+
+                </div>
+                
+            </div>
+
+
             <div class="mb-2 h4 ">
 
-                Choisir un autre fichier :
+                Choisir un autre fichier ?
 
                 <span class="h5">{{ form_errors(form.file) }}</span>
                 
@@ -30,7 +47,7 @@
 
             <div class="mb-2 h4">
 
-                Modifier le titre du document :
+                Modifier le titre du document ?
 
                 {{ form_errors(form.title) }}
 

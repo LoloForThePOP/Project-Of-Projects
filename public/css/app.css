@@ -28,6 +28,10 @@ a{
     cursor: pointer;
 }
 
+.bg-night-sky{
+    background-color: #232f3e;
+}
+
 .no-transition {
     transition: none !important;
 }

@@ -103,7 +103,7 @@ class DocumentsController extends AbstractController
         return $this->render('project_presentation/edit/documents/update.html.twig', [
             'form' => $form->createView(),
             'stringId' => $presentation->getStringId(),
-            'presentation' => $presentation,
+            'document' => $document,
         ]);
     }
 

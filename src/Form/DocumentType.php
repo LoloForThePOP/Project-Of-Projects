@@ -29,7 +29,7 @@ class DocumentType extends AbstractType
                         'placeholder'    => 'Choisir un fichier',
                     ],
 
-                    'required'   => true,
+                    'required'   => false,
                 
                 ]
             )

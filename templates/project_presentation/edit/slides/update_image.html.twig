@@ -13,11 +13,15 @@
 
             <div class="mb-5">
 
-                <h5 class="fw-bold mb-3">Image actuelle</h5>
+                <h5 class="fw-bold mb-3">Image actuelle :</h5>
 
                 {% if slide.address is not empty %}
                 
                     <img class="SlideImageThumbnail" src="{{ vich_uploader_asset(slide) }}" alt="Current image" style="max-width:250px; height:100%;"/>
+
+                {% else %}
+                    
+                    <div>Cette diapositive ne contient pas d'image.</div>
                 
                 {% endif %}
 
@@ -46,7 +50,7 @@
                 {{ form_errors(form.file) }}
 
                 <h5 class="fw-bold mb-3">
-                    Légende ou titre pour cette image
+                    Légende ou titre pour cette image :
                 </h5>
 
                 {{ form_widget(form.caption) }}

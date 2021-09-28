@@ -6,6 +6,7 @@ use App\Entity\PPBase;
 use App\Entity\Category;
 use App\Form\CategoryType;
 use App\Form\PPKeywordsType;
+use App\Service\AssessQuality;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,7 +27,7 @@ class CategoryController extends AbstractController
      * @Route("/projects/{stringId}/categories", name="select_categories_keywords")
      * 
      */
-    public function select(PPBase $presentation, Request $request, EntityManagerInterface $manager, CategoryRepository $categoryRepository)
+    public function select(PPBase $presentation, Request $request, AssessQuality $assessQuality, EntityManagerInterface $manager, CategoryRepository $categoryRepository)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -39,12 +40,13 @@ class CategoryController extends AbstractController
 
         if ($keywordsForm->isSubmitted() && $keywordsForm->isValid()) {
 
-            $manager->persist($presentation);
+            $assessQuality->assessQuality($presentation);  
+
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "✅ Mots-clés mis à jour"
+                "✅ Modifications effectuées"
             );
 
             return $this->redirectToRoute('show_presentation', [
@@ -65,7 +67,7 @@ class CategoryController extends AbstractController
      * @Route("/projects/{stringId}/ajax-select-category", name="ajax_select_category") 
      * 
      */
-    public function ajaxSelectCategory(Request $request, PPBase $presentation, CategoryRepository $categoryRepository, EntityManagerInterface $manager)
+    public function ajaxSelectCategory(Request $request, AssessQuality $assessQuality, PPBase $presentation, CategoryRepository $categoryRepository, EntityManagerInterface $manager)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -84,7 +86,8 @@ class CategoryController extends AbstractController
                 $presentation->removeCategory($category);
             }
 
-            $manager->persist($presentation);
+            $assessQuality->assessQuality($presentation);  
+
             $manager->flush();
 
             return new Response();

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PPBase;
 use App\Entity\PPBasic;
+use App\Service\AssessQuality;
 use App\Entity\TextDescription;
 use App\Form\TextDescriptionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,7 +22,7 @@ class TextDescriptionController extends AbstractController
      * @Route("/projects/{stringId}/edit/text-description", name="edit_pp_text_description")
      * 
      */
-    public function edit(PPBase $presentation, Request $request, EntityManagerInterface $manager)
+    public function edit(PPBase $presentation, Request $request, AssessQuality $assessQuality, EntityManagerInterface $manager)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -31,7 +32,8 @@ class TextDescriptionController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $manager->persist($presentation);
+
+            $assessQuality->assessQuality($presentation);          
 
             $manager->flush();
 

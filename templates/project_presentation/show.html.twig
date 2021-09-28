@@ -70,22 +70,19 @@
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
 
-    {# Notifications #}
+    {# Notification invisible project #}
 
+    {% if userPresenter and presentation.overallQualityAssessment < 2 %}
 
-    {% if presentation.overallQualityAssessment < 3 %}
+        {% include 'project_presentation/_show/_notifications/invisible_presentation.html.twig' %}
 
-        <div class="h5 alert alert-light" role="alert">
-
-            
-
-        </div>
-    
     {% endif %}
 
     {% if presentation.isDeleted or not presentation.isPublished %} 
         
         <div class="h5 alert alert-warning" role="alert">
+
+            {# Notification presentation is deleted #}
 
             {% if presentation.isDeleted %} 
                 
@@ -94,6 +91,8 @@
                 </p>
 
             {% endif %}
+
+            {# Notification presentation is not published #}
 
             {% if not presentation.isPublished %} 
                 

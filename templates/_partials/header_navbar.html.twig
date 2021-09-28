@@ -38,6 +38,8 @@
 
           {% if unreadMessagesCount > 0 %}
 
+            {# large screens display #}
+
             <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
               <a href="{{path ('user_manage_messages')}}">
@@ -149,6 +151,7 @@
                 <li>
 
                   <a class="dropdown-item" href="{{path('create_presentation')}}">Ajouter un Projet</a>
+
                 </li>
 
                 <li>

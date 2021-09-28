@@ -17,6 +17,7 @@ use App\Form\ImageSlideType;
 use App\Service\ImageResizer;
 use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
+use App\Service\AssessQuality;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
 use App\Service\RemovePresentation;
@@ -94,7 +95,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
@@ -275,6 +276,8 @@ class PPController extends AbstractController
 
                 $manager->persist($imageSlide);
                 $manager->flush();
+
+                $assessQuality->assessQuality($presentation);  
 
                 $imageResizer->edit($imageSlide);
  
@@ -530,7 +533,7 @@ class PPController extends AbstractController
      * 
      * @return void
      */
-    public function editBase(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer)
+    public function editBase(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -540,6 +543,8 @@ class PPController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $assessQuality->assessQuality($presentation);  
 
             $manager->flush();
 

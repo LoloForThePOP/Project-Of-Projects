@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Service\AssessQuality;
 use App\Service\CacheThumbnail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -65,7 +66,7 @@ class ComponentsController extends AbstractController
      * @Route("/projects/{stringId}/component/ajax-remove-element/", name="ajax_remove_component_element")
      * 
      */
-    public function ajaxRemoveComponentElement(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail){
+    public function ajaxRemoveComponentElement(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, AssessQuality $assessQuality){
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
@@ -99,6 +100,7 @@ class ComponentsController extends AbstractController
 
                 if ($entityType="slides") {
                     $cacheThumbnail->cacheThumbnail($presentation);
+                    $assessQuality->assessQuality($presentation);  
                 }
             }
 

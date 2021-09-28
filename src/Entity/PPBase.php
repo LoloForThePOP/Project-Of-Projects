@@ -206,7 +206,7 @@ class PPBase implements \Serializable
     {
         $this->createdAt = new DateTime();
         $this->isAdminValidated = true;
-        $this->overallQualityAssessment = 3;
+        $this->overallQualityAssessment = 0;
         $this->parameters['arePrivateMessagesActivated'] = true;
         $this->cache['thumbnail'] = null;
         $this->isPublished = true;

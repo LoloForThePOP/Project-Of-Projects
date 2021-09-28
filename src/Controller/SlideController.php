@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Slide;
 use App\Entity\PPBase;
 use App\Form\ImageSlideType;
+use App\Service\AssessQuality;
 use App\Form\AddVideoSlideType;
 use App\Service\CacheThumbnail;
 use App\Repository\SlideRepository;
@@ -87,7 +88,7 @@ class SlideController extends AbstractController
      * 
      * @return Response
      */
-    public function addYoutubeSlide(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
+    public function addYoutubeSlide(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, AssessQuality $assessQuality)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -107,6 +108,8 @@ class SlideController extends AbstractController
             $videoSlide->setPosition(count($presentation->getSlides()));
             $presentation->addSlide($videoSlide);
             $manager->persist($videoSlide);
+
+            $assessQuality->assessQuality($presentation);  
 
             $cacheThumbnail->cacheThumbnail($presentation);
 

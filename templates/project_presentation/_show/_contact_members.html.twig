@@ -58,7 +58,7 @@
 
             {% if privateMessagesActive or userPresenter %}
 
-                <div id="createPrivateMessageCard" data-display="{{privateMessagesActive ? "true" : "false"}}" class="privateMessagesCard pp-consultation-mode disabled bc-outer">
+                <div id="createPrivateMessageCard" data-display="{{privateMessagesActive ? "true" : "false"}}" class="privateMessagesCard pp-consultation-mode disabled bc-outer d-flex align-items-center">
 
                     <a href="{{path ('new_pp_conversation', {'stringId': stringId, 'context': presentation.goal})}}" class="text-decoration-none">
 

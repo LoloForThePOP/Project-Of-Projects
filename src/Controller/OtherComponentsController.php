@@ -24,7 +24,7 @@ class OtherComponentsController extends AbstractController
     protected $managedComponents = ['websites', 'dataList', 'questionsAnswers', 'businessCards'];
 
 
-    // allow to get the appropriate form fully qualified name (no plural and first letter upper cased)
+    // allow to get the appropriate entity form fully qualified name (no plural and first letter upper cased)
 
     public function formName($component_type)
     {

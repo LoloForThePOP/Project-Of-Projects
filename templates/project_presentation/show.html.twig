@@ -26,14 +26,16 @@
 {% block body %}
 
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
-
-    {% set userPresenter = false %}
-
-        {% if is_granted('edit', presentation) %}
-
-            {% set userPresenter = true %}
-            
-        {% endif %}
+    
+    {% if is_granted('edit', presentation) %}
+    
+        {% set userPresenter = true %}
+    
+    {% else %}
+    
+        {% set userPresenter = false %}
+        
+    {% endif %}
 
     {# forms inclusions (ex: add a document form, add a website form, etc.) #}
 
@@ -43,12 +45,43 @@
 
     {% endif %}
 
+
+    {# Setting some variables, in particular counting presentation elements #}
+
+    {% set countSlides = presentation.slides | length %}
+    {% set countMiscDataList = presentation.getOC('dataList') | length %}
+    {% set countWebsites = presentation.getOC('websites') | length %}
+    {% set countDocuments = presentation.documents | length %}
+    {% set countQA = presentation.getOC('questionsAnswers') | length %}
+    {% set countNeeds = presentation.getNeeds | length %}
+    {% set countPlaces = presentation.places | length %}
+
+    {% set contributorStructures = presentation.contributorStructures %}
+    {% set countECS = contributorStructures | filter((contributorStructures) => contributorStructures.type == "external") | length %}
+
+    {% set privateMessagesActive = presentation.getParameter('arePrivateMessagesActivated') %}
+    {% set countBC = presentation.getOC('businessCards') | length %}
+
+
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
+
+
+    {# Upper box containing Project Title + Goal + Logo #}
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
 
-
     {# Notifications #}
+
+
+    {% if presentation.overallQualityAssessment < 3 %}
+
+        <div class="h5 alert alert-light" role="alert">
+
+            
+
+        </div>
+    
+    {% endif %}
 
     {% if presentation.isDeleted or not presentation.isPublished %} 
         
@@ -79,7 +112,7 @@
 
     {# Slideshow images & videos #}
         
-    {% set countSlides = presentation.slides | length %}
+   
 
     {% if countSlides > 0  %}
 
@@ -107,8 +140,6 @@
         
     {# Miscelaneous Data List #}
 
-    {% set countMiscDataList = presentation.getOC('dataList') | length %}
-
     {% if countMiscDataList > 0 %}
 
         <div id="data-list-struct-container" class="pp-struct-container col-lg-10">
@@ -118,10 +149,10 @@
         </div>
 
     {% endif %}
+
+
     
     {# Websites #}
-
-    {% set countWebsites = presentation.getOC('websites') | length %}
 
     {% if countWebsites > 0  %}
     
@@ -133,9 +164,10 @@
 
     {% endif %}
 
+
+
     {# Documents #}
 
-    {% set countDocuments = presentation.documents | length %}
 
     {% if countDocuments > 0 %}
 
@@ -150,8 +182,6 @@
         
     {# Questions & Answers #}
 
-    {% set countQA = presentation.getOC('questionsAnswers') | length %}
-
     {% if countQA > 0 %}
         
         <div id="qa-struct-container" class="pp-struct-container col-12 col-lg-9">
@@ -164,8 +194,6 @@
 
     
     {# Needs #}
-
-    {% set countNeeds = presentation.getNeeds | length %}
 
     {% if countNeeds > 0 %}
         
@@ -180,8 +208,6 @@
     
     {# Places #}
 
-    {% set countPlaces = presentation.places | length %}
-
     {% if countPlaces > 0 %}
         
         <div id="places-struct-container" class="pp-struct-container col-12">
@@ -195,10 +221,6 @@
 
     {# External Contributors Structures (ex: sponsors; partners; etc.) #}
 
-    {% set contributorStructures = presentation.contributorStructures %}
-
-    {% set countECS = contributorStructures | filter((contributorStructures) => contributorStructures.type == "external") | length %}
-
     {% if countECS > 0 %}
 
         <div id="ecs-struct-container" class="pp-struct-container col-12">
@@ -211,10 +233,6 @@
 
         
     {# Contact Project Members : Business Cards & Private Message Button #}
-
-    {% set countBC = presentation.getOC('businessCards') | length %}
-
-    {% set privateMessagesActive = presentation.getParameter('arePrivateMessagesActivated') %}
 
     {% if countBC > 0 or privateMessagesActive or userPresenter %}
 

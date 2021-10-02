@@ -293,7 +293,7 @@ class PPController extends AbstractController
                     [
 
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'slides-struct-container',
+                        '_fragment' => 'slideshow-struct-container',
 
                     ]
                 );

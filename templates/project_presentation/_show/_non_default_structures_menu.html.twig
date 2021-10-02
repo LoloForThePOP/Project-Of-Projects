@@ -36,10 +36,16 @@
         <div class="container">
 
             <div class="row justify-content-around">
+                
+                {% if countQA == 0 %}
+                
+                    {{ _self.menuButton("add_qa_form_modal", "qa.svg", "Ajouter une foire aux questions (FAQ)") }}
 
-                {% if countMiscDataList == 0 %}
-
-                    {{ _self.menuButton("addDataListItemFormModal", "misc_data_list.svg", "Liste de données en tous genres") }}
+                {% endif %}
+                
+                {% if countNeeds == 0 %}
+                
+                    {{ _self.menuButton("selectNeedTypeModal", "needs2.svg", "Présenter vos besoins") }}
 
                 {% endif %}
 
@@ -49,15 +55,9 @@
 
                 {% endif %}
 
-                {% if countQA == 0 %}
-                
-                    {{ _self.menuButton("add_qa_form_modal", "qa.svg", "Ajouter une foire aux questions") }}
+                {% if countMiscDataList == 0 %}
 
-                {% endif %}
-
-                {% if countNeeds == 0 %}
-                
-                    {{ _self.menuButton("selectNeedTypeModal", "needs2.svg", "Besoins du Projet") }}
+                    {{ _self.menuButton("addDataListItemFormModal", "misc_data_list.svg", "Liste de données en tous genres") }}
 
                 {% endif %}
 

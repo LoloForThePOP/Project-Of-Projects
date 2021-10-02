@@ -46,7 +46,7 @@
     {% endif %}
 
 
-    {# Setting some variables, in particular counting presentation elements #}
+    {# Setting some variables #}
 
     {% set countSlides = presentation.slides | length %}
     {% set countMiscDataList = presentation.getOC('dataList') | length %}
@@ -78,31 +78,19 @@
 
     {% endif %}
 
-    {% if presentation.isDeleted or not presentation.isPublished %} 
-        
-        <div class="h5 alert alert-warning" role="alert">
+    {# Notification presentation is not published #}
 
-            {# Notification presentation is deleted #}
+    {% if userPresenter and not presentation.isPublished %}
 
-            {% if presentation.isDeleted %} 
-                
-                <p class="">
-                    Cette présentation a été supprimée.
-                </p>
+        {% include 'project_presentation/_show/_notifications/unpublished_presentation.html.twig' %}
 
-            {% endif %}
+    {% endif %}
 
-            {# Notification presentation is not published #}
+    {# Notification presentation is deleted #}
 
-            {% if not presentation.isPublished %} 
-                
-                <p class="pp-edition-mode">
-                    Cette présentation n'est pas publiée. Seul vous pouvez la voir. Pour rendre visible cette présentation, publiez-là. Pour cela, allez dans les réglages en bas de page.
-                </p>
+    {% if presentation.isDeleted %}
 
-            {% endif %}
-
-        </div>
+        {% include 'project_presentation/_show/_notifications/deleted_presentation.html.twig' %}
 
     {% endif %}
 
@@ -110,8 +98,6 @@
 
 
     {# Slideshow images & videos #}
-        
-   
 
     {% if countSlides > 0  %}
 
@@ -233,7 +219,7 @@
         
     {# Contact Project Members : Business Cards & Private Message Button #}
 
-    {% if countBC > 0 or privateMessagesActive or userPresenter %}
+    {% if not presentation.isDeleted and (countBC > 0 or privateMessagesActive or userPresenter) %}
 
         <div id="contact-struct-container" data-display="{{countBC > 0 or privateMessagesActive ? "true" : "false"}}" class="pp-struct-container col-12">
 
@@ -265,7 +251,7 @@
 
                 {# Trigger Other Possibilities Menu (Button) #}
 
-                <div class="pp-edition-mode col-6">
+                <div class="pp-edition-mode col-4">
 
                     {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres Possibilités" } %}
 
@@ -279,7 +265,7 @@
 
             {# Presentation Manage Parameters Button #}
 
-            <div class="pp-edition-mode col-6">
+            <div class="pp-edition-mode col-4">
 
                 {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "settings", 'addElementModal':"#pp-settings", 'label': "Réglages" } %}
 

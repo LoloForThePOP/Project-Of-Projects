@@ -1,16 +1,16 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Supprimer un Projet{% endblock %}
+{% block title %}Confirmer supprimer une présentation{% endblock %}
 
 {% block body %}
 
     {#
         
-        Processus :
+        Process :
 
-            - js : we ask user to confirm presentation deletion by typing 'confirm'
+            - we ask user to confirm presentation deletion by typing 'confirm'
 
-            - js : we check if user typed 'confirm' (javascript). If so, form validation event is not prevented.
+            - we check if user typed 'confirm'. If so, form validation event is triggered.
         
     #}
 
@@ -21,7 +21,7 @@
             <div class="col-md-7">
 
                 <div class="h4 fw-bold mb-4">
-                    Supprimer la présentation
+                    Confirmer supprimer la présentation
                 </div>
 
                 <h4 class="mb-4">{{ presentation.goal | length > 32 ? presentation.goal | slice(0, 49) ~ '...' : presentation.goal }}</h4>

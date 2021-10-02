@@ -65,7 +65,7 @@ class SlideController extends AbstractController
             return $this->redirectToRoute('show_presentation', [
 
                 'stringId' => $pp->getStringId(),
-                '_fragment' => 'slides',
+                '_fragment' => 'slideshow-struct-container',
 
             ]);
 
@@ -123,7 +123,7 @@ class SlideController extends AbstractController
             return $this->redirectToRoute('show_presentation', [
 
                 'stringId' => $presentation->getStringId(),
-                '_fragment' => 'slides',
+                '_fragment' => 'slideshow-struct-container',
 
             ]);
 
@@ -173,7 +173,7 @@ class SlideController extends AbstractController
             return $this->redirectToRoute('show_presentation', [
 
                 'stringId' => $pp->getStringId(),
-                '_fragment' => 'slides',
+                '_fragment' => 'slideshow-struct-container',
 
             ]);
 

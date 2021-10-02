@@ -1,9 +1,9 @@
 
 {% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
-    {% block title %}Modifier une image ou sa légende{% endblock %}
+    {% block title %}Remplacer une image ou modifier sa légende{% endblock %}
 
-    {% block mainContentTitle %}Modifier une image ou sa légende{% endblock %}
+    {% block mainContentTitle %}Remplacer une image ou modifier sa légende{% endblock %}
 
     {% block collapsibleMoreInfo %}{% endblock %}
 
@@ -13,7 +13,7 @@
 
             <div class="mb-5">
 
-                <h5 class="fw-bold mb-3">Image actuelle :</h5>
+                <h5 class="fw-bold mb-3">Image actuelle</h5>
 
                 {% if slide.address is not empty %}
                 
@@ -30,7 +30,7 @@
             </div>
             
             <span class="fw-bold h5"> 
-                Modifier l'image ?
+                Remplacer l'image ?
             </span>
 
             <div class="">
@@ -50,7 +50,7 @@
                 {{ form_errors(form.file) }}
 
                 <h5 class="fw-bold mb-3">
-                    Légende ou titre pour cette image :
+                    Légende ou titre pour cette image
                 </h5>
 
                 {{ form_widget(form.caption) }}

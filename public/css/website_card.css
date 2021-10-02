@@ -15,23 +15,14 @@
     margin-right: 24px;    
 
     border: 1px solid #bedbf8;
+    background-color: #f8fbff;
+    
     border-radius: 3px;
 
 }
 
-/*  
-
-.pp-website-card, .pp-website-card >* {
-
-    background-color: white;
-}
-
-*/
-
-
-
 .pp-website-card:hover, .pp-website-card:hover a{
-    background-color:rgb(251, 250, 240) !important;
+    background-color:rgb(243, 247, 255) !important;
 }
 
 .pp-website-card a {

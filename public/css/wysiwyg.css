@@ -2,11 +2,7 @@
 /* note : this stylesheet is only called for userPresenter instances. Some page elements are displayed or hidden for regular users, so be aware a few related declarations exist in project_presentation_page.css */
 
 
-/* Toggleing some elements display according to their status (see wysiwyg.js) */
-
-.in-edition-mode .pp-edition-mode{
-    display: initial;
-}
+/* Toggling some elements display according to their status (see wysiwyg.js) */
 
 .in-edition-mode .pp-consultation-mode{
     display: none !important;
@@ -14,6 +10,10 @@
 
 .in-consultation-mode .pp-edition-mode{
     display: none !important;
+}
+
+.in-edition-mode .pp-edition-mode{
+    display: initial;
 }
 
 .in-consultation-mode .pp-consultation-mode{

@@ -73,7 +73,7 @@ class PPController extends AbstractController
             $manager->flush();
 
             $this->addFlash(
-                'success',
+                'success upper-static',
                 '✅ La présentation du projet a été créée. <br> Vous pouvez maintenant ajouter toutes les informations que vous désirez présenter.'
             );
 

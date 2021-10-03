@@ -105,11 +105,13 @@
                      async: true,  
                      
                      success: function(data, status) {
+
+                        $('.flash-message').addClass("alert alert-success").html("Élements déplacés");
                               
                      },  
  
                      error : function(xhr, textStatus, errorThrown) {  
-                         // alert('Ajax request failed.');  
+                        $('.flash-message').addClass("alert alert-danger").html("Une erreur est survenue"); 
                      }  
                   }); 
 
@@ -121,6 +123,8 @@
         // Remove elements capability
 
         $('.js-delete-element').on('click', function (){
+
+            $(this).attr("data-id");
 
             var idElement = $(this).attr("data-id");
             
@@ -182,6 +186,10 @@
 
                     $("#"+idElement).remove();
 
+                    // Giving user some feedback
+
+                    $('.flash-message').addClass("alert alert-success").html("Élement supprimé");
+
                     // when removing a slide, some additionnal display treatments
 
                     if(elementsType=="slides"){
@@ -207,7 +215,7 @@
                 },  
 
                 error : function(xhr, textStatus, errorThrown) {  
-                    // alert('Ajax request failed.');  
+                    $('.flash-message').addClass("alert alert-danger").html("Une erreur est survenue");
                 }  
                 }); 
                 

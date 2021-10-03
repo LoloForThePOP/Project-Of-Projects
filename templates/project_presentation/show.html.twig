@@ -114,7 +114,7 @@
 
     {% if presentation.textDescription is not empty %} 
 
-        <div class="pp-struct-container col-12 col-md-10">
+        <div id="text-description-struct-container" class="pp-struct-container col-12 col-md-10">
             
             {% include 'project_presentation/_show/_text_description.html.twig' %}
 
@@ -127,7 +127,7 @@
 
     {% if countMiscDataList > 0 %}
 
-        <div id="data-list-struct-container" class="pp-struct-container col-lg-10">
+        <div id="dataList-struct-container" class="pp-struct-container col-lg-10">
 
             {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
             
@@ -169,7 +169,7 @@
 
     {% if countQA > 0 %}
         
-        <div id="qa-struct-container" class="pp-struct-container col-12 col-lg-9">
+        <div id="questionsAnswers-struct-container" class="pp-struct-container col-12 col-lg-9">
             
             {% include 'project_presentation/_show/_questions_answers.html.twig' %}
             
@@ -218,10 +218,11 @@
 
         
     {# Contact Project Members : Business Cards & Private Message Button #}
+    {# !!! Also contains Private Message Button & Switcher #}
 
     {% if not presentation.isDeleted and (countBC > 0 or privateMessagesActive or userPresenter) %}
 
-        <div id="contact-struct-container" data-display="{{countBC > 0 or privateMessagesActive ? "true" : "false"}}" class="pp-struct-container col-12">
+        <div id="businessCards-struct-container" data-display="{{countBC > 0 or privateMessagesActive ? "true" : "false"}}" class="pp-struct-container col-12">
 
             {% include 'project_presentation/_show/_contact_members.html.twig' %}
 

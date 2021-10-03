@@ -61,6 +61,20 @@
 
                     {% endblock %}
 
+                    {% block footerButtons %}
+                        
+                        {% if userPresenter %}
+
+                            <a href="{{ path('manage_places', {'stringId': presentation.stringId}) }}" class="pp-edition-mode text-decoration-none">
+                                
+                                <button type="button" class="btn btn-light">Modifier</button>
+                        
+                            </a>
+
+                        {% endif %}
+                     
+                    {% endblock %}
+
                 {% endembed %}
 
                 <div id="{{place.id}}" class="js-sortable-element col-12 col-md-7 col-lg-6 place-card">
@@ -96,7 +110,7 @@
 
                         var mapProp= {
                         center:new google.maps.LatLng({{place.latitude}},{{place.longitude}}),
-                        zoom:10,
+                        zoom:14,
                         };
 
                         var map = new google.maps.Map(document.getElementById("js-googleMap-{{place.id}}"), mapProp);

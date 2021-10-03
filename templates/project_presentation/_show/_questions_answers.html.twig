@@ -47,11 +47,12 @@
 
                                 {# edit q&a button #}
                                         
-                                <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" class="pp-edition-mode text-decoration-none ms-2">
+                                <a class="edit-link pp-edition-mode text-decoration-none" href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'questionsAnswers', 'item_id':qa.id})}}" onclick="event.stopPropagation();" >
 
-                                    <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+                                    <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="20" width="20" alt="edit icon" >
 
                                 </a>
+
                             
                             </div>
 
@@ -73,6 +74,10 @@
 
             {% endfor %}
 
+
+            
+            
+
         </div>
 
         <style>
@@ -82,10 +87,13 @@
             }
             
             .questionRow:hover {
-                background-color: #f0f0fb;
+                background-color: #f5f5ff;
             }
         
             .question {
+
+                border-left: 3px solid #bebef8;
+                padding-left: 8px;
         
                 font-size: 1.25em;
                 line-height: 1.15em;
@@ -121,6 +129,15 @@
 
             #questionsAnswers .qa-separator:last-child{
                 display:none;
+            }
+
+            #questionsAnswers .edit-link{
+                padding: 5px 10px;
+                border-radius: 2px;
+            }
+
+            #questionsAnswers .edit-link:hover{
+                background-color: #dbe2ff;
             }
             
     

@@ -62,20 +62,26 @@
             <div class="col bg-light">
 
                 <!-- Flash Messages Display (see app.css) -->
+
+                <div class="flash-message">
+
+                    {% for label, messages in app.flashes %}
+                    
+                        <div class="alert alert-{{label}}">
+                    
+                            {% for message in messages %}
+                    
+                            <p class=" p-0 m-0">{{message | raw}}</p>
+                    
+                            {% endfor %}
+                    
+                        </div>
+                
+                    {% endfor %}
+
+                </div>
             
-                {% for label, messages in app.flashes %}
                 
-                    <div class="flash-message alert alert-{{label}}">
-                
-                        {% for message in messages %}
-                
-                        <p class=" p-0 m-0">{{message | raw}}</p>
-                
-                        {% endfor %}
-                
-                    </div>
-            
-                {% endfor %}
             
                 <!-- End of Flash Messages Display -->
                 

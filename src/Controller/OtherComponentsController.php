@@ -156,7 +156,7 @@ class OtherComponentsController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => $component_type,
+                        '_fragment' => $component_type.'-struct-container',
     
                     ]
                 );

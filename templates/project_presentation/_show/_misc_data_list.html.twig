@@ -14,13 +14,13 @@
                                         
             <div class="name">
 
-                {{ dataName }}
+                {{ dataName[:1]|upper ~ dataName[1:] }}
 
             </div>
 
             <div class="value ps-md-3">
 
-                {{ dataValue }}  
+                {{ dataValue[:1]|upper ~ dataValue[1:] }}  
 
             </div>
 

@@ -159,7 +159,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'contact-struct-container',
+                        '_fragment' => 'businessCards-struct-container',
     
                     ]
 
@@ -190,7 +190,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'data-list-struct-container',
+                        '_fragment' => 'dataList-struct-container',
 
     
                     ]
@@ -222,7 +222,7 @@ class PPController extends AbstractController
                     [
     
                         'stringId' => $presentation->getStringId(),
-                        '_fragment' => 'qa-struct-container',
+                        '_fragment' => 'questionsAnswers-struct-container',
 
     
                     ]

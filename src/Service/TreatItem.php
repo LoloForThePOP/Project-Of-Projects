@@ -23,7 +23,7 @@ class TreatItem {
 
                 $parse = parse_url($elementToTreat['url']);
 
-                $availableWebsitesLogos = ["youtube.com", "linkedin.com", "facebook.com", "instagram.com", "twitch.tv", "twitter.com", "discord.gg", "discord.com", "github.com", "tiktok.com", "trello.com"];
+                $availableWebsitesLogos = ["youtube.com", "linkedin.com", "facebook.com", "instagram.com", "twitch.tv", "twitter.com", "discord.gg", "discord.com", "github.com", "tiktok.com", "trello.com", "pinterest.fr", "pinterest.com"];
 
                 $host = str_ireplace('www.', '', $parse['host']);                
 

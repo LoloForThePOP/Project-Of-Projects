@@ -65,7 +65,7 @@
                         
                         {{website.description | first | capitalize ~ website.description | slice(1,78) }}
 
-                        {% if website.description | length > 50 %}
+                        {% if website.description | length > 78 %}
                         ...
                         {% endif %}
 

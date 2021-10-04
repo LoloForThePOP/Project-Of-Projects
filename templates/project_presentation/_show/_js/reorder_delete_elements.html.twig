@@ -9,11 +9,30 @@
 
  <script>
 
-     // ajax elements reordering & deletion
+
+
+
+
+
+    // ajax elements reordering & deletion
 
      $(document).ready(function(){
 
-         // reorder elements capability
+            
+        function displayFeedback(message, type){  //type is success or danger
+
+            htmlClass = "alert alert-"+type;
+
+            $('.flash-message').addClass(htmlClass).html(message);
+
+            $('.flash-message').css("display","inline-block");
+            $('.flash-message').fadeOut( 3000, "linear", complete );
+
+
+        
+        }
+
+        // reorder elements capability
 
          $('.js-elements-list').sortable({
 
@@ -106,13 +125,14 @@
                      
                      success: function(data, status) {
 
-                        $('.flash-message').addClass("alert alert-success").html("Élements déplacés");
+                        displayFeedback("Élements déplacés", "success");
                               
                      },  
  
                      error : function(xhr, textStatus, errorThrown) {  
-                        $('.flash-message').addClass("alert alert-danger").html("Une erreur est survenue"); 
+                        displayFeedback("Une erreur est survenue", "danger"); 
                      }  
+
                   }); 
 
              },
@@ -186,9 +206,7 @@
 
                     $("#"+idElement).remove();
 
-                    // Giving user some feedback
-
-                    $('.flash-message').addClass("alert alert-success").html("Élement supprimé");
+                    displayFeedback("Élement supprimé", "success");
 
                     // when removing a slide, some additionnal display treatments
 
@@ -215,7 +233,7 @@
                 },  
 
                 error : function(xhr, textStatus, errorThrown) {  
-                    $('.flash-message').addClass("alert alert-danger").html("Une erreur est survenue");
+                    displayFeedback("Une erreur est survenue", "danger");
                 }  
                 }); 
                 

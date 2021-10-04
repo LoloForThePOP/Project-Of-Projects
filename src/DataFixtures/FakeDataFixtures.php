@@ -142,7 +142,7 @@ class FakeDataFixtures extends Fixture
             [
                 "environment",
                 "Environment",
-                "Environement",
+                "Environnement",
 
             ],
 

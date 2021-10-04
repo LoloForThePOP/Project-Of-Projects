@@ -64,7 +64,6 @@ a{
 
     animation: cssAnimation 3s forwards;
 
-
 }
 
 .flash-message.upper-static {
@@ -218,6 +217,13 @@ label, legend {
 } 
 
 
+.notification {
+
+    font-size: 19px;
+    margin-bottom: 32px;
+
+}
+
 @media screen and (max-width: 768px) {
 
     .page-container{
@@ -241,6 +247,19 @@ label, legend {
         left: 22px;
         font-size: 50px;
         line-height: 32px;
+    }
+
+    .notification {
+
+        font-size: 16px;
+        padding-right: 5px;
+        margin-bottom: 20px;
+
+    }
+
+    .notification .btn-close {
+
+        padding: 5px;
     }
 
 

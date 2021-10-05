@@ -134,7 +134,7 @@ class RegistrationController extends AbstractController
         // if user does not exist
         if ($user === null) {
             // displaying an error
-            $this->addFlash('danger upper-static', 'Une erreur est survenue : Token Inconnu');
+            $this->addFlash('danger', 'Une erreur est survenue : Token Inconnu');
             return $this->redirectToRoute('app_login');
         }
 
@@ -146,7 +146,7 @@ class RegistrationController extends AbstractController
         $entityManager->flush();
 
         // flash message & redirect to toute login
-        $this->addFlash('success upper-static', 'Votre addresse a été vérifiée ! Vous pouvez maintenant vous connecter et utiliser le site.');
+        $this->addFlash('success', 'Votre addresse a été vérifiée ! Vous pouvez maintenant vous connecter et utiliser le site.');
 
         return $this->redirectToRoute('app_login');
     }

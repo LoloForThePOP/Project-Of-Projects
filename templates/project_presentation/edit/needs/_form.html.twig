@@ -31,21 +31,27 @@
 
 </div>
 
-<div class="form-row">
+{# When you ask for money, you don't pay money in exchange #}
 
-    {{ form_errors(form.isPaid) }}
+{% if needType != "money" %}
 
-    <div class="label-box">
+    <div class="form-row">
 
-        <img class="needs-icon-money" src="/media/static/images/icons/edit_presentation/needs/edit_form/money.svg" alt="money icon">
+        {{ form_errors(form.isPaid) }}
 
-        {{ form_label(form.isPaid) }}
+        <div class="label-box">
+
+            <img class="needs-icon-money" src="/media/static/images/icons/edit_presentation/needs/edit_form/money.svg" alt="money icon">
+
+            {{ form_label(form.isPaid) }}
+
+        </div>
+
+        {{ form_widget(form.isPaid) }}
 
     </div>
 
-    {{ form_widget(form.isPaid) }}
-
-</div>
+{% endif %}
 
 <div class="form-row">
 
@@ -70,6 +76,12 @@
         <a href="{{ path('show_presentation', {'stringId': stringId}) }}#needs">
             <button type="button" class="btn btn-lg btn-go-back mb-2">Annuler</button>
         </a>
+
+    </div>
+
+    <div class="d-none">
+
+        {{ form_rest(form) }}
 
     </div>
 

@@ -67,6 +67,7 @@ class NeedController extends AbstractController
         return $this->render('project_presentation/edit/needs/new.html.twig', [
             'stringId' => $presentation->getStringId(),
             'form' => $form->createView(),
+            'needType' => $need_type,
         ]);
     }
 
@@ -98,6 +99,7 @@ class NeedController extends AbstractController
 
         return $this->render('project_presentation/edit/needs/update.html.twig', [
             'need' => $need,
+            'needType' => $need->getType(),
             'form' => $form->createView(),
             'stringId' => $presentation->getStringId(),
         ]);

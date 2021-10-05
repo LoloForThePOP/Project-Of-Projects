@@ -46,7 +46,7 @@ a{
 
 /* Flash Messages (static by default below header navbar) 
 
-   Can be fixed and animated elsewhere with complementary classes
+   Can be position:fixed elsewhere with complementary class below
 */
 
 .flash-message{
@@ -57,35 +57,18 @@ a{
 
 }
 
-.fade-in-out{
-    animation: cssAnimation 3s forwards;
-}
- 
-@keyframes cssAnimation {
-    0%   {opacity: 1;}
-    90%  {opacity: 1;}
-    100% {opacity: 0;}
-}
-@-webkit-keyframes cssAnimation {
-    0%   {opacity: 1;}
-    90%  {opacity: 1;}
-    100% {opacity: 0;}
-}
 
 .fixed-flash {
     
     position: fixed; /* Fixed/sticky position */
-    top: 450px; 
-    left: 30px; 
+    top: 400px; 
+    left: 20px; 
     display: inline-block;
-    min-width: 300px;
+    min-width: 180px;
     z-index: 99;
 
 }
    
-
-
-
 
 /* Loader */
 

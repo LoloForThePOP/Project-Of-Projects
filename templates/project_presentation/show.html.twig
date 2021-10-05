@@ -25,6 +25,7 @@
 
 {% block body %}
 
+
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
     
     {% if is_granted('edit', presentation) %}
@@ -37,12 +38,13 @@
         
     {% endif %}
 
-    {# forms inclusions (ex: add a document form, add a website form, etc.) #}
-
+    
     {% if userPresenter %}
+    
+        {# forms inclusions (ex: add a document form, add a website form, etc.) #}
 
         {% include "project_presentation/_show/forms.html.twig" %}
-
+ 
     {% endif %}
 
 

@@ -9,11 +9,6 @@
 
  <script>
 
-
-
-
-
-
     // ajax elements reordering & deletion
 
      $(document).ready(function(){
@@ -21,15 +16,10 @@
             
         function displayFeedback(message, type){  //type is success or danger
 
-            htmlClass = "alert alert-"+type;
-
-            $('.flash-message').addClass(htmlClass).html(message);
-
-            $('.flash-message').css("display","inline-block");
-            $('.flash-message').fadeOut( 3000, "linear", complete );
-
-
-        
+            htmlClass = "fixed-flash alert alert-"+type;
+            
+            $('.flash-message').addClass(htmlClass).html(message).fadeIn(1000).delay(3000).fadeOut(1000);
+            
         }
 
         // reorder elements capability
@@ -235,6 +225,7 @@
                 error : function(xhr, textStatus, errorThrown) {  
                     displayFeedback("Une erreur est survenue", "danger");
                 }  
+
                 }); 
                 
             }

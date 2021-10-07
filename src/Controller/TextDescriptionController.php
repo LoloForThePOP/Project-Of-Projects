@@ -39,7 +39,7 @@ class TextDescriptionController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La description texte a été modifiée"
+                "✅ Modification effectuée"
             );
 
             return $this->redirectToRoute('show_presentation', [

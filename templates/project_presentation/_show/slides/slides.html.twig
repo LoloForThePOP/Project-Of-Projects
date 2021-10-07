@@ -86,20 +86,26 @@
 			</div>
 
 			{#  Thumbnails Container #}
+			{#  Thumbnails should always be present, even if not displayed, because their alt attributes contains potential captions #}
+
+
+			{% set showThumbnails = false %}
 
 			{% if countSlides > 1 %}
 				
 				{% if userPresenter or countSlides > 2 %}
 
-					<div class="col-lg-3 {{countSlides == 2 ? 'pp-edition-mode'}} pe-0 d-none d-lg-flex align-items-center">
-			
-						{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
-						
-					</div>
+					{% set showThumbnails = true %}
 
 				{% endif %}
 			
 			{% endif %}
+			
+			<div class="col-lg-3 {{countSlides == 2 ? 'pp-edition-mode'}} pe-0 d-none {{ showThumbnails ? 'd-lg-flex' }} align-items-center">
+			
+				{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+				
+			</div>
 
 		</div>	
 
@@ -160,9 +166,14 @@
 
 	}
 
-	// displaying appropriate image or video slide when hovering its thumbnail (a mess if more than 4 slides )
 
-	{% if countSlides < 5 %}
+</script>
+
+{# displaying appropriate image or video slide when hovering its thumbnail (a mess if more than 4 slides ) #}
+
+{% if countSlides < 5 %}
+
+	<script>
 
 		$( ".thumbnail" ).mouseover(function() {
 
@@ -170,7 +181,6 @@
 			
 		});
 
-	{% endif %}
+	</script>
 
-
-</script>
+{% endif %}

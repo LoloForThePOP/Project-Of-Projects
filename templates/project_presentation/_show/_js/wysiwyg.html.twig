@@ -54,15 +54,19 @@
 
             $(this).toggleClass("edition-mode consultation-mode");
 
-            // toggling whole container status
+            // toggling whole presentation container status
 
             $(".pp-container").toggleClass("in-edition-mode in-consultation-mode");
+
+            // hide / show flash messages
+
+            $("#flash-message").toggleClass("pp-edition-mode");
 
 
         });
 
-        // When a structure has just been made empty on edition mode, it should not be displayed on consultation mode. 
-        // See : reorder_delete_elements.html.twig (when deleting elements), and switch_buttons.html.twig (hide or show private messages card). 
+        // When a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
+        // --> See : reorder_delete_elements.html.twig (when deleting elements), and switch_buttons.html.twig (hide or show private messages card). 
 
     });
 

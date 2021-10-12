@@ -74,8 +74,8 @@ class Document
      * NOTE: This is not a mapped field of entity metadata, just a simple property
      * 
      * @Assert\File(
-     *     maxSize = "1024k",
-     *     maxSizeMessage = "Poids maximal accepté : 1 Mo",
+     *     maxSize = "8024k",
+     *     maxSizeMessage = "Poids maximal accepté : 8 Mo",
      *     mimeTypes = {"application/pdf", "application/x-pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document","application/msword","application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "text/rtf", "application/vnd.oasis.opendocument.text", "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", "application/epub+zip"},
      *     mimeTypesMessage = "Veuillez sélectionner un fichier de type pdf; word; excel; powerpoint; open document texte; epub; ou rtf."
      * )

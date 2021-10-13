@@ -23,13 +23,13 @@ class TreatItem {
 
                 $parse = parse_url($elementToTreat['url']);
 
-                $availableWebsitesLogos = ["youtube.com", "linkedin.com", "facebook.com", "instagram.com", "twitch.tv", "twitter.com", "discord.gg", "discord.com", "github.com", "tiktok.com", "trello.com", "pinterest.fr", "pinterest.com"];
+                $availableWebsitesLogos = ["youtube.com", "linkedin.com", "facebook.com", "instagram.com", "twitch.tv", "twitter.com", "discord.gg", "discord.com", "github.com", "tiktok.com", "trello.com", "pinterest.fr", "pinterest.com", "itch.io", "gamejolt.com"];
 
                 $host = str_ireplace('www.', '', $parse['host']);                
 
                 if(in_array($host, $availableWebsitesLogos)){
 
-                    $domain = preg_replace('~\.(com|info|net|io|us|org|me|co\.uk|ca|mobi)\b~i','',$host);
+                    $domain = preg_replace('~\.(com|info|net|io|us|gg|org|me|co\.uk|ca|mobi)\b~i','', $host);
 
                     $elementToTreat['icon'] = $domain;
 

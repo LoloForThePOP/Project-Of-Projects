@@ -1,8 +1,16 @@
-{% macro collection(title, items) %}
+{% macro collection(title, items, showMoreThreshold = false) %}
 
     <h3 class="collection-title">{{title}}</h3>
 
     {% for item in items %}
+
+        {# Show More Button if appropriate #}
+
+        {% if showMoreThreshold != false and loop.index == showMoreThreshold + 1 %}
+
+            <div class="collapse" id="collapseThumbnails">
+        
+        {% endif %}
     
         <a href="{{path('show_presentation', {'stringId': item.stringId})}}" class="text-decoration-none">
 
@@ -80,6 +88,22 @@
 
         </a>   
 
+        {% if showMoreThreshold != false and loop.last %}
+
+            </div>
+
+        {% endif %}
+
+
     {% endfor %}
+
+    
+    {% if showMoreThreshold != false %}
+
+        <button class="btn btn-light sharp mb-4" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThumbnails" aria-expanded="false" aria-controls="collapseThumbnails">
+            Afficher / Réduire
+        </button>
+
+    {% endif %}
 
 {% endmacro %}

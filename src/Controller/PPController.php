@@ -12,6 +12,7 @@ use App\Form\PersorgType;
 use App\Form\WebsiteType;
 use App\Form\DataListType;
 use App\Form\DocumentType;
+use App\Form\StringIdType;
 use App\Service\TreatItem;
 use App\Form\ImageSlideType;
 use App\Service\ImageResizer;
@@ -74,12 +75,11 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "✅ La présentation du projet a été créée. <br> Vous pouvez maintenant ajouter toutes les informations que vous désirez présenter. <br> 🙋 Si vous avez besoin aide, utilisez le bouton d'aide en bas de page."
+                "✅ La présentation du projet a été créée. <br> 🙋 Si vous avez besoin aide, utilisez le bouton d'aide en bas de page."
             );
 
             return $this->redirectToRoute('show_presentation', [
-                "stringId" => $presentation->getStringId(),
-                
+                "stringId" => $presentation->getStringId(),                
             ]);
         }
 
@@ -92,7 +92,9 @@ class PPController extends AbstractController
     /**
      * Allow to Display or Edit a Project Presentation Page
      * 
-     * @Route("/projects/{stringId}/", name="show_presentation")
+     * @Route("/{stringId}/", name="show_presentation")
+     * @Route("/projects/{stringId}/", name="long_path_show_presentation")
+
      * 
      * @return Response
      */
@@ -415,6 +417,10 @@ class PPController extends AbstractController
                 }
             }
 
+            if(true){
+                $updateStringIdForm = $this->createForm(StringIdType::class, $presentation);
+            }
+
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
@@ -428,6 +434,7 @@ class PPController extends AbstractController
                 'addImageForm' => $addImageForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
                 'addTitleForm' => $addTitleForm->createView(),
+                'updateStringIdForm' => $updateStringIdForm->createView(),
             ]);
 
         }

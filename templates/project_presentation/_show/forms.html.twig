@@ -2,7 +2,26 @@
 
 {% include "project_presentation/edit/title_goal_logo/_add_logo_form.html.twig" with {'form': addLogoForm} %}
 
+{# "Create Title Form" is hidden by default (see below)  #}
 {% include "project_presentation/edit/title_goal_logo/_add_title_form.html.twig" with {'form': addTitleForm} %}
+
+<script>
+
+    // Inline "create title form" is hidden by default
+
+    $('form[name="title"]').hide();
+
+</script>
+
+{% include "project_presentation/edit/title_goal_logo/_update_string_id_form.html.twig" with {'form': updateStringIdForm} %}
+
+<script>
+
+    // Inline "create title form" is hidden by default
+
+    $('form[name="string_id"]').hide();
+
+</script>
 
 {% include "project_presentation/edit/other_components/dataList/_form.html.twig" with {'form': addDataListElemForm} %}
 

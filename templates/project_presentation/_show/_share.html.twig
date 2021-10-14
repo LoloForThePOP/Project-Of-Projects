@@ -16,11 +16,11 @@
 
                         <div class="mb-2">Voici son adresse :</div>
 
-                        
+                        {# "Copy link" do not work on mobile so we hide copyable input on mobile and we use a simple div instead #}
 
                         <div class="d-md-none mb-3">{{ url ('show_presentation', {"stringId": presentation.stringId}) }}</div>
 
-                        {# Copy lionk do not work on mobile #}
+                        {# Filled copyable input displayed for > medium screens #}
 
                         <input id="presentationAbsoluteURL" class="d-none d-md-block mb-3" value="{{ url ('show_presentation', {"stringId": presentation.stringId}) }}" size="50"></input>
 

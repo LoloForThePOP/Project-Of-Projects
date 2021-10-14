@@ -1,0 +1,44 @@
+
+    {{ form_start(form) }}
+
+   
+
+    <div class="mb-3">
+        {{ form_errors(form.stringId) }}
+    </div>
+    
+    {{ form_widget(form.stringId) }}
+
+    <button id="submit-string-id-form" type="submit" class="btn btn-success">Ok</button>
+
+    {{ form_end(form) }}
+
+
+
+
+
+    <style>
+
+        
+
+        #string_id_stringId{
+            display: inline;
+            width: 85%;
+        }
+
+        #submit-string-id-form{
+            vertical-align: baseline;
+        }
+
+        
+        @media (max-width: 580px) {
+
+            #string_id_stringId {
+                width: 80%;
+                margin-right: 3px;
+            }
+
+        }
+
+
+    </style>

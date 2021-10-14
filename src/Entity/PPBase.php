@@ -136,7 +136,7 @@ class PPBase implements \Serializable
 
 
     /**
-     * Used in urls as an unique short identifier
+     * Used in url as a unique presentation page identifier
      * 
      * @ORM\Column(type="string", length=10)
      */
@@ -199,6 +199,11 @@ class PPBase implements \Serializable
      */
     private $cache = [];
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $data = [];
+
 
 
 
@@ -208,6 +213,7 @@ class PPBase implements \Serializable
         $this->isAdminValidated = true;
         $this->overallQualityAssessment = 0;
         $this->parameters['arePrivateMessagesActivated'] = true;
+        $this->data['randomStringId'] = true;
         $this->cache['thumbnail'] = null;
         $this->isPublished = true;
         $this->isDeleted = false;
@@ -858,6 +864,30 @@ class PPBase implements \Serializable
     public function setCacheItem($key, $value): self
     {
         $this->cache[$key] = $value;
+
+        return $this;
+    }
+
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    public function setData(?array $data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getOneData($key)
+    {
+        return $this->data[$key];
+    }
+
+    public function setOneData($key, $value): self
+    {
+        $this->data[$key] = $value;
 
         return $this;
     }

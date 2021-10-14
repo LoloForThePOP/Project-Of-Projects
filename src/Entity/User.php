@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * 
- * Unique fields (do not factorize fields in a single assert, to get email AND userName unicity)
+ * Unique fields (do not factorize fields in a single assert, to get "email" AND "userName" unicity)
  *
  * @UniqueEntity(fields={"email"}, message="Un utilisateur utilise déjà ce choix")
  * @UniqueEntity(fields={"userName"}, message="Un utilisateur utilise déjà ce choix")

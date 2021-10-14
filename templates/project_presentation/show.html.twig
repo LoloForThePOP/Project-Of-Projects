@@ -96,6 +96,15 @@
 
     {% endif %}
 
+    {# Notification set a personalised slug #}
+
+    {% if true %}
+
+        {% include 'project_presentation/_show/_notifications/set_a_slug.html.twig' %}
+
+    {% endif %}
+
+
 
 
 
@@ -293,11 +302,11 @@
         
         {# Help Button #}
             
-        <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn my-5" style="border-color: rgb(216, 216, 201);">
+        <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn px-4 py-3 my-5" style="border-color: rgb(216, 216, 201);">
 
-            <img class="mb-1" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
+            <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
             
-            <span class="ps-1">Aide</span>
+            <span class="h5 fw-bold ps-1">Aide</span>
         
         </button>
 

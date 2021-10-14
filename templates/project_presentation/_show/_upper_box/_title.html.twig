@@ -1,12 +1,5 @@
 <!-- Project Title Presentation -->
 
-<script>
-
-    // Inline add title form is hidden by default
-
-    $('form[name="title"]').hide();
-
-</script>
 
 {% if presentation.title is not empty %}
 
@@ -111,6 +104,8 @@
         $(document).ready(function(){
 
             $(".title-placeholder").on('click', function (){
+
+                // replacing title placeholder with "create title form"
                 
                 $(this).html($('form[name="title"]'));
                 $('form[name="title"]').show();

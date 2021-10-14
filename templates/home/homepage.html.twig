@@ -34,7 +34,7 @@
 
               {% endset %}
 
-              {{ display.collection(user_presentations_label, user_presentations, 3 | reverse) }}
+              {{ display.collection(user_presentations_label, user_presentations | reverse, 3) }}
 
           {% endif %}
       

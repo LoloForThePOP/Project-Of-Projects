@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Slide;
+use App\Service\Slug;
 use App\Entity\PPBase;
 use App\Entity\Persorg;
 use App\Form\TitleType;
@@ -98,7 +99,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, Slug $slug)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
@@ -417,13 +418,44 @@ class PPController extends AbstractController
                 }
             }
 
-            if(true){
-                $updateStringIdForm = $this->createForm(StringIdType::class, $presentation);
+            // personalize presentation stringId (= slug)
+            $suggestedStringId = null;
+            if (true) {
+                $suggestedStringId = $slug->suggestSlug($presentation);
+            }
+
+            $updateStringIdForm = $this->createForm(StringIdType::class, $presentation);
+
+            $updateStringIdForm->handleRequest($request);
+
+            if ($updateStringIdForm->isSubmitted() && $updateStringIdForm->isValid()){
+
+               $slugedInput = $slug->slugInput($updateStringIdForm->get('stringId')->getData());
+
+                $presentation->setStringId($slugedInput);
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ L'adresse de votre page de projet a été modifiée"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+                    [
+
+                        'stringId' => $presentation->getStringId(),
+
+                    ]
+                );
+          
             }
 
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
+                'suggestedStringId' =>$suggestedStringId,
                 'addWebsiteForm' => $addWebsiteForm->createView(),
                 'addQAForm' => $addQAForm->createView(),
                 'addECSForm' => $ecsForm->createView(),
@@ -578,4 +610,48 @@ class PPController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+
+    /**
+     * Allow to edit pp stringId
+     * 
+     * @Route("/projects/{stringId}/edit/string-id", name="edit_pp_string_id")
+     * 
+     * @return void
+     */
+    public function editStringId(PPBase $presentation, Request $request, EntityManagerInterface $manager, Slug $slug)
+    {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        $form = $this->createForm(UpdateStringIdType::class, $presentation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $slug->slugInput($presentation->getStringId());  
+
+            $manager->flush();
+                    
+            $this->addFlash(
+                'success',
+                "✅ L'adresse du projet a étée modifiée'"
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+            ]);
+        }
+
+
+        return $this->render('project_presentation/edit/title_goal_logo/update_string_id_form.html.twig', [
+            'presentation' => $presentation,
+            'stringId' => $presentation->getStringId(),
+            'form' => $form->createView(),
+        ]);
+    }
+
+
+
 }

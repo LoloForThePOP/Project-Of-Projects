@@ -138,7 +138,7 @@ class PPBase implements \Serializable
     /**
      * Used in url as a unique presentation page identifier
      * 
-     * @ORM\Column(type="string", length=10)
+     * @ORM\Column(type="string", length=255)
      */
     private $stringId;
 
@@ -213,7 +213,7 @@ class PPBase implements \Serializable
         $this->isAdminValidated = true;
         $this->overallQualityAssessment = 0;
         $this->parameters['arePrivateMessagesActivated'] = true;
-        $this->data['randomStringId'] = true;
+        $this->data['validatedStringId'] = false; // by default StringId ("slug") is randomized and not validated by user.
         $this->cache['thumbnail'] = null;
         $this->isPublished = true;
         $this->isDeleted = false;
@@ -451,32 +451,6 @@ class PPBase implements \Serializable
         return $this;
     }
 
-    /**
-     * @ORM\PrePersist
-     */
-    public function generateStringId(LifecycleEventArgs $event): self
-    {
-
-        $entityManager = $event->getEntityManager();
-        $PPBaseRepository = $entityManager->getRepository(get_class($this));
-
-        while (true) {
-
-            $stringId = base_convert(time() - rand(0, 10000), 10, 36);
-
-            // checking if result is unique
-
-            $twin = $PPBaseRepository->findOneBy(['stringId' => $stringId]);
-
-            if ($twin == null) {
-                break;
-            }
-        }
-
-        $this->stringId = $stringId;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Category[]

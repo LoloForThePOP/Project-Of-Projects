@@ -88,15 +88,7 @@
 
     {% endif %}
 
-    {# Notification presentation is deleted #}
-
-    {% if presentation.isDeleted %}
-
-        {% include 'project_presentation/_show/_notifications/deleted_presentation.html.twig' %}
-
-    {% endif %}
-
-    {# Notification set a personalised slug #}
+    {# Notification "Set a personalised slug" #}
 
     {% if true %}
 
@@ -104,8 +96,13 @@
 
     {% endif %}
 
+    {# Notification presentation is deleted #}
 
+    {% if presentation.isDeleted %}
 
+        {% include 'project_presentation/_show/_notifications/deleted_presentation.html.twig' %}
+
+    {% endif %}
 
 
     {# Slideshow images & videos #}

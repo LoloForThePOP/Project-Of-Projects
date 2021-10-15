@@ -6,6 +6,7 @@ use App\Entity\PPBase;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class StringIdType extends AbstractType
 {
@@ -13,8 +14,18 @@ class StringIdType extends AbstractType
     {
         $builder
            
-            ->add('stringId')
-            
+        ->add(
+            'stringId',
+            TextType::class,
+            [
+                'attr' => [
+
+                    'placeholder'    => 'Écrire ici',
+                ],
+                'required'   => false,
+            ]
+        )
+
         ;
     }
 

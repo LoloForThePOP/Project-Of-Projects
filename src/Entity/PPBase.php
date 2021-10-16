@@ -141,11 +141,11 @@ class PPBase implements \Serializable
     /**
      * Used in url as a unique presentation page identifier
      * 
-     * @ORM\Column(type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=191, unique=true)
      * 
      * @Assert\Length(
      *      min = 1,
-     *      max = 255,
+     *      max = 191,
      *      minMessage = "Le nom doit contenir au moins {{ limit }} caractères",
      *      maxMessage = "Le nom doit contenir au plus {{ limit }} caractères"
      *      )

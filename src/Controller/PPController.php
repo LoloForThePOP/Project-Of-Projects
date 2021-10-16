@@ -94,7 +94,7 @@ class PPController extends AbstractController
     /**
      * Allow to Display or Edit a Project Presentation Page
      * 
-     * @Route("/{stringId}/", name="show_presentation")
+     * @Route("/{stringId}/", name="show_presentation", priority=-1)
      * @Route("/projects/{stringId}/", name="long_path_show_presentation")
 
      * 
@@ -661,6 +661,9 @@ class PPController extends AbstractController
                 ]);
             }
         }
+
+        
+
 
         return $this->render('project_presentation/edit/title_goal_logo/_update_string_id_form.html.twig', [
             'presentation' => $presentation,

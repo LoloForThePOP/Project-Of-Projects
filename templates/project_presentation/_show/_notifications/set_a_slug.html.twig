@@ -1,25 +1,14 @@
 
 <div class="pp-edition-mode">
     
-    <div class="notification alert alert-warning alert-dismissible fade show fw-bold pb-4" role="alert">
+    <div class="notification alert alert-success alert-dismissible fade show fw-bold pb-4" role="alert">
 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
-        <p class="mb-4">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-exclamation-triangle-fill text-danger me-2" viewBox="0 0 16 16">
-                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-            
-            </svg>
-
-                    
+        <p class="lh-lg pt-2 mb-4">
+                          
             <span class="h5 fw-bold align-bottom">
-                L'adresse actuelle de votre page de projet est {{ url ('homepage') }}
-            </span>
-
-            <span class="h5 fw-bold align-bottom border border-danger px-2 me-1 rounded">{{presentation.stringId}}</span>
-
-            <span class="h5 fw-bold align-bottom">/</span>
+                🙋 L'adresse web de votre page de projet est {{ url ('homepage') }}</span><span class="h5 fw-bold align-bottom border border-3 border-danger px-1 mx-1 rounded">{{presentation.stringId}}</span><span class="h5 fw-bold align-bottom">/</span>
           
         </p>
 
@@ -27,7 +16,23 @@
 
         <div class="h5 fw-bold ps-md-4">
 
-            <span>Voulez-vous remplacer <span class="border border-danger px-2 me-1 rounded">{{presentation.stringId}}</span> par : {{suggestedStringId}}</span>
+            <p class="">On va créer une adresse web plus simple à comprendre 👍</p>
+
+            <div id="create-string-id-advices" class="alert alert-warning" style="display:none;">
+
+                <p class="mb-3">Pour créer votre adresse web :</p>
+
+                <ul>
+                    <li class="mb-2">Ne pas utiliser d'espaces (utiliser des tirets - à la place)</li>
+                    <li class="mb-2">Ne pas utiliser d'accents (é; à; è; ê)</li>
+                    <li class="mb-2">Ne pas utiliser de majuscules ou d'apostrophes '</li>
+                </ul>
+            
+            </div>
+
+            <p class="lh-lg-tiny-screen mb-3">
+                <span>Voulez-vous remplacer <span class="border border-3 border-danger px-2 me-1 rounded">{{presentation.stringId}}</span> par :</span>
+            </p>
 
             <div id="string-id-form-container">
 
@@ -41,7 +46,7 @@
             
                 <div class="mb-4">
                     
-                    {{ form_widget(updateStringIdForm.stringId)  }}
+                    {{ form_widget(updateStringIdForm.stringId, {'value' : suggestedStringId})  }}
             
                 </div>
                 
@@ -49,11 +54,9 @@
             
                 <div class="">
             
-                    <button id="submit-string-id-form" type="submit" class="btn btn-light me-3">Je valide la suggestion</button>
+                    <button id="submit-string-id-form" type="submit" class="btn btn-light me-3">Je valide</button>
             
-                    <button type="button" class="btn btn-light me-3">Je modifie la suggestion</button>
-                
-                    <button type="button" class="btn btn-light">Je préfère garder {{presentation.stringId}}</button>
+                    <button id="change-string-id-focus" type="button" class="btn btn-light me-3">Je modifie par moi-même</button>
             
                 </div>
             
@@ -63,34 +66,35 @@
 
         </div>
 
+        <script>
 
-    <script>
+            $(document).ready(function(){
 
-        $(document).ready(function(){
+                $("#change-string-id-focus").on('click', function (){
 
-            //$("#string-id-input-container").html($('form[name="string_id"]'));
+                    $("#string_id_stringId").focus();
+                    $("#create-string-id-advices").show();
+                    $("#change-string-id-focus").hide();
 
-            //$('form[name="string_id"]').show();
+                });
 
-            //$(".title-placeholder").on('click', function (){
+            });
 
-                // replacing title placeholder with "create title form"
-                
-                //$("#title_title").focus();
-
-            //});
-
-        });
-
-    </script>
-
-
-
-
-    
-
-      
+        </script>
 
     </div>  
     
 </div>
+
+
+<style>
+
+    @media screen and (max-width: 580px) {
+
+        .lh-lg-tiny-screen{
+            line-height: 1.7;
+        }
+
+    }
+
+</style>

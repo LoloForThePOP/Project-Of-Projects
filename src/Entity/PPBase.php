@@ -15,6 +15,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -24,6 +26,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 /**
  * @ORM\Entity(repositoryClass=PPBaseRepository::class)
+ * @UniqueEntity(fields={"stringId"}, message="Un utilisateur utilise déjà le nom qui a été choisit. Essayer avec un autre nom.")
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */
@@ -138,7 +141,15 @@ class PPBase implements \Serializable
     /**
      * Used in url as a unique presentation page identifier
      * 
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * 
+     * @Assert\Length(
+     *      min = 1,
+     *      max = 255,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "Le nom doit contenir au plus {{ limit }} caractères"
+     *      )
+     * 
      */
     private $stringId;
 
@@ -444,7 +455,35 @@ class PPBase implements \Serializable
         return $this->stringId;
     }
 
-    public function setStringId(string $stringId): self
+    /**
+     * @ORM\PrePersist
+     */
+    public function generateStringId(LifecycleEventArgs $event): self
+    {
+
+        $entityManager = $event->getEntityManager();
+        $PPBaseRepository = $entityManager->getRepository(get_class($this));
+
+        while (true) {
+
+            $stringId = base_convert(time() - rand(0, 10000), 10, 36);
+
+            // checking if result is unique
+
+            $twin = $PPBaseRepository->findOneBy(['stringId' => $stringId]);
+
+            if ($twin == null) {
+                break;
+            }
+        }
+
+        $this->stringId = $stringId;
+
+        return $this;
+    }
+
+
+    public function setStringId(?string $stringId): self
     {
         $this->stringId = $stringId;
 

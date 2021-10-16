@@ -65,6 +65,9 @@
     {% set countBC = presentation.getOC('businessCards') | length %}
 
 
+    {% set overallQualityAssessment = presentation.overallQualityAssessment %}
+
+
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
 
 
@@ -74,7 +77,7 @@
 
     {# Notification invisible project #}
 
-    {% if userPresenter and presentation.overallQualityAssessment < 2 %}
+    {% if userPresenter and overallQualityAssessment < 2 %}
 
         {% include 'project_presentation/_show/_notifications/invisible_presentation.html.twig' %}
 
@@ -90,7 +93,7 @@
 
     {# Notification "Set a personalised slug" #}
 
-    {% if true %}
+    {% if presentation.getOneData('validatedStringId') == false and overallQualityAssessment > 1 %}
 
         {% include 'project_presentation/_show/_notifications/set_a_slug.html.twig' %}
 
@@ -314,6 +317,13 @@
         
     {% endif %}
 
+        {# Notification "Your presentation url is randomized for now " #}
+
+        {% if userPresenter and presentation.getOneData('validatedStringId') == false and overallQualityAssessment < 2 %}
+
+            {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
+
+        {% endif %}
 
         {# Share Presentation Button #}
 

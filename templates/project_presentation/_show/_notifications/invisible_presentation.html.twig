@@ -20,31 +20,82 @@
 
         <hr>
 
-        <p class="fs-5">
-            Veuillez présenter les éléments marqués avec une croix rouge :
-        </p>
+        <div class="indent-container">
 
-        <p class="mb-2">
+            <p class="fs-5">
+                Veuillez présenter les éléments marqués avec une croix rouge :
+            </p>
 
-            ✅ Objectif du Projet
+            <div class="indent-container">
 
-        </p>
+                <p class="mb-2">
 
-        <p class="mb-2">
+                    ✅ <span class="" style="padding-left: 5px;;">Objectif du Projet</span>
 
-            {{ (presentation.textDescription is not empty or countSlides > 0) ? "✅" : "❌"}}
+                </p>
 
-            Une description texte, ou une image / vidéo
+                <p class="mb-2">
 
-        </p>
+                    {{ (presentation.textDescription is not empty or countSlides > 0) ? "✅" : "❌"}}
 
-        <p class="mb-0">
+                    <a class="inline-text-trigger-action text-decoration-none" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}">Une description texte</a>,<a class="inline-text-trigger-action text-decoration-none" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal">ou une image</a><a class="inline-text-trigger-action text-decoration-none" href="{{path('add_youtube_slide', {'stringId': stringId})}}" >/ vidéo</a>
 
-            {{ (presentation.categories | length > 0 or presentation.keywords is not empty) ? "✅" : "❌"}}
-            Une catégorie, ou des mots-clés
+                </p>
 
-        </p>
+                <p class="mb-0">
+
+                    {{ (presentation.categories | length > 0 or presentation.keywords is not empty) ? "✅" : "❌"}}
+                    <a class="inline-text-trigger-action text-decoration-none" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">Une catégorie, ou des mots-clés</a>
+
+                </p>
+
+            </div>
+
+        </div>
 
     </div>  
     
 </div>
+
+
+<style>
+
+    .indent-container{
+        padding-left: 39px;
+    }
+
+    .inline-text-trigger-action{
+
+        color: inherit;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 5px;
+        
+
+    }
+
+
+    .inline-text-trigger-action:hover{
+
+        background-color: lightblue;
+        
+    }
+
+    @media screen and (max-width: 810px) {
+
+        .indent-container{
+            padding-left: 15px;
+        }
+
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .indent-container{
+            padding-left: 0;
+        }
+
+    }
+
+</style>

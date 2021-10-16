@@ -33,6 +33,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PPController extends AbstractController
@@ -76,7 +77,7 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "✅ La présentation du projet a été créée. <br> 🙋 Si vous avez besoin aide, utilisez le bouton d'aide en bas de page."
+                "✅ La présentation du projet a été créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
             );
 
             return $this->redirectToRoute('show_presentation', [
@@ -419,36 +420,44 @@ class PPController extends AbstractController
             }
 
             // personalize presentation stringId (= slug)
-            $suggestedStringId = null;
-            if (true) {
-                $suggestedStringId = $slug->suggestSlug($presentation);
-            }
-
             $updateStringIdForm = $this->createForm(StringIdType::class, $presentation);
+            $suggestedStringId = null;
 
-            $updateStringIdForm->handleRequest($request);
+            if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getOneData("validatedStringId") == false) {
 
-            if ($updateStringIdForm->isSubmitted() && $updateStringIdForm->isValid()){
+                $suggestedStringId = $slug->suggestSlug($presentation);
+                $updateStringIdForm->handleRequest($request);
 
-               $slugedInput = $slug->slugInput($updateStringIdForm->get('stringId')->getData());
+                if ($updateStringIdForm->isSubmitted() && $updateStringIdForm->isValid()){
 
-                $presentation->setStringId($slugedInput);
+                    $slugedInput = $slug->slugInput($updateStringIdForm->get('stringId')->getData());
 
-                $manager->flush();
+                    $presentation->setStringId($slugedInput);
+                    $presentation->setOneData("validatedStringId", true);
 
-                $this->addFlash(
-                    'success',
-                    "✅ L'adresse de votre page de projet a été modifiée"
-                );
+                    $manager->flush();
 
-                return $this->redirectToRoute(
-                    'show_presentation',
-                    [
-
+                    $newPresentationURL = $this->generateUrl('show_presentation', [
                         'stringId' => $presentation->getStringId(),
+                    ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-                    ]
-                );
+                    $this->addFlash(
+                        'success',
+                        "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b>. <br>
+                        👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
+                    );
+
+                    return $this->redirectToRoute(
+                        'show_presentation',
+                        [
+
+                            'stringId' => $presentation->getStringId(),
+                            '_fragment' => 'flash-message',
+
+                        ]
+                    );
+                }
+
           
             }
 
@@ -624,28 +633,36 @@ class PPController extends AbstractController
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
-        $form = $this->createForm(UpdateStringIdType::class, $presentation);
+        if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getOneData("validatedStringId") == true) {
+            
+            $form = $this->createForm(StringIdType::class, $presentation);
 
-        $form->handleRequest($request);
+            $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $slug->slugInput($presentation->getStringId());  
+                $presentation->setStringId($slug->slugInput($form->get('stringId')->getData()));
 
-            $manager->flush();
-                    
-            $this->addFlash(
-                'success',
-                "✅ L'adresse du projet a étée modifiée'"
-            );
+                $manager->flush();
 
-            return $this->redirectToRoute('show_presentation', [
-                'stringId' => $presentation->getStringId(),
-            ]);
+                $newPresentationURL = $this->generateUrl('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                ], UrlGeneratorInterface::ABSOLUTE_URL);
+                        
+                $this->addFlash(
+                    'success',
+                    "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b>. <br>
+                    👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
+                );
+
+                return $this->redirectToRoute('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                    '_fragment' => 'flash-message'
+                ]);
+            }
         }
 
-
-        return $this->render('project_presentation/edit/title_goal_logo/update_string_id_form.html.twig', [
+        return $this->render('project_presentation/edit/title_goal_logo/_update_string_id_form.html.twig', [
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
             'form' => $form->createView(),

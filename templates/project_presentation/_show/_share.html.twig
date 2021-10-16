@@ -10,26 +10,55 @@
 
                     <div class="text-container">
 
-                        <p class="mb-3">
-                          Pour faire connaître ce projet, copiez son adresse et partagez-là.  
-                        </p>
+                        <div>
 
-                        <div class="mb-2">Voici son adresse :</div>
+                            <p class="mb-3">
+                            Pour faire connaître ce projet, copiez son adresse et partagez-là.  
+                            </p>
 
-                        {# "Copy link" do not work on mobile so we hide copyable input on mobile and we use a simple div instead #}
+                            <div class="mb-4">Voici son adresse :</div>
 
-                        <div class="d-md-none mb-3">{{ url ('show_presentation', {"stringId": presentation.stringId}) }}</div>
+                            {# "Copy link" do not work on mobile so we hide copyable textarea on mobile and we use a simple div instead #}
 
-                        {# Filled copyable input displayed for > medium screens #}
+                            <div class="d-md-none mb-3">{{ url ('show_presentation', {"stringId": presentation.stringId}) }}</div>
 
-                        <input id="presentationAbsoluteURL" class="d-none d-md-block mb-3" value="{{ url ('show_presentation', {"stringId": presentation.stringId}) }}" size="50"></input>
+                            {# Filled copyable textarea displayed for > medium screens #}
 
-                        <button type="button" onclick="copyToClipboard('presentationAbsoluteURL', 'copyURLFeedbackBox', 'Adresse copiée ✅')" class="d-none d-md-inline btn btn-light fw-bold me-3 mb-4" style="border:2px solid orange !important">Copier cette adresse</button>
+                            <textarea id="presentationAbsoluteURL" class="d-none d-md-block" resize="none">{{ url ('show_presentation', {"stringId": presentation.stringId}) }}</textarea>
 
-                        <span id="copyURLFeedbackBox" class="d-block d-md-inline fw-bold"></span>
+                            <div class="mb-4">
+                                    
+                                <button type="button" onclick="copyToClipboard('presentationAbsoluteURL', 'copyURLFeedbackBox', 'Adresse copiée ✅')" class="d-none d-md-inline btn btn-light fw-bold me-3" style="border:2px solid orange !important">Copier cette adresse</button>
+
+                                <span id="copyURLFeedbackBox" class="d-block d-md-inline fw-bold"></span>
+
+                            </div>
+
+                        </div>
+
+
+                        {# Edit StringId Button #}
+
+                        {% if userPresenter and overallQualityAssessment > 1 %}
+
+                            <div class="pp-edition-mode">
+
+                                <a href="{{ path('edit_pp_string_id', {'stringId': presentation.stringId}) }}">
+
+                                    <button type="button" class="btn btn-light">
+
+                                        Modifier cette adresse
+
+                                    </button>
+
+                                </a>
+
+                            </div>
+                        
+                        {% endif %}
 
                     </div>
-                    
+ 
                 </div>
 
                 <div class="col-12 col-lg-5 px-0">
@@ -74,11 +103,20 @@
 
 <style>
     
-    #pp-share input {
+    #pp-share textarea {
+
+        width: 90%;
+        max-height: 250px;
+        resize: none;
+
+        margin-bottom: 10px;
 
         border: none;
         background-color: inherit;
         font-weight: bold;
+        
+
+        
     }
 
 

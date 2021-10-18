@@ -443,7 +443,7 @@ class PPController extends AbstractController
 
                     $this->addFlash(
                         'success',
-                        "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b>. <br>
+                        "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b><br>
                         👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
                     );
 
@@ -651,7 +651,7 @@ class PPController extends AbstractController
                         
                 $this->addFlash(
                     'success',
-                    "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b>. <br>
+                    "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b><br>
                     👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
                 );
 

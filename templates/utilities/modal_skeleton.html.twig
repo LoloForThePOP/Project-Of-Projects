@@ -5,10 +5,12 @@
     Blocks : modalBody, footerButtons
     
     Parameter(s) : modal_id, modal_title, modal_size
+
+    class disabled is added to inactive sortable behaviour.
     
 #}
 
-<div class="modal" id="{{modal_id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
+<div class="modal disabled" id="{{modal_id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
         
     <div class="modal-dialog {{modal_size ?? ""}}">
 

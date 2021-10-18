@@ -23,9 +23,11 @@ class MessagesController extends AbstractController
     /**
      * Allow registered user to send a private message to a presentation creator
      * 
-     * This action starts a new conversation
+     * This action creates a new conversation
      * 
-     * @Route("/projects/{stringId}/conversation/new/{context}", name="new_pp_conversation")
+     * Context can accept slashes (see requirements in annotation below)
+     * 
+     * @Route("/projects/{stringId}/conversation/new/{context}", requirements={"context"=".+"}, name="new_pp_conversation")
      */
     public function newPPConversation(PPBase $presentation, $context=null, Request $request, MailerInterface $mailer): Response
     {
@@ -62,7 +64,6 @@ class MessagesController extends AbstractController
                 ->setContext($context)
                 ->addUser($this->getUser())
                 ->addUser($receiver)
-                ->setContext($context)
                 ->setPresentation($presentation)
                 ->addMessage($privateMessage);
 
@@ -111,7 +112,7 @@ class MessagesController extends AbstractController
 
 
     /**
-     * Allow registered user to display / manage hiser conversations & messages list
+     * Allow registered user to display / manage his or her conversations & messages list
      * 
      * @Route("/user/messages/", name="user_manage_messages")
      */
@@ -272,8 +273,6 @@ class MessagesController extends AbstractController
 
             }
 
-            //dump($dataResponse);
-
             return new JsonResponse($dataResponse);
 
         }
@@ -347,29 +346,5 @@ class MessagesController extends AbstractController
         ]);
 
     }
-
-
-
-    /**
-     * 
-     * Count registred user unread messages
-     * 
-     * @Route("/count-user-unread-messages", name="count_user_unread_messages")
-     */
-    /* public function countUserUnreadMessages(MessageRepository $repo): Response
-    {
-
-        $this->denyAccessUnlessGranted('ROLE_USER');
-
-        $result = $repo->getUnreadMessages($this->getUser());
-
-            return new Response(
-                count($result)
-            );
-
-    } */
-
-
-
 
 }

@@ -18,7 +18,7 @@
 
                     {% set modal_id = 'need'~ need.id %}
 
-                    {# Need description is displayed in a modal (see below) #}
+                    {# Need title displayed in a card (triggers a modal to show need description) #}
 
                     <div id="{{need.id}}" data-bs-toggle="modal" data-bs-target="#{{modal_id}}" class="js-sortable-element need-card">
 
@@ -30,96 +30,96 @@
 
                     </div>
 
-                    {# Displaying each need in a modal box #}
+                    {# Each Need's Modal #}
 
                     {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': need.title } %}
 
-                    {% block modalBody %}
+                        {% block modalBody %}
 
-                        <!-- Date Display -->
+                            <!-- Date Display -->
 
-                        <div class = "mb-2" >
+                            <div class = "mb-2" >
 
-                            <span class="">
-                                Publié le 
-                            </span>
-
-                            <span>
-                                {{need.createdAt | date('d-m-Y')}}
-                            </span>
-
-                        </div>
-
-                        <!-- is it Payed ? -->
-
-                        {% if need.type != "money" %}
-
-                            <div class = "mb-4" >
-
-                                <span class="fw-bold">
-                                    Payé ?  
+                                <span class="">
+                                    Publié le 
                                 </span>
-                                
-                                <span class="is-paid-badge">
 
-                                    {% set isPaid = need.isPaid %}
-
-                                    {% if isPaid == 'yes' %}
-
-                                        Oui
-                                    
-                                    {% elseif isPaid == 'no' %}
-
-                                        Non
-
-                                    {% elseif isPaid == 'maybe' %}
-
-                                        Peut-être
-
-                                    {% elseif isPaid is null %}
-
-                                        Non précisé
-                                        
-                                    {% endif %}
-
+                                <span>
+                                    {{need.createdAt | date('d-m-Y')}}
                                 </span>
 
                             </div>
 
-                        {% endif %}
+                            <!-- is it Payed ? -->
 
-                        <div class="mb-4">
+                            {% if need.type != "money" %}
 
-                            {{ need.description[:1]|upper ~ need.description[1:] }}
+                                <div class = "mb-4" >
 
-                        </div>
-
-                    
-                    {% endblock %}
-
-                    {% block footerButtons %}
-
-                        <a href="{{path("new_pp_conversation", {'stringId': stringId, 'context': need.title})}}" class="pp-consultation-mode text-decoration-none">
+                                    <span class="fw-bold">
+                                        Payé ?  
+                                    </span>
                                     
-                            <button type="button" class="btn btn-light">
-                                Contacter
-                            </button>
-                    
-                        </a>
+                                    <span class="is-paid-badge">
 
-                        {% if userPresenter %}
+                                        {% set isPaid = need.isPaid %}
 
-                            <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
-                                
-                                <button type="button" class="btn btn-light">Modifier</button>
+                                        {% if isPaid == 'yes' %}
+
+                                            Oui
+                                        
+                                        {% elseif isPaid == 'no' %}
+
+                                            Non
+
+                                        {% elseif isPaid == 'maybe' %}
+
+                                            Peut-être
+
+                                        {% elseif isPaid is null %}
+
+                                            Non précisé
+                                            
+                                        {% endif %}
+
+                                    </span>
+
+                                </div>
+
+                            {% endif %}
+
+                            <div class="mb-4">
+
+                                {{ need.description[:1]|upper ~ need.description[1:] }}
+
+                            </div>
+
+                        
+                        {% endblock %}
+
+                        {% block footerButtons %}
+
+                            <a href="{{path("new_pp_conversation", {'stringId': stringId, 'context': need.title})}}" class="pp-consultation-mode text-decoration-none">
+                                        
+                                <button type="button" class="btn btn-light">
+                                    Contacter
+                                </button>
                         
                             </a>
 
-                        {% endif %}
+                            {% if userPresenter %}
+
+                                <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
+                                    
+                                    <button type="button" class="btn btn-light">Modifier</button>
+                            
+                                </a>
+
+                            {% endif %}
+                        
+                        {% endblock %}
                     
-                    {% endblock %}
-                    
-                {% endembed %}
+                    {% endembed %}
                 
                 {% endfor %}
 

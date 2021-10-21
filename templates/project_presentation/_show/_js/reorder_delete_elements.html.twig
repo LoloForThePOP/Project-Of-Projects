@@ -12,13 +12,12 @@
     // ajax elements reordering & deletion
 
      $(document).ready(function(){
-
             
         function displayFeedback(message, type){  //type is success or danger
 
             htmlClass = "fixed-flash alert alert-"+type;
             
-            $('.flash-message').addClass(htmlClass).html(message).fadeIn(1000).delay(3000).fadeOut(1000);
+            $('#flash-messages').addClass(htmlClass).html(message).fadeIn(1000).delay(3000).fadeOut(1000);
             
         }
 
@@ -41,9 +40,11 @@
 
             onEnd: function (evt) {
 
-                //console.log(evt.newIndex);
-
                 var entityType = evt.srcElement.id;
+
+                //console.log(evt.oldDraggableIndex);
+                //console.log(evt.newDraggableIndex);
+                //console.log(evt.item);
 
                 // an array storing elements id position
 
@@ -61,6 +62,7 @@
 
                 var path = null;
 
+                //console.log(elementsPositions);
 
                 // when entity type is persorg, we post its parent structure id
 
@@ -70,6 +72,11 @@
                     parentStructureId = entityType.substr(8);
                     entityType="persorgs";
                 }
+
+                if(entityType == "slide-thumbnails"){
+                    entityType="slides";
+                }
+
 
                 switch(entityType) {
 
@@ -115,8 +122,36 @@
                      
                      success: function(data, status) {
 
-                        //displayFeedback("Élements déplacés", "success");
-                              
+
+                        if(entityType == "slides"){ //reindexing thumbnails targets and slides positions
+
+                            $(".thumbnail").each(function(index){
+
+                                index = index + 1;
+                                
+                                $(this).off('click');
+                                $(this).off('mouseover');
+
+                                $(this).on( "click", {
+                                    newIndex: index
+                                  }, function(event) {
+                                    currentSlide( event.data.newIndex );}
+                                );
+
+                                $(".slides-container").append($("#"+$(this).attr("id")));
+
+                                $(this).attr("data-loop-index", index);
+                                $(this).attr("onclick", "");
+                        
+                            });
+
+                            // display moved thumbnail
+                            $("#slide-thumbnails #"+evt.item.id).click();
+                            // bind on hover thumbnail event
+                            mouseoverThumbnail();
+
+                        }
+
                      },  
  
                      error : function(xhr, textStatus, errorThrown) {  
@@ -134,7 +169,7 @@
 
         $('.js-delete-element').on('click', function (){
 
-            $(this).attr("data-id");
+            //$(this).attr("data-id");
 
             var idElement = $(this).attr("data-id");
             
@@ -143,6 +178,11 @@
             var path = null;
             
             var elementsType = $(this).data('elements-type');
+
+
+            if(elementsType == "slide-thumbnail"){
+                elementsType = "slides";
+            }
             
             switch(elementsType) {
 
@@ -196,17 +236,16 @@
 
                     $("#"+idElement).remove();
 
-                    // displayFeedback("Élement supprimé", "success");
-
                     // when removing a slide, some additionnal display treatments
 
                     if(elementsType=="slides"){
 
                         $('[data-slide-thumbnail-id="'+idElement+'"]').remove();
 
+                        // Empty slideshow -> cleaning ui
+
                         if ( $( ".mySlides" ).length == 0 ) {
  
-
                             $( "#slides" ).parent().find(".show-delete-items-buttons, #manage-slides").remove();
                          
                             $( "#slides" ).empty();
@@ -216,6 +255,7 @@
                         else{
                             
                             $( "#slide-next" ).trigger( "click" );
+
                         }
 
                     }

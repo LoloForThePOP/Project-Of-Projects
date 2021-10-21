@@ -30,7 +30,7 @@
 
 
 
-<div id="slide-thumbnails" class="flex-container">
+<div id="slide-thumbnails" class="flex-container js-elements-list ">
 
 	{% for slide in presentation.slides %}
 
@@ -42,7 +42,7 @@
 		
 		{% endif %}
 
-		<div class="flex-child thumbnail" data-slide-thumbnail-id="{{slide.id}}"  data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="">
+		<div id="{{slide.id}}" class="flex-child thumbnail js-sortable-element position-relative" data-slide-thumbnail-id="{{slide.id}}" data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})">
 
 			{% if slide.type == 'youtube_video' %}	
 
@@ -53,6 +53,11 @@
 				{{ _self.imageThumbnail(slide) }}
 
 			{% endif %}
+
+
+			{# Delete slide button #}
+
+			<button type="button" data-elements-type="slide-thumbnail" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{slide.id}}">&times</button>
 
 		</div>
 

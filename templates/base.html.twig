@@ -63,11 +63,11 @@
 
                 <!-- Flash Messages Display (see app.css) -->
 
-                <div id="flash-message" class="flash-message">
+                <div id="flash-messages" class="">
 
                     {% for label, messages in app.flashes %}
                     
-                        <div class="alert alert-{{label}}">
+                        <div class="flash-message alert alert-{{label}}">
                     
                             {% for message in messages %}
                     

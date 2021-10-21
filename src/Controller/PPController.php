@@ -452,7 +452,7 @@ class PPController extends AbstractController
                         [
 
                             'stringId' => $presentation->getStringId(),
-                            '_fragment' => 'flash-message',
+                            '_fragment' => 'flash-messages',
 
                         ]
                     );
@@ -657,7 +657,7 @@ class PPController extends AbstractController
 
                 return $this->redirectToRoute('show_presentation', [
                     'stringId' => $presentation->getStringId(),
-                    '_fragment' => 'flash-message'
+                    '_fragment' => 'flash-messages'
                 ]);
             }
         }

@@ -15,6 +15,20 @@ class WebsiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+        
+            ->add(
+                'description',
+                TextType::class,
+                [
+                    'label' => 'Titre (facultatif)',
+                    'attr' => [
+
+                        'placeholder'    => 'Exemple : Site web officiel, Compte Twitter, etc.',
+                    ],
+                    'required'   => false,
+                ]
+            )
+
             ->add(
                 'url',
                 UrlType::class,
@@ -31,18 +45,6 @@ class WebsiteType extends AbstractType
                         new \Symfony\Component\Validator\Constraints\NotBlank(['message' => 'Ce champ ne peut être vide']),
                         new \Symfony\Component\Validator\Constraints\Url(['message' => 'Vous devez utiliser une addresse web valide']),
                     )
-                ]
-            )
-            ->add(
-                'description',
-                TextType::class,
-                [
-                    'label' => 'Titre (facultatif)',
-                    'attr' => [
-
-                        'placeholder'    => 'Exemple : Notre site web',
-                    ],
-                    'required'   => false,
                 ]
             );
     }

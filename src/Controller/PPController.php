@@ -76,7 +76,7 @@ class PPController extends AbstractController
             $manager->flush();
 
             $this->addFlash(
-                'success',
+                'success fs-4',
                 "✅ La présentation du projet a été créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
             );
 

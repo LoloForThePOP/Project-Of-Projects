@@ -56,15 +56,23 @@
         {{ _self.helpRow(
             asset('delete_items.png', 'tutorial'),
             "Représentation d'une poubelle",
-            "Pour supprimer des éléments, cliquer sur une corbeille, puis sélectionner les éléments désirés", 
+            "Pour supprimer des éléments, cliquer sur une corbeille, puis sélectionner les éléments désirés.", 
         ) }}
 
         {# Add item #}
         
         {{ _self.helpRow(
             asset('edit_item.png', 'tutorial'),
-            "Représentation d'une sélectin d'élément",
+            "Représentation d'une sélection d'élément",
             "Pour modifier un élément, cliquer dessus, ou cliquer sur un crayon gris.", 
+        ) }}
+
+        {# Autosave #}
+        
+        {{ _self.helpRow(
+            asset('autosave.png', 'tutorial'),
+            "Représentation d'une sauvegarde automatique",
+            "Les modifications sont enregistrées automatiquement.", 
         ) }}
 
         <div class="mt-5 mb-4 d-flex justify-content-center">

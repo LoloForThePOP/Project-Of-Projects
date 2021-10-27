@@ -2,69 +2,63 @@
 
 {% block title %}Propon{% endblock %}
 
-{% block stylesheets %}<link href="/css/search_results.css" rel="stylesheet">{% endblock %}
+{% block stylesheets %}<link href="/css/thumbnails_display.css" rel="stylesheet">{% endblock %}
 
-{% import "search_results/_macro_display_collection.html.twig" as display %}
+{% import "search_results/_macro_display_grid_collection.html.twig" as display %}
 
 {% block body %}
 
-  <div class="page-container container px-0 px-lg-5 col-xxl-8">
+  <div class="page-container container-lg px-0 px-lg-3 col-xxl-8">
 
-    {# Displaying registered user presentations #}
+     {# Displaying registered user presentations #}
 
-    {% if app.user %} 
+     {% if app.user %} 
 
-      <div class="projects-collection row">
+     <div class="projects-collection row">
 
-        <div class="col-md-9 col-lg-6 px-1 px-md-3">
+         {% set user_presentations = app.user.createdPresentations %}
 
-          {% set user_presentations = app.user.createdPresentations %}
+         {% if user_presentations | length > 0 %}
 
-          {% if user_presentations | length > 0 %}
+             {# Plural forms #}
+                 
+             {% set user_presentations_label %}
+               
+               {% if user_presentations | length == 1 %}Mon projet présenté
+               
+               {% else %}Mes {{user_presentations | length}} projets présentés
 
-              {# Plural forms #}
-                  
-              {% set user_presentations_label %}
-                
-                {% if user_presentations | length == 1 %}Mon projet présenté
-                
-                {% else %}Mes {{user_presentations | length}} projets présentés
+               {% endif %}
 
-                {% endif %}
+             {% endset %}
 
-              {% endset %}
+             {{ display.collection(user_presentations_label, user_presentations | reverse) }}
 
-              {{ display.collection(user_presentations_label, user_presentations | reverse, 3) }}
+         {% endif %}
+     
+     </div>
 
-          {% endif %}
+   {% endif %}
+
+
+   {# Case user not logged in : displaying homepage jumbotron #}
+
+
+   <div class="px-0 px-lg-5 col-xxl-8">
       
-        </div>
-
-      </div>
-
-    {% endif %}
-
-
-    {# Case user not logged in : displaying homepage jumbotron #}
-
     {% if not app.user %}
       
       {% include "home/_jumbotron.html.twig" %}
     
     {% endif %}
 
-    {# In any case : Displaying Last Inserted Presentations #}
+   </div>
 
-    <div class="projects-collection row">
 
-      <div class="col-md-9 col-lg-6 px-1 px-md-3">
+    <div class="projects-collection row my-4">
 
-        {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
+      {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
 
-      </div>
-      
     </div>
-      
-  </div>
 
 {% endblock %}

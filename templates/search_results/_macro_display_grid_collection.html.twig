@@ -18,7 +18,7 @@
 
                         {% if not item.cache.thumbnail [0:4] is same as "http" %}
 
-                            <img class="thumbnail" src="{{ item.cache.thumbnail | imagine_filter('standard_thumbnail_sm') }}" alt="Presentation Thumbnail">
+                            <img class="thumbnail" src="{{ item.cache.thumbnail | imagine_filter('standard_thumbnail_md') }}" alt="Presentation Thumbnail">
 
                         {% else %} {# case thumbnail is stored externaly (example : Youtube caption) #}
 
@@ -46,7 +46,7 @@
                 <div class="other-info-container">
 
                     <div class="goal {% if title is empty %}no-title{% endif %} ">
-                        {{item.goal[:1] | upper ~ item.goal[1:] | slice(0, 140)}}{% if item.goal | length > 141 %}...{% endif %}
+                        {{item.goal[:1] | upper ~ item.goal[1:] | slice(0, 77)}}{% if item.goal | length > 77 %}...{% endif %}
                     </div>
 
                     {% if title is not empty %}

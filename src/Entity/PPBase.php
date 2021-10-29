@@ -23,6 +23,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 /**
  * @ORM\Entity(repositoryClass=PPBaseRepository::class)
@@ -258,6 +260,11 @@ class PPBase implements \Serializable
     }
 
 
+    /**
+     * @Groups({"searchable"})
+     */
+
+
     public function getGoal(): ?string
     {
         return $this->goal;
@@ -270,7 +277,11 @@ class PPBase implements \Serializable
         return $this;
     }
 
-
+    /**
+     * @Groups({"searchable"})
+     *
+     * @return string|null
+     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -316,7 +327,9 @@ class PPBase implements \Serializable
         return $this->logoFile;
     }
 
-
+    /**
+     * @Groups({"searchable"})
+     */
     public function getKeywords(): ?string
     {
         return $this->keywords;

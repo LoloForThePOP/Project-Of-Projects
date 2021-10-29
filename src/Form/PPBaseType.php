@@ -49,22 +49,6 @@ class PPBaseType extends AbstractType
             )
 
             ->add(
-                'keywords',
-                TextType::class,
-
-                [
-                    'label' => 'Mots-Clés (séparer avec des virgules , ) :',
-
-                    'attr' => [
-
-                        'placeholder'    => 'Mots-Clés',
-                    ],
-
-                    'required'   => false,
-                ]
-            )
-
-            ->add(
 
                 'logoFile',
                 VichImageType::class,

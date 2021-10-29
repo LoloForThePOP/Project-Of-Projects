@@ -576,7 +576,7 @@ class PPController extends AbstractController
 
 
     /**
-     * Allow to edit pp title; goal; keywords & logo
+     * Allow to edit pp title; goal & logo
      * 
      * @Route("/projects/{stringId}/edit/", name="edit_pp_base")
      * 

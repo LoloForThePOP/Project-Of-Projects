@@ -8,7 +8,6 @@
 
         {# ui page title #}
 
-        
         <h4 class="text-danger fw-bold d-inline-block my-4 me-2">
 
             Gestion des Catégories de Projets
@@ -59,10 +58,20 @@
 
         {# list categories #}
 
-        <div id="elements-list" class="col-xxl-10">
+        <div id="elements-list" class="col-xxl-10 clearfix mb-4">
 
             {% include "project_presentation/edit/categories/_admin_list_categories.html.twig" %}
         
+        </div>
+
+        <div class="mb-5">
+
+            <a href="{{ path('admin') }}">
+
+                <button class="btn btn-go-back fs-15">Retour administration</button>
+
+            </a>
+
         </div>
 
         {# style categories display #}

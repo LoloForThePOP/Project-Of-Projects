@@ -95,6 +95,30 @@ class CategoryController extends AbstractController
     }
 
     /** 
+     *  
+     * @Route("/projects/{stringId}/ajax-update-keywords", name="ajax_update_keywords") 
+     * 
+     */
+    public function ajaxUpdateKeywords(Request $request, AssessQuality $assessQuality, PPBase $presentation, EntityManagerInterface $manager)
+    {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        if ($request->isXmlHttpRequest()) {
+
+            $keywords = $request->request->get('keywords');
+
+            $presentation->setKeywords($keywords);
+
+            $assessQuality->assessQuality($presentation);  
+
+            $manager->flush();
+
+            return  new JsonResponse(true);
+        }
+    }
+
+    /** 
      * 
      * Allow admin to Access project categories reordering, editing button, and new category button
      *  
@@ -117,7 +141,7 @@ class CategoryController extends AbstractController
 
     /** 
      * 
-     * Ajax call to reorder categories
+     * Allow admin to reorder categories
      *  
      * @Route("/admin/categories/ajax-reorder", name="reorder_categories") 
      * 

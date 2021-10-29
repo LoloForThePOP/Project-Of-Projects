@@ -1,7 +1,6 @@
 
 {% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
 
-
 {% block title %}Catégories du Projet{% endblock %}
 
 
@@ -37,132 +36,69 @@
 
 {% block mainContent %}
 
-    <div id="cat-grid" class="col-xxl-10">
+    {# javascript inclusions #}
+
+    {% include "project_presentation/edit/categories/_js_select.html.twig" %}
+
+
+    <div id="cat-grid" class="col-xxl-10 clearfix">
 
         {% include "project_presentation/edit/categories/_list.html.twig" %}
-
-        {# Project Keywords Input #}
-
-        <div class="keywords-input-container">
-
-            {{form_start(keywordsForm)}}
-            
-            {{form_errors(keywordsForm.keywords)}}
-            {{form_widget(keywordsForm.keywords)}}
-
-
-            <button type="submit" class="btn btn-success mb-1 sharp"><span class="h5 fw-bold">Valider</span></button>
-
-            {{form_end(keywordsForm)}}
-        </div>
     
     </div>
 
-    {% block actionButtons %}{% endblock %}
+
+    <div class="">
+
+        <h4 class="h3 fw-bold mb-3">Mots-clés</h4>
+
+        <form class="mb-4" method="get">
+
+            <input id="tagInput" class="me-2 mb-3" type="search" placeholder="Écrire ici" />
+
+            <button id="tag-submit-button" class="btn btn-validate mb-3" type="submit" style="vertical-align: baseline !important;">Ajouter</button>
+
+        </form>
+
+        <div id="keywords-display">
+
+            {% if presentation.keywords | length > 0 %}
+
+                {% set keywords = presentation.keywords | split(',') %}
+
+                {% for keyword in keywords %}
+                    
+                    <div class="keyword-wrapper">
+
+                        {# left column contains text #}
+
+                        <div class="left-col d-inline-block">{{keyword}}</div>
+
+                        {# right column contains remove button #}
+
+                        <div class="right-col d-inline-block">
+                            <div class="remove-keyword">&times</div>
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+        </div>
+
+        <div id="keywords-string" class="d-none">{{presentation.keywords}}</div>
+
+    </div>
+    
 
 
     {% block specificStyles %}
 
-        <style>
-
-            .cat-button{
-
-                float: left;
-                width: 100%;
-                max-width:230px;
-                height: 61px;
-
-                margin-right: 15px;
-                margin-bottom: 15px;
-
-                font-size:1.1em;
-                line-height:1.4em !important;
-                font-weight:700;
-                
-                border: 1px solid black !important;
-                border-radius: 4px;
-                background-color: white;
-                cursor:pointer;
-            }
-
-            .cat-button:hover{
-                background-color:rgb(234, 245, 255);
-            }
-
-                /* La selection de la classe parente Permet un Override du Hover */
-            #cat-grid .selectedCategory, #cat-grid .selectedCategory:hover {
-                background-color: yellow !important;
-            }
-
-            .bt-left-col{
-                width: 58px;
-                height: 100%;
-                float:left;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .bt-right-col{
-                height: 100%;
-                display: flex;
-                align-items: center;
-                
-            }
-
-            @media (min-width: 576px) {
-
-                .cat-button {
-                    width: 260px;
-
-                }
-
-            }
-
-        /* keywords input */
-
-            .keywords-input-container{
-                display: inline-block;
-                margin-top: 15px;
-                width:100%;
-                max-width:500px;
-
-            }
-             
-            input {
-                outline: 0;
-                border-width: 0 0 4px;
-                border-color: #ffa500;
-                padding-bottom: 5px;
-                margin-bottom:15px;
-                border-radius: 0px;
-                width:100%;
-                max-width:350px;
-                margin-right:16px;
-                font-size: 18px !important;
-            }
-
-            input:focus {
-                border-color: green
-            }
-                    
-            input::placeholder {
-                font-size: 20px !important;
-                color: rgb(49, 25, 93)  !important;
-            }
-
-            
-            @media (min-width: 576px) {
-
-                input {
-                    margin-bottom: 0;
-
-                }
-
-            }
+        {% include "project_presentation/edit/categories/_css_select.html.twig" %}
 
 
-        </style>
 
     {% endblock %}
  
@@ -210,6 +146,9 @@
 
         });  
     </script>
+
+    
+  
 
 {% endblock %}
 

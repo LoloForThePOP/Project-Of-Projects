@@ -1,10 +1,16 @@
 
 .hide-too-long {
     height: 100%;
-    max-height: 100px;
     overflow: hidden;
 }
 
+.hide-100 {
+    max-height: 100px;
+}
+
+.hide-330 {
+    max-height: 330px;
+}
 
 .read-more:focus {
 outline: none;
@@ -16,4 +22,20 @@ border: 0;
 
 .hid {
 display: none;
+}
+
+
+@media screen and (max-width: 580px) {
+        
+    .hide-too-long.show-tiny-screens {
+        max-height: initial;
+    }
+        
+    .hide-too-long.show-tiny-screens .read-more{
+        display:none;
+    }
+
+    
+
+
 }

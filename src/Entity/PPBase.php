@@ -505,6 +505,7 @@ class PPBase implements \Serializable
 
 
     /**
+     * @Groups({"searchable"})
      * @return Collection|Category[]
      */
     public function getCategories(): Collection

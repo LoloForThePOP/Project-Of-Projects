@@ -2,7 +2,10 @@
 
 {% block title %}Propon{% endblock %}
 
-{% block stylesheets %}<link href="/css/thumbnails_display.css" rel="stylesheet">{% endblock %}
+{% block stylesheets %}
+  <link href="/css/thumbnails_display.css" rel="stylesheet">
+  <link href="/css/show_more_less_button.css" rel="stylesheet">
+{% endblock %}
 
 {% import "search_results/_macro_display_grid_collection.html.twig" as display %}
 
@@ -12,33 +15,43 @@
 
      {# Displaying registered user presentations #}
 
-     {% if app.user %} 
+    {% if app.user %}
 
-     <div class="projects-collection row">
 
-         {% set user_presentations = app.user.createdPresentations %}
+    {% block javascripts %}
+      <script src="/js/show_more_less_button.js"></script>
+    {% endblock %}
 
-         {% if user_presentations | length > 0 %}
+      <div class="hide-too-long hide-330 show-tiny-screens ">
 
-             {# Plural forms #}
-                 
-             {% set user_presentations_label %}
-               
-               {% if user_presentations | length == 1 %}Mon projet présenté
-               
-               {% else %}Mes {{user_presentations | length}} projets présentés
+          <div class="projects-collection row">
 
-               {% endif %}
+            {% set user_presentations = app.user.createdPresentations %}
 
-             {% endset %}
+            {% if user_presentations | length > 0 %}
 
-             {{ display.collection(user_presentations_label, user_presentations | reverse) }}
+                {# Plural forms #}
+                    
+                {% set user_presentations_label %}
+                  
+                  {% if user_presentations | length == 1 %}Mon projet présenté
+                  
+                  {% else %}Mes {{user_presentations | length}} projets présentés
 
-         {% endif %}
-     
-     </div>
+                  {% endif %}
 
-   {% endif %}
+                {% endset %}
+
+                {{ display.collection(user_presentations_label, user_presentations | reverse) }}
+
+            {% endif %}
+        
+        </div> 
+      </div>
+
+    
+
+    {% endif %}
 
 
    {# Case user not logged in : displaying homepage jumbotron #}

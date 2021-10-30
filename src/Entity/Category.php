@@ -2,20 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
-
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 
-use Symfony\Component\Validator\Constraints as Assert;
+
+use Doctrine\Common\Collections\ArrayCollection;
+
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
@@ -175,6 +176,10 @@ class Category
         return $this;
     }
 
+    
+    /**
+     * @Groups({"searchable"})
+     */
     public function getDescriptionFr(): ?string
     {
         return $this->descriptionFr;

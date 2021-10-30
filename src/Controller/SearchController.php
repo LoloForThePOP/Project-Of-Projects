@@ -24,9 +24,16 @@ class SearchController extends AbstractController
     {
         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
-        $posts = $this->searchService->search($em, PPBase::class, 'crash');   
+        $results = $this->searchService->search($em, PPBase::class, 'crash', 
+            
+            [
+                'facetFilters' => [
+                "category:Book"
+                ]
+            ]
+        );   
 
-        dd($posts);
+        dd($results);
 
 
         return $this->render('search/index.html.twig', [

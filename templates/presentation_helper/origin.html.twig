@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aide à la présentation de projet{% endblock %}
+
+{% set helperItems = [ 
+
+    { 'uniqueName': "test", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?"}, 
+
+    { 'uniqueName': "test2", 'type': "qa", 'questionFr': "Peut-on essayer votre produit ? Si oui, où ? "}, 
+
+] %}
+
+
+{% set currentItem = helperItems[position] %}
+
+{% set nextItem = null %}
+
+{% if helperItems[position + 1] is defined %}
+
+    {% set nextItem = helperItems[position + 1] %}
+
+{% endif %}
+
+
+{% block body %}
+
+
+
+<pre>
+    {{ dump(currentItem) }}
+</pre>
+
+    <div class="page-container container">
+
+        {% embed "utilities/jumbotron_skeleton.html.twig" %}
+
+            {% block image %}
+
+                <img src="{{asset ("presentation_helper/"~ currentItem.uniqueName ~".svg", 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
+
+            {% endblock %}
+
+
+            {% block text %}
+
+                <!-- Question Label -->
+
+                <h1 class="jumbotron-title display-5 lh-1">{{currentItem.questionFr}}</h1>
+
+                <!-- Answer Form -->
+
+                <div class="answer-form">
+            
+                    {{ form_start(QA_Form) }}
+                    
+                    {{ form_widget(QA_Form.answer) }}
+                        
+                </div>
+
+
+                <!-- Action Buttons -->
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+
+                    <a href="">
+                        <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Je ne réponds pas</button>
+                    </a>
+
+                    <a href=""><button type="submit" class="jumbotron-btn btn btn-primary">Je valide ma réponse</button></a>
+
+                </div>
+
+                {{ form_end(QA_Form) }}
+            
+            {% endblock %}
+
+        {% endembed %}
+        
+    </div>
+
+
+    {# Overiding some default styles  #}
+
+    <style>
+
+        .jumbotron-title{
+            font-size: 29px;
+            margin-bottom: 34px;
+        }
+
+        .answer-form{
+            margin-bottom : 34px;
+        }
+
+    </style>
+
+{% endblock %}

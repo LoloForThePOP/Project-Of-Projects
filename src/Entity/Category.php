@@ -152,6 +152,10 @@ class Category
         return $this->id;
     }
 
+
+    /**
+     * @Groups({"searchable"})
+    */
     public function getUniqueName(): ?string
     {
         return $this->uniqueName;
@@ -164,6 +168,10 @@ class Category
         return $this;
     }
 
+
+    /**
+     * @Groups({"searchable"})
+    */
     public function getDescriptionEn(): ?string
     {
         return $this->descriptionEn;
@@ -176,7 +184,7 @@ class Category
         return $this;
     }
 
-    
+
     /**
      * @Groups({"searchable"})
      */

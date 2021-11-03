@@ -9,12 +9,7 @@
       href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
     />
 
-    <link
-      rel="stylesheet"
-      href="/templates/search/_app.css"
-    />
-
-
+    <link href="/css/search_page.css" rel="stylesheet">
 
 {% endblock %}
 
@@ -30,7 +25,7 @@
 {% block body %}
 
 
-  <div class="ais-InstantSearch">
+  <div class="ais-InstantSearch mt-3 mb-5">
 
     <div class="left-panel">
 
@@ -55,6 +50,5 @@
   </div>
 
   {% include "/search/_js.html.twig" %}
-  {% include "/search/_css.html.twig" %}
-  
+ 
 {% endblock %}

@@ -1,5 +1,23 @@
-<script>
+<!-- sortable plugin to reorder elements (exemple : reorder editor's presentations selection ) -->
 
+<script src="/js/sortable/sortable.min.js"></script>
+
+<!-- jQuerySupport for above sortable plugin -->
+
+<script src="/js/sortable/jquery-sortable.js"></script>
+
+{% set lol = 'yo' %}
+
+<script>
+  
+  $(document).ready(function(){
+
+  
+
+  var domain = "{{url('homepage')}}";
+
+  //alert(domain);
+  
   const search = instantsearch({
     indexName: 'dev_presentation_bases',
     searchClient: algoliasearch(
@@ -7,7 +25,45 @@
       'b2d9ba779ea94f1c5f81d1b5751e267e'
     ),
   });
-  
+
+   
+  search.on('render', function () {   
+    
+    $('.ais-Hits-list').sortable({
+
+      animation: 150,
+      group: {
+        name:'results-to-selection',
+      },
+
+      ghostClass: 'blue-background-class',
+
+      filter: ".disabled",
+
+      onMove: function (evt) {
+        return evt.related.className.indexOf('disabled') === -1;
+
+      },
+
+      // drag and drop implies elements positions updates (ajax call)
+
+      onEnd: function (evt) {
+
+        // changing source item tag (otherwise it is removed by algolia when redoing a search)
+        //$(evt.item).replaceWith($('<lol>').append($(evt.item).contents()).find("a").removeAttr("href").attr("tit","tat"));
+
+         // an array storing elements id position
+
+          var elementsPositions = [];
+
+      },
+
+
+    });
+
+  });
+
+
   search.addWidgets([
     instantsearch.widgets.searchBox({
       container: '#searchbox',
@@ -18,19 +74,21 @@
     instantsearch.widgets.refinementList({
       container: '#brand-list',
       attribute: 'categories.descriptionFr',
+      operator: 'and',
     }),
     instantsearch.widgets.hits({
       container: '#hits',
       templates: { /* Twig verbatim used to avoid curly brackets (braces) conflicts */
-        item: `{% verbatim %}
-          <div>
+        item: `{% verbatim %}<a href="`+domain+`{{#helpers.highlight}}{ "attribute": "stringId" }{{/helpers.highlight}}" class="text-decoration-none ">{% endverbatim %}
+          <div>{{lol | title}}
+            {% verbatim %}
             <div class="hit-name">
               {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
             </div>
             <div class="hit-description">
               {{#helpers.highlight}}{ "attribute": "goal" }{{/helpers.highlight}}
             </div>
-          </div>
+          </div></a>
         {% endverbatim %}`,
       },
     }),
@@ -43,5 +101,9 @@
   ]);
   
   search.start();
-  
+
+});
+
 </script>
+
+ 

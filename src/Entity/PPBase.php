@@ -462,7 +462,9 @@ class PPBase implements \Serializable
         return $this;
     }
 
-
+    /**
+     * @Groups({"searchable"})
+     */
     public function getStringId(): ?string
     {
         return $this->stringId;

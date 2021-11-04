@@ -85,7 +85,7 @@
 
                             {% for item in needTypesPossibilities %}
 
-                                <a class="text-decoration-none text-body" href="{{path('add_need', {'stringId': stringId, 'need_type': item.type })}}">
+                                <a class="text-decoration-none text-body" data-need-type="{{item.type}}" href="{{path('add_need', {'stringId': stringId, 'need_type': item.type })}}">
 
                                     <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center cursor-pointer" style="height:55px;">
 

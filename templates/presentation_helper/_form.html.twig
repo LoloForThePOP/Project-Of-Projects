@@ -1,0 +1,123 @@
+
+{% if currentItem.type == "places" %}
+
+    {% block stylesheets %}<link href="/css/places_autocomplete.css" rel="stylesheet">{% endblock %}
+
+    <input id="autocomplete" class="form-control mb-3" placeholder="Ajouter ici une ville; un département; une région; ou un pays" />
+
+    <!-- Feedback Box -->
+
+    <div id="feedbackBox" class="">;-)</div>
+
+    <!-- Project Places Table Display -->
+
+        <table id="projectPlacesTable" class="table table-bordered table-hover rounded" style="display:none;">
+
+            <thead>
+                <tr>
+                    <th id="">Type du lieu</th>
+                    <th id="">Nom du lieu</th>
+                    <th>Retirer ?</th>
+                </tr>
+            </thead>
+    
+            <tbody id="elements-list" data-elements-type="places">
+
+            </tbody>
+
+        </table>
+
+        <!-- Action Buttons -->
+
+        <div class="action-buttons-container">
+
+            <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
+                <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Question suivante</button>
+            </a>
+
+        </div>
+
+
+    {% include "project_presentation/edit/places/_js.html.twig" %}
+
+{% else %}
+
+    {{ form_start(form) }}
+
+        {% if currentItem.type == "needs" %}
+
+            <!-- Need Type Selection (in a Modal Box, triggered by above button) -->
+
+            {% include "project_presentation/edit/needs/_select_need_type_modal.html.twig" %}
+
+            {{ form_row(form.needTitle) }}
+            {{ form_row(form.needDescription) }}
+
+            <script>
+
+                $(document).ready(function(){
+
+                    var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {});
+
+                    $('#selectNeedTypeModal a').click(function(event) {
+
+                        event.preventDefault();
+
+                        $('#presentation_helper_').val($(this).data("need-type"));
+
+                        needTypesModal.hide();
+
+                    });
+
+                });
+
+            </script>
+
+        {% elseif currentItem.type == "websites" %}
+
+            {{ form_row(form.websiteDescription) }}
+            {{ form_row(form.url) }}
+
+        {% elseif currentItem.type == "qa" or currentItem.type == "textDescription" %}
+
+            {{ form_widget(form.answer) }}
+
+        {% endif %}
+
+        <!-- Hidden Fields -->
+
+        <div class="">
+                        
+            {{ form_widget(form.helperItemType, {'value' : currentItem.type}) }}
+
+            {{ form_widget(form.questionAsked, {'value' : currentItem.questionFr}) }}
+
+            {{ form_widget(form.currentPosition, {'value' : position}) }}
+
+            {{ form_widget(form.nextPosition, {'value' : nextPosition}) }}
+
+            {{ form_widget(form.repeatedInstance) }}
+
+        </div>
+
+        <div class="d-none">
+
+            {{ form_rest(form) }}
+
+        </div>
+
+        <!-- Action Buttons -->
+
+        <div class="action-buttons-container">
+
+            <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
+                <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Je ne réponds pas</button>
+            </a>
+
+            <button id="validate-button" type="submit" class="jumbotron-btn btn btn-primary">Je valide ma réponse</button>
+
+        </div>
+
+    {{ form_end(form) }}
+
+{% endif %}

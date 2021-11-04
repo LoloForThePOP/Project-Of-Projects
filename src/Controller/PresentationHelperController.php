@@ -3,24 +3,45 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Service\TreatItem;
 use App\Form\PresentationHelperType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Need;
 
 class PresentationHelperController extends AbstractController
 {
     
     
     /**
-     * @Route("{stringId}/helper/{position}", requirements={"position"="\d+"}, name="presentation_helper")
+     * Allow user to follow a step by step guide to present its project
+     * 
+     * position = 0 means begining; position = null means end.
+     * 
+     * @Route("{stringId}/helper/{position}/{repeatedInstance}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position=0): Response
+    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatedInstance='false', TreatItem $specificTreatments): Response
     {
 
-        // ???to keep $this->denyAccessUnlessGranted('ROLE_USER');
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        if($position==null){
+
+            $this->addFlash(
+                'success fs-4',
+                "✅ Votre page de présentation est prête. Apportez lui toutes les modifications que vous désirez."
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+
+                'stringId' => $presentation->getStringId(),
+                               
+            ]);
+
+        }
 
         $form = $this->createForm(
             PresentationHelperType::class,null,
@@ -37,27 +58,111 @@ class PresentationHelperController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            //dd($form);
+            $helperType=$form->get('helperItemType')->getData();
 
-        /*  $presentation->setCreator($this->getUser());
+            if ($helperType=="websites") {
 
-            $manager->persist($presentation);
-            $manager->flush();
-        */
+                $websiteDescription=$form->get('websiteDescription')->getData();
+                $websiteURL=$form->get('url')->getData();
+
+                $websiteItem = 
+                
+                    [
+                        "description" => $websiteDescription,
+                        "url" => $websiteURL,
+                    ]
+                ;
+
+                $websiteItem = $specificTreatments->specificTreatments('websites', $websiteItem);
+
+                $presentation->addOtherComponentItem('websites', $websiteItem);
+                //$manager->flush();
+
+            }
+
+            if ($helperType=="needs") {
+
+                $need = new Need();
+
+                $need->setTitle($form->get('needTitle')->getData());
+                $need->setDescription($form->get('needDescription')->getData());
+                $need->setType($form->get('selectedNeedType')->getData());
+
+                $presentation->addNeed($need);
+
+                $manager->persist($need);
+                $manager->flush();
+
+            }
+
+            if ($helperType=="textDescription") {
+
+                $string = "<p><strong>".$question=$form->get('questionAsked')->getData()."</strong><br><br>".nl2br($answer=$form->get('answer')->getData())."</p>";
+
+                $presentation->setTextDescription($presentation->getTextDescription().$string);
+
+                //$manager->flush();
+
+            }
+
+            if ($helperType=="qa") {
+
+                $question=$form->get('questionAsked')->getData();
+                $answer=$form->get('answer')->getData();
+
+                $qaItem = 
+                
+                    [
+                        "question" => $question,
+                        "answer" => $answer,
+                    ]
+                ;
+
+                $presentation->addOtherComponentItem('questionsAnswers', $qaItem);
+                //$manager->flush();
+
+            }
+
+            $currentPosition=$form->get('currentPosition')->getData();
+
+            $nextPosition=$form->get('nextPosition')->getData();
+
+            //dd($nextPosition);
+
+            // Do we repeat (example : user wants to add another website)
+
+            $repeatedInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
+
+            if ($repeatedInstance == "true") {
+                $nextPosition = $currentPosition;
+            }
+
+            //dd($nextPosition);
+
             $this->addFlash(
                 'success fs-4',
-                "✅ slkfjslkdjfslkdfjslkdjf sldkf slkdj f."
+                "✅ Page de projet mise à jour !"
             );
 
             return $this->redirectToRoute('presentation_helper', [
-                
-                             
+
+                'stringId' => $presentation->getStringId(),
+                'position' => $nextPosition,
+                'repeatedInstance' => $repeatedInstance,
+
+                'googleMapApiKey' => $this->getParameter('app.google_map_api_key'),
+                               
             ]);
+
         }
 
         return $this->render('presentation_helper/origin.html.twig', [
-            'QA_Form' => $form->createView(),
+            'form' => $form->createView(),
             'position' => $position,
+            'stringId' => $presentation->getStringId(),
+            'repeatedInstance' => $repeatedInstance,
+
+            'googleMapApiKey' => $this->getParameter('app.google_map_api_key'),
         ]);
 
     }

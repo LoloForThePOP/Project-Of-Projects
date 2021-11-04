@@ -1,0 +1,62 @@
+{% embed "utilities/backdrop_modal_skeleton.html.twig" %}
+
+    {% block titleContent %}{{currentItem.repeatableMessage}}{% endblock %}
+
+    {% block bodyContainer %}{% endblock %}
+    
+    {% block footerContent %}
+
+        <button id="add-another-item" type="button" class="btn btn-secondary">oui</button>
+        
+        <button id="dismiss-add-another-item" type="button" class="btn btn-secondary">non</button>
+    
+    {% endblock %}
+
+
+    {% block js %}
+
+        <script>
+
+            $(document).ready(function(){
+                    
+                var confirmationModal = new bootstrap.Modal(document.getElementById("backdropModal"), {});
+    
+                $('#validate-button').click(function(event) {
+    
+                    event.preventDefault();
+                    
+                    confirmationModal.show();
+    
+                    $(this).unbind(event);
+    
+                });
+    
+                $('#add-another-item').click(function(event) {
+    
+                    confirmationModal.hide();
+    
+                    //alert($('#presentation_helper_nextPosition').val());
+    
+                    $('#presentation_helper_repeatedInstance').val('true');
+
+                    //alert($('#presentation_helper_repeatedInstance').val());
+    
+                    $('#validate-button').click();
+                    
+                });
+    
+                $('#dismiss-add-another-item').click(function(event) {
+
+                    $('#presentation_helper_repeatedInstance').val('false');
+    
+                    $('#validate-button').click();
+                    
+                });
+    
+            });
+    
+        </script>
+    
+    {% endblock %}
+
+{% endembed %}

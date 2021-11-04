@@ -1,0 +1,37 @@
+
+<div id="invitation-container" class="select-buttons-container">
+
+    <button id="accept-invitation" type="button" class="big-select-button">Oui</button>
+
+    <button type="button" class="big-select-button">
+
+        <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
+            Non
+        </a>
+        
+    </button>
+
+</div>
+
+<style>
+
+    .select-buttons-container{
+        display: flex;
+        justify-content:space-between;
+    }
+
+    .big-select-button{
+        width: 45%;
+        height: 100px;
+        font-size: 1.8rem;
+        background-color: #f7f6ff;
+        border: 1px solid #2a2a2a;
+        border-radius: 5px;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+    .big-select-button:hover {
+        box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+    }
+    
+</style>

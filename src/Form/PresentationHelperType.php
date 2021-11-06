@@ -24,7 +24,6 @@ class PresentationHelperType extends AbstractType
                         
                         'placeholder'    => 'Écrire ici la réponse',
                         'rows' => '5',
-                        'autofocus' => true,
                     ],
                     'required'   => false,
                     'constraints' => array(
@@ -39,7 +38,7 @@ class PresentationHelperType extends AbstractType
                     'label' => 'Titre de l\'adresse',
                     'attr' => [
 
-                        'placeholder'    => 'Exemple : Compte Twitter, Site web officiel, etc.',
+                        'placeholder'    => 'Exemple : Compte Twitter; Site web officiel; etc.',
                     ],
                     'required'   => false,
                 ]
@@ -92,7 +91,9 @@ class PresentationHelperType extends AbstractType
             ->add('selectedNeedType', HiddenType::class)
 
             ->add('helperItemType', HiddenType::class)
-            ->add('questionAsked', HiddenType::class)
+            ->add('finalRenderingLabel', HiddenType::class)
+
+
             ->add('currentPosition', HiddenType::class)
             ->add('nextPosition', HiddenType::class)
             ->add('repeatedInstance', HiddenType::class, 

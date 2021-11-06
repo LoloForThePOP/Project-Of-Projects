@@ -4,18 +4,15 @@
 
 {% set helperItems = [ 
 
-    { 'uniqueName': "test", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?"}, 
+    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du projet' ?"},
 
-    { 'uniqueName': "textdescr1", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire en quelques lignes ce que vous souhaitez réaliser ?"}, 
-
-    { 'uniqueName': "test2", 'type': "qa", 'questionFr': "Peut-on essayer votre produit ? Si oui, où ? "}, 
-
-    { 'uniqueName': "websites", 'type': "websites", 'questionFr': "Avez vous un site web ou un réseau social en lien avec votre projet (exemple : Facebook, Discord...) ?", 'askBefore': 'true', 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?'}, 
-
-    { 'uniqueName': "needs", 'type': "needs", 'questionFr': "Recherchez-vous des contributeurs (bénévoles ou payés), acceptez-vous de l'aide ?", 'askBefore': 'true',}, 
+    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "Avez-vous déjà un site web ou un réseau social en lien avec votre projet", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
     
-    { 'uniqueName': "places", 'type': "places", 'questionFr': "Votre projet est-il relié à un pays, un département, ou une ville ?", 'askBefore': 'true',}, 
+    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est né le projet ?"}, 
 
+    { 'uniqueName': "places", 'type': "places", 'priorQuestion': "Votre projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
+    
+    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Recherchez-vous des contributeurs (bénévoles ou payés) (acceptez-vous de l'aide) ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
 ] %}
 
@@ -43,6 +40,8 @@
 
 {% block body %}
 
+{% set hasPriorQuestion = currentItem.priorQuestion is defined %}
+
     <div class="page-container container">
 
         {% embed "utilities/jumbotron_skeleton.html.twig" %}
@@ -55,21 +54,13 @@
 
             {% block text %}
 
-                <!-- Question Label -->
-
-                {% if repeatedInstance == "false" %}
-                    
-                    <h1 class="jumbotron-title display-5 lh-1">{{currentItem.questionFr}}</h1>
-
-                {% endif %}
-
-                {% if currentItem.askBefore is defined and repeatedInstance == "false" %}
+                {% if hasPriorQuestion and repeatInstance == "false" %}
 
                     {% include "presentation_helper/_ask_to_choose.html.twig" %}
-                    
+
                 {% endif %}
 
-                <div class="answer-form {{ currentItem.askBefore is defined and repeatedInstance == "false" ? 'hide-me' : '' }}">
+                <div class="form {{ hasPriorQuestion and repeatInstance == "false" ? 'hide-me' : '' }}">
 
                     {% include "presentation_helper/_form.html.twig" %}
 
@@ -105,6 +96,7 @@
 
     </style>
 
+
     <script>
 
         $(document).ready(function(){
@@ -115,12 +107,19 @@
 
                 $('.hide-me').show();
 
+                $('.invitation-title').hide();
                 $('#invitation-container').hide();
-                $('.jumbotron-title').hide();
-                $('.answer-form').show();
+
+                $('.form').show();
+
+                $("#presentation_helper_answer").focus();
+
+                var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {
+                    backdrop: 'static'
+                });
 
                 needTypesModal.show();
-                
+
             });
 
         });

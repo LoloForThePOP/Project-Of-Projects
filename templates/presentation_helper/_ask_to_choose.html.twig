@@ -1,15 +1,17 @@
 
+<h1 class="jumbotron-title invitation-title display-5 lh-1">{{currentItem.priorQuestion}}</h1>
+
 <div id="invitation-container" class="select-buttons-container">
 
-    <button id="accept-invitation" type="button" class="big-select-button">Oui</button>
+        <button id="accept-invitation" type="button" class="big-select-button">Oui</button>
 
-    <button type="button" class="big-select-button">
+        <button type="button" class="big-select-button">
 
-        <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
-            Non
-        </a>
-        
-    </button>
+            <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
+                Non
+            </a>
+            
+        </button>
 
 </div>
 

@@ -60,7 +60,7 @@
 
         <div id="selectNeedTypeModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="needTypeModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
 
                 <div class="modal-content">
 
@@ -68,7 +68,7 @@
 
                     <div class="modal-header">
 
-                        <h5 class="modal-title fw-bold" id="needTypeModalLabel">Ajouter un besoin - choisir le type du besoin</h5>
+                        <h5 class="modal-title fw-bold" id="needTypeModalLabel">Choisir le type de votre besoin</h5>
 
                         <!-- Close Modal (Cross Button)  -->
 
@@ -87,13 +87,13 @@
 
                                 <a class="text-decoration-none text-body" data-need-type="{{item.type}}" href="{{path('add_need', {'stringId': stringId, 'need_type': item.type })}}">
 
-                                    <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center cursor-pointer" style="height:55px;">
+                                    <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center cursor-pointer">
 
                                         <!-- Need type Icon  -->
 
                                         <div class="col-3 d-flex justify-content-center align-items-center">
 
-                                            <img src="/media/static/images/icons/edit_presentation/needs/types/{{ item.type}}.svg" alt="{{ item.type }}" width="30px" height="30px">
+                                            <img src="/media/static/images/icons/edit_presentation/needs/types/{{ item.type}}.svg" alt="{{ item.type }}" width="42px" height="42px">
 
                                         </div>
 
@@ -103,7 +103,7 @@
 
                                             <!-- Need type title  -->
 
-                                            <span class="font-weight-bold">
+                                            <span class="fw-bold fs-5">
                                                 {{ item.title_fr }} 
                                             </span>
 
@@ -131,7 +131,13 @@
 
                     <div class="modal-footer">
 
-                        <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Retour</button>
+                        {% block buttons  %}
+
+                            <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Retour</button>
+                            
+                        {% endblock %}
+
+                        
                         
                     </div>
 
@@ -140,3 +146,16 @@
             </div>
 
         </div>
+
+
+        <style>
+
+            .needTypeChoice{
+                height: 70px;
+            }
+
+            .needTypeChoice:hover{
+                background-color: rgb(240, 240, 255);
+            }
+
+        </style>

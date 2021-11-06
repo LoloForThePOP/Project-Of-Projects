@@ -1,4 +1,13 @@
 
+<!-- Question -->
+
+{% if repeatInstance == "false" %}
+                    
+    <h1 class="jumbotron-title display-5 lh-1">{{currentItem.questionFr}}</h1>
+
+{% endif %}
+
+
 {% if currentItem.type == "places" %}
 
     {% block stylesheets %}<link href="/css/places_autocomplete.css" rel="stylesheet">{% endblock %}
@@ -48,24 +57,49 @@
 
             <!-- Need Type Selection (in a Modal Box, triggered by above button) -->
 
-            {% include "project_presentation/edit/needs/_select_need_type_modal.html.twig" %}
+            {% embed "project_presentation/edit/needs/_select_need_type_modal.html.twig" %}
+
+                {% block buttons %}
+
+                    <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
+                        <button type="button" class="jumbotron-btn btn btn-secondary">Annuler</button>
+                    </a>
+
+                {% endblock %}
+                
+            {% endembed %}
 
             {{ form_row(form.needTitle) }}
             {{ form_row(form.needDescription) }}
+
+            {% if repeatInstance == "true" %}
+
+                <script>
+
+                    $(document).ready(function(){
+                        var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {});
+
+                        needTypesModal.show();
+                    });
+
+                </script>
+            
+            {% endif %}
 
             <script>
 
                 $(document).ready(function(){
 
-                    var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {});
+                    $('#selectNeedTypeModal .needTypeChoice').click(function(event) {
 
-                    $('#selectNeedTypeModal a').click(function(event) {
+                        var myModalEl = document.getElementById('selectNeedTypeModal')
+                        var modal = bootstrap.Modal.getInstance(myModalEl)
+
+                        modal.hide();
 
                         event.preventDefault();
 
-                        $('#presentation_helper_').val($(this).data("need-type"));
-
-                        needTypesModal.hide();
+                        $('#presentation_helper_selectedNeedType').val($(this).data("need-type"));
 
                     });
 
@@ -90,7 +124,7 @@
                         
             {{ form_widget(form.helperItemType, {'value' : currentItem.type}) }}
 
-            {{ form_widget(form.questionAsked, {'value' : currentItem.questionFr}) }}
+            {{ form_widget(form.finalRenderingLabel, {'value' : currentItem.finalRenderingLabel}) }}
 
             {{ form_widget(form.currentPosition, {'value' : position}) }}
 

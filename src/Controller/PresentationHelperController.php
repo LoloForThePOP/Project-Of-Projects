@@ -21,9 +21,9 @@ class PresentationHelperController extends AbstractController
      * 
      * position = 0 means begining; position = null means end.
      * 
-     * @Route("{stringId}/helper/{position}/{repeatedInstance}", requirements={"position"="\d+"}, name="presentation_helper")
+     * @Route("{stringId}/helper/{position}/{repeatInstance}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatedInstance='false', TreatItem $specificTreatments): Response
+    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -32,7 +32,7 @@ class PresentationHelperController extends AbstractController
 
             $this->addFlash(
                 'success fs-4',
-                "✅ Votre page de présentation est prête. Apportez lui toutes les modifications que vous désirez."
+                "✅ Votre page de présentation est prête. Apportez-lui toutes les modifications que vous désirez."
             );
 
             return $this->redirectToRoute('show_presentation', [
@@ -76,7 +76,7 @@ class PresentationHelperController extends AbstractController
                 $websiteItem = $specificTreatments->specificTreatments('websites', $websiteItem);
 
                 $presentation->addOtherComponentItem('websites', $websiteItem);
-                //$manager->flush();
+                $manager->flush();
 
             }
 
@@ -90,8 +90,11 @@ class PresentationHelperController extends AbstractController
 
                 $presentation->addNeed($need);
 
+
                 $manager->persist($need);
                 $manager->flush();
+                
+                //dd($need);
 
             }
 
@@ -107,7 +110,7 @@ class PresentationHelperController extends AbstractController
 
             if ($helperType=="qa") {
 
-                $question=$form->get('questionAsked')->getData();
+                $question=$form->get('finalRenderingLabel')->getData();
                 $answer=$form->get('answer')->getData();
 
                 $qaItem = 
@@ -119,7 +122,7 @@ class PresentationHelperController extends AbstractController
                 ;
 
                 $presentation->addOtherComponentItem('questionsAnswers', $qaItem);
-                //$manager->flush();
+                $manager->flush();
 
             }
 
@@ -131,9 +134,9 @@ class PresentationHelperController extends AbstractController
 
             // Do we repeat (example : user wants to add another website)
 
-            $repeatedInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
+            $repeatInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
 
-            if ($repeatedInstance == "true") {
+            if ($repeatInstance == "true") {
                 $nextPosition = $currentPosition;
             }
 
@@ -141,14 +144,16 @@ class PresentationHelperController extends AbstractController
 
             $this->addFlash(
                 'success fs-4',
-                "✅ Page de projet mise à jour !"
+                "✅ Votre page de projet a été mise à jour !"
             );
 
+            $request->attributes->set('mykey', 'myvalue');
+            
             return $this->redirectToRoute('presentation_helper', [
 
                 'stringId' => $presentation->getStringId(),
                 'position' => $nextPosition,
-                'repeatedInstance' => $repeatedInstance,
+                'repeatInstance' => $repeatInstance,
 
                 'googleMapApiKey' => $this->getParameter('app.google_map_api_key'),
                                
@@ -160,7 +165,7 @@ class PresentationHelperController extends AbstractController
             'form' => $form->createView(),
             'position' => $position,
             'stringId' => $presentation->getStringId(),
-            'repeatedInstance' => $repeatedInstance,
+            'repeatInstance' => $repeatInstance,
 
             'googleMapApiKey' => $this->getParameter('app.google_map_api_key'),
         ]);

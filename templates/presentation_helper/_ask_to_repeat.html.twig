@@ -2,13 +2,21 @@
 
     {% block titleContent %}{{currentItem.repeatableMessage}}{% endblock %}
 
-    {% block bodyContainer %}{% endblock %}
+    {% block bodyContainer %}
+
+        {% block bodyContent %}
+
+            <img class="" src="{{asset ("presentation_helper/repeat_question.svg", 'larger')}}" alt="Bootstrap Themes" loading="lazy" width="480" height="370">
+        
+        {% endblock %}
+
+    {% endblock %}
     
     {% block footerContent %}
 
-        <button id="add-another-item" type="button" class="btn btn-secondary">oui</button>
+        <button id="add-another-item" type="button" class="btn btn-validate me-2">oui</button>
         
-        <button id="dismiss-add-another-item" type="button" class="btn btn-secondary">non</button>
+        <button id="dismiss-add-another-item" type="button" class="btn btn-primary">non</button>
     
     {% endblock %}
 

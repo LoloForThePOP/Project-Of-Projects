@@ -42,6 +42,10 @@ class PresentationHelperController extends AbstractController
             ]);
 
         }
+        
+        $request->attributes->set('googleMapApiKey', $this->getParameter('app.google_map_api_key'));
+
+        $request->attributes->set('feedback', true);
 
         $form = $this->createForm(
             PresentationHelperType::class,null,
@@ -58,7 +62,18 @@ class PresentationHelperController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $feedback = false;
+
             $helperType=$form->get('helperItemType')->getData();
+
+            if ($helperType=="title") {
+
+                $title=$form->get('title')->getData();
+                $presentation->setTitle($title);
+
+                $manager->flush();
+
+            }
 
             if ($helperType=="websites") {
 
@@ -104,7 +119,7 @@ class PresentationHelperController extends AbstractController
 
                 $presentation->setTextDescription($presentation->getTextDescription().$string);
 
-                //$manager->flush();
+                $manager->flush();
 
             }
 
@@ -144,18 +159,14 @@ class PresentationHelperController extends AbstractController
 
             $this->addFlash(
                 'success fs-4',
-                "✅ Votre page de projet a été mise à jour !"
+                "✅ La construction de votre page de projet progresse."
             );
 
-            $request->attributes->set('mykey', 'myvalue');
-            
             return $this->redirectToRoute('presentation_helper', [
 
                 'stringId' => $presentation->getStringId(),
                 'position' => $nextPosition,
                 'repeatInstance' => $repeatInstance,
-
-                'googleMapApiKey' => $this->getParameter('app.google_map_api_key'),
                                
             ]);
 
@@ -166,8 +177,6 @@ class PresentationHelperController extends AbstractController
             'position' => $position,
             'stringId' => $presentation->getStringId(),
             'repeatInstance' => $repeatInstance,
-
-            'googleMapApiKey' => $this->getParameter('app.google_map_api_key'),
         ]);
 
     }

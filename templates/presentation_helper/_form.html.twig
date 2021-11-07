@@ -10,7 +10,11 @@
 
 {% if currentItem.type == "places" %}
 
+    {% set googleMapApiKey = app.request.attributes.get('googleMapApiKey') %}
+
     {% block stylesheets %}<link href="/css/places_autocomplete.css" rel="stylesheet">{% endblock %}
+
+    {% include "project_presentation/edit/places/_js.html.twig" %}
 
     <input id="autocomplete" class="form-control mb-3" placeholder="Ajouter ici une ville; un département; une région; ou un pays" />
 
@@ -46,12 +50,15 @@
 
         </div>
 
-
-    {% include "project_presentation/edit/places/_js.html.twig" %}
-
 {% else %}
 
     {{ form_start(form) }}
+
+        {% if currentItem.type == "title" %}
+
+            {{ form_widget(form.title) }}
+
+        {% endif %}
 
         {% if currentItem.type == "needs" %}
 
@@ -59,7 +66,9 @@
 
             {% embed "project_presentation/edit/needs/_select_need_type_modal.html.twig" %}
 
-                {% block buttons %}
+                {% block crossDismiss %}{% endblock %}
+
+                {% block footer %}
 
                     <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
                         <button type="button" class="jumbotron-btn btn btn-secondary">Annuler</button>
@@ -89,6 +98,16 @@
             <script>
 
                 $(document).ready(function(){
+
+                    $('#accept-invitation').click(function() {
+
+                        var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {
+                            backdrop: 'static'
+                        });
+        
+                        needTypesModal.show();
+
+                    });
 
                     $('#selectNeedTypeModal .needTypeChoice').click(function(event) {
 
@@ -145,10 +164,10 @@
         <div class="action-buttons-container">
 
             <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
-                <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Je ne réponds pas</button>
+                <button type="button" class="jumbotron-btn btn btn-secondary me-md-2 mb-2">Je ne réponds pas</button>
             </a>
 
-            <button id="validate-button" type="submit" class="jumbotron-btn btn btn-primary">Je valide ma réponse</button>
+            <button id="validate-button" type="submit" class="jumbotron-btn btn btn-primary mb-2">Je valide ma réponse</button>
 
         </div>
 

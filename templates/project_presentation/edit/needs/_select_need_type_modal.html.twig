@@ -72,8 +72,12 @@
 
                         <!-- Close Modal (Cross Button)  -->
 
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
-                        </button>
+                        {% block crossDismiss %}
+                            
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            </button>
+
+                        {% endblock %}
 
                     </div>
 
@@ -131,7 +135,7 @@
 
                     <div class="modal-footer">
 
-                        {% block buttons  %}
+                        {% block footer  %}
 
                             <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Retour</button>
                             

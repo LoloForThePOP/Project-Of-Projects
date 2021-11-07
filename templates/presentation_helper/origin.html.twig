@@ -3,12 +3,14 @@
 {% block title %}Aide à la présentation de projet{% endblock %}
 
 {% set helperItems = [ 
+    
+    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du projet ?",'finalRenderingLabel': ""}, 
+    
+    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est né le projet ?"}, 
 
     { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du projet' ?"},
 
-    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "Avez-vous déjà un site web ou un réseau social en lien avec votre projet", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
-    
-    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est né le projet ?"}, 
+    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "Avez-vous déjà un site web ou un réseau social en lien avec votre projet ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
     { 'uniqueName': "places", 'type': "places", 'priorQuestion': "Votre projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
     
@@ -40,9 +42,44 @@
 
 {% block body %}
 
-{% set hasPriorQuestion = currentItem.priorQuestion is defined %}
-
+    {% set hasPriorQuestion = currentItem.priorQuestion is defined %}
+    
     <div class="page-container container">
+
+        {% set feedback = app.request.attributes.get('feedback') %}
+        
+        {% if feedback %} {# hasfeedback is defined #}
+
+            {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "feedback-box", 'modal_title': "", 'modal_size': "modal-lg"} %}
+
+                {% block modalHeader %}{% endblock %}
+                {% block modalFooter %}{% endblock %}
+
+                {% block modalBody %}
+
+                    <img class="" src="{{asset ("presentation_helper/idea.svg", 'larger')}}" alt="Bootstrap Themes" loading="lazy" width="420" height="430">
+                
+                {% endblock %}
+                
+            {% endembed %}
+
+            <script>
+
+                var feedbackModal = new bootstrap.Modal(document.getElementById("feedback-box"), {
+                    backdrop: 'static'
+                });
+
+                //feedbackModal.show();
+                
+                setTimeout(function() {
+                    
+                    feedbackModal.hide();
+
+                }, 2500);
+
+            </script>
+
+        {% endif %}
 
         {% embed "utilities/jumbotron_skeleton.html.twig" %}
         
@@ -94,12 +131,51 @@
             display: none;
         }
 
+
+        #flash-messages {
+              
+            animation: fadeout 3s linear forwards;
+            opacity: 1;
+        }
+                
+        @keyframes fadeout {
+          100% { opacity: 0; height:0;  }
+        }
+
     </style>
 
 
     <script>
 
         $(document).ready(function(){
+
+            // Giving focus to appropriate input
+
+            function giveFocus(){
+
+                var itemType = $('#presentation_helper_helperItemType').val();
+                var relatedInputId;
+
+                switch(itemType) {
+
+                    case 'title':
+                        relatedInputId = 'presentation_helper_title';
+                        break;
+                        
+                    case 'qa':
+                        relatedInputId = 'presentation_helper_answer';
+                        break;
+                        
+                    case 'websites':
+                        relatedInputId = 'presentation_helper_websiteDescription';
+                        break;
+
+                    default:
+                        document.getElementById('autocomplete').focus();  // isolated case : see _form.html.twig
+                  } 
+
+                $("#"+relatedInputId).focus();
+            }
 
             //alert($('#presentation_helper_nextPosition').val());
 
@@ -112,13 +188,7 @@
 
                 $('.form').show();
 
-                $("#presentation_helper_answer").focus();
-
-                var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {
-                    backdrop: 'static'
-                });
-
-                needTypesModal.show();
+                giveFocus();
 
             });
 

@@ -4,13 +4,16 @@
 
     Blocks : modalBody, footerButtons
     
-    Parameter(s) : modal_id, modal_title, modal_size
+    Parameter(s) : 
+    
+        - required : modal_id; modal_title
+        - optional : modal_size
 
     class disabled is added to inactive sortable behaviour.
     
 #}
 
-<div class="modal disabled" id="{{modal_id}}" tabindex="-1" aria-labelledby="" aria-hidden="true">
+<div class="modal disabled" id="{{modal_id}}" tabindex="-1" aria-labelledby="" aria-hidden="true" {% block modalStatic %}{% endblock %}  >
         
     <div class="modal-dialog {{modal_size ?? ""}}">
 
@@ -22,7 +25,11 @@
 
                     <h5 class="modal-title fw-bold" id="">{{modal_title}}</h5>
 
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    {% block closingCross %}
+
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    {% endblock %}
 
                 </div>
 

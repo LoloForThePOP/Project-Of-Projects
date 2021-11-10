@@ -75,6 +75,17 @@ class PPController extends AbstractController
             $manager->persist($presentation);
             $manager->flush();
 
+            $askForGuidance=$form->get('acceptGuidance')->getData();
+
+            if($askForGuidance=="yes"){
+                    
+                return $this->redirectToRoute('presentation_helper', [
+                    "stringId" => $presentation->getStringId(),                
+                    "position" => 0,                
+                ]);
+
+            }
+
             $this->addFlash(
                 'success fs-4',
                 "✅ La présentation du projet a été créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."

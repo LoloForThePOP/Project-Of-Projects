@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class CreatePresentationType extends AbstractType
 {
@@ -30,7 +31,21 @@ class CreatePresentationType extends AbstractType
 
                     'required'   => true,
                 ]
-            );
+            )
+            ->add(
+                
+                'acceptGuidance', 
+
+                HiddenType::class,
+                
+                [
+
+                    'required'   => false,
+
+                    "mapped" => false,
+                ])
+            ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -115,7 +115,7 @@ class PresentationHelperController extends AbstractController
 
             if ($helperType=="textDescription") {
 
-                $string = "<p><strong>".$question=$form->get('questionAsked')->getData()."</strong><br><br>".nl2br($answer=$form->get('answer')->getData())."</p>";
+                $string = "<p>".nl2br($answer=$form->get('answer')->getData())."</p>";
 
                 $presentation->setTextDescription($presentation->getTextDescription().$string);
 

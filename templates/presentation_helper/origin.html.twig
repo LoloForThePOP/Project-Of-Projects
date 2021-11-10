@@ -3,8 +3,10 @@
 {% block title %}Aide à la présentation de projet{% endblock %}
 
 {% set helperItems = [ 
-    
+        
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du projet ?",'finalRenderingLabel': ""}, 
+        
+    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire / préciser le résultat final que vous souhaitez atteindre ?",'finalRenderingLabel': ""}, 
     
     { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est né le projet ?"}, 
 
@@ -24,6 +26,8 @@
 {% set currentPosition = position %}
 
 {% set nextPosition = null %}
+
+{% set itemsCount = helperItems | length %}
 
 {% if helperItems[position + 1] is defined %}
 
@@ -45,6 +49,15 @@
     {% set hasPriorQuestion = currentItem.priorQuestion is defined %}
     
     <div class="page-container container">
+
+        <!-- Progress Bar -->
+        
+        {# 
+        
+        {% include "presentation_helper/_html_css_progress_bar.html.twig" %}
+        
+        #}
+       
 
         {% set feedback = app.request.attributes.get('feedback') %}
         
@@ -86,6 +99,22 @@
             {% block image %}
 
                 <img src="{{asset ("presentation_helper/"~ currentItem.uniqueName ~".svg", 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
+
+                {# Progress "Bar" (circle) #}
+
+                <div class="position-absolute" style="text-align: center; top: 0; right: 0; width: 80px; height: 80px; background-color: black; border-radius: 50px;"> 
+                    
+                    <div class="text-white" style="line-height: 75px; font-size: 20px;"> {{currentPosition + 1  }} / {{itemsCount}}</div>
+                    
+                </div>
+
+               {#  <div class="progress yellow"> <span class="progress-left">
+                    
+                    <span class="progress-bar"></span> </span> <span class="progress-right"> <span class="progress-bar"></span> </span>
+
+                    <div class="progress-value">37.5%</div>
+
+                </div> #}
 
             {% endblock %}
 

@@ -40,6 +40,7 @@ class PresentationHelperType extends AbstractType
                         
                         'placeholder'    => 'Écrire ici la réponse',
                         'rows' => '5',
+                        'autofocus' => true,
                     ],
                     'required'   => false,
                     'constraints' => array(
@@ -116,7 +117,6 @@ class PresentationHelperType extends AbstractType
             
                 [
                     'data' =>'false'
-
                 ]
                     
             )

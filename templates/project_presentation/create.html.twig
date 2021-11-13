@@ -59,8 +59,14 @@
                 {# Action Buttons #}
 
                 <div class="mb-3">
+
+                    {# Presentation Helper Proposition is only displayed above medium screens #}
                     
-                    <button id="submit-form" type="submit" class="btn btn-primary btn-lg me-2 mb-2">Ajouter le Projet <span class="ms-2">🚀</span></button>
+                    <button id="js-submit-form" type="submit" class="d-none d-md-inline btn btn-primary btn-lg me-2 mb-2">Ajouter le Projet 🚀</button>
+
+                    {# Presentation Helper Proposition is not displayed below medium screens (no js-submit-form #id) #}
+                    
+                    <button id="" type="submit" class="d-md-none btn btn-primary btn-lg me-2 mb-2">Ajouter le Projet 🚀</button>
 
                     <a href="{{ path('homepage') }}">
                         <button type="button" class="btn btn-light btn-lg mb-2">Annuler</button>
@@ -75,46 +81,29 @@
         </div>
 
 
-        {% embed "utilities/modal_skeleton.html.twig" with {'modal_id':'propose_guidance', 'modal_title':'Voulez-vous utiliser le constructeur pour présenter votre projet ?', 'modal_size':'modal-fullscreen'} %}
+        {% embed "utilities/modal_skeleton.html.twig" with {'modal_id':'propose_guidance', 'modal_title':'', 'modal_size':'modal-fullscreen'} %}
+
+            {% block modalHeader %}{% endblock %}
 
             {% block modalStatic %}' data-bs-backdrop="static" data-bs-keyboard="false" '{% endblock %}
 
-            {% block closingCross %}{% endblock %}
-
             {% block modalBody %}
 
-                <h4 class="fw-bold mb-4 text-center">
-                    Le constructeur pose des questions et remplit automatiquement votre page de projet !   
-                </h4>
+                <p class="fs-4 fw-bold mb-2 text-center pt-4">
+                    Voulez-vous utiliser le constructeur gratuit pour présenter votre projet ?
+                </p>
+
+                <p class="fs-4 fw-bold mb-4 text-center">
+                    Le constructeur pose des questions et remplit automatiquement votre page de projet.
+                </p>
 
 
-                <div class="row">
+                <div class="d-flex align-items-center justify-content-center">
 
-                    <div class="col-4 d-flex align-items-center justify-content-end">
-
-                        <img class="" src="{{asset ("presentation_helper/interview_mic.png", 'larger')}}" alt="Interview mic" loading="lazy" width="" height="180">
-
-                    </div>
-
-                    <div class="col-4 d-flex align-items-center justify-content-center">
-
-                        <img class="" src="{{asset ("presentation_helper/arrow_right.svg", 'larger')}}" alt="Right arrow" loading="lazy" width="180" height="">
-
-                    </div>
-
-                    <div class="col-4 d-flex align-items-center justify-content-start">
-
-                        <img class="" src="{{asset ("presentation_helper/page_construction_wip.png", 'larger')}}" alt="Page under construction wip site" loading="lazy" width="" height="340">
-
-                    </div>
+                    <img class="img-fluid" src="{{asset ("presentation_helper/page_construction_wip_2.png", 'larger')}}" alt="Page under construction wip site" loading="lazy" width="850">
 
                 </div>
                 
-
-                
-            
-                
-            
             {% endblock %}
 
 
@@ -134,13 +123,11 @@
 
         <script>
 
-            
-
             var proposeGuidanceModal = new bootstrap.Modal(document.getElementById("propose_guidance"), {
                 backdrop: 'static'
             });
 
-            $('#submit-form').click(function(event) {
+            $('#js-submit-form').click(function(event) {
     
                 event.preventDefault();
                 
@@ -160,7 +147,7 @@
 
                 $(this).html('<div class="loader"></div>');
 
-                $('#submit-form').click();
+                $('#js-submit-form').click();
                 
             });
 

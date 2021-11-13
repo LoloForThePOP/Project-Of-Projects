@@ -44,8 +44,12 @@
             {% block modalFooter %}
 
                 <div class="modal-footer">
+
+                    {% block footerCloseButton %}
                     
-                    <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Retour</button>
+                        <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Retour</button>
+                    
+                    {% endblock %}
                     
                     {% block footerButtons %}{% endblock %}
 

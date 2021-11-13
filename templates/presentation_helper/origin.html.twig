@@ -6,7 +6,7 @@
         
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du projet ?",'finalRenderingLabel': ""}, 
         
-    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire / préciser le résultat final que vous souhaitez atteindre ?",'finalRenderingLabel': ""}, 
+    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
     
     { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est né le projet ?"}, 
 
@@ -47,94 +47,18 @@
 {% block body %}
 
     {% set hasPriorQuestion = currentItem.priorQuestion is defined %}
-    
+        
     <div class="page-container container">
-
-        <!-- Progress Bar -->
         
-        {# 
-        
-        {% include "presentation_helper/_html_css_progress_bar.html.twig" %}
-        
-        #}
-       
+        {% if currentPosition == 0 %} {# entering interview, displaying a friendly message #}
 
-        {% set feedback = app.request.attributes.get('feedback') %}
-        
-        {% if feedback %} {# hasfeedback is defined #}
-
-            {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "feedback-box", 'modal_title': "", 'modal_size': "modal-lg"} %}
-
-                {% block modalHeader %}{% endblock %}
-                {% block modalFooter %}{% endblock %}
-
-                {% block modalBody %}
-
-                    <img class="" src="{{asset ("presentation_helper/idea.svg", 'larger')}}" alt="Bootstrap Themes" loading="lazy" width="420" height="430">
-                
-                {% endblock %}
-                
-            {% endembed %}
-
-            <script>
-
-                var feedbackModal = new bootstrap.Modal(document.getElementById("feedback-box"), {
-                    backdrop: 'static'
-                });
-
-                //feedbackModal.show();
-                
-                setTimeout(function() {
-                    
-                    feedbackModal.hide();
-
-                }, 2500);
-
-            </script>
+            {% include "presentation_helper/_introduction_modal.html.twig" %}
 
         {% endif %}
 
-        {% embed "utilities/jumbotron_skeleton.html.twig" %}
-        
-            {% block image %}
+        {% include "presentation_helper/_jumbotron.html.twig" %}
 
-                <img src="{{asset ("presentation_helper/"~ currentItem.uniqueName ~".svg", 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
-
-                {# Progress "Bar" (circle) #}
-
-                <div class="position-absolute" style="text-align: center; top: 0; right: 0; width: 80px; height: 80px; background-color: black; border-radius: 50px;"> 
-                    
-                    <div class="text-white" style="line-height: 75px; font-size: 20px;"> {{currentPosition + 1  }} / {{itemsCount}}</div>
-                    
-                </div>
-
-               {#  <div class="progress yellow"> <span class="progress-left">
-                    
-                    <span class="progress-bar"></span> </span> <span class="progress-right"> <span class="progress-bar"></span> </span>
-
-                    <div class="progress-value">37.5%</div>
-
-                </div> #}
-
-            {% endblock %}
-
-            {% block text %}
-
-                {% if hasPriorQuestion and repeatInstance == "false" %}
-
-                    {% include "presentation_helper/_ask_to_choose.html.twig" %}
-
-                {% endif %}
-
-                <div class="form {{ hasPriorQuestion and repeatInstance == "false" ? 'hide-me' : '' }}">
-
-                    {% include "presentation_helper/_form.html.twig" %}
-
-                </div>
-            
-            {% endblock %}
-
-        {% endembed %}
+        {# sometimes we ask user whether he would like an item #}
 
         {% if currentItem.repeatableMessage is defined %}
 
@@ -143,7 +67,6 @@
         {% endif %}
 
     </div>
-
 
     <style>
 
@@ -162,17 +85,16 @@
 
 
         #flash-messages {
-              
+            
             animation: fadeout 3s linear forwards;
             opacity: 1;
         }
                 
         @keyframes fadeout {
-          100% { opacity: 0; height:0;  }
+        100% { opacity: 0; height:0;  }
         }
 
     </style>
-
 
     <script>
 
@@ -192,16 +114,22 @@
                         break;
                         
                     case 'qa':
+                    case 'textDescription':
+                    
                         relatedInputId = 'presentation_helper_answer';
                         break;
                         
                     case 'websites':
                         relatedInputId = 'presentation_helper_websiteDescription';
                         break;
-
+                        
+                    case 'needs':
+                        relatedInputId = 'presentation_helper_needTitle';
+                        break;
+                      
                     default:
-                        document.getElementById('autocomplete').focus();  // isolated case : see _form.html.twig
-                  } 
+                        document.getElementById('autocomplete').focus();  // it is an isolated case, see _form.html.twig
+                } 
 
                 $("#"+relatedInputId).focus();
             }
@@ -217,7 +145,7 @@
 
                 $('.form').show();
 
-                giveFocus();
+                giveFocus(); // form was hiden so we have to give it focus again. 
 
             });
 

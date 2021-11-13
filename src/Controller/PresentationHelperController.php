@@ -45,8 +45,6 @@ class PresentationHelperController extends AbstractController
         
         $request->attributes->set('googleMapApiKey', $this->getParameter('app.google_map_api_key'));
 
-        $request->attributes->set('feedback', true);
-
         $form = $this->createForm(
             PresentationHelperType::class,null,
             array(
@@ -61,8 +59,6 @@ class PresentationHelperController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            $feedback = false;
 
             $helperType=$form->get('helperItemType')->getData();
 
@@ -109,8 +105,6 @@ class PresentationHelperController extends AbstractController
                 $manager->persist($need);
                 $manager->flush();
                 
-                //dd($need);
-
             }
 
             if ($helperType=="textDescription") {
@@ -145,8 +139,6 @@ class PresentationHelperController extends AbstractController
 
             $nextPosition=$form->get('nextPosition')->getData();
 
-            //dd($nextPosition);
-
             // Do we repeat (example : user wants to add another website)
 
             $repeatInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
@@ -155,12 +147,14 @@ class PresentationHelperController extends AbstractController
                 $nextPosition = $currentPosition;
             }
 
-            //dd($nextPosition);
+            if ($nextPosition != null) {
 
-            $this->addFlash(
-                'success fs-4',
-                "✅ La construction de votre page de projet progresse."
-            );
+                $this->addFlash(
+                    'success fs-4',
+                    "✅ La construction de votre page de projet progresse."
+                );
+                
+            }
 
             return $this->redirectToRoute('presentation_helper', [
 

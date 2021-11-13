@@ -1,0 +1,33 @@
+{% embed "utilities/jumbotron_skeleton.html.twig" %}
+            
+    {% block image %}
+
+        <img src="{{asset ("presentation_helper/"~ currentItem.uniqueName ~".svg", 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
+
+        {# Progress "Bar" (circle) #}
+
+        <div class="position-absolute" style="text-align: center; top: 0; right: 0; width: 80px; height: 80px; background-color: black; border-radius: 50px; font-weight: bold;"> 
+            
+            <div class="text-white" style="line-height: 75px; font-size: 20px;"> {{currentPosition + 1  }} / {{itemsCount}}</div>
+            
+        </div>
+
+    {% endblock %}
+
+    {% block text %}
+
+        {% if hasPriorQuestion and repeatInstance == "false" %}
+
+            {% include "presentation_helper/_ask_to_choose.html.twig" %}
+
+        {% endif %}
+
+        <div class="form {{ hasPriorQuestion and repeatInstance == "false" ? 'hide-me' : '' }}">
+
+            {% include "presentation_helper/_form.html.twig" %}
+
+        </div>
+
+    {% endblock %}
+
+{% endembed %}

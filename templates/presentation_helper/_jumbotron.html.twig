@@ -6,13 +6,52 @@
 
         <img src="{{asset ("presentation_helper/"~ currentItem.uniqueName ~".svg", 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
 
-        {# Progress "Bar" (circle) #}
+        {# Progress Circle Feedback #}
 
-        <div class="position-absolute" style="text-align: center; top: 0; right: 0; width: 80px; height: 80px; background-color: black; border-radius: 50px; font-weight: bold;"> 
+        <div class="count-steps-feedback-ctn"> 
             
-            <div class="text-white" style="line-height: 75px; font-size: 20px;"> {{currentPosition + 1  }} / {{itemsCount}}</div>
+            <div class="count-steps-feedback"> {{currentPosition + 1  }} / {{itemsCount}}</div>
             
         </div>
+
+        <style>
+            
+            .count-steps-feedback-ctn{
+
+                position: absolute;
+                top: 0; 
+                right: 0; 
+                width: 80px; 
+                height: 80px; 
+                text-align: center; 
+                background-color: black; 
+                border-radius: 50px; 
+                font-weight: bold;
+
+            }
+
+            .count-steps-feedback{
+                color:white;
+                line-height: 75px; 
+                font-size: 20px;
+            }
+
+
+            @media screen and (max-width: 580px) {
+
+                .count-steps-feedback-ctn {
+                    width: 46px;
+                    height: 46px;
+                }
+
+                .count-steps-feedback {
+                    line-height: 44px;
+                    font-size: 16px;
+                }
+                
+            }
+
+        </style>
 
     {% endblock %}
 

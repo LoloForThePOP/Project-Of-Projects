@@ -169,9 +169,30 @@
                 <button type="button" class="jumbotron-btn btn btn-secondary me-md-2 mb-2">Je ne réponds pas</button>
             </a>
 
-            <button id="validate-button" type="submit" class="jumbotron-btn btn btn-primary mb-2">Je valide ma réponse</button>
+            <button id="validate-button" type="submit" class="jumbotron-btn answer-btn btn btn-primary mb-2">Je valide ma réponse</button>
 
         </div>
+
+
+        <style>
+
+            @media screen and (max-width: 580px) {
+
+                .action-buttons-container{
+
+                    display: flex;
+                    flex-direction: column-reverse;
+                }
+
+                .answer-btn {
+
+                    margin-bottom: 22px !important;
+
+                }
+
+            }
+
+        </style>
 
     {{ form_end(form) }}
 

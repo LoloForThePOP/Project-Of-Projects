@@ -3,11 +3,11 @@
 
 <div id="invitation-container" class="select-buttons-container">
 
-        <button id="accept-invitation" type="button" class="big-select-button">Oui</button>
+        <button id="accept-invitation" type="button" class="big-select-button" style="color: #0d6efd;">Oui</button>
 
         <button type="button" class="big-select-button">
 
-            <a class="d-flex justify-content-center align-items-center w-100 h-100" href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
+            <a class="d-flex text-body justify-content-center align-items-center w-100 h-100" href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
                 Non
             </a>
             
@@ -35,5 +35,16 @@
     .big-select-button:hover {
         box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
     }
-    
+
+    @media screen and (max-width: 580px) {
+        
+        .big-select-button {
+            
+            height: 70px;
+            
+        }
+
+    }
+
+
 </style>

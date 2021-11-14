@@ -8,15 +8,15 @@
         
     { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
     
-    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est né le projet ?"}, 
+    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est née l'idée du projet ?"}, 
 
-    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du projet' ?"},
+    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du projet ?"},
 
     { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "Avez-vous déjà un site web ou un réseau social en lien avec votre projet ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
     { 'uniqueName': "places", 'type': "places", 'priorQuestion': "Votre projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
     
-    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Recherchez-vous des contributeurs (bénévoles ou payés) (acceptez-vous de l'aide) ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
+    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Recherchez-vous des contributeurs bénévoles ou payés (acceptez-vous de l'aide) ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
 ] %}
 
@@ -69,6 +69,7 @@
     </div>
 
     <style>
+        
 
         .jumbotron-title{ /* Overiding jumbotron default style */
             font-size: 29px;
@@ -92,6 +93,25 @@
                 
         @keyframes fadeout {
         100% { opacity: 0; height:0;  }
+        }
+
+
+        @media screen and (max-width: 820px) {
+
+            .jumbotron{
+                padding-left:0;
+                padding-right: 0;
+            }
+
+            .jumbotron-title{
+                font-size: 26px;
+            }
+
+            .jumbotron-text{
+                padding-left:0;
+            }
+
+
         }
 
     </style>

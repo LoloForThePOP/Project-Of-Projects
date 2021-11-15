@@ -7,6 +7,7 @@ use App\Entity\PPBase;
 use App\Controller\Admin\PPBaseCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Assets;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Router\AdminUrlGenerator;
@@ -33,6 +34,12 @@ class AdminDashboardController extends AbstractDashboardController
         ->setTitle('Propon')
       
         ;
+    }
+
+    
+    public function configureAssets(): Assets
+    {
+        return Assets::new()->addCssFile('css/easy_admin.css');
     }
 
     public function configureMenuItems(): iterable

@@ -242,6 +242,16 @@ class PPBase implements \Serializable
         $this->contributorStructures = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+
+        return $this->getGoal();
+        
+    }
+
+
+
+
     public function serialize()
     {
         return serialize($this->id);

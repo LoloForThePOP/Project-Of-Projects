@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\PPBase;
 use App\Repository\PPBaseRepository;
+use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,16 +26,15 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, EntityManagerInterface $manager): Response
+    public function doAction(PPBaseRepository $repo, SearchService $searchService): Response
     {
 
         $presentations = $repo->findAll();
 
-        foreach ($presentations as $presentation) {
-            $presentation->setOneData("validatedStringId", false);
-        } 
+        $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
-        $manager->flush();
+        $searchService->index($em, $presentations);
+    
 
         return $this->render('one_shot/index.html.twig', [
             'controller_name' => 'OneShotController',

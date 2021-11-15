@@ -3,3 +3,11 @@
 	text-overflow: ellipsis;
 	overflow: hidden;
 } */
+
+.datagrid thead th {
+
+	max-width: 100px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+
+}

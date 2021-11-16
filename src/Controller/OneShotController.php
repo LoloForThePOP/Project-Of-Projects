@@ -33,8 +33,9 @@ class OneShotController extends AbstractController
 
         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
-        $searchService->index($em, $presentations);
-    
+        foreach ($presentations as $presentation) {
+            $searchService->index($em, $presentation);
+        }
 
         return $this->render('one_shot/index.html.twig', [
             'controller_name' => 'OneShotController',

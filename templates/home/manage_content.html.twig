@@ -54,58 +54,64 @@
 
 <script>
 
-   
+  
 
-   // ajax elements reordering & deletion
+  // (to allow reordering after refreshing results)
+  // see search.on('render', function () {   
+  // $('.ais-Hits-list').sortable()
 
-    $(document).ready(function(){
 
 
-       
+  // ajax elements reordering & deletion
+
+  $(document).ready(function(){
 
 
       
-      $('.ais-InstantSearch').append($('.right-right-panel'));
+
+
     
+    $('.ais-InstantSearch').append($('.right-right-panel'));
+  
 
-      $('.right-right-panel').sortable({
+    $('.right-right-panel').sortable({
 
-        animation: 150,
-        
+      animation: 150,
+      
 
-        group: {
-          name:'results-to-selection',
-          pull: 'clone',
-        },
+      group: {
+        name:'results-to-selection',
+        pull: 'clone',
+      },
 
-        ghostClass: 'blue-background-class',
+      ghostClass: 'blue-background-class',
 
-        filter: ".disabled",
+      filter: ".disabled",
 
-        onMove: function (evt) {
-          return evt.related.className.indexOf('disabled') === -1;
+      onMove: function (evt) {
+        return evt.related.className.indexOf('disabled') === -1;
 
-        },
+      },
 
-        // drag and drop implies elements positions updates (ajax call)
+      // drag and drop implies elements positions updates (ajax call)
 
-        onEnd: function (evt) {
+      onEnd: function (evt) {
 
-            var entityType = evt.srcElement.id;
+          var entityType = evt.srcElement.id;
 
-            //console.log(evt.oldDraggableIndex);
-            //console.log(evt.newDraggableIndex);
-            //console.log(evt.item);
+          //console.log(evt.oldDraggableIndex);
+          //console.log(evt.newDraggableIndex);
+          //console.log(evt.item);
 
-            // an array storing elements id position
+          // an array storing elements id position
 
-            var elementsPositions = [];
+          var elementsPositions = [];
 
-        },
-
-      });
-
+      },
 
     });
+
+
+  });
 
 </script>

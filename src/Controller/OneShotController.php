@@ -29,13 +29,13 @@ class OneShotController extends AbstractController
     public function doAction(PPBaseRepository $repo, SearchService $searchService): Response
     {
 
-        $presentations = $repo->findAll();
+      /*   $presentations = $repo->findAll();
 
         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
         foreach ($presentations as $presentation) {
             $searchService->index($em, $presentation);
-        }
+        } */
 
         return $this->render('one_shot/index.html.twig', [
             'controller_name' => 'OneShotController',

@@ -12,14 +12,11 @@
   
   $(document).ready(function(){
 
-  
-
   var domain = "{{url('homepage')}}";
-
-  //alert(domain);
+  var app_env = '{{ app.request.server.get("APP_ENV") }}';
   
   const search = instantsearch({
-    indexName: 'dev_presentation_bases',
+    indexName: app_env+'_presentation_bases',
     searchClient: algoliasearch(
       'Z7NO8ZLFH4',
       'b2d9ba779ea94f1c5f81d1b5751e267e'

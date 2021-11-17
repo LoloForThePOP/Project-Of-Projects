@@ -75,7 +75,7 @@
     }),
     instantsearch.widgets.hits({
       container: '#hits',
-      templates: { /* Twig verbatim used to avoid curly brackets (braces) conflicts */
+      templates: { /* Twig verbatim is used to avoid curly brackets (braces) conflicts */
         item: `{% verbatim %}<a href="`+domain+`{{#helpers.highlight}}{ "attribute": "stringId" }{{/helpers.highlight}}" class="text-decoration-none ">{% endverbatim %}
           <div>{{lol | title}}
             {% verbatim %}
@@ -87,6 +87,7 @@
             </div>
           </div></a>
         {% endverbatim %}`,
+        empty: '<div>Aucun résultat n\'a été trouvé pour {% verbatim %}{{ query }}. Désolé.{% endverbatim %}</div>.'
       },
     }),
     instantsearch.widgets.pagination({

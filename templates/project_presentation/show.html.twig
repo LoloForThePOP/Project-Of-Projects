@@ -70,7 +70,6 @@
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
 
-
     {# Upper box containing Project Title + Goal + Logo #}
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
@@ -93,7 +92,7 @@
 
     {# Notification "Set a personalised slug" #}
 
-    {% if presentation.getOneData('validatedStringId') == false and overallQualityAssessment > 1 %}
+    {% if userPresenter and presentation.getOneData('validatedStringId') == false and overallQualityAssessment > 1 %}
 
         {% include 'project_presentation/_show/_notifications/set_a_slug.html.twig' %}
 

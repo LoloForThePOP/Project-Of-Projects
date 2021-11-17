@@ -31,9 +31,7 @@ class AdminDashboardController extends AbstractDashboardController
         return Dashboard::new()
 
         // the name visible to end users
-        ->setTitle('Propon')
-      
-        ;
+        ->setTitle('<a href="/">Propon</a>');
     }
 
     
@@ -43,6 +41,7 @@ class AdminDashboardController extends AbstractDashboardController
     }
 
     public function configureMenuItems(): iterable
+    
     {
         yield MenuItem::linkToCrud('Projets', 'fas fa-list', PPBase::class);
         yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);

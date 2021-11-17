@@ -299,20 +299,37 @@
 
         </button>
 
-        
-        {# Help Button #}
+
+        {# Misc Buttons Container #}
+
+        <div class="mt-5 pt-3">
+
+            {# Help Button #}
+                
+            <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);">
+
+                <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
+                
+                <span class="h5 fw-bold ps-1">Aide rapide</span>
             
-        <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn px-4 py-3 my-5" style="border-color: rgb(216, 216, 201);">
-
-            <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
+            </button>
             
-            <span class="h5 fw-bold ps-1">Aide</span>
-        
-        </button>
+            {% include 'project_presentation/edit/_help.html.twig' %}
 
-        {% include 'project_presentation/edit/_help.html.twig' %}
+            {# Advice Button
+                
+            <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);">
 
-        {# End of Help Button #}
+                <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
+                
+                <span class="h5 fw-bold ps-1">Conseils rapides</span>
+            
+            </button> #}
+
+        </div>
+
+        {# End of misc buttons container #}
+
 
         
     {% endif %}

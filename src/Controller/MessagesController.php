@@ -33,6 +33,25 @@ class MessagesController extends AbstractController
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
+
+        $sender= $this->getUser();
+        $receiver= $presentation->getCreator();
+
+        if ($sender === $receiver) {
+
+            $this->addFlash(
+                'warning',
+                "⛔ L'envoie d'un message à soi-même n'est pas autorisé."
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringID(),
+            ]);
+            
+        }
+
+
+
         
         $privateMessage = new Message();
 
@@ -52,12 +71,9 @@ class MessagesController extends AbstractController
             $privateMessage
             
                 ->setType("between_users")
-                ->setAuthorUser($this->getUser());
+                ->setAuthorUser($sender);
 
             $conversation = new Conversation();
-
-
-            $receiver=$presentation->getCreator();
 
             $conversation 
                 
@@ -99,6 +115,7 @@ class MessagesController extends AbstractController
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringID(),
             ]);
+
         }
 
         return $this->render('project_presentation/conversations/new.html.twig', [
@@ -237,7 +254,7 @@ class MessagesController extends AbstractController
                     ),
                 ];
 
-                // Updating that now conversation is consulted
+                // Updating the fact that now conversation is consulted
                 // & updating read / unread messages states and count
 
                 if ($messages->last()->getAuthorUser() != $user) {
@@ -245,6 +262,7 @@ class MessagesController extends AbstractController
                     $conversation->setCacheItem('lastMessIsConsulted', true);
 
                     $unreadMessagesCount = $user->getDataItem("unreadMessagesCount");
+                    
                     $newlyConsultedMessagesCount=0;
 
                     $conversationMessages = $conversation->getMessages();

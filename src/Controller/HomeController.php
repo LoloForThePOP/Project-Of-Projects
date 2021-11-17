@@ -27,12 +27,18 @@ class HomeController extends AbstractController
 
         // by categories project presentations
         
-        $results = $searchService->search($manager, PPBase::class, 'sarla'
+        $results = $searchService->search($manager, PPBase::class, ''
+/* 
+        , 
+            
+            [
+                'filters' => '(categories.uniqueName:material AND categories.uniqueName:science)'
+            ] */
             
         );   
 
 
-        dump($results);
+        //dump($results);
 
         return $this->render("/home/homepage.html.twig", [
             'lastInsertedPresentations' => $lastInsertedPresentations,

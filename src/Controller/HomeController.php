@@ -19,18 +19,12 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(EntityManagerInterface $manager, SearchService $searchService, LoggerInterface $logger): Response
+    public function index(EntityManagerInterface $manager, SearchService $searchService): Response
     {
 
         // last 20 inserted projects presentations
 
         $lastInsertedPresentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=2 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->setMaxResults('30')->getResult();
-
-            
-        $logger->critical('I left the oven on!', [
-            // include extra "context" info in your logs
-            'cause' => 'in_hurry',
-        ]);
 
         // by categories project presentations
         

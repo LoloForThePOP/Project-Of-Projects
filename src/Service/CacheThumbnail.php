@@ -11,8 +11,6 @@ use Symfony\Component\Messenger\MessageBusInterface;
 
 class CacheThumbnail {
 
-    
-
     protected $uploaderHelper;
     protected $messageBus;
 
@@ -62,12 +60,6 @@ class CacheThumbnail {
         $presentation->setCacheItem('thumbnail', $path);
 
         $this->manager->flush();
-
-            // warmup image cache with a specific cache filter, and force warmup in case image changed but its name remains unchanged (= removes the cache if exists)
-
-            // see liip documentation : optimizations/resolve-cache-images-in-background.html)
-            
-            $this->messageBus->dispatch(new WarmupCache('media/static/images/larger/account/confirm_email.png', ['standard_thumbnail_md'], true));
 
     }
 

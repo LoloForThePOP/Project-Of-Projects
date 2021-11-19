@@ -3,8 +3,6 @@ liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
 
-    messenger: true # to prepare cache images in advance for search results (see liip documentation : optimizations/resolve-cache-images-in-background.html) #
-
     resolvers :
         default :
             web_path : ~

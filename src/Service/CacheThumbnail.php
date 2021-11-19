@@ -6,8 +6,6 @@ use App\Entity\PPBase;
 use Doctrine\ORM\EntityManagerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
-use Liip\ImagineBundle\Message\WarmupCache;
-
 class CacheThumbnail {
 
     protected $uploaderHelper;

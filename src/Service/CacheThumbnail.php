@@ -7,18 +7,15 @@ use Doctrine\ORM\EntityManagerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
 use Liip\ImagineBundle\Message\WarmupCache;
-use Symfony\Component\Messenger\MessageBusInterface;
 
 class CacheThumbnail {
 
     protected $uploaderHelper;
-    protected $messageBus;
 
-    public function __construct(EntityManagerInterface $manager, UploaderHelper $uploaderHelper, MessageBusInterface $messageBus)
+    public function __construct(EntityManagerInterface $manager, UploaderHelper $uploaderHelper)
     {
         $this->manager = $manager;
         $this->uploaderHelper = $uploaderHelper;
-        $this->messageBus = $messageBus;
 
     }
 

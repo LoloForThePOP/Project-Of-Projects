@@ -67,7 +67,7 @@ class CacheThumbnail {
 
             // see liip documentation : optimizations/resolve-cache-images-in-background.html)
             
-            $this->messageBus->dispatch(new WarmupCache('media/static/images/larger/account/confirm_email.png', null, true));
+            $this->messageBus->dispatch(new WarmupCache('media/static/images/larger/account/confirm_email.png', ['standard_thumbnail_md'], true));
 
     }
 

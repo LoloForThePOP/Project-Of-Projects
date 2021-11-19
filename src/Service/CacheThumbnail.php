@@ -6,14 +6,21 @@ use App\Entity\PPBase;
 use Doctrine\ORM\EntityManagerInterface;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 
+use Liip\ImagineBundle\Message\WarmupCache;
+use Symfony\Component\Messenger\MessageBusInterface;
+
 class CacheThumbnail {
 
-    protected $uploaderHelper;
+    
 
-    public function __construct(EntityManagerInterface $manager, UploaderHelper $uploaderHelper)
+    protected $uploaderHelper;
+    protected $messageBus;
+
+    public function __construct(EntityManagerInterface $manager, UploaderHelper $uploaderHelper, MessageBusInterface $messageBus)
     {
         $this->manager = $manager;
         $this->uploaderHelper = $uploaderHelper;
+        $this->messageBus = $messageBus;
 
     }
 
@@ -41,6 +48,7 @@ class CacheThumbnail {
 
                 $path = $this->uploaderHelper->asset($slide, 'file');
 
+
             }
 
             elseif($slide->getType()=='youtube_video'){
@@ -54,6 +62,12 @@ class CacheThumbnail {
         $presentation->setCacheItem('thumbnail', $path);
 
         $this->manager->flush();
+
+            // warmup image cache with a specific cache filter, and force warmup in case image changed but its name remains unchanged (= removes the cache if exists)
+
+            // see liip documentation : optimizations/resolve-cache-images-in-background.html)
+            
+            $this->messageBus->dispatch(new WarmupCache('media/static/images/larger/account/confirm_email.png', null, true));
 
     }
 

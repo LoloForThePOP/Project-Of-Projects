@@ -36,9 +36,5 @@ class Kernel extends BaseKernel
         }
     }
 
-    public function getCacheDir()
-    {
-        return '/tmp/'.$this->environment;
-    }
 
 }

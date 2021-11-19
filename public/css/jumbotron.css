@@ -7,7 +7,7 @@
 
     
 .jumbotron-img-ctn{
-        
+    
     padding-left: 0px;
 } 
 
@@ -33,6 +33,12 @@
         padding: 0 8px;
         margin-top: 0;
 
+
+    }
+    
+    .jumbotron-title{
+        font-size: 35px;
+        padding-top: 35px;
     }
     
     .jumbotron-text{
@@ -45,6 +51,10 @@
     .jumbotron-img-ctn{
         
         margin-top: 0px;
+            
+        display: flex;
+
+        justify-content: center;
     } 
 
     .jumbotron-btn{
@@ -80,13 +90,19 @@
     }
 
     .jumbotron-title{
-        font-size: 1.7em;
+        font-size: 1.58rem;
         text-align: center;
+        
+        padding-top: 0px;
     }
 
     .jumbotron-text{
         margin-top: 20px;
         padding: 0;
+    }
+
+    .jumbotron-text .lead{
+        font-size: 18px;
     }
 
     .jumbotron-btn{

@@ -17,10 +17,9 @@
 
     {% if app.user %}
 
-
-    {% block javascripts %}
-      <script src="/js/show_more_less_button.js"></script>
-    {% endblock %}
+      {% block javascripts %}
+        <script src="/js/show_more_less_button.js"></script>
+      {% endblock %}
 
       <div class="hide-too-long hide-330 show-tiny-screens ">
 
@@ -54,21 +53,29 @@
 
    {# Case user not logged in : displaying homepage jumbotron #}
 
-   <div class="px-0 px-lg-4 col-xxl-11">
+  {% if not app.user %}
       
-    {% if not app.user %}
-      
+    <div class="px-0 px-md-4 px-lg-4 col-xxl-11">
+            
       {% include "home/_jumbotron.html.twig" %}
     
-    {% endif %}
+    </div>
 
-   </div>
+  {% endif %}
 
+  <div class="hide-too-long hide-360 show-tiny-screens ">
 
     <div class="projects-collection row my-4">
 
       {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
 
     </div>
+
+
+  </div>
+
+  </div> {# close an unknow div who mess footer display up #}
+
+
 
 {% endblock %}

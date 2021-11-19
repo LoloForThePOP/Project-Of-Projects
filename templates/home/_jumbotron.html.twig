@@ -2,29 +2,27 @@
 
     {% block image %}
 
-    <img src="{{asset ('misc/homepage_jumbotron.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
+        <img src="{{asset ('misc/homepage_jumbotron.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
 
     {% endblock %}
 
     {% block text %}
 
-    <h1 class="jumbotron-title display-5 lh-1">La carte de visite de votre projet</h1>
+        <h1 class="jumbotron-title display-5 lh-1">La carte de visite de votre projet</h1>
 
-    <p class="lead">
-       Vous présentez un projet ? Créez sa carte de visite numérique. <b>Elle concentre toutes les informations utiles à partager, et s'affiche correctement sur différents écrans. C'est simple, rapide, et gratuit</b>.
-    </p>
+        <p class="lead">
+        Vous présentez un projet ? Créez sa carte de visite numérique. <b>Elle concentre toutes les informations utiles à partager, et s'affiche correctement sur différents écrans. C'est simple, rapide, et gratuit</b>.
+        </p>
 
-    <div class="d-grid gap-2 d-md-flex justify-content-md-start pt-3">
+        <div class="d-md-flex justify-content-md-start pt-3">
 
-        <a href="https://propon.org/jetpack-shooter-nom-temporaire/">
-            <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Voir un Exemple</button>
-        </a>
+            <a href="https://propon.org/jetpack-shooter-nom-temporaire/">
+                <button type="button" class="jumbotron-btn btn btn-secondary me-md-3">Voir un Exemple</button>
+            </a>
 
-        
+            <a href="{{path('create_presentation')}}"><button type="button" class="jumbotron-btn btn btn-primary">Ajouter un Projet</button></a>
 
-        <a href="{{path('create_presentation')}}"><button type="button" class="jumbotron-btn btn btn-primary">Ajouter un Projet</button></a>
-
-    </div>
+        </div>
     
     {% endblock %}
 

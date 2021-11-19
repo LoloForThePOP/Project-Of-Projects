@@ -8,8 +8,8 @@
     max-height: 100px;
 }
 
-.hide-330 {
-    max-height: 330px;
+.hide-360 {
+    max-height: 360px;
 }
 
 .read-more:focus {
@@ -34,8 +34,5 @@ display: none;
     .hide-too-long.show-tiny-screens .read-more{
         display:none;
     }
-
-    
-
 
 }

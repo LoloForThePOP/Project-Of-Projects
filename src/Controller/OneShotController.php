@@ -34,12 +34,12 @@ class OneShotController extends AbstractController
         $presentations = $repo->findAll();
 
         foreach ($presentations as $presentation) {
-            /* $presentation->setCacheItem('thumbnailParentImageAddress', null);
-            $presentation->setCacheItem('thumbnailAddress', null); */
+            $presentation->setCacheItem('thumbnailParentImageAddress', null);
+            $presentation->setCacheItem('thumbnailAddress', null);
 
             $cacheThumbnail->cacheThumbnail($presentation);
 
-            /* $presentation->unsetCacheItem('thumbnail'); */
+            $presentation->unsetCacheItem('thumbnail');
         }
 
         $manager->flush();

@@ -76,6 +76,8 @@
     instantsearch.widgets.hits({
       container: '#hits',
       templates: { /* Twig verbatim is used to avoid curly brackets (braces) conflicts */
+
+        
         item: `{% verbatim %}<a href="`+domain+`{{#helpers.highlight}}{ "attribute": "stringId" }{{/helpers.highlight}}" class="text-decoration-none ">{% endverbatim %}
 
           <div>

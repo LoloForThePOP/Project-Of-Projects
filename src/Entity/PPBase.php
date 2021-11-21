@@ -222,18 +222,24 @@ class PPBase implements \Serializable
 
     public function __construct()
     {
+        // note : string identifier (stringId property) is generated in LifecycleCallbacks PrePersist (so "like a constructor call") through $this->generateStringId() (see method below).
+
         $this->createdAt = new DateTime();
+
         $this->isAdminValidated = true;
         $this->overallQualityAssessment = 0;
-        $this->parameters['arePrivateMessagesActivated'] = true;
-        $this->data['validatedStringId'] = false; // by default StringId ("slug") is randomized and not validated by user.
-        $this->cache['thumbnailParentImageAddress'] = null;
-        $this->cache['thumbnailAddress'] = null;
         $this->isPublished = true;
         $this->isDeleted = false;
+
+        $this->parameters['arePrivateMessagesActivated'] = true;
+
+        $this->data['validatedStringId'] = false; // flag to know wether presentation slug is still a randomized string (false) or user has validated his own slug (ex: propon.org/my-project instead of propon.org/tr3H2Y).
+
+        $this->cache['thumbnailParentImageAddress'] = null;
+        $this->cache['thumbnailAddress'] = null;
+
         $this->viewsCount = 0;
 
-        // unique stringId is generated through $this->generateStringId() called in LifecycleCallbacks() PrePersist
         $this->categories = new ArrayCollection();
         $this->slides = new ArrayCollection();
         $this->places = new ArrayCollection();
@@ -386,6 +392,28 @@ class PPBase implements \Serializable
         $this->overallQualityAssessment = $overallQualityAssessment;
 
         return $this;
+    }
+
+    public function isSearchable(){
+
+        if ($this->isPublished == false) {
+            return false;
+        }
+
+        if ($this->isDeleted != false) {
+            return false;
+        }
+
+        if ($this->isAdminValidated != true) {
+            return false;
+        }
+
+        if ($this->overallQualityAssessment < 2) {
+            return false;
+        }
+
+        return true;
+
     }
 
     public function getIsPublished(): ?bool

@@ -35,12 +35,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 120px;
     margin-bottom: 11px;
   }
   
   .hit-img {
-    max-width: 100%;
-    height: auto;
+    max-width: 210px;
+    max-height: 106px;
     border-radius: 0.3rem !important;
   }
   
@@ -62,3 +63,12 @@
     color:#2C3E50;
 
   }
+
+  
+@media screen and (max-width: 580px) {
+    
+  .hit-img {
+    max-width: 100%;
+  }
+
+}

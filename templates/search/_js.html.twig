@@ -12,6 +12,14 @@
 
   var domain = "{{url('homepage')}}";
   var app_env = '{{ app.request.server.get("APP_ENV") }}';
+
+  function randomColor(){
+
+    var colors = (['#884394', '#3f51b5', '#009688', '#42a346', '#ff9800', '#2d66ba', '#a58f4f', '#129d90', '#428392', '#263b78', '#878273', '#705c20', '#d24040', '#c1944e']);
+
+    return colors[Math.floor(Math.random()*colors.length)];
+
+  }
   
   const search = instantsearch({
     indexName: app_env+'_presentation_bases',
@@ -62,57 +70,79 @@
   
 
   search.addWidgets([
+
     instantsearch.widgets.searchBox({
+
       container: '#searchbox',
+
     }),
-    instantsearch.widgets.clearRefinements({
-      container: '#clear-refinements',
-    }),
+
     instantsearch.widgets.refinementList({
+
       container: '#brand-list',
       attribute: 'categories.descriptionFr',
       operator: 'and',
+      
     }),
+
     instantsearch.widgets.hits({
+
       container: '#hits',
+
       templates: { /* Twig verbatim is used to avoid curly brackets (braces) conflicts */
 
         
-        item: `{% verbatim %}<a href="`+domain+`{{#helpers.highlight}}{ "attribute": "stringId" }{{/helpers.highlight}}" class="text-decoration-none ">{% endverbatim %}
+        item:function(data) {
 
-          <div>
+          output = '<a href="'+domain+data.stringId+'" class="hit-link-wrap">';
 
-            {% verbatim %}
+          var imgContent;
 
-              {{#cache.thumbnailAddress}}
+            if (data.cache && data.cache.thumbnailAddress){
 
-                <div class="hit-img-ctn">
+              imgContent = '<img class="hit-img" src="'+data.cache.thumbnailAddress+'" align="left" alt="Thumbnail" />';
 
-                  <img class="hit-img" src="{{cache.thumbnailAddress}}" align="left" alt="Thumbnail" />
+            }
 
-                </div>
+            else {
 
-              {{/cache.thumbnailAddress}}
+              imgContent= '<div class="avatar-square-rounded avatar-80 mx-auto" style="background-color:'+randomColor()+';"><span class="avatar-initial avatar-initial-80">'+data.goal.charAt(0).toUpperCase()+'</span></div>';
+            
+            }
 
-            <div class="hit-goal">
-              {{#helpers.highlight}}{ "attribute": "goal" }{{/helpers.highlight}}
-            </div>
+          output += '<div class="hit-img-ctn">'+imgContent+'</div>';
+            
+          output += '<div class="hit-goal">'+data._highlightResult.goal.value+'</div>';
 
-            <div class="hit-title">
-              {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
-            </div>
+          var titleContent = '';
 
-          </div></a>
-        {% endverbatim %}`,
+          if (data.title){titlecontent = data._highlightResult.title.value;}
+
+          output += '<div class="hit-title">'+titleContent+'</div>';
+
+
+          output += '</a>';
+          
+          return output
+
+
+        },
+
+
         empty: '<div>Désolé, aucun résultat n\'a été trouvé pour {% verbatim %}{{ query }}. {% endverbatim %}</div>.'
+
       },
+      
     }),
+
     instantsearch.widgets.pagination({
       container: '#pagination',
     }),
+
     instantsearch.widgets.configure({
       hitsPerPage: 8
     }),
+
   ]);
   
   search.start();

@@ -31,6 +31,10 @@
   }
 
   
+  .hit-link-wrap {
+    text-decoration: none;
+  }
+  
   .hit-img-ctn {
     display: flex;
     align-items: center;

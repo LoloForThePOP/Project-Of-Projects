@@ -12,19 +12,10 @@
 
                 <div class="image-container d-flex justify-content-center align-items-center">
 
-                    {% if item.cache.thumbnail is not empty %}
+                    {% if item.cache.thumbnailAddress is not empty %}
 
-                        {# case thumbnail is stored locally #}
-
-                        {% if not item.cache.thumbnail [0:4] is same as "http" %}
-
-                            <img class="thumbnail" src="{{ item.cache.thumbnail | imagine_filter('standard_thumbnail_md') }}" alt="Presentation Thumbnail">
-
-                        {% else %} {# case thumbnail is stored externaly (example : Youtube caption) #}
-
-                            <img class="thumbnail" src="{{ item.cache.thumbnail }}" alt="Presentation Thumbnail">
-                            
-                        {% endif %}
+                            <img class="thumbnail" src="{{ item.cache.thumbnailAddress }}" alt="Presentation Thumbnail">
+                           
             
                     {% else %} {# no cached thumbnail : default avatar #}
 

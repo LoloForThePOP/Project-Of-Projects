@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Service\CacheThumbnail;
+use Doctrine\ORM\EntityManager;
 use App\Repository\PPBaseRepository;
 use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -26,12 +28,23 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, SearchService $searchService): Response
+    public function doAction(PPBaseRepository $repo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail): Response
     {
 
-      /*   $presentations = $repo->findAll();
+        $presentations = $repo->findAll();
 
-        $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
+        foreach ($presentations as $presentation) {
+            /* $presentation->setCacheItem('thumbnailParentImageAddress', null);
+            $presentation->setCacheItem('thumbnailAddress', null); */
+
+            $cacheThumbnail->cacheThumbnail($presentation);
+
+            /* $presentation->unsetCacheItem('thumbnail'); */
+        }
+
+        $manager->flush();
+
+        /*   $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
         foreach ($presentations as $presentation) {
             $searchService->index($em, $presentation);

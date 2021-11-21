@@ -3,6 +3,9 @@ liip_imagine:
     # valid drivers options include "gd" or "gmagick" or "imagick"
     driver: "gd"
 
+    default_filter_set_settings:
+        format: webp
+
     resolvers :
         default :
             web_path : ~
@@ -42,15 +45,23 @@ liip_imagine:
                     dim: [ 110, 110 ]
 
         standard_thumbnail_md:
-
-            # list of transformations to apply
+            
+            quality: 50
             filters:
+                thumbnail: { size: [300, 170], mode: inset }
+               
+            post_processors:
+                mozjpeg: { quality: 40 }
 
-                # use and setup the "scale" filter
-                scale:
+        standard_thumbnail_md_test:
+            
+            quality: 50
+            filters:
+                thumbnail: { size: [300, 170], mode: inset }
+               
+            post_processors:
+                mozjpeg: { quality: 40 }
 
-                    # input ?x? px -> output ?x? px (relative down-scale)
-                    dim: [ 300, 240 ]
 
         logo:
 

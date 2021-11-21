@@ -227,7 +227,8 @@ class PPBase implements \Serializable
         $this->overallQualityAssessment = 0;
         $this->parameters['arePrivateMessagesActivated'] = true;
         $this->data['validatedStringId'] = false; // by default StringId ("slug") is randomized and not validated by user.
-        $this->cache['thumbnail'] = null;
+        $this->cache['thumbnailParentImageAddress'] = null;
+        $this->cache['thumbnailAddress'] = null;
         $this->isPublished = true;
         $this->isDeleted = false;
         $this->viewsCount = 0;
@@ -272,8 +273,7 @@ class PPBase implements \Serializable
 
     /**
      * @Groups({"searchable"})
-     */
-
+    */
 
     public function getGoal(): ?string
     {
@@ -883,6 +883,12 @@ class PPBase implements \Serializable
         return $this;
     }
 
+    
+
+    /**
+     * @Groups({"searchable"})
+    */
+
     public function getCache(): ?array
     {
         return $this->cache;
@@ -898,6 +904,13 @@ class PPBase implements \Serializable
     public function getCacheItem($key)
     {
         return $this->cache[$key];
+    }
+    
+    public function unsetCacheItem($key)
+    {
+        unset($this->cache[$key]);
+        
+        return true;
     }
 
     public function setCacheItem($key, $value): self

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PPBase;
 use Psr\Log\LoggerInterface;
+use App\Service\CacheThumbnail;
 use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,8 +20,10 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(EntityManagerInterface $manager, SearchService $searchService): Response
+    public function index(EntityManagerInterface $manager, SearchService $searchService, CacheThumbnail $cachethumb): Response
     {
+
+        $cachethumb->manageThumbnail('remove', 'media/static/images/larger/account/confirm_email.png', 'standard_thumbnail_md');
 
         // last 20 inserted projects presentations
 

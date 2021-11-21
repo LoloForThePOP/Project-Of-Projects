@@ -6,8 +6,6 @@
 
 <script src="/js/sortable/jquery-sortable.js"></script>
 
-{% set lol = 'yo' %}
-
 <script>
   
   $(document).ready(function(){
@@ -61,6 +59,8 @@
   });
 
 
+  
+
   search.addWidgets([
     instantsearch.widgets.searchBox({
       container: '#searchbox',
@@ -77,14 +77,29 @@
       container: '#hits',
       templates: { /* Twig verbatim is used to avoid curly brackets (braces) conflicts */
         item: `{% verbatim %}<a href="`+domain+`{{#helpers.highlight}}{ "attribute": "stringId" }{{/helpers.highlight}}" class="text-decoration-none ">{% endverbatim %}
-          <div>{{lol | title}}
+
+          <div>
+
             {% verbatim %}
-            <div class="hit-name">
-              {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
-            </div>
-            <div class="hit-description">
+
+              {{#cache.thumbnailAddress}}
+
+                <div class="hit-img-ctn">
+
+                  <img class="hit-img" src="{{cache.thumbnailAddress}}" align="left" alt="Thumbnail" />
+
+                </div>
+
+              {{/cache.thumbnailAddress}}
+
+            <div class="hit-goal">
               {{#helpers.highlight}}{ "attribute": "goal" }{{/helpers.highlight}}
             </div>
+
+            <div class="hit-title">
+              {{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}
+            </div>
+
           </div></a>
         {% endverbatim %}`,
         empty: '<div>Désolé, aucun résultat n\'a été trouvé pour {% verbatim %}{{ query }}. {% endverbatim %}</div>.'

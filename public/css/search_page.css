@@ -29,17 +29,36 @@
     margin-bottom: 1em;
     width: calc(50% - 1rem);
   }
+
   
-  .ais-Hits-item img {
-    margin-right: 1em;
+  .hit-img-ctn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 11px;
   }
   
-  .hit-name {
-    margin-bottom: 0.5em;
+  .hit-img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 0.3rem !important;
   }
   
-  .hit-description {
-    color: #888;
-    font-size: 14px;
-    margin-bottom: 0.5em;
+  .hit-goal {
+    color: #1a0dab;
+    margin-bottom: 4px;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1.2em;
+  }
+
+      
+  .hit-title {
+    
+    margin-bottom: 6px;
+    line-height: 1.13em;
+    font-size: 1.15em;
+    font-weight: bold;
+    color:#2C3E50;
+
   }

@@ -70,6 +70,12 @@
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
 
+    {#
+        <pre>
+            {{ dump(presentation.cache) }}
+        </pre>
+    #}
+
     {# Upper box containing Project Title + Goal + Logo #}
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}

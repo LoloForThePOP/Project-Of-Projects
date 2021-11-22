@@ -4,12 +4,8 @@
     overflow: hidden;
 }
 
-.hide-100 {
-    max-height: 100px;
-}
-
-.hide-360 {
-    max-height: 360px;
+.hide-335 {
+    max-height: 335px;
 }
 
 .read-more:focus {

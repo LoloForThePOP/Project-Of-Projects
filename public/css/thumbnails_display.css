@@ -15,7 +15,8 @@
     .project-card{
         display: inline-block; 
         width: 260px; 
-        min-height: 270px; 
+        height: 270px; 
+        overflow: hidden;
         border: 1px solid rgb(227, 221, 211); 
         border-radius: 4px;        
         margin-right: 10px;

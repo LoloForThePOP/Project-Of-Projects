@@ -69,10 +69,91 @@
   }
 
   
+  .hit-keywords {
+
+    margin: 4px 0px;
+    font-weight: bold;
+    color:#065fd4;
+    line-height: 1.05em;
+    text-align: left;
+    font-size: 15px;
+
+  }
+
+  .filters-categories-title{
+
+    margin-top : 14px;
+    margin-bottom : 25px;
+
+  }
+  
 @media screen and (max-width: 580px) {
+
+  .avatar-initial-80 {
+    top: 24px;
+    left: 27px;
+  }
+    
+  .hit-img-ctn {
+    float: left;
+    margin-right: 10px;
+  }
     
   .hit-img {
     max-width: 100%;
+    max-height: 100%;
+  }
+  
+  .left-panel {
+    display: none;
+  }
+  
+  .right-panel {
+    margin-left: 0;
+  }
+
+  .hit-txt-ctn {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+  }
+
+  .hit-img-ctn {
+    width: 120px;
+    height: 80px;
+    margin-bottom: 0px;
+  }
+
+  .hit-goal {
+    font-size: 16px;
+    line-height: 15px;
+  }
+
+  .hit-title {
+    font-size: 16px;
+  }
+
+  .hit-keywords {
+    font-size: 13px;
+  }
+  
+  .ais-Hits-item{
+    padding: 12px 5px;
+    width: calc(100% - 1rem);
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+
+  }
+
+
+}
+
+
+@media screen and (max-width: 400px) {
+
+  .hit-img-ctn{
+    width: 90px;
   }
 
 }

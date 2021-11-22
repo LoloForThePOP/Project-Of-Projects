@@ -20,6 +20,12 @@
     return colors[Math.floor(Math.random()*colors.length)];
 
   }
+
+  function formatKeywords(keywordsString){
+
+    return keywordsString.replace(/\s/g, '').replace(/,/g, '# ');
+
+  }
   
   const search = instantsearch({
     indexName: app_env+'_presentation_bases',
@@ -79,7 +85,7 @@
 
     instantsearch.widgets.refinementList({
 
-      container: '#brand-list',
+      container: '#filters-list',
       attribute: 'categories.descriptionFr',
       operator: 'and',
       
@@ -111,17 +117,20 @@
             }
 
           output += '<div class="hit-img-ctn">'+imgContent+'</div>';
+
+          output += '<div class="hit-txt-ctn"><div class="hit-flex-ctn">'
             
           output += '<div class="hit-goal">'+data._highlightResult.goal.value+'</div>';
 
           var titleContent = '';
-
-          if (data.title){titlecontent = data._highlightResult.title.value;}
-
+          if (data.title){titleContent = data._highlightResult.title.value;}
           output += '<div class="hit-title">'+titleContent+'</div>';
 
+          var keywordsContent = '';
+          if (data.keywords){keywordsContent = data._highlightResult.keywords.value;}
+          output += '<div class="hit-keywords">'+formatKeywords(keywordsContent)+'</div>';
 
-          output += '</a>';
+          output += '</div></div></a>'; //end of text container + link wrapper
           
           return output
 

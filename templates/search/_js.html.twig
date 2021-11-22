@@ -23,7 +23,11 @@
 
   function formatKeywords(keywordsString){
 
-    return keywordsString.replace(/\s/g, '').replace(/,/g, '# ');
+    if(keywordsString != ''){
+      return '#'+keywordsString.replace(/\s/g, '').replace(/,/g, ' #');
+    }
+
+    return keywordsString;    
 
   }
   

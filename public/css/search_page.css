@@ -82,8 +82,9 @@
 
   .filters-categories-title{
 
-    margin-top : 14px;
-    margin-bottom : 25px;
+    font-size: 28px;
+    margin-top : 32px;
+    margin-bottom : 16px;
 
   }
   
@@ -136,6 +137,10 @@
 
   .hit-keywords {
     font-size: 13px;
+  }
+
+  .ais-Hits {
+    margin-top : 6px;
   }
   
   .ais-Hits-item{

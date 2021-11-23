@@ -121,29 +121,17 @@
 
         {% endif %}
 
+        {# search form large screens #}
+
         <form class="d-none d-md-block">
 
-          <input id="navbar_search_input" class="form-control d-inline me-2" type="search" placeholder="Search" aria-label="Search" style="width:unset;">
-
-          <button class="btn btn-outline-success" type="submit">Search</button>
+          <input id="navbar_md_search_input" class="form-control d-inline me-2" type="search" placeholder="Rechercher" aria-label="Search" style="width:unset;">
 
         </form>
 
+
       </ul>
 
-      
-
-      <script>
-
-        $("#navbar_search_input").on("input", function() {
-
-          //$(this).val()
-
-          $(".ais-InstantSearch").show();
-
-        });
-
-      </script>
 
 
       {# hide / show overall menu button (on small screens) #}

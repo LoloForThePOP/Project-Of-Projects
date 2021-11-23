@@ -2,6 +2,14 @@
   $(document).ready(function(){
 
 
+    $(".js-close-search-experience").click(function() {
+
+      $(".search-experience-container").hide();
+      $("#main-body-container").show();
+
+    });
+
+
   function randomColor(){
 
     var colors = (['#884394', '#3f51b5', '#009688', '#42a346', '#ff9800', '#2d66ba', '#a58f4f', '#129d90', '#428392', '#263b78', '#878273', '#705c20', '#d24040', '#c1944e']);
@@ -31,6 +39,17 @@
    
   search.on('render', function () {   
 
+    $("#navbar_md_search_input, #navbar_sm_search_input").on("input", function() {
+
+      $(".ais-InstantSearch").show();
+
+      document.querySelector('#searchbox .ais-SearchBox-input').value = $(this).val();
+
+      search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
+      
+      $("#main-body-container").hide();
+
+    });
 
   });
 
@@ -98,7 +117,7 @@
         },
 
 
-        empty: '<div>Désolé, aucun résultat n\'a été trouvé pour {% verbatim %}{{ query }}. {% endverbatim %}</div>.'
+        empty: '<div>Désolé, aucun résultat n\'a été trouvé pour la recherche "{{ query }}".</div>.'
 
       },
       
@@ -115,10 +134,6 @@
   ]);
   
   search.start();
-
-  document.querySelector('.lol').addEventListener('click', () => {
-    document.querySelector('#searchbox .ais-SearchBox-input').value = 'amazon';
-  });
 
 });
 

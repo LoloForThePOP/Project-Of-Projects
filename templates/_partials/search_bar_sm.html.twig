@@ -6,7 +6,7 @@
       
     </div>
     
-    <input id="searchbox-input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
+    <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
 
     <div class="search-icon-container">
       <img id="" class="search_icon" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
@@ -20,9 +20,10 @@
     $("#search_icon_small_screens").click(function() {
 
         $(".search-container-bar-sm").removeClass("unseen");
-        $("#searchbox-input").focus();
+        $("#navbar_sm_search_input").focus();
         $(".search-experience-container").show();
-        $("#main-body-content").hide();
+        $("#main-body-container").hide();
+        $("#searchbox").css('display','none');
 
     });
 
@@ -30,7 +31,7 @@
 
       $(".search-container-bar-sm").addClass("unseen");
       $(".search-experience-container").hide();
-      $("#main-body-content").show();
+      $("#main-body-container").show();
 
     });
 
@@ -70,7 +71,7 @@
       padding-right: 10px;
     }
  
-    #searchbox-input {
+    #navbar_sm_search_input {
       background-color: transparent;
       padding-bottom: 4px;
       outline: none;

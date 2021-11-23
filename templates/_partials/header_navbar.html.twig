@@ -16,7 +16,7 @@
 
       <a class="navbar-brand pb-0 ps-md-4 me-sm-5" href="/">
 
-        <img src="/media/static/images/pop_logo.svg" alt="website logo" loading="lazy" width="37px" height="44px" style="margin-bottom: -1px;" />
+        <img src="/media/static/images/pop_logo.svg" alt="website logo" loading="lazy" width="37px" height="44px"/>
 
       </a>
 
@@ -75,21 +75,35 @@
 
             </li>
 
+            {% endif %}
+
             {# mobile display #}
 
             <li class="nav-item d-md-none">
 
-              <a href="{{path ('user_manage_messages')}}">
+              {% if unreadMessagesCount > 0 %}
 
-                <button type="button" class="btn btn-sm btn-success rounded">
-                  Messages <span class="badge bg-warning text-body">{{unreadMessagesCount}}</span>
-                </button>
+                <a href="{{path ('user_manage_messages')}}">
 
-              </a>
+                  <button type="button" class="btn btn-sm btn-success rounded me-2">
+                    Messages <span class="badge bg-warning text-body">{{unreadMessagesCount}}</span>
+                  </button>
+
+                </a>
+
+              {% endif %}
+
+              {# search icon on mobile #}
+
+              <img id="search_icon_small_screens" class="" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
+
+
+              {# search bar container on mobile #}
+
+              {% include "_partials/search_bar_sm.html.twig" %}
+
 
             </li>
-
-          {% endif %}
 
         {% else %}
             
@@ -107,10 +121,32 @@
 
         {% endif %}
 
+        <form class="d-none d-md-block">
+
+          <input id="navbar_search_input" class="form-control d-inline me-2" type="search" placeholder="Search" aria-label="Search" style="width:unset;">
+
+          <button class="btn btn-outline-success" type="submit">Search</button>
+
+        </form>
+
       </ul>
 
+      
 
-      {# hide / show overall menu button (small screens) #}
+      <script>
+
+        $("#navbar_search_input").on("input", function() {
+
+          //$(this).val()
+
+          $(".ais-InstantSearch").show();
+
+        });
+
+      </script>
+
+
+      {# hide / show overall menu button (on small screens) #}
 
       {# Trigger Button #}
 

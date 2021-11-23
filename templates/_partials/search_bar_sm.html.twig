@@ -1,0 +1,87 @@
+<div id="" class="search-container-bar-sm unseen">
+
+    <div class="back-icon-container">
+
+      <img id="" class="back_from_search_sm_icon" src="{{ asset('back.svg', 'misc')}}" alt="Back to homepage left arrow icon" style="width: 26px;">
+      
+    </div>
+    
+    <input id="searchbox-input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
+
+    <div class="search-icon-container">
+      <img id="" class="search_icon" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
+    </div>
+    
+</div>
+
+
+  <script>
+
+    $("#search_icon_small_screens").click(function() {
+
+        $(".search-container-bar-sm").removeClass("unseen");
+        $("#searchbox-input").focus();
+        $(".search-experience-container").show();
+        $("#main-body-content").hide();
+
+    });
+
+    $(".back_from_search_sm_icon").click(function() {
+
+      $(".search-container-bar-sm").addClass("unseen");
+      $(".search-experience-container").hide();
+      $("#main-body-content").show();
+
+    });
+
+  </script>
+
+  
+
+  <style>
+
+    .search-container-bar-sm{
+
+      position: absolute; 
+      top:0; 
+      left:0; 
+
+      width: 100%; 
+      height: 59px;
+      z-index:100; 
+
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+                       
+      background-color: black; 
+      
+    }
+
+    .unseen{
+      display: none;
+    }
+
+    .back-icon-container{
+      padding-left: 12px;
+    }
+
+    .search-icon-container{
+      padding-right: 10px;
+    }
+ 
+    #searchbox-input {
+      background-color: transparent;
+      padding-bottom: 4px;
+      outline: none;
+      box-sizing: border-box;
+      border: none;
+      border-radius: 0;
+
+      color: #e9e2e2;
+
+      border-bottom: 2px solid #e9e2e2;
+      text-overflow: ellipsis;
+    }
+
+  </style>

@@ -8,8 +8,12 @@
     
     <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
 
-    <div class="search-icon-container">
-      <img id="" class="search_icon" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
+    <div class="js-reset-search-icon-container unseen">
+      <img id="" class="js-reset-search-icon" src="{{ asset('close.svg', 'misc')}}" alt="clear search input" style="height:19px;">
+    </div>
+
+    <div class="">
+      <img id="" class="js-filter-search-panel panel-hidden" src="{{ asset('filters.svg', 'misc')}}" alt="open filters" style="height:21px; padding-right: 9px;">
     </div>
     
 </div>
@@ -32,8 +36,26 @@
       $(".search-container-bar-sm").addClass("unseen");
       $(".search-experience-container").hide();
       $("#main-body-container").show();
+      window.scrollTo(0, 0);
+
+    });  
+
+    $(".js-filter-search-panel").click(function() {
+
+      if($(this).hasClass('panel-hidden')){
+        $('.search-experience-container .left-panel').show();
+        $(this).removeClass('panel-hidden');
+      } 
+      
+      else {
+        $('.search-experience-container .left-panel').hide();
+        $(this).addClass('panel-hidden')
+      }
 
     });
+
+    
+    // + see algolia_search_default.js
 
   </script>
 
@@ -43,7 +65,7 @@
 
     .search-container-bar-sm{
 
-      position: absolute; 
+      position: fixed; 
       top:0; 
       left:0; 
 

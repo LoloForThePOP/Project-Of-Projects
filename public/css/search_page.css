@@ -13,6 +13,7 @@
   .left-panel {
     float: left;
     width: 250px;
+    position:relative;
   }
   
   .right-panel {
@@ -108,6 +109,12 @@
   .left-panel {
     display: none;
   }
+
+  .filters-categories-title {
+    font-size: 27px;
+    margin-top: 20px;
+    margin-bottom: 13px;
+  }
   
   .right-panel {
     margin-left: 0;
@@ -149,6 +156,12 @@
     margin-top: 0.6em;
     margin-bottom: 0.2em;
 
+  }
+
+  .close-left-panel{
+    position: absolute;
+    top: 0;
+    right: 0;
   }
 
 

@@ -143,7 +143,12 @@
 
     {# Footer #}
 
-    {% include "_partials/footer.html.twig" %}
+    {% block footer %}
+    
+        {% include "_partials/footer.html.twig" %}
+    
+    {% endblock %}
+
 
 </body>
 

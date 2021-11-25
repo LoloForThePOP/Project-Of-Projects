@@ -18,6 +18,20 @@
 
       <button type="button" class="js-close-search-experience d-none d-md-block btn btn-primary mt-md-3">Fermer la recherche</button>
 
+      <img id="" class="js-hide-left-panel hide-left-panel-icon d-md-none btn" src="{{ asset('back-dark.svg', 'misc')}}" alt="Hide left panel icon" style="width: 35px; position: absolute; right: 0; padding: 4px; background-color: rgb(231, 231, 231)">
+
+      <script>
+            
+        $(".js-hide-left-panel").click(function() {
+
+          $(".search-experience-container .left-panel").hide();
+
+          $(".js-filter-search-panel").addClass("panel-hidden");
+
+        });
+
+      </script>
+
       <h2 class="filters-categories-title">Tri par catégories</h2>
 
       <div id="filters-list"></div>

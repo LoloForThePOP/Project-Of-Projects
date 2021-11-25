@@ -125,9 +125,27 @@
 
         <form class="d-none d-md-block">
 
-          <input id="navbar_md_search_input" class="form-control d-inline me-2" type="search" placeholder="Rechercher" aria-label="Search" style="width:unset;">
+          <input id="navbar_md_search_input" class="form-control d-inline me-2" type="search" placeholder="Rechercher" aria-label="Search">
 
         </form>
+
+        <style>
+
+          #navbar_md_search_input{
+
+            width: unset;
+
+          }
+
+          @media screen and (max-width: 860px) {
+
+            #navbar_md_search_input{
+              width: 169px;
+            }
+
+          }
+
+        </style>
 
 
       </ul>

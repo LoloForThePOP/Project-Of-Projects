@@ -9,6 +9,14 @@
 
     });
 
+    $(".js-reset-search-icon").click(function() {
+
+      $('#navbar_sm_search_input').val('');
+      document.querySelector('#searchbox .ais-SearchBox-input').value = '';
+      search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
+
+    });
+
 
   function randomColor(){
 
@@ -42,6 +50,12 @@
     $("#navbar_md_search_input, #navbar_sm_search_input").on("input", function() {
 
       $(".ais-InstantSearch").show();
+
+      //small screens reset search icon appearance / diappearance
+
+      if (!this.value) {
+        $(".js-reset-search-icon-container").hide();
+      } else {$(".js-reset-search-icon-container").show();}
 
       document.querySelector('#searchbox .ais-SearchBox-input').value = $(this).val();
 

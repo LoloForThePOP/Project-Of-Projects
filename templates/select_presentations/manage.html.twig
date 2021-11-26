@@ -1,0 +1,264 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sélection de Présentations{% endblock %}
+
+
+
+{% block body %}
+
+<div id="" class="selected-items-panel">
+
+  {% if currentSelection is not empty %}
+
+    {% for item in currentSelection %}
+
+      <div class="selected-item">
+
+        <a data-id="{{item.id}}">
+
+          <div class="hit-txt-ctn">
+            
+            <div class="hit-flex-ctn">
+              
+              <div class="hit-goal">{{item.goal}}</div>
+              
+              <div class="hit-title">{{item.title}}</div>
+            
+            </div>
+          
+          </div>
+
+        </a>
+        
+        <button type"button" class="js-remove-elem">&times</button>
+        
+      </div>
+        
+    {% endfor %}
+
+  {% endif %}  
+
+</div>
+
+
+
+
+
+{% block javascripts %}
+
+    <!-- sortable plugin to reorder elements (exemple : reorder editor's presentations selection ) -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for above sortable plugin -->
+
+    <script src="/js/sortable/jquery-sortable.js"></script>
+
+
+    <script>
+
+        $(document).ready(function(){
+
+          $('.ais-InstantSearch').append($('.selected-items-panel'));
+          $(".ais-InstantSearch").show();
+
+        });
+
+        $('.selected-items-panel').sortable({
+
+            animation: 150,
+            
+            group: {
+
+                name:'results-to-selection',
+                pull: 'clone',
+
+            },
+    
+            ghostClass: 'blue-background-class',
+    
+            filter: ".disabled",
+    
+            onMove: function (evt) {
+            
+              return evt.related.className.indexOf('disabled') === -1;
+    
+            },
+    
+            // drag and drop implies elements positions updates (ajax call)
+    
+            onEnd: function (evt) {
+            
+              var elementsPositions = [];
+                
+              $('.selected-items-panel a').each(function(index){
+                              
+                elementsPositions.push($(this).data('id'));
+            
+              });
+
+              $.ajax({  
+
+                url: pick_up_elements_route,
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                    "selectionType": 'headlines',
+                    "jsonElementsPosition": elementsPositions,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+                        
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                  alert('Une erreur est survenue.');  
+                }  
+
+              }); 
+            },
+        });
+
+        // Remove an Element
+
+        $('.selected-items-panel').on('click', '.js-remove-elem', function (){
+
+            $(this).parent().remove();
+
+            var elementsPositions = [];
+                
+            $('.selected-items-panel a').each(function(index){
+                            
+              elementsPositions.push($(this).data('id'));
+          
+            });
+
+            $.ajax({  
+
+              url: pick_up_elements_route,
+              type:       'POST',   
+              dataType:   'json',
+              data: {
+                  "selectionType": 'headlines',
+                  "jsonElementsPosition": elementsPositions,
+              },
+  
+              async: true,  
+              
+              success: function(data, status) {
+                       
+              },  
+  
+              error : function(xhr, textStatus, errorThrown) {  
+                alert('Une erreur est survenue.');  
+              }  
+  
+            }); 
+      
+
+        });
+
+
+        // search.on('render', function () {  alert('yo')});
+
+    </script>
+
+
+{% endblock %}
+
+
+{# Overide some default styles #}
+
+<style>
+
+    .ais-InstantSearch{
+  
+      margin: unset; /* decenter original content to let place for a right panel*/
+      max-width:100%;
+      
+    }
+  
+    .right-panel{
+  
+      float: left;
+      width: 700px;
+      margin-left: unset;
+  
+    }
+  
+    .selected-items-panel{
+  
+      float: right;
+      width: 350px;
+      min-height: 600px;
+      border: 1px solid black;
+      margin: 1em 0;
+      padding: 10px 10px;
+      border: 1px solid #c4c8d8;
+      border-radius: 5px;
+  
+    }
+  
+    .selected-items-panel .selected-item {
+
+      position:relative;
+      width: 100%;
+      padding: 1rem;
+      margin-left: 0;
+      margin-bottom: 10px;
+      cursor: move;
+      list-style-type: none;
+      border: 1px solid #c4c8d8;
+      box-shadow: 0 2px 5px 0 #e3e5ec;
+
+    }
+   
+  
+    .selected-items-panel .selected-item a {
+  
+      pointer-events: none;
+
+    }
+  
+    .selected-items-panel .selected-item .hit-img-ctn{
+  
+      display: none;
+
+    }
+  
+    .selected-items-panel .selected-item .hit-keywords{
+  
+      display: none;
+
+    }
+
+    button.js-remove-elem {
+
+      top: 0;
+      position: absolute;
+      right: 0;
+      border: none;
+      background: #f45252;
+      color: white;
+      padding-top: 0;
+      
+    }
+
+    .selected-items-panel .ais-Hits-item { /* removes a display  flaw */
+
+      width: 100%;
+      list-style-type: none;
+
+    }
+
+    .selected-items-panel .ais-Hits-item .hit-img-ctn{
+  
+      display: none;
+
+    }
+  
+  </style>
+
+{% endblock %}

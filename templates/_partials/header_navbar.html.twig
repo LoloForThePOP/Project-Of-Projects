@@ -14,7 +14,7 @@
 
       {# Website Logo #}
 
-      <a class="navbar-brand pb-0 ps-md-4 me-sm-5" href="/">
+      <a class="navbar-brand pb-0 ps-lg-4 me-lg-5" href="/">
 
         <img src="/media/static/images/pop_logo.svg" alt="website logo" loading="lazy" width="37px" height="44px"/>
 
@@ -22,7 +22,7 @@
 
       {# Static Menu #}
 
-      <ul class="navbar-nav fw-bold">
+      <ul class="navbar-nav static-menu fw-bold">
 
         <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
@@ -93,16 +93,6 @@
 
               {% endif %}
 
-              {# search icon on mobile #}
-
-              <img id="search_icon_small_screens" class="" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
-
-
-              {# search bar container on mobile #}
-
-              {% include "_partials/search_bar_sm.html.twig" %}
-
-
             </li>
 
         {% else %}
@@ -120,6 +110,20 @@
           </li>
 
         {% endif %}
+
+        
+        <li class="nav-item d-md-none">
+
+          {# search icon on mobile #}
+
+          <img id="search_icon_small_screens" class="" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
+
+
+          {# search bar container on mobile #}
+
+          {% include "_partials/search_bar_sm.html.twig" %}
+
+        </li>
 
         {# search form large screens #}
 
@@ -285,8 +289,21 @@
 </header>
 
 <style>
+
   .dropdown-item{
     font-weight: bold;
     font-size: 1.15em;
   }
+
+  @media screen and (max-width: 580px) {
+
+    .static-menu {
+
+      display: contents;
+
+    }
+
+  }
+
+
 </style>

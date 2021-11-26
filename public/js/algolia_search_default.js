@@ -43,9 +43,8 @@
       'b2d9ba779ea94f1c5f81d1b5751e267e'
     ),
   });
-
    
-  search.on('render', function () {   
+  search.on('render', function () {  
 
     $("#navbar_md_search_input, #navbar_sm_search_input").on("input", function() {
 
@@ -93,7 +92,7 @@
         
         item:function(data) {
 
-          output = '<a href="'+domain+data.stringId+'" class="hit-link-wrap">';
+          output = '<a href="'+domain+data.stringId+'" data-id="'+data.id+'" class="hit-link-wrap">';
 
           var imgContent;
 
@@ -146,6 +145,75 @@
     }),
 
   ]);
+
+
+  search.on('render', function () {  
+    
+    $('.ais-Hits-list').sortable({
+
+      animation: 150,
+
+      group: {
+
+          name:'results-to-selection',
+
+      },
+
+      ghostClass: 'blue-background-class',
+
+      filter: ".disabled",
+
+      onMove: function (evt) {
+
+          return evt.related.className.indexOf('disabled') === -1;
+
+      },
+
+      onEnd: function (evt) {
+
+          // changing dragged item wrapping tag (otherwise item disappear each time I click on an algolia pagination number)
+          $(evt.item).replaceWith($('<div class="selected-item">').append($(evt.item).contents()).append('<button type"button" class="js-remove-elem">&times</button>'));
+
+          //$(evt.item).removeClass("ais-Hits-item");
+
+          // an array storing elements positions by id
+
+          var elementsPositions = [];
+            
+          $('.selected-items-panel a').each(function(index){
+                          
+            elementsPositions.push($(this).data('id'));
+        
+          });
+
+          $.ajax({  
+
+            url: pick_up_elements_route,
+            type:       'POST',   
+            dataType:   'json',
+            data: {
+                "selectionType": 'headlines',
+                "jsonElementsPosition": elementsPositions,
+            },
+
+            async: true,  
+            
+            success: function(data, status) {
+                     
+            },  
+
+            error : function(xhr, textStatus, errorThrown) {  
+              alert('Une erreur est survenue.');  
+            }  
+
+          }); 
+
+
+      },
+
+    });
+    
+  });
   
   search.start();
 

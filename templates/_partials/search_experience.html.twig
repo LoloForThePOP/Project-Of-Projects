@@ -1,15 +1,34 @@
 
 {% block stylesheets %}
 
-    <link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
     />
 
     <link href="/css/search_page.css" rel="stylesheet">
 
 {% endblock %}
+
+{% block javascripts %}
+
+  <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
+
+  <script>
+
+      var domain = "{{url('homepage')}}";
+      var app_env = '{{ app.request.server.get("APP_ENV") }}';
+      var pick_up_elements_route = '{{ path("manage_pick_up_elements") }}';
+
+  </script>
+
+  <script src="/js/algolia_search_default.js"></script>
     
+{% endblock %}
+
+
+  {# Template #}
+
   <div class="search-experience-container ais-InstantSearch mt-3 mb-5" style="display:none;">
 
     <div class="left-panel">

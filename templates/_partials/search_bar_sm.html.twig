@@ -5,8 +5,29 @@
       <img id="" class="back_from_search_sm_icon" src="{{ asset('back.svg', 'misc')}}" alt="Back to homepage left arrow icon" style="width: 26px;">
       
     </div>
+
+    <form id="search_sm_proxy">
+        
+      <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
+
+      <button class="d-none" type="submit">ok</button>
+
+      <script>
+
+        // Gets a reference to the form element
+        var form = document.getElementById('search_sm_proxy');
+        
+        // Adds a listener for the "submit" event.
+        form.addEventListener('submit', function(e) {
+        
+          e.preventDefault();
+        
+        });
+
+      </script>
+
+    </form>
     
-    <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
 
     <div class="js-reset-search-icon-container unseen">
       <img id="" class="js-reset-search-icon" src="{{ asset('close.svg', 'misc')}}" alt="clear search input" style="height:19px;">

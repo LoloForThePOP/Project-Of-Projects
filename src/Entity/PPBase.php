@@ -269,8 +269,9 @@ class PPBase implements \Serializable
         $this->id = unserialize($serialized);
     }
 
-
-
+    /**
+     * @Groups({"searchable"})
+    */
     public function getId(): ?int
     {
         return $this->id;
@@ -280,7 +281,6 @@ class PPBase implements \Serializable
     /**
      * @Groups({"searchable"})
     */
-
     public function getGoal(): ?string
     {
         return $this->goal;

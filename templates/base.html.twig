@@ -14,7 +14,7 @@
 
     <meta name="keywords" content="présentation de projets, page de projet, cartes de visites de projets">
 
-
+    
     <link rel="icon" 
       type="image/png" 
       href="{{ asset('website_brand/favicon16.png', 'icons')}}">
@@ -38,23 +38,6 @@
 
     <script src="/js/jquery-3.6.0.js"></script>
 
-    
-    {# Algolia Search Engine Javascript #}
-
-    <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
-
-    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
-
-    <script>
-
-        var domain = "{{url('homepage')}}";
-        var app_env = '{{ app.request.server.get("APP_ENV") }}';
-
-    </script>
-
-    <script src="/js/algolia_search_default.js"></script>
-    
-
     {# Hotjar Tracking Code for Propon (only for non admins and prod environment)#}
 
     {% if not is_granted('ROLE_ADMIN') and app.request.server.get("APP_ENV") == 'prod' %}
@@ -73,7 +56,6 @@
         </script>
     
     {% endif %}
-
 
 
     {% block javascripts %}

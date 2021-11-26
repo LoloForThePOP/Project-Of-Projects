@@ -24,14 +24,16 @@ class SelectPresentationsController extends AbstractController
     public function managePickElements(PPBaseRepository $ppRepo)
     {
 
-        $currentSelectionIds = json_decode(file_get_contents($this->storagePath));
-        
         $currentSelectionItems = [];
 
-        foreach ($currentSelectionIds as $id) { //one by one request to maintain ordering
+        if ($currentSelectionIds = json_decode(file_get_contents($this->storagePath))) {
 
-            $currentSelectionItems [] = $ppRepo->findOneById($id);
+            foreach ($currentSelectionIds as $id) { //one by one request to maintain ordering
 
+                $currentSelectionItems [] = $ppRepo->findOneById($id);
+    
+            }
+            
         }
 
         return $this->render('select_presentations/manage.html.twig', [
@@ -80,14 +82,15 @@ class SelectPresentationsController extends AbstractController
      */
     public function getPickedElements(PPBaseRepository $ppRepo, $label='')
     {
-
-        $ids = json_decode(file_get_contents($this->storagePath));
-
         $elements = [];
 
-        foreach ($ids as $id) { //one by one request to maintain ordering
+        if($ids = json_decode(file_get_contents($this->storagePath))){
 
-            $elements[] = $ppRepo->findOneById($id);
+            foreach ($ids as $id) { //one by one request to maintain ordering
+
+                $elements[] = $ppRepo->findOneById($id);
+
+            }
 
         }
 

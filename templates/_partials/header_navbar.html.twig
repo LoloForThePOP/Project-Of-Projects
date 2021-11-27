@@ -125,7 +125,7 @@
 
         </li>
 
-        {# search form large screens #}
+        {# search bar large screens #}
 
         <form class="d-none d-md-block">
 
@@ -151,7 +151,6 @@
 
         </style>
 
-
       </ul>
 
 
@@ -172,6 +171,21 @@
       <div id="navbarSMToggle" class="collapse navbar-collapse" style="margin-bottom: 7px;">
 
         <ul class="navbar-nav ms-md-auto gap-2">
+
+          {% if is_granted("ROLE_ADMIN") %}
+          
+          <li class="nav-item d-none d-md-inline">
+
+            <a href="{{path ('admin')}}">
+
+              <img class="bg-white px-1 py-1 mt-1 rounded" src="{{ asset('key.svg', 'misc')}}" alt="key icon" style="height:32px;">
+
+            </a>
+
+          </li>
+
+        
+        {% endif %}
 
           {% if not app.user %}
 

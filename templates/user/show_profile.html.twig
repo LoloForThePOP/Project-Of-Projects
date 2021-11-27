@@ -2,12 +2,17 @@
 
 {% block title %}Page Utilisateur{% endblock %}
 
-{% block stylesheets %}<link href="/css/search_results.css" rel="stylesheet">{% endblock %}
+{% block stylesheets %}
+
+  <link href="/css/thumbnails_display.css" rel="stylesheet">
+  <link href="/css/show_more_less_button.css" rel="stylesheet">
+
+{% endblock %}
 
 {% block body %}
 
 
-<div class="container col-md-10 col-lg-8 my-5 p-0 pb-3">
+<div class="container col-md-11 col-lg-8 my-5 p-0 pb-3">
 
     <!-- User Name and Image Area -->
 
@@ -79,11 +84,9 @@
 
     <!-- User Created Project Presentations -->
     
-    <div class="row mb-5">
+    <div class="mb-5">
         
         {% if user.createdPresentations | length > 0 %}
-
-            {% import "search_results/_macro_display_collection.html.twig" as display %}
 
             {% set user_presentations = user.createdPresentations %}
 
@@ -100,10 +103,21 @@
                 {% endif %}
 
             {% endset %}
+
             
+            {% import "search_results/_macro_display_grid_collection.html.twig" as display %}
+            {% block javascripts %}<script src="/js/show_more_less_button.js"></script>{% endblock %}
 
-            {{ display.collection(user_presentations_label, user.createdPresentations | reverse) }}
+            <div class="hide-too-long hide-335 show-tiny-screens mt-4">
 
+                <div class="projects-collection row">
+
+                    {{ display.collection(user_presentations_label, user.createdPresentations | reverse) }}
+
+                </div>
+
+            </div>
+            
         {% endif %}
 
     </div>
@@ -191,6 +205,8 @@
     <!-- end of User Websites --> 
 
 </div>
+
+
 
 <style>
 

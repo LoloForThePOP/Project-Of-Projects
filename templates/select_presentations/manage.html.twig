@@ -54,15 +54,14 @@
 
     <script src="/js/sortable/jquery-sortable.js"></script>
 
-
     <script>
+
+        var pick_up_elements_route = '{{ path("manage_pick_up_elements") }}';
 
         $(document).ready(function(){
 
           $('.ais-InstantSearch').append($('.selected-items-panel'));
           $(".ais-InstantSearch").show();
-
-        });
 
         $('.selected-items-panel').sortable({
 
@@ -70,8 +69,8 @@
             
             group: {
 
-                name:'results-to-selection',
-                pull: 'clone',
+              name:'results-to-selection',
+              pull: 'clone',
 
             },
     
@@ -160,8 +159,14 @@
 
         });
 
+        
 
-        // search.on('render', function () {  alert('yo')});
+        
+
+
+        
+
+      });
 
     </script>
 

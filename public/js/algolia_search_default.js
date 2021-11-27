@@ -1,6 +1,4 @@
-
   $(document).ready(function(){
-
 
     $(".js-close-search-experience").click(function() {
 
@@ -146,76 +144,84 @@
 
   ]);
 
+  if(adminInstance){ //add a drag and drop capability to search results
 
-  search.on('render', function () {  
-    
-    $('.ais-Hits-list').sortable({
+    search.on('render', function () {  
+      
+      $('.ais-Hits-list').sortable({
 
-      animation: 150,
+        animation: 150,
 
-      group: {
+        group: {
 
           name:'results-to-selection',
+          put: false // Do not allow items to be put into this parent list
 
-      },
+        },
 
-      ghostClass: 'blue-background-class',
+        sort: false, // Disable sorting in parent list
 
-      filter: ".disabled",
+        ghostClass: 'blue-background-class',
 
-      onMove: function (evt) {
+        filter: ".disabled",
+
+        onMove: function (evt) {
 
           return evt.related.className.indexOf('disabled') === -1;
 
-      },
+        },
 
-      onEnd: function (evt) {
+        onRemove: function (evt) {
 
-          // changing dragged item wrapping tag (otherwise item disappear each time I click on an algolia pagination number)
-          $(evt.item).replaceWith($('<div class="selected-item">').append($(evt.item).contents()).append('<button type"button" class="js-remove-elem">&times</button>'));
+            // changing dragged item wrapping tag (otherwise item disappear each time I click on an algolia pagination number)
+            $(evt.item).replaceWith($('<div class="selected-item">').append($(evt.item).contents()).append('<button type"button" class="js-remove-elem">&times</button>'));
 
-          //$(evt.item).removeClass("ais-Hits-item");
+            //$(evt.item).removeClass("ais-Hits-item");
 
-          // an array storing elements positions by id
+            // an array storing elements positions by id
 
-          var elementsPositions = [];
-            
-          $('.selected-items-panel a').each(function(index){
-                          
-            elementsPositions.push($(this).data('id'));
-        
-          });
+            var elementsPositions = [];
+              
+            $('.selected-items-panel a').each(function(index){
+                            
+              elementsPositions.push($(this).data('id'));
+          
+            });
 
-          $.ajax({  
+            $.ajax({  
 
-            url: pick_up_elements_route,
-            type:       'POST',   
-            dataType:   'json',
-            data: {
-                "selectionType": 'headlines',
-                "jsonElementsPosition": elementsPositions,
-            },
+              url: pick_up_elements_route, // see manage_select_presentations
+              type:       'POST',   
+              dataType:   'json',
+              data: {
+                  "selectionType": 'headlines',
+                  "jsonElementsPosition": elementsPositions,
+              },
 
-            async: true,  
-            
-            success: function(data, status) {
-                     
-            },  
+              async: true,  
+              
+              success: function(data, status) {
+                      
+              },  
 
-            error : function(xhr, textStatus, errorThrown) {  
-              alert('Une erreur est survenue.');  
-            }  
+              error : function(xhr, textStatus, errorThrown) {  
+                alert('Une erreur est survenue.');  
+              }  
 
-          }); 
+            }); 
 
 
-      },
+        },
 
+      });
+      
     });
-    
-  });
-  
+
+  }
+
   search.start();
+
+  
 
 });
 

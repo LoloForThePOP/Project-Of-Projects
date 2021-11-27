@@ -16,9 +16,9 @@
 
   <script>
 
-      var domain = "{{url('homepage')}}";
+      var domain = '{{url("homepage")}}';
       var app_env = '{{ app.request.server.get("APP_ENV") }}';
-      var pick_up_elements_route = '{{ path("manage_pick_up_elements") }}';
+      var adminInstance = '{{is_granted("ROLE_ADMIN")}}'
 
   </script>
 

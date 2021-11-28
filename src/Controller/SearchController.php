@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\PPBase;
 use Algolia\SearchBundle\SearchService;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -37,7 +36,7 @@ class SearchController extends AbstractController
             ]
         );   
 
-        return $this->render('utilities/_display_collection.html.twig', [
+        return $this->render('utilities/_display_collection_wrapper_template.html.twig', [
             'label' => $label,
             'results' => $results,
         ]);

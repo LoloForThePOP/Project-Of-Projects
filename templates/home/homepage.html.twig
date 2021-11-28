@@ -13,13 +13,9 @@
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-8">
 
-    {% cache "p1" ttl(86400) %}
-
       {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:science)'})) }}
 
       {{ render(path('get_picked_elements', {label: 'À la une'})) }}
-    
-    {% endcache %}
 
     
 

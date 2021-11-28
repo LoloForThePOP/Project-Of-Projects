@@ -144,7 +144,7 @@
 
   ]);
 
-  if(adminInstance){ //add a drag and drop capability to search results
+  if(typeof selection_instance !== 'undefined'){ //add a drag and drop capability to search results, see selection_manage.html
 
     search.on('render', function () {  
       

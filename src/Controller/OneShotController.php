@@ -31,7 +31,7 @@ class OneShotController extends AbstractController
     public function doAction(PPBaseRepository $repo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail): Response
     {
 
-        $presentations = $repo->findAll();
+        /*  $presentations = $repo->findAll();
 
         foreach ($presentations as $presentation) {
             $presentation->setCacheItem('thumbnailParentImageAddress', null);
@@ -44,13 +44,18 @@ class OneShotController extends AbstractController
 
         $manager->flush();
 
-        /*   $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
+         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
         foreach ($presentations as $presentation) {
             $searchService->index($em, $presentation);
         } */
 
-        return $this->render('one_shot/index.html.twig', [
+        $this->addFlash(
+            'success',
+            "✅ L'action one-shot a été effectuée."
+        );
+
+        return $this->redirectToRoute('homepage', [
             'controller_name' => 'OneShotController',
         ]);
 

@@ -18,27 +18,6 @@ class SearchController extends AbstractController
     }
 
     /**
-     * @Route("/search", name="search")
-     */
-    public function index(): Response
-    {
-        $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
-
-        $results = $this->searchService->search($em, PPBase::class, '', 
-            
-            [
-                'filters' => '(categories.uniqueName:material AND categories.uniqueName:science)'
-            ]
-        );   
-
-        //dd($results);
-
-        return $this->render('search/index.html.twig', [
-            'controller_name' => 'SearchController',
-        ]);
-    }
-
-    /**
      * Allow to get search results from a twig query string
      * 
      * label : the label displayed on view (ex: "Environmental Projects").

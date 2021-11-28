@@ -9,15 +9,15 @@
 }
 
 .read-more:focus {
-outline: none;
+    outline: none;
 }
 
 .read-more::-moz-focus-inner {
-border: 0;
+    border: 0;
 }
 
 .hid {
-display: none;
+    display: none;
 }
 
 

@@ -94,7 +94,7 @@ class SelectPresentationsController extends AbstractController
 
         }
 
-        return $this->render('utilities/_display_collection.html.twig', [
+        return $this->render('utilities/_display_collection_macro_wrapper.html.twig', [
             'label' => $label,
             'results' => $elements,
         ]);

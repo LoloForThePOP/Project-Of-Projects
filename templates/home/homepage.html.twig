@@ -7,29 +7,26 @@
   <link href="/css/show_more_less_button.css" rel="stylesheet">
 {% endblock %}
 
+{% block javascripts %}<script src="/js/show_more_less_button.js"></script>
+{% endblock %}
+
 {% import "utilities/_macro_display_collection.html.twig" as display %}
 
 {% block body %}
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-8">
 
+    {% include "home/_search_container.html.twig" %}
 
-    {% cache "p1" ttl(86400) %}
 
       {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:science)'})) }}
 
       {{ render(path('get_picked_elements', {label: 'À la une'})) }}
 
-    {% endcache %}
-
-    
 
     {# Displaying registered user presentations #}
 
     {% if app.user %}
-
-      {% block javascripts %}<script src="/js/show_more_less_button.js"></script>
-      {% endblock %}
 
       {% set user_presentations = app.user.createdPresentations %}
 

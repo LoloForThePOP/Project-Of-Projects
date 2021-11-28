@@ -5,7 +5,7 @@
 }
 
 .hide-335 {
-    max-height: 335px;
+    max-height: 290px;
 }
 
 .read-more:focus {
@@ -30,5 +30,11 @@
     .hide-too-long.show-tiny-screens .read-more{
         display:none;
     }
+        
+    .hide-too-long {
+        
+        overflow-x: auto !important;
+    }
+
 
 }

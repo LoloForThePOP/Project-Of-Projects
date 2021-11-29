@@ -60,8 +60,6 @@
         
       {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
 
-
-      {% cache "c1" ttl(300) %}
           
         {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
 
@@ -69,7 +67,6 @@
         
         {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
 
-      {% endcache %}
       
 
       {#

@@ -28,27 +28,16 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail): Response
+    public function doAction(PPBaseRepository $repo, SearchService $searchService, EntityManagerInterface $manager): Response
     {
 
-        /*  $presentations = $repo->findAll();
+        $presentations = $repo->findAll();
 
-        foreach ($presentations as $presentation) {
-            $presentation->setCacheItem('thumbnailParentImageAddress', null);
-            $presentation->setCacheItem('thumbnailAddress', null);
-
-            $cacheThumbnail->cacheThumbnail($presentation);
-
-            $presentation->unsetCacheItem('thumbnail');
-        }
-
-        $manager->flush();
-
-         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
+        $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
         foreach ($presentations as $presentation) {
             $searchService->index($em, $presentation);
-        } */
+        }
 
         $this->addFlash(
             'success',

@@ -1,83 +1,104 @@
-<div id="homepage-search-bar-container">
+<div id="homepage-search-container">
 
-    <img id="homepage-search-icon" src="{{ asset('search-dark-grey.svg', 'misc')}}" alt="search icon" height="">
+    <div id="homepage-search-bar-container">
 
-    <input id="homepage-search-input" type="text" placeholder="Rechercher" autofocus>
+        <img id="homepage-search-icon" src="{{ asset('search-dark-grey.svg', 'misc')}}" alt="search icon" height="">
 
-    <script>
-        
-        $(document).ready(function(){
-            $(".js-close-search-experience").click(function() {
+        <input id="homepage-search-input" type="text" placeholder="Rechercher une présentation" autofocus>
 
-                $("#main-body-container").removeClass("visually-hidden");
+        <script>
             
+            $(document).ready(function(){
+
+                $(".js-close-search-experience").click(function() {
+
+                    $("#main-body-container").removeClass("visually-hidden");
+
+                    document.getElementById('homepage-collections').scrollIntoView();
+
+                });
+
             });
+            
+        </script>
 
-        });
-        
-    </script>
+        <style>
 
-    <style>
+            #homepage-search-container{
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
-        #homepage-search-bar-container{
-        display: flex;
-        align-items: center;
-        width: 585px;
-        border: 1px solid #dfe1e5;
-        border-radius: 24px;
-        background-color: white;
-        padding: 7px 15px 7px 15px;
-        }
+                height: 200px;
+                margin-bottom: 60px;
 
-        #homepage-search-bar-container:hover{
-        background-color: #fff;
-        box-shadow: 0 1px 6px rgba(32,33,36,.28);
-        border-color: rgba(223,225,229,0);
-        }
+                border: 1px solid #dedeff;
+                border-radius: 7px;
+                box-shadow: 0 1px 6px rgba(32,33,36,.28);
 
-        #homepage-search-input{
-        border: none;
-        outline: none;
-        width: 100%;
-        }
+            }
 
-        #homepage-search-input::placeholder{
-        color: rgb(160, 160, 255) !important;
-        }
+            #homepage-search-bar-container{
+                display: flex;
+                align-items: center;
+                width: 585px;
+                border: 1px solid #dfe1e5;
+                border-radius: 24px;
+                background-color: white;
+                padding: 7px 15px 7px 15px;
+            }
 
-        #homepage-search-icon{
-        height: 20px;
-        padding-right: 13px;
-        }
+            #homepage-search-bar-container:hover{
+                background-color: #fff;
+                box-shadow: 0 1px 6px rgba(32,33,36,.28);
+                border-color: rgba(223,225,229,0);
+            }
 
-        #navbar_md_search_input{
-        display: none !important;
-        }
+            #homepage-search-input{
+                border: none;
+                outline: none;
+                width: 100%;
+            }
 
-        .visually-hidden {
-            position: absolute;
-            top:0;
-            left: 0;
-          
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            border: 0;
-            padding: 0;
-          
-            clip: rect(0 0 0 0);
-            overflow: hidden;
-          }
-          
+            #homepage-search-input::placeholder{
+                color: rgb(45, 45, 146) !important;
+            }
 
-        @media screen and (max-width: 580px) {
+            #homepage-search-icon{
+                height: 20px;
+                padding-right: 13px;
+            }
 
-        #homepage-search-bar-container{
-            display: none;
-        }
+            #navbar_md_search_input{
+                display: none !important;
+            }
 
-        }
+            .visually-hidden {
+                position: absolute;
+                top:0;
+                left: 0;
+            
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                border: 0;
+                padding: 0;
+            
+                clip: rect(0 0 0 0);
+                overflow: hidden;
+            }
+            
 
-    </style>
+            @media screen and (max-width: 580px) {
+
+                #homepage-search-container{
+                    display: none;
+                }
+
+            }
+
+        </style>
+
+    </div>
 
 </div>

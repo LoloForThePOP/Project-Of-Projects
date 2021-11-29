@@ -83,7 +83,8 @@ $(document).ready(function(){
       search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
 
       if($(this).attr("id")=="homepage-search-input"){
-        $("#main-body-container").addClass("visually-hidden")
+        $('html,body').scrollTop(0);
+        $("#main-body-container").addClass("visually-hidden");
 
       }else{$("#main-body-container").hide();} //hide the rest}
 

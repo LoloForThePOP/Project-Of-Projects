@@ -3,26 +3,18 @@
 {% block title %}Propon{% endblock %}
 
 {% block stylesheets %}
-  <link href="/css/thumbnails_display.css" rel="stylesheet">
+  <link href="/css/titled_projects_collection.css" rel="stylesheet">
   <link href="/css/show_more_less_button.css" rel="stylesheet">
 {% endblock %}
 
 {% block javascripts %}<script src="/js/show_more_less_button.js"></script>
 {% endblock %}
 
-{% import "utilities/_macro_display_collection.html.twig" as display %}
+{% import "utilities/_macro_titled_collection.html.twig" as display %}
 
 {% block body %}
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-8">
-
-    {% include "home/_search_container.html.twig" %}
-
-
-      {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:science)'})) }}
-
-      {{ render(path('get_picked_elements', {label: 'À la une'})) }}
-
 
     {# Displaying registered user presentations #}
 
@@ -50,22 +42,45 @@
 
     {% endif %}
 
-   {# Case user not logged in : displaying homepage jumbotron #}
-
-  {% if not app.user %}
-      
     <div class="px-0 px-md-4 px-lg-4 col-xxl-11">
-            
-      {% include "home/_jumbotron.html.twig" %}
+
+      {# Case user not logged in : displaying homepage jumbotron #}
+
+      {% if not app.user %}
+      
+        {% include "home/_jumbotron.html.twig" %}
+      
+      {% endif %}
+        
+      {% include "home/_search_container.html.twig" %}
     
     </div>
 
-  {% endif %}
+    <div id="homepage-collections">
+        
+      {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
 
-    {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
+
+      {% cache "c1" ttl(300) %}
+          
+        {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
+
+        {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}
+        
+        {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+
+      {% endcache %}
+      
+
+      {#
+        
+        {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }}
+
+      #}
+
+
+    </div>
 
   </div> {# close an unknow div who mess up footer display #}
-
-
 
 {% endblock %}

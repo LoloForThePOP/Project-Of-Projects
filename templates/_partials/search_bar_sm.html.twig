@@ -33,7 +33,7 @@
         form.addEventListener('submit', function(e) {
           
           e.preventDefault();
-          hideKeyboard($("navbar_sm_search_input"));
+          hideKeyboard($("#navbar_sm_search_input"));
 
         });
 
@@ -83,7 +83,7 @@
     //reset search input on mobile (black cross)
     $(".js-reset-search-icon").click(function() {
 
-      $('#navbar_sm_search_input').val('');
+      $('#navbar_sm_search_input').val('').focus();
       document.querySelector('#searchbox .ais-SearchBox-input').value = '';
       search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
 

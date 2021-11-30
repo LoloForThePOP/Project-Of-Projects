@@ -3,6 +3,15 @@
 
 {% block title %}Catégories du Projet{% endblock %}
 
+{% block stylesheets %}
+
+    <link href="/css/select_categories_keywords.css" rel="stylesheet">
+
+    {# JQuery ui for keywords autocomplete#}
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" type="text/css" />
+
+{% endblock %}
+
 
 {% block mainContentTitle %}Catégories du Projet{% endblock %}
 
@@ -38,7 +47,7 @@
 
     {# javascript inclusions #}
 
-    {% include "project_presentation/edit/categories/_js_select.html.twig" %}
+    {% include "project_presentation/edit/categories/_js_select_keywords.html.twig" %}
 
 
     <div id="cat-grid" class="col-xxl-10 clearfix">
@@ -91,17 +100,20 @@
         <div id="keywords-string" class="d-none">{{presentation.keywords}}</div>
 
     </div>
+
     
+    <style> /* Overide some embeded default spacings */
 
+        .main-content-container {
+            margin-bottom: 25px; /* Reduced default margin to reduce result button vertical spacing */
+        }
 
-    {% block specificStyles %}
+        .edit-structure-container {
+            padding-top: 20px; /* Reduced default adding to see keywords below */
+        }
 
-        {% include "project_presentation/edit/categories/_css_select.html.twig" %}
-
-
-
-    {% endblock %}
- 
+    </style>
+     
 
 {% endblock %}
 
@@ -109,7 +121,7 @@
 
 {% block specificJavascripts %}
 
-    <script>
+    <script> // categories selection
         
         $(document).ready(function(){
 
@@ -145,6 +157,7 @@
             });  
 
         });  
+
     </script>
 
     

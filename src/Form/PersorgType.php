@@ -59,7 +59,7 @@ class PersorgType extends AbstractType
                 'description',
                 TextareaType::class, 
                 [
-                    'label' => 'Ajouter des informations, des remarques ?',
+                    'label' => 'Ajouter des informations ou des remarques ?',
 
                     'attr' => [
                         

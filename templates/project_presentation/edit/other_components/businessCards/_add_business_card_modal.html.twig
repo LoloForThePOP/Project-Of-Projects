@@ -1,4 +1,4 @@
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "add_business_card_form_modal", 'modal_title': "Nouvelle carte de visite", 'modal_size' : "modal-lg"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "add_business_card_form_modal", 'modal_title': "Contacter votre équipe", 'modal_size' : "modal-lg"} %}
         
     {% block modalBody %}
 
@@ -6,6 +6,33 @@
         {{ form_start(form) }}
 
         {% include "project_presentation/edit/other_components/businessCards/_form.html.twig" %}
+
+        <style>
+
+            @media screen and (max-width: 580px) {
+
+                .modal-body{
+                    padding: 10px 9px;
+                }
+
+                form[name="business_card"] .contact-icon {
+    
+                    margin-right: 5px;
+                    margin-bottom: 6px;
+    
+                }
+
+                form[name="business_card"] label {
+    
+                    display: inline;
+                    font-size: 17px !important;
+                    font-weight: normal !important;
+    
+                }
+    
+            }
+    
+        </style>
 
     {% endblock %}
 

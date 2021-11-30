@@ -6,22 +6,35 @@
       
     </div>
 
-    <form id="search_sm_proxy">
-        
+    <form id="search_sm_proxy"> 
+      
+      {# Proxy for #searchbar search input #}
       <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
 
       <button class="d-none" type="submit">ok</button>
 
       <script>
 
+        function hideKeyboard(element) { //Thanks to https://stackoverflow.com/questions/8335834
+          element.attr('readonly', 'readonly'); // Force keyboard to hide on input field.
+          element.attr('disabled', 'true'); // Force keyboard to hide on textarea field.
+          setTimeout(function() {
+              element.blur();  //actually close the keyboard
+              // Remove readonly attribute after keyboard is hidden.
+              element.removeAttr('readonly');
+              element.removeAttr('disabled');
+          }, 100);
+        }
+
         // Gets a reference to the form element
         var form = document.getElementById('search_sm_proxy');
         
         // Adds a listener for the "submit" event.
         form.addEventListener('submit', function(e) {
-        
+          
           e.preventDefault();
-        
+          hideKeyboard($("navbar_sm_search_input"));
+
         });
 
       </script>
@@ -29,12 +42,16 @@
     </form>
     
 
-    <div class="js-reset-search-icon-container unseen">
+    <div class="js-reset-search-icon-container unseen">{# reset input black cross icon #}
+
       <img id="" class="js-reset-search-icon" src="{{ asset('close.svg', 'misc')}}" alt="clear search input" style="height:19px;">
+
     </div>
 
-    <div class="">
+    <div class="search-filters-icon-container">
+
       <img id="" class="js-filter-search-panel panel-hidden" src="{{ asset('filters.svg', 'misc')}}" alt="open filters" style="height:21px; padding-right: 9px;">
+
     </div>
     
 </div>
@@ -42,6 +59,7 @@
 
   <script>
 
+    //trigger mobile search bar appearance when clicking on search icon
     $("#search_icon_small_screens").click(function() {
 
         $(".search-container-bar-sm").removeClass("unseen");
@@ -52,6 +70,7 @@
 
     });
 
+    //trigger go back from search bar
     $(".back_from_search_sm_icon").click(function() {
 
       $(".search-container-bar-sm").addClass("unseen");
@@ -59,8 +78,18 @@
       $("#main-body-container").show();
       window.scrollTo(0, 0);
 
-    });  
+    });
 
+    //reset search input on mobile (black cross)
+    $(".js-reset-search-icon").click(function() {
+
+      $('#navbar_sm_search_input').val('');
+      document.querySelector('#searchbox .ais-SearchBox-input').value = '';
+      search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
+
+    });
+
+    //trigger search filters appearance / disappearance on mobile
     $(".js-filter-search-panel").click(function() {
 
       if($(this).hasClass('panel-hidden')){

@@ -30,7 +30,7 @@ class SelectPresentationsController extends AbstractController
 
             foreach ($currentSelectionIds as $id) { //one by one request to maintain ordering
 
-                $currentSelectionItems [] = $ppRepo->findOneById($id);
+                $currentSelectionItems[] = $ppRepo->findOneById($id);
     
             }
             
@@ -55,10 +55,6 @@ class SelectPresentationsController extends AbstractController
         if ($request->isXmlHttpRequest()) {
 
             $jsonSelection = $request->request->get('jsonElementsPosition');
-
-            
-
-            dump($jsonSelection);
 
             file_put_contents($this->storagePath, json_encode($jsonSelection));
            

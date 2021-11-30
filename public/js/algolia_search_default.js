@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 
-  //search panel close button on large screens
+  //search panel close button (except from homepage, and only on large screens from navbar searchbar)
   $(".js-close-search-experience").click(function() {
 
     $(".search-experience-container").hide();
@@ -9,16 +9,13 @@ $(document).ready(function(){
 
   });
 
+  //same but from homepage body searchbar (main body container is now not hidden but 1px * 1px, so treatment is different)
+  $(".js-close-search-experience").click(function() {
 
-  //reset search button on mobile (black cross)
-  $(".js-reset-search-icon").click(function() {
-
-    $('#navbar_sm_search_input').val('');
-    document.querySelector('#searchbox .ais-SearchBox-input').value = '';
-    search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
+    $("#main-body-container").removeClass("visually-hidden");
+    document.getElementById('homepage-collections').scrollIntoView();
 
   });
-
 
   //create a random background color for default thumbnails
   function randomColor(){
@@ -82,6 +79,7 @@ $(document).ready(function(){
       //then refresh algolia search
       search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
 
+      //from homepage search, we hide body-container with a 1px*1px dimensions
       if($(this).attr("id")=="homepage-search-input"){
         $('html,body').scrollTop(0);
         $("#main-body-container").addClass("visually-hidden");

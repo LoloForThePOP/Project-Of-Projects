@@ -58,9 +58,8 @@
 
     <div id="homepage-collections">
         
-      {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
-
-          
+        {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
+  
         {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
 
         {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}

@@ -23,7 +23,12 @@ class AdminDashboardController extends AbstractDashboardController
         // redirect to some CRUD controller
         $routeBuilder = $this->get(AdminUrlGenerator::class);
 
-        return $this->redirect($routeBuilder->setController(PPBaseCrudController::class)->generateUrl());
+        //return $this->redirect($routeBuilder->setController(PPBaseCrudController::class)->generateUrl());
+
+        return $this->render('admin/home.html.twig', [
+            /* 'accounts' => $accounts,
+            'contacts' => $contacts, */
+        ]);
     }
 
     public function configureDashboard(): Dashboard

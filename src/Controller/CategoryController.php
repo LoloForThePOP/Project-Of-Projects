@@ -130,7 +130,7 @@ class CategoryController extends AbstractController
 
         $categories= $categoryRepository->findBy([], ['position' => 'ASC']);
 
-        return $this->render('project_presentation/edit/categories/admin_manage.html.twig', [
+        return $this->render('project_presentation/edit/categories/admin/admin_manage.html.twig', [
 
             'categories' => $categories,
             'admin' => true,
@@ -213,7 +213,7 @@ class CategoryController extends AbstractController
             return $this->redirectToRoute('manage_categories', []);
         }
 
-        return $this->render('project_presentation/edit/categories/admin_edit.html.twig', [
+        return $this->render('project_presentation/edit/categories/admin/admin_edit.html.twig', [
             
             'form' => $form->createView(),
             'context' => $context,

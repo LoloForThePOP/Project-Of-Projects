@@ -1,8 +1,23 @@
-{% macro collection(title, items) %}
+{% macro collection ( title="", items, class="" ) %}
+
+    {% if class == "user-presentations" %} {# Manage plural forms #}
+
+        {% set count = items | length %}
+       
+        {% if count == 1 %}
+
+            {% set title = "Mon projet présenté" %}
+        
+        {% else %} {% set title = "Mes " ~ count ~ " projets présentés" %}
+
+    {% endif %}
+    
+    
+    {% endif %}
 
     {% set defaultThumbnailBG = ['#884394', '#3f51b5', '#009688', '#42a346', '#ff9800', '#2d66ba', '#a58f4f', '#129d90', '#428392', '#263b78', '#878273', '#705c20', '#d24040', '#c1944e'] %}
 
-    <div class="titled-projects-container">
+    <div class="titled-projects-container {{class}}">
 
         <h3 class="collection-title">{{title}}</h3>
 

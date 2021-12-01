@@ -24,19 +24,22 @@
 
       {% if user_presentations | length > 0 %}
 
-          {# Plural forms #}
-              
-          {% set user_presentations_label %}
-            
-            {% if user_presentations | length == 1 %}Mon projet présenté
-            
-            {% else %}Mes {{user_presentations | length}} projets présentés
+        {{ display.collection("", user_presentations | reverse, "user-presentations") }} {# collection title managed in macro#}
 
-            {% endif %}
+        <style>
 
-          {% endset %}
-
-          {{ display.collection(user_presentations_label, user_presentations | reverse) }}
+          .user-presentations {
+            margin-top: 11px;
+          }
+          
+          @media screen and (max-width: 580px) {
+                  
+            .user-presentations {
+              margin-top: 0px;
+            }
+          }
+    
+        </style>
 
       {% endif %}
 

@@ -57,7 +57,7 @@ class CategoryType extends AbstractType
 
                 array(
 
-                    'label' => 'Choose an icon',
+                    'label' => 'Choose a SVG ICON with SAME NAME as category unique name above',
 
                     'required' => false,
                     'allow_delete' => true,

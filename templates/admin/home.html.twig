@@ -1,0 +1,36 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+
+{% block content_title %}{% endblock %}
+
+{% block main %}
+
+    <div class="container">
+
+        <div class="row">
+
+            <div class="container">
+
+                <a href="{{ path('one_shot') }}">
+                    <button class="btn btn-light btn-lg me-3">Action unique</button>
+                </a>
+
+                <a href="{{ path('manage_pick_elements') }}">
+                    <button class="btn btn-light btn-lg me-3">Projets à la une</button>
+                </a>
+
+                <a href="{{ path('manage_categories') }}">
+                    <button class="btn btn-light btn-lg me-3">Catégories</button>
+                </a>
+                    
+            </div>
+
+        </div>
+
+        <div class="row"></div>
+       
+        
+
+    </div>
+
+{% endblock %}

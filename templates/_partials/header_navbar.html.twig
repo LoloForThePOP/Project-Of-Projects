@@ -154,10 +154,75 @@
 
       </ul>
 
+     
 
+        {% set userAccountMenu %}
 
-      {# hide / show overall menu button (on small screens) #}
-      {# Trigger Button #}
+           {% if app.user %}
+
+           <div class="bg-white" style="">
+            <div class="container d-flex align-items-center justify-content-center text-center my-3">
+              {{app.user.userName}}
+            </div>
+  
+            <li>
+  
+              <a class="dropdown-item" href="{{path('create_presentation')}}">Ajouter un Projet</a>
+  
+            </li>
+  
+            <li>
+  
+              <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
+                Mes Projets présentés
+              </a>
+  
+            </li>
+  
+            {# Dropdown Divider #}
+  
+            <li>
+  
+              <hr class="dropdown-divider">
+  
+            </li>
+  
+            <li>
+  
+              <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
+                Mon Compte
+              </a>
+  
+            </li>
+  
+            {# Dropdown Divider #}
+  
+            <li>
+  
+              <hr class="dropdown-divider">
+  
+            </li>
+  
+            {# logout button #}
+  
+            <li>
+  
+              <a class="dropdown-item" href="{{path('app_logout')}}">
+  
+                Déconnexion
+  
+              </a>
+  
+            </li>
+
+           </div>
+        
+          {% endif %}
+        {% endset %}
+      
+      
+      {# This button and bellow collapsible is only seen on mobile #}
+      {# hide / show menu  - trigger button #}
 
       <button class="btn text-body navbar-toggler" data-bs-target="#navbarSMToggle" aria-controls="navbarSMToggle" type="button"
         data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" style="color:white !important">
@@ -166,9 +231,15 @@
 
       </button>
 
-      {# These elements are toggled on small screens #}
+      {# These elements are collapsed and displayed only on small screens #}
       
       <div id="navbarSMToggle" class="collapse navbar-collapse" style="margin-bottom: 7px;">
+
+        <div class="d-md-none">
+
+          {{ userAccountMenu }}
+
+        </div>
 
         <ul class="navbar-nav ms-md-auto gap-2">
 
@@ -183,7 +254,6 @@
             </a>
 
           </li>
-
         
         {% endif %}
 
@@ -207,13 +277,14 @@
 
           {% endif %}
 
+          {# This dropdown is only seen on medium to large screens #}
           {# User Account Dropdown #}
 
           {% if app.user %}
 
             {# Trigger Button #}
 
-            <li class="nav-item dropdown rounded">
+            <li class="d-none d-md-block nav-item dropdown rounded">
 
               <a id="userAccountDropdown" class="nav-link dropdown-toggle btn btn-primary fw-bold text-white" href="#"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -227,62 +298,7 @@
 
               <ul aria-labelledby="userAccountDropdown" class="dropdown-menu dropdown-menu-end fw-bold" style="width: 260px;">
 
-                <div class="container d-flex align-items-center justify-content-center text-center my-3">
-                  {{app.user.userName}}
-                </div>
-
-                <li>
-
-                  <a class="dropdown-item" href="{{path('create_presentation')}}">Ajouter un Projet</a>
-
-                </li>
-
-                <li>
-
-                  <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
-                    Mes Projets présentés
-                  </a>
-
-                </li>
-
-                {# Dropdown Divider #}
-
-                <li>
-
-                  <hr class="dropdown-divider">
-
-                </li>
-
-
-                <li>
-
-                  <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
-                    Mon Compte
-                  </a>
-
-                </li>
-
-                {# Dropdown Divider #}
-
-                <li>
-
-                  <hr class="dropdown-divider">
-
-                </li>
-
-                {# logout button #}
-
-                <li>
-
-                  <a class="dropdown-item" href="{{path('app_logout')}}">
-
-                    Déconnexion
-
-                  </a>
-
-                </li>
-
-                {# End of User Account Dropdown Content #}
+                {{ userAccountMenu }}
 
               </ul>
 
@@ -318,6 +334,5 @@
     }
 
   }
-
 
 </style>

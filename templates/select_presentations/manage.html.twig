@@ -6,11 +6,11 @@
 
 <div id="" class="selected-items-panel">
 
-  <a href="{{ path('admin') }}">
+  <a class="disabled" href="{{ path('admin') }}">
     <button class="btn btn-light mb-3">Quitter (retour administration)</button>
   </a>
 
-  <h5 class="fw-bold mb-3">Votre sélection</h5>
+  <h5 class="fw-bold mb-3 disabled">Votre sélection</h5>
 
   {% if currentSelection is not empty %}
 

@@ -4,11 +4,10 @@
 
 {% set helperItems = [ 
         
-    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du projet ?",'finalRenderingLabel': ""}, 
         
+    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du projet ?",'finalRenderingLabel': ""}, 
+
     { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
-    
-    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est née l'idée du projet ?"}, 
 
     { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du projet ?"},
 
@@ -18,7 +17,14 @@
     
     { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Acceptez-vous de l'aide (recherchez-vous des contributeurs bénévoles ou payés) ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
+    { 'uniqueName': "categories_keywords", 'type': "categories_keywords", 'questionFr': "Faciliter la découverte de votre projet"},
+
 ] %}
+
+{# For another form...
+
+    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est née l'idée du projet ?"}, 
+#}
 
 
 {% set currentItem = helperItems[position] %}
@@ -70,13 +76,11 @@
 
     <style>
 
-
         .hide-me{
 
             display: none;
 
         }
-
 
         #flash-messages {
             

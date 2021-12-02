@@ -90,8 +90,10 @@ class CategoryController extends AbstractController
 
             $manager->flush();
 
-            return new Response();
+            return new JsonResponse(true);
         }
+
+        return new JsonResponse();
     }
 
     /** 
@@ -114,7 +116,7 @@ class CategoryController extends AbstractController
 
             $manager->flush();
 
-            return  new JsonResponse(true);
+            return new JsonResponse(true);
         }
     }
 

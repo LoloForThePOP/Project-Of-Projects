@@ -2,15 +2,16 @@
 
 namespace App\Controller;
 
+use App\Entity\Need;
 use App\Entity\PPBase;
 use App\Service\TreatItem;
 use App\Form\PresentationHelperType;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use App\Entity\Need;
 
 class PresentationHelperController extends AbstractController
 {
@@ -23,10 +24,14 @@ class PresentationHelperController extends AbstractController
      * 
      * @Route("{stringId}/helper/{position}/{repeatInstance}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments): Response
+    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
+
+        $categories = $categoryRepository->findBy([], ['position' => 'ASC']);
+
+       
 
         if($position==null){
 
@@ -101,7 +106,6 @@ class PresentationHelperController extends AbstractController
 
                 $presentation->addNeed($need);
 
-
                 $manager->persist($need);
                 $manager->flush();
                 
@@ -159,6 +163,8 @@ class PresentationHelperController extends AbstractController
             return $this->redirectToRoute('presentation_helper', [
 
                 'stringId' => $presentation->getStringId(),
+                'presentation' => $presentation,
+                'categories' => $categories,
                 'position' => $nextPosition,
                 'repeatInstance' => $repeatInstance,
                                
@@ -169,7 +175,9 @@ class PresentationHelperController extends AbstractController
         return $this->render('presentation_helper/origin.html.twig', [
             'form' => $form->createView(),
             'position' => $position,
+            'categories' => $categories,
             'stringId' => $presentation->getStringId(),
+            'presentation' => $presentation,
             'repeatInstance' => $repeatInstance,
         ]);
 

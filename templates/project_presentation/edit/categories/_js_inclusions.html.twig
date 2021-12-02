@@ -1,0 +1,21 @@
+
+    <!-- jquery autocomplete for keywords (wikipedia) -->
+    <script src="/js/jquery-ui.min.js"></script>
+
+    <!-- sortable plugin to reorder keywords -->
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for above sortable plugin -->
+    <script src="/js/sortable/jquery-sortable.js"></script>
+
+    <!-- manage categories and keywords app variables -->
+    <script> 
+
+        var ajaxUpdateCategoriesRoute = "{{path('ajax_select_category', {'stringId': stringId}) }}";
+
+        var ajaxUpdateKeywordsRoute = "{{path('ajax_update_keywords', {'stringId': stringId})}}";
+
+    </script>
+
+    <!-- manage categories and keywords app -->
+    <script src="/js/select_categories_keywords.js"></script>

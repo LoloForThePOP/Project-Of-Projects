@@ -11,6 +11,8 @@ $(document).ready(function(){
 
         $(this).toggleClass("selectedCategory");
 
+        $(this).find(".bt-right-col").append('<div class="check-mark">✅</div>');
+
         $.ajax({  
 
             url: ajaxUpdateCategoriesRoute,
@@ -22,11 +24,13 @@ $(document).ready(function(){
             async:      true,  
             
             success: function(data, status) {  
-                // alert(data.catId)
+               
+                $(".check-mark").remove();
                 
             },  
+
             error : function(xhr, textStatus, errorThrown) {  
-                // alert('Ajax request failed.');  
+                //alert('Ajax request failed.');  
             }  
         });  
 

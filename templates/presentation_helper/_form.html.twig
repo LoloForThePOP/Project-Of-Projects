@@ -1,4 +1,3 @@
-
 <!-- Question -->
 
 {% if repeatInstance == "false" %}
@@ -8,47 +7,13 @@
 {% endif %}
 
 
-{% if currentItem.type == "places" %}
+{% if currentItem.type == "categories_keywords" %}
 
-    {% set googleMapApiKey = app.request.attributes.get('googleMapApiKey') %}
-
-    {% block stylesheets %}<link href="/css/places_autocomplete.css" rel="stylesheet">{% endblock %}
-
-    {% include "project_presentation/edit/places/_js.html.twig" %}
-
-    <input id="autocomplete" class="form-control mb-3" placeholder="Ajouter ici une ville; un département; une région; ou un pays" />
-
-    <!-- Feedback Box -->
-
-    <div id="feedbackBox" class="">;-)</div>
-
-    <!-- Project Places Table Display -->
-
-        <table id="projectPlacesTable" class="table table-bordered table-hover rounded" style="display:none;">
-
-            <thead>
-                <tr>
-                    <th id="">Type du lieu</th>
-                    <th id="">Nom du lieu</th>
-                    <th>Retirer ?</th>
-                </tr>
-            </thead>
+    {% include "presentation_helper/_categories_keywords.html.twig" %}
     
-            <tbody id="elements-list" data-elements-type="places">
-
-            </tbody>
-
-        </table>
-
-        <!-- Action Buttons -->
-
-        <div class="action-buttons-container">
-
-            <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
-                <button type="button" class="jumbotron-btn btn btn-secondary me-md-2">Question suivante</button>
-            </a>
-
-        </div>
+{% elseif currentItem.type == "places" %}
+    
+    {% include "presentation_helper/_places.html.twig" %}
 
 {% else %}
 

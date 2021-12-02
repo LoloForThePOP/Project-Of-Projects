@@ -5,37 +5,13 @@
 
 {% block stylesheets %}
 
-    <link href="/css/select_categories_keywords.css" rel="stylesheet">
-
-    {# JQuery ui for keywords autocomplete#}
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" type="text/css" />
+    {% include "project_presentation/edit/categories/_css_inclusions.html.twig" %}
 
 {% endblock %}
 
 {% block javascripts %}
 
-    <!-- jquery autocomplete for keywords (wikipedia) -->
-    <script src="/js/jquery-ui.min.js"></script>
-
-    <!-- sortable plugin to reorder keywords -->
-    <script src="/js/sortable/sortable.min.js"></script>
-
-    <!-- jQuerySupport for above sortable plugin -->
-    <script src="/js/sortable/jquery-sortable.js"></script>
-
-    <!-- manage categories and keywords app variables -->
-        
-    <script> 
-
-        var ajaxUpdateCategoriesRoute = "{{path('ajax_select_category', {'stringId': presentation.stringId}) }}";
-
-        var ajaxUpdateKeywordsRoute = "{{path('ajax_update_keywords', {'stringId': stringId})}}";
-
-    </script>
-
-    <!-- manage categories and keywords app -->
-
-    <script src="/js/select_categories_keywords.js"></script>
+    {% include "project_presentation/edit/categories/_js_inclusions.html.twig" %}
 
 {% endblock %}
 
@@ -63,8 +39,6 @@
 
             <li><strong>Compléter avec des mots-clés est efficace</strong></li>
 
-            <li>Séparez les mots-clés <span>avec des virgules</span></li>
-
         </ul>
 
     {% endblock %}
@@ -74,68 +48,30 @@
 
         <div id="cat-grid" class="col-xxl-10 clearfix">
 
-            {% include "project_presentation/edit/categories/_list.html.twig" %}
+            {% include "project_presentation/edit/categories/_categories_list.html.twig" %}
         
         </div>
 
-
-        <div id="manage-keywords-container">
-
+        <div id="keywords-struct-container" class="">
+            
             <h4 class="h3 fw-bold mb-3">Mots-clés</h4>
 
-            <form class="mb-4" method="get">
-
-                <input id="tagInput" class="me-2 mb-3" type="search" placeholder="Écrire ici" />
-
-                <button id="tag-submit-button" class="btn btn-validate mb-3" type="submit" style="vertical-align: baseline !important;">Ajouter</button>
-
-            </form>
-
-            <div id="keywords-display">
-
-                {% if presentation.keywords | length > 0 %}
-
-                    {% set keywords = presentation.keywords | split(',') %}
-
-                    {% for keyword in keywords %}
-                        
-                        <div class="keyword-wrapper">
-
-                            {# left column contains text #}
-
-                            <div class="left-col d-inline-block">{{keyword}}</div>
-
-                            {# right column contains remove button #}
-
-                            <div class="right-col d-inline-block">
-                                <div class="remove-keyword">&times</div>
-                            </div>
-
-                        </div>
-
-                    {% endfor %}
-
-                {% endif %}
-
-            </div>
-
-            <div id="keywords-string" class="d-none">{{presentation.keywords}}</div>
-
+            {% include "project_presentation/edit/categories/_manage_keywords.html.twig" %}
+        
         </div>
 
-        
         <style> /* Overide some embeded default spacings */
-
-            #manage-keywords-container{
-                margin-top: 30px;
-            }
 
             .main-content-container {
                 margin-bottom: 25px; /* Reduced default margin to reduce result button vertical spacing */
             }
 
             .edit-structure-container {
-                padding-top: 20px; /* Reduced default padding to see keywords bellow */
+                padding-top: 20px !important; /* Reduced default padding to see keywords bellow */
+            }
+
+            #keywords-struct-container{
+                margin-top: 20px;
             }
 
         </style>

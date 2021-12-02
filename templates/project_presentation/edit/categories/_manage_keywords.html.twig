@@ -1,0 +1,42 @@
+
+<div id="manage-keywords-container">
+
+    <form class="mb-4" method="get">
+
+        <input id="tagInput" class="me-2 mb-3" type="search" placeholder="Écrire ici" />
+
+        <button id="tag-submit-button" class="btn btn-validate mb-3" type="submit" style="vertical-align: baseline !important;">Ajouter</button>
+
+    </form>
+
+    <div id="keywords-display">
+
+        {% if presentation.keywords | length > 0 %}
+
+            {% set keywords = presentation.keywords | split(',') %}
+
+            {% for keyword in keywords %}
+                
+                <div class="keyword-wrapper">
+
+                    {# left column contains text #}
+
+                    <div class="left-col d-inline-block">{{keyword}}</div>
+
+                    {# right column contains remove button #}
+
+                    <div class="right-col d-inline-block">
+                        <div class="remove-keyword">&times</div>
+                    </div>
+
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </div>
+
+    <div id="keywords-string" class="d-none">{{presentation.keywords}}</div>
+
+</div>

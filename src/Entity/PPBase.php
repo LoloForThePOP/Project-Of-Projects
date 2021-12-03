@@ -235,6 +235,8 @@ class PPBase implements \Serializable
 
         $this->data['validatedStringId'] = false; // flag to know wether presentation slug is still a randomized string (false) or user has validated his own slug (ex: propon.org/my-project instead of propon.org/tr3H2Y).
 
+        $this->data['viewsCount'] = 0;
+
         $this->cache['thumbnailParentImageAddress'] = null;
         $this->cache['thumbnailAddress'] = null;
 
@@ -960,12 +962,12 @@ class PPBase implements \Serializable
         return $this;
     }
 
-    public function getOneData($key)
+    public function getDataItem($key)
     {
         return $this->data[$key];
     }
 
-    public function setOneData($key, $value): self
+    public function setDataItem($key, $value): self
     {
         $this->data[$key] = $value;
 

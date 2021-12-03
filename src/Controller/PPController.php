@@ -118,6 +118,15 @@ class PPController extends AbstractController
 
         $user = $this->getUser();
 
+        //updating views count
+        if($user != $presentation->getCreator()){
+
+            $presentation->setDataItem('viewsCount', $presentation->getDataItem('viewsCount')+1);
+
+            $manager->flush();
+
+        }
+
         if ($this->isGranted('edit', $presentation)) {
 
             $addWebsiteForm = $this->createForm(WebsiteType::class);
@@ -434,7 +443,7 @@ class PPController extends AbstractController
             $updateStringIdForm = $this->createForm(StringIdType::class, $presentation);
             $suggestedStringId = null;
 
-            if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getOneData("validatedStringId") == false) {
+            if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getDataItem("validatedStringId") == false) {
 
                 $suggestedStringId = $slug->suggestSlug($presentation);
                 $updateStringIdForm->handleRequest($request);
@@ -444,7 +453,7 @@ class PPController extends AbstractController
                     $slugedInput = $slug->slugInput($updateStringIdForm->get('stringId')->getData());
 
                     $presentation->setStringId($slugedInput);
-                    $presentation->setOneData("validatedStringId", true);
+                    $presentation->setDataItem("validatedStringId", true);
 
                     $manager->flush();
 
@@ -644,7 +653,7 @@ class PPController extends AbstractController
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
-        if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getOneData("validatedStringId") == true) {
+        if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getDataItem("validatedStringId") == true) {
             
             $form = $this->createForm(StringIdType::class, $presentation);
 

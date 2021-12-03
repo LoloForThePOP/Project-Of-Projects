@@ -25,6 +25,7 @@
 
 {% block body %}
 
+
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
     
     {% if is_granted('edit', presentation) %}
@@ -65,17 +66,10 @@
     {% set privateMessagesActive = presentation.getParameter('arePrivateMessagesActivated') %}
     {% set countBC = presentation.getOC('businessCards') | length %}
 
-
     {% set overallQualityAssessment = presentation.overallQualityAssessment %}
 
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
-
-    {#
-        <pre>
-            {{ dump(presentation.cache) }}
-        </pre>
-    #}
 
     {# Upper box containing Project Title + Goal + Logo #}
     
@@ -99,7 +93,7 @@
 
     {# Notification "Set a personalised slug" #}
 
-    {% if userPresenter and presentation.getOneData('validatedStringId') == false and overallQualityAssessment > 1 %}
+    {% if userPresenter and presentation.getDataItem('validatedStringId') == false and overallQualityAssessment > 1 %}
 
         {% include 'project_presentation/_show/_notifications/set_a_slug.html.twig' %}
 
@@ -342,7 +336,7 @@
 
         {# Notification "Your presentation url is randomized for now " #}
 
-        {% if userPresenter and presentation.getOneData('validatedStringId') == false and overallQualityAssessment < 2 %}
+        {% if userPresenter and presentation.getDataItem('validatedStringId') == false and overallQualityAssessment < 2 %}
 
             {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
 
@@ -384,8 +378,6 @@
 
         </div>
 
-
-
 </div>
 
 
@@ -393,7 +385,9 @@
 
 
 {% block priorJavascipts %}
+
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
 {% endblock %}
 
 {% block javascripts %}    

@@ -8,10 +8,11 @@
 
             {% set title = "Mon projet présenté" %}
         
-        {% else %} {% set title = "Mes " ~ count ~ " projets présentés" %}
+        {% else %} 
+        
+            {% set title = "Mes " ~ count ~ " projets présentés" %}
 
-    {% endif %}
-    
+        {% endif %}
     
     {% endif %}
 
@@ -94,9 +95,5 @@
         </div>
 
     </div>
-
-    <style>
-
-    </style>
 
 {% endmacro %}

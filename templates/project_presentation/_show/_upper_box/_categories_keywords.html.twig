@@ -1,0 +1,207 @@
+<!-- Project Categories and Keywords Presentation -->
+
+{% if presentation.keywords is not empty or presentation.categories is not empty %}
+
+    <div class="pp-categories-keywords edit-hoverable-item text-left" >
+
+        {% if presentation.keywords is not empty %}
+
+            <!-- Project Keywords Display -->
+
+            <span id="pp-keywords" class="d-inline">
+
+                {% set keywords = presentation.keywords | split(',') %}
+
+                {% for keyword in keywords %}
+
+                    #{{keyword | title | replace({" " : ""}) }}
+
+                {% endfor %}
+
+            </span>
+
+            <style>
+                #pp-keywords{
+                    margin-right:5px;
+                }
+            </style>
+
+        {% endif %}
+
+        {% if presentation.categories is not empty %}
+
+            <!-- Project Categories Display -->
+
+            <div id="pp-categories" class="d-inline-block">
+
+                <div id="categories-dropdown" data-bs-toggle="dropdown" aria-expanded="false" class="d-inline" type="button">
+
+                    <img id="categories-unroll-icon" src="{{ asset('categories.svg', 'misc')}}" alt="categories icon">Catégories<span class="pp-consultation-mode">▾</span>
+                </div>
+
+                <ul id="categories-dropdown-content" class="dropdown-menu" aria-labelledby="categories-dropdown">
+
+                    {% for category in presentation.categories %}
+
+                        <li class="">
+                            
+                            <img class="category-icon" src="{{asset ("project_categories/"~ category.uniqueName ~".svg", 'icons')}}" alt="Icône {{ category.uniqueName }}" loading="lazy">
+                            
+                            {{category.descriptionFr}}
+                        
+                        </li>
+
+                    {% endfor %}
+
+                
+                </ul>
+
+                <style>
+
+                    #categories-unroll-icon {
+                        width: 28px;
+                        margin-right: 3px;
+                        margin-bottom: 3px;
+                    }
+
+                    #categories-dropdown-content{
+                        padding: 11px;
+                        font-weight:bold;
+                        
+                    }
+
+                    #categories-dropdown-content li{
+                        
+                        margin-bottom: 5px;
+                        
+                    }
+
+                    #categories-dropdown-content li:last-of-type{
+                        
+                        margin-bottom: 0px;
+                        
+                    }
+
+                    .category-icon{
+                        width: 24px;
+                        margin-right: 4px;
+                    }
+
+                </style>
+
+            </div>
+
+        {% endif %}
+
+        <!-- Edit Project Categories & Keywords Button -->
+
+        {% if userPresenter %}
+
+            <a class="pp-edition-mode ms-2 ms-md-0" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">
+
+                <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
+                
+            </a>
+
+            <a class="pp-edition-mode coverable-link" href="{{ path ('select_categories_keywords', {'stringId': presentation.stringId}) }}"></a>
+
+        {% endif %}
+
+
+    </div>
+  
+    <!-- Keywords Styles -->
+
+    <style>
+
+        .pp-categories-keywords{
+
+            position: relative;
+
+            font-size: 18px;
+            font-weight: bold;
+            color:#065fd4;
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .pp-categories-keywords{
+
+                font-size: 15px;
+                font-weight:bold;
+                text-align: center;
+
+            }
+
+        }
+
+    </style>
+
+{% elseif userPresenter and (presentation.categories | length == 0 or presentation.keywords is empty) %} {# no keywords (+ no categories), we insert a placeholder #}
+
+    <a class="pp-edition-mode text-decoration-none ps-md-0 text-body" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
+        
+        <div id="keywordsPlaceholder" class="d-flex align-items-center">
+
+            <img class="keywordsIcon img-fluid" src="{{ asset('hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
+
+            <span class="">Catégories & Mots-clés</span>
+
+        </div>
+
+    </a>
+
+    <style>
+
+		#keywordsPlaceholder{
+
+            width: 400px;
+	
+            padding: 5px 10px;
+
+            margin-top: 3px;
+
+            font-size: 20px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+		}
+
+        
+        .keywordsIcon {
+
+            margin-right : 15px;
+            
+        }
+
+		#keywordsPlaceholder:hover {
+			
+			background-color: lavender;
+		}
+
+
+		@media screen and (max-width: 580px) {
+
+			#keywordsPlaceholder{
+
+                width:100%;
+                font-size: 16px;
+                padding-left: 12px;
+                margin-bottom: 5px;
+
+			}
+                
+            .keywordsIcon {
+
+                height: 20px;
+                width: 20px;
+                
+            }
+
+		}
+
+    </style>
+    
+
+{% endif %}

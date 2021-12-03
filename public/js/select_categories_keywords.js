@@ -3,7 +3,6 @@ $(document).ready(function(){
     /* Manage Categories */
 
     // disabling symfony bootstrap 5 form theme
-    $(".form-control").removeClass("form-control");
 
     $("#cat-grid .cat-button").on("click", function(event){ 
 

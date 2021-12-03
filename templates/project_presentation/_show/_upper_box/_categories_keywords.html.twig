@@ -1,10 +1,10 @@
 <!-- Project Categories and Keywords Presentation -->
 
-{% if presentation.keywords is not empty or presentation.categories is not empty %}
+{% if hasKeywords or countCategories > 0 %}
 
     <div class="pp-categories-keywords edit-hoverable-item text-left" >
 
-        {% if presentation.keywords is not empty %}
+        {% if hasKeywords %}
 
             <!-- Project Keywords Display -->
 
@@ -28,7 +28,7 @@
 
         {% endif %}
 
-        {% if presentation.categories is not empty %}
+        {% if countCategories > 0 %}
 
             <!-- Project Categories Display -->
 

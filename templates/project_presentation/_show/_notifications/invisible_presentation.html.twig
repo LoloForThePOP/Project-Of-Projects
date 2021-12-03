@@ -44,7 +44,7 @@
 
                 <p class="mb-0">
 
-                    {{ (presentation.categories | length > 0 or presentation.keywords is not empty) ? "✅" : "❌"}}
+                    {{ countCategories > 0 or hasKeywords ? "✅" : "❌"}}
                     <a class="inline-text-trigger-action text-decoration-none" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">Une catégorie, ou des mots-clés</a>
 
                 </p>

@@ -25,10 +25,6 @@
 
 {% block body %}
 
-{% block priorJavasciptsInclusions %}
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-{% endblock %}
-
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
     
     {% if is_granted('edit', presentation) %}
@@ -53,6 +49,8 @@
 
     {# Setting some variables #}
 
+    {% set hasKeywords = presentation.keywords is not empty %}
+    {% set countCategories = presentation.categories | length %}
     {% set countSlides = presentation.slides | length %}
     {% set countMiscDataList = presentation.getOC('dataList') | length %}
     {% set countWebsites = presentation.getOC('websites') | length %}
@@ -391,6 +389,11 @@
 </div>
 
 
+{% endblock %}
+
+
+{% block priorJavascipts %}
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
 {% endblock %}
 
 {% block javascripts %}    

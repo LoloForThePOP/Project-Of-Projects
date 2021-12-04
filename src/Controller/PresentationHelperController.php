@@ -37,7 +37,7 @@ class PresentationHelperController extends AbstractController
 
             $this->addFlash(
                 'success fs-4',
-                "✅ Votre page de présentation est prête. Apportez-lui toutes les modifications que vous désirez."
+                "✅ Votre page de présentation est prête. Apportez-lui toutes les modifications que vous désirez. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide rapide en bas de page."
             );
 
             return $this->redirectToRoute('show_presentation', [

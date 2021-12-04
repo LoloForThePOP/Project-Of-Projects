@@ -1,0 +1,93 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-edit-helper-level-2", 'modal_title': "Suggestions pour votre page de projet", 'modal_size': "modal-lg"} %}
+
+
+    {% macro suggestionRow(text) %}
+       
+    {% endmacro %}
+
+
+
+    {% block modalBody %}
+
+    <div class="help-level-2-content px-2">
+
+        {#  #}
+        
+        {{ _self.suggestionRow("lol"
+            
+        ) }}
+
+        Utilisez-vous certains outils pour réaliser votre projet (ou : utiliserez-vous ?) ? Quels outils ou méthodes particulières utilisez-vous pour réaliser votre projet ?
+
+        Travaillez-vous déjà en équipe dans votre projet ? Si oui comment est constituée votre équipe ?
+
+        Utilisez-vous une méthode particulière pour réaliser votre projet ?
+
+        - Votre projet a t-il des différences par rapport aux projets similaires qui existent déjà ?
+	
+	    - Comment est née l'idée du Projet ?
+
+        - Votre projet a t-il déjà progressé ? Si oui, comment ?
+
+        - Avez-vous fait des premiers essais ?
+
+        - Avez-vous des personnes à remercier ?
+
+        - Quelle est votre vision à long terme de votre projet ?
+
+        - Quelle est l'ambition du projet ?
+        
+        - Acceptez-vous des contributions extérieures ?
+            
+            - Si oui, pouvez-vous préciser vos besoins ?
+            
+            - Pourquoi vous rejoindre ?
+
+        - Pourquoi participer à votre projet ?
+
+        - Avez-vous identifié des contraintes et des difficultés à dépasser ?
+
+        - Pourquoi ton projet te tient à coeur, tes raisons de le réaliser. Qu'est-ce qui vous motive avec ce projet ?
+
+        - Quelles valeurs porte votre démarche ? (exemples : environnement; bien-être; solidarité; apprendre; s'amuser ...) Y a t-il des valeurs que vous défendez ? (Transcrit en : Des valeurs que nous défendons).
+
+        - Parlez de vous, le lecteur a besoin de s'identifier et de comprendre pourquoi vous avez lancé ce projet. Sans en faire trop, vous pouvez: rappeler votre parcours (vos études), parler de vos passions ou encore montrer vos compétences (en incluant votre CV par exemple).
+
+
+
+    
+    </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+<style>
+
+    .help-level-2-content{
+        margin-bottom: 21px;
+    }
+
+    @media screen and (max-width: 768px) {
+
+        .help-level-2-content{
+
+            font-size: 18px;
+
+        }
+
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .help-level-2-content{
+
+            font-size: 15px;
+
+        }
+
+    }
+
+
+</style>

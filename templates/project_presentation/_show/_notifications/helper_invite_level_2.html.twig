@@ -1,0 +1,65 @@
+{% embed "utilities/notification_3p.html.twig" %}
+
+    {% block class %}notif-help alert-success{% endblock %}
+
+    {% block header %}{% endblock %}
+
+    {% block body %}
+
+        <div class="d-flex align-items-center">
+
+            <div class="img-container flex-shrink-0">
+
+                <img class="img-fluid" src="{{asset ("presentation_helper/magic.svg", 'larger')}}" alt="magic icon">
+
+            </div>
+
+            <div class="text-container flex-grow-1 ms-0 ms-md-4 ps-2 ps-md-3">
+
+                <h5 class="fw-bold mb-3">🙋 Souhaitez-vous des idées pour présenter votre projet ?</h5>
+
+                <h5 class="mb-3">Aimeriez-vous utiliser un questionnaire magique ?</h5>
+
+                <div class="buttons-container">
+                    
+                    <button data-action="dismiss-magic-help" data-bs-dismiss="alert" aria-label="Close" type="button" class="js-track-action btn btn-primary me-3">non</button>
+                    
+                    <button data-action="accept-magic-help" data-bs-toggle="modal" data-bs-target="#pp-edit-helper-level-2" type="button" class="js-track-action btn btn-validate me-2">oui</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {# Modal box containing some temporary advices #}
+        {% include 'project_presentation/edit/_helper_level_2.html.twig' %}
+
+
+        <style>
+
+            .notif-help{
+                background-color: #e6f6ef;
+            }
+
+            .notif-help .img-container{
+                width: 130px;
+            }
+
+            @media screen and (max-width: 580px) {
+
+                .notif-help .img-container{
+                    width: 60px;
+                }
+
+                .notif-help .text-container h5{
+                    font-size: 1.05rem;
+                }
+
+            }
+
+        </style>
+    
+    {% endblock %}
+        
+{% endembed %}

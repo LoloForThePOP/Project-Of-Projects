@@ -111,6 +111,16 @@
 
     <script>
 
+        mixpanel.track(
+            
+            'pres-help-step-{{ currentPosition }}', {
+
+                'uniqueName': helperItems.uniqueName,
+                
+            }
+            
+        );
+
         $(document).ready(function(){
 
             // Giving focus to appropriate input

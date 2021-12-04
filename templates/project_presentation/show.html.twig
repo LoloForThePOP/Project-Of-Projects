@@ -75,6 +75,14 @@
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
 
+    {# Notification presentation helper #}
+
+    {% if userPresenter %}
+
+        {% include 'project_presentation/_show/_notifications/helper_invite_level_2.html.twig' %}
+
+    {% endif %}
+
     {# Notification invisible project #}
 
     {% if userPresenter and overallQualityAssessment < 2 %}
@@ -306,7 +314,7 @@
 
             {# Help Button #}
                 
-            <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);">
+            <button data-bs-toggle="modal" data-bs-target="#pp-edit-software-help"  type="button" class="pp-edition-mode btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);">
 
                 <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
                 
@@ -314,13 +322,13 @@
             
             </button>
             
-            {% include 'project_presentation/edit/_help.html.twig' %}
+            {% include 'project_presentation/edit/_software_help.html.twig' %}
 
             {# Advice Button
                 
-            <button data-bs-toggle="modal" data-bs-target="#pp-edit-help"  type="button" class="pp-edition-mode btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);">
+            <button data-bs-toggle="modal" data-bs-target="#pp-edit-helper-level-2"  type="button" class="pp-edition-mode btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);">
 
-                <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
+                <span class="fw-bold" style="font-size: 22px;">! </span>
                 
                 <span class="h5 fw-bold ps-1">Conseils rapides</span>
             
@@ -401,6 +409,12 @@
         {% include 'project_presentation/_show/_js/switch_buttons.html.twig' %}
 
     {% endif %}
+
+    <script>
+
+        //mixpanel.track('See page');
+
+    </script>
 
 
 {% endblock %}

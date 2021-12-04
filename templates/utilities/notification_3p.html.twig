@@ -1,0 +1,78 @@
+
+<div class="pp-edition-mode">
+    
+    <div class="notification alert block {% block class %}{% endblock %} alert-dismissible fade show fw-bold pb-4" role="alert">
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        {% block header %}
+        
+            <p>
+
+                {% block headerIcon %}{% endblock %}
+                
+                <span class="h5 fw-bold align-bottom">
+                    
+                    {% block headerText %}{% endblock %} 
+                    
+                </span>
+
+            </p>
+
+            <hr>  
+        
+        {% endblock %}
+
+
+        <div class="indent-container">
+
+            {% block body %}{% endblock %}
+
+        </div>
+
+    </div>  
+    
+</div>
+
+
+<style>
+
+    .indent-container{
+        padding-left: 39px;
+    }
+
+    .inline-text-trigger-action{
+
+        color: inherit;
+        border-radius: 6px;
+        cursor: pointer;
+        padding: 5px;
+        
+
+    }
+
+
+    .inline-text-trigger-action:hover{
+
+        background-color: lightblue;
+        
+    }
+
+    @media screen and (max-width: 810px) {
+
+        .indent-container{
+            padding-left: 15px;
+        }
+
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .indent-container{
+            padding-left: 0;
+        }
+
+    }
+
+</style>

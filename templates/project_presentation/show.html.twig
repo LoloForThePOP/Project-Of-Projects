@@ -68,6 +68,8 @@
 
     {% set overallQualityAssessment = presentation.overallQualityAssessment %}
 
+    {% set validatedStringId = presentation.getDataItem('validatedStringId') %}
+
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
 
@@ -75,9 +77,9 @@
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
 
-    {# Notification presentation helper #}
+    {# Notification presentation magical form #}
 
-    {% if userPresenter %}
+    {% if userPresenter and validatedStringId and not presentation.getDataItem('remove-helper-invite') %}
 
         {% include 'project_presentation/_show/_notifications/helper_invite_level_2.html.twig' %}
 
@@ -101,7 +103,7 @@
 
     {# Notification "Set a personalised slug" #}
 
-    {% if userPresenter and presentation.getDataItem('validatedStringId') == false and overallQualityAssessment > 1 %}
+    {% if userPresenter and not validatedStringId and overallQualityAssessment > 1 %}
 
         {% include 'project_presentation/_show/_notifications/set_a_slug.html.twig' %}
 
@@ -344,7 +346,7 @@
 
         {# Notification "Your presentation url is randomized for now " #}
 
-        {% if userPresenter and presentation.getDataItem('validatedStringId') == false and overallQualityAssessment < 2 %}
+        {% if userPresenter and not validatedStringId and overallQualityAssessment < 2 %}
 
             {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
 
@@ -406,7 +408,7 @@
 
         {% include 'project_presentation/_show/_js/wysiwyg.html.twig' %}
 
-        {% include 'project_presentation/_show/_js/switch_buttons.html.twig' %}
+        {% include 'project_presentation/_show/_js/update_presentation_settings.html.twig' %}
 
     {% endif %}
 

@@ -30,24 +30,28 @@ class OneShotController extends AbstractController
      */
     public function doAction(PPBaseRepository $repo, SearchService $searchService, EntityManagerInterface $manager): Response
     {
-/* 
+
+        /* 
+        
+            $presentations = $repo->findAll();
+
+            $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
+
+            foreach ($presentations as $presentation) {
+                $searchService->index($em, $presentation);
+            } 
+        
+        */
+
         $presentations = $repo->findAll();
 
-        $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
-
         foreach ($presentations as $presentation) {
-            $searchService->index($em, $presentation);
-        } */
 
-        $presentations = $repo->findAll();
+            $presentation->setDataItem("remove-helper-invite", false);
 
-        foreach ($presentations as $presentation) {
-            $presentation->setDataItem("viewsCount",0);
         } 
 
         $manager->flush();
-
-
 
         $this->addFlash(
             'success',

@@ -8,7 +8,7 @@ use App\Form\EmailFormType;
 use App\Service\ImageResizer;
 use App\Form\DeleteEntityType;
 use App\Form\UpdatePasswordType;
-use App\Service\DeletePresentation;
+use App\Service\RemovePresentation;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -190,7 +190,7 @@ class RegisteredUserController extends AbstractController
      * @Security("is_granted('IS_AUTHENTICATED_FULLY')")
      * @return Response
      */
-    public function deleteAccount(Request $request, EntityManagerInterface $manager, DeletePresentation $deletePresentationService){
+    public function deleteAccount(Request $request, EntityManagerInterface $manager, RemovePresentation $deletePresentationService){
         
         $form=$this->createForm(DeleteEntityType::class);
 

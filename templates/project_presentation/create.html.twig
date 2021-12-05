@@ -109,9 +109,9 @@
 
                 <div class="modal-footer">
                     
-                    <button data-answer="yes" type="button" class="js-answer btn btn-go-back btn-lg mb-2 me-3">Oui</button>
+                    <button class="js-track js-ajax-answer btn btn-go-back btn-lg mb-2 me-3" data-tracked='{"key":"create presentation", "attributes":{"type": "helper invite", "answer": "yes"} }'  data-answer="yes" type="button">Oui</button>
 
-                    <button data-answer="no" type="button" class="js-answer btn btn-light btn-lg mb-2 me-3">Non</button>
+                    <button class="js-track js-ajax-answer btn btn-light btn-lg mb-2 me-3" data-tracked='{"key":"create presentation", "attributes": {"type": "helper invite", "answer": "no"}}'  data-answer="no" type="button">Non</button>
 
                 </div>
 
@@ -137,7 +137,7 @@
 
 
 
-            $('.js-answer').click(function(event) {
+            $('.js-ajax-answer').click(function(event) {
 
                 var answer = $(this).data('answer');
 

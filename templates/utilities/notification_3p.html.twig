@@ -3,7 +3,11 @@
     
     <div class="notification alert block {% block class %}{% endblock %} alert-dismissible fade show fw-bold pb-4" role="alert">
 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        {% block dismissCross %}
+
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+        {% endblock %}
 
         {% block header %}
         

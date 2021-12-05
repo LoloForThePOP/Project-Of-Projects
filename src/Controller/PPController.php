@@ -550,13 +550,40 @@ class PPController extends AbstractController
 
         
     /** 
-     * Allow to ajax switch some presentation settings
+     * Allow to ajax some presentation settings
      * 
-     * @Route("/projects/{stringId}/ajax-switch-setting", name="ajax_switch_presentation_setting") 
+     * @Route("/projects/{stringId}/ajax-set-data", name="ajax_presentation_settings") 
      * 
     */ 
 
-    public function ajaxSwitchSetting(Request $request, PPBase $presentation,EntityManagerInterface $manager) {
+    public function ajaxSetData(Request $request, PPBase $presentation,EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        if ($request->isXmlHttpRequest()) {
+
+            $data = json_decode($request->request->get('data'), true);
+
+            $presentation->setDataItem($data['key'], $data['value']);
+
+            $manager->flush();
+          
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+
+    }
+        
+    /** 
+     * Allow to ajax some presentation settings
+     * 
+     * @Route("/projects/{stringId}/ajax-set-data-legacy", name="ajax_presentation_settings_legacy") 
+     * 
+    */ 
+
+    public function ajaxSetDataLegacy(Request $request, PPBase $presentation,EntityManagerInterface $manager) {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
@@ -565,7 +592,7 @@ class PPController extends AbstractController
             $settedItem = $request->request->get('settedItem');
             $jsonSwitchState = $request->request->get('switchState');
 
-            $switchState = json_decode($jsonSwitchState,true);
+            $switchState = json_decode($jsonSwitchState, true);
 
             switch ($settedItem) {
 

@@ -59,7 +59,7 @@
 
     <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
         
-        <button id="next-question-button" type="button" class="js-track-action jumbotron-btn fw-bold sharp" data-action="pres-helper-finished" style="background-color:#ecf3ff;">Je ne choisis pas</button>
+        <button id="next-question-button" type="button" class="js-track jumbotron-btn fw-bold sharp" data-action="pres-helper-finished" style="background-color:#ecf3ff;">Je ne choisis pas</button>
 
     </a>
 
@@ -68,7 +68,7 @@
 
 <script>
 
-    $(".js-track-action").on("click", function(event){ 
+    $(".js-track").on("click", function(event){ 
 
         action = $(this).attr("data-action");
 

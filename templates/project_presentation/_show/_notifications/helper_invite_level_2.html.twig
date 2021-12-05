@@ -1,6 +1,8 @@
 {% embed "utilities/notification_3p.html.twig" %}
 
-    {% block class %}notif-help alert-success{% endblock %}
+    {% block class %}notif-help alert-success col-lg-10{% endblock %}
+
+    {% block dismissCross %}{% endblock %}
 
     {% block header %}{% endblock %}
 
@@ -22,19 +24,15 @@
 
                 <div class="buttons-container">
                     
-                    <button data-action="dismiss-magic-help" data-bs-dismiss="alert" aria-label="Close" type="button" class="js-track-action btn btn-primary me-3">non</button>
+                    <button class="js-ajax-data js-track btn btn-primary me-3" data-ajax ='{"key": "remove-helper-invite", "value": true}' data-tracked='{"key":"helper invite", "attributes":{"type": "in presentation", "answer": "no"}}' data-bs-dismiss="alert" aria-label="Close" type="button">non</button>
                     
-                    <button data-action="accept-magic-help" data-bs-toggle="modal" data-bs-target="#pp-edit-helper-level-2" type="button" class="js-track-action btn btn-validate me-2">oui</button>
+                    <button class="js-ajax-data js-track btn btn-validate me-2" data-ajax ='{"key": "remove-helper-invite", "value": true}' data-tracked='{"key":"helper invite", "attributes":{"type": "in presentation", "answer": "yes"}}' data-bs-toggle="modal" data-bs-target="#pp-edit-helper-level-2" type="button" >oui</button>
 
                 </div>
 
             </div>
 
         </div>
-
-        {# Modal box containing some temporary advices #}
-        {% include 'project_presentation/edit/_helper_level_2.html.twig' %}
-
 
         <style>
 
@@ -63,3 +61,6 @@
     {% endblock %}
         
 {% endembed %}
+
+{# Modal box containing some temporary advices #}
+{% include 'project_presentation/edit/_helper_level_2.html.twig' %}

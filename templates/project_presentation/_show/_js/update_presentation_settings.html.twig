@@ -1,7 +1,35 @@
-
 <script>
 
     $(document).ready(function(){ 
+
+        $('.js-ajax-data').on('click', function (){
+
+            data = JSON.stringify($(this).data("ajax")); //contains data.key and data.value
+
+            $.ajax({
+
+                url: "{{path ('ajax_presentation_settings', {'stringId': presentation.stringId}) }}",
+                type:       'POST',   
+                dataType:   'json',
+                
+                data: {
+                    "data": data,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    console.log('Ajax request failed.');  
+                }  
+
+            });
+
+        });
+
 
         $('input[type=checkbox].toggle-switch').change(
 
@@ -26,7 +54,7 @@
 
                 $.ajax({
 
-                    url: "{{path ('ajax_switch_presentation_setting', {'stringId': presentation.stringId}) }}",
+                    url: "{{path ('ajax_presentation_settings_legacy', {'stringId': presentation.stringId}) }}",
                     type:       'POST',   
                     dataType:   'json',
                     

@@ -1,0 +1,167 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questionnaire de satisfaction{% endblock %}
+
+{% block body %}
+
+<div class="basic-pool-container container ms-0 col-lg-5">
+
+    <h5 class="mb-3">Merci de prendre ce temps pour nous aider.</h5>
+
+    {{form_start(basicPoolForm)}}
+    {{form_row(basicPoolForm.date)}}
+    {{form_row(basicPoolForm.theWorst)}}
+    {{form_row(basicPoolForm.theBest)}}
+    {{form_row(basicPoolForm.shouldAdd)}}
+    {{form_row(basicPoolForm.rank)}}
+
+    <!-- Tanks at Deepak Kamat -->
+    <!-- https://codepen.io/depy/pen/vEWWdw  -->
+
+    <section class='rating-widget'>
+      
+      <!-- Rating Stars Box -->
+
+      <div class='rating-stars d-flex align-items-center'>
+
+        <div class="stars-label d-inline">Votre note globale :</div>
+
+        <ul id='stars' class="d-inline">
+
+            {% for i in 1..5 %}
+            
+                <li class='star {% if loop.index <= 3 %}selected{% endif %}' data-value='{{loop.index}}'>
+                    <i class='fa'><svg style="width: 30px;" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg></i>
+
+                </li>
+                
+            {% endfor %}
+
+        </ul>
+
+      </div>
+
+      
+    </section>
+
+    <div class="">
+
+      <button type="submit" class="btn btn-validate me-3">Valider</button>
+
+      <button type="button" class="btn btn-go-back">Fermer</button>
+
+    </div>
+  
+    {{form_end(basicPoolForm)}}   
+
+</div>
+
+
+<script>
+
+    $(document).ready(function(){
+
+        // Hidden field set stars rank
+        $('#basic_pool_rank').val(3);
+  
+        /* 1. Visualizing things on Hover - See next part for action on click */
+        $('#stars li').on('mouseover', function(){
+          var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+         
+          // Now highlight all the stars that's not after the current hovered star
+          $(this).parent().children('li.star').each(function(e){
+            if (e < onStar) {
+              $(this).addClass('hover');
+            }
+            else {
+              $(this).removeClass('hover');
+            }
+          });
+          
+        }).on('mouseout', function(){
+          $(this).parent().children('li.star').each(function(e){
+            $(this).removeClass('hover');
+          });
+        });
+        
+        
+        /* 2. Action to perform on click */
+        $('#stars li').on('click', function(){
+
+          var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+
+          var stars = $(this).parent().children('li.star');
+          
+          for (i = 0; i < stars.length; i++) {
+            $(stars[i]).removeClass('selected');
+          }
+          
+          for (i = 0; i < onStar; i++) {
+            $(stars[i]).addClass('selected');
+          }
+          
+          // pass rating value to hidden field
+          var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+
+          $('#basic_pool_rank').val(ratingValue);
+          
+          
+        });
+        
+      });
+      
+
+</script>
+
+<style>  
+
+  .basic-pool-container{
+
+    background-color: aliceblue;
+
+    border-radius: 7px;
+
+    padding: 15px 0;
+
+  }
+  
+  /* Rating Star Widgets Style */
+  .rating-stars ul {
+    list-style-type:none;
+    padding:0;
+    
+    -moz-user-select:none;
+    -webkit-user-select:none;
+  }
+
+  .rating-stars ul > li.star {
+    display:inline-block;
+    
+  }
+  
+  /* Idle State of the stars */
+  .rating-stars ul > li.star > i.fa {
+    font-size:2.5em; /* Change the size of the stars */
+    color:#ccc; /* Color on idle state */
+  }
+  
+  /* Hover state of the stars */
+  .rating-stars ul > li.star.hover > i.fa {
+    color:#FFCC36;
+  }
+  
+  /* Selected state of the stars */
+  .rating-stars ul > li.star.selected > i.fa {
+    color:#FF912C;
+  }
+
+  .stars-label {
+    font-size: 1.15em;
+    font-weight: 700;
+    margin-bottom: 4px;
+    margin-right: 11px;
+  }
+  
+</style>
+
+{% endblock %}

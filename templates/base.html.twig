@@ -62,12 +62,45 @@
 
                 tracked = $(this).data("tracked");
 
-                mixpanel.track(tracked.key, tracked.attributes);
+                //mixpanel.track(tracked.key, tracked.attributes);
 
             });
         
         })
 
+    </script>
+
+
+
+    <script> // basic feedback form - manage appearance
+
+        var showFeedbackForm;
+
+        //user has already seen feedback form ?
+
+        var seenFeedbackForm = localStorage.getItem('seenFeedbackForm');
+
+        if(!seenFeedbackForm){
+
+            seenFeedbackForm = localStorage.setItem('seenFeedbackForm', false);
+
+        }
+
+        //counting user page views
+
+        var pageViews = localStorage.getItem('pageViews');
+
+        pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 0);
+
+        if(pageViews > 2 && !seenFeedbackForm){
+
+            localStorage.setItem('seenFeedbackForm', true);
+            showFeedbackForm = true;
+
+        } else {showFeedbackForm=false;};
+
+
+        showFeedbackForm=true;
 
     </script>
         
@@ -147,6 +180,20 @@
                 <div id="main-body-container">
 
                     {% block body %}{% endblock %}
+                                
+                    <div id="feedbackFormInvite" class="" style="display:none">
+
+                        {% include 'pools/notification_invite.html.twig' %}
+
+                    </div>
+
+                    <script>
+
+                        if(showFeedbackForm){
+                            $("#feedbackFormInvite").show(); 
+                        }
+                        
+                    </script>
                     
                 </div>
                 

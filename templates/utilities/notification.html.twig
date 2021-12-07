@@ -1,43 +1,38 @@
 
-<div class="pp-edition-mode">
+<div class="notification alert block {% block class %}{% endblock %} alert-dismissible fade show fw-bold pb-4" role="alert">
+
+    {% block dismissCross %}
+
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+    {% endblock %}
+
+    {% block header %}
     
-    <div class="notification alert block {% block class %}{% endblock %} alert-dismissible fade show fw-bold pb-4" role="alert">
+        <p>
 
-        {% block dismissCross %}
-
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-        {% endblock %}
-
-        {% block header %}
-        
-            <p>
-
-                {% block headerIcon %}{% endblock %}
+            {% block headerIcon %}{% endblock %}
+            
+            <span class="h5 fw-bold align-bottom">
                 
-                <span class="h5 fw-bold align-bottom">
-                    
-                    {% block headerText %}{% endblock %} 
-                    
-                </span>
+                {% block headerText %}{% endblock %} 
+                
+            </span>
 
-            </p>
+        </p>
 
-            <hr>  
-        
-        {% endblock %}
-
-
-        <div class="indent-container">
-
-            {% block body %}{% endblock %}
-
-        </div>
-
-    </div>  
+        <hr>  
     
-</div>
+    {% endblock %}
 
+
+    <div class="indent-container">
+
+        {% block body %}{% endblock %}
+
+    </div>
+
+</div>  
 
 <style>
 

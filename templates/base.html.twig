@@ -62,7 +62,7 @@
 
                 tracked = $(this).data("tracked");
 
-                //mixpanel.track(tracked.key, tracked.attributes);
+                mixpanel.track(tracked.key, tracked.attributes);
 
             });
         
@@ -70,9 +70,8 @@
 
     </script>
 
-
-
-    <script> // basic feedback form - manage appearance
+    {# manage a basic feedback form appearing #}
+    <script>
 
         var showFeedbackForm;
 
@@ -92,17 +91,14 @@
 
         pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 0);
 
-        if(pageViews > 2 && !seenFeedbackForm){
+        if(pageViews > 2 && pageViews < 40 && !seenFeedbackForm){
 
             localStorage.setItem('seenFeedbackForm', true);
             showFeedbackForm = true;
 
-        } else {showFeedbackForm=false;};
+        } else {showFeedbackForm=false}
 
-
-        showFeedbackForm=true;
-
-    </script>
+    </script>{# see basic pool template bellow #}
         
 
     {# Hotjar Tracking Code for Propon (only for non admins and prod environment)#}
@@ -181,9 +177,13 @@
 
                     {% block body %}{% endblock %}
                                 
-                    <div id="feedbackFormInvite" class="" style="display:none">
+                    <div id="feedbackFormInvite" class="container px-1 px-md-4 mb-5" style="display:none">
 
-                        {% include 'pools/notification_invite.html.twig' %}
+                        <a href="{{ path ('fill_basic_pool_form') }}">
+
+                            {% include 'pools/notification_invite.html.twig' %}
+
+                        </a>
 
                     </div>
 
@@ -191,6 +191,7 @@
 
                         if(showFeedbackForm){
                             $("#feedbackFormInvite").show(); 
+                            localStorage.setItem('seenFeedbackForm', true);
                         }
                         
                     </script>

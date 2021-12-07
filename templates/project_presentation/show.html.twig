@@ -81,7 +81,11 @@
 
     {% if userPresenter and validatedStringId and not presentation.getDataItem('remove-helper-invite') %}
 
-        {% include 'project_presentation/_show/_notifications/helper_invite_level_2.html.twig' %}
+        <div class="pp-edition-mode">
+
+            {% include 'project_presentation/_show/_notifications/helper_invite_level_2.html.twig' %}
+
+        </div>
 
     {% endif %}
 
@@ -316,7 +320,7 @@
 
             {# Help Button #}
                 
-            <button data-bs-toggle="modal" data-bs-target="#pp-edit-software-help"  type="button" class="pp-edition-mode btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);">
+            <button data-bs-toggle="modal" data-bs-target="#pp-edit-software-help"  type="button" class="js-track pp-edition-mode btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);" data-tracked='{"key":"clicked-software-help"}'>
 
                 <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
                 

@@ -48,7 +48,7 @@
 
     <div class="">
 
-      <button type="submit" class="btn btn-validate me-3">Valider</button>
+      <button id="submit-pool-form" type="submit" class="btn btn-validate me-3">Valider</button>
 
       <a href="{{path ('homepage')}}">
 
@@ -68,6 +68,16 @@
 <script>
 
     $(document).ready(function(){
+
+        //displaying pool invitation is not relevant, as we have accepted the invitation
+        $("#feedbackFormInvite").hide(); 
+
+        //updating has filled pool flag on form submission
+        $('#submit-pool-form').on('click', function(){
+          localStorage.setItem('filledPoolForm',"yes");
+        });
+
+        /* stars management */
 
         // Hidden field set stars rank
         $('#basic_pool_rank').val(3);
@@ -112,7 +122,6 @@
           var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
 
           $('#basic_pool_rank').val(ratingValue);
-          
           
         });
         

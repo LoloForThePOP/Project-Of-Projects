@@ -55,7 +55,7 @@ class PoolController extends AbstractController
             $email = (new Email())
                 ->from($sender)
                 ->to($receiver)
-                ->subject('New Pool result')
+                ->subject('New Pool Result')
                 ->html('<pre>'.json_encode($result, JSON_PRETTY_PRINT).'</pre>');
 
             $mailer->send($email);

@@ -73,17 +73,19 @@
     {# manage a basic feedback form appearing #}
     <script>
 
-        var showFeedbackForm;
+        var showPoolInvitation;
 
-        //user has already seen feedback form ?
 
-        var seenFeedbackForm = localStorage.getItem('seenFeedbackForm');
+        // has usesr already filled the pool form ?
 
-        if(!seenFeedbackForm){
+        if(localStorage.getItem('filledPoolForm') === null ){
 
-            seenFeedbackForm = localStorage.setItem('seenFeedbackForm', false);
+            localStorage.setItem('filledPoolForm',"no");
 
         }
+
+        var filledPoolForm = localStorage.getItem('filledPoolForm');
+
 
         //counting user page views
 
@@ -91,14 +93,16 @@
 
         pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 0);
 
-        if(pageViews > 2 && pageViews < 40 && !seenFeedbackForm){
+        pageViews = localStorage.getItem('pageViews'); //refreshing value
 
-            localStorage.setItem('seenFeedbackForm', true);
-            showFeedbackForm = true;
 
-        } else {showFeedbackForm=false}
+        if(pageViews > 2 && pageViews < 20 && filledPoolForm =="no"){
 
-    </script>{# see basic pool template bellow #}
+            showPoolInvitation = true;
+
+        } else {showPoolInvitation = false}
+
+    </script>{# see basic pool invitation template bellow #}
         
 
     {# Hotjar Tracking Code for Propon (only for non admins and prod environment)#}
@@ -189,9 +193,8 @@
 
                     <script>
 
-                        if(showFeedbackForm){
+                        if(showPoolInvitation){
                             $("#feedbackFormInvite").show(); 
-                            localStorage.setItem('seenFeedbackForm', true);
                         }
                         
                     </script>

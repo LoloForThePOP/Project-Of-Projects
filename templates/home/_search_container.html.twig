@@ -10,6 +10,17 @@
 
 </div>
 
+<script>
+    
+    $("#homepage-search-input").on("input", function() {
+
+        $("#main-body-container").addClass("visually-hidden");
+        $('html').scrollTop(0);
+
+    });
+
+</script>
+
 <style>
 
     #homepage-search-container {

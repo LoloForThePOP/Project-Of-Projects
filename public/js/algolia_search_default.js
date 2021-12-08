@@ -17,6 +17,13 @@ $(document).ready(function(){
 
   });
 
+  //when closing a search experience, we clear search proxies
+  $(".js-close-search-experience, .back-icon-container").click(function() {
+
+    $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").val('');
+
+  });
+
   //create a random background color for default thumbnails
   function randomColor(){
 
@@ -89,12 +96,8 @@ $(document).ready(function(){
       //then refresh algolia search
       search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
 
-      //from homepage search, we hide body-container with a 1px*1px dimensions
-      if($(this).attr("id")=="homepage-search-input"){
-        $('html,body').scrollTop(0);
-        $("#main-body-container").addClass("visually-hidden");
 
-      }else{$("#main-body-container").hide();} //hide the rest}
+      // note : $("#homepage-search-input").on triggers scroll to top (see home/_search_container.html.twig) 
 
 
     });

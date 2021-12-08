@@ -66,12 +66,14 @@
             
           }
 
-
         </style>
       
       </div>
 
     {% endif %}
+
+    {# basic pool alert display #}
+    {% include "home/_basic_pool_alert.html.twig" %}
 
 
     <div class="col-xxl-11 pe-lg-5">
@@ -116,6 +118,6 @@
 
     </div>
 
-  </div> {# close an unknow div who mess up footer display #}
+  </div> {# close an unknow div which mess up footer display #}
 
 {% endblock %}

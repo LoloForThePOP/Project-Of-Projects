@@ -69,9 +69,6 @@
 
     $(document).ready(function(){
 
-        //displaying pool invitation is not relevant, as we have accepted the invitation
-        $("#feedbackFormInvite").hide(); 
-
         //updating has filled pool flag on form submission
         $('#submit-pool-form').on('click', function(){
           localStorage.setItem('filledPoolForm',"yes");

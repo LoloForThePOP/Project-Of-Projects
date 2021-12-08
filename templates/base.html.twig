@@ -80,41 +80,6 @@
 
     </script>
 
-    {# manage a basic feedback form appearing #}
-    <script>
-
-        var showPoolInvitation;
-
-
-        // has user already filled the pool form ?
-
-        if(localStorage.getItem('filledPoolForm') === null ){
-
-            localStorage.setItem('filledPoolForm',"no");
-
-        }
-
-        var filledPoolForm = localStorage.getItem('filledPoolForm');
-
-
-        //counting user page views
-
-        var pageViews = localStorage.getItem('pageViews');
-
-        pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 1);
-
-        pageViews = localStorage.getItem('pageViews'); //refreshing value
-
-
-        if(pageViews > 2 && pageViews < 20 && filledPoolForm =="no"){
-
-            showPoolInvitation = true;
-
-        } else {showPoolInvitation = false}
-
-    </script>{# see basic pool invitation template bellow #}
-        
-
     {# Hotjar Tracking Code for Propon (only for non admins and prod environment)#}
 
     {% if not is_granted('ROLE_ADMIN') and app.request.server.get("APP_ENV") == 'prod' %}
@@ -191,24 +156,6 @@
 
                     {% block body %}{% endblock %}
                                 
-                    <div id="feedbackFormInvite" class="container px-1 px-md-4 mb-5" style="display:none">
-
-                        <a href="{{ path ('fill_basic_pool_form') }}">
-
-                            {% include 'pools/notification_invite.html.twig' %}
-
-                        </a>
-
-                    </div>
-
-                    <script>
-
-                        if(showPoolInvitation){
-                            $("#feedbackFormInvite").show(); 
-                        }
-                        
-                    </script>
-                    
                 </div>
                 
             </div>

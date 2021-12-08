@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+  /* Closing search experience container */
+  /* Warning : order of events matters (to do : factorize) */
+
+  //when closing a search experience, we clear search proxies
+  $(".js-close-search-experience, .sm-search-back-icon-container").click(function() {
+
+    $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").val('');
+
+  });
 
   //search panel close button (except from homepage, and only on large screens from navbar searchbar)
   $(".js-close-search-experience").click(function() {
@@ -14,13 +23,6 @@ $(document).ready(function(){
 
     $("#main-body-container").removeClass("visually-hidden");
     document.getElementById('homepage-search-container').scrollIntoView();
-
-  });
-
-  //when closing a search experience, we clear search proxies
-  $(".js-close-search-experience, .back-icon-container").click(function() {
-
-    $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").val('');
 
   });
 

@@ -1,0 +1,50 @@
+<div id="feedbackFormInvite" class="container px-1 pe-md-4 my-4 mb-md-5" style="display:none">
+
+    <a href="{{ path ('fill_basic_pool_form') }}">
+
+        {% include 'pools/notification_invite.html.twig' %}
+
+    </a>
+
+</div>
+
+{# manage a basic feedback form appearing #}
+
+<script>
+
+    var showPoolInvitation;
+
+    // has user already filled the pool form ?
+
+    if(localStorage.getItem('filledPoolForm') === null ){
+
+        localStorage.setItem('filledPoolForm',"no");
+
+    }
+
+    var filledPoolForm = localStorage.getItem('filledPoolForm');
+
+
+    //counting user page views
+
+    var pageViews = localStorage.getItem('pageViews');
+
+    pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 1);
+
+    pageViews = localStorage.getItem('pageViews'); //refreshing value
+
+
+    if(pageViews > 2 && pageViews < 20 && filledPoolForm =="no"){
+
+        showPoolInvitation = true;
+
+    } else {showPoolInvitation = false}
+
+    
+    if(showPoolInvitation){
+
+        $("#feedbackFormInvite").show(); 
+
+    }
+
+</script>

@@ -88,7 +88,7 @@
 
         #flash-messages {
             
-            animation: fadeout 5s ease-in-out forwards;
+            animation: fadeout 4s ease-in-out forwards;
             opacity: 1;
         }
                 
@@ -116,6 +116,10 @@
     <script>
 
         $(document).ready(function(){
+
+                
+            //displaying pool invitation is not smart, as user is busy answering this presentation helper questions.
+            $("#feedbackFormInvite").hide();
 
             // Giving focus to appropriate input
 

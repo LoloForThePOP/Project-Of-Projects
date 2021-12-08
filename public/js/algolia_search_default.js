@@ -13,7 +13,7 @@ $(document).ready(function(){
   $(".js-close-search-experience").click(function() {
 
     $("#main-body-container").removeClass("visually-hidden");
-    document.getElementById('homepage-collections').scrollIntoView();
+    document.getElementById('homepage-search-container').scrollIntoView();
 
   });
 
@@ -61,6 +61,16 @@ $(document).ready(function(){
   ]);
 
   search.on('render', function () {//render fires when all widgets are rendered. This happens after every search request.
+
+    
+    //reset search input on mobile when clicking on black cross
+    $(".js-reset-search-icon").click(function() {
+
+      $('#navbar_sm_search_input').val('').focus();
+      document.querySelector('#searchbox .ais-SearchBox-input').value = '';
+      search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
+
+    });
 
     //Below are some search input proxies. $('').on("input") event means : "each time a proxy has changed" 
     $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").on("input", function() {

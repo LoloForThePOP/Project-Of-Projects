@@ -59,6 +59,8 @@
 
   <script>
 
+    // note : reset search input on mobile when clicking on black cross is treated in algolia_search_default.js (because it has to use search.on('render') event).
+
     //trigger mobile search bar appearance when clicking on search icon
     $("#search_icon_small_screens").click(function() {
 
@@ -77,15 +79,6 @@
       $(".search-experience-container").hide();
       $("#main-body-container").show();
       window.scrollTo(0, 0);
-
-    });
-
-    //reset search input on mobile (black cross)
-    $(".js-reset-search-icon").click(function() {
-
-      $('#navbar_sm_search_input').val('').focus();
-      document.querySelector('#searchbox .ais-SearchBox-input').value = '';
-      search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
 
     });
 

@@ -45,19 +45,41 @@
 
     {% endif %}
 
-    <div class="px-0 px-md-4 px-lg-4 col-xxl-11">
+    {# Case user not logged in : displaying homepage jumbotron #}
 
-      {# Case user not logged in : displaying homepage jumbotron #}
+    {% if not app.user %}
 
-      {% if not app.user %}
-      
+      <div id="homepage-jumbotron-struct-container" class="px-0 px-md-4 px-lg-4 col-xxl-11">
+
         {% include "home/_jumbotron.html.twig" %}
+
+        <style>
+
+
+          @media screen and (min-width: 820px) {
+
+            #homepage-jumbotron-struct-container{
+              margin-top: 3rem;
+              margin-bottom: 6rem;
+              
+            }
+            
+          }
+
+
+        </style>
       
-      {% endif %}
-        
+      </div>
+
+    {% endif %}
+
+
+    <div class="col-xxl-11 pe-lg-5">
+
       {% include "home/_search_container.html.twig" %}
-    
+
     </div>
+
 
     <div id="homepage-collections">
         

@@ -31,10 +31,14 @@
     {% if is_granted('edit', presentation) %}
     
         {% set userPresenter = true %}
+
+        <div class="d-none" data-track-view='{"key":"creator-3p-view"}'></div>
     
     {% else %}
     
         {% set userPresenter = false %}
+
+        <div class="d-none" data-track-view='{"key":"visitor-3p-view"}'></div>
         
     {% endif %}
 
@@ -320,7 +324,7 @@
 
             {# Help Button #}
                 
-            <button data-bs-toggle="modal" data-bs-target="#pp-edit-software-help"  type="button" class="js-track pp-edition-mode btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);" data-tracked='{"key":"clicked-software-help"}'>
+            <button data-bs-toggle="modal" data-bs-target="#pp-edit-software-help"  type="button" class="pp-edition-mode btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-software-help"}'>
 
                 <img class="mb-2" src="{{ asset('help.svg', 'misc')}}" alt="help icon">
                 
@@ -415,13 +419,6 @@
         {% include 'project_presentation/_show/_js/update_presentation_settings.html.twig' %}
 
     {% endif %}
-
-    <script>
-
-        //mixpanel.track('See page');
-
-    </script>
-
 
 {% endblock %}
 

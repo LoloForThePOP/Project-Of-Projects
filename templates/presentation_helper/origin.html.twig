@@ -5,19 +5,19 @@
 {% set helperItems = [ 
         
         
-    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du projet ?",'finalRenderingLabel': ""}, 
+    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
 
     { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
 
-    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du projet ?"},
+    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
 
-    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "Avez-vous déjà un site web ou un réseau social en lien avec votre projet ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
+    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "Avez-vous déjà un site web ou un réseau social en lien avec votre Projet ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
-    { 'uniqueName': "places", 'type': "places", 'priorQuestion': "Votre projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
+    { 'uniqueName': "places", 'type': "places", 'priorQuestion': "Votre Projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
     
     { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Acceptez-vous de l'aide (recherchez-vous des contributeurs bénévoles ou payés) ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
-    { 'uniqueName': "categories_keywords", 'type': "categories_keywords", 'questionFr': "Faciliter la découverte de votre projet"},
+    { 'uniqueName': "categories_keywords", 'type': "categories_keywords", 'questionFr': "Faciliter la découverte de votre Projet"},
 
 ] %}
 
@@ -28,6 +28,8 @@
 
 
 {% set currentItem = helperItems[position] %}
+
+{% set uniqueName = currentItem.uniqueName %}
 
 {% set currentPosition = position %}
 
@@ -54,7 +56,9 @@
 
     {% set hasPriorQuestion = currentItem.priorQuestion is defined %}
         
-    <div class="page-container container">
+    <div class="page-container container" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
+
+        
         
         {% if currentPosition == 0 %} {# entering interview, displaying a friendly message #}
 
@@ -84,7 +88,7 @@
 
         #flash-messages {
             
-            animation: fadeout 4s ease-in-out forwards;
+            animation: fadeout 5s ease-in-out forwards;
             opacity: 1;
         }
                 
@@ -110,16 +114,6 @@
     </style>
 
     <script>
-
-        mixpanel.track(
-            
-            'pres-help-step-{{ currentPosition }}', {
-
-                'uniqueName': helperItems.uniqueName,
-                
-            }
-            
-        );
 
         $(document).ready(function(){
 

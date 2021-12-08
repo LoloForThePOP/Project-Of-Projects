@@ -19,7 +19,7 @@ class PoolController extends AbstractController
      * 
      * Allow to get pool form template
      *  
-     * @Route("/get-pool-form-template", name="fill_basic_pool_form") 
+     * @Route("/pool", name="fill_basic_pool_form") 
      * 
      */
     public function getPoolFormTemplate(Request $request, MailerInterface $mailer)

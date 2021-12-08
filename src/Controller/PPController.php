@@ -142,7 +142,7 @@ class PPController extends AbstractController
                 $manager->flush();
 
                 $this->addFlash(
-                    'success',
+                    'success fade-out',
                     "✅ Ajout effectué"
                 );
 
@@ -650,7 +650,7 @@ class PPController extends AbstractController
                        
 
             $this->addFlash(
-                'success',
+                'success fade-out',
                 "✅ Les modifications ont été enregistrées"
             );
 

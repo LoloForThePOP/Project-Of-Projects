@@ -62,6 +62,10 @@ class AccessPresentationVoter extends Voter
             return true;
         }
 
+        if(in_array('ROLE_ADMIN', $user->getRoles())){
+            return true;
+        }
+
         return false;
     }
 

@@ -89,7 +89,7 @@ class PlaceController extends AbstractController
 
             $dataResponse = [
                
-                'newPlaceId' =>  $newPlaceId,
+                'placeId' =>  $newPlaceId,
                 'feedbackCode' => $feedbackCode,
             ];
 

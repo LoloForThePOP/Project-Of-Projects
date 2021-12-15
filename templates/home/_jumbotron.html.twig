@@ -2,7 +2,11 @@
 
     {% block image %}
 
-        <img src="{{asset ('misc/homepage_jumbotron.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">
+    {#
+
+        <img src="{{asset ('misc/homepage_jumbotron.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">#}
+
+    {% include "home/_demo_video.html.twig" %}
 
     {% endblock %}
 

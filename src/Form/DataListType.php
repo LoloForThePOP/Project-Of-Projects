@@ -63,10 +63,10 @@ class DataListType extends AbstractType
                         ),
                         new \Symfony\Component\Validator\Constraints\Length(
                             [
-                                "min" => 2,
+                                "min" => 1,
                                 "max" => 2500,
-                                "minMessage" => "Le commentaire doit contenir au minimum {{ limit }} caractères",
-                                "maxMessage" => "Le commentaire doit contenir au plus {{ limit }} caractères",
+                                "minMessage" => "Le contenu de la donnée doit contenir au minimum {{ limit }} caractères",
+                                "maxMessage" => "Le contenu de la donnée doit contenir au plus {{ limit }} caractères",
                             ]
                         ),
                     )

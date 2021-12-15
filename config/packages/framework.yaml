@@ -35,6 +35,8 @@ framework:
                 base_path: /media/static/images/larger/
             tutorial: 
                 base_path: /media/static/images/larger/tutorials/
+            videos: 
+                base_path: /media/static/videos/
                 
     #esi: true
     #fragments: true

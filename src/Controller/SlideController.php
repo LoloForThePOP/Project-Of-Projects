@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Slide;
 use App\Entity\PPBase;
+use App\Service\TreatItem;
 use App\Form\ImageSlideType;
 use App\Service\AssessQuality;
 use App\Form\AddVideoSlideType;
@@ -88,7 +89,7 @@ class SlideController extends AbstractController
      * 
      * @return Response
      */
-    public function addYoutubeSlide(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, AssessQuality $assessQuality)
+    public function addYoutubeSlide(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, AssessQuality $assessQuality, TreatItem $specificTreatments)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -102,6 +103,10 @@ class SlideController extends AbstractController
         $addVideoForm->handleRequest($request);
 
         if ($addVideoForm->isSubmitted() && $addVideoForm->isValid()) {
+
+            $youtubeVideoIdentifier = $specificTreatments->specificTreatments('youtube_video', $addVideoForm->get('address')->getData());//user might has given a complete youtube video url or just the video identifier. We extract the video identifier in the first case.
+
+            $videoSlide->setAddress($youtubeVideoIdentifier);            
 
             // count previous slide in order to set new slides positions
 
@@ -147,7 +152,7 @@ class SlideController extends AbstractController
      * 
      * @return Response
      */
-    public function editVideoSlide (PPBase $pp, $slide_id, SlideRepository $repo, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail) {
+    public function editVideoSlide (PPBase $pp, $slide_id, SlideRepository $repo, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, TreatItem $specificTreatments) {
 
         $this->denyAccessUnlessGranted('edit', $pp);
 
@@ -160,6 +165,10 @@ class SlideController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+            $youtubeVideoIdentifier = $specificTreatments->specificTreatments('youtube_video', $form->get('address')->getData());//user might has given a complete youtube video url or just the video identifier. We extract the video identifier in the first case.
+
+            $slide->setAddress($youtubeVideoIdentifier);
 
             $manager->flush();
 

@@ -21,7 +21,7 @@
 
 {% endblock %}
 
-{% block title %}{{ presentation.goal | capitalize}}{% endblock %}
+{% block title %}{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}{% endblock %}
 
 {% block body %}
 

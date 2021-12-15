@@ -53,6 +53,18 @@
 
     </script>
 
+    <script>
+        
+        //counting user page views
+
+        var pageViews = localStorage.getItem('pageViews');
+
+        pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 1);
+
+        pageViews = localStorage.getItem('pageViews'); //refreshing value
+
+    </script>
+
         
     <script type="text/javascript">
 

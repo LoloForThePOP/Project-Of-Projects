@@ -116,6 +116,12 @@
         
             }
 
+                    
+            #questionsAnswers .col-11{
+                width: 89%;
+                padding-right : 0;
+            }
+
         
             .questionRow .collapseSymbolDisplay:after {
         
@@ -139,13 +145,21 @@
             #questionsAnswers .edit-link:hover{
                 background-color: #dbe2ff;
             }
-
-            #questionsAnswers .col-11{
-                width: 89%; /* reduced to prevent arrow overflow on mobile */
-            }
             
     
             @media screen and (max-width: 580px) {
+
+                    
+                #questionsAnswers .col-11{
+                    width: 90%; /* reduced to prevent arrow overflow on mobile */
+                    padding-right : 0;
+                }
+
+                #questionsAnswers .col-1 {
+                    padding: 0;
+                    width: 7%;
+                    padding-top: 3px;
+                }
     
                 .question{
         

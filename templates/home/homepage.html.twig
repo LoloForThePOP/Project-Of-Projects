@@ -67,7 +67,7 @@
           }
 
         </style>
-      
+
       </div>
 
     {% endif %}
@@ -108,13 +108,19 @@
 
     <div class="mt-5 text-center">
 
-      <button class="btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
+      <a href="{{ path ('create_presentation') }}">
 
-        <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
-        
-        <span class="h5 fw-bold ps-2">Ajouter un projet</span>
-    
-    </button>
+        <button class="btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
+
+          <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
+          
+          <span class="h5 fw-bold ps-2">Ajouter un projet</span>
+      
+        </button>
+
+      </a>
+
+ 
 
     </div>
 

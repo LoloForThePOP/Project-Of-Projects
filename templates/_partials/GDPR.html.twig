@@ -1,0 +1,195 @@
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "gdpr-selection", 'modal_title': "", 'modal_size': "modal-fullscreen-md-down modal-lg"} %}
+
+    {% block modalHeader %}{% endblock %}
+
+    {% block modalBody %}
+
+        <h4 class="mt-5 mt-md-0"><b>On ne vend pas vos données</b></h4>
+
+        <p class="mt-3 mb-4 fs-20">
+            Nos cookies servent <b>uniquement à améliorer votre expérience du site.</b>
+        </p>
+
+        <div id="cookies-consent-container" class="row mb-5">
+
+            <div class="col-6 d-flex align-items-center justify-content-center ">
+
+                <img id="cookies-help-build" class="img-fluid" src="{{ asset('misc/gdpr_building.png', 'larger')}}" alt="building with a crane">
+
+            </div>
+
+            <div class="col-6 d-flex align-items-center justify-content-center">
+
+                <div class="">
+
+                    <div class="d-flex justify-content-center">
+                        <button data-cookies-choice="accept" data-track-click='{"key":"cookies-overall-choice", "attributes":{"type": "accept"} }'  data-bs-dismiss="modal" type="button" class="cookies-choice btn btn-validate sharp mb-4">Accepter 👍</button>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        {# Currently cookies are rejected by default within this mode (cause : MVP) #}
+                        <button data-track-click='{"key": "cookies-overall-choice", "attributes": {"type": "select"} }' data-cookies-choice="choose" type="button" class="cookies-choice btn btn-warning sharp mb-4">Sélectionner</button>
+                    </div>
+
+                    <div class="d-flex justify-content-center">
+                        <button data-track-click='{"key":"cookies-overall-choice", "attributes":{"type": "dismiss"} }' data-cookies-choice="reject" data-bs-dismiss="modal" type="button" class="cookies-choice btn btn-danger sharp">Refuser</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+            <div id="cookies-selection-container" class="">
+    
+                <div class="cookies-family-box row">
+
+                    <div class="fw-bold">
+
+                        Cookies de fonctionnement ✅
+
+                    </div>
+                    
+                </div>
+            
+                <div class="cookies-family-box row">
+
+                    <div class="fw-bold">
+
+                        Cookies de statistiques
+
+                    </div>
+
+                    <div class="mb-2">
+
+                        <div class="w-75">Ils nous aident à comprendre comment vous utilisez le site pour l'améliorer.</div>
+
+                        <div class="">
+                            Fournisseurs : Hotjar; Mixpanel.
+                        </div>
+
+                    </div>
+
+                    <div>
+    
+                        <span class="">😢 Refuser</span>
+                
+                        <input id="stat-cookies-activation-switch" type="checkbox" class="toggle-switch"/><label class="toggle-switch-label" for="stat-cookies-activation-switch">Activer les cookies statistiques</label>
+                    
+                        <span class="ps-2">Accepter (merci 👍)</span>
+
+                    </div>
+    
+
+                </div>
+
+                <div class="d-flex mt-4">
+
+                    <button id="cookies-user-selection-save" data-bs-dismiss="modal" type="button" class="btn btn-validate sharp">Quitter</button>
+
+                </div>
+
+            </div>
+
+        <style>
+
+            
+            img#cookies-help-build{
+                max-height: 280px;
+            }
+
+            button.cookies-choice{
+
+                width: 200px;
+
+            }
+
+            .cookies-family-box{
+                font-size: 16px;
+                margin-bottom: 30px;
+            }
+
+            @media screen and (max-width: 580px) {
+
+                    
+                button.cookies-choice{
+
+                    width: 150px;
+
+                }
+
+            }
+    
+        </style>
+    
+
+    {% endblock %}
+
+    {% block modalFooter %}{% endblock %}
+
+{% endembed %}
+
+<script>
+
+    var gdprSelectionModal = new bootstrap.Modal(document.getElementById("gdpr-selection"), {
+    });
+
+    if(showCookiesInvite){ // is defined in tracking.js
+    
+        gdprSelectionModal.show();
+
+    }
+
+    $("#cookies-selection-container").hide();
+
+    $(document).ready(function(){
+
+        $("[data-cookies-choice]").on("click", function(event){ 
+
+            var userChoice = $(this).attr("data-cookies-choice");
+
+            if(userChoice=="accept"){
+
+                localStorage.setItem('cookiesPreferences', "accept"); // is used in tracking.js
+
+            }
+
+            else if (userChoice=="reject") {
+
+                localStorage.setItem('cookiesPreferences', "reject");
+
+            }
+
+            else if (userChoice=="choose") {
+
+                $("#cookies-consent-container").hide();
+                $("#cookies-selection-container").show();
+
+            }
+            
+        });
+
+        $('.cookies-family-box input[type=checkbox].toggle-switch').change(function(event){
+
+            var switchState = this.checked ? true : false;
+
+            if(switchState == true){
+
+                //localStorage.setItem('cookiesPreferences', "accept");
+
+            }
+
+            else{
+
+                //localStorage.setItem('cookiesPreferences', "reject");
+
+            }
+
+        });
+
+    });
+
+</script>

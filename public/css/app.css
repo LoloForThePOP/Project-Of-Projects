@@ -40,6 +40,10 @@ a{
     font-size: 1.15em;
 }
 
+.fs-20{
+    font-size: 1.15em;
+}
+
 .lh-16{
     line-height: 1.6;
 }
@@ -175,6 +179,54 @@ label, legend {
     font-weight:bold;
     color: #7b8a8b  !important;
   }
+
+
+
+/* Toggle Switch Buttons (ex: publish / unpublish presentation) */
+
+input[type=checkbox].toggle-switch{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+}
+
+label.toggle-switch-label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 64px;
+    height: 37px;
+    background: #e74c3c;
+    display: inline-block;
+    border-radius: 6px;
+    position: relative;
+    
+}
+
+label.toggle-switch-label:after {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 5px;
+    width: 15px;
+    height: 43px;
+    background: #fff;
+    border-radius: 4px;
+    transition: 0.3s;
+    border : 1px solid black;
+}
+
+input.toggle-switch:checked + label {
+    background: #18bc9c;
+}
+
+input.toggle-switch:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+}
+
+label:active:after {
+    width: 130px;
+}
 
 
 /* App Buttons */

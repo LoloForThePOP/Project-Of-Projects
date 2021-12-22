@@ -1,7 +1,7 @@
 
-<video id="player" playsinline controls data-poster="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg" style="max-width:100%;">
+<video id="player" playsinline controls data-poster="{{ asset ('website_video_thumbnail2.png', 'videos')}}" style="max-width:100%;">
 
-  <source src="{{ asset ('jkLIMmTczd.mp4', 'videos')}}" type="video/mp4" />
+  <source src="{{ asset ('website_demo.mp4', 'videos')}}" type="video/mp4" />
 
 </video>
 
@@ -14,7 +14,7 @@
 
 
   const player = new Plyr(document.getElementById('player'), {
-    thumbnail: 'https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-HD.jpg',
+    
   });
 
 

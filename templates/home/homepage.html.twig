@@ -83,23 +83,31 @@
     </div>
 
 
-    <div id="homepage-collections">
+    <div>
+
+        {# last project presentation #}
         
         {{ display.collection("Derniers projets présentés", lastInsertedPresentations) }}
-  
+
+        {# some presentations by category #}
+
         {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
 
+        {# Pricing Plans #}
+
+        {% include "home/_pricing_plans.html.twig" %}
+
+        {# Editor's Choice presentations #}
+
         {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}
+
+        {# some presentations by category #}
         
         {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
 
-      
-
-      {#
+      {# some presentations by categories intersection #}
         
         {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }}
-
-      #}
 
 
     </div>

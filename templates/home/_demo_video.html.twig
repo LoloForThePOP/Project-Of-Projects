@@ -1,5 +1,5 @@
 
-<video id="player" playsinline controls data-poster="{{ asset ('website_video_thumbnail2.png', 'videos')}}" style="max-width:100%;">
+<video id="player" playsinline controls data-poster="{{ asset ('website_video_thumbnail.png', 'videos')}}" style="max-width:100%;">
 
   <source src="{{ asset ('website_demo.mp4', 'videos')}}" type="video/mp4" />
 
@@ -12,9 +12,18 @@
 
 <script>
 
-
   const player = new Plyr(document.getElementById('player'), {
+
+    resetOnEnd: true,
     
+  });
+
+  player.on('ended', (event) => {
+
+    //const instance = event.detail.plyr;
+
+    //console.log(instance);
+
   });
 
 

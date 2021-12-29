@@ -1,83 +1,99 @@
+<div class="text-center" style="border: 1px solid #c3c3e1; padding: 15px; padding-top:25px; padding-bottom: 25px;">
 
 
-<h4 class="choose-plan-title">Présentez votre projet</h4>
+  <h4 class="choose-plan-title">Présentez Votre Projet - Nos Offres Personnalisées</h4>
 
-<div class="container">
+  <div class="" style="margin-bottom: 33px;">
+      
+    <button type="button" class="btn btn-light" data-bs-toggle="collapse" href="#collapsePlans" role="button" aria-expanded="false" aria-controls="collapsePlans">Afficher les offres</button>
 
-  <div class="row">
+  </div>
 
-    <div class="plan-item">
 
-      <div class="title">
-        Offre Autonomie
-      </div>
-
-      <div class="image-container">
-
-        <img src="{{asset('account/register.png', 'larger')}}" class="" alt="Pricing plan icon" loading="lazy" width="300" height="200">
-
-      </div>
-
-      <div class="price">
-        0 € - GRATUIT
-      </div>
-
-      <div class="list">
-
-        <div class="">
-
-          <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="check icon">
-
-          Votre page de projet complète grâce à notre outil
-
+  <div id="collapsePlans" class="collapse container">
+  
+    <div class="plans-row row">
+  
+      <div class="plan-item">
+  
+        <div class="title">
+          Offre Autonomie
         </div>
-
-        <div class="">
-
-          <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="check icon">
-
-          Second élément de liste 
-
+  
+        <div class="image-container">
+  
+          <img src="{{asset('account/register.png', 'larger')}}" class="" alt="Pricing plan icon" loading="lazy" width="300" height="200">
+  
         </div>
-        
+  
+        <div class="price">
+          0 € - GRATUIT
+        </div>
+  
+        <div class="list">
+  
+          <div class="">
+  
+            <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="check icon">
+  
+            Votre page de projet complète grâce à notre outil
+  
+          </div>
+  
+          <div class="">
+  
+            <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="check icon">
+  
+            Second élément de liste 
+  
+          </div>
+          
+        </div>
+  
+        <div class="CTA-container">
+  
+          <button type="button" class="btn btn-validate rounded-lg">
+            Démarrer
+          </button>
+  
+        </div>
+  
       </div>
-
-      <div class="CTA-container">
-
-        <button type="button" class="btn btn-validate rounded-lg">
-          Démarrer
-        </button>
-
+  
+      <div class="plan-item">
+  
+        <div class="title">
+          Correction + Bilan
+        </div>
+  
       </div>
-
-    </div>
-
-    <div class="plan-item">
-
-      <div class="title">
-        Correction + Bilan
+  
+      <div class="plan-item">
+  
+        <div class="title">
+          Construction Totale
+        </div>
+  
       </div>
-
-    </div>
-
-    <div class="plan-item">
-
-      <div class="title">
-        Construction Totale
-      </div>
-
+  
     </div>
 
   </div>
+
 </div>
+
 
 
 <style>
 
+  .plans-row{
+    justify-content: space-evenly;
+  }
+
   .choose-plan-title{
     font-size: calc(1.3rem + 0.6vw);
     font-weight: bold;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
   }
 
   .plan-item{
@@ -86,7 +102,6 @@
     border-radius: 7px;
     height: 500px;
     width: 300px;
-    margin-right: 25px;
     padding-top: 25px;
 
   }

@@ -16,6 +16,12 @@
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-10">
 
+    
+        {# Pricing Plans #}
+
+        {% include "home/_pricing_plans_overview.html.twig" %}
+        {% include "home/_pricing_plans_details.html.twig" %}
+
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -93,9 +99,6 @@
 
         {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
 
-        {# Pricing Plans
-
-        {% include "home/_pricing_plans.html.twig" %} #}
 
         {# Editor's Choice presentations #}
 

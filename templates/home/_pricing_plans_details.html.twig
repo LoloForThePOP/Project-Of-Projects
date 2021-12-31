@@ -1,0 +1,224 @@
+
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "plan-2", 'modal_title': "relecture Totale avec Bilan Complet", 'modal_size': "modal-lg"} %}
+
+    {% import "utilities/_macro_plans.html.twig" as plan %}
+
+    {% block modalBody %}
+
+    <div class="altern-container px-2">
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('switch_edit_consult_mode.png', 'tutorial'),
+            "Représentation d'un basculement entre le mode d'édition, et le mode de consultation.",
+            "Vous créez votre page de projet avec notre outil..", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
+            "Notre équipe rédige les textes, choisit deux images, et créé un schéma explicatif pour votre projet.", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
+            "Vous recevez un bilan clair et détaillé des modifications à apporter à votre présentation de projet.", 
+        ) }}
+        
+        {{ plan.alternRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
+            "Nous restons disponibles pour vous aider.", 
+        ) }}
+
+        <div class="text-center fs-3 mt-5">
+            
+            <div class="fw-bold mb-4">Pour tout renseignement</div> 
+
+            <div class="row">
+
+                <div class="col-6 d-flex justify-content-center align-items-center">
+
+
+                    <a href="{{ path ('contact_website') }}" target="_blank" rel="noopener noreferrer">
+
+                        <button type="button" class="btn btn-lg" style="background-color: rgb(219, 219, 255);">Poser une question écrite</button>
+        
+                    </a>
+
+
+                </div>
+
+                <div class="col-6 fs-5">
+
+                    <div class="fw-bold mb-2">Appeler notre accueil</div> 
+            
+                    <a href="tel:0776648758">07 76 64 87 58</a> (appel non surtaxé)
+
+                </div>
+
+            </div>
+
+        </div>
+    
+    </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "plan-3", 'modal_title': "Construction Totale", 'modal_size': "modal-lg"} %}
+
+    {% import "utilities/_macro_plans.html.twig" as plan %}
+
+    {% block modalBody %}
+
+    <div class="altern-container px-2">
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('switch_edit_consult_mode.png', 'tutorial'),
+            "Représentation d'un basculement entre le mode d'édition, et le mode de consultation.",
+            "Un entretien par téléphone ou visioconférence nous permet de bien comprendre votre projet. Il dure 45 minutes minimum.", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
+            "Notre équipe rédige les textes, choisit deux images, et créé un schéma explicatif pour votre projet.", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('drag_and_drop.png', 'tutorial'),
+            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
+            "Vous obtenez une présentation de projet compréhensible, claire, et complète.", 
+        ) }}
+
+        <div class="text-center fs-3 mt-5">
+            
+            <div class="fw-bold mb-4">Pour tout renseignement</div> 
+
+            <div class="row">
+
+                <div class="col-6 d-flex justify-content-center align-items-center">
+
+
+                    <a href="{{ path ('contact_website') }}" target="_blank" rel="noopener noreferrer">
+
+                        <button type="button" class="btn btn-lg" style="background-color: rgb(219, 219, 255);">Poser une question écrite</button>
+        
+                    </a>
+
+
+                </div>
+
+                <div class="col-6 fs-5">
+
+                    <div class="fw-bold mb-2">Appeler notre accueil</div> 
+            
+                    <a href="tel:0776648758">07 76 64 87 58</a> (appel non surtaxé)
+
+                </div>
+
+            </div>
+
+        </div>
+    
+    </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+<style>
+
+    .altern-container{
+        margin-bottom: 21px;
+    }
+
+    .altern-container .row{
+        margin-bottom: 21px;
+    }
+
+    .altern-container .row:nth-child(even){
+        flex-direction: row-reverse !important;
+    }
+
+    .altern-container .image-container{
+
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+        height:100%;
+
+        padding: 15px;
+
+        background-color: #f8f9fa;
+
+        border-radius: 8px;
+        
+    }
+
+    .altern-container .image-container img{
+
+        max-width: 100%; 
+        height: auto;
+    }
+
+    .altern-container .text-container{
+
+        display:flex;
+        justify-content: center;
+        align-items: center;
+
+        height:100%;
+        
+        padding: 15px 8px;
+
+        text-align: center;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 1.1;
+
+        background-color: rgb(233, 255, 227);
+
+    }
+
+
+
+    @media screen and (max-width: 768px) {
+
+        .altern-container .text-container{
+
+            font-size: 18px;
+
+        }
+
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .altern-container .text-container{
+
+            font-size: 15px;
+
+        }
+
+    }
+
+
+</style>

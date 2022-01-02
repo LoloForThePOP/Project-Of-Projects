@@ -1,6 +1,6 @@
 
 
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "plan-2", 'modal_title': "relecture Totale avec Bilan Complet", 'modal_size': "modal-lg"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "plan-2", 'modal_title': "Relecture Totale avec Bilan Complet", 'modal_size': "modal-lg"} %}
 
     {% import "utilities/_macro_plans.html.twig" as plan %}
 
@@ -12,30 +12,30 @@
         
         {{ plan.alternRow(
             asset('switch_edit_consult_mode.png', 'tutorial'),
-            "Représentation d'un basculement entre le mode d'édition, et le mode de consultation.",
-            "Vous créez votre page de projet avec notre outil..", 
+            "",
+            "Vous créez la présentation de votre projet avec notre outil.", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('switch_edit_consult_mode.png', 'tutorial'),
+            "",
+            "Deux relecteurs étudient votre page de projet, corrigent les possibles fautes, et notent tous leurs conseils.", 
         ) }}
 
         {#  #}
         
         {{ plan.alternRow(
             asset('drag_and_drop.png', 'tutorial'),
-            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
-            "Notre équipe rédige les textes, choisit deux images, et créé un schéma explicatif pour votre projet.", 
-        ) }}
-
-        {#  #}
-        
-        {{ plan.alternRow(
-            asset('drag_and_drop.png', 'tutorial'),
-            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
-            "Vous recevez un bilan clair et détaillé des modifications à apporter à votre présentation de projet.", 
+            "",
+            "Vous recevez un bilan clair et détaillé des modifications à apporter pour obtenir une présentation de projet lisible et complète.", 
         ) }}
         
         {{ plan.alternRow(
             asset('drag_and_drop.png', 'tutorial'),
-            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
-            "Nous restons disponibles pour vous aider.", 
+            "",
+            "Nous restons disponibles pour vous aider à appliquer nos conseils.", 
         ) }}
 
         <div class="text-center fs-3 mt-5">
@@ -86,24 +86,26 @@
         
         {{ plan.alternRow(
             asset('switch_edit_consult_mode.png', 'tutorial'),
-            "Représentation d'un basculement entre le mode d'édition, et le mode de consultation.",
+            "",
             "Un entretien par téléphone ou visioconférence nous permet de bien comprendre votre projet. Il dure 45 minutes minimum.", 
         ) }}
 
+        
+
         {#  #}
         
         {{ plan.alternRow(
             asset('drag_and_drop.png', 'tutorial'),
-            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
-            "Notre équipe rédige les textes, choisit deux images, et créé un schéma explicatif pour votre projet.", 
+            "",
+            "Notre équipe rédige les textes, recherche des images, et créé un schéma qui explique votre projet.", 
         ) }}
 
         {#  #}
         
         {{ plan.alternRow(
             asset('drag_and_drop.png', 'tutorial'),
-            "Représentation d'un glisser-déposer d'élément (= drag and drop)",
-            "Vous obtenez une présentation de projet compréhensible, claire, et complète.", 
+            "",
+            "Vous obtenez une présentation de projet claire, complète, et compréhensible. Vous la recevez également en fichier pdf à partager.", 
         ) }}
 
         <div class="text-center fs-3 mt-5">

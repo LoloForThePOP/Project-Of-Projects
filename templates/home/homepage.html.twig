@@ -17,10 +17,10 @@
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-10">
 
     
-        {# Pricing Plans #}
+        {# Pricing Plans
 
         {% include "home/_pricing_plans_overview.html.twig" %}
-        {% include "home/_pricing_plans_details.html.twig" %}
+        {% include "home/_pricing_plans_details.html.twig" %} #}
 
     {# Displaying registered user presentations #}
 
@@ -108,9 +108,9 @@
         
         {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
 
-      {# some presentations by categories intersection #}
+      {# some presentations by categories intersection
         
-        {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }}
+        {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
 
 
     </div>

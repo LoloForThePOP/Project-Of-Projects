@@ -25,24 +25,27 @@
             {% for place in presentation.places %}
 
                 {# create a human readable place type #}
+                {# ex: (City of) London (United Kingdom) #}
 
-                {% set readablePlaceType = "" %}
+                {% set readablePlaceTypeBefore = "" %}
+                {% set readablePlaceTypeAfter = "" %}
 
                 {% if place.type =="locality" %}
 
-                    {% set readablePlaceType = "Ville : " %}
+                    {% set readablePlaceTypeBefore = "Ville : " %}
+                    {% set readablePlaceTypeAfter = "(" ~ place.country ~ ")" %}
 
                 {% elseif place.type =="administrative_area_level_1" %}
 
-                    {% set readablePlaceType = "Région " %}
+                    {% set readablePlaceTypeBefore = "Région " %}
 
                 {% elseif place.type =="administrative_area_level_2" %}
 
-                    {% set readablePlaceType = "Département :" %}
+                    {% set readablePlaceTypeBefore = "Département :" %}
 
                 {% elseif place.type =="country" %}
 
-                    {% set readablePlaceType = "" %}
+                    {% set readablePlaceTypeBefore = "" %}
                 
                 {% endif %}
 
@@ -81,7 +84,7 @@
 
                     <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal">
 
-                        {{readablePlaceType}} {{place.name | capitalize}}
+                        {{readablePlaceTypeBefore}} {{place.name | capitalize}} {{readablePlaceTypeAfter}}
 
                         {% if place.type == "locality" and place.postalCode is not empty  %}
 

@@ -33,6 +33,7 @@ class PPBaseCrudController extends AbstractCrudController
             DateTimeField::new('createdAt'),
             TextField::new('goal'),
             TextField::new('title'),
+            TextField::new('stringId'),
             TextField::new('keywords'),
             Field::new('isAdminValidated'),
             Field::new('overallQualityAssessment'),

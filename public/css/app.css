@@ -242,6 +242,12 @@ label:active:after {
     color: white;
 }
 
+.btn-validate:hover{
+
+    background-color: #5bb982;
+    color: white;
+}
+
 .btn-go-back{
 
     background-color: #D1EAFB;

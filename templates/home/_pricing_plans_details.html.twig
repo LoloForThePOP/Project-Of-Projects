@@ -11,7 +11,7 @@
         {#  #}
         
         {{ plan.alternRow(
-            asset('plans/page_construction_wip.png', 'larger'),
+            asset('plans/page_constructed_by_user.png', 'larger'),
             "",
             "Vous créez la présentation de votre projet avec notre outil.", 
         ) }}
@@ -19,7 +19,7 @@
         {#  #}
         
         {{ plan.alternRow(
-            asset('plans/observing.png', 'larger'),
+            asset('plans/reviewers.png', 'larger'),
             "",
             "Deux relecteurs étudient votre page de projet, corrigent les possibles fautes, et notent tous leurs conseils.", 
         ) }}
@@ -27,46 +27,23 @@
         {#  #}
         
         {{ plan.alternRow(
-            asset('plans/observing.png', 'larger'),
+            asset('plans/magazine.png', 'larger'),
             "",
             "Vous recevez un bilan clair et détaillé des modifications à apporter pour obtenir une présentation de projet lisible et complète.", 
         ) }}
         
         {{ plan.alternRow(
-            asset('plans/observing.png', 'larger'),
+            asset('plans/customer_support.png', 'larger'),
             "",
             "Nous restons disponibles pour vous aider à appliquer nos conseils.", 
         ) }}
 
-        <div class="text-center fs-3 mt-5">
-            
-            <div class="fw-bold mb-4">Pour tout renseignement</div> 
-
-            <div class="row">
-
-                <div class="col-6 d-flex justify-content-center align-items-center">
-
-
-                    <a href="{{ path ('contact_website') }}" target="_blank" rel="noopener noreferrer">
-
-                        <button type="button" class="btn btn-lg" style="background-color: rgb(219, 219, 255);">Poser une question écrite</button>
         
-                    </a>
+        {{ plan.buyButtonArea() }}
+
+        {{ plan.contactWebsite() }}
 
 
-                </div>
-
-                <div class="col-6 fs-5">
-
-                    <div class="fw-bold mb-2">Appeler notre accueil</div> 
-            
-                    <a href="tel:0776648758">07 76 64 87 58</a> (appel non surtaxé)
-
-                </div>
-
-            </div>
-
-        </div>
     
     </div>
 
@@ -85,7 +62,7 @@
         {#  #}
         
         {{ plan.alternRow(
-            asset('plans/observing.png', 'larger'),
+            asset('plans/phone_call_interview.png', 'larger'),
             "",
             "Un entretien par téléphone ou visioconférence nous permet de bien comprendre votre projet. Il dure 45 minutes minimum.", 
         ) }}
@@ -96,48 +73,25 @@
         {#  #}
         
         {{ plan.alternRow(
-            asset('plans/observing.png', 'larger'),
+            asset('plans/page_construction_wip.png', 'larger'),
             "",
-            "Notre équipe rédige les textes, recherche des images, et créé un schéma qui explique votre projet.", 
+            "Notre équipe rédige les textes, recherche des images, et créé un schéma pour expliquer votre projet.", 
         ) }}
 
         {#  #}
         
         {{ plan.alternRow(
-            asset('plans/observing.png', 'larger'),
+            asset('plans/clean_presentation.png', 'larger'),
             "",
-            "Vous obtenez une présentation de projet claire, complète, et compréhensible. Vous la recevez également en fichier pdf à partager.", 
+            "Vous obtenez une page de projet claire, complète, et compréhensible.", 
         ) }}
 
-        <div class="text-center fs-3 mt-5">
-            
-            <div class="fw-bold mb-4">Pour tout renseignement</div> 
 
-            <div class="row">
+        {{ plan.buyButtonArea() }}
 
-                <div class="col-6 d-flex justify-content-center align-items-center">
+        {{ plan.contactWebsite() }}
 
-
-                    <a href="{{ path ('contact_website') }}" target="_blank" rel="noopener noreferrer">
-
-                        <button type="button" class="btn btn-lg" style="background-color: rgb(219, 219, 255);">Poser une question écrite</button>
-        
-                    </a>
-
-
-                </div>
-
-                <div class="col-6 fs-5">
-
-                    <div class="fw-bold mb-2">Appeler notre accueil</div> 
-            
-                    <a href="tel:0776648758">07 76 64 87 58</a> (appel non surtaxé)
-
-                </div>
-
-            </div>
-
-        </div>
+      
     
     </div>
 
@@ -198,6 +152,21 @@
 
         background-color: rgb(233, 255, 227);
 
+    }
+
+    .buy-button-area {
+        text-align: center;
+        background-color: rgb(208, 255, 210);
+        padding: 48px 0px;
+        border-radius: 5px;
+    }
+
+
+    .contact-caps {
+        text-align: center;
+        background-color: rgb(238, 255, 221);
+        padding: 12px 5px;
+        border-radius: 5px;
     }
 
 

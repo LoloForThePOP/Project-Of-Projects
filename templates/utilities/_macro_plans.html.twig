@@ -25,3 +25,47 @@
     </div>
     
 {% endmacro %}
+
+{% macro buyButtonArea() %}
+
+    <div class="buy-button-area mt-5">
+
+        <button type="button text-center" class="btn btn-lg btn-success">Acheter maintenant</button>
+
+    </div>
+    
+{% endmacro %}
+
+{% macro contactWebsite() %}
+
+    <div class="contact-caps fs-3 mt-5">
+                
+        <div class="fw-bold mb-4">Pour tout renseignement</div> 
+
+        <div class="row">
+
+            <div class="col-6 d-flex justify-content-center align-items-center">
+
+
+                <a href="{{ path ('contact_website') }}" target="_blank" rel="noopener noreferrer">
+
+                    <button type="button" class="btn btn-lg" style="background-color: rgb(219, 219, 255);">Poser une question écrite</button>
+
+                </a>
+
+
+            </div>
+
+            <div class="col-6 fs-5">
+
+                <div class="fw-bold mb-2">Appeler notre accueil</div> 
+        
+                <a href="tel:0776648758">07 76 64 87 58</a> (appel non surtaxé)
+
+            </div>
+
+        </div>
+
+    </div>
+    
+{% endmacro %}

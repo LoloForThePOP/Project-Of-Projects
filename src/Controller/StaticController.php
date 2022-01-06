@@ -8,6 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class StaticController extends AbstractController
 {
+    
     /**
      * @Route("/static/{page_name}", name="static")
      */
@@ -19,4 +20,6 @@ class StaticController extends AbstractController
         ]);
 
     }
+   
+
 }

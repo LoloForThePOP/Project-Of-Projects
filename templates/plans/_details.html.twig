@@ -1,0 +1,379 @@
+
+  <div class="plans-row row">
+  
+      <div class="plan-item">
+  
+        <div class="title">
+          Autonomie
+        </div>
+  
+        <div class="image-container">
+  
+          <img src="{{asset('plans/plane.png', 'larger')}}" class="" alt="Pricing plan icon" loading="lazy">
+  
+        </div>
+        
+        <div class="short-descr">
+          <b>Créez votre page</b> de projet complète grâce à notre <b>outil performant</b>.
+        </div>  
+  
+        <div class="price">
+          0 € - GRATUIT
+        </div>
+  
+        <div class="plan-show-more">
+  
+          <button type="button" class="btn btn-validate rounded-lg">
+            Démarrer
+          </button>
+  
+        </div>
+  
+      </div>
+  
+      <div class="plan-item" data-bs-toggle="modal" data-bs-target="#plan-2">
+  
+        <div class="title">
+          Relecture Totale <br> + Bilan Conseils
+        </div>
+  
+        <div class="image-container">
+  
+          <img src="{{asset('plans/observing.png', 'larger')}}" class="" alt="Pricing plan icon" loading="lazy">
+  
+        </div>
+
+        <div class="short-descr">
+          Votre <b>assurance</b> d'une présentation <b>compréhensible, complète, et sans faute</b>.
+        </div>  
+
+        <div class="price">
+          39 €
+        </div>
+  
+  
+  
+        <div class="plan-show-more">
+  
+          <button type="button" class="btn btn-validate rounded-lg">
+            Afficher les Détails
+          </button>
+  
+        </div>
+  
+      </div>
+  
+      <div class="plan-item" data-bs-toggle="modal" data-bs-target="#plan-3">
+  
+        <div class="title">
+          Construction Totale <br> avec Schéma
+        </div>
+  
+        <div class="image-container">
+  
+          <img src="{{asset('plans/engineer.png', 'larger')}}" class="" alt="Pricing plan icon" loading="lazy">
+  
+        </div>
+        
+        <div class="short-descr">
+          Votre projet <b>présenté par nos spécialistes</b> avec des <b>illustrations</b> <b>(garantie qualité)</b>.
+        </div>  
+  
+        <div class="price">
+          129 €
+        </div>
+  
+  
+        <div class="plan-show-more">
+  
+          <button type="button" class="btn btn-validate rounded-lg">
+            Afficher les Détails
+          </button>
+  
+        </div>
+  
+      </div>
+  
+    </div>
+
+
+
+
+
+
+
+
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "plan-2", 'modal_title': "Relecture Totale avec Bilan Complet", 'modal_size': "modal-lg"} %}
+
+    {% import "utilities/_macro_plans.html.twig" as plan %}
+
+    {% block modalBody %}
+
+    <div class="altern-container px-2">
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('plans/page_constructed_by_user.png', 'larger'),
+            "",
+            "Vous créez la présentation de votre projet avec notre outil.", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('plans/reviewers.png', 'larger'),
+            "",
+            "Deux relecteurs étudient votre page de projet, corrigent les possibles fautes, et notent tous leurs conseils.", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('plans/magazine.png', 'larger'),
+            "",
+            "Vous recevez un bilan clair et détaillé des modifications à apporter pour obtenir une présentation de projet lisible et complète.", 
+        ) }}
+        
+        {{ plan.alternRow(
+            asset('plans/customer_support.png', 'larger'),
+            "",
+            "Nous restons disponibles pour vous aider à appliquer nos conseils.", 
+        ) }}
+
+        
+        {{ plan.buyButtonArea() }}
+
+        {{ plan.contactWebsite() }}
+
+
+    
+    </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "plan-3", 'modal_title': "Construction Totale", 'modal_size': "modal-lg"} %}
+
+    {% import "utilities/_macro_plans.html.twig" as plan %}
+
+    {% block modalBody %}
+
+    <div class="altern-container px-2">
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('plans/phone_call_interview.png', 'larger'),
+            "",
+            "Un entretien par téléphone ou visioconférence nous permet de bien comprendre votre projet. Il dure 45 minutes minimum.", 
+        ) }}
+
+        
+        
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('plans/page_construction_wip.png', 'larger'),
+            "",
+            "Notre équipe rédige les textes, recherche des images, et créé un schéma pour expliquer votre projet.", 
+        ) }}
+
+        {#  #}
+        
+        {{ plan.alternRow(
+            asset('plans/clean_presentation.png', 'larger'),
+            "",
+            "Vous obtenez une page de projet claire, complète, et compréhensible.", 
+        ) }}
+
+
+        {{ plan.buyButtonArea() }}
+
+        {{ plan.contactWebsite() }}
+    
+    </div>
+
+    {% endblock %}
+
+{% endembed %}
+
+<style>
+
+  /* Plan Item (column) */
+
+  .plans-row{
+    
+    justify-content: space-evenly;  
+    margin-top: 33px;
+  
+  }
+
+  .plan-item{
+
+    height: 482px;
+    width: 300px;
+    padding-top: 25px;
+
+    border: 1px solid #9099e1;
+    border-radius: 7px;
+    cursor: pointer;
+
+  }
+
+  .plan-item:hover {
+    background-color: #f3fff3;
+  }
+
+  .plan-item .title{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height:60px;
+
+    margin-bottom: 12px;
+    line-height: 1.1em;
+
+    font-size: 27px;
+    font-weight: bold;
+    text-align: center;
+
+  }
+
+  .plan-item .short-descr{
+
+    height: 53px;
+
+    margin-bottom: 13px;
+    line-height: 1.1;
+    
+    font-size: 18px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+
+  }
+
+  .plan-item .image-container{
+
+    margin-bottom: 30px;
+    font-size: 20px;
+
+  }
+
+  .plan-item .price{
+
+    margin-bottom: 20px;
+    
+    text-align: center;
+    font-size: 37px;
+    font-weight: bold;
+
+  }
+
+  .plan-item .plan-show-more{
+
+    text-align: center;
+
+  }
+
+
+  /* Modal Content  */
+
+  .altern-container{
+    margin-bottom: 21px;
+  }
+
+  .altern-container .row{
+    margin-bottom: 21px;
+  }
+
+  .altern-container .row:nth-child(even){
+    flex-direction: row-reverse !important;
+  }
+
+  .altern-container .image-container{
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    height:100%;
+
+    padding: 15px;
+
+    background-color: #f8f9fa;
+
+    border-radius: 8px;
+    
+  }
+
+  .altern-container .image-container img{
+
+    max-width: 100%; 
+    height: auto;
+
+  }
+
+  .altern-container .text-container{
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+
+    height:100%;
+    
+    padding: 15px 8px;
+
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.1;
+
+    background-color: rgb(233, 255, 227);
+
+  }
+
+  .buy-button-area {
+
+    text-align: center;
+    background-color: rgb(208, 255, 210);
+    padding: 48px 0px;
+    border-radius: 5px;
+
+  }
+
+  .contact-caps {
+
+    text-align: center;
+    background-color: rgb(238, 255, 221);
+    padding: 12px 5px;
+    border-radius: 5px;
+
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .altern-container .text-container{
+
+      font-size: 18px;
+
+    }
+
+  }
+
+  @media screen and (max-width: 580px) {
+
+    .altern-container .text-container{
+
+      font-size: 15px;
+
+    }
+
+  }
+
+</style>

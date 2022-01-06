@@ -38,10 +38,13 @@
 
     <script src="/js/tracking.js"></script>
 
-    {% if not is_granted('ROLE_ADMIN') and app.request.server.get("APP_ENV") == 'prod' %}
-    
-    {% endif %}
+    {# Display some html chunks to reduce page load #}
+    <script> var getChunkRouteName = '{{path("ajax_render_chunk")}}'; </script>
+    <script src="/js/ajax_chunk.js"></script>
 
+
+    {# Discriminate admins or app environment (dev or prod) #}
+    {# {% if not is_granted('ROLE_ADMIN') and app.request.server.get("APP_ENV") == 'prod' %}{% endif %} #}
 
     {% block javascripts %}
 

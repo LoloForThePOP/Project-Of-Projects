@@ -1,4 +1,4 @@
-{% macro collection ( title="", items, class="" ) %}
+{% macro collection ( title="", items, class="", hideThreshold ) %}
 
     {% if class == "user-presentations" %} {# Manage plural forms #}
 
@@ -22,7 +22,7 @@
 
         <h3 class="collection-title">{{title}}</h3>
 
-        <div class="hide-too-long hide-335 show-tiny-screens collection-container">
+        <div class="hide-too-long {{ hideThreshold | default('hide-335') }}  show-tiny-screens collection-container">
                 
             {% for item in items %}
 

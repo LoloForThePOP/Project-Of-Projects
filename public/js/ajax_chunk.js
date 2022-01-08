@@ -23,7 +23,7 @@ $(document).ready(function(){
             
             success: function(data, status) {
 
-                $("#ajax-loader").remove;
+                $("#ajax-loader").remove();
                 $(target).append(data.html);
 
             },  

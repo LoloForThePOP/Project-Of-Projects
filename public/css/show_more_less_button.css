@@ -8,6 +8,10 @@
     max-height: 290px;
 }
 
+.hide-525 {
+    max-height: 580px;
+}
+
 .read-more:focus {
     outline: none;
 }

@@ -57,7 +57,10 @@
                     <div class="other-info-container">
 
                         <div class="goal {% if title is empty %}no-title{% endif %} ">
-                            {{item.goal[:1] | upper ~ item.goal[1:] | slice(0, 77)}}{% if item.goal | length > 77 %}...{% endif %}
+
+                            {{ item.goal | length < 81 ? item.goal[:1] | upper ~ item.goal[1:] : item.goal[:1] | upper ~ item.goal[1:77] ~ '...' }}
+
+
                         </div>
 
                         {% if title is not empty %}

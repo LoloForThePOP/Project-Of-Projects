@@ -120,6 +120,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $createdConversations;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Purchase::class, mappedBy="registredUser")
+     */
+    private $purchases;
+
 
     public function __construct()
     {
@@ -132,6 +137,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         $this->setDataItem("unreadMessagesCount", 0);
         $this->createdConversations = new ArrayCollection();
+        $this->purchases = new ArrayCollection();
 
     }
 
@@ -444,6 +450,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($createdConversation->getAuthorUser() === $this) {
                 $createdConversation->setAuthorUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Purchase[]
+     */
+    public function getPurchases(): Collection
+    {
+        return $this->purchases;
+    }
+
+    public function addPurchase(Purchase $purchase): self
+    {
+        if (!$this->purchases->contains($purchase)) {
+            $this->purchases[] = $purchase;
+            $purchase->setRegistredUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removePurchase(Purchase $purchase): self
+    {
+        if ($this->purchases->removeElement($purchase)) {
+            // set the owning side to null (unless already changed)
+            if ($purchase->getRegistredUser() === $this) {
+                $purchase->setRegistredUser(null);
             }
         }
 

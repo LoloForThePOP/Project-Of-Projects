@@ -12,6 +12,7 @@ use App\Entity\Message;
 use App\Entity\Persorg;
 use App\Entity\Category;
 use App\Entity\Document;
+use App\Entity\Purchase;
 use App\Entity\Conversation;
 use App\Entity\ContributorStructure;
 use Doctrine\Persistence\ObjectManager;
@@ -284,7 +285,7 @@ class FakeDataFixtures extends Fixture
         $users = []; // contains all users, we'll use this array to hydrate project presentation creators
 
         // One admin user creation
-
+/* AVOIDING DUPLICATA WHEN FIXTURE APPENDING
         $admin = new User();
 
         $admin
@@ -339,7 +340,7 @@ class FakeDataFixtures extends Fixture
 
         $manager->persist($otherTestUser);
 
-        $users[] = $otherTestUser;
+        $users[] = $otherTestUser; */
 
         // Casual users creation
 
@@ -352,7 +353,7 @@ class FakeDataFixtures extends Fixture
                 ->setUserNameSlug(strtolower($this->slugger->slug($user->getUserName())))            
                 ->setEmail($faker->email())
                 ->setPassword($this->encoder->hashPassword(
-                    $admin,
+                    $user,
                     'test'
                 ))
                 ->setParameter('isVerified', true);
@@ -886,6 +887,28 @@ class FakeDataFixtures extends Fixture
             $user->setDataItem("unreadMessagesCount", $unreadMessagesCount);
         }
  */
+
+        // Some Purchases
+
+        for($p=0; $p<mt_rand(20,40); $p++) {
+
+            $purchase = new Purchase();
+
+            $buyerInfo=[];
+            $buyerInfo['telephone'] = $faker->phoneNumber();
+
+            // Hydrating Purchase :
+
+            if ($faker->boolean(90)) {
+                $purchase->setStatus("PAID");
+            }
+            $purchase->setRegistredUser($faker->randomElement($users));
+            $purchase->setBuyerInfo($buyerInfo);
+
+            $manager->persist($purchase);
+            
+
+        };
 
 
         $manager->flush();

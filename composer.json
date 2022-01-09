@@ -23,6 +23,7 @@
         "nucleos/antispam-bundle": "^2.2",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
+        "stripe/stripe-php": "^7.108",
         "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.3.*",
         "symfony/console": "5.3.*",

@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Purchase;
 use Stripe\PaymentIntent;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\StripePayment;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PurchaseController extends AbstractController
 {
@@ -13,30 +15,17 @@ class PurchaseController extends AbstractController
     /**
      * @Route("/purchase/pay/", name="purchase_payment_form")
      */
-    public function showCardform(): Response
+    public function showCardform(Purchase $purchase, StripePayment $stripeService): Response
     {
 
-        // Stripe test secret API key.
-        \Stripe\Stripe::setApiKey('sk_test_51KEEIYCW4N9Dp51Q47GlgI7tvVN4wEiATXozyMoPXX31E7o9P2PbpXJeUw7cUoWR5hWsj29cyUOzdnPXlz3ymajt002wA4uGeJ');
-
-                
-        $paymentIntent = \Stripe\PaymentIntent::create([
-
-            'amount' => 210,
-    
-            'currency' => 'eur',
-    
-            'automatic_payment_methods' => [
-    
-                'enabled' => true,
-    
-            ],
-    
-        ]);
+        $paymentIntent = $stripeService->getPaymentIntent($purchase);
 
         return $this->render('purchase/payment.html.twig', [
             'clientSecret' => $paymentIntent->client_secret,
+            'stripePublicKey' => $stripeService->getPublicKey(),
+            'purchase' => $purchase,
         ]);
+
     }
 
 

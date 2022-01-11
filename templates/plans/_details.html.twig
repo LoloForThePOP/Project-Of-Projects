@@ -12,7 +12,7 @@
         {{ plan.alternRow(
             asset('plans/page_constructed_by_user.png', 'larger'),
             "",
-            "Vous créez la présentation de votre projet avec notre outil.", 
+            "Vous créez la présentation de votre projet (avec notre outil ou ailleurs).", 
         ) }}
 
         {#  #}
@@ -20,7 +20,7 @@
         {{ plan.alternRow(
             asset('plans/reviewers.png', 'larger'),
             "",
-            "Deux relecteurs étudient votre page de projet, corrigent les possibles fautes, et notent tous leurs conseils.", 
+            "Deux relecteurs étudient votre page de projet, corrigent les fautes possibles, et notent tous leurs conseils.", 
         ) }}
 
         {#  #}
@@ -28,7 +28,7 @@
         {{ plan.alternRow(
             asset('plans/magazine.png', 'larger'),
             "",
-            "Vous recevez un bilan clair et détaillé des modifications à apporter pour obtenir une présentation de projet lisible et complète.", 
+            "Vous recevez un bilan clair et détaillé des modifications à apporter pour obtenir une présentation de projet complète et intéressante.", 
         ) }}
         
         {{ plan.alternRow(
@@ -38,12 +38,8 @@
         ) }}
 
         
-        {{ plan.buyButtonArea() }}
+        {{ plan.displayMoreButtonArea('project_presentation_review') }}
 
-        {{ plan.contactWebsite() }}
-
-
-    
     </div>
 
     {% endblock %}
@@ -63,7 +59,7 @@
         {{ plan.alternRow(
             asset('plans/phone_call_interview.png', 'larger'),
             "",
-            "Un entretien par téléphone ou visioconférence nous permet de bien comprendre votre projet. Il dure 45 minutes minimum.", 
+            "Un entretien par téléphone ou visioconférence nous permet de comprendre votre projet. Il dure 45 minutes minimum.", 
         ) }}
 
         
@@ -86,10 +82,8 @@
         ) }}
 
 
-        {{ plan.buyButtonArea() }}
+        {{ plan.displayMoreButtonArea('project_presentation_construction') }}
 
-        {{ plan.contactWebsite() }}
-    
     </div>
 
     {% endblock %}

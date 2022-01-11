@@ -485,6 +485,7 @@ class PPController extends AbstractController
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
                 'suggestedStringId' =>$suggestedStringId,
+                'contactUsPhone' => $this->getParameter('app.contact_phone'),
                 'addWebsiteForm' => $addWebsiteForm->createView(),
                 'addQAForm' => $addQAForm->createView(),
                 'addECSForm' => $ecsForm->createView(),
@@ -504,6 +505,7 @@ class PPController extends AbstractController
         return $this->render('/project_presentation/show.html.twig', [
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
+            'contactUsPhone' => $this->getParameter('app.contact_phone'),
         ]);
     }
 
@@ -543,6 +545,7 @@ class PPController extends AbstractController
             'presentation' => $presentation,            
             'stringId' => $presentation->getStringId(),
             'form' => $confirmForm->createView(),
+            
         ]);
 
     }

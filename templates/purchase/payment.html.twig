@@ -12,9 +12,26 @@
 
 {% block body %}
 
-<h1>Votre commande</h1>
 
-  <!-- Display a payment form -->
+  <div class="container">
+
+    <h1>Votre commande</h1>
+
+    <div class="">
+
+      <h4 class="fw-bold">Vérifiez votre commande</h4>
+
+      <div class="">
+
+        {{purchase.getContentItem('objectsToPay')}}
+        
+      </div>
+
+      
+
+    </div>
+
+    <!-- Display a payment form -->
 
     <form id="payment-form">
 
@@ -33,6 +50,9 @@
       <div id="payment-message" class="hidden"></div>
 
     </form>
+
+  </div>
+
 
   <script src="https://js.stripe.com/v3/"></script>
 

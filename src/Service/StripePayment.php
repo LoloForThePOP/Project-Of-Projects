@@ -11,11 +11,11 @@ class StripePayment {
     protected $publicKey;
     protected $secretKey;
 
-    public function __construct() //getting appropriate public and secret key according to dev or prod environment
+    public function __construct() //getting appropriate stripe public and secret key according to dev or prod environment
     {
 
-        $this->publicKey = strtoupper(getenv('APP_ENV')).getenv('_STRIPE_PUBLIC_KEY');
-        $this->secretKey = strtoupper(getenv('APP_ENV')).getenv('_STRIPE_SECRET_KEY');
+        $this->publicKey = $_ENV[strtoupper($_ENV['APP_ENV']).'_STRIPE_PUBLIC_KEY'];
+        $this->secretKey = $_ENV[strtoupper($_ENV['APP_ENV']).'_STRIPE_SECRET_KEY'];
 
     }
 
@@ -32,7 +32,7 @@ class StripePayment {
                 
          return \Stripe\PaymentIntent::create([
  
-             'amount' => $purchase->getContent["amount"],
+             'amount' => $purchase->getContentItem("total_amount"),
      
              'currency' => 'eur',
      

@@ -21,6 +21,11 @@ class Purchase
      * @ORM\Column(type="integer")
      */
     private $id;
+    
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $buyerEmail;
 
     /**
      * @ORM\Column(type="json", nullable=true)
@@ -50,6 +55,7 @@ class Purchase
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
        
 
     public function __construct()
@@ -87,6 +93,19 @@ class Purchase
         return $this;
     }
 
+
+    public function getContentItem($key)
+    {
+        return $this->content[$key];
+    }
+
+    public function setContentItem($key, $value): self
+    {
+        $this->content[$key] = $value;
+
+        return $this;
+    }
+
     public function getStatus(): ?string
     {
         return $this->status;
@@ -119,6 +138,18 @@ class Purchase
     public function setCreatedAt(\DateTimeImmutable $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getBuyerEmail(): ?string
+    {
+        return $this->buyerEmail;
+    }
+
+    public function setBuyerEmail(string $buyerEmail): self
+    {
+        $this->buyerEmail = $buyerEmail;
 
         return $this;
     }

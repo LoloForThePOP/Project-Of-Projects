@@ -16,12 +16,13 @@
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-10">
 
+      
+    <div id="call-back-form"></div>
+    {% set contactForm = form(form) %}
+      
 
     {# Pricing Plans #} 
-
     {% include "plans/container.html.twig" %}
-
-
 
     {# Displaying registered user presentations #}
 

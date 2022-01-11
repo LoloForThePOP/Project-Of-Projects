@@ -360,6 +360,7 @@ class MessagesController extends AbstractController
         return $this->render('/static/contact_us.html.twig', [
 
             'form' => $form->createView(),
+            'contactUsPhone' => $this->getParameter('app.contact_phone'),
             
         ]);
 

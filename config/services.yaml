@@ -5,6 +5,9 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    # website contact phone 
+    app.contact_phone: "07 76 64 87 58"
+
     # website support email adress (ex: support@website.com)
     app.support_email: "contact@propon.org"
 

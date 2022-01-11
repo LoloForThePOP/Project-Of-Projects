@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Form\BuyerInfoType;
 use Psr\Log\LoggerInterface;
 use App\Service\CacheThumbnail;
 use Algolia\SearchBundle\SearchService;
@@ -44,8 +45,21 @@ class HomeController extends AbstractController
 
         //dump($results);
 
+        
+        $buyerInfoForm = $this->createForm(
+            BuyerInfoType::class, null,
+            array(
+
+                // Time protection
+                'antispam_time'     => true,
+                'antispam_time_min' => 4,
+                'antispam_time_max' => 3600,
+            )
+        );
+
         return $this->render("/home/homepage.html.twig", [
             'lastInsertedPresentations' => $lastInsertedPresentations,
+            'form' => $buyerInfoForm->createView(),
         ]);
     }
 

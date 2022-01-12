@@ -7,6 +7,7 @@ use Stripe\PaymentIntent;
 use App\Form\BuyerInfoType;
 use App\Service\StripePayment;
 use App\Form\ContactWebsiteType;
+use App\Service\MailerService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,9 +18,9 @@ class PurchaseController extends AbstractController
 
     
     /**
-    * @Route("/purchase/ask-question/", name="purchase_ask_question")
+    * @Route("/purchase/ask-question/{offer}", name="purchase_ask_question")
     */
-    public function askQuestion(Request $request): Response
+    public function askQuestion($offer, Request $request, MailerService $mailer): Response
     {
 
         $buyerInfoForm = $this->createForm(
@@ -53,20 +54,36 @@ class PurchaseController extends AbstractController
 
         if ($buyerInfoForm->isSubmitted() && $buyerInfoForm->isValid()) {
 
-            dd('ok');
+            $visitorEmail = $buyerInfoForm->get('email')->getData();
+            $visitorPhone = $buyerInfoForm->get('phone')->getData();
+            $sender = $this->getParameter('app.support_email');
+            $receiver = $this->getParameter('app.support_email');
 
+            $mailer->send($sender, 'Propon', $receiver, 'New visitor purchase inquiry', '<h4>Plan: '.$offer.'</h4><h4>Visitor Email: '.$visitorEmail.' - Phone: '.$visitorPhone.'</h4>');
 
+            // flash message & redirect to login route
+            $this->addFlash('success', 'Vos informations ont bien étées envoyées, nous vous recontacterons dans de brefs délais.');
+
+            return $this->redirectToRoute('homepage');
 
         }
-
         
         $contactWebsiteForm->handleRequest($request);
 
         if ($contactWebsiteForm->isSubmitted() && $contactWebsiteForm->isValid()) {
 
-            dd('ok cwf');
 
+            $visitorEmail = $contactWebsiteForm->get('authorEmail')->getData();
+            $messageContent = $contactWebsiteForm->get('content')->getData();
 
+            $sender = $this->getParameter('app.support_email');
+            $receiver = $this->getParameter('app.support_email');
+
+            $mailer->send($sender, 'Propon', $receiver, 'New visitor purchase inquiry', '<h4>Plan: '.$offer.'</h4><h4>Visitor Email: '.$visitorEmail.'</h4><h4>Message content:</h4> <p>'.$messageContent.'</p>');
+
+            $this->addFlash('success', 'Votre message a bien été envoyé, nous vous recontacterons dans de brefs délais.');
+
+            return $this->redirectToRoute('homepage');
 
         }
 
@@ -74,6 +91,7 @@ class PurchaseController extends AbstractController
             'buyerInfoForm' => $buyerInfoForm->createView(),
             'contactWebsiteForm' => $contactWebsiteForm->createView(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
+            'offer' => $offer,
         ]);
 
     }

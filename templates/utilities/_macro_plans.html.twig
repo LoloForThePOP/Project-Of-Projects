@@ -26,11 +26,11 @@
     
 {% endmacro %}
 
-{% macro displayMoreButtonArea(objectsToPay) %}
+{% macro displayMoreButtonArea(offer) %}
 
     <div class="buy-button-area mt-5">
 
-        <a href="{{ path ('purchase_ask_question', {'objectsToPay': objectsToPay} ) }}">
+        <a href="{{ path ('purchase_ask_question', {'offer': offer} ) }}">
 
             <button type="button text-center" class="btn btn-lg btn-success">Nous contacter</button>
 

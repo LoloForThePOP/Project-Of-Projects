@@ -35,12 +35,12 @@ class BuyerInfoType extends AbstractType
 
             ->add(
                 
-                'telephone', 
+                'phone', 
 
                 TelType::class,  
                 
                 [
-                    'label' => 'Ou un numéro de téléphone',
+                    'label' => 'Téléphone (recommandé)',
 
                     'attr' => [
 

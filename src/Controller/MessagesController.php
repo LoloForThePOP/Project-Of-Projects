@@ -50,9 +50,6 @@ class MessagesController extends AbstractController
             
         }
 
-
-
-        
         $privateMessage = new Message();
 
         $form = $this->createForm(PrivateMessageType::class, $privateMessage,

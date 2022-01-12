@@ -145,7 +145,7 @@ class RegistrationController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
-        // flash message & redirect to toute login
+        // flash message & redirect to login route
         $this->addFlash('success', 'Votre addresse a été vérifiée ! Vous pouvez maintenant vous connecter et utiliser le site.');
 
         return $this->redirectToRoute('app_login');

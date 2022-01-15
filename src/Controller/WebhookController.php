@@ -28,7 +28,7 @@ class WebhookController extends AbstractController
   protected function fulfill_order($session) {
     // TODO: fill me in
     $this->logger->info("Fulfilling order...");
-    $this->logger->info($session);
+    //$this->logger->info($session);
   }
 
   /**
@@ -43,7 +43,9 @@ class WebhookController extends AbstractController
 
     );
 
-    $endpoint_secret = 'whsec_ja7hO18L2oamnRR5wqRWdui84y53ELtK';
+    $endpoint_secret = $_ENV[strtoupper($_ENV['APP_ENV']).'_STRIPE_WEBHOOKS_SECRET_KEY'];
+
+    $this->logger->info($endpoint_secret);
       
     $payload = @file_get_contents('php://input');
 
@@ -66,7 +68,7 @@ class WebhookController extends AbstractController
     
     $this->logger->info("Passed signature verification!");
 
-    // Handle the checkout.session.completed event
+    // Handle the payment_intent.succeeded event
     if ($event->type == 'payment_intent.succeeded') {
       $session = $event->data->object;
 

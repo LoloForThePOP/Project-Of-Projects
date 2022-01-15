@@ -56,8 +56,8 @@ class PurchaseController extends AbstractController
 
             $visitorEmail = $buyerInfoForm->get('email')->getData();
             $visitorPhone = $buyerInfoForm->get('phone')->getData();
-            $sender = $this->getParameter('app.support_email');
-            $receiver = $this->getParameter('app.support_email');
+            $sender = $this->getParameter('app.general_contact_email');
+            $receiver = $this->getParameter('app.general_contact_email');
 
             $mailer->send($sender, 'Propon', $receiver, 'New visitor purchase inquiry', '<h4>Plan: '.$offer.'</h4><h4>Visitor Email: '.$visitorEmail.' - Phone: '.$visitorPhone.'</h4>');
 
@@ -76,8 +76,8 @@ class PurchaseController extends AbstractController
             $visitorEmail = $contactWebsiteForm->get('authorEmail')->getData();
             $messageContent = $contactWebsiteForm->get('content')->getData();
 
-            $sender = $this->getParameter('app.support_email');
-            $receiver = $this->getParameter('app.support_email');
+            $sender = $this->getParameter('app.general_contact_email');
+            $receiver = $this->getParameter('app.general_contact_email');
 
             $mailer->send($sender, 'Propon', $receiver, 'New visitor purchase inquiry', '<h4>Plan: '.$offer.'</h4><h4>Visitor Email: '.$visitorEmail.'</h4><h4>Message content:</h4> <p>'.$messageContent.'</p>');
 
@@ -100,7 +100,7 @@ class PurchaseController extends AbstractController
     /**
      * @Route("/purchase/form/", name="purchase_payment_form")
      */
-    public function showCardform(StripePayment $stripeService): Response
+/*     public function showCardform(StripePayment $stripeService): Response
     {
 
         $purchase = new Purchase();
@@ -116,20 +116,20 @@ class PurchaseController extends AbstractController
             'purchase' => $purchase,
         ]);
 
-    }
+    } */
 
 
     /**
     * @Route("/purchase/success/", name="purchase_payment_success")
     */
-    public function paymentSuccess(): Response
+    /* public function paymentSuccess(): Response
     {
 
         return $this->render('purchase/success.html.twig', [
             
         ]);
 
-    }
+    } */
 
 
 

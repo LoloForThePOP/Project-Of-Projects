@@ -327,7 +327,7 @@ class MessagesController extends AbstractController
 
             $sender = $form->get('authorEmail')->getData();
 
-            $receiver = $this->getParameter('app.support_email');
+            $receiver = $this->getParameter('app.general_contact_email');
 
             $email = (new TemplatedEmail())
                 ->from($sender)

@@ -16,14 +16,6 @@
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-10">
 
-      
-    <div id="call-back-form"></div>
-    {% set contactForm = form(form) %}
-      
-
-    {# Pricing Plans #} 
-    {% include "plans/container.html.twig" %}
-
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -82,10 +74,14 @@
 
     {# basic pool alert display #}
     {% include "home/_basic_pool_alert.html.twig" %}
-
+    
+    
 
     <div class="col-xxl-11 pe-lg-5">
 
+      {# Pricing Plans #} 
+      {% include "plans/container.html.twig" %}
+      
       {% include "home/_search_container.html.twig" %}
 
     </div>
@@ -127,7 +123,7 @@
 
           <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
           
-          <span class="h5 fw-bold ps-2">Ajouter un projet</span>
+          <span class="h5 fw-bold ps-2">Ajouter gratuitement un Projet</span>
       
         </button>
 

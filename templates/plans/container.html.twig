@@ -1,11 +1,10 @@
-<div class="text-center" style="border: 1px solid #c3c3e1; padding: 15px; padding-top:25px; padding-bottom: 40px;">
-
+<div class="plans">
 
   <h4 class="see-plans-catch-phrase">Encore plus d'aide pour présenter votre projet ?</h4>
 
   <div class="">
       
-    <button data-get-chunk='{"name": "plans", "target": "#collapsePlans" }' type="button" class="show-offers btn btn-light" data-bs-toggle="collapse" href="#collapsePlans" role="button" aria-expanded="false" aria-controls="collapsePlans">Afficher nos offres</button>
+    <button data-get-chunk='{"name": "plans", "target": "#collapsePlans" }' type="button" class="show-offers btn btn-light" data-bs-toggle="collapse" href="#collapsePlans" role="button" aria-expanded="false" aria-controls="collapsePlans">Afficher nos autres offres</button>
 
   </div>
 
@@ -13,7 +12,7 @@
   <div id="collapsePlans" class="collapse container">
 
     <div class="plans-row row">
-  
+  {# 
       <div class="plan-item">
   
         <div class="title">
@@ -43,7 +42,7 @@
         </div>
   
       </div>
-  
+   #}
       <div class="plan-item" data-bs-toggle="modal" data-bs-target="#plan-2">
   
         <div class="title">
@@ -89,7 +88,7 @@
         </div>
         
         <div class="short-descr">
-          Votre projet <b>présenté par nos spécialistes</b> avec des <b>illustrations</b> <b>(garantie qualité)</b>.
+          Votre projet <b>présenté par nos spécialistes</b>, avec <b>illustrations</b> <b>(garantie qualité)</b>.
         </div>  
   
         <div class="price">
@@ -120,6 +119,14 @@
 
 
 <style>
+
+  .plans{
+
+    padding: 25px 15px 40px 15px; 
+    text-align: center;
+    border: 1px solid #c3c3e1; 
+
+  }
 
   .see-plans-catch-phrase{
 
@@ -216,6 +223,61 @@
     text-align: center;
 
   }
+
+
+  
+@media screen and (max-width: 580px) {
+
+  
+  .plans {
+    padding: 14px 0px 30px 0px;
+  }
+
+  button.show-offers {
+    padding: 0.575rem 1.2rem;
+    font-size: 1.15rem;
+  }
+
+  /* Horizontal scrolling */
+  
+  .plans-row {
+
+    display: flex;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    justify-content: unset;
+    
+  }
+
+  .plan-item {
+
+    width: 250px;
+    margin-right: 17px;
+
+  }
+
+  
+  .plan-item .image-container{
+
+    margin-bottom: 18px;
+
+  }
+  
+  .plan-item .price{
+
+    font-size: 28px;
+
+  }
+
+  
+  .plan-item .short-descr{
+
+    height: 75px;
+
+  }
+
+
+}
 
 
 </style>

@@ -106,7 +106,7 @@ class RegistrationController extends AbstractController
 
             return $this->render('registration/please_confirm_email.html.twig', [
                 'userEmailToConfirm' => $user->getEmail(),
-                'websiteSupportEmail' => $this->getParameter('app.support_email'),
+                'websiteSupportEmail' => $this->getParameter('app.general_contact_email'),
             ]);
         }
 

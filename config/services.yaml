@@ -8,8 +8,8 @@ parameters:
     # website contact phone 
     app.contact_phone: "07 76 64 87 58"
 
-    # website support email adress (ex: support@website.com)
-    app.support_email: "contact@propon.org"
+    # website general contact email adress (ex: contact@website.com)
+    app.general_contact_email: "contact@propon.org"
 
     # website mailer (ex: mailer@website.com)
     app.mailer_email: "mailer@propon.org"

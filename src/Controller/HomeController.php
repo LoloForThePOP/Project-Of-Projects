@@ -30,37 +30,10 @@ class HomeController extends AbstractController
 
         $lastInsertedPresentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=2 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->setMaxResults('30')->getResult();
 
-        // by categories project presentations
-        
-        $results = $searchService->search($manager, PPBase::class, ''
-/* 
-        , 
-            
-            [
-                'filters' => '(categories.uniqueName:material AND categories.uniqueName:science)'
-            ] */
-            
-        );   
-
-
-        //dump($results);
-
-        
-        $buyerInfoForm = $this->createForm(
-            BuyerInfoType::class, null,
-            array(
-
-                // Time protection
-                'antispam_time'     => true,
-                'antispam_time_min' => 4,
-                'antispam_time_max' => 3600,
-            )
-        );
-
         return $this->render("/home/homepage.html.twig", [
             'lastInsertedPresentations' => $lastInsertedPresentations,
-            'form' => $buyerInfoForm->createView(),
         ]);
+
     }
 
 

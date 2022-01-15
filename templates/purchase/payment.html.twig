@@ -13,21 +13,17 @@
 {% block body %}
 
 
-  <div class="container">
+  <div class="page-container container d-flex justify-content-center flex-column px-2 px-md-3">
 
-    <h1>Votre commande</h1>
+    <div class="text-center">
 
-    <div class="">
-
-      <h4 class="fw-bold">Vérifiez votre commande</h4>
+      <h4 class="mb-3">Paiement</h4>
 
       <div class="">
 
         {# {{purchase.getContentItem('objectsToPay')}} #}
         
       </div>
-
-      
 
     </div>
 
@@ -42,6 +38,8 @@
       </div>
 
       <button id="submit" class="">
+
+        <div class="spinner hidden" id="spinner"></div>
 
         <span id="button-text">Payer</span>
 

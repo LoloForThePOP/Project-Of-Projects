@@ -93,11 +93,11 @@
 
     {% endif %}
 
-    {# Notification invisible project #}
+    {# Notification "invisible project because of quality assessment" #}
 
     {% if userPresenter and overallQualityAssessment < 2 %}
 
-        {% include 'project_presentation/_show/_notifications/invisible_presentation.html.twig' %}
+        {% include 'project_presentation/_show/_notifications/quality_assessment_invisible_presentation.html.twig' %}
 
     {% endif %}
 
@@ -306,6 +306,27 @@
              {% include "project_presentation/edit/_settings.html.twig" %}
             
         </div>
+
+        {% if is_granted('ROLE_ADMIN') %}
+
+            <div class="alert alert-warning mt-4">
+
+                Tu es un admin !
+                
+            </div>
+        
+        {% endif %}
+
+            
+        {# Notification invisible project because waiting for admin validation #}
+
+        {% if presentation.isAdminValidated == false and overallQualityAssessment >= 2 %}
+
+            <div class="mt-5">
+                {% include 'project_presentation/_show/_notifications/not_admin_validated.html.twig' %}
+            </div>
+
+        {% endif %}
 
         {# Switch Between Edition Mode and Consultation Mode Button #}
 

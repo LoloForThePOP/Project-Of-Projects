@@ -20,6 +20,7 @@ use App\Service\ImageResizer;
 use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
 use App\Service\AssessQuality;
+use App\Service\MailerService;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
 use App\Service\RemovePresentation;
@@ -33,6 +34,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -47,7 +49,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $manager)
+    public function create(Request $request, EntityManagerInterface $manager, MailerService $mailer)
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -86,6 +88,20 @@ class PPController extends AbstractController
 
             }
 
+            /* Email Webmaster that a new presentation has been created (moderation) */
+
+            $sender = $this->getParameter('app.general_contact_email');
+            $receiver = $sender;
+
+            $emailParameters=[
+
+                "goal" => $presentation->getGoal(),
+                "address" => $this->generateUrl('show_presentation_by_id', ["id"=>$presentation->getId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                
+            ];
+
+            $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'/project_presentation/email_webmaster_notif_new_pp.html.twig', $emailParameters);
+
             $this->addFlash(
                 'success fs-4',
                 "✅ La présentation du projet a été créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
@@ -106,8 +122,8 @@ class PPController extends AbstractController
      * Allow to Display or Edit a Project Presentation Page
      * 
      * @Route("/{stringId}/", name="show_presentation", priority=-1)
+     * @Route("/project-presentation/show-by-id/{id}/", name="show_presentation_by_id", priority=-2)
      * @Route("/projects/{stringId}/", name="long_path_show_presentation")
-
      * 
      * @return Response
      */

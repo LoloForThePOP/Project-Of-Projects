@@ -1,0 +1,55 @@
+{% embed "utilities/notification.html.twig" %}
+
+    {% block class %}notif-admin-validation alert-warning col-lg-10{% endblock %}
+
+    {% block dismissCross %}{% endblock %}
+
+    {% block header %}{% endblock %}
+
+    {% block body %}
+
+        <div class="d-flex align-items-center">
+
+            <div class="img-container flex-shrink-0">
+
+                <img class="img-fluid" src="{{asset ("notifications/wait.svg", 'larger')}}" alt="wait icon">
+
+            </div>
+
+            <div class="text-container flex-grow-1 ms-0 ms-md-4 ps-2 ps-md-3">
+
+                <h5 class="fw-bold mb-3">Votre présentation est en attente de validation.</h5>
+
+                <h5 class="">Un membre de notre équipe va vérifier la conformité de votre présentation pour qu'elle devienne visible sur le site.</h5>
+
+            </div>
+
+        </div>
+
+        <style>
+
+            .notif-admin-validation{
+                background-color: rgb(255, 229, 181);
+            }
+
+            .notif-admin-validation .img-container{
+                width: 130px;
+            }
+
+            @media screen and (max-width: 580px) {
+
+                .notif-admin-validation .img-container{
+                    width: 60px;
+                }
+
+                .notif-admin-validation .text-container h5{
+                    font-size: 1.05rem;
+                }
+
+            }
+
+        </style>
+    
+    {% endblock %}
+        
+{% endembed %}

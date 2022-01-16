@@ -23,10 +23,11 @@ class MailerService {
 
     /**
     * Allow to send an email
-    * $content is a twig template file name, or an html string.
+    * $content is a twig template file name with directory, or an html string.
+    * If $content is a twig template, we can pass an array of additional $emailParameters
     */
 
-    public function send($sender, $senderTitle, $receiver, $subject, $content){
+    public function send($sender, $senderTitle, $receiver, $subject, $content, $emailParameters=false){
 
         $templatedInstance = false;
 
@@ -50,15 +51,15 @@ class MailerService {
             ->to(new Address($receiver))
             ->subject($subject);
 
-        if ($templatedInstance) {
-           
-            // path of the Twig template to render
+        if ($templatedInstance) { // in this case $content is path of the Twig template to render
+            
             $email->htmlTemplate($content);
 
-            // pass variables (name => value) to the template
-            /* ->context([
-                'confirmationURL' => $confirmationURL,
-            ]); */
+            if ($emailParameters) {
+
+                $email-> context($emailParameters);
+            }
+            
         }
 
         else {

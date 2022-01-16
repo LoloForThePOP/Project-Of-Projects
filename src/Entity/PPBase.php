@@ -226,7 +226,7 @@ class PPBase implements \Serializable
 
         $this->createdAt = new DateTime();
 
-        $this->isAdminValidated = true;
+        $this->isAdminValidated = false;
         $this->overallQualityAssessment = 0;
         $this->isPublished = true;
         $this->isDeleted = false;

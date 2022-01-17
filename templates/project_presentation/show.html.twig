@@ -309,9 +309,27 @@
 
         {% if is_granted('ROLE_ADMIN') %}
 
-            <div class="alert alert-warning mt-4">
+            <div class="alert mt-4">
 
-                Tu es un admin !
+                <div class="menu-button py-3 fw-bold">
+
+                    <h6 class="text-primary text-center fw-bold" style="font-size: normal;">Valider la présentation</h6>
+
+                    <div class="d-flex justify-content-center">
+
+                        <div>
+
+                            <span class="">Non</span>
+                    
+                            <input type="checkbox" id="admin-validation-presentation-switch" class="toggle-switch" {% if presentation.isAdminValidated %} checked {% endif %} /><label class="toggle-switch-label" for="admin-validation-presentation-switch">Admin validate presentation switch</label>
+                        
+                            <span class="ps-2">Oui</span>
+
+                        </div>
+                        
+                    </div>
+
+                </div> 
                 
             </div>
         

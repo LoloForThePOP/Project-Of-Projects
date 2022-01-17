@@ -624,6 +624,16 @@ class PPController extends AbstractController
                     
                     $presentation->setParameter('arePrivateMessagesActivated', $switchState);
                     break;
+
+                case 'admin-validation-presentation-switch':
+
+                    if ($this->isGranted('ROLE_ADMIN')) {
+
+                        $presentation->setIsAdminValidated($switchState);
+                        
+                    }
+
+                    break;
                 
                 default:
                     

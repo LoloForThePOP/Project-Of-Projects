@@ -602,7 +602,7 @@ class PPController extends AbstractController
      * 
     */ 
 
-    public function ajaxSetDataLegacy(Request $request, PPBase $presentation,EntityManagerInterface $manager) {
+    public function ajaxSetDataLegacy(Request $request, PPBase $presentation,EntityManagerInterface $manager, MailerService $mailer) {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
@@ -630,7 +630,19 @@ class PPController extends AbstractController
                     if ($this->isGranted('ROLE_ADMIN')) {
 
                         $presentation->setIsAdminValidated($switchState);
+
                         
+
+                        if ($switchState=="true") {
+
+                            $sender = $this->getParameter('app.general_contact_email');
+                            
+                            $receiver = $presentation->getCreator()->getEmail();
+                
+                            $mailer->send($sender, 'Propon', $receiver, "Votre présentation de projet est validée sur Propon.", "Votre présentation a été validée par un membre de notre équipe. Merci pour votre confiance en notre outil. <br>L'équipe Propon.");
+
+                        }
+    
                     }
 
                     break;

@@ -19,8 +19,11 @@ class MiscController extends AbstractController
      */
     public function ajaxRenderChunk(Request $request)
     {
+        
              
         if ($request->isXmlHttpRequest()) {
+            
+            $request->getSession()->save();
 
             $chunkName = $request->request->get('chunkName');
             $chunkTemplateDirFileName = '';

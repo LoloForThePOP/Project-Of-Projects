@@ -6,7 +6,7 @@
 parameters:
 
     # website contact phone 
-    app.contact_phone: "07 76 64 87 58"
+    app.contact_phone: "07 88 02 32 51"
 
     # website general contact email adress (ex: contact@website.com)
     app.general_contact_email: "contact@propon.org"

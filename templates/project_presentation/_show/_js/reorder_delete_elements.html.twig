@@ -123,32 +123,13 @@
                      success: function(data, status) {
 
 
-                        if(entityType == "slides"){ //reindexing thumbnails targets and slides positions
+                        if(entityType == "slides"){ 
 
-                            $(".thumbnail").each(function(index){
-
-                                index = index + 1;
-                                
-                                $(this).off('click');
-                                $(this).off('mouseover');
-
-                                $(this).on( "click", {
-                                    newIndex: index
-                                  }, function(event) {
-                                    currentSlide( event.data.newIndex );}
-                                );
-
-                                $(".slides-container").append($("#"+$(this).attr("id")));
-
-                                $(this).attr("data-loop-index", index);
-                                $(this).attr("onclick", "");
-                        
-                            });
+                            reindexSlidesAndThumbnails();
 
                             // display moved thumbnail
                             $("#slide-thumbnails #"+evt.item.id).click();
-                            // bind on hover thumbnail event
-                            mouseoverThumbnail();
+                            
 
                         }
 
@@ -240,11 +221,10 @@
 
                     if(elementsType=="slides"){
 
+                        //removing matching slide thumbnail
                         $('[data-slide-thumbnail-id="'+idElement+'"]').remove();
 
-                        // Empty slideshow -> cleaning ui
-
-                        if ( $( ".mySlides" ).length == 0 ) {
+                        if ( $( ".mySlides" ).length == 0 ) {// When slideshow is empty, cleaning useless elements in ui
  
                             $( "#slides" ).parent().find(".show-delete-items-buttons, #manage-slides").remove();
                          
@@ -253,7 +233,9 @@
                         }
 
                         else{
-                            
+
+                            reindexSlidesAndThumbnails();
+
                             $( "#slide-next" ).trigger( "click" );
 
                         }
@@ -271,6 +253,43 @@
             }
 
         });
+
+
+
+
+        function reindexSlidesAndThumbnails(){
+
+            $(".thumbnail").each(function(index){
+
+                index = index + 1;
+
+                //removing thumbnail's original events                                
+                $(this).off('click'); 
+                $(this).off('mouseover');
+
+                $(this).attr("data-loop-index", index);
+
+                //binding a new click event with correct index 
+                $(this).on( "click", {
+                    newIndex: index
+                  }, function(event) {
+                    currentSlide( event.data.newIndex );}
+                );
+
+                //binding mouseover event with correct index 
+                $(this).on( "mouseover", {
+                    newIndex: index
+                  }, function(event) {
+                    currentSlide( event.data.newIndex );}
+                );
+                
+                //reordering thumbnail's matching slide in the slideshow
+
+                $(".slides-container").append($("#"+$(this).attr("id")));
+
+        
+            });
+        }
 
      });
 

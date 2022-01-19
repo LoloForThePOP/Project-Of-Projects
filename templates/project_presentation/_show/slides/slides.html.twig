@@ -169,8 +169,10 @@
 		
 		dots[slideIndex-1].className += " active";
 		thumbnail[slideIndex-1].className += " active";
-		
-		captionText.innerHTML = dots[slideIndex-1].getAttribute('data-caption');
+
+		if(typeof(captionText) != 'undefined' && captionText != null){
+			captionText.innerHTML = dots[slideIndex-1].getAttribute('data-caption');
+		}
 
 	}
 
@@ -190,18 +192,16 @@
 
 	<script>
 
-		mouseoverThumbnail();
+		mouseoverThumbnail(); //if($( ".thumbnail" ).length < 5) {}
 
 		function mouseoverThumbnail() {
-			
-			if($( ".thumbnail" ).length < 5) {
+		
+			$( ".thumbnail" ).mouseover(function() {
 
-				$( ".thumbnail" ).mouseover(function() {
+				currentSlide($(this).data("loop-index"));
+				
+			});
 
-					currentSlide($(this).data("loop-index"));
-					
-				});
-			}
 		}
 
 	</script>

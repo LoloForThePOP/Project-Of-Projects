@@ -42,7 +42,7 @@
 		
 		{% endif %}
 
-		<div id="{{slide.id}}" class="flex-child thumbnail js-sortable-element position-relative" data-slide-thumbnail-id="{{slide.id}}" data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})">
+		<div id="{{slide.id}}" class="flex-child thumbnail js-sortable-element position-relative" data-slide-thumbnail-id="{{slide.id}}" data-loop-index="{{loop.index}}">
 
 			{% if slide.type == 'youtube_video' %}	
 
@@ -54,10 +54,18 @@
 
 			{% endif %}
 
+			{% if userPresenter %}
 
-			{# Delete slide button #}
+				{# Access item edit page on click #}
 
-			<button type="button" data-elements-type="slide-thumbnail" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{slide.id}}">&times</button>
+				<a href="{{path('update_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id })}}" class="pp-edition-mode coverable-link"></a>
+
+
+				{# Delete slide button #}
+
+				<button type="button" data-elements-type="slide-thumbnail" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{slide.id}}">&times</button>
+
+			{% endif %}
 
 		</div>
 
@@ -67,6 +75,25 @@
 
 	
 </div>
+
+<script>
+
+	//showing appropriate slide when clicking on its thumbnail
+
+	onHoverThumbnails();
+
+	function onHoverThumbnails() {
+
+		$( ".thumbnail" ).on("click", function(event){ 
+
+			currentSlide( $(this).attr("data-loop-index") );
+
+		});
+
+	}
+
+
+</script>
 
 <style>
 

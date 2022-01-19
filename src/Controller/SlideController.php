@@ -148,15 +148,15 @@ class SlideController extends AbstractController
     /**
      * Allow to update a youtube video slide
      * 
-     * @Route("/projects/{stringId}/slides/edit-youtube-video/{slide_id}",name="update_youtube_slide")
+     * @Route("/projects/{stringId}/slides/edit-youtube-video/{id_slide}",name="update_youtube_slide")
      * 
      * @return Response
      */
-    public function editVideoSlide (PPBase $pp, $slide_id, SlideRepository $repo, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, TreatItem $specificTreatments) {
+    public function editVideoSlide (PPBase $pp, $id_slide, SlideRepository $repo, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, TreatItem $specificTreatments) {
 
         $this->denyAccessUnlessGranted('edit', $pp);
 
-        $slide = $repo->findOneById($slide_id);
+        $slide = $repo->findOneById($id_slide);
 
         $slide->setFile(null); //otherwise get a bug (caused by vitch upload ?)
 
@@ -198,6 +198,56 @@ class SlideController extends AbstractController
         ]);
 
     }
+
+    /**
+     * Allow to update a slide by redirecting to appropriate method
+     * 
+     * @Route("/projects/{stringId}/slides/update/{id_slide}",name="update_slide")
+     * 
+     * @return Response
+     */
+    public function updateSlide (PPBase $pp, $id_slide, SlideRepository $repo) {
+
+        $this->denyAccessUnlessGranted('edit', $pp);
+
+        $slide = $repo->findOneById($id_slide);
+
+        $slideType = $slide->getType();
+
+        $routeName = null;
+
+        switch ($slideType) {
+
+            case 'image':
+
+                $routeName = 'update_image_slide';
+                break;
+
+            case 'youtube_video':
+
+                $routeName = 'update_youtube_slide';
+                break;
+            
+            default:
+                break;
+        }
+
+        return $this->redirectToRoute($routeName, [
+
+            'stringId' => $pp->getStringId(),
+            'presentation'=> $pp, 
+            'id_slide' => $id_slide,
+
+        ]);
+
+    }
+
+
+
+
+
+
+
 
     /*
     / slides reordering and slides removing

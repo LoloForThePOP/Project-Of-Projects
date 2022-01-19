@@ -21,19 +21,7 @@
 
 		{% if userPresenter %}
 
-			{% set path = null %}
-
-			{% if slide.type == 'image' %}
-		
-				{% set path = path('update_image_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id }) %}
-
-			{% endif %}
-
-			{% if slide.type == 'youtube_video' %}
-		
-				{% set path = path('update_youtube_slide', {'stringId': stringId, 'presentation': presentation, 'slide_id' : slide.id }) %}
-
-			{% endif %}
+			{% set path = path('update_slide', {'stringId': stringId, 'presentation': presentation, 'id_slide' : slide.id }) %}
 
 			{# Edit Slide on slide click (only for large screens) #}
 			

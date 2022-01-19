@@ -35,6 +35,23 @@
                     {{ form_widget(addImageForm.caption) }}
                     
                 </div>
+                
+                <!-- Add an image licence or credit (ex: Wikipedia CC BY-SA 4.0) -->
+                
+                <div class="mt-4">
+
+                    <h5 class="" data-bs-toggle="collapse" href="#imageSlideMoreOptions" role="button" aria-expanded="false" aria-controls="imageSlideMoreOptions">
+                        Afficher plus d'options ▾
+                    </h5>
+    
+                    <div id="imageSlideMoreOptions" class="collapse no-transition mt-4">
+                            
+                        {{ form_row(form.licence) }}
+    
+                    </div>
+    
+                    
+                </div>
 
             </div>
 

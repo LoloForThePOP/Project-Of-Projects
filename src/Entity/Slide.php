@@ -54,6 +54,12 @@ class Slide
     public $file;
 
     /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+
+    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
@@ -75,14 +81,13 @@ class Slide
      */
     private $presentation;
 
-
-
-
-
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $createdAt;
+    private $licence;
+
+
+
 
 
     
@@ -200,6 +205,18 @@ class Slide
     public function setCreatedAt(\DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getLicence(): ?string
+    {
+        return $this->licence;
+    }
+
+    public function setLicence(?string $licence): self
+    {
+        $this->licence = $licence;
 
         return $this;
     }

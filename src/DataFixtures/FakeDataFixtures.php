@@ -543,8 +543,13 @@ class FakeDataFixtures extends Fixture
                         $caption = $faker->sentences(mt_rand(1,2), true);
                     }
 
+                    $licenceExamples = ["Attribution 4.0 International", "CC BY-NC-SA 4.0", "BY-NC-ND 4.0 license", "Credit Reuters", "Credits : AFP", "Credit : Wikipédia", "Copyright : Wikipedia"];
+
+                    $licence = $faker->boolean(25) ? $licenceExamples[array_rand($licenceExamples)] : null;
+
                     $slide->setType($slideType)
                          ->setAddress($address)
+                         ->setLicence($licence)
                          ->setCaption($caption)
                          ->setPosition($i)
                          ->setPresentation($presentation);
@@ -894,6 +899,8 @@ class FakeDataFixtures extends Fixture
 
             $purchase = new Purchase();
 
+            $buyerEmail = $faker->email();
+
             $buyerInfo=[];
             $buyerInfo['telephone'] = $faker->phoneNumber();
 
@@ -903,6 +910,7 @@ class FakeDataFixtures extends Fixture
                 $purchase->setStatus("PAID");
             }
             $purchase->setRegistredUser($faker->randomElement($users));
+            $purchase->setBuyerEmail($buyerEmail);
             $purchase->setBuyerInfo($buyerInfo);
 
             $manager->persist($purchase);

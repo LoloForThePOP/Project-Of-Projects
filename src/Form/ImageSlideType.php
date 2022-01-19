@@ -40,6 +40,20 @@ class ImageSlideType extends AbstractType
 
                     'required'   => false,
                 ]
+            )
+            ->add(
+                'licence',
+                TextType::class,
+                [
+                    'label' => " Crédits ou droits d'utilisation de l'image",
+
+                    'attr' => [
+
+                        'placeholder'    => "Ex : Image Wikipedia CC BY-SA 4.0",
+                    ],
+
+                    'required'   => false,
+                ]
             );
     }
 

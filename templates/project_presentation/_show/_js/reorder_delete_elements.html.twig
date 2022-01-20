@@ -224,7 +224,10 @@
                         //removing matching slide thumbnail
                         $('[data-slide-thumbnail-id="'+idElement+'"]').remove();
 
-                        if ( $( ".mySlides" ).length == 0 ) {// When slideshow is empty, cleaning useless elements in ui
+                        //removing matching slide caption
+                        $('.caption[data-slide-id="'+idElement+'"]').remove();
+
+                        if ( $( ".mySlides" ).length == 0 ) {// When slideshow is empty, cleaning useless ui elements
  
                             $( "#slides" ).parent().find(".show-delete-items-buttons, #manage-slides").remove();
                          
@@ -287,6 +290,9 @@
 
                 $(".slides-container").append($("#"+$(this).attr("id")));
 
+                //reordering thumbnail's matching caption in the slideshow
+
+                $(".caption-container").append($(".caption[data-slide-id="+$(this).attr("id")+"]"));
         
             });
         }

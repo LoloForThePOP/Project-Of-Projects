@@ -56,22 +56,16 @@
 					
 		<div class="caption-container col-lg-9 d-flex align-items-center" >
 
-			{# caption are displayed from event "click on a slides thumbnails" (thumbnail img alt attribute) #}	
-	
-			<p id="caption" class="">
-
-				{# when only one slide, we display its potential caption by default #}	
-
-				{% if countSlides == 1 %}
-
-					{% set slide = presentation.slides | first %}
+			{% for slide in presentation.slides %}
+					
+				<p class="caption" data-slide-id="{{slide.id}}">
 
 					{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
 
-				{% endif %}
-						
-			</p>
-		
+				</p>
+				
+			{% endfor %}
+
 		</div>
 		
 		<div class="row m-0">
@@ -150,7 +144,7 @@
 		var slides = document.getElementsByClassName("mySlides");
 		var dots = document.getElementsByClassName("SlideImageThumbnail");
 		var thumbnail = document.getElementsByClassName("thumbnail");
-		var captionText = document.getElementById("caption");
+		var captions = document.getElementsByClassName("caption");
 		
 		if (n > slides.length) {slideIndex = 1}
 		
@@ -158,6 +152,7 @@
 		
 		for (i = 0; i < slides.length; i++) {
 			slides[i].style.display = "none";
+			captions[i].style.display = "none";
 		}
 		
 		for (i = 0; i < dots.length; i++) {
@@ -166,6 +161,7 @@
 		}
 		
 		slides[slideIndex-1].style.display = "block";
+		captions[slideIndex-1].style.display = "block";
 		
 		dots[slideIndex-1].className += " active";
 		thumbnail[slideIndex-1].className += " active";

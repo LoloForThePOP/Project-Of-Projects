@@ -43,7 +43,7 @@ class WebsiteType extends AbstractType
 
                     'constraints' => array(
                         new \Symfony\Component\Validator\Constraints\NotBlank(['message' => 'Ce champ ne peut être vide']),
-                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Vous devez utiliser une addresse web valide']),
+                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Vous devez utiliser une adresse web valide']),
                     )
                 ]
             );

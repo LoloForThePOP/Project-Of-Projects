@@ -2,10 +2,7 @@
 
 namespace App\Controller;
 
-use App\Entity\PPBase;
-use App\Form\BuyerInfoType;
-use Psr\Log\LoggerInterface;
-use App\Service\CacheThumbnail;
+use App\Service\TiktokAPI;
 use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,10 +18,8 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(EntityManagerInterface $manager, SearchService $searchService, CacheThumbnail $cachethumb): Response
+    public function index(EntityManagerInterface $manager): Response
     {
-
-        $cachethumb->manageThumbnail('remove', 'media/static/images/larger/account/confirm_email.png', 'standard_thumbnail_md');
 
         // last 20 inserted projects presentations
 
@@ -35,43 +30,6 @@ class HomeController extends AbstractController
         ]);
 
     }
-
-
-    /** 
-     * 
-     * Allow admin to manage homepage content
-     *  
-     * @Route("/admin/manage/homepage-content", name="manage_homepage_content") 
-     * 
-     */
-    public function adminManageHomepageContent(Request $request, EntityManagerInterface $manager)
-    {
-
-        if ($request->isXmlHttpRequest()) {
-
-            $jsonElementsPosition = $request->request->get('jsonElementsPosition');
-            $elementsPosition = json_decode($jsonElementsPosition,true);
-
-            foreach ($categories as $element){
-
-                $newElementPosition = array_search($element->getId(), $elementsPosition, false);
-                
-                $element->setPosition($newElementPosition);
-
-            }
-
-            $manager->flush();
-
-            return  new JsonResponse(true);
-
-        }
-        
-        return $this->render("/home/manage_content.html.twig", [
-        ]);
-        
-    }
-
-
 
 
 

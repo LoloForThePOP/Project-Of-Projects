@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class BuyerInfoType extends AbstractType
 {
@@ -21,7 +22,7 @@ class BuyerInfoType extends AbstractType
                 EmailType::class,  
                 
                 [
-                    'label' => 'Votre addresse e-mail',
+                    'label' => 'Votre adresse e-mail',
 
                     'attr' => [
 
@@ -34,13 +35,31 @@ class BuyerInfoType extends AbstractType
             )
 
             ->add(
+
+                'message',
+                TextareaType::class,
+                [
+
+                    'label' => 'Décrivez votre demande sans engagement',
+
+                    'required'   => true,
+
+                    'attr' => [
+
+                        'placeholder'    => "Écrire ici",
+                        'rows' => '7',
+                    ],
+                ]
+                
+            )
+            ->add(
                 
                 'phone', 
 
                 TelType::class,  
                 
                 [
-                    'label' => 'Téléphone (recommandé)',
+                    'label' => 'Un téléphone (recommandé pour faciliter les échanges)',
 
                     'attr' => [
 
@@ -51,7 +70,6 @@ class BuyerInfoType extends AbstractType
                 ]
             
             )
-
 
 
         ;

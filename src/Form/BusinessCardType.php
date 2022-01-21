@@ -97,7 +97,7 @@ class BusinessCardType extends AbstractType
 
                     'constraints' => array(
 
-                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Veuillez utiliser une addresse web valide']),
+                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Veuillez utiliser une adresse web valide']),
                     )
 
                  
@@ -119,7 +119,7 @@ class BusinessCardType extends AbstractType
 
                     'constraints' => array(
 
-                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Veuillez utiliser une addresse web valide']),
+                        new \Symfony\Component\Validator\Constraints\Url(['message' => 'Veuillez utiliser une adresse web valide']),
                     )
 
                  

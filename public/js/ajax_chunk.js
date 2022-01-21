@@ -6,18 +6,19 @@ $(document).ready(function(){
 
     // render a named template into a targeted html container (ex : render "pricing plans" into "#plans-container" div).
 
-    function getChunk(name, target){ //target : a jquery selector
+    function getChunk(name, target, params){ //target : a jquery selector
 
         $(target).append('<div id="ajax-loader" class="my-3 text-center loader"></div>');
 
         $.ajax({  
 
-            url: getChunkRouteName, //defined as a global variable in base template
+            url: getChunkRouteName, //defined as a global variable in the base template
             type:       'POST',   
             dataType:   'json',
             
             data: {
                 "chunkName": name,
+                "params": params,
             },
             async: true,  
             
@@ -36,7 +37,7 @@ $(document).ready(function(){
 
     }
 
-    // Bid some events to display chunks when appropriate (using above ajax function) (currently, only when clicking some elements, see bellow)
+    // Bid some events to display a template chunk when appropriate (currently, only when clicking some elements, see bellow) (using above ajax function to request for the template chunk)
     
     /* Get html chunk when clicking on a button with data-get-chunk attribute (this attribute contains chunk name and target container)
 
@@ -44,9 +45,19 @@ $(document).ready(function(){
 
     $("[data-get-chunk]").on('click', function (){
 
-        data = $(this).data("get-chunk");
+        dataChunk = $(this).data("get-chunk");
+        dataParams = $(this).data("chunkParams");
 
-        getChunk(data.name, data.target);
+        //console.log(dataChunk);
+        //console.log(dataParams);
+
+        if(typeof(dataParams) == 'undefined' && dataParams == null){
+
+            dataParams = null;
+
+        }
+
+        getChunk(dataChunk.name, dataChunk.target, dataParams);
         
     }); 
 

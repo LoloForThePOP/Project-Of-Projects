@@ -21,7 +21,7 @@ class UserChecker implements UserCheckerInterface
         if (!$user->getParameter('isVerified')) {
 
             throw new CustomUserMessageAccountStatusException(
-                "Votre addresse e-mail n'est pas confirmée. Veuillez consulter votre boîte mails et confirmer votre adresse e-mail."
+                "Votre adresse e-mail n'est pas confirmée. Veuillez consulter votre boîte mails et confirmer votre adresse e-mail."
             );
         }
 

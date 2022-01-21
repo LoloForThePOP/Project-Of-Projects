@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class MiscController extends AbstractController
 {
      
-    /**
+     /**
      * 
      * Render a chunk of an html page, thanks to an ajax call, in order to reduce page load.
      * 
@@ -19,19 +19,31 @@ class MiscController extends AbstractController
      */
     public function ajaxRenderChunk(Request $request)
     {
-        
-             
+                 
         if ($request->isXmlHttpRequest()) {
             
             $request->getSession()->save();
 
             $chunkName = $request->request->get('chunkName');
+
+            $additionalParameters = [];
+
+            if ($request->request->get('params')) {
+
+                $additionalParameters = $request->request->get('params');
+            }
+
             $chunkTemplateDirFileName = '';
 
             switch ($chunkName) {
 
                 case 'plans':
                     $chunkTemplateDirFileName = '/plans/_details';
+                    break;
+
+                case 'select_video_type':
+                    
+                    $chunkTemplateDirFileName = '/project_presentation/edit/slides/_choose_video_type';
                     break;
                 
                 default:
@@ -47,10 +59,9 @@ class MiscController extends AbstractController
                     
                     $chunkTemplateDirFileName.'.html.twig', 
 
-                    /* [
-                        'parameter' => $parameter,
-                    ] */
+                    $additionalParameters
                 ),
+
             ];
 
             //dump($dataResponse);
@@ -60,6 +71,8 @@ class MiscController extends AbstractController
         }
 
     }
+
+
 
 
 

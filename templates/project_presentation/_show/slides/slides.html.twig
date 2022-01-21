@@ -58,7 +58,7 @@
 
 			{% for slide in presentation.slides %}
 					
-				<p class="caption" data-slide-id="{{slide.id}}">
+				<p class="caption" data-edit='{"entity": "Slide", "property": "caption", "id": {{slide.id}} }' data-slide-id="{{slide.id}}">
 
 					{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
 

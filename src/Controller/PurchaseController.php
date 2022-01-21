@@ -6,7 +6,6 @@ use App\Entity\Purchase;
 use Stripe\PaymentIntent;
 use App\Form\BuyerInfoType;
 use App\Service\StripePayment;
-use App\Form\ContactWebsiteType;
 use App\Service\MailerService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,62 +33,33 @@ class PurchaseController extends AbstractController
             )
         );
 
-        $contactWebsiteForm = 
-        
-            $this->createForm(
-
-                ContactWebsiteType::class, 
-                null,
-                array(
-
-                    // Time protection
-                    'antispam_time'     => true,
-                    'antispam_time_min' => 4,
-                    'antispam_time_max' => 3600,
-                )
-            );
-
-        
         $buyerInfoForm->handleRequest($request);
 
         if ($buyerInfoForm->isSubmitted() && $buyerInfoForm->isValid()) {
 
+            //form content
+
             $visitorEmail = $buyerInfoForm->get('email')->getData();
             $visitorPhone = $buyerInfoForm->get('phone')->getData();
+            $visitorMessage = $buyerInfoForm->get('message')->getData();
+
+
+            //emailing
             $sender = $this->getParameter('app.general_contact_email');
             $receiver = $this->getParameter('app.general_contact_email');
 
-            $mailer->send($sender, 'Propon', $receiver, 'New visitor purchase inquiry', '<h4>Plan: '.$offer.'</h4><h4>Visitor Email: '.$visitorEmail.' - Phone: '.$visitorPhone.'</h4>');
+            $mailer->send($sender, 'Propon', $receiver, 'New visitor purchase inquiry', '<h4>Plan: '.$offer.'</h4><h4>Visitor Email: '.$visitorEmail.' - Phone: '.$visitorPhone.'</h4><h4>Message content:</h4> <p>'.$visitorMessage.'</p>');
 
             // flash message & redirect to login route
-            $this->addFlash('success', 'Vos informations ont bien étées envoyées, nous vous recontacterons dans de brefs délais.');
-
-            return $this->redirectToRoute('homepage');
-
-        }
-        
-        $contactWebsiteForm->handleRequest($request);
-
-        if ($contactWebsiteForm->isSubmitted() && $contactWebsiteForm->isValid()) {
-
-
-            $visitorEmail = $contactWebsiteForm->get('authorEmail')->getData();
-            $messageContent = $contactWebsiteForm->get('content')->getData();
-
-            $sender = $this->getParameter('app.general_contact_email');
-            $receiver = $this->getParameter('app.general_contact_email');
-
-            $mailer->send($sender, 'Propon', $receiver, 'New visitor purchase inquiry', '<h4>Plan: '.$offer.'</h4><h4>Visitor Email: '.$visitorEmail.'</h4><h4>Message content:</h4> <p>'.$messageContent.'</p>');
-
             $this->addFlash('success', 'Votre message a bien été envoyé, nous vous recontacterons dans de brefs délais.');
 
             return $this->redirectToRoute('homepage');
 
         }
 
+
         return $this->render('purchase/ask_question.html.twig', [
             'buyerInfoForm' => $buyerInfoForm->createView(),
-            'contactWebsiteForm' => $contactWebsiteForm->createView(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
             'offer' => $offer,
         ]);

@@ -39,6 +39,9 @@
                 // enabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', true);
 
+                // enabling inline editing capabilities
+                $("[data-edit]").attr('contenteditable','true');
+
             }
 
             else{
@@ -47,6 +50,9 @@
 
                 // disabling sortable capabilities
                 $('.js-elements-list').sortable('disabled', false);
+                
+                // disabling inline editing capabilities
+                $("[data-edit]").attr('contenteditable','false');
 
             }
 
@@ -64,8 +70,57 @@
 
 
         });
+    
+        // allowing some inline editing capabilities
+        
+        $("[data-edit]").attr('contenteditable','true');
 
-        // When a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
+        // ajax live save capability on editable elements
+        // thanks yo https://stackoverflow.com/questions/19910843/autosave-input-boxs-to-database-during-pause-in-typing/19911256#19911256
+
+        var timeoutId;
+
+        $( "[data-edit]" ).on( "input", function() {
+
+            data = $(this).attr("data-edit");
+
+            //console.log( data );
+
+            // If a timer was already started, clear it.
+            if (timeoutId) clearTimeout(timeoutId);
+
+            timeoutId = setTimeout(function() {
+                // Runs 1 second (1000 ms) after the last change    
+                liveSave(data);
+            }, 1000);
+
+        });
+
+                
+        function liveSave(dataToSend)
+        {
+            console.log(dataToSend);
+
+            $.ajax({
+
+                url: "{{path('live_save_pp')}}",
+                type: "POST",
+                data: {
+                    "data": dataToSend,
+                },
+                
+                success: function(data) {
+                    console.log("ok done");
+                },
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    console.log('Ajax request failed.');  
+                }  
+
+            });
+        }
+
+        // + when a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
         // --> See : reorder_delete_elements.html.twig (when deleting elements), and update_presentation_settings.html.twig (hide or show private messages card). 
 
     });

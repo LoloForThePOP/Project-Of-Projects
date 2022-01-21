@@ -574,7 +574,6 @@ class PPController extends AbstractController
      * @Route("/projects/{stringId}/ajax-set-data", name="ajax_presentation_settings") 
      * 
     */ 
-
     public function ajaxSetData(Request $request, PPBase $presentation,EntityManagerInterface $manager) {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -595,8 +594,9 @@ class PPController extends AbstractController
 
     }
         
+  
     /** 
-     * Allow to ajax some presentation settings
+     * Allow to live save some presentation settings
      * 
      * @Route("/projects/{stringId}/ajax-set-data-legacy", name="ajax_presentation_settings_legacy") 
      * 
@@ -706,6 +706,85 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'form' => $form->createView(),
         ]);
+    }
+          
+    /** 
+     * Allow to inline live save some presentation elements
+     * 
+     * @Route("/project/ajax-inline-save", name="live_save_pp") 
+     * 
+    */ 
+    public function ajaxPPLiveSave(Request $request,EntityManagerInterface $manager) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $data = json_decode($request->request->get('data'), true);
+
+            $entityName = $data['entity'];
+            $id = $data['id'];
+            $property = $data['property'];
+
+
+            dump($data);
+            
+            $allowEntityAccess = false;
+
+            switch ($entityName) {
+                case 'Slide':
+
+                    $allowEntityAccess = true;
+                    break;
+                
+                default:
+                    throw new \Exception("Unsupported entity type to edit");
+                    break;
+            }
+
+            
+            switch ($property) {
+
+                case 'caption':
+
+                    $allowEntityAccess = true;
+                    break;
+                
+                default:
+                    throw new \Exception("Unsupported property to edit");
+                    break;
+
+            }
+
+
+            if($allowEntityAccess==true){
+
+                $entityFullName = 'App\\Entity\\'.$entityName;
+
+                $entityObject = $this->getDoctrine()->getRepository($entityFullName)->findOneById($id);
+
+                $presentation = $entityObject->getPresentation();
+
+                if ($this->isGranted('edit', $presentation)) {
+
+                    dump("can write");
+                 
+                }
+                
+            }
+
+
+
+            //$data = $request->request->get('data');
+
+            //$presentation->setDataItem($data['key'], $data['value']);
+
+            //$manager->flush();
+          
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+
     }
 
 

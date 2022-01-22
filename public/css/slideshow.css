@@ -123,6 +123,17 @@
     padding: 0 8%;
 }
 
+.caption {
+
+    display: none; /* Avoid loading visual glitch */
+
+}
+
+
+
+
+
+
 
 .thumbnails-container{
 

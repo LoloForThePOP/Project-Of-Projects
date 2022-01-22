@@ -580,6 +580,8 @@ class PPController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
+            $request->getSession()->save();
+
             $data = json_decode($request->request->get('data'), true);
 
             $presentation->setDataItem($data['key'], $data['value']);
@@ -607,6 +609,8 @@ class PPController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
+
+            $request->getSession()->save();
 
             $settedItem = $request->request->get('settedItem');
             $jsonSwitchState = $request->request->get('switchState');
@@ -716,16 +720,17 @@ class PPController extends AbstractController
     */ 
     public function ajaxPPLiveSave(Request $request,EntityManagerInterface $manager) {
 
+        
         if ($request->isXmlHttpRequest()) {
+            
+            $request->getSession()->save();
 
-            $data = json_decode($request->request->get('data'), true);
+            $content = $request->request->get('content');
+            $metadata = json_decode($request->request->get('metadata'), true);
 
-            $entityName = $data['entity'];
-            $id = $data['id'];
-            $property = $data['property'];
-
-
-            dump($data);
+            $entityName = ucfirst($metadata['entity']);
+            $id = $metadata['id'];
+            $property = $metadata['property'];
             
             $allowEntityAccess = false;
 
@@ -757,7 +762,7 @@ class PPController extends AbstractController
 
             if($allowEntityAccess==true){
 
-                $entityFullName = 'App\\Entity\\'.$entityName;
+                $entityFullName = 'App\\Entity\\'.ucfirst($entityName);
 
                 $entityObject = $this->getDoctrine()->getRepository($entityFullName)->findOneById($id);
 
@@ -765,7 +770,11 @@ class PPController extends AbstractController
 
                 if ($this->isGranted('edit', $presentation)) {
 
-                    dump("can write");
+                    $propertySetterName =  'set'.$property;
+
+                    $entityObject->$propertySetterName($content);
+
+                    $manager->flush();
                  
                 }
                 

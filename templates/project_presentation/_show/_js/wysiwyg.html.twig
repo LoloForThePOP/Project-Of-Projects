@@ -70,6 +70,9 @@
 
 
         });
+
+
+
     
         // allowing some inline editing capabilities
         
@@ -82,31 +85,33 @@
 
         $( "[data-edit]" ).on( "input", function() {
 
-            data = $(this).attr("data-edit");
+            metadata = $(this).attr("data-edit");
+            content = $(this).text();
 
-            //console.log( data );
+            console.log( content );
 
             // If a timer was already started, clear it.
             if (timeoutId) clearTimeout(timeoutId);
 
             timeoutId = setTimeout(function() {
                 // Runs 1 second (1000 ms) after the last change    
-                liveSave(data);
-            }, 1000);
+                liveSave(content, metadata);
+            }, 2000);
 
         });
 
                 
-        function liveSave(dataToSend)
+        function liveSave(content, metadata)
         {
-            console.log(dataToSend);
+            //console.log();
 
             $.ajax({
 
                 url: "{{path('live_save_pp')}}",
                 type: "POST",
                 data: {
-                    "data": dataToSend,
+                    "content": content,
+                    "metadata": metadata,
                 },
                 
                 success: function(data) {

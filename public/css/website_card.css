@@ -36,12 +36,14 @@
     font-weight: bold;
     font-size: 18px;
     line-height: 1.05;
+    width: 100%;
     overflow-wrap: break-word;
 
 }
 
 .websiteUrl {
 
+    width: 100%;
     font-size: 16px;
     line-height: 0.95;
     word-break: break-all;

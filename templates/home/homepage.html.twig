@@ -77,10 +77,7 @@
     
     
 
-    <div class="col-xxl-11 pe-lg-5">
-
-      {# Pricing Plans #} 
-      {% include "plans/container.html.twig" %}
+    <div class="col-xxl-11 pe-lg-5 mb-3">
       
       {% include "home/_search_container.html.twig" %}
 
@@ -89,33 +86,19 @@
 
     <div>
 
-        {# last project presentation #}
         
-        {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
-
-        {# some presentations by category #}
-
-        {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
-
-
         {# Editor's Choice presentations #}
 
         {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}
 
-        {# some presentations by category #}
+        {# last project presentation #}
         
-        {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+        {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
 
-      {# some presentations by categories intersection
         
-        {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
-
-
-    </div>
-
     {# Call to action : Add a Project button #}
 
-    <div class="mt-5 text-center">
+    <div class="mt-5 mb-4 text-center">
 
       <a href="{{ path ('create_presentation') }}">
 
@@ -129,7 +112,29 @@
 
       </a>
 
- 
+    </div>
+
+            
+        <div class="col-xxl-11 pe-lg-5 mt-3">
+
+          {# Pricing Plans #} 
+
+          {% include "plans/container.html.twig" %}
+
+        </div>
+
+        {# some presentations by category #}
+
+        {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
+
+        {# some presentations by category #}
+        
+        {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+
+      {# some presentations by categories intersection
+        
+        {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
+
 
     </div>
 

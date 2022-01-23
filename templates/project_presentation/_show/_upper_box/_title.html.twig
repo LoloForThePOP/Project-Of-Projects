@@ -9,33 +9,9 @@
 
         <!-- Project Title Display -->
 
-        <h3 class="pp-title edit-hoverable-item mb-0" >
+        <h3 class="pp-title mb-0" data-edit='{"entity": "PPBase", "property": "title", "id": {{presentation.id}} }'>
             
-            {% if presentation.title | length > 79 %}
-            
-                <span class="cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">{{presentation.title[:1] | upper ~ presentation.title[1:] | slice (0,79)}}</span><span class="collapse cursor-pointer" id="collapsedProjectTitle">{{presentation.title [80:] }}</span><span class="title-collapse-hide-me cursor-pointer" data-bs-toggle="collapse" href="#collapsedProjectTitle" role="button" aria-expanded="false" aria-controls="collapsedProjectTitle">... ▼</span>
-
-            {% else %}
-
-                {{presentation.title[:1] | upper ~ presentation.title[1:]}}
-
-            {% endif %}
-                                                     
-            <!-- Edit Project Title Button -->
-
-            {% if userPresenter %}
-
-                <a class="pp-edition-mode text-decoration-none" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
-
-                    <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-
-                </a>
-
-                <a class="pp-edition-mode coverable-link" href="{{ path ('edit_pp_base', {'stringId': presentation.stringId}) }}"></a>
-
-            {% endif %}
-
-        </h3>
+            {{presentation.title[:1] | upper ~ presentation.title[1:]}}</h3>
 
     </div>
 
@@ -60,11 +36,6 @@
 
         }
 
-        .title-collapse-hide-me[aria-expanded="true"]{
-
-        display: none;
-
-        }
 
         @media screen and (max-width: 580px) {
 
@@ -95,9 +66,6 @@
         </div>
         
     </a>
-
-
-    
 
     <script>
 

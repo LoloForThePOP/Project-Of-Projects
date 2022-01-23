@@ -35,6 +35,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -580,7 +581,7 @@ class PPController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $request->getSession()->save();
+            session_write_close();
 
             $data = json_decode($request->request->get('data'), true);
 
@@ -610,8 +611,7 @@ class PPController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $request->getSession()->save();
-
+            session_write_close();
             $settedItem = $request->request->get('settedItem');
             $jsonSwitchState = $request->request->get('switchState');
 
@@ -718,23 +718,26 @@ class PPController extends AbstractController
      * @Route("/project/ajax-inline-save", name="live_save_pp") 
      * 
     */ 
-    public function ajaxPPLiveSave(Request $request,EntityManagerInterface $manager) {
+    public function ajaxPPLiveSave(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager) {
 
         
         if ($request->isXmlHttpRequest()) {
             
-            $request->getSession()->save();
+            session_write_close();
 
-            $content = $request->request->get('content');
+            $content = trim($request->request->get('content'));
             $metadata = json_decode($request->request->get('metadata'), true);
 
             $entityName = ucfirst($metadata['entity']);
             $id = $metadata['id'];
             $property = $metadata['property'];
+
+            dump($content);
             
             $allowEntityAccess = false;
 
             switch ($entityName) {
+                case 'PPBase':
                 case 'Slide':
 
                     $allowEntityAccess = true;
@@ -748,7 +751,11 @@ class PPController extends AbstractController
             
             switch ($property) {
 
+                case 'goal':
+                case 'title':
                 case 'caption':
+                case 'websites':
+                case 'questionsAnswers':
 
                     $allowEntityAccess = true;
                     break;
@@ -766,15 +773,63 @@ class PPController extends AbstractController
 
                 $entityObject = $this->getDoctrine()->getRepository($entityFullName)->findOneById($id);
 
-                $presentation = $entityObject->getPresentation();
+                if ($entityObject instanceof PPBase) {
+                    $presentation = $entityObject;
+                }else{
+                    $presentation = $entityObject->getPresentation();
+                } 
 
                 if ($this->isGranted('edit', $presentation)) {
 
-                    $propertySetterName =  'set'.$property;
+                    $updateEntity = false; // entity has to pass some validation
 
-                    $entityObject->$propertySetterName($content);
+                    if ($property=="websites" || $property == "questionsAnswers") {
 
-                    $manager->flush();
+                        $subproperty = $metadata["subproperty"];
+                        $subid = $metadata["subid"];
+
+                        // to do : add some content validation !!!
+
+                        $item = $presentation->getOCItem($property, $subid); //ex: a website
+                        $item[$subproperty] = $content; // updating item subproperty (ex: website url)
+
+                        dump($item);
+
+                        $presentation->setOCItem($property, $subid, $item);
+
+                        $updateEntity = true;
+
+                    }
+
+                    else {
+
+                        $propertySetterName =  'set'.$property;
+
+                        $entityObject->$propertySetterName($content);
+
+                        $errors = $validator->validate($entityObject);
+
+                        if (count($errors) > 0) {
+
+                            $dataResponse = [
+                                'error' =>  $errors[0]->getMessage(),
+                            ];
+        
+                            return $response = new JsonResponse(
+        
+                                $dataResponse,
+                                Response::HTTP_BAD_REQUEST,
+                            );
+        
+                        }
+
+                    }
+
+                    if ($updateEntity == true) {
+
+                        $manager->flush();
+
+                    }
                  
                 }
                 

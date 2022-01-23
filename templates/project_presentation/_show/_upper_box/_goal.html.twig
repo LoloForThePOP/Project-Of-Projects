@@ -1,34 +1,14 @@
 
-<h4 class="pp-goal edit-hoverable-item 
-    {% if presentation.title is empty %} untitledProject
-    {% endif %}
-">
+<h4 class="pp-goal {% if presentation.title is empty %} untitledProject {% endif %}"
 
-    {{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}
-
-    <!-- Edit Project Goal Button -->
-
-    {% if userPresenter %}
-
-
-        <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
-
-            <img class="edit-icon d-lg-none ms-md-2" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-            
-        </a>
-
-        <a class="pp-edition-mode coverable-link" href="{{ path ('edit_pp_base', {'stringId': presentation.stringId}) }}"></a>
-
-    {% endif %}
-
-</h4>
+data-edit='{"entity": "PPBase", "property": "goal", "id": {{presentation.id}} }'>{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</h4>
 
 
 
 <style>
 
     .pp-goal{
-        display: inline-block;
+        display: block;
         position: relative;
         font-size: 1.45em;
         font-family: Tahoma, Geneva, Verdana, sans-serif;

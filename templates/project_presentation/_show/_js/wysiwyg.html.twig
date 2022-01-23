@@ -88,42 +88,52 @@
             metadata = $(this).attr("data-edit");
             content = $(this).text();
 
-            console.log( content );
+            //console.log( content );
 
             // If a timer was already started, clear it.
             if (timeoutId) clearTimeout(timeoutId);
 
+            elem = $(this);
+
             timeoutId = setTimeout(function() {
-                // Runs 1 second (1000 ms) after the last change    
-                liveSave(content, metadata);
+
+
+
+                $.ajax({
+
+                    url: "{{path('live_save_pp')}}",
+                    type: "POST",
+                    data: {
+                        "content": content,
+                        "metadata": metadata,
+                    },
+                    
+                    success: function(data) {
+                        console.log("ok done");
+                    },
+    
+                    error : function(xhr, textStatus, errorThrown) {
+
+                        //console.log(elem);
+                        
+                        elem.after($( "#live-feedback" ).text(xhr.responseJSON.error));
+    
+                        
+                        //console.log(xhr.responseJSON.error);
+                    }  
+    
+                });
+                
+                
+
+
+
+
+
+
             }, 2000);
 
         });
-
-                
-        function liveSave(content, metadata)
-        {
-            //console.log();
-
-            $.ajax({
-
-                url: "{{path('live_save_pp')}}",
-                type: "POST",
-                data: {
-                    "content": content,
-                    "metadata": metadata,
-                },
-                
-                success: function(data) {
-                    console.log("ok done");
-                },
-
-                error : function(xhr, textStatus, errorThrown) {  
-                    console.log('Ajax request failed.');  
-                }  
-
-            });
-        }
 
         // + when a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
         // --> See : reorder_delete_elements.html.twig (when deleting elements), and update_presentation_settings.html.twig (hide or show private messages card). 

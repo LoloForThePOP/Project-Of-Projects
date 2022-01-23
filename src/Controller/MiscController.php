@@ -21,8 +21,8 @@ class MiscController extends AbstractController
     {
                  
         if ($request->isXmlHttpRequest()) {
-            
-            $request->getSession()->save();
+
+            session_write_close();
 
             $chunkName = $request->request->get('chunkName');
 

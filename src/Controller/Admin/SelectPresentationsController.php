@@ -93,6 +93,7 @@ class SelectPresentationsController extends AbstractController
         return $this->render('utilities/_display_collection_wrapper_template.html.twig', [
             'label' => $label,
             'results' => $elements,
+            'hideTooLong' => "hide-525",
         ]);
         
     }

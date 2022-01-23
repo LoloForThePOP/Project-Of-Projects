@@ -17,7 +17,7 @@
 
                     <div id="" class="default-website-logo" >
 
-                        {# Twig URL parser (https://gist.github.com/olets/a835d4f8df5028fb30649d6a8aa03de2) #}
+                        {# Twig URL parser, here to get domain first letter (thanks to https://gist.github.com/olets/a835d4f8df5028fb30649d6a8aa03de2) #}
                         {% set url= website.url %}
                         {% set noprotocol = url|split('//')[1] ?: url %}
                         {% set domains = noprotocol|split('/')[0] ?: noprotocol %}
@@ -32,6 +32,7 @@
                     </div>
 
                     <style>
+
                         .default-website-logo{
                             display: flex; 
                             align-items: center; 
@@ -43,6 +44,7 @@
                             font-weight: bold; 
                             border-radius: 4px;
                         }
+
                     </style>
 
                 {% endif %}
@@ -55,35 +57,27 @@
 
         <div class="col-10 mx-0 d-flex align-items-center">
 
-            <div>
+            <div class="w-100">
                     
                 {# website title #}
 
                 {% if website.description is not null %}
 
-                    <h5 class="websiteDescription mb-1">
+                    <h5 class="websiteDescription mb-1" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "websites", "subid": "{{website.id}}", "subproperty":"description" }'>
                         
-                        {{website.description | first | capitalize ~ website.description | slice(1,78) }}
-
-                        {% if website.description | length > 78 %}
+                        {{website.description | first | capitalize ~ website.description | slice(1,78) }}{% if website.description | length > 78 %}
                         ...
-                        {% endif %}
-
-                    </h5>
+                        {% endif %}</h5>
 
                 {% endif %}
 
                 {# website url #}
 
-                <p class="websiteUrl mb-1">
+                <p class="websiteUrl mb-1" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "websites", "subid": "{{website.id}}", "subproperty":"url" }'>
 
-                    {{website.url | slice(0,50)}}
-
-                    {% if website.url | length > 50 %}
+                    {{website.url | slice(0,50)}}{% if website.url | length > 50 %}
                     (...)
-                    {% endif %}
-                
-                </p>
+                    {% endif %}</p>
 
             </div>
 

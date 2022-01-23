@@ -2,4 +2,4 @@
 
 {% import "utilities/_macro_titled_collection.html.twig" as display %}
 
-{{ display.collection(label, results) }}
+{{ display.collection(label, results, "", hideTooLong | default("")) }}

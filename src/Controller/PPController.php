@@ -28,10 +28,12 @@ use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use Symfony\Component\Form\FormError;
 use App\Form\ContributorStructureType;
+use App\Service\PresentationValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
@@ -718,7 +720,7 @@ class PPController extends AbstractController
      * @Route("/project/ajax-inline-save", name="live_save_pp") 
      * 
     */ 
-    public function ajaxPPLiveSave(Request $request, ValidatorInterface $validator, EntityManagerInterface $manager) {
+    public function ajaxPPLiveSave(Request $request, ValidatorInterface $validator, PresentationValidator $ppValidator, EntityManagerInterface $manager) {
 
         
         if ($request->isXmlHttpRequest()) {
@@ -784,11 +786,36 @@ class PPController extends AbstractController
                     $updateEntity = false; // entity has to pass some validation
 
                     if ($property=="websites" || $property == "questionsAnswers") {
-
+                        
                         $subproperty = $metadata["subproperty"];
                         $subid = $metadata["subid"];
 
-                        // to do : add some content validation !!!
+                        if($property=="websites"){
+
+                            if ($subproperty=="url") {
+
+                                $content = str_replace("https", "http", $content);
+
+                                $validation = $ppValidator->validate($property, $subproperty, $content);
+                                
+                                if (is_string($validation)) { //we got an error
+
+                                    $dataResponse = [
+                                        'error' =>  $validation,
+                                    ];
+                                            
+                                    return new JsonResponse(
+                
+                                        $dataResponse,
+                                        Response::HTTP_BAD_REQUEST,
+                                    );
+
+                                }
+
+
+                            }
+
+                        }
 
                         $item = $presentation->getOCItem($property, $subid); //ex: a website
                         $item[$subproperty] = $content; // updating item subproperty (ex: website url)

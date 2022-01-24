@@ -7,7 +7,6 @@ class TreatItem {
     /**
     * When a presentation structure is created or updated (ex: a website is added), we might do some routine task (ex: check if we have an icon for this website). This class gather these tasks.
     */
-
     public function specificTreatments ($component_type, $elementToTreat){
 
         if ($elementToTreat == null) {

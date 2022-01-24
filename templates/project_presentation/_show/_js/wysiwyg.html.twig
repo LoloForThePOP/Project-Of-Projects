@@ -114,12 +114,12 @@
     
                     error : function(xhr, textStatus, errorThrown) {
 
-                        //console.log(elem);
+                        console.log(errorThrown);
                         
                         elem.after($( "#live-feedback" ).text(xhr.responseJSON.error));
     
                         
-                        //console.log(xhr.responseJSON.error);
+                        //console.log(xhr.responseJSON);
                     }  
     
                 });

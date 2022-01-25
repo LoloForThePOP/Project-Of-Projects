@@ -27,38 +27,17 @@ class CategoryController extends AbstractController
      * @Route("/projects/{stringId}/categories", name="select_categories_keywords")
      * 
      */
-    public function select(PPBase $presentation, Request $request, AssessQuality $assessQuality, EntityManagerInterface $manager, CategoryRepository $categoryRepository)
+    public function select(PPBase $presentation, CategoryRepository $categoryRepository)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         $categories = $categoryRepository->findBy([], ['position' => 'ASC']);
 
-        $keywordsForm = $this->createForm(PPKeywordsType::class, $presentation);
-
-        $keywordsForm->handleRequest($request);
-
-        if ($keywordsForm->isSubmitted() && $keywordsForm->isValid()) {
-
-            $assessQuality->assessQuality($presentation);  
-
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "✅ Modifications effectuées"
-            );
-
-            return $this->redirectToRoute('show_presentation', [
-                'stringId' => $presentation->getStringId(),
-            ]);
-        }
-
         return $this->render('project_presentation/edit/categories/select.html.twig', [
             'categories' => $categories,
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
-            'keywordsForm' => $keywordsForm->createView(),
         ]);
     }
 

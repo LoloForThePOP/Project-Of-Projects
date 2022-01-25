@@ -63,21 +63,20 @@
 
                 {% if website.description is not null %}
 
-                    <h5 class="websiteDescription mb-1" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "websites", "subid": "{{website.id}}", "subproperty":"description" }'>
-                        
-                        {{website.description | first | capitalize ~ website.description | slice(1,78) }}{% if website.description | length > 78 %}
-                        ...
-                        {% endif %}</h5>
+                    <h5 class="websiteDescription mb-1" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "websites", "subid": "{{website.id}}", "subproperty":"description" }'>{{website.description | first | capitalize ~ website.description [1:] }}</h5>
 
                 {% endif %}
 
                 {# website url #}
 
-                <p class="websiteUrl mb-1" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "websites", "subid": "{{website.id}}", "subproperty":"url" }'>
+                <p>
 
-                    {{website.url | slice(0,50)}}{% if website.url | length > 50 %}
-                    (...)
-                    {% endif %}</p>
+                    <span class="pp-edition-mode websiteUrl mb-1" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "websites", "subid": "{{website.id}}", "subproperty":"url" }'>{{website.url}}</span>
+
+                    <span class="pp-consultation-mode websiteUrl mb-1">{{website.url | slice(0,50)}}{% if website.url | length > 50 %}
+                    (...){% endif %}</span>
+                    
+                </p>
 
             </div>
 

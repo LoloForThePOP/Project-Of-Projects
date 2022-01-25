@@ -32,7 +32,13 @@
 
                     {# Each Need's Modal #}
 
-                    {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': need.title } %}
+                    {% set needTitle %} {# we make it ajax live editable #}
+
+                        <div data-edit='{"entity": "need", "property": "title", "id": {{need.id}} }'>{{need.title}}</div>
+
+                    {% endset %}
+
+                    {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': needTitle } %}
 
                         {% block modalBody %}
 
@@ -88,11 +94,7 @@
 
                             {% endif %}
 
-                            <div class="mb-4">
-
-                                {{ need.description[:1]|upper ~ need.description[1:] }}
-
-                            </div>
+                            <div data-edit='{"entity": "need", "property": "description", "id": {{need.id}} }'>{{ need.description[:1] | upper ~ need.description[1:]}}</div>
 
                         
                         {% endblock %}
@@ -106,16 +108,6 @@
                                 </button>
                         
                             </a>
-
-                            {% if userPresenter %}
-
-                                <a href="{{path("update_need", {'stringId': stringId, 'need_id': need.id})}}" class="pp-edition-mode text-decoration-none">
-                                    
-                                    <button type="button" class="btn btn-light">Modifier</button>
-                            
-                                </a>
-
-                            {% endif %}
                         
                         {% endblock %}
                     

@@ -28,7 +28,7 @@ use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use Symfony\Component\Form\FormError;
 use App\Form\ContributorStructureType;
-use App\Service\PresentationValidator;
+use App\Service\LiveSavePP;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -720,156 +720,68 @@ class PPController extends AbstractController
      * @Route("/project/ajax-inline-save", name="live_save_pp") 
      * 
     */ 
-    public function ajaxPPLiveSave(Request $request, ValidatorInterface $validator, PresentationValidator $ppValidator, EntityManagerInterface $manager) {
+    public function ajaxPPLiveSave(LiveSavePP $liveSave, Request $request) {
 
         
         if ($request->isXmlHttpRequest()) {
             
             session_write_close();
 
-            $content = trim($request->request->get('content'));
+            /* Getting posted data */
+
             $metadata = json_decode($request->request->get('metadata'), true);
-
-            $entityName = ucfirst($metadata['entity']);
-            $id = $metadata['id'];
-            $property = $metadata['property'];
-
-            dump($content);
             
-            $allowEntityAccess = false;
+            $entityName = ucfirst($metadata['entity']); //ex : "PPBase"
+            $entityId = $metadata['id']; //ex: 2084
+            $property = $metadata['property']; //ex : "websites" (websites is a key from the $otherComponents attribute from PPBase entity)
 
-            switch ($entityName) {
-                case 'PPBase':
-                case 'Slide':
-
-                    $allowEntityAccess = true;
-                    break;
-                
-                default:
-                    throw new \Exception("Unsupported entity type to edit");
-                    break;
-            }
-
+            $subId = isset($metadata["subid"]) ? $metadata["subid"] : null ; //ex: a website id
+            $subProperty = isset($metadata["subproperty"]) ? $metadata["subproperty"] : null ; //ex : "url" (url is a key from above mentionned websites array)
             
-            switch ($property) {
+            $content = trim($request->request->get('content'));
 
-                case 'goal':
-                case 'title':
-                case 'caption':
-                case 'websites':
-                case 'questionsAnswers':
+            dump($request->request->get('content'));
+            dump($subProperty);
 
-                    $allowEntityAccess = true;
-                    break;
+            $liveSave->hydrate($entityName, $entityId, $property, $subId, $subProperty, $content);
+
+            if( ! $liveSave->allowUserAccess() ){
+
+                return new JsonResponse(
                 
-                default:
-                    throw new \Exception("Unsupported property to edit");
-                    break;
+                    [],
+                    Response::HTTP_FORBIDDEN,
+                );
 
             }
 
+            if( ! $liveSave->allowItemAccess() ){
 
-            if($allowEntityAccess==true){
-
-                $entityFullName = 'App\\Entity\\'.ucfirst($entityName);
-
-                $entityObject = $this->getDoctrine()->getRepository($entityFullName)->findOneById($id);
-
-                if ($entityObject instanceof PPBase) {
-                    $presentation = $entityObject;
-                }else{
-                    $presentation = $entityObject->getPresentation();
-                } 
-
-                if ($this->isGranted('edit', $presentation)) {
-
-                    $updateEntity = false; // entity has to pass some validation
-
-                    if ($property=="websites" || $property == "questionsAnswers") {
-                        
-                        $subproperty = $metadata["subproperty"];
-                        $subid = $metadata["subid"];
-
-                        if($property=="websites"){
-
-                            if ($subproperty=="url") {
-
-                                $content = str_replace("https", "http", $content);
-
-                                $validation = $ppValidator->validate($property, $subproperty, $content);
-                                
-                                if (is_string($validation)) { //we got an error
-
-                                    $dataResponse = [
-                                        'error' =>  $validation,
-                                    ];
-                                            
-                                    return new JsonResponse(
+                return new JsonResponse(
                 
-                                        $dataResponse,
-                                        Response::HTTP_BAD_REQUEST,
-                                    );
+                    [],
+                    Response::HTTP_BAD_REQUEST,
+                );
 
-                                }
-
-
-                            }
-
-                        }
-
-                        $item = $presentation->getOCItem($property, $subid); //ex: a website
-                        $item[$subproperty] = $content; // updating item subproperty (ex: website url)
-
-                        dump($item);
-
-                        $presentation->setOCItem($property, $subid, $item);
-
-                        $updateEntity = true;
-
-                    }
-
-                    else {
-
-                        $propertySetterName =  'set'.$property;
-
-                        $entityObject->$propertySetterName($content);
-
-                        $errors = $validator->validate($entityObject);
-
-                        if (count($errors) > 0) {
-
-                            $dataResponse = [
-                                'error' =>  $errors[0]->getMessage(),
-                            ];
-        
-                            return $response = new JsonResponse(
-        
-                                $dataResponse,
-                                Response::HTTP_BAD_REQUEST,
-                            );
-        
-                        }
-
-                    }
-
-                    if ($updateEntity == true) {
-
-                        $manager->flush();
-
-                    }
-                 
-                }
-                
             }
 
+            $validateContent = $liveSave->validateContent();
 
+            if( is_string($validateContent) ){
 
-            //$data = $request->request->get('data');
+                return new JsonResponse(
+                
+                    [
+                        'error' =>  $validateContent,
+                    ],
 
-            //$presentation->setDataItem($data['key'], $data['value']);
+                    Response::HTTP_BAD_REQUEST,
+                );
 
-            //$manager->flush();
-          
+            }
+
+            $liveSave->save();
+
             return  new JsonResponse(true);
 
         }

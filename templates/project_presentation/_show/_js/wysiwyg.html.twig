@@ -86,7 +86,12 @@
         $( "[data-edit]" ).on( "input", function() {
 
             metadata = $(this).attr("data-edit");
-            content = $(this).text();
+            content = $(this).html().trim()
+            .replace(/<br\s*\/*>/ig, '\n') 
+            .replace(/(<(p|div))/ig, '\n$1') 
+            .replace(/(<([^>]+)>)/ig, ""); // <br> to newlines \n : thanks to https://stackoverflow.com/questions/13762863/contenteditable-field-to-maintain-newlines-upon-database-entry
+
+            //console.log(content);
 
             //console.log( content );
 
@@ -97,19 +102,20 @@
 
             timeoutId = setTimeout(function() {
 
-
-
                 $.ajax({
 
                     url: "{{path('live_save_pp')}}",
                     type: "POST",
                     data: {
-                        "content": content,
                         "metadata": metadata,
+                        "content": content,
                     },
                     
                     success: function(data) {
                         console.log("ok done");
+                        $( "#live-feedback" ).text("");
+
+                        refresh(elem, content);
                     },
     
                     error : function(xhr, textStatus, errorThrown) {
@@ -123,17 +129,17 @@
                     }  
     
                 });
-                
-                
-
-
-
-
-
 
             }, 2000);
 
         });
+
+
+        function refresh(elem, content){
+
+            console.log(elem);
+
+        }
 
         // + when a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
         // --> See : reorder_delete_elements.html.twig (when deleting elements), and update_presentation_settings.html.twig (hide or show private messages card). 

@@ -150,6 +150,7 @@
 
 
 [contenteditable] {
+    white-space: pre-wrap;
     outline: 0px solid transparent;
   }
 

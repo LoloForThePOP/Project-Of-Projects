@@ -1,5 +1,6 @@
 <!-- Project Categories and Keywords Presentation -->
 
+
 {% if hasKeywords or countCategories > 0 %}
 
     <div class="pp-categories-keywords edit-hoverable-item text-left" >
@@ -21,9 +22,11 @@
             </span>
 
             <style>
+
                 #pp-keywords{
                     margin-right:5px;
                 }
+
             </style>
 
         {% endif %}
@@ -97,19 +100,39 @@
 
         {% if userPresenter %}
 
+            {# Tiny Screens
+
             <a class="pp-edition-mode ms-2 ms-md-0" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">
 
                 <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
                 
-            </a>
+            </a> #}
 
-            <a class="pp-edition-mode coverable-link" href="{{ path ('select_categories_keywords', {'stringId': presentation.stringId}) }}"></a>
+            <a class="pp-edition-mode coverable-link" data-bs-toggle="modal" data-bs-target="#edit-categories-keywords" href="#" data-get-chunk='{"name": "edit_categories_keywords", "target": "#edit-categories-keywords .modal-body"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
+
+            {# href="{{ path ('select_categories_keywords', {'stringId': presentation.stringId}) }} #}
+
+                    
+            {# Edit Categories and Keywords Modal #}
+
+            {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "edit-categories-keywords", 'modal_title': "", 'modal_size': "modal-fullscreen"} %}
+
+                {% block modalBody %}
+
+                    
+
+
+                {% endblock %}
+
+                {% block modalFooter %}{% endblock %}
+
+            {% endembed %}
 
         {% endif %}
 
 
     </div>
-  
+    
     <!-- Keywords Styles -->
 
     <style>

@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\PPBase;
+use App\Entity\Category;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -41,11 +43,26 @@ class MiscController extends AbstractController
                     $chunkTemplateDirFileName = '/plans/_details';
                     break;
 
-                case 'select_video_type':
+                case 'edit_categories_keywords':
                     
-                    $chunkTemplateDirFileName = '/project_presentation/edit/slides/_choose_video_type';
+                    $chunkTemplateDirFileName = '/project_presentation/edit/categories/select';
+
+                    if (isset($additionalParameters["idPP"])) {
+
+                        $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneById($additionalParameters["idPP"]);
+
+                        $categories = $this->getDoctrine()->getRepository(Category::class)->findBy([], ['position' => 'ASC']);
+
+                        if ($this->isGranted('edit', $presentation)) {
+                            $additionalParameters["presentation"] = $presentation;
+                            $additionalParameters["stringId"] = $presentation->getStringId();
+                            $additionalParameters["categories"] = $categories;
+                        }
+
+                        //dump($pp);
+                    }
                     break;
-                
+
                 default:
                 
                     throw new \Exception('Invalid chunk name, passed '.$chunkName);

@@ -39,14 +39,10 @@
                       
                         <!-- Question -->
 
-                        <div class="col-11" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"question" }'>
-
-                            <span class="question">
-
-                                {{ qa.question [:1] | upper ~ qa.question [1:] }}
-
-                            </span>
-
+                        <div class="col-11">
+                            
+                            <span data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"question" }' class="question">{{ qa.question [:1] | upper ~ qa.question [1:] }}</span>
+                        
                         </div>
 
                         <!-- Collapse Symbol -->
@@ -67,12 +63,10 @@
                 
                 <!-- Answer Display (+ edit button for presenters)-->
 
-                <div id="collapse-answer-{{ qa.id }}" class="answer-container collapse no-transition" data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }'>
-
-                    <div class="answer">
-                        
-                        {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}</div>
-
+                <div id="collapse-answer-{{ qa.id }}" class="answer-container collapse no-transition">
+                    
+                    <div data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }' class="answer">{{ qa.answer [:1] | upper }}{{ qa.answer [1:] }}</div>
+                
                 </div>
 
                 <hr class="qa-separator">
@@ -96,6 +90,8 @@
             }
         
             .question {
+                
+                width: 100%;
 
                 border-left: 3px solid #bebef8;
                 padding-left: 8px;
@@ -113,6 +109,8 @@
             }
         
             .answer {
+
+                width: 100%;
         
                 font-size: 1.18em;
                 line-height: 1.5em;

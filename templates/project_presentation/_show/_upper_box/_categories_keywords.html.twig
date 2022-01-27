@@ -108,25 +108,9 @@
                 
             </a> #}
 
-            <a class="pp-edition-mode coverable-link" data-bs-toggle="modal" data-bs-target="#edit-categories-keywords" href="#" data-get-chunk='{"name": "edit_categories_keywords", "target": "#edit-categories-keywords .modal-body"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
+            <a class="pp-edition-mode coverable-link" data-bs-toggle="modal" data-bs-target="#reusable-modal" href="#" data-get-chunk='{"name": "edit_categories_keywords", "target": "#reusable-modal .modal-body"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
 
             {# href="{{ path ('select_categories_keywords', {'stringId': presentation.stringId}) }} #}
-
-                    
-            {# Edit Categories and Keywords Modal #}
-
-            {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "edit-categories-keywords", 'modal_title': "", 'modal_size': "modal-fullscreen"} %}
-
-                {% block modalBody %}
-
-                    
-
-
-                {% endblock %}
-
-                {% block modalFooter %}{% endblock %}
-
-            {% endembed %}
 
         {% endif %}
 

@@ -4,9 +4,11 @@
 $(document).ready(function(){
 
 
-    // render a named template into a targeted html container (ex : render "pricing plans" into "#plans-container" div).
+    // render a named template into a targeted html container (target : a jquery selector) (ex : render "pricing plans" into "#plans-container" div).
 
-    function getChunk(name, target, params){ //target : a jquery selector
+    function getChunk(name, target, params){
+
+        $(target).html("");
 
         $(target).append('<div id="ajax-loader" class="my-3 text-center loader"></div>');
 
@@ -25,7 +27,7 @@ $(document).ready(function(){
             success: function(data, status) {
 
                 $("#ajax-loader").remove();
-                $(target).append(data.html);
+                $(target).html(data.html);
 
             },  
 

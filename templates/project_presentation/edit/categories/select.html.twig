@@ -11,7 +11,7 @@
 
 {% block javascripts %}
 
-    {% include "project_presentation/edit/categories/_js_inclusions.html.twig" %}
+    {% include "project_presentation/edit/categories/_js_inclusions.html.twig" with { 'includeSortable': true } %}
 
 {% endblock %}
 

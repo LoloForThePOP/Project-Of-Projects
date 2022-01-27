@@ -50,6 +50,21 @@
         {# forms inclusions (ex: add a document form, add a website form, etc.) #}
 
         {% include "project_presentation/_show/forms.html.twig" %}
+
+        {# reusable modal box #}
+
+        {% embed "utilities/modal_skeleton.html.twig" with { 'modal_id': "reusable-modal", 'modal_title': "", 'modal_size': "modal-fullscreen"} %}
+
+            {% block modalBody %}{% endblock %}
+
+            
+            {% block footerCloseButton %}
+                <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Fermer</button>
+            {% endblock %}
+        
+            {% block footerButtons %}{% endblock %}
+
+        {% endembed %}
  
     {% endif %}
 
@@ -446,6 +461,7 @@
 {% block priorJavascipts %}
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+
 
 {% endblock %}
 

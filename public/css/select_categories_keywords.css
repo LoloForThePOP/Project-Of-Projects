@@ -74,6 +74,14 @@
         flex-direction: column;
         align-items: center;
     }
+      
+    /* Centering categories buttons on mobile */
+
+    #cat-grid {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
     
     .cat-button{
         float: unset;
@@ -81,6 +89,7 @@
     }
 
 }
+
 
 @media (min-width: 576px) {
 
@@ -93,9 +102,13 @@
 
 
 
-/* Tags */
+/* Keywords */
 
-#tagInput {
+#keywords-input-container {
+    margin-bottom: 15px;
+}
+
+#keywordsInput {
     width: 250px;
     height: 35px;
     margin: 0;

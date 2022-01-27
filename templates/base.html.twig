@@ -38,9 +38,23 @@
 
     <script src="/js/tracking.js"></script>
 
+    
+    <script>
+
+        var customEvents = document.createElement("forCustomEvents"); /* used to add event listeners and dispatch custom events.
+        * Ex: customEvents.dispatchEvent(new Event("greeting", {'name': Fabien}));
+        * customEvents.addEventListener("greeting", function(e) { console.log("hello"+e.name); });*/
+
+    </script>
+    
+
+
+
+
     {# Display some html chunks to reduce page load #}
     <script> var getChunkRouteName = '{{path("ajax_render_chunk")}}'; </script>
     <script src="/js/ajax_chunk.js"></script>
+
 
 
     {# Discriminate admins or app environment (dev or prod) #}
@@ -120,7 +134,6 @@
         {% include "_partials/footer.html.twig" %}
     
     {% endblock %}
-
 
 </body>
 

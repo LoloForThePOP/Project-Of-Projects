@@ -20,9 +20,9 @@
 
                     {# Need title displayed in a card (triggers a modal to show need description) #}
 
-                    <div id="{{need.id}}" data-bs-toggle="modal" data-bs-target="#{{modal_id}}" class="js-sortable-element need-card">
+                    <div id="{{need.id}}" data-need-title = "{{need.id}}" data-bs-toggle="modal" data-bs-target="#{{modal_id}}" class="js-sortable-element need-card">
 
-                        <span>{{ need.title | capitalize }}</span>
+                        <span class="needTitle">{{ need.title | capitalize }}</span>
 
                         {# Delete need (Red Cross) button #}
 

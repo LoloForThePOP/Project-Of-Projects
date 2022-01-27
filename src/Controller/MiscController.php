@@ -45,7 +45,7 @@ class MiscController extends AbstractController
 
                 case 'edit_categories_keywords':
                     
-                    $chunkTemplateDirFileName = '/project_presentation/edit/categories/select';
+                    $chunkTemplateDirFileName = '/project_presentation/edit/categories/select_lite';
 
                     if (isset($additionalParameters["idPP"])) {
 

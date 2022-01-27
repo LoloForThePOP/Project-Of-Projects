@@ -25,6 +25,16 @@ $(document).ready(function(){
             success: function(data, status) {  
                
                 $(".check-mark").remove();
+
+                customEvents.dispatchEvent(
+
+                    new CustomEvent('presentationChangedOnRemote', {
+                        detail: {
+                          structure: 'categories'
+                        }
+                      })
+
+                );
                 
             },  
 
@@ -38,7 +48,16 @@ $(document).ready(function(){
 
     /* Manage Keywords */
 
-    //displayed keyword template
+    /* Processus : each time keywords are changed (created , removed, reordered) :
+    
+        - we refresh an hidden input (function refreshHidden())
+        - we send hidden input value to update remotely (function updateRemote())
+        - we send a js "presentation changed event" to refresh ui
+
+    */
+
+
+    // displayed keyword template
     var keywordWrapper = '<div class="keyword-wrapper"><div class="left-col d-inline-block"></div><div class="right-col d-inline-block"><div class="remove-keyword">&times</div></div></div>';
 
     // refresh an hidden div that contains keywords concatened in a string and separated with a comma.
@@ -59,22 +78,6 @@ $(document).ready(function(){
         $( "#keywords-string" ).text(string);
 
         updateRemote();
-
-    }
-
-    // visually add a keyword in displayed list
-
-    function addKeyword(text){
-
-        $("#keywords-display").append(keywordWrapper);
-
-        $("#keywords-display .keyword-wrapper:last-child").find(".left-col").html(text);
-
-        refreshHidden();
-
-        $("#tagInput").val('');
-        $( "#tagInput" ).autocomplete( "close" );
-        $("#tagInput").focus();
 
     }
 
@@ -104,6 +107,17 @@ $(document).ready(function(){
                 $("#keywords-display").append('<span class="check-mark">✅</span>');
 
                 $(".check-mark").fadeOut(1500);
+
+                customEvents.dispatchEvent(
+
+                    new CustomEvent('presentationChangedOnRemote', {
+                        detail: {
+                          structure: 'keywords'
+                        }
+                      })
+
+                );
+                  
                         
             },  
 
@@ -118,14 +132,15 @@ $(document).ready(function(){
 
     $( "#tag-submit-button" ).click(function( event ) {
         
-        addKeyword($("#tagInput").val());
+        addKeyword($("#keywordsInput").val());
 
         event.preventDefault();
     });
 
+    
     // case user add a keyword using autocomplete menu 
 
-    $("#tagInput").autocomplete({
+    $("#keywordsInput").autocomplete({
 
         select: function( event, ui ) {
 
@@ -140,7 +155,7 @@ $(document).ready(function(){
 
     // Call to wikipedia API to feed autocomplete suggestions
 
-    $("#tagInput").autocomplete({
+    $("#keywordsInput").autocomplete({
 
         source: function (request, response) {
 
@@ -162,11 +177,31 @@ $(document).ready(function(){
                     limit: 10,
                 },
                 success: function (data) {
+
                     response(data[1]);
                 },
             });
         },
     });
+
+
+
+    
+    // add a keyword in displayed list
+
+    function addKeyword(text){
+
+        $("#keywords-display").append(keywordWrapper);
+
+        $("#keywords-display .keyword-wrapper:last-child").find(".left-col").html(text);
+
+        refreshHidden();
+
+        $("#keywordsInput").val('');
+        $("#keywordsInput").autocomplete( "close" );
+        $("#keywordsInput").focus();
+
+    }
 
     // Remove a keyword
 
@@ -196,8 +231,13 @@ $(document).ready(function(){
 
             refreshHidden();
 
+            console.log('test');
+
         },
 
     });
+
+
+
 
 });

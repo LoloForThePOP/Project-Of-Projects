@@ -6,3 +6,5 @@ algolia_search:
           class: App\Entity\PPBase
           enable_serializer_groups: true
           index_if: isSearchable
+
+    doctrineSubscribedEvents: []

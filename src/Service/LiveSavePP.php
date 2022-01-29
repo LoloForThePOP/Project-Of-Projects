@@ -4,10 +4,11 @@ namespace App\Service;
 
 use App\Entity\PPBase;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Validator\Constraints\Url;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\Security\Core\Security;
 
 class LiveSavePP {
 
@@ -50,8 +51,6 @@ class LiveSavePP {
 
         $this->setEntityToUpdate();
         $this->setPPToUpdate();
-
-        //dump($this->pp);
 
     }
 
@@ -179,6 +178,7 @@ class LiveSavePP {
 
                     case 'url':
 
+                        $constraints = new Assert\NotBlank(['message' => 'Vous devez écrire ici une adresse web']);
                         $constraints = new Assert\Url(['message' => 'Vous devez utiliser une adresse web valide']);
 
                         break;
@@ -221,10 +221,22 @@ class LiveSavePP {
 
             case 'websites': //these special cases : we update PPBase proporty $otherComponents
             case 'questionsAnswers':
+
+                //case new component
+                if ($this->entityId == "" || $this->subId == "") {
+
+                    $newElement=[];
+                    $newElement[$this->subProperty] = $this->content; //ex: ["url" => "www."]
+                    $this->pp->addOtherComponentItem($this->property, $newElement); //$this->property : exemple : "websites"
+                }
+
+                else{
+                    $item = $this->pp->getOCItem($this->property, $this->subId); //ex: a website
+                    $item[$this->subProperty] = $this->content; // updating item subproperty (ex: website url)
+                    $this->pp->setOCItem($this->property, $this->subId, $item);
+                }
                 
-                $item = $this->pp->getOCItem($this->property, $this->subId); //ex: a website
-                $item[$this->subProperty] = $this->content; // updating item subproperty (ex: website url)
-                $this->pp->setOCItem($this->property, $this->subId, $item);
+               
 
                 break;
             
@@ -236,7 +248,7 @@ class LiveSavePP {
                 break;
 
         }
-        
+
         $this->em->flush();
     }
     

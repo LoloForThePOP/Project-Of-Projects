@@ -152,7 +152,13 @@
 [contenteditable] {
     white-space: pre-wrap;
     outline: 0px solid transparent;
-  }
+}
+
+[contenteditable=true]:empty:before{ /* Content Editable Placeholders*/
+    content:attr(data-text);
+    color: rgb(177, 177, 177);
+    cursor: text;
+}
 
 /* Some Forms Styling */
     

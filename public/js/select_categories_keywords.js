@@ -2,8 +2,6 @@ $(document).ready(function(){
 
     /* Manage Categories */
 
-    // disabling symfony bootstrap 5 form theme
-
     $("#cat-grid .cat-button").on("click", function(event){ 
 
         var catId = $(this).attr('id');
@@ -29,10 +27,14 @@ $(document).ready(function(){
                 customEvents.dispatchEvent(
 
                     new CustomEvent('presentationChangedOnRemote', {
+
                         detail: {
+
                           structure: 'categories'
+
                         }
-                      })
+
+                    })
 
                 );
                 
@@ -114,7 +116,7 @@ $(document).ready(function(){
                         detail: {
                           structure: 'keywords'
                         }
-                      })
+                    })
 
                 );
                   

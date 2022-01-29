@@ -72,11 +72,10 @@
         });
 
 
+        // initialising inline edit capabilities
 
-    
-        // allowing some inline editing capabilities
-        
         $("[data-edit]").attr('contenteditable','true');
+        managePlaceholder('categories');
 
         // ajax live save capability on editable elements
         // thanks yo https://stackoverflow.com/questions/19910843/autosave-input-boxs-to-database-during-pause-in-typing/19911256#19911256
@@ -87,10 +86,10 @@
 
             metadata = $(this).attr("data-edit");
 
-            content = $(this).html().trim()
-            .replace(/<br\s*\/*>/ig, '\n') 
+            content = $(this).html().trim()// <br> to newlines \n : thanks to https://stackoverflow.com/questions/13762863/contenteditable-field-to-maintain-newlines-upon-database-entry
+            .replace(/<br\s*\/*>/ig, '\n')  
             .replace(/(<(p|div))/ig, '\n$1') 
-            .replace(/(<([^>]+)>)/ig, ""); // <br> to newlines \n : thanks to https://stackoverflow.com/questions/13762863/contenteditable-field-to-maintain-newlines-upon-database-entry
+            .replace(/(<([^>]+)>)/ig, "");
 
             //console.log(content);
 
@@ -113,10 +112,26 @@
                     },
                     
                     success: function(data) {
-                        console.log("ok done");
-                        $( "#live-feedback" ).text("");
 
-                        refresh_ui(metadata, content);
+                        console.log("edited structure ok done");
+
+                        $( "#live-feedback" ).text("");
+    
+                        customEvents.dispatchEvent(
+
+                            new CustomEvent('presentationChangedOnRemote', {
+
+                                detail: {
+
+                                    "structure": 'misc',
+                                    "metadata": metadata,
+                                    "content": content,
+
+                                }
+                            })
+
+                        );
+
                     },
     
                     error : function(xhr, textStatus, errorThrown) {
@@ -136,7 +151,82 @@
         });
 
 
-        function refresh_ui(metadata, content){
+
+        customEvents.addEventListener(
+            
+            "presentationChangedOnRemote", 
+
+            function(e) { 
+
+                console.log(e.detail.structure); 
+
+                var data = e.detail;
+
+                switch(data.structure){
+
+                    case 'keywords':
+
+                        refresh_keywords();
+                        break;
+
+                    case 'categories':
+
+                        refresh_categories();
+                        break;
+
+                    case 'misc':
+
+                        refresh_misc(data.metadata, data.content);
+                        break;
+
+                    default:
+                      console.log("This structure is not refreshed");
+
+                }
+
+                managePlaceholder(data.structure);
+
+
+                  
+
+            }
+
+        );
+
+            
+        
+        function refresh_keywords(){
+
+            keywordsString = getKeywordsString();
+
+            if(keywordsString != ''){
+
+                $("#pp-keywords").text('#'+keywordsString.replace(/\s/g, '').replace(/,/g, ' #'));
+            }
+
+            else($("#pp-keywords").text(""));
+
+        }
+
+        function refresh_categories(){
+
+            $("#categories-dropdown-content").html("");
+
+            $("#cat-grid .selectedCategory").each(function(){
+
+                var icon = $(this).find(".bt-left-col").html();
+                var text = $(this).find(".bt-right-col").text();
+
+                var li = $('<li>').append(icon+text);
+
+                $("#categories-dropdown-content").append(li);
+
+            });
+
+        }
+
+        
+        function refresh_misc(metadata, content){
 
             metadata = JSON.parse(metadata)
                 
@@ -155,38 +245,64 @@
         }
 
 
-        customEvents.addEventListener(
-            
-            "presentationChangedOnRemote", 
+        function managePlaceholder(structureName){
 
-            function(e) { 
+            switch(structureName){
 
-                console.log(e.detail.structure); 
+                case 'keywords':
+                case 'categories':
+
+                    console.log(hasCategories());
+                    console.log(hasKeywords());
+
+                    if( !hasCategories()){
+
+                        $("#pp-categories").hide();
+
+                    } else($("#pp-categories").show())
+
+                    if( !hasCategories() && !hasKeywords()){
+
+                        $("#categories-keywords-placeholder").show();
+                        
+                        
+                    }else{$("#categories-keywords-placeholder").hide();}
+
+                    break;
+
+                default:
+                  break;
 
             }
-        );
 
-        
-    // refresh project presentation page
 
-    function ppp_refresh(){
 
-        var keywordsString ='';
-
-        $( ".keyword-wrapper .left-col" ).each(function( index ) {
-
-            keywordsString = keywordsString + $(this).text()+',';
-            
-        });
-        
-        keywordsString = keywordsString.slice(0, -1); // removing last comma
-
-        if(keywordsString != ''){
-
-            $("#pp-keywords").text(keywordsString.replace(/\s/g, '').replace(/,/g, ' #'));
         }
 
-    }
+        function getKeywordsString(){ // from hidden input
+
+            return $("#keywords-string").text().trim();
+
+        }
+
+        function hasKeywords(){
+
+            return getKeywordsString() == true;
+
+        }
+
+        function hasCategories(){
+
+            return $("#categories-dropdown-content").text().trim() !== '';
+
+        }
+
+
+
+
+
+
+
 
     });
 

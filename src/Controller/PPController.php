@@ -740,8 +740,8 @@ class PPController extends AbstractController
             
             $content = trim($request->request->get('content'));
 
-            dump($request->request->get('content'));
-            dump($subProperty);
+            //dump($request->request->get('content'));
+            //dump($subProperty);
 
             $liveSave->hydrate($entityName, $entityId, $property, $subId, $subProperty, $content);
 

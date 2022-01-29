@@ -26,6 +26,11 @@
     background-color:rgb(234, 245, 255);
 }
 
+.cat-button .category-icon{
+    width: 35px;
+    height: 35px;
+}
+
 /* La selection de la classe parente Permet un Override du Hover */
 #cat-grid .selectedCategory, #cat-grid .selectedCategory:hover {
     background-color: yellow !important;

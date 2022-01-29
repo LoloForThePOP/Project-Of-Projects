@@ -17,16 +17,21 @@
                     <div id="" class="default-website-logo" >
 
                         {# Twig URL parser, here to get domain first letter (thanks to https://gist.github.com/olets/a835d4f8df5028fb30649d6a8aa03de2) #}
-                        {% set url= website.url %}
-                        {% set noprotocol = url|split('//')[1] ?: url %}
-                        {% set domains = noprotocol|split('/')[0] ?: noprotocol %}
-                        {% if domains|split('.')[2] is defined %}
-                            {% set domain = domains|split('.')[1] %}
-                        {% else %}
-                            {% set domain = domains|split('.')[0] %}
-                        {% endif %}
 
-                        {{domain | first}}
+                        {% if website.url %}
+                            {% set url = website.url %}
+                            {% set noprotocol = url|split('//')[1] ?: url %}
+                            {% set domains = noprotocol|split('/')[0] ?: noprotocol %}
+                            {% if domains|split('.')[2] is defined %}
+                                {% set domain = domains|split('.')[1] %}
+                            {% else %}
+                                {% set domain = domains|split('.')[0] %}
+                            {% endif %}
+                            {{domain | first}}
+
+                        {% else %}
+                            D
+                        {% endif %}
 
                     </div>
 
@@ -60,15 +65,11 @@
                     
                 {# website description #}
 
-                {% if website.description is not null %}
-
-                    <h5 class="websiteDescription" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "websites", "subid": "{{website.id}}", "subproperty":"description"}'>{{website.description | first | capitalize ~ website.description [1:] }}</h5>
-
-                {% endif %}
+                <h5 class="websiteDescription" data-text="Titre (Ex: Site web officiel, compte Twitter, etc)" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "websites", "subid": "{{website.id}}", "subproperty":"description"}'>{{website.description is defined ? website.description | first | capitalize ~ website.description [1:] : ""}}</h5>
 
                 {# website url #}
 
-                <div class="websiteUrl" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "websites", "subid": "{{website.id}}", "subproperty":"url"}'>{{website.url}}</div>
+                <div class="websiteUrl" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "websites", "subid": "{{website.id}}", "subproperty":"url"}' data-text="Adresse (ex: www.exemple.com)">{{website.url}}</div>
 
                 {# <span class="pp-consultation-mode websiteUrl mb-1">{{website.url | slice(0,50)}}{% if website.url | length > 50 %}(...){% endif %}</span> #}
 

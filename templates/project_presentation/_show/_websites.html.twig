@@ -17,8 +17,26 @@
     {% endblock %}
 
     {% block mainContent %}
+
+        {% set websites = 
+
+            [ 
+                    
+                {
+                    "id": "",
+                    "description": "test description",
+                    "url": "",
+                } 
             
-        {% set websites = presentation.getOC('websites') %}
+            ]
+        
+        %}
+
+        {% if countWebsites > 0 %}
+        
+            {% set websites = presentation.getOC('websites') | merge(websites) %}
+        
+        {% endif %}
 
         <div id="websites" class="js-elements-list pp-struct-content row m-0">
 

@@ -1,17 +1,61 @@
 <!-- Project Title Presentation -->
 
-
-{% if presentation.title is not empty %}
+{% if presentation.title is not empty or userPresenter %}
 
     <!-- Structure Container -->
 
-    <div class="">
+    <div class="pp-title-container position-relative">
 
         <!-- Project Title Display -->
 
-        <h3 class="pp-title mb-0" data-edit='{"entity": "PPBase", "property": "title", "id": {{presentation.id}} }'>{{presentation.title[:1] | upper ~ presentation.title[1:]}}</h3>
+        <h3 id="" class="pp-title editable-field" data-edit='{"entity": "PPBase", "property": "title", "id": {{presentation.id}} }' data-text="Titre du Projet" >{{presentation.title is not empty ? presentation.title[:1] | upper ~ presentation.title[1:]}}</h3>
+
+        {% if presentation.title is empty and userPresenter %} {# a strikethrough placeholder is displayed on contenteditable #}
+
+        <div class="line-through"></div>
+
+            
+
+            <script>
+
+                $(document).ready(function(){
+
+                    $(".pp-title").on('click', function (){
+
+                        $('.line-through').remove();
+
+                    });
+
+                });
+
+            </script>
+
+            <style>
+
+                .line-through{
+                    position: absolute;
+                    width: 203px;
+                    height: 2px;
+                    top: 40%;
+                    background-color: #397ee7;
+                }
+
+                @media screen and (max-width: 580px) {
+
+                    .line-through{
+                        width: 150px;
+                    }
+
+                }
+
+
+            </style>
+
+        {% endif %}
 
     </div>
+
+{% endif %}
 
     <!-- Some Styles -->
 
@@ -20,16 +64,13 @@
         .pp-title{
 
             display: inline-block;
-
             position: relative;
 
-            color:navy !important;
-            font-family: Tahoma, Geneva, Verdana, sans-serif;
-
             padding-top: 0px;
+            margin-bottom:13px;
 
-            margin-bottom:13px !important;
-
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+            color:navy;
             font-weight:bold;
 
         }
@@ -47,108 +88,9 @@
                 padding-right: 0px;
                 width: 100%;
 
-                margin-bottom: 10px !important;
+                margin-bottom: 10px;
             }
 
         }
 
     </style>
-
-{% elseif userPresenter %} {# No title, we use a placeholder and display a form on click #}
-
-    <a class="pp-edition-mode">
-
-        <div class="title-placeholder">
-            <div class="line-through"></div>
-            Titre du Projet
-        </div>
-        
-    </a>
-
-    <script>
-
-        $(document).ready(function(){
-
-            $(".title-placeholder").on('click', function (){
-
-                // replacing title placeholder with "create title form"
-                
-                $(this).html($('form[name="title"]'));
-                $('form[name="title"]').show();
-                $(".title-placeholder").addClass("active"); // css flag for input is displayed
-                $(".title-placeholder").off();
-                $("#title_title").focus();
-
-            });
-
-        });
-
-    </script>
-
-
-
-
-    <style>
-
-        .title-placeholder{
-
-            display: inline-block;
-            position: relative;
-            width: 400px;
-            margin-bottom: 13px;
-
-            color: #397ee7;
-            font-size: 24px;
-            font-weight: bold;
-
-            cursor: pointer;
-            
-        }
-
-        .line-through{
-            position: absolute;
-            width: 180px;
-            height: 2px;
-            top:53%;
-            background-color: #397ee7;
-        }
-
-        .title-placeholder:hover {
-
-            background-color: rgb(237, 237, 248);
-        }
-
-        .title-placeholder.active{
-            width: 500px;
-        }
-
-        .title-placeholder.active:hover {
-
-            background-color: unset;
-        }
-
-        @media screen and (max-width: 580px) {
-
-            .title-placeholder{
-
-                font-size: 20px;
-                margin-bottom: 14px;
-
-                width: 100%;
-
-            }
-
-            .title-placeholder.active{
-                width: 100%;
-            }
-
-            .line-through{
-                width: 150px;
-            }
-
-        }
-
-
-    </style>
-
-{% endif %}

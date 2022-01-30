@@ -6,7 +6,6 @@ use App\Entity\Slide;
 use App\Service\Slug;
 use App\Entity\PPBase;
 use App\Entity\Persorg;
-use App\Form\TitleType;
 use App\Entity\Document;
 use App\Form\PPBaseType;
 use App\Form\PersorgType;
@@ -370,29 +369,6 @@ class PPController extends AbstractController
 
             }
 
-           
-            $addTitleForm = $this->createForm(TitleType::class, $presentation);
-            $addTitleForm->handleRequest($request);
-            
-            if ($addTitleForm->isSubmitted() && $addTitleForm->isValid()) {
-
-                $manager->flush();
-
-                $this->addFlash(
-                    'success',
-                    "✅ Modification Effectuée"
-                );
-
-                return $this->redirectToRoute(
-                    'show_presentation',
-                    [
-
-                        'stringId' => $presentation->getStringId(),
-
-                    ]
-                );
-
-            }
           
             $newECS = new ContributorStructure();
             $ecsForm = $this->createForm(ContributorStructureType::class, $newECS);
@@ -514,7 +490,6 @@ class PPController extends AbstractController
                 'addDocumentForm' => $addDocumentForm->createView(),
                 'addImageForm' => $addImageForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
-                'addTitleForm' => $addTitleForm->createView(),
                 'updateStringIdForm' => $updateStringIdForm->createView(),
             ]);
 
@@ -731,7 +706,7 @@ class PPController extends AbstractController
 
             $metadata = json_decode($request->request->get('metadata'), true);
             
-            $entityName = ucfirst($metadata['entity']); //ex : "PPBase"
+            $entityName = ucfirst($metadata['entity']); //ex : "PPBase"; "Slide"
             $entityId = $metadata['id']; //ex: 2084
             $property = $metadata['property']; //ex : "websites" (websites is a key from the $otherComponents attribute from PPBase entity)
 

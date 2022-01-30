@@ -84,7 +84,7 @@
 
 }
 
-/* Hide editable elements */
+/* Hide elements related to edition mode */
 
 .pp-edition-mode{
 
@@ -92,9 +92,13 @@
     
 }
 
-.empty-model {
+/* Hide some other elements */
+
+.hide-element {
+
     display: none;
 }
+
 
 
 

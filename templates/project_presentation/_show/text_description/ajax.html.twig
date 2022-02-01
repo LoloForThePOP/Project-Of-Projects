@@ -60,13 +60,12 @@
                                     },
                                     
                                     success: function(data) {
-
-                                        $("#collapseTextDescription").html(editorContent);
-                    
-                                        console.log("edited structure ok done");
-                    
-                                        $( "#edit-text-feedback" ).remove();
-                                        $( ".tox-toolbar__group" ).append('<div id="edit-text-feedback" class="text-success" style="display: flex; align-items: center; padding-left: 10px; font-weight: bold; ">enregistré !</div>');
+                                        //refreshing read only content
+                                        $("#collapseTextDescription").html(editorContent); 
+                                        //adding some positive feedback to editor
+                                        $( ".tox-toolbar__group" ).append('<div  class="edit-text-feedback text-success" style="display: flex; align-items: center; padding-left: 10px; font-weight: bold; ">enregistré !</div>'); 
+                                        
+                                        $( ".edit-text-feedback" ).fadeOut(8000);
                     
                     
                                     },
@@ -75,17 +74,13 @@
                     
                                         console.log(errorThrown);
                                         
-                                        //elem.after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
-                    
-                                        
-                                        //console.log(xhr.responseJSON);
                                     }  
                     
                                 });
                     
 
 
-                            }, 2000);
+                            }, 3500);
 
                         });
 

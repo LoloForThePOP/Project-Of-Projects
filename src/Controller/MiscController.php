@@ -45,8 +45,8 @@ class MiscController extends AbstractController
 
                 case 'edit_text_description':
 
-                    $chunkTemplateDirFileName = '/project_presentation/edit/text_description/_container_with_script_only';
-                    
+                    $chunkTemplateDirFileName = '/project_presentation/_show/text_description/ajax';
+
                     if (isset($additionalParameters["idPP"])) {
 
                         $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneById($additionalParameters["idPP"]);

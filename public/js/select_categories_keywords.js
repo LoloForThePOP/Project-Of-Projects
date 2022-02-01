@@ -233,8 +233,6 @@ $(document).ready(function(){
 
             refreshHidden();
 
-            console.log('test');
-
         },
 
     });

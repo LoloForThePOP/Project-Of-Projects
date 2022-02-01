@@ -1,7 +1,7 @@
 
 <div class="pp-edition-mode">
     
-    <div class="notification alert alert-warning alert-dismissible fade show fw-bold pb-4" role="alert">
+    <div class="notif-first-quality-assessment notification alert alert-warning alert-dismissible fade show fw-bold pb-4" role="alert">
 
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
@@ -34,17 +34,22 @@
 
                 </p>
 
-                <p class="mb-2">
+                <p data-category="text-slides" class="{{ presentation.textDescription is not empty or countSlides > 0 ? "checked" }} mb-2">
 
-                    {{ (presentation.textDescription is not empty or countSlides > 0) ? "✅" : "❌"}}
-
+                    <span class="check-mark">✅</span>
+                        
+                    <span class="red-cross">❌</span>
+                        
                     <a class="inline-text-trigger-action text-decoration-none" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}">Une description texte</a>,<a class="inline-text-trigger-action text-decoration-none" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal">ou une image</a><a class="inline-text-trigger-action text-decoration-none" href="{{path('add_youtube_slide', {'stringId': stringId})}}" >/ vidéo</a>
 
                 </p>
 
-                <p class="mb-0">
+                <p class="{{  countCategories > 0 or hasKeywords ? "checked"}} mb-0">
 
-                    {{ countCategories > 0 or hasKeywords ? "✅" : "❌"}}
+                    <span class="check-mark">✅</span>
+                        
+                    <span class="red-cross">❌</span>
+                    
                     <a class="inline-text-trigger-action text-decoration-none" data-bs-toggle="modal" data-bs-target="#reusable-modal" href="#" data-get-chunk='{"name": "edit_categories_keywords", "target": "#reusable-modal .modal-body"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'>Une catégorie, ou des mots-clés</a>
 
                 </p>
@@ -59,6 +64,14 @@
 
 
 <style>
+
+    .checked .red-cross, .check-mark {
+        display: none;
+    }
+
+    .checked .check-mark{
+        display: inline;
+    }
 
     .indent-container{
         padding-left: 39px;

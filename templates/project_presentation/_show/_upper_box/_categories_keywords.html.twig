@@ -2,27 +2,32 @@
 
 {% if hasKeywords or countCategories > 0 %}
 
-    <div class="pp-categories-keywords edit-hoverable-item text-left" >
+    <div id="pp-categories-keywords" class="edit-hoverable-item text-left" >
 
         {% if hasKeywords %}
 
             <!-- Project Keywords Display -->
 
-            <span id="pp-keywords" class="d-inline">
+            <span id="pp-keywords" class="">
 
-                {% set keywords = presentation.keywords | split(',') %}
+                {% if hasKeywords %}
+                    
+                    {% set keywords = presentation.keywords | split(',') %}
 
-                {% for keyword in keywords %}
+                    {% for keyword in keywords %}
 
-                    #{{keyword | title | replace({" " : ""}) }}
+                        #{{keyword | title | replace({" " : ""}) }}
 
-                {% endfor %}
+                    {% endfor %}
+                
+                {% endif %}
 
             </span>
 
             <style>
 
                 #pp-keywords{
+                    display: inline;
                     margin-right:5px;
                 }
 
@@ -32,11 +37,11 @@
 
         <!-- Project Categories Display -->
 
-        {% if userPresenter or countCategories > 0 %}
+        {% if countCategories > 0 %}
 
             <div id="pp-categories" class="">
 
-                <div id="categories-dropdown" data-bs-toggle="dropdown" aria-expanded="false" class="d-inline" type="button">
+                <div id="categories-dropdown" data-bs-toggle="dropdown" aria-expanded="false" class="" type="button">
 
                     <img id="categories-unroll-icon" src="{{ asset('categories.svg', 'misc')}}" alt="categories icon">Catégories<span class="pp-consultation-mode">▾</span>
 
@@ -44,21 +49,17 @@
 
                 <ul id="categories-dropdown-content" class="dropdown-menu" aria-labelledby="categories-dropdown">
 
-                    {% if countCategories > 0 %}
+                    {% for category in presentation.categories %}
 
-                        {% for category in presentation.categories %}
-
-                            <li class="" >
-                                
-                                <img class="category-icon" src="{{asset ("project_categories/"~ category.uniqueName ~".svg", 'icons')}}" alt="Icône {{ category.uniqueName }}" loading="lazy">
-                                
-                                {{category.descriptionFr}}
+                        <li class="" >
                             
-                            </li>
+                            <img class="category-icon" src="{{asset ("project_categories/"~ category.uniqueName ~".svg", 'icons')}}" alt="Icône {{ category.uniqueName }}" loading="lazy">
+                            
+                            {{category.descriptionFr}}
+                        
+                        </li>
 
-                        {% endfor %}
-                    
-                    {% endif %}
+                    {% endfor %}
                 
                 </ul>
 
@@ -72,6 +73,11 @@
                         width: 28px;
                         margin-right: 3px;
                         margin-bottom: 3px;
+                    }
+
+                    #categories-dropdown{
+                        display: inline;
+                        
                     }
 
                     #categories-dropdown-content{
@@ -103,21 +109,9 @@
 
         {% endif %}
 
-        <!-- Edit Project Categories & Keywords Button -->
+        {% if userPresenter %} {# Edit Project Categories & Keywords covering link #}
 
-        {% if userPresenter %}
-
-            {# Tiny Screens
-
-            <a class="pp-edition-mode ms-2 ms-md-0" href="{{ path('select_categories_keywords', {'stringId': presentation.stringId}) }}">
-
-                <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-                
-            </a> #}
-
-            <a class="pp-edition-mode coverable-link" data-bs-toggle="modal" data-bs-target="#reusable-modal" href="#" data-get-chunk='{"name": "edit_categories_keywords", "target": "#reusable-modal .modal-body"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
-
-            {# href="{{ path ('select_categories_keywords', {'stringId': presentation.stringId}) }} #}
+            <a class="pp-edition-mode coverable-link" href="{{ path ('select_categories_keywords', {'stringId': presentation.stringId}) }}"></a>
 
         {% endif %}
 
@@ -128,7 +122,7 @@
 
     <style>
 
-        .pp-categories-keywords{
+        #pp-categories-keywords{
 
             position: relative;
 
@@ -137,9 +131,14 @@
             color:#065fd4;
         }
 
+        #pp-categories-keywords.empty{
+
+            display: none;
+        }
+
         @media screen and (max-width: 580px) {
 
-            .pp-categories-keywords{
+            #pp-categories-keywords{
 
                 font-size: 15px;
                 font-weight:bold;
@@ -151,11 +150,9 @@
 
     </style>
 
-{% endif %}
+{% elseif userPresenter %} {# placeholder when no keywords and no category #}
 
-{% if userPresenter %} {# placeholder when no keywords and no category #}
-
-    <a class="pp-edition-mode text-decoration-none ps-md-0 text-body" data-bs-toggle="modal" data-bs-target="#reusable-modal" href="#" data-get-chunk='{"name": "edit_categories_keywords", "target": "#reusable-modal .modal-body"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'>
+    <a class="pp-edition-mode text-decoration-none ps-md-0 text-body" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
         
         <div id="categories-keywords-placeholder" class="">
 

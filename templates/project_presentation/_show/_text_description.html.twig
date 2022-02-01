@@ -4,7 +4,7 @@
 
         {# Edit Text Description Button #}
 
-        <a class="pp-edition-mode text-decoration-none ms-2" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}">
+        <a id="edit-text-description-icon" class="pp-edition-mode text-decoration-none ms-2" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'>
                 
             <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
             
@@ -23,10 +23,8 @@
             {% set textDescription = presentation.textDescription %}
             
             {% set longText = false %}
-            
-            {% set length = textDescription | length %}
 
-            {% if length > 300 %}
+            {% if textDescription | length > 300 %}
             
                 {% set longText = true %}
 
@@ -34,7 +32,7 @@
 
             {# Text Description Display (2 cases : short text description; collapsible long text description) #}
             
-            <div class="{{ longText ? 'long-text' }} container px-0 pl-md-3">
+            <div id="read-text-description" class="{{ longText ? 'long-text' }} container px-0 pl-md-3">
 
                 <!-- Text Description (Display) -->
 
@@ -42,7 +40,7 @@
 
                     {{ textDescription | sanitize_html }}
 
-                    <a class="pp-edition-mode coverable-link" href="{{ path('edit_pp_text_description', {'stringId': presentation.stringId}) }}"></a>
+                    <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
 
                 </div>
 
@@ -61,7 +59,22 @@
                 
             </div>
 
+
         </div>
+
+        {# Text Description Live Edition Container #}
+
+        <div id="text-descr-live-edition-container" class="pp-edition-mode">
+
+        </div>
+
+        <script>
+            $('#collapseTextDescription, #edit-text-description-icon').on('click', function (){
+                $("#read-text-description").addClass("pp-consultation-mode");
+            });
+        </script>
+
+        
 
         <style>
 

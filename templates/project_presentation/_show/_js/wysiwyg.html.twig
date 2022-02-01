@@ -72,10 +72,11 @@
         });
 
 
-        // initialising inline edit capabilities
 
+        // initialising inline edit capabilities
         $("[data-edit]").attr('contenteditable','true');
-        managePlaceholder('categories');
+
+
 
         // ajax live save capability on editable elements
         // thanks yo https://stackoverflow.com/questions/19910843/autosave-input-boxs-to-database-during-pause-in-typing/19911256#19911256
@@ -102,53 +103,59 @@
 
             timeoutId = setTimeout(function() {
 
-                $.ajax({
-
-                    url: "{{path('live_save_pp')}}",
-                    type: "POST",
-                    data: {
-                        "metadata": metadata,
-                        "content": content,
-                    },
-                    
-                    success: function(data) {
-
-                        console.log("edited structure ok done");
-
-                        $( "#live-feedback" ).text("");
-    
-                        customEvents.dispatchEvent(
-
-                            new CustomEvent('presentationChangedOnRemote', {
-
-                                detail: {
-
-                                    "structure": 'misc',
-                                    "metadata": metadata,
-                                    "content": content,
-
-                                }
-                            })
-
-                        );
-
-                    },
-    
-                    error : function(xhr, textStatus, errorThrown) {
-
-                        console.log(errorThrown);
-                        
-                        elem.after($( "#live-feedback" ).text(xhr.responseJSON.error));
-    
-                        
-                        //console.log(xhr.responseJSON);
-                    }  
-    
-                });
+                ajaxSavePresentation(metadata, content, elem);
 
             }, 2000);
 
         });
+
+        function ajaxSavePresentation(metadata, content, elem=null){
+
+            $.ajax({
+
+                url: "{{path('live_save_pp')}}",
+                type: "POST",
+                data: {
+                    "metadata": metadata,
+                    "content": content,
+                },
+                
+                success: function(data) {
+
+                    console.log("edited structure ok done");
+
+                    elem.after($( "#live-feedback" ).attr("class", "text-success").text("Enregistré !").fadeOut(5000));
+
+                    customEvents.dispatchEvent(
+
+                        new CustomEvent('presentationChangedOnRemote', {
+
+                            detail: {
+
+                                "structure": 'misc',
+                                "metadata": metadata,
+                                "content": content,
+
+                            }
+                        })
+
+                    );
+
+                },
+
+                error : function(xhr, textStatus, errorThrown) {
+
+                    console.log(errorThrown);
+                    
+                    elem.after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
+
+                    
+                    //console.log(xhr.responseJSON);
+                }  
+
+            });
+
+        }
 
 
 
@@ -164,16 +171,6 @@
 
                 switch(data.structure){
 
-                    case 'keywords':
-
-                        refresh_keywords();
-                        break;
-
-                    case 'categories':
-
-                        refresh_categories();
-                        break;
-
                     case 'misc':
 
                         refresh_misc(data.metadata, data.content);
@@ -184,46 +181,9 @@
 
                 }
 
-                managePlaceholder(data.structure);
-
-
-                  
-
             }
 
         );
-
-            
-        
-        function refresh_keywords(){
-
-            keywordsString = getKeywordsString();
-
-            if(keywordsString != ''){
-
-                $("#pp-keywords").text('#'+keywordsString.replace(/\s/g, '').replace(/,/g, ' #'));
-            }
-
-            else($("#pp-keywords").text(""));
-
-        }
-
-        function refresh_categories(){
-
-            $("#categories-dropdown-content").html("");
-
-            $("#cat-grid .selectedCategory").each(function(){
-
-                var icon = $(this).find(".bt-left-col").html();
-                var text = $(this).find(".bt-right-col").text();
-
-                var li = $('<li>').append(icon+text);
-
-                $("#categories-dropdown-content").append(li);
-
-            });
-
-        }
 
         
         function refresh_misc(metadata, content){
@@ -244,72 +204,8 @@
 
         }
 
-
-        function managePlaceholder(structureName){
-
-            switch(structureName){
-
-                case 'keywords':
-                case 'categories':
-
-                    console.log(hasCategories());
-                    console.log(hasKeywords());
-
-                    if( !hasCategories()){
-
-                        $("#pp-categories").hide();
-
-                    } else($("#pp-categories").show())
-
-                    if( !hasCategories() && !hasKeywords()){
-
-                        $("#categories-keywords-placeholder").show();
-                        
-                        
-                    }else{$("#categories-keywords-placeholder").hide();}
-
-                    break;
-
-                default:
-                  break;
-
-            }
-
-
-
-        }
-
-        function getKeywordsString(){ // from hidden input
-
-            return $("#keywords-string").text().trim();
-
-        }
-
-        function hasKeywords(){
-
-            return getKeywordsString() == true;
-
-        }
-
-        function hasCategories(){
-
-            return $("#categories-dropdown-content").text().trim() !== '';
-
-        }
-
-
-
-
-
-
-
-
     });
 
-
-
-
-    
     // + when a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
     // --> See : reorder_delete_elements.html.twig (when deleting elements), and update_presentation_settings.html.twig (hide or show private messages card). 
 

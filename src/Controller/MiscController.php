@@ -43,25 +43,24 @@ class MiscController extends AbstractController
                     $chunkTemplateDirFileName = '/plans/_details';
                     break;
 
-                case 'edit_categories_keywords':
-                    
-                    $chunkTemplateDirFileName = '/project_presentation/edit/categories/select_lite';
+                case 'edit_text_description':
 
+                    $chunkTemplateDirFileName = '/project_presentation/edit/text_description/_container_with_script_only';
+                    
                     if (isset($additionalParameters["idPP"])) {
 
                         $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneById($additionalParameters["idPP"]);
 
-                        $categories = $this->getDoctrine()->getRepository(Category::class)->findBy([], ['position' => 'ASC']);
-
                         if ($this->isGranted('edit', $presentation)) {
-                            $additionalParameters["presentation"] = $presentation;
-                            $additionalParameters["stringId"] = $presentation->getStringId();
-                            $additionalParameters["categories"] = $categories;
+
+                            $additionalParameters["textDescription"] =  $presentation->getTextDescription();
+
                         }
 
                         //dump($pp);
                     }
                     break;
+
 
                 default:
                 

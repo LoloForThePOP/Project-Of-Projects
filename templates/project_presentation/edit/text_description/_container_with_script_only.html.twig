@@ -1,0 +1,136 @@
+<textarea id="tinymce" class="tinymce">
+
+    {{textDescription}}
+
+</textarea>
+
+    <!-- CDN - TinyMCE Rich Text Editor -->
+
+    <script>
+
+        $(document).ready(function() {
+
+            /*
+
+                Loading scripts after page load?
+                Thanks to : https://stackoverflow.com/questions/19737031/loading-scripts-after-page-load/19737127
+            
+            */
+
+            $.getScript(
+
+                "https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js",
+
+                () => console.log('loaded script!')
+
+            ).done((script,textStatus ) => {
+
+
+
+                // TinyMCE Rich Text Editor Init
+
+
+                let editorChangeHandlerId;
+
+                tinymce.init({
+
+                    mode : "specific_textareas",
+
+                    editor_selector : "tinymce",
+
+                    setup: function(editor) {
+
+                        editor.on('change keyup', function () {
+
+                            clearTimeout(editorChangeHandlerId);
+
+                            editorChangeHandlerId = setTimeout(function() {
+
+                                editorContent = tinymce.activeEditor.getContent();
+
+                                metadata = '{"entity": "PPBase", "property": "textDescription", "id": {{idPP}} }';
+
+                                $.ajax({
+
+                                    url: "{{path('live_save_pp')}}",
+                                    type: "POST",
+                                    data: {
+                                        "metadata": metadata,
+                                        "content": editorContent,
+                                    },
+                                    
+                                    success: function(data) {
+
+                                        $("#collapseTextDescription").html(editorContent);
+                    
+                                        console.log("edited structure ok done");
+                    
+                                        $( "#edit-text-feedback" ).remove();
+                                        $( ".tox-toolbar__group" ).append('<div id="edit-text-feedback" class="text-success" style="display: flex; align-items: center; padding-left: 10px; font-weight: bold; ">enregistré !</div>');
+                    
+                    
+                                    },
+                    
+                                    error : function(xhr, textStatus, errorThrown) {
+                    
+                                        console.log(errorThrown);
+                                        
+                                        //elem.after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
+                    
+                                        
+                                        //console.log(xhr.responseJSON);
+                                    }  
+                    
+                                });
+                    
+
+
+                            }, 2000);
+
+                        });
+
+                    },
+
+                    width : "100%",
+
+                    height: "320",
+
+                    entity_encoding : "raw",
+
+                    menubar: 'edit format',
+
+                    menu: {
+
+                        edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                        format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+                    }, 
+
+                    language: 'fr_FR',
+
+                    plugins: "emoticons, lists",
+
+                    browser_spellcheck: true,
+
+                    toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
+
+                    content_style: "body {padding: 0px 15px;}",
+
+                    nowrap : false,
+
+                });
+                
+                }).fail(( jqxhr, settings, exception ) => {
+                    console.log(exception + ': ' + jqxhr.status);
+                }
+
+            );
+
+        });
+
+    </script>
+
+
+    
+

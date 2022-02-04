@@ -6,7 +6,7 @@
 {% block body %}
 
 
-<div class="page-container container px-2 px-md-4">
+<div class="container px-2 px-md-4">
 
     <div class="row mt-2">
 
@@ -15,6 +15,29 @@
             <div class="py-3 px-md-3">
 
                 <h3 class="fw-bold mb-4">Connectez-vous</h3>
+
+                <div class="container mb-4 pb-3 px-0">
+
+                    <a href="{{ path('connect_google_start') }}">
+
+                        <button class="btn btn-outline-dark">
+
+                            <img src="{{asset ('connect/google.svg', 'misc')}}" class="" alt="Google Logo" loading="lazy" width="50" height="50">
+
+                            <span class="">Avec Google</span>
+
+                        </button>
+
+                    </a>
+
+
+                </div>
+
+                <div class="container px-0 mb-3">
+
+                    <h5 class="fw-bold">Ou utilisez votre adresse email :</h5>
+
+                </div>
 
                 <form class="mb-3" method="post">
 

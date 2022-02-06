@@ -127,6 +127,9 @@
     "fakerphp/faker": {
         "version": "v1.14.1"
     },
+    "firebase/php-jwt": {
+        "version": "v5.5.1"
+    },
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
@@ -165,6 +168,9 @@
     },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.2.0"
+    },
+    "lcobucci/jwt": {
+        "version": "3.4.6"
     },
     "league/oauth2-client": {
         "version": "2.6.1"
@@ -205,6 +211,9 @@
     },
     "paragonie/random_compat": {
         "version": "v9.99.100"
+    },
+    "patrickbussmann/oauth2-apple": {
+        "version": "0.2.6"
     },
     "phar-io/manifest": {
         "version": "2.0.1"

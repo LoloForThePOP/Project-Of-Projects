@@ -253,6 +253,10 @@ label:active:after {
     background-color: #D1EAFB;
 }
 
+.main-container{ /* see base.html */
+    padding-top: 55px;
+}
+
 
 /* (test) page container */
 

@@ -24,6 +24,43 @@
 
       {% if user_presentations | length > 0 %}
 
+        <div class="no-project">
+
+          <h5 class="fs-4 fw-bold mb-2 mb-md-4">Bienvenue ;-)</h5>
+
+          <p class="fs-5">
+            Pour ajouter un projet, cliquez <a href="{{path ('create_presentation')}}"> <span class="badge bg-primary fw-bold" >ici</span></a>
+          </p>
+
+
+
+        </div>
+
+        <style>
+
+          .no-project {
+            width: 100%;
+            height: 170px;
+            padding: 35px;
+            border: 2px solid rgb(230, 230, 223);
+            border-radius: 4px;
+          }
+          
+          @media screen and (max-width: 580px) {
+                  
+            .no-project {
+              height: 130px;
+              padding: 15px;
+            }
+
+          }
+    
+        </style>
+
+      {% endif %}
+
+      {% if user_presentations | length == 0 %}
+
         {{ display.collection("", user_presentations | reverse, "user-presentations") }} {# collection title managed in macro#}
 
         <style>
@@ -75,15 +112,6 @@
     {# basic pool alert display #}
     {% include "home/_basic_pool_alert.html.twig" %}
     
-    
-
-    <div class="col-xxl-11 pe-lg-5 mb-3">
-      
-      {% include "home/_search_container.html.twig" %}
-
-    </div>
-
-
     <div>
 
         
@@ -95,40 +123,30 @@
         
         {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
 
-        
-    {# Call to action : Add a Project button #}
+        </div>
 
-    <div class="mt-5 mb-4 text-center">
+        {# Search Bar container #}
 
-      <a href="{{ path ('create_presentation') }}">
-
-        <button class="btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
-
-          <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
+        <div class="col-xxl-11 pe-lg-5 mb-3">
           
-          <span class="h5 fw-bold ps-2">Ajouter gratuitement un Projet</span>
-      
-        </button>
+          {% include "home/_search_container.html.twig" %}
 
-      </a>
+        </div>
 
-    </div>
-
-        {# Priced Plans
-
-        <div class="col-xxl-11 pe-lg-5 mt-3">
-
-          {% include "plans/container.html.twig" %}
-
-        </div> #} 
 
         {# some presentations by category #}
 
         {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
+            
 
         {# some presentations by category #}
         
         {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+        
+
+        {# some presentations by category #}
+        
+        {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
 
       {# some presentations by categories intersection
         
@@ -137,6 +155,34 @@
 
     </div>
 
-  </div> {# close an unknow div which mess up footer display #}
+    {# Call to action : Add a Project button #}
+
+    <div class="mb-5 pb-4 text-center">
+
+      <a href="{{ path ('create_presentation') }}">
+
+        <button class="btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
+
+          <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
+          
+          <span class="h5 fw-bold ps-2">Ajouter un Projet</span>
+      
+        </button>
+
+      </a>
+
+    </div>
+
+  </div> {# closes an unknow div which mess up footer display #}
+  
+
+  {# Priced Plans
+
+  <div class="col-xxl-11 pe-lg-5 mt-3">
+
+    {% include "plans/container.html.twig" %}
+
+  </div> #} 
+
 
 {% endblock %}

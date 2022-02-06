@@ -2,9 +2,10 @@
 
     {% block image %}
 
-    {#
+   
+        <img src="{{asset ('misc/homepage_global_network.webp', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="300" height="300">
 
-        <img src="{{asset ('misc/homepage_jumbotron.svg', 'larger')}}" class="jumbotron-img d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" loading="lazy" width="380" height="330">#}
+{# Jumbotron Video
 
         {% include "home/_demo_video.html.twig" %}
 
@@ -20,21 +21,53 @@
 
         </style>
 
+#}
+
     {% endblock %}
 
     {% block text %}
 
-        <h1 class="jumbotron-title display-5 lh-1">Une encyclopédie des Projets</h1>
+        <h1 class="jumbotron-title display-5 lh-1">L'Encyclopédie des Projets.</h1>
 
-        <p class="lead">
-        Vous présentez un projet ? Créez sa carte de visite sur le web. <b>Elle concentre toutes les informations utiles à partager, et s'affiche correctement sur différents écrans. C'est simple, rapide, et gratuit</b>.
-        </p>
+        <p class="text-center text-md-start lead">Nous construisons <b>un répertoire des projets à impacts prévus ou en cours</b>. <b>Chaque projet compte</b>.</p>
 
-        <div class="d-md-flex justify-content-md-start pt-3">
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center justify-content-md-start pt-3">
 
-            <a href="{{path('create_presentation')}}"><button type="button" class="jumbotron-btn btn btn-primary">Ajouter gratuitement un Projet</button></a>
+            <a href="{{ path ('create_presentation') }}">
+
+                <button class="btn light-button d-flex px-3 pt-2 me-md-4 mb-3 mb-md-0" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-jumbotron-create-presentation"}'>
+        
+                  <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
+                  
+                  <span class="fw-bold ps-2">Ajouter un Projet</span>
+              
+                </button>
+        
+              </a>
+
+              <a class="" href="{{ asset('pdf/project-of-projects-manifesto-fr.pdf', 'static')}}" target="_blank" rel="noopener noreferrer">
+  
+                  <button class="fw-bold btn d-flex light-button pt-2 pe-4" style="border-color: rgb(216, 216, 201); height:50px; padding-bottom: 10px;" data-track-click='{"key":"read-the-pop-manifesto"}'>
+
+                    <span class="ps-1 h5">> </span>
+                    <span class="ps-1 mb-2">Lire le Manifeste</span>
+                
+                  </button>
+          
+                </a>
 
         </div>
+
+        <style>
+
+            .light-button:hover{
+
+                background-color: rgb(233, 233, 233);
+
+            }
+
+        </style>
+
     
     {% endblock %}
 

@@ -15,18 +15,23 @@
 
                 {{form_start(registrationForm)}}
 
+                
+
                 <div class="mb-3">
                     {{ form_label(registrationForm.userName) }}
+                    {{form_errors(registrationForm.userName)}}
                     {{ form_widget(registrationForm.userName) }}
                 </div>
 
                 <div class="mb-3">
                     {{ form_label(registrationForm.email) }}
+                    {{form_errors(registrationForm.email)}}
                     {{ form_widget(registrationForm.email) }}
                 </div>
 
                 <div class="mb-3">
                     {{ form_label(registrationForm.plainPassword) }}
+                    {{ form_errors(registrationForm.plainPassword) }}
                     {{ form_widget(registrationForm.plainPassword) }}
                 </div>
 

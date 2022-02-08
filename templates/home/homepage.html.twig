@@ -22,14 +22,14 @@
 
       {% set user_presentations = app.user.createdPresentations %}
 
-      {% if user_presentations | length > 0 %}
+      {% if user_presentations | length == 0 %} {# No presentation, we display an invite to present a project #}
 
-        <div class="no-project">
+        <div class="no-project-container">
 
           <h5 class="fs-4 fw-bold mb-2 mb-md-4">Bienvenue ;-)</h5>
 
           <p class="fs-5">
-            Pour ajouter un projet, cliquez <a href="{{path ('create_presentation')}}"> <span class="badge bg-primary fw-bold" >ici</span></a>
+            Pour ajouter un projet, c'est <a href="{{path ('create_presentation')}}"> <span class="badge bg-primary fw-bold" >ici</span></a>
           </p>
 
 
@@ -38,7 +38,7 @@
 
         <style>
 
-          .no-project {
+          .no-project-container {
             width: 100%;
             height: 170px;
             padding: 35px;
@@ -48,7 +48,7 @@
           
           @media screen and (max-width: 580px) {
                   
-            .no-project {
+            .no-project-container {
               height: 130px;
               padding: 15px;
             }
@@ -59,7 +59,7 @@
 
       {% endif %}
 
-      {% if user_presentations | length == 0 %}
+      {% if user_presentations | length > 0 %}
 
         {{ display.collection("", user_presentations | reverse, "user-presentations") }} {# collection title managed in macro#}
 

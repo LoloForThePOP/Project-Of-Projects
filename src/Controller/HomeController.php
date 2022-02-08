@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\TiktokAPI;
+use App\Service\UluleAPI;
 use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,8 +18,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(EntityManagerInterface $manager): Response
+    public function index(UluleAPI $ulule, EntityManagerInterface $manager): Response
     {
+
+        /* $ulule->fetchProjectInfo(); just testing Ulule api*/
+
 
         // last 20 inserted projects presentations
 

@@ -124,7 +124,9 @@
 
                     console.log("edited structure ok done");
 
-                    elem.after($( "#live-feedback" ).attr("class", "text-success").text("Enregistré !").fadeOut(5000));
+                    elem.append('<span class="inline-success-feedback"> ✅</span>');
+
+                    $(".inline-success-feedback").fadeOut(5000);
 
                     customEvents.dispatchEvent(
 

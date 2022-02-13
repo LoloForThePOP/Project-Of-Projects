@@ -223,7 +223,7 @@ class LiveSavePP {
 
         switch ($this->property) {
 
-            case 'websites': //these special cases : we update PPBase proporty $otherComponents
+            case 'websites': //these special cases : we update the following proporty in PPBase entity : $otherComponents
             case 'questionsAnswers':
 
                 $item = $this->pp->getOCItem($this->property, $this->subId); //ex: a website
@@ -242,6 +242,7 @@ class LiveSavePP {
         }
 
         $this->em->flush();
+
     }
     
 

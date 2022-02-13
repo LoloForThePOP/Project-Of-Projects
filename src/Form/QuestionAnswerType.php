@@ -22,6 +22,7 @@ class QuestionAnswerType extends AbstractType
                     'attr' => [
                         
                         'placeholder'    => 'Écrire ici la question',
+                        'spellcheck'    => 'true',
                     ],
                     'required'   => true,
                     'constraints' => array(

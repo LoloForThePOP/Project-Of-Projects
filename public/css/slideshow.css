@@ -19,6 +19,7 @@
     display: none;
     height:400px;
     position: relative;
+    justify-content: center;
 }
 
 .mySlides > img {
@@ -45,7 +46,6 @@
 	font-weight: 700;
 	position: absolute;
 	bottom: 0;
-	right: 35px;
 	padding: 0px 9px;
 }
 

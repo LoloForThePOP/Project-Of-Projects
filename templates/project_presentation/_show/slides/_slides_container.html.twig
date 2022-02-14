@@ -40,11 +40,15 @@
 		
 		{% endif %}
 
+		{% if slide.licence %}
+			<span class="slide-content-licence">{{slide.licence}}</span>
+		{% endif %}
+
 	</div>
 	
 {% endfor %}
 
-<!-- Slideshow Navigation Lateral Buttons (only if there is more than one slide) -->
+{# Slideshow Navigation Lateral Buttons (only shown if there is more than one slide) #}
 
 {% if presentation.slides | length > 1 %}
 			

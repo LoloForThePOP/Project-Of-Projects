@@ -18,13 +18,13 @@
 
     display: none;
     height:400px;
+    position: relative;
 }
 
 .mySlides > img {
     
     max-width:100%;
     max-height:100%;
-
     display:block;
     margin:auto;
     
@@ -34,6 +34,19 @@
     top: 50%;
     transform: translateY(-50%);
 
+}
+
+.slide-content-licence {
+	background: rgba(0,0,0,.7);
+	color: #ccc;
+	display: inline-block;
+	font-size: 11px;
+	font-family: helvetica;
+	font-weight: 700;
+	position: absolute;
+	bottom: 0;
+	right: 35px;
+	padding: 0px 9px;
 }
 
 /* Next & previous buttons */

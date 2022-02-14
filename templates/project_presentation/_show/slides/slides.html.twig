@@ -27,9 +27,9 @@
 
 			{% endif %}
 
-			{% if countSlides > 0 %}
+			{% if countSlides > 1 %}
 
-				{# Access manage slides CRUD ui #}
+				{# Link to reorder slides page #}
 
 				<a id="manage-slides" href="{{ path('order_slides', {'stringId': presentation.stringId}) }}" class="text-decoration-none me-3">
                         
@@ -76,8 +76,6 @@
 			</div>
 
 			{#  Thumbnails Container #}
-			{#  Thumbnails should always be present, even if not displayed, because their alt attributes contains potential captions #}
-
 			{% set showThumbnails = false %}
 
 			{% if countSlides > 1 %}
@@ -147,8 +145,13 @@
 		if (n < 1) {slideIndex = slides.length}
 		
 		for (i = 0; i < slides.length; i++) {
+
 			slides[i].style.display = "none";
-			captions[i].style.display = "none";
+
+			if(typeof(captions[i]) != 'undefined'){
+				captions[i].style.display = "none";
+			}
+			
 		}
 		
 		for (i = 0; i < dots.length; i++) {
@@ -157,7 +160,10 @@
 		}
 		
 		slides[slideIndex-1].style.display = "block";
-		captions[slideIndex-1].style.display = "block";
+
+		if(typeof(captions[slideIndex-1]) != 'undefined'){
+			captions[slideIndex-1].style.display = "block";
+		}
 		
 		dots[slideIndex-1].className += " active";
 		thumbnail[slideIndex-1].className += " active";

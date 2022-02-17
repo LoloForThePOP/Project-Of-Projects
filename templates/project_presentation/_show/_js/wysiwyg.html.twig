@@ -87,14 +87,7 @@
 
             metadata = $(this).attr("data-edit");
 
-            content = $(this).html().trim()// <br> to newlines \n : thanks to https://stackoverflow.com/questions/13762863/contenteditable-field-to-maintain-newlines-upon-database-entry
-            .replace(/<br\s*\/*>/ig, '\n')  
-            .replace(/(<(p|div))/ig, '\n$1') 
-            .replace(/(<([^>]+)>)/ig, "");
-
-            //console.log(content);
-
-            //console.log( content );
+            content = $(this).html().trim();
 
             // If a timer was already started, clear it.
             if (timeoutId) clearTimeout(timeoutId);
@@ -126,7 +119,7 @@
 
                     elem.append('<span class="inline-success-feedback"> ✅</span>');
 
-                    $(".inline-success-feedback").fadeOut(5000);
+                    $(".inline-success-feedback").fadeOut(5000, function() { $(this).remove(); });
 
                     customEvents.dispatchEvent(
 

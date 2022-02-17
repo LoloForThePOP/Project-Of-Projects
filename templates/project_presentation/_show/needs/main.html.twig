@@ -94,7 +94,7 @@
 
                             {% endif %}
 
-                            <div data-edit='{"entity": "need", "property": "description", "id": {{need.id}} }'>{{ need.description[:1] | upper ~ need.description[1:]}}</div>
+                            <div data-edit='{"entity": "need", "property": "description", "id": {{need.id}} }'>{{ need.description | sanitize_html ('newlines') }}</div>
 
                         
                         {% endblock %}

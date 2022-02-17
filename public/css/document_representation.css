@@ -50,21 +50,15 @@
     align-items: center;
     justify-content: center;
 
-    font-weight : bold;
+    padding: 0;
 
     text-align: center;
-
-    text-transform:uppercase;
-
-    font-size: 14px;
-
     word-break: break-word;
 
-  /*   -webkit-hyphens: auto;
-    -moz-hyphens: auto;
-    -ms-hyphens: auto;
-    -o-hyphens: auto;
-    hyphens: auto; */
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: bold;
+
 
 }
 

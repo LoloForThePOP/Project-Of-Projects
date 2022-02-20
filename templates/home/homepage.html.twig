@@ -114,16 +114,11 @@
     
     <div>
 
-        
-        {# Editor's Choice presentations #}
+      {# Editor's Choice presentations #}
 
-        {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}
+      {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}
 
-        {# last project presentation #}
-        
-        {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
-
-        </div>
+    </div>
 
         {# Search Bar container #}
 
@@ -148,14 +143,19 @@
         
         {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
         
-        
+
         {# some presentations by category #}
         
         {{ render(path('backend_search', {label: 'Aéronautique', filters: '(categories.uniqueName:space)'})) }}
 
-      {# some presentations by categories intersection
+        {# some presentations by categories intersection
         
         {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
+
+          
+        {# last project presentation #}
+        
+        {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
 
 
     </div>

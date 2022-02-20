@@ -38,7 +38,7 @@
 
                 <div id="collapseTextDescription" class="pp-text-description position-relative edit-hoverable-item {{ longText ? 'collapse no-transition'}}">
 
-                    {{ textDescription | sanitize_html }}
+                    {{ textDescription | sanitize_html ('default') }}
 
                     <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
 

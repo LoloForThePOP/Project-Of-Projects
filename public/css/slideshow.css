@@ -19,6 +19,8 @@
     display: none;
     height:400px;
     position: relative;
+
+    align-items: center; /* Note : flex display is set in Slideshow Javascript */
     justify-content: center;
 }
 
@@ -28,12 +30,6 @@
     max-height:100%;
     display:block;
     margin:auto;
-    
-    /* Vertically center an Image */
-    
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
 
 }
 

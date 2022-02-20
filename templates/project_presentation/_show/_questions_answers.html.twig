@@ -65,7 +65,7 @@
 
                 <div id="collapse-answer-{{ qa.id }}" class="answer-container collapse no-transition">
                     
-                    <div data-edit='{"entity": "PPBase", "id": {{presentation.id}}, "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }' class="answer">{{ qa.answer [:1] | upper }}{{ qa.answer [1:] | sanitize_html ('newlines')}}</div>
+                    <div data-edit='{"entity": "PPBase", "id": {{presentation.id}}, "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }' class="answer">{{ qa.answer [:1] | upper }}{{ qa.answer [1:] is not empty ? qa.answer [1:] | sanitize_html ('newlines') : '' }}</div>
                 
                 </div>
 

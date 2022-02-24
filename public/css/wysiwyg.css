@@ -152,10 +152,17 @@
 [contenteditable] {
     white-space: pre-wrap;
     outline: 0px solid transparent;
+    position: relative; /* Allows to insert a position absolute feedback in the content editable that won't be detected as a contenteditable change (and thus feedback symbols won't be saved in DB) */
 }
 
-[contenteditable=true]:empty:before{ /* Content Editable Placeholders*/
-    content:attr(data-text);
+.inline-success-feedback{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+[contenteditable=true]:empty:before{ /* Allow to insert Placeholders in Content Editables thanks to a data-text attributes*/
+    content: attr(data-text);
     color: rgb(177, 177, 177);
     cursor: text;
 }

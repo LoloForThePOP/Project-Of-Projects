@@ -117,9 +117,18 @@
 
                     console.log("edited structure ok done");
 
-                    elem.append('<span class="inline-success-feedback"> ✅</span>');
+                    elem.wrap('<div class="elem-wrapper position-relative"></div>'); /* This wrapper allows to insert a position absolute feedback seemingly appearing in the end of the content editable, that won't be detected as a contenteditable change (and thus feedback symbols won't be saved in DB) */
 
-                    $(".inline-success-feedback").fadeOut(5000, function() { $(this).remove(); });
+                    $(".elem-wrapper").append('<span class="inline-success-feedback"> ✅</span>');
+
+                    $(".inline-success-feedback").fadeOut(5000, function() { 
+
+                        $(this).remove(); 
+                        elem.unwrap();
+
+                    });
+
+                    
 
                     customEvents.dispatchEvent(
 
@@ -151,7 +160,6 @@
             });
 
         }
-
 
 
         customEvents.addEventListener(

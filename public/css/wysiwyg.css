@@ -152,7 +152,6 @@
 [contenteditable] {
     white-space: pre-wrap;
     outline: 0px solid transparent;
-    position: relative; /* Allows to insert a position absolute feedback in the content editable that won't be detected as a contenteditable change (and thus feedback symbols won't be saved in DB) */
 }
 
 .inline-success-feedback{

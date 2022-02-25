@@ -87,7 +87,7 @@
 
             metadata = $(this).attr("data-edit");
 
-            content = $(this).html().trim();
+            content = $(this).remove(".inline-success-feedback").html().trim();
 
             // If a timer was already started, clear it.
             if (timeoutId) clearTimeout(timeoutId);

@@ -98,7 +98,7 @@
 
                 ajaxSavePresentation(metadata, content, elem);
 
-            }, 2000);
+            }, 3000);
 
         });
 
@@ -117,14 +117,16 @@
 
                     console.log("edited structure ok done");
 
-                    elem.wrap('<div class="elem-wrapper position-relative"></div>'); /* This wrapper allows to insert a position absolute feedback seemingly appearing in the end of the content editable, that won't be detected as a contenteditable change (and thus feedback symbols won't be saved in DB) */
+                    //elem.wrap('<div class="elem-wrapper position-relative"></div>'); /* This wrapper allows to insert a position absolute feedback seemingly appearing in the end of the content editable, that won't be detected as a contenteditable change (and thus feedback symbols won't be saved in DB) */
 
-                    $(".elem-wrapper").append('<span class="inline-success-feedback"> ✅</span>');
+                    //$(".elem-wrapper")
 
-                    $(".inline-success-feedback").fadeOut(5000, function() { 
+                    elem.append('<span class="inline-success-feedback"> ✅</span>');
+
+                    $(".inline-success-feedback").fadeOut(2000, function() { 
 
                         $(this).remove(); 
-                        elem.unwrap();
+                        //elem.unwrap();
 
                     });
 

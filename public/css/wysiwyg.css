@@ -154,11 +154,6 @@
     outline: 0px solid transparent;
 }
 
-.inline-success-feedback{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
 
 [contenteditable=true]:empty:before{ /* Allow to insert Placeholders in Content Editables thanks to a data-text attributes*/
     content: attr(data-text);

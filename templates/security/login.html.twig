@@ -20,11 +20,23 @@
 
                     <a href="{{ path('connect_google_start') }}">
 
-                        <button class="btn btn-outline-dark">
+                        <button class="btn btn-outline-dark me-3">
 
                             <img src="{{asset ('connect/google.svg', 'misc')}}" class="" alt="Google Logo" loading="lazy" width="50" height="50">
 
                             <span class="">Avec Google</span>
+
+                        </button>
+
+                    </a>
+
+                    <a href="{{ path('connect_facebook_start') }}">
+
+                        <button class="btn btn-outline-dark">
+
+                            <img src="{{asset ('connect/facebook.svg', 'misc')}}" class="" alt="Facebook Logo" loading="lazy" width="50" height="50">
+
+                            <span class="">Avec Facebook</span>
 
                         </button>
 
@@ -152,5 +164,6 @@
 
 
 </style>
+
 
 {% endblock %}

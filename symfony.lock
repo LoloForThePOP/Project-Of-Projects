@@ -133,6 +133,9 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.5"
     },
+    "gumlet/php-image-resize": {
+        "version": "1.9.2"
+    },
     "guzzlehttp/guzzle": {
         "version": "7.4.1"
     },
@@ -163,17 +166,17 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "laminas/laminas-eventmanager": {
-        "version": "3.3.1"
-    },
-    "laminas/laminas-zendframework-bridge": {
-        "version": "1.2.0"
+    "lcobucci/clock": {
+        "version": "2.0.0"
     },
     "lcobucci/jwt": {
         "version": "3.4.6"
     },
     "league/oauth2-client": {
         "version": "2.6.1"
+    },
+    "league/oauth2-facebook": {
+        "version": "2.2.0"
     },
     "league/oauth2-google": {
         "version": "4.0.0"
@@ -412,9 +415,6 @@
             "./config/packages/dev/debug.yaml"
         ]
     },
-    "symfony/debug-pack": {
-        "version": "v1.0.9"
-    },
     "symfony/dependency-injection": {
         "version": "5.4.x-dev"
     },
@@ -569,9 +569,6 @@
     "symfony/options-resolver": {
         "version": "5.4.x-dev"
     },
-    "symfony/orm-pack": {
-        "version": "v2.1.0"
-    },
     "symfony/password-hasher": {
         "version": "5.4.x-dev"
     },
@@ -619,9 +616,6 @@
     },
     "symfony/process": {
         "version": "5.4.x-dev"
-    },
-    "symfony/profiler-pack": {
-        "version": "v1.0.5"
     },
     "symfony/property-access": {
         "version": "5.4.x-dev"
@@ -678,9 +672,6 @@
     "symfony/serializer": {
         "version": "5.4.x-dev"
     },
-    "symfony/serializer-pack": {
-        "version": "v1.0.4"
-    },
     "symfony/service-contracts": {
         "version": "v2.4.0"
     },
@@ -689,9 +680,6 @@
     },
     "symfony/string": {
         "version": "5.4.x-dev"
-    },
-    "symfony/test-pack": {
-        "version": "v1.0.8"
     },
     "symfony/translation": {
         "version": "5.3",
@@ -724,9 +712,6 @@
             "./config/packages/twig.yaml",
             "./templates/base.html.twig"
         ]
-    },
-    "symfony/twig-pack": {
-        "version": "v1.0.1"
     },
     "symfony/uid": {
         "version": "v5.3.3"

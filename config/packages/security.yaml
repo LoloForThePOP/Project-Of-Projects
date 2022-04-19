@@ -22,6 +22,7 @@ security:
             custom_authenticators: 
                 - App\Security\AppCustomAuthenticator
                 - App\Security\Authenticator\GoogleAuthenticator
+                - App\Security\Authenticator\FacebookAuthenticator
 
             user_checker: App\Security\UserChecker
             logout:

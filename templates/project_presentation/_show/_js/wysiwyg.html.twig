@@ -79,15 +79,13 @@
 
 
         // ajax live save capability on editable elements
-        // thanks yo https://stackoverflow.com/questions/19910843/autosave-input-boxs-to-database-during-pause-in-typing/19911256#19911256
+        // thanks you https://stackoverflow.com/questions/19910843/autosave-input-boxs-to-database-during-pause-in-typing/19911256#19911256
 
         var timeoutId;
 
         $( "[data-edit]" ).on( "input", function() {
 
             metadata = $(this).attr("data-edit");
-
-            content = $(this).remove(".inline-success-feedback").html().trim(); //we avoid feedback mark from being saved with content.
 
             // If a timer was already started, clear it.
             if (timeoutId) clearTimeout(timeoutId);
@@ -96,13 +94,15 @@
 
             timeoutId = setTimeout(function() {
 
-                ajaxSavePresentation(metadata, content, elem);
+                ajaxSavePresentation(metadata, elem);
 
             }, 3000);
 
         });
 
-        function ajaxSavePresentation(metadata, content, elem=null){
+        function ajaxSavePresentation(metadata, elem=null){
+
+            content = elem.remove(".inline-success-feedback").html().trim(); // avoid feedback mark from being saved with content.
 
             $.ajax({
 
@@ -117,7 +117,7 @@
 
                     console.log("edited structure ok done");
 
-                    elem.text('<span class="inline-success-feedback"> ✅</span>');
+                    elem.append('<span class="inline-success-feedback"> ✅</span>');
 
                     $(".inline-success-feedback").fadeOut(2000, function() { 
 

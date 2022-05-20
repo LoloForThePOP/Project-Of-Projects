@@ -8,21 +8,13 @@
 
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "data", 'title': "Quelques données",} %}
 
-    {% macro misc_data_card_inner(dataName, dataValue) %}
+    {% macro misc_data_card_inner(dataName, dataValue, dataId, presentationId) %}
 
         <div class="text-body">
                                         
-            <div class="name">
+            <div class="name" data-text="Nom de la donnée (Ex: Budget)" data-edit='{"entity": "PPBase", "id": "{{presentationId}}",  "property": "dataList", "subid": "{{dataId}}", "subproperty":"name"}'>{{ dataName[:1]|upper ~ dataName[1:] }}</div>
 
-                {{ dataName[:1]|upper ~ dataName[1:] }}
-
-            </div>
-
-            <div class="value ps-md-3">
-
-                {{ dataValue[:1]|upper ~ dataValue[1:] }}  
-
-            </div>
+            <div class="value ps-md-3" data-text="Contenu de la donnée (Ex: 1300 €))" data-edit='{"entity": "PPBase", "id": "{{presentationId}}",  "property": "dataList", "subid": "{{dataId}}", "subproperty":"value"}'>{{ dataValue[:1]|upper ~ dataValue[1:] }}</div>
 
         </div>
         
@@ -42,16 +34,8 @@
 
             {% for data in presentation.getOC('dataList') %}
 
-                <div id="{{data.id}}" class="js-sortable-element misc-data-card edit-mode-outline col-6 col-md-5">
+                <div id="{{data.id}}" class="js-sortable-element misc-data-card edit-mode-outline col-6 col-md-5">{{ _self.misc_data_card_inner(data.name, data.value, data.id, presentation.id) }}{% if userPresenter %}
 
-                    {{ _self.misc_data_card_inner(data.name, data.value) }}
-
-                    {% if userPresenter %}
-
-                        {# Access edit page on click #}
-
-                        <a href="{{path("update_other_components_item", {'stringId': stringId, 'component_type': 'dataList', 'item_id': data.id})}}" class="pp-edition-mode coverable-link"></a>
-                        
                         {# Delete data item (Red Cross) button #}
 
                         <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{data.id}}">&times</button>

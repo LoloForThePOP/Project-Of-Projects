@@ -705,6 +705,7 @@ class PPController extends AbstractController
             /* Getting posted data */
 
             $metadata = json_decode($request->request->get('metadata'), true);
+
             
             $entityName = ucfirst($metadata['entity']); //ex : "PPBase"; "Slide"
             $entityId = $metadata['id']; //ex: 2084
@@ -714,9 +715,6 @@ class PPController extends AbstractController
             $subProperty = isset($metadata["subproperty"]) ? $metadata["subproperty"] : null ; //ex : "url" (url is a key from above mentionned websites array)
             
             $content = trim($request->request->get('content'));
-
-            //dump($request->request->get('content'));
-            //dump($subProperty);
 
             $liveSave->hydrate($entityName, $entityId, $property, $subId, $subProperty, $content);
 

@@ -129,6 +129,7 @@ class LiveSavePP {
             case 'description':
             case 'websites':
             case 'questionsAnswers':
+            case 'dataList':
     
                 $allowAccess = true;
                 break;
@@ -147,6 +148,8 @@ class LiveSavePP {
                 case 'description':
                 case 'question':
                 case 'answer':
+                case 'name':
+                case 'value':
         
                     $allowAccess = true;
                     break;
@@ -225,6 +228,7 @@ class LiveSavePP {
 
             case 'websites': //these special cases : we update the following proporty in PPBase entity : $otherComponents
             case 'questionsAnswers':
+            case 'dataList':
 
                 $item = $this->pp->getOCItem($this->property, $this->subId); //ex: a website
                 $item[$this->subProperty] = $this->content; // updating item subproperty (ex: website url)

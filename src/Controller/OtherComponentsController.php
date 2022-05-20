@@ -53,65 +53,6 @@ class OtherComponentsController extends AbstractController
 
     /**
      * 
-     * Allow to access CRUD operations page
-     * 
-     * @Route("/projects/{stringId}/other-components/{component_type}/", name="manage_other_components")
-     */
-    public function manage(PPBase $presentation, $component_type, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager): Response
-    {
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
-        if (in_array ($component_type, $this->managedComponents)) {
-
-            $form = $this->createForm($this->formName($component_type));
-
-            $form->handleRequest($request);
-    
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                // creating new component item and giving him an id
-                // (exemple : creating a website item)
-
-                $componentItem = $form->getData();
-
-                // specific treatments for new item
-                // exemple : if new item is a website, we check if we got a logo to attach with it
-
-                $componentItem = $specificTreatments->specificTreatments($component_type, $componentItem);
-
-                $presentation->addOtherComponentItem($component_type, $componentItem);
-                $manager->flush();
-    
-                $this->addFlash(
-                    'success',
-                    "✅ Ajout effectué"
-                );
-                
-                return $this->redirectToRoute(
-                    'manage_other_components',
-    
-                    [
-    
-                        'stringId' => $presentation->getStringId(),
-                        'component_type' => $component_type,
-    
-                    ]
-                );
-            }
-
-
-        }
-        
-        return $this->render('project_presentation/edit/other_components/'.$component_type.'/manage.html.twig', [
-            'presentation' => $presentation,
-            'stringId' => $presentation->getStringId(),
-            'form' => $form->createView(),
-        ]);        
-    }
-
-    /**
-     * 
      * Allow to update a component item
      * 
      * @Route("/projects/{stringId}/other_components/{component_type}/{item_id}", name="update_other_components_item")

@@ -6,7 +6,7 @@ Note (2022 - 04 - 19) : the code is low quality because of my skills. If you wan
 
 # Installation Procedure 
 
-#### Important Remark: if you have any troubles with the procedure, do not hesitate to contact me so that I can try to help.
+#### Important Remark: if you have any troubles with the procedure, do not hesitate to contact me so that I can try to help (contact\[at]propon\[dot]org).
 
 #### 0-a- Prerequisites: make sure these programs are installed:
 
@@ -55,9 +55,9 @@ php bin/console doctrine:fixtures:load --no-interaction
 
 #### 8- Enable or Disable Algolia Search Engine
 
-The website uses Algolia which is a powerfull Search Engine that can easily be integrated. If you want to use it you need to register to Algolia website in order to get Algolia credentials (insert them in your .env.local file) (there is a free plan).
+The website uses Algolia which is a powerfull search engine that can be easily integrated in websites. If you want to use it like me you need to register to Algolia website in order to get Algolia credentials (then insert them in your .env.local file) (there is a free plan).
 
-If you do not want to use Algolia and avoid errors, go to file algolia_search.yaml and unsubsribe to automatic Algolia calls : 
+If you do not want to use Algolia and avoid errors, at least go to file algolia_search.yaml and unsubsribe to automatic Algolia calls : 
 
 algolia_search:
     doctrineSubscribedEvents: []

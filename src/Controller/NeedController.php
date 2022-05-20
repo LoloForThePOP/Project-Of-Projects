@@ -15,23 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class NeedController extends AbstractController
 {
-    /**
-     * Allow user to access CRUD operations pages
-     * 
-     * @Route("/projects/{stringId}/needs/manage", name="manage_needs", methods={"GET"})
-     */
-    public function index(PPBase $presentation): Response
-    {
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
-        return $this->render('project_presentation/edit/needs/manage.html.twig', [
-           
-            'presentation' => $presentation,
-            'stringId' => $presentation->getStringId(),
-        ]);
-    }
-    
+        
     /**
      * @Route("/projects/{stringId}/needs/new/{need_type}", name="add_need", methods={"GET","POST"})
      * 

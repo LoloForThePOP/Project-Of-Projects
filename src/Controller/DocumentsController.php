@@ -18,51 +18,6 @@ class DocumentsController extends AbstractController
  
     
     /**
-     * 
-     * Allow user to access CRUD operations (upload a document; delete; update; etc)
-     * 
-     * @Route("/projects/{stringId}/documents/manage", name="manage_documents")
-     */
-    public function manage (PPBase $presentation, Request $request, EntityManagerInterface $manager)
-    {
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
-        $document = new Document();
-        
-        $form = $this->createForm(DocumentType::class, $document);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-
-            $document->setPresentation($presentation);
-
-            $manager->persist($document);
-
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "✅ Ajout effectué"
-            );
-
-            return $this->redirectToRoute('show_presentation',[
-                'stringId' => $presentation->getStringId(),
-                '_fragment' => 'documents',
-            ]);
-
-        }
-
-        return $this->render('project_presentation/edit/documents/manage.html.twig', [
-            'form' => $form->createView(),
-            'stringId' => $presentation->getStringId(),
-            'presentation' => $presentation,
-        ]);
-
-    }
-
-    /**
      * Allow to Edit a Document
      * 
      * @Route("/projects/{stringId}/documents/edit/{id_element}", name="update_document")

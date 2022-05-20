@@ -102,7 +102,7 @@
 
         function ajaxSavePresentation(metadata, elem=null){
 
-            content = elem.remove(".inline-success-feedback").html().trim(); // avoid feedback mark from being saved with content.
+            content = elem.remove(".inline-success-feedback").html().trim(); // avoid feedback mark from being saved with content (see below).
 
             $.ajax({
 

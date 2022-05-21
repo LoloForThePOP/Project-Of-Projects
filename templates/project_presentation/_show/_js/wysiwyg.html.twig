@@ -37,7 +37,7 @@
                 // Entering edition mode
 
                 // enabling sortable capabilities
-                $('.js-elements-list').sortable('disabled', true);
+                $('.js-elements-list').sortable('disabled', false);
 
                 // enabling inline editing capabilities
                 $("[data-edit]").attr('contenteditable','true');
@@ -49,7 +49,7 @@
                 // Entering consultation mode
 
                 // disabling sortable capabilities
-                $('.js-elements-list').sortable('disabled', false);
+                $('.js-elements-list').sortable('disabled', true);
                 
                 // disabling inline editing capabilities
                 $("[data-edit]").attr('contenteditable','false');
@@ -96,7 +96,7 @@
 
                 ajaxSavePresentation(metadata, elem);
 
-            }, 3000);
+            }, 2000);
 
         });
 

@@ -23,7 +23,7 @@
                 
                     id="{{qa.id}}" 
                     
-                    class="js-sortable-element questionRow  position-relative mb-2 row collapsed" 
+                    class="js-sortable-element questionRow position-relative row collapsed" 
                     
                     data-bs-toggle="collapse" 
                     
@@ -58,18 +58,22 @@
 
                         {% endif %}
 
-                </div>
 
-                
+
+            
                 <!-- Answer Display (+ edit button for presenters)-->
 
-                <div id="collapse-answer-{{ qa.id }}" class="answer-container collapse no-transition">
+                <div id="collapse-answer-{{ qa.id }}" class="answer-container disabled collapse no-transition">
                     
                     <div data-edit='{"entity": "PPBase", "id": {{presentation.id}}, "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }' class="answer">{{ qa.answer [:1] | upper }}{{ qa.answer [1:] is not empty ? qa.answer [1:] | sanitize_html ('newlines') : '' }}</div>
                 
                 </div>
 
-                <hr class="qa-separator">
+                <hr class="qa-separator m-0">            
+
+                </div>
+
+                
 
             {% endfor %}
 
@@ -78,7 +82,7 @@
         <style>
    
             .questionRow {
-                margin-bottom: 28px;
+                padding: 12px 0;
             }
             
             .questionRow:hover {
@@ -147,8 +151,26 @@
             }
             
     
+            @media screen and (max-width: 820px) {
+                
+                .questionRow {
+                    padding: 9px 0;
+                }
+
+            }
+            
+    
             @media screen and (max-width: 580px) {
 
+                .questionRow {
+                    padding: 5px 0;
+                }
+    
+                .questionRow .collapseSymbolDisplay:after {
+        
+                    font-size: 0.9rem !important;
+    
+                }
                     
                 #questionsAnswers .col-11{
                     width: 90%; /* reduced to prevent arrow overflow on mobile */
@@ -179,12 +201,6 @@
                     font-size: 16px;
                     line-height: 1.5em;
         
-                }
-    
-                .questionRow .collapseSymbolDisplay:after {
-        
-                    font-size: 0.9rem !important;
-    
                 }
 
                 .collapseSymbolDisplay{

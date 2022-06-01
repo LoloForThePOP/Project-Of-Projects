@@ -68,7 +68,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
                         ->setUserName($userName)
                         ->setUserNameSlug(strtolower($this->slugger->slug($userName)))
                         ->setEmail($email)
-                        ->setPassword(substr(md5(rand()), 0, 7)) //creating a mock password hash
+                        ->setPassword(substr(md5(rand()), 0, 12)) //creating a mock password hash
                         ->setParameter('isVerified', true);
 
                     $userPersorg = new Persorg(); // creating a user profile

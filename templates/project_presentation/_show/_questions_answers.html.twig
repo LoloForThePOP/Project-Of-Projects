@@ -17,37 +17,46 @@
 
             {% for qa in qas %}
 
-                <!-- Question Display (with Collapse Symbol) -->
+                
+                <!-- Q & A container -->
 
                 <div 
                 
                     id="{{qa.id}}" 
                     
-                    class="js-sortable-element questionRow position-relative row collapsed" 
-                    
-                    data-bs-toggle="collapse" 
-                    
-                    href="#collapse-answer-{{ qa.id }}" 
-                    
-                    role="button" 
-                    
-                    aria-expanded="false" 
-                    
-                    aria-controls="collapse-answer-{{ qa.id }}"
+                    class="js-sortable-element questionRow position-relative row" 
                 
                 >
-                      
+                
+                    <!-- Question Display with Collapse Symbol Container -->
+
+                    <div class="row collapsed" 
+                        
+                        data-bs-toggle="collapse" 
+                        
+                        href="#collapse-answer-{{ qa.id }}" 
+                        
+                        role="button" 
+                        
+                        aria-expanded="false" 
+                        
+                        aria-controls="collapse-answer-{{ qa.id }}"
+                        
+                    >
+                        
                         <!-- Question -->
 
                         <div class="col-11">
-                            
+                                
                             <span data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"question" }' class="question">{{ qa.question [:1] | upper ~ qa.question [1:] }}</span>
-                        
+                            
                         </div>
 
                         <!-- Collapse Symbol -->
 
                         <div class="collapseSymbolDisplay col-1"></div>
+                    </div>
+                      
 
                         {% if userPresenter %}
 
@@ -58,18 +67,15 @@
 
                         {% endif %}
 
+                    <!-- Answer Display (+ edit button for presenters)-->
 
-
-            
-                <!-- Answer Display (+ edit button for presenters)-->
-
-                <div id="collapse-answer-{{ qa.id }}" class="answer-container disabled collapse no-transition">
+                    <div id="collapse-answer-{{ qa.id }}" class="answer-container disabled collapse no-transition">
+                        
+                        <div data-edit='{"entity": "PPBase", "id": {{presentation.id}}, "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }' class="answer">{{ qa.answer [:1] | upper }}{{ qa.answer [1:] is not empty ? qa.answer [1:] | sanitize_html ('newlines') : '' }}</div>
                     
-                    <div data-edit='{"entity": "PPBase", "id": {{presentation.id}}, "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }' class="answer">{{ qa.answer [:1] | upper }}{{ qa.answer [1:] is not empty ? qa.answer [1:] | sanitize_html ('newlines') : '' }}</div>
-                
-                </div>
+                    </div>
 
-                <hr class="qa-separator m-0">            
+                    <hr class="qa-separator m-0">            
 
                 </div>
 
@@ -91,8 +97,7 @@
         
             .question {
 
-                display: inline-block;                
-                width: 100%;
+                display: inline-block; 
 
                 border-left: 3px solid #bebef8;
                 padding-left: 8px;

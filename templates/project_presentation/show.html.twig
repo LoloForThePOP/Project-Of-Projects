@@ -182,21 +182,6 @@
     {% endif %}
 
 
-    
-    {# Websites #}
-
-    {% if countWebsites > 0  %}
-    
-        <div id="websites-struct-container" class="pp-struct-container col-12">
-            
-            {% include 'project_presentation/_show/_websites.html.twig' %}
-            
-        </div>
-
-    {% endif %}
-
-
-
     {# Documents #}
 
 
@@ -245,6 +230,19 @@
             
             {% include 'project_presentation/_show/_places.html.twig' %}
         
+        </div>
+
+    {% endif %}
+    
+    
+    {# Websites #}
+
+    {% if countWebsites > 0  %}
+    
+        <div id="websites-struct-container" class="pp-struct-container col-12">
+            
+            {% include 'project_presentation/_show/_websites.html.twig' %}
+            
         </div>
 
     {% endif %}

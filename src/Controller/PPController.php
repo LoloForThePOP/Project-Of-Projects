@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Slide;
 use App\Service\Slug;
 use App\Entity\PPBase;
@@ -14,6 +15,7 @@ use App\Form\DataListType;
 use App\Form\DocumentType;
 use App\Form\StringIdType;
 use App\Service\TreatItem;
+use App\Service\LiveSavePP;
 use App\Form\ImageSlideType;
 use App\Service\ImageResizer;
 use App\Form\BusinessCardType;
@@ -22,23 +24,25 @@ use App\Service\AssessQuality;
 use App\Service\MailerService;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
+use App\Form\RegistrationFormType;
 use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use Symfony\Component\Form\FormError;
 use App\Form\ContributorStructureType;
-use App\Service\LiveSavePP;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class PPController extends AbstractController
 {
@@ -612,8 +616,6 @@ class PPController extends AbstractController
 
                         $presentation->setIsAdminValidated($switchState);
 
-                        
-
                         if ($switchState=="true") {
 
                             $sender = $this->getParameter('app.general_contact_email');
@@ -813,6 +815,131 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'form' => $form->createView(),
         ]);
+    }
+
+
+    /**
+     * An admin can create a project presentation for someone else, and then creates an account for this person or organisation, and automaticaly transfer presentation to this new account (so that new account can improve it by himself).
+     * 
+     * @Route("/admin/transfer-presentation/{stringId}", name="transfer_presentation")
+    */
+    public function transferPresentation(PPBase $presentation, Request $request, UserPasswordHasherInterface $passwordHasher, SluggerInterface $slugger): Response
+    {
+
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        // Presentation should be admin validated before being transfered to a new user (otherwise this recipient new user won't be able to see his presentation accessible by visitors on the website)
+
+        if(!$presentation->getIsAdminValidated()){
+
+            $this->addFlash('danger', "!!! La présentation n'a pas encore été validée par un administrateur du site. Demandez lui de la valider avant qu'elle puisse être transférée à un autre compte");
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+            ]);
+
+        }
+
+        // Creating an new user in order to transfer presentation to him
+
+        $newUser = new User();
+
+        $form = 
+        
+            $this->createForm(
+
+                RegistrationFormType::class, 
+                $newUser,
+            );
+
+
+        $form->handleRequest($request);
+        
+        if ($form->isSubmitted() && $form->isValid()) {
+
+             // encode the plain password
+             $newUser->setPassword(
+
+                $passwordHasher->hashPassword($newUser, $form->get('plainPassword')->getData())
+            );
+
+                
+            // creating a unique username slug
+            $slug = strtolower($slugger->slug($newUser->getUserName()));
+
+            $slugs = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')->where('u.userNameSlug LIKE :slug')->setParameter('slug', $slug.'%')->getQuery()->getResult();
+
+            if (! empty($slugs)) {
+
+                $slug .= '-' . count($slugs); //this method does not work if user rows can be deleted + it does not provide reliable increment (ex : 1) My post -> my-post 2) My -> my-1 (instead of my))
+
+            }    
+
+            $newUser->setUserNameSlug($slug);  
+
+            // creating an user's public profile
+
+            $persorg = new Persorg();
+            $persorg->setName($newUser->getUserName());
+            $newUser->setPersorg($persorg);
+
+            // save new user in database
+            try {
+
+                $newUser->setParameter('isVerified', true);
+                $newUser->setEmailValidationToken(null);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($newUser);
+                $entityManager->flush();
+
+            } catch (\Exception $e) {
+
+                $this->addFlash('warning', $e->getMessage());
+
+                return $this->redirectToRoute('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                ]);
+                
+            }
+
+            // transfering presentation edition rights to new user
+            try {
+
+                $presentation->setCreator($newUser);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($presentation);
+                $entityManager->flush();
+
+            } catch (\Exception $e) {
+
+                $this->addFlash('warning', $e->getMessage());
+
+                return $this->redirectToRoute('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                ]);
+
+            }
+
+
+            $this->addFlash(
+                'success',
+                "✅ Le nouveau compte a été créé et la présentation a été transférée à ce nouveau compte."
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+            ]);
+        }
+
+        return $this->render('/project_presentation/admin_transfers_presentation_to_new_account.html.twig', [
+
+            'form' => $form->createView(),
+            'stringId' => $presentation->getStringId(),
+            
+        ]);
+
     }
 
 

@@ -25,7 +25,6 @@
 
 {% block body %}
 
-
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
     
     {% if is_granted('edit', presentation) %}
@@ -350,7 +349,22 @@
         
         {% endif %}
 
-            
+
+
+        {# When Admin creates a presentation for someone else, he can then transfer edition rights to this person / organisation #}
+
+        {% if is_granted('ROLE_ADMIN') and presentation.getCreator == app.user %}
+
+            <a class="text-decoration-none" href="{{ path('transfer_presentation', {'stringId': stringId }) }}">
+
+                <button type="button" class="btn btn-light">Transférer la présentation</button>
+
+            </a>
+
+        {% endif %}
+
+
+        
         {# Notification invisible project because waiting for admin validation #}
 
         {% if presentation.isAdminValidated == false and overallQualityAssessment >= 2 %}

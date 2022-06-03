@@ -1,0 +1,134 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Geos{% endblock %}
+
+{% block stylesheets %}
+{% endblock %}
+
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+
+<div class="container mt-5">
+
+  <div class="search-panel">
+
+    <div class="search-panel__results">
+
+      <div id="searchbox"></div>
+
+      <div id="maps"></div>
+
+    </div>
+    
+  </div>
+
+  <div id="pagination"></div>
+
+</div>
+
+  <style>
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    
+    .search-panel {
+      display: flex;
+    }
+    
+    .search-panel__filters {
+      flex: 1;
+    }
+    
+    .search-panel__results {
+      flex: 3;
+    }
+    
+    .ais-Highlight-highlighted {
+      color: inherit;
+      font-size: inherit;
+    }
+    
+    #searchbox {
+      margin-bottom: 2rem;
+    }
+    
+    #maps {
+      height: 500px;
+    }
+    
+  </style>
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk"></script>
+
+  <script>
+
+    var myOptions = {
+      zoom: 8,
+      center: new google.maps.LatLng(47.990500, -1.813418),
+      mapTypeControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+          position: google.maps.ControlPosition.RIGHT_CENTER
+      },
+      scrollwheel: false,
+      streetViewControl: false,
+      fullscreenControl: false,
+  };
+  
+  mapDiv = document.getElementById('maps');
+  maps = new google.maps.Map(mapDiv, myOptions);
+  
+
+
+  
+  var mapProp= {
+    center:new google.maps.LatLng(47.990500, -1.813418),
+    zoom:8,
+    };
+
+    var map = new google.maps.Map(document.getElementById("maps"), mapProp);
+
+  </script>
+
+
+  
+  <script>
+
+    const searchClient = algoliasearch(
+          'latency',
+          '6be0576ff61c053d5f9a3225e2a90f76'
+        );
+
+    const search = instantsearch({
+      indexName: 'airports',
+      searchClient,
+    });
+
+    search.addWidgets([
+      instantsearch.widgets.searchBox({
+        container: '#searchbox',
+      }),
+
+      instantsearch.widgets.geoSearch({
+        container: '#maps',
+        googleReference: window.google,
+        mapOptions: {
+          mapTypeId: window.google.maps.MapTypeId.SATELLITE,
+        },
+      })
+    ]);
+
+    search.start();
+
+
+  </script>
+
+
+
+
+{% endblock %}

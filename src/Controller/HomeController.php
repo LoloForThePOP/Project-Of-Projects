@@ -18,10 +18,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(UluleAPI $ulule, EntityManagerInterface $manager): Response
+    public function index(EntityManagerInterface $manager): Response
     {
-
-        /* $ulule->fetchProjectInfo(); just testing Ulule api*/
+             
+        /* UluleAPI $ulule,
+        $ulule->fetchProjectInfo(); just testing Ulule api*/
 
 
         // last 20 inserted projects presentations
@@ -30,6 +31,22 @@ class HomeController extends AbstractController
 
         return $this->render("/home/homepage.html.twig", [
             'lastInsertedPresentations' => $lastInsertedPresentations,
+        ]);
+
+    }
+
+    
+    /**
+     * 
+     * Testing geosearch capability
+     * 
+     * @Route("/geos", name="geos")
+     */
+    public function geos(): Response
+    {
+
+        return $this->render("/test_geosearch.html.twig", [
+            
         ]);
 
     }

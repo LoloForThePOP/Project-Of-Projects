@@ -504,8 +504,6 @@ class FakeDataFixtures extends Fixture
                     $place->setName($placeName)
                          ->setType($placeType)
                          ->setPostalCode($postalCode)
-                         ->setLatitude($faker->latitude())
-                         ->setLongitude($faker->longitude())
                          ->setGeoloc($geoloc)
                          ->setPosition($i)
                          ->setPresentation($presentation);

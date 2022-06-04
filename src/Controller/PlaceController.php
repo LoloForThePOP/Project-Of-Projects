@@ -66,8 +66,6 @@ class PlaceController extends AbstractController
         
                 -> setType($type)
                 -> setName($name)
-                -> setLatitude($latitude)
-                -> setLongitude($longitude)
                 -> setGeoloc($geoloc)
                 -> setCountry($country)
                 -> setAdministrativeAreaLevel1($administrativeAreaLevel1)

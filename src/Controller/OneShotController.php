@@ -43,7 +43,7 @@ class OneShotController extends AbstractController
             } 
         
         */
-
+/* 
         $places = $placesRepo->findAll();
 
         foreach ($places as $place) {
@@ -55,7 +55,7 @@ class OneShotController extends AbstractController
                 ]
             );
 
-        } 
+        }  */
 
         $manager->flush();
 

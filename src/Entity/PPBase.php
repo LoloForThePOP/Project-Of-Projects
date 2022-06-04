@@ -551,7 +551,7 @@ class PPBase implements \Serializable
     /**
      * @Groups({"searchable"})
      * @return Collection|Category[]
-     */
+    */
     public function getCategories(): Collection
     {
         return $this->categories;
@@ -619,6 +619,7 @@ class PPBase implements \Serializable
     }
 
     /**
+     * @Groups({"searchable"})
      * @return Collection|Place[]
      */
     public function getPlaces(): Collection
@@ -920,7 +921,6 @@ class PPBase implements \Serializable
     /**
      * @Groups({"searchable"})
     */
-
     public function getCache(): ?array
     {
         return $this->cache;

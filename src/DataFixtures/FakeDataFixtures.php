@@ -492,12 +492,21 @@ class FakeDataFixtures extends Fixture
                             break;
                     }
 
+                    //GeoLocalisation
+                    $geoloc=[
+                        
+                        "lat" => $faker->latitude(),
+                        "lng" => $faker->longitude(),
+                    
+                    ];
+                    
 
                     $place->setName($placeName)
                          ->setType($placeType)
                          ->setPostalCode($postalCode)
                          ->setLatitude($faker->latitude())
                          ->setLongitude($faker->longitude())
+                         ->setGeoloc($geoloc)
                          ->setPosition($i)
                          ->setPresentation($presentation);
 

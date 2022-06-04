@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\PPBase;
 use App\Service\CacheThumbnail;
 use Doctrine\ORM\EntityManager;
+use App\Repository\PlaceRepository;
 use App\Repository\PPBaseRepository;
 use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -28,7 +29,7 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, SearchService $searchService, EntityManagerInterface $manager): Response
+    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, SearchService $searchService, EntityManagerInterface $manager): Response
     {
 
         /* 
@@ -43,11 +44,16 @@ class OneShotController extends AbstractController
         
         */
 
-        $presentations = $repo->findAll();
+        $places = $placesRepo->findAll();
 
-        foreach ($presentations as $presentation) {
+        foreach ($places as $place) {
 
-            $presentation->setDataItem("remove-helper-invite", false);
+            $place->setGeoloc(
+                [
+                    "lat" => $place->getLatitude(),
+                    "lng" => $place->getLongitude(),
+                ]
+            );
 
         } 
 

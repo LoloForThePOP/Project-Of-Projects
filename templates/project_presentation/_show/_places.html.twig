@@ -112,7 +112,7 @@
                     {% for place in presentation.places %}
 
                         var mapProp= {
-                        center:new google.maps.LatLng({{place.latitude}},{{place.longitude}}),
+                        center:new google.maps.LatLng({{place.geoloc.lat}},{{place.geoloc.lng}}),
                         zoom:14,
                         };
 

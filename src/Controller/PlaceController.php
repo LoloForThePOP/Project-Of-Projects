@@ -48,6 +48,12 @@ class PlaceController extends AbstractController
             $name = $request->request->get('name');
             $latitude = $request->request->get('latitude');
             $longitude = $request->request->get('longitude');
+            $geoloc=[
+                        
+                "lat" => $latitude,
+                "lng" => $longitude,
+            
+            ];
             $country = $request->request->get('country');
             $administrativeAreaLevel1 = $request->request->get('administrativeAreaLevel1');
             $administrativeAreaLevel2 = $request->request->get('administrativeAreaLevel2');
@@ -62,6 +68,7 @@ class PlaceController extends AbstractController
                 -> setName($name)
                 -> setLatitude($latitude)
                 -> setLongitude($longitude)
+                -> setGeoloc($geoloc)
                 -> setCountry($country)
                 -> setAdministrativeAreaLevel1($administrativeAreaLevel1)
                 -> setAdministrativeAreaLevel2($administrativeAreaLevel2)

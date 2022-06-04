@@ -78,6 +78,14 @@ class Place
      */
     private $position;
 
+    /**
+     * @ORM\Column(type="json")
+     * 
+     * note : variable notation convention is broken here due to Algolia Search Engine constraint.
+     * 
+     */
+    private $_geoloc = [];
+
 
 
     
@@ -227,6 +235,18 @@ class Place
     public function setPosition(?int $position): self
     {
         $this->position = $position;
+
+        return $this;
+    }
+
+    public function getGeoloc(): ?array
+    {
+        return $this->_geoloc;
+    }
+
+    public function setGeoloc(array $_geoloc): self
+    {
+        $this->_geoloc = $_geoloc;
 
         return $this;
     }

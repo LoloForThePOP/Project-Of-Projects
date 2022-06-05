@@ -214,7 +214,6 @@ class Place
 
     /**
      * @Groups({"searchable"})
-     * @Algolia\Attribute(algoliaName="_geoloc")
     */
     public function getGeoloc(): ?array
     {

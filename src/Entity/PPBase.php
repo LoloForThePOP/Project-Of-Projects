@@ -25,6 +25,9 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 use Symfony\Component\Serializer\Annotation\Groups;
 
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
 
 /**
  * @ORM\Entity(repositoryClass=PPBaseRepository::class)
@@ -32,7 +35,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\HasLifecycleCallbacks()
  * @Vich\Uploadable
  */
-class PPBase implements \Serializable
+class PPBase implements \Serializable, NormalizableInterface
 {
     /**
      * @ORM\Id
@@ -263,6 +266,9 @@ class PPBase implements \Serializable
 
 
 
+
+
+
     public function serialize()
     {
         return serialize($this->id);
@@ -273,18 +279,31 @@ class PPBase implements \Serializable
         $this->id = unserialize($serialized);
     }
 
+
     /**
-     * @Groups({"searchable"})
+     * Data sent to Algolia
     */
+    public function normalize(NormalizerInterface $serializer, $format = null, array $context = []): array
+    {
+        return [
+            'id' => $this->getId(),
+            'goal' => $this->getGoal(),
+            'keywords' => $this->getKeywords(),
+            'stringId' => $this->getStringId(),
+            'cache' => $this->getCache(),
+            'stringId' => $this->getStringId(),
+            '_geoloc' => $this->getGeoLocations(),
+        ];
+    }
+
+
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
 
-    /**
-     * @Groups({"searchable"})
-    */
     public function getGoal(): ?string
     {
         return $this->goal;
@@ -298,8 +317,6 @@ class PPBase implements \Serializable
     }
 
     /**
-     * @Groups({"searchable"})
-     *
      * @return string|null
      */
     public function getTitle(): ?string
@@ -347,9 +364,6 @@ class PPBase implements \Serializable
         return $this->logoFile;
     }
 
-    /**
-     * @Groups({"searchable"})
-     */
     public function getKeywords(): ?string
     {
         return $this->keywords;
@@ -619,7 +633,7 @@ class PPBase implements \Serializable
     }
 
     /**
-     * @Groups({"searchable"})
+     * 
      * @return Collection|Place[]
      */
     public function getPlaces(): Collection
@@ -635,6 +649,22 @@ class PPBase implements \Serializable
         }
 
         return $this;
+    }
+
+    /*
+    * used to provide geoloc at the root of each record in algolia index (as needed)
+    */
+    public function getGeolocations(): ?array
+    {
+        $places=$this->getPlaces();
+        $geoLocs=[];
+
+        foreach ($places as $place) {
+            $geoLocs=$place->getGeoloc();
+        }
+
+        return $geoLocs;
+
     }
 
     public function removePlace(Place $place): self

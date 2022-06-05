@@ -32,8 +32,24 @@ class OneShotController extends AbstractController
     public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, SearchService $searchService, EntityManagerInterface $manager): Response
     {
 
-        /*
-        */ 
+        /* */ 
+
+        $places = $placesRepo->findAll();
+
+        foreach ($places as $place) {
+
+            $place->setGeoloc(
+                [
+                    "lat" => floatval($place->getGeoloc()["lat"]),
+                    "lng" => floatval($place->getGeoloc()["lng"]),
+                ]
+            );
+
+        }
+
+        
+        $manager->flush();
+       
         
             $presentations = $repo->findAll();
 
@@ -49,19 +65,19 @@ class OneShotController extends AbstractController
                 $searchService->index($em, $place);
             } 
         
-/* 
+/*  
         $places = $placesRepo->findAll();
 
         foreach ($places as $place) {
 
             $place->setGeoloc(
                 [
-                    "lat" => $place->getLatitude(),
-                    "lng" => $place->getLongitude(),
+                    "lat" => floatval($place->getGeoloc()["lat"]),
+                    "lng" => floatval($place->getGeoloc()["lng"]),
                 ]
             );
 
-        }  */
+        } */
 
         $manager->flush();
 

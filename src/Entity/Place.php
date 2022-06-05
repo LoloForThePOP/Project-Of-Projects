@@ -227,9 +227,6 @@ class Place implements NormalizableInterface
     }
 
 
-    /**
-     * @Groups({"searchable"})*
-    */
     public function getGeoloc(): ?array
     {
         return $this->_geoloc;

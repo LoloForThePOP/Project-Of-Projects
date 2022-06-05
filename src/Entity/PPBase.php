@@ -293,9 +293,9 @@ class PPBase implements \Serializable, NormalizableInterface
             'cache' => $this->getCache(),
             'stringId' => $this->getStringId(),
             '_geoloc' => $this->getGeoLocations(),
-            'testGeol' => array_unique(array_map(function ($tag) {
-                return $tag->getGeoLoc();
-              }, $this->getPlaces()->toArray()))[0],
+            'testGeol' => array_map(function ($place) {
+                return $place->getGeoLoc();
+              }, $this->getPlaces()->toArray()),
         ];
     }
 

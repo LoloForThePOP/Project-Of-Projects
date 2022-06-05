@@ -2,8 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\PlaceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\PlaceRepository;
+
+
+use Symfony\Component\Serializer\Annotation\Groups;
+use Algolia\AlgoliaSearch\Algolia;
 
 /**
  * @ORM\Entity(repositoryClass=PlaceRepository::class)
@@ -71,7 +75,7 @@ class Place
     /**
      * @ORM\Column(type="json")
      * 
-     * note : variable notation convention is broken here due to Algolia Search Engine constraint.
+     * note : variable notation convention is broken here due to an Algolia Search Engine Constraint.
      * 
      */
     private $_geoloc = [];
@@ -207,6 +211,11 @@ class Place
         return $this;
     }
 
+
+    /**
+     * @Groups({"searchable"})
+     * @Algolia\Attribute(algoliaName="_geoloc")
+    */
     public function getGeoloc(): ?array
     {
         return $this->_geoloc;

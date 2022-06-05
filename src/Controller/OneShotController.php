@@ -32,7 +32,8 @@ class OneShotController extends AbstractController
     public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, SearchService $searchService, EntityManagerInterface $manager): Response
     {
 
-        /* 
+        /*
+        */ 
         
             $presentations = $repo->findAll();
 
@@ -42,7 +43,6 @@ class OneShotController extends AbstractController
                 $searchService->index($em, $presentation);
             } 
         
-        */
 /* 
         $places = $placesRepo->findAll();
 

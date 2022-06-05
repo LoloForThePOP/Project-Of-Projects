@@ -52,16 +52,17 @@
 
   <script>
 
+
   const searchClient = algoliasearch(
 
-    'Z7NO8ZLFH4',
-    'b2d9ba779ea94f1c5f81d1b5751e267e'
+    'latency',
+    '6be0576ff61c053d5f9a3225e2a90f76'
       
   );
 
   const search = instantsearch({
 
-    indexName: 'test_airports',
+    indexName: 'airports',
     searchClient,
 
   });
@@ -75,10 +76,10 @@
     instantsearch.widgets.geoSearch({
       container: '#maps',
       googleReference: window.google,
-      initialZoom: 1,
+      initialZoom: 4,
       initialPosition: {
-        lat: 0,
-        lng: 0,
+        lat: 48.864716,
+        lng: 2.349014,
       },
       mapOptions: {
         mapTypeId: window.google.maps.MapTypeId.SATELLITE,

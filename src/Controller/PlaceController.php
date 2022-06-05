@@ -50,8 +50,8 @@ class PlaceController extends AbstractController
             $longitude = $request->request->get('longitude');
             $geoloc=[
                         
-                "lat" => $latitude,
-                "lng" => $longitude,
+                "lat" => floatval($latitude),
+                "lng" => floatval($longitude),
             
             ];
             $country = $request->request->get('country');

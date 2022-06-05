@@ -88,6 +88,12 @@
     margin-bottom : 16px;
 
   }
+
+  
+  .ais-GeoSearch-map {
+    height: 500px; /* You can change this height */
+  }
+  
   
 @media screen and (max-width: 580px) {
 

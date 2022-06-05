@@ -495,8 +495,8 @@ class FakeDataFixtures extends Fixture
                     //GeoLocalisation
                     $geoloc=[
                         
-                        "lat" => $faker->latitude(),
-                        "lng" => $faker->longitude(),
+                        "lat" => floatval($faker->latitude()),
+                        "lng" => floatval($faker->longitude()),
                     
                     ];
                     

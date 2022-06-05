@@ -1,18 +1,28 @@
-
 {% block stylesheets %}
 
+    {# Algolia Rendering Default Stylesheet #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
     />
 
+    {# Overiding Some Default Algolia Rendering #}
     <link href="/css/search_page.css" rel="stylesheet">
 
 {% endblock %}
 
 {% block javascripts %}
 
+  {# Algolia Search Engine Default Scripts #}
+
   <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
+
+  {# A Google Map is Available to Display Results
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk"></script> #}
+
+
+  {# App Custom Default Algolia Search Experience #}
 
   <script>
 
@@ -21,12 +31,13 @@
 
   </script>
 
+
   <script src="/js/algolia_search_default.js"></script>
     
 {% endblock %}
 
 
-  {# Template #}
+  {# Algolia Search Experience Template #}
 
   <div class="search-experience-container ais-InstantSearch mt-3 mb-5" style="display:none;">
 
@@ -62,7 +73,9 @@
 
       <div id="hits"></div>
 
-      <div id="pagination"></div>
+      <div id="pagination"></div>         
+
+
 
     </div>
     

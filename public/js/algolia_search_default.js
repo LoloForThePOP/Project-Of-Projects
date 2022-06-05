@@ -1,3 +1,5 @@
+
+
 $(document).ready(function(){
 
   /* Closing search experience container */
@@ -48,13 +50,19 @@ $(document).ready(function(){
   }
 
 
-  //Initialize Algolia instant search with credentials  
+  //Initialize Algolia instant search with credentials
+
   const search = instantsearch({
+
     indexName: app_env+'_presentation_bases',
+
     searchClient: algoliasearch(
+
       'Z7NO8ZLFH4',
       'b2d9ba779ea94f1c5f81d1b5751e267e'
+
     ),
+
   });
 
 
@@ -117,6 +125,7 @@ $(document).ready(function(){
       operator: 'and',
       
     }),
+
 
     //instantiate a search results panel (right panel)
     instantsearch.widgets.hits({
@@ -189,7 +198,8 @@ $(document).ready(function(){
 
   ]);
 
-  //only for presentations pick up instances (// see manage_select_presentations.html)
+  // Sometimes we drag and drop some search results (example : admin search for presentation to highlight, see manage_select_presentations.html)
+
   if(typeof selection_instance !== 'undefined'){ //add a drag and drop capability to search results (see selection_manage.html).
 
     search.on('render', function () {//Whenever instant search is refreshed

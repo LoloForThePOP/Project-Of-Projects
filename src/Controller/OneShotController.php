@@ -43,6 +43,12 @@ class OneShotController extends AbstractController
                 $searchService->index($em, $presentation);
             } 
         
+            $places = $placesRepo->findAll();
+
+            foreach ($places as $place) {
+                $searchService->index($em, $place);
+            } 
+        
 /* 
         $places = $placesRepo->findAll();
 

@@ -3,16 +3,18 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+
 use App\Repository\PlaceRepository;
 
-
 use Symfony\Component\Serializer\Annotation\Groups;
-use Algolia\AlgoliaSearch\Algolia;
+
+use Symfony\Component\Serializer\Normalizer\NormalizableInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 /**
  * @ORM\Entity(repositoryClass=PlaceRepository::class)
  */
-class Place
+class Place implements NormalizableInterface
 {
     /**
      * @ORM\Id
@@ -75,7 +77,7 @@ class Place
     /**
      * @ORM\Column(type="json")
      * 
-     * note : variable notation convention is broken here due to an Algolia Search Engine Constraint.
+     * note : variable notation convention is broken here due to an Algolia Search Engine Constraint. ps : not relevant because we use a normalizer to change attributes names we want to change. So, to-do : change _geoloc attribute name.
      * 
      */
     private $_geoloc = [];
@@ -83,6 +85,19 @@ class Place
 
 
     
+
+
+
+
+    public function normalize(NormalizerInterface $serializer, $format = null, array $context = []): array
+    {
+        return [
+            '_geoloc' => $this->getGeoloc(),
+        ];
+    }
+
+
+
 
     public function getId(): ?int
     {
@@ -213,8 +228,7 @@ class Place
 
 
     /**
-     * @Groups({"searchable"})
-     * @Algolia\Attribute(algoliaName="_geoloc")
+     * @Groups({"searchable"})*
     */
     public function getGeoloc(): ?array
     {

@@ -2,12 +2,16 @@
 
 {% block title %}Geos{% endblock %}
 
-{% block stylesheets %}
-{% endblock %}
+{% block stylesheets %}{% endblock %}
 
 {% block javascripts %}{% endblock %}
 
+
+    
+
+
 {% block body %}
+
 
 <div class="container mt-5">
 
@@ -43,6 +47,14 @@
     .ais-GeoSearch-map {
       height: 500px; /* You can change this height */
     }
+
+    .infoBox{
+      background-color: white;
+      padding: 7px;
+      border: 1px solid rgb(162, 162, 255);
+      border-radius: 3px;
+      font-size: 15px;
+    }
     
     
   </style>
@@ -50,7 +62,14 @@
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk"></script>
 
+  
+  <script src="/js/infobox.js"></script>
+
+
   <script>
+
+    
+  var o = new InfoBox({/*options*/});
 
   const searchClient = algoliasearch(
 
@@ -75,14 +94,34 @@
     instantsearch.widgets.geoSearch({
       container: '#maps',
       googleReference: window.google,
-      initialZoom: 1,
+      initialZoom: 4,
       initialPosition: {
-        lat: 0,
-        lng: 0,
+        lat: 47,
+        lng: 3,
       },
       mapOptions: {
         mapTypeId: window.google.maps.MapTypeId.SATELLITE,
       },
+
+      builtInMarker: {
+        createOptions(item) {
+          return {
+            title: item.name,
+          };
+        },
+        events: {
+          click: function(e) {
+            o.getMap() && o.close(), o.setContent('<a href="https://www.propon.org/'+e.item.stringId+'" data-id="'+e.item.id+'" target="_blank"><div>' + e.item.goal+ '</div></a>'), o.open(e.map, e.marker)
+          }
+        },
+      },
+
+
+
+      
+
+
+
 
         
     })
@@ -94,9 +133,11 @@
   search.start();
 
 
+    
+
+
   </script>
 
-
-
+ 
 
 {% endblock %}

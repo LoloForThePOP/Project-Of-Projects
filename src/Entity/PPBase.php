@@ -293,9 +293,7 @@ class PPBase implements \Serializable, NormalizableInterface
             'cache' => $this->getCache(),
             'stringId' => $this->getStringId(),
             '_geoloc' => $this->getGeoLocations(),
-            'testGeol' => array_map(function ($place) {
-                return $place->getGeoLoc();
-              }, $this->getPlaces()->toArray()),
+            
         ];
     }
 
@@ -659,15 +657,21 @@ class PPBase implements \Serializable, NormalizableInterface
     */
     public function getGeolocations(): ?array
     {
-        $places=$this->getPlaces();
-        $geoLocs=[];
 
-        foreach ($places as $place) {
-            $geoLocs=$place->getGeoloc();
+
+        $places=$this->getPlaces();      
+
+        if (!$places->isEmpty()) {
+
+            foreach ($places as $place) {
+                $geoLocs=$place->getGeoloc();
+            }
+    
+            return $geoLocs;
         }
 
-        return $geoLocs;
-
+        else return null;
+       
     }
 
     public function removePlace(Place $place): self

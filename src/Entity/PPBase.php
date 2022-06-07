@@ -177,7 +177,7 @@ class PPBase implements \Serializable, NormalizableInterface
     const MAX_SLIDES = 8;
 
     /**
-     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=Place::class, mappedBy="presentation", cascade={"persist", "remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $places;
@@ -289,10 +289,12 @@ class PPBase implements \Serializable, NormalizableInterface
             'id' => $this->getId(),
             'goal' => $this->getGoal(),
             'keywords' => $this->getKeywords(),
+            'title' => $this->getTitle(),
             'stringId' => $this->getStringId(),
             'cache' => $this->getCache(),
             'stringId' => $this->getStringId(),
             '_geoloc' => $this->getGeoLocations(),
+            'categories' => $this->getCategoriesAlgolia(),
             
         ];
     }
@@ -519,9 +521,7 @@ class PPBase implements \Serializable, NormalizableInterface
         return $this;
     }
 
-    /**
-     * @Groups({"searchable"})
-     */
+
     public function getStringId(): ?string
     {
         return $this->stringId;
@@ -590,6 +590,44 @@ class PPBase implements \Serializable, NormalizableInterface
 
         return $this;
     }
+
+    
+    /*
+    * used to provide categories in algolia index
+    */
+    public function getCategoriesAlgolia(): ?array
+    {
+
+        $categories=$this->getCategories();
+
+        $dataForAlgolia=[];
+
+        if (!$categories->isEmpty()) {
+
+            foreach ($categories as $category) {
+
+                $dataForAlgolia[]=[
+
+                    'uniqueName' => $category->getUniqueName(),
+                    'descriptionEn' => $category->getDescriptionEn(),
+                    'descriptionEn' => $category->getDescriptionEn(),
+
+                ];
+            }
+    
+            return $dataForAlgolia;
+        }
+
+        else return null;
+       
+    }
+
+
+
+
+
+
+
 
     public function getUpdatedAt(): ?\DateTimeInterface
     {
@@ -954,10 +992,6 @@ class PPBase implements \Serializable, NormalizableInterface
     }
 
     
-
-    /**
-     * @Groups({"searchable"})
-    */
     public function getCache(): ?array
     {
         return $this->cache;

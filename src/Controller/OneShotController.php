@@ -7,6 +7,7 @@ use App\Service\CacheThumbnail;
 use Doctrine\ORM\EntityManager;
 use App\Repository\PlaceRepository;
 use App\Repository\PPBaseRepository;
+use App\Repository\CategoryRepository;
 use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,10 +30,10 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, SearchService $searchService, EntityManagerInterface $manager): Response
+    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager): Response
     {
 
-        /* */ 
+        /* 
 
         $places = $placesRepo->findAll();
 
@@ -49,6 +50,8 @@ class OneShotController extends AbstractController
 
         
         $manager->flush();
+
+        */ 
        
         
             $presentations = $repo->findAll();
@@ -59,10 +62,10 @@ class OneShotController extends AbstractController
                 $searchService->index($em, $presentation);
             } 
         
-            $places = $placesRepo->findAll();
+            $categories = $categoriesRepo->findAll();
 
-            foreach ($places as $place) {
-                $searchService->index($em, $place);
+            foreach ($categories as $category) {
+                $searchService->index($em, $category);
             } 
         
 /*  

@@ -69,6 +69,7 @@ class Place implements NormalizableInterface
      */
     private $presentation;
 
+
     /**
      * @ORM\Column(type="smallint", nullable=true)
      */

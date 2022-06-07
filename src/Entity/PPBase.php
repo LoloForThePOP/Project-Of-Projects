@@ -610,7 +610,7 @@ class PPBase implements \Serializable, NormalizableInterface
 
                     'uniqueName' => $category->getUniqueName(),
                     'descriptionEn' => $category->getDescriptionEn(),
-                    'descriptionEn' => $category->getDescriptionEn(),
+                    'descriptionFr' => $category->getDescriptionFr(),
 
                 ];
             }

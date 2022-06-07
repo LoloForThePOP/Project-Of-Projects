@@ -37,9 +37,70 @@
 {% endblock %}
 
 
+{# new #}
+     
+
+<style>
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .ais-GeoSearch-map {
+    height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
+  }
+
+  .infoBox{
+    background-color: white;
+    padding: 17px 7px;
+    border: 1px solid rgb(162, 162, 255);
+    border-radius: 3px;
+    font-size: 15px;
+    width: 286px;
+  }
+
+  .infoBox a div{
+   display: flex;
+   flex-direction: column;
+  }
+
+  .infoBox a div .img-container{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 10px;
+  }
+
+  .infoBox a div .img-container img{
+   max-width: 110px;
+   max-height: 110px;
+   border-radius: 3px;
+  }
+
+  .infoBox a .avatar-square-rounded{ /* when no thumbnail available */
+   margin-bottom: 10px;
+  }
+
+  .infoBox a div .text-container{
+   padding-left: 15px;
+  }
+
+  
+  
+</style>
+
+
   {# Algolia Search Experience Template #}
 
-  <div class="search-experience-container ais-InstantSearch mt-3 mb-5" style="display:none;">
+  <div class="search-experience-container ais-InstantSearch mt-3 mb-5" >{# new : was style="display:none;" #}
+
+    
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk"></script>{# new #}
+
+  <script src="/js/infobox.js"></script>{# new #}
 
     <div class="left-panel">
 
@@ -70,6 +131,22 @@
     <div class="right-panel">
 
       <div id="searchbox" class="ais-SearchBox"></div>
+      
+    <div class="ais-GeoSearch">{# new #}
+      <div class="ais-GeoSearch-map">
+        <!-- Map element here -->
+        <div id="maps"></div>
+      </div>
+      <div class="ais-GeoSearch-control">
+        <label class="ais-GeoSearch-label">
+          <input class="ais-GeoSearch-input" type="checkbox">
+          Search as I move the map
+        </label>
+      </div>
+      <button class="ais-GeoSearch-reset">
+        Clear the map refinement
+      </button>
+    </div>
 
       <div id="hits"></div>
 

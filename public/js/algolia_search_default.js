@@ -49,12 +49,16 @@ $(document).ready(function(){
 
   }
 
+  //Initialize InfoBox for Google Map info box displays on marker click
+  var o = new InfoBox({/*options*/}); //new
+
 
   //Initialize Algolia instant search with credentials
 
   const search = instantsearch({
 
-    indexName: app_env+'_presentation_bases',
+    //indexName: app_env+'_presentation_bases',
+    indexName: 'prod_presentation_bases', //new
 
     searchClient: algoliasearch(
 
@@ -116,6 +120,82 @@ $(document).ready(function(){
 
 
   search.addWidgets([
+
+    instantsearch.widgets.geoSearch({
+      container: '#maps',
+      googleReference: window.google,
+      initialZoom: 4,
+      initialPosition: {
+        lat: 47,
+        lng: 3,
+      },
+      builtInMarker: {
+
+        createOptions(item) {
+
+          return {
+
+            title: item.name,
+
+          };
+
+        },
+
+        events: {
+
+          click: function(e) {
+
+            console.log(e.item);
+
+            content = '<a class="link-wrapper" href="https://www.propon.org/'+e.item.stringId+'" data-id="'+e.item.id+'" target="_blank"><div>';
+
+            //preparing card's thumbnail
+            var imgContent;
+
+            //if we have an image path we use it
+            if (e.item.cache && e.item.cache.thumbnailAddress){
+
+              imgContent = '<div class="img-container"><img class="infobox-img" src="'+e.item.cache.thumbnailAddress+'" align="left" alt="Thumbnail" /></div>';
+
+            }
+
+            else {//creating a default thumbnail
+
+              imgContent= '<div class="avatar-square-rounded avatar-80 mx-auto" style="background-color:#428392;"><span class="avatar-initial avatar-initial-80">'+e.item.goal.charAt(0).toUpperCase()+'</span></div>';
+            
+            }
+
+            //card's image container + feeding it
+            content += imgContent;
+
+
+            //text container
+            var textContent='<div class="text-container">';
+
+            //presentation goal
+            textContent += '<div class="goal-container">'+e.item.goal+'</div>';
+
+            //presentation title
+            if (e.item.title){
+              textContent += '<div class="title-container">'+ e.item.title+'</div>';
+            }
+
+            textContent+='</div>'
+          
+            
+            content += textContent+'</div></a>'; 
+
+            o.getMap() && o.close(), o.setContent(content), o.open(e.map, e.marker)
+
+          },
+
+        },
+
+      },
+
+
+    }),
+
 
     //instantiate a search result filters panel (left panel)
     instantsearch.widgets.refinementList({
@@ -196,13 +276,14 @@ $(document).ready(function(){
       hitsPerPage: 8
     }),
 
+
   ]);
 
   // Sometimes we drag and drop some search results (example : admin search for presentation to highlight, see manage_select_presentations.html)
 
   if(typeof selection_instance !== 'undefined'){ //add a drag and drop capability to search results (see selection_manage.html).
 
-    search.on('render', function () {//Whenever instant search is refreshed
+    search.on('render', function () {// Whenever instant search is refreshed
       
       $('.ais-Hits-list').sortable({
 

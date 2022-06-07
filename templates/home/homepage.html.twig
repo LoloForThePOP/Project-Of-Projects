@@ -16,6 +16,15 @@
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-10">
 
+    
+        {# Search Bar container new : was under editor choice presentations #}
+
+        <div class="col-xxl-11 pe-lg-5 mb-3">
+          
+          {% include "home/_search_container.html.twig" %}
+
+        </div>
+
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -120,13 +129,6 @@
 
     </div>
 
-        {# Search Bar container #}
-
-        <div class="col-xxl-11 pe-lg-5 mb-3">
-          
-          {% include "home/_search_container.html.twig" %}
-
-        </div>
 
 
         {# some presentations by category #}

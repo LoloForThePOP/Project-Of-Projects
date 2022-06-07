@@ -66,15 +66,24 @@
      display: flex;
      align-items: center;
      justify-content: center;
-     margin-bottom: 7px;
+     margin-bottom: 10px;
     }
 
     .infoBox a div .img-container img{
      max-width: 110px;
      max-height: 110px;
+     border-radius: 3px;
+    }
+
+    .infoBox a .avatar-square-rounded{ /* when no thumbnail available */
+     margin-bottom: 10px;
     }
 
     .infoBox a div .goal-container{
+     padding-left: 10px;
+    }
+
+    .infoBox a div .text-container{
      padding-left: 10px;
     }
 
@@ -158,23 +167,29 @@
 
             else {//creating a default thumbnail
 
-              imgContent= '<div class="avatar-square-rounded avatar-80 mx-auto" style="background-color:'+randomColor()+';"><span class="avatar-initial avatar-initial-80">'+e.item.goal.charAt(0).toUpperCase()+'</span></div>';
+              imgContent= '<div class="avatar-square-rounded avatar-80 mx-auto" style="background-color:#428392;"><span class="avatar-initial avatar-initial-80">'+e.item.goal.charAt(0).toUpperCase()+'</span></div>';
             
             }
 
             //card's image container + feeding it
             content += imgContent;
 
+
+            //text container
+            var textContent='<div class="text-container">';
+
             //presentation goal
-            content += '<div class="goal-container">'+e.item.goal+'</div>';
+            textContent += '<div class="goal-container">'+e.item.goal+'</div>';
 
             //presentation title
-            if (typeof e.item.title !== 'undefined'){
-              content += '<div class="title-container">'+ e.item.title+'</div>';
+            if (e.item.title){
+              textContent += '<div class="title-container">'+ e.item.title+'</div>';
             }
+
+            textContent+='</div>'
           
             
-            content += '</div></a>'; 
+            content += textContent+'</div></a>'; 
 
             o.getMap() && o.close(), o.setContent(content), o.open(e.map, e.marker)
 

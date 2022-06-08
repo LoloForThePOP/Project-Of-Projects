@@ -97,7 +97,7 @@
 
 /* Search with a map */
 
-.js-hide-geosearch-map{
+.left-panel .js-hide-geosearch-map, .right-panel .js-hide-geosearch-map {
 
   display: none;
 }
@@ -113,6 +113,10 @@
 
 }
 
+.app-maps-info{
+
+  display: none;
+}
 
 .ais-GeoSearch-map {
   height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */

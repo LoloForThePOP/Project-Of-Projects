@@ -88,13 +88,13 @@
 
       {# Toggle Map Display - Button (small screens) #}
 
-      <div class="d-md-none">
+      <div class="d-md-none mb-3">
 
-        <button id="" type="button" class="js-toggle-geosearch-map js-hide-geosearch-map btn btn-primary">Masquer<br>la carte</button>
+        <span id="" class="js-toggle-geosearch-map js-hide-geosearch-map text-primary fs-6 me-3">Masquer la carte</span>
 
-        <button id="" type="button" class="js-toggle-geosearch-map js-show-geosearch-map btn btn-primary">Afficher la carte</button>     
+        <span id="" class="js-toggle-geosearch-map js-show-geosearch-map text-primary me-3">Afficher la carte</span>     
 
-        <button id="" type="button" class="btn btn-primary">Filtrer<br>les résultats</button>     
+        <span id=""  class="js-filter-geosearch-map">Filtrer</span>     
 
       </div>
 
@@ -105,15 +105,16 @@
         <div class="ais-GeoSearch-map">
 
           <!-- Map element here -->
+
           <div id="maps">
 
-            {# <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
+            <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
               
-              Attention ! Certains projets n'apparaissent pas sur cette carte (par exemple les projets informatiques).
+              Attention ! Certains projets n'apparaissent pas sur la carte (par exemple les projets informatiques).
               
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             
-            </div> #}
+            </div>
 
           </div>
           
@@ -149,6 +150,48 @@
       }
 
     });
+
+
+    // Register event when we display projects geo-map
+    $(".js-show-geosearch-map").click(function() {
+
+      customEvents.dispatchEvent(
+
+        new CustomEvent('showProjectsGeoMap', {})
+
+      );
+    
+    });
+
+    // Display a warning : some projects are not listed on the geo-map.
+    customEvents.addEventListener(
+        
+      "showProjectsGeoMap", 
+
+      function(e) { 
+
+        $('.app-maps-info').show();
+
+      }
+
+    );
+
+
+    $(".js-filter-geosearch-map").click(function() {
+
+      $('.search-experience-container .left-panel').show();
+
+    });
+
+
+
+
+    
+
+
+
+
+
 
   </script>
 

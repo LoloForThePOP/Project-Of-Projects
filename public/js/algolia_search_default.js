@@ -28,6 +28,7 @@ $(document).ready(function(){
 
   });
 
+
   //create a random background color for default thumbnails
   function randomColor(){
 
@@ -133,12 +134,22 @@ $(document).ready(function(){
 
         lat: 47,
         lng: 3,
-
+        
       },
 
       enableClearMapRefinement: false,
 
-      customHTMLMarker: {
+      builtInMarker: {
+
+        createOptions(item) {
+
+          return {
+
+            title: item.name,
+
+          };
+
+        },
 
         events: {
 
@@ -193,13 +204,7 @@ $(document).ready(function(){
       },
 
 
-      templates: {
-        HTMLMarker: '<p>Your Marker</p>',
-      },
-
-
     }),
-
 
     //instantiate a search result filters panel (left panel)
     instantsearch.widgets.refinementList({

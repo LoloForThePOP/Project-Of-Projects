@@ -1,10 +1,12 @@
 <div id="homepage-search-container">
 
+    <h3 class="fw-bold mb-5">Trouver un Projet</h3>
+
     <div id="homepage-search-bar-container">
 
         <img id="homepage-search-icon" src="{{ asset('search-dark-grey.svg', 'misc')}}" alt="search icon" height="">
 
-        <input id="homepage-search-input" type="text" placeholder="Trouver un Projet">
+        <input id="homepage-search-input" type="text" placeholder="Écrire un titre, une catégorie, un mot-clé...">
 
     </div>
 
@@ -25,9 +27,10 @@
 
     #homepage-search-container {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        height: 115px;
+        padding: 30px 0 50px 0;
         margin-top: 90px;
         margin-bottom: 90px;
         border: 1px solid #97a3bb;

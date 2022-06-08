@@ -1,98 +1,165 @@
-  .ais-ClearRefinements {
-    margin: 1em 0;
-  }
-  
-  .ais-SearchBox {
-    margin: 1em 0;
-  }
-  
-  .ais-Pagination {
-    margin-top: 1em;
-  }
-  
-  .left-panel {
-    float: left;
-    width: 250px;
-    position:relative;
-  }
-  
-  .right-panel {
-    margin-left: 260px;
-  }
-  
-  .ais-InstantSearch {
-    max-width: 960px;
-    overflow: hidden;
-    margin: 0 auto;
-  }
-  
-  .ais-Hits-item {
-    margin-bottom: 1em;
-    width: calc(50% - 1rem);
-  }
 
-  
-  .hit-link-wrap {
-    text-decoration: none;
-  }
-  
-  .hit-img-ctn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 120px;
-    margin-bottom: 11px;
-  }
-  
-  .hit-img {
-    max-width: 210px;
-    max-height: 106px;
-    border-radius: 0.3rem !important;
-  }
-  
-  .hit-goal {
-    color: #1a0dab;
-    margin-bottom: 4px;
-    font-size: 17px;
-    font-weight: bold;
-    line-height: 1.2em;
-  }
 
-      
-  .hit-title {
+.search-experience-container{
+  display: none;
+}
+
+.ais-ClearRefinements {
+  margin: 1em 0;
+}
+
+.ais-SearchBox {
+  margin: 1em 0;
+}
+
+.ais-Pagination {
+  margin-top: 1em;
+}
+
+.left-panel {
+  float: left;
+  width: 250px;
+  position:relative;
+}
+
+.right-panel {
+  margin-left: 260px;
+}
+
+.ais-InstantSearch {
+  max-width: 960px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.ais-Hits-item {
+  margin-bottom: 1em;
+  width: calc(50% - 1rem);
+}
+
+
+.hit-link-wrap {
+  text-decoration: none;
+}
+
+.hit-img-ctn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 120px;
+  margin-bottom: 11px;
+}
+
+.hit-img {
+  max-width: 210px;
+  max-height: 106px;
+  border-radius: 0.3rem !important;
+}
+
+.hit-goal {
+  color: #1a0dab;
+  margin-bottom: 4px;
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 1.2em;
+}
+
     
-    margin-bottom: 6px;
-    line-height: 1.13em;
-    font-size: 1.15em;
-    font-weight: bold;
-    color:#2C3E50;
-
-  }
-
+.hit-title {
   
-  .hit-keywords {
+  margin-bottom: 6px;
+  line-height: 1.13em;
+  font-size: 1.15em;
+  font-weight: bold;
+  color:#2C3E50;
 
-    margin: 4px 0px;
-    font-weight: bold;
-    color:#065fd4;
-    line-height: 1.05em;
-    text-align: left;
-    font-size: 15px;
+}
 
-  }
 
-  .filters-categories-title{
+.hit-keywords {
 
-    font-size: 28px;
-    margin-top : 32px;
-    margin-bottom : 16px;
+  margin: 4px 0px;
+  font-weight: bold;
+  color:#065fd4;
+  line-height: 1.05em;
+  text-align: left;
+  font-size: 15px;
 
-  }
+}
 
+.filters-categories-title{
+
+  font-size: 28px;
+  margin-top : 17px;
+  margin-bottom : 16px;
+
+}
+
+/* Search with a map */
+
+.js-hide-geosearch-map{
+
+  display: none;
+}
+
+.left-panel .js-hide-geosearch-map, .left-panel .js-show-geosearch-map{
+
+  margin-top: 17px;
+}
+
+.ais-GeoSearch {
+
+  display: none;
+
+}
+
+
+.ais-GeoSearch-map {
+  height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
   
-  .ais-GeoSearch-map {
-    height: 500px; /* You can change this height */
-  }
+}
+
+/* Info Box allows to Display Specific Info over markers in a Google Map  */
+
+.infoBox{
+  background-color: white;
+  padding: 17px 7px;
+  border: 1px solid rgb(162, 162, 255);
+  border-radius: 3px;
+  font-size: 15px;
+  width: 286px;
+}
+
+.infoBox a div{
+  display: flex;
+  flex-direction: column;
+}
+
+.infoBox a div .img-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.infoBox a div .img-container img{
+  max-width: 110px;
+  max-height: 110px;
+  border-radius: 3px;
+}
+
+.infoBox a .avatar-square-rounded{ /* when no thumbnail available */
+  margin-bottom: 10px;
+}
+
+.infoBox a div .text-container{
+  padding-left: 15px;
+}
+
+.ais-GeoSearch-control {
+  display: none;
+}
+
   
   
 @media screen and (max-width: 580px) {
@@ -168,6 +235,13 @@
     position: absolute;
     top: 0;
     right: 0;
+  }
+
+  /* Search on a Map */
+
+  
+  .ais-GeoSearch-map {
+    height: 213px;
   }
 
 

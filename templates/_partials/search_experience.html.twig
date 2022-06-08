@@ -16,109 +16,40 @@
   <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
+  
+  {# Google Map Inclusion for Geosearch #}
+    
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk"></script>
 
-  {# A Google Map is Available to Display Results
+  {# Allow to create infobox on a google map #}
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk"></script> #}
-
+  <script src="/js/infobox.js"></script>
 
   {# App Custom Default Algolia Search Experience #}
 
-  <script>
+  <script> // Call appropriate urls and index and according to environment
 
       var domain = '{{url("homepage")}}';
       var app_env = '{{ app.request.server.get("APP_ENV") }}';
 
   </script>
 
+  {# App custom way to manage search #}
 
   <script src="/js/algolia_search_default.js"></script>
-    
+
+
 {% endblock %}
-
-
-{# new #}
-     
-
-<style>
-
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 1rem;
-  }
-  
-  .ais-GeoSearch-map {
-    height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
-  }
-
-  .infoBox{
-    background-color: white;
-    padding: 17px 7px;
-    border: 1px solid rgb(162, 162, 255);
-    border-radius: 3px;
-    font-size: 15px;
-    width: 286px;
-  }
-
-  .infoBox a div{
-   display: flex;
-   flex-direction: column;
-  }
-
-  .infoBox a div .img-container{
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   margin-bottom: 10px;
-  }
-
-  .infoBox a div .img-container img{
-   max-width: 110px;
-   max-height: 110px;
-   border-radius: 3px;
-  }
-
-  .infoBox a .avatar-square-rounded{ /* when no thumbnail available */
-   margin-bottom: 10px;
-  }
-
-  .infoBox a div .text-container{
-   padding-left: 15px;
-  }
-
-  .ais-GeoSearch-control {
-    display: none;
-  }
-
-  @media screen and (max-width: 580px) {
-
-    .ais-GeoSearch-map {
-      height: 230px;
-    }
-  
-  }
-
-  
-  
-</style>
-
 
   {# Algolia Search Experience Template #}
 
-  <div class="search-experience-container ais-InstantSearch mt-3 mb-5" >{# new : was style="display:none;" #}
-
-    
-
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk"></script>{# new #}
-
-  <script src="/js/infobox.js"></script>{# new #}
+  <div class="search-experience-container ais-InstantSearch mt-3 mb-5" >
 
     <div class="left-panel">
-
-      <div id="clear-refinements"></div>
             
-          <button type="button" class="js-close-search-experience d-none d-md-block btn btn-primary mt-md-3">Fermer la recherche</button>
+      <button type="button" class="js-close-search-experience d-none d-md-block btn btn-primary mt-md-3">Fermer la recherche</button>
+
+      {# Hide left Panel Button (Small Screens Only) #}
 
       <img id="" class="js-hide-left-panel hide-left-panel-icon d-md-none btn" src="{{ asset('back-dark.svg', 'misc')}}" alt="Hide left panel icon" style="width: 35px; position: absolute; right: 0; padding: 4px; background-color: rgb(231, 231, 231)">
 
@@ -134,6 +65,17 @@
 
       </script>
 
+      {# Toggle Map Display - Button (>= medium screens) #}
+
+      <div class="d-none d-md-block">
+          
+        <button id="" type="button" class="js-toggle-geosearch-map js-hide-geosearch-map btn btn-primary">Masquer la carte</button>
+
+        <button id="" type="button" class="js-toggle-geosearch-map js-show-geosearch-map btn btn-primary">Afficher la carte</button>
+
+      </div>
+
+
       <h2 class="filters-categories-title">Tri par catégories</h2>
 
       <div id="filters-list"></div>
@@ -143,22 +85,70 @@
     <div class="right-panel">
 
       <div id="searchbox" class="ais-SearchBox"></div>
-      
-    <div class="ais-GeoSearch">{# new #}
-      <div class="ais-GeoSearch-map">
-        <!-- Map element here -->
-        <div id="maps"></div>
+
+      {# Toggle Map Display - Button (small screens) #}
+
+      <div class="d-md-none">
+
+        <button id="" type="button" class="js-toggle-geosearch-map js-hide-geosearch-map btn btn-primary">Masquer<br>la carte</button>
+
+        <button id="" type="button" class="js-toggle-geosearch-map js-show-geosearch-map btn btn-primary">Afficher la carte</button>     
+
+        <button id="" type="button" class="btn btn-primary">Filtrer<br>les résultats</button>     
+
       </div>
 
-    </div>
+      {# Search with a Google Map #}
+
+      <div class="ais-GeoSearch">
+
+        <div class="ais-GeoSearch-map">
+
+          <!-- Map element here -->
+          <div id="maps">
+
+            {# <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
+              
+              Attention ! Certains projets n'apparaissent pas sur cette carte (par exemple les projets informatiques).
+              
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+            </div> #}
+
+          </div>
+          
+        </div>
+
+      </div>
 
       <div id="hits"></div>
 
       <div id="pagination"></div>         
 
-
-
     </div>
     
   </div>
+
+
+  <script>
+
+    // Manage Map Appearance - Disappearance according to clicked button status
+      
+    $(".js-toggle-geosearch-map").click(function() {
+
+      if($(this).hasClass('js-hide-geosearch-map')){
+        $('.js-hide-geosearch-map, .ais-GeoSearch').hide();
+        $('.js-show-geosearch-map').show();
+        
+
+      } 
+      
+      else {
+        $('.js-hide-geosearch-map, .ais-GeoSearch').show();
+        $('.js-show-geosearch-map').hide();
+      }
+
+    });
+
+  </script>
 

@@ -87,6 +87,18 @@
    padding-left: 15px;
   }
 
+  .ais-GeoSearch-control {
+    display: none;
+  }
+
+  @media screen and (max-width: 580px) {
+
+    .ais-GeoSearch-map {
+      height: 230px;
+    }
+  
+  }
+
   
   
 </style>
@@ -137,15 +149,7 @@
         <!-- Map element here -->
         <div id="maps"></div>
       </div>
-      <div class="ais-GeoSearch-control">
-        <label class="ais-GeoSearch-label">
-          <input class="ais-GeoSearch-input" type="checkbox">
-          Search as I move the map
-        </label>
-      </div>
-      <button class="ais-GeoSearch-reset">
-        Clear the map refinement
-      </button>
+
     </div>
 
       <div id="hits"></div>

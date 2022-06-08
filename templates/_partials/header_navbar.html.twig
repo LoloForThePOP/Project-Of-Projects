@@ -2,7 +2,7 @@
 
 <header>
 
-  <nav class="navbar navbar-expand-sm fixed-top pb-0 bg-dark" style="border-bottom: 2px solid orange;">
+  <nav class="navbar navbar-dark navbar-expand-sm fixed-top pb-0 bg-dark" style="border-bottom: 2px solid orange;">
 
     <div class="container-fluid ps-4 ps-md-5">
 
@@ -219,11 +219,12 @@
       {# This button and bellow collapsible is only seen on mobile #}
       {# hide / show menu  - trigger button #}
 
-      <button class="btn text-body navbar-toggler" data-bs-target="#navbarSMToggle" aria-controls="navbarSMToggle" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" style="color:white !important">
+      <button class="btn text-body navbar-toggler" data-bs-target="#navbarSMToggle" aria-controls="navbarSMToggle" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation" style="margin-bottom:9px;">
 
-        Menu
+        <span class="navbar-toggler-icon"></span>
 
       </button>
+
 
       {# These elements are collapsed and displayed only on small screens #}
       
@@ -261,13 +262,58 @@
 
             </a>  #}
 
-            {# login button #}
+            {# login access button (>= md screens) #}
 
             <a href="{{path('app_login')}}">
 
-              <button type="button" class="btn btn-outline-primary fw-bold me-2">Connexion</button>
+              <button type="button" class="d-none d-md-block btn btn-outline-primary fw-bold me-2">Connexion</button>
 
             </a>
+
+
+            {# login access button (for sm screens) #}
+
+            <div class="d-md-none">
+
+              <h4 class="fw-bold text-white">Connexion</h4>
+                
+              <a href="{{ path('connect_google_start') }}">
+
+                <button class="btn text-white me-3">
+
+                    <img src="{{asset ('connect/google.svg', 'misc')}}" class="" alt="Google Logo" loading="lazy" width="50" height="50">
+
+                    <span class="">Avec Google</span>
+
+                </button>
+
+              </a>
+
+              <a href="{{ path('connect_facebook_start') }}">
+
+                  <button class="btn text-white">
+
+                      <img src="{{asset ('connect/facebook.svg', 'misc')}}" class="" alt="Facebook Logo" loading="lazy" width="50" height="50">
+
+                      <span class="">Avec Facebook</span>
+
+                  </button>
+
+              </a>
+              
+              <a href="{{path('app_login')}}">
+
+                <button class="btn text-white">
+
+                  <img src="{{asset ('connect/email.svg', 'misc')}}" class="" alt="Facebook Logo" loading="lazy" width="50" height="50">
+
+                  <span class="">Avec E-mail</span>
+
+              </button>
+
+              </a>
+
+            </div>
 
           {% endif %}
 

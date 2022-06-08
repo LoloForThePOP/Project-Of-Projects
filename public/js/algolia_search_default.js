@@ -122,24 +122,23 @@ $(document).ready(function(){
   search.addWidgets([
 
     instantsearch.widgets.geoSearch({
+
       container: '#maps',
+
       googleReference: window.google,
+
       initialZoom: 4,
+
       initialPosition: {
+
         lat: 47,
         lng: 3,
+
       },
-      builtInMarker: {
 
-        createOptions(item) {
+      enableClearMapRefinement: false,
 
-          return {
-
-            title: item.name,
-
-          };
-
-        },
+      customHTMLMarker: {
 
         events: {
 
@@ -191,6 +190,11 @@ $(document).ready(function(){
 
         },
 
+      },
+
+
+      templates: {
+        HTMLMarker: '<p>Your Marker</p>',
       },
 
 

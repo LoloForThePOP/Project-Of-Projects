@@ -1,0 +1,175 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Qui sommes-nous ?{% endblock %}
+
+
+{% block body %}
+
+    <div class="page-container static-content container px-0 col-md-11 col-lg-7">
+        
+        <section class="dl-blurbs">
+
+            <dl>
+
+                <dt>Engagés</dt>
+
+                    <dd>Propon est une initiative ouverte. Son Objectif est d'avoir un impact positif sur la société et sur l'environnement.</dd>
+
+                <dt>Accélérer</dt>
+
+                    <dd>Les projets sont déterminants pour lutter contre les défis majeurs qui nous concernent tous, par exemple lutter contre le dérèglement climatique, accélérons-les.</dd>
+
+
+                <dt>Agir</dt>
+
+                    <dd>Présenter les Projets à grande échelle améliore leur capacité à être découverts, favorisant des mises en contact pour qu'ils réussissent.</dd>
+                
+                <dt>Ensemble</dt>
+
+                    <dd>Les Projets de toutes tailles sont les briques de la réalisation des plus grands projets. Chaque projet réussi, c’est potentiellement des centaines d’autres projets qui progresseront. Alors présentons-les tous.</dd>
+
+            </dl>
+
+
+        </section>
+
+        <section>
+
+            <h1 class="fw-bold mb-5">Et Maintenant ?</h1>
+
+            <ul class="horizontal-list">
+
+                <li>Découvrir les Projets</li>
+                <li>Ajouter votre Projet</li>
+                <li>Le Manifeste version longue</li>
+
+            </ul>
+
+        </section>
+
+    </div>
+
+
+    <style>
+
+        /* Thanks to Dianna Chang : https://codepen.io/girlgeek/pen/dyOjrJE */
+
+
+        body {
+            background-color: #eaeaeaff;
+            font-family: "Montserrat", sans-serif;
+            font-size: 0.875em;
+            color: #444444;
+            line-height: 1.5;
+        }
+
+        .page-title{
+
+            font-weight: bold; 
+            color: green; 
+            margin-bottom: 6vh;
+            font-size:8vh;
+
+        }
+
+        .dl-blurbs {
+            display: grid;
+        }
+
+        @media (min-width: 768px) {
+
+            .dl-blurbs {
+                grid-template-columns: repeat(1, 1fr);
+                gap: 2vw;
+            }
+
+        }
+
+        /* LIST */
+        dl {
+            counter-reset: count;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.04) 20%, rgba(255, 255, 255, 0) 0%);
+            padding-left: 4vw;
+            padding-right: 4vw;
+            margin: 0;
+            margin-bottom: 10vh;
+        }
+
+        @media (min-width: 1024px) {
+            dl {
+                padding-top: 3vw;
+                padding-bottom: 3vw;
+            }
+        }
+
+        @media (min-width: 768px) {
+
+            dl {
+                padding-left: 2vw;
+            }
+
+        }
+
+        @media (max-width: 768px) {
+
+           
+            dt {
+
+                font-size: 1.5em !important;
+            }
+
+        }
+        
+
+        dt {
+
+            counter-increment: count;
+            color: #4f6d7aff;
+            font-family: "Montserrat", sans-serif;
+            font-size: 4vw;
+            text-transform: uppercase;
+        }
+
+        dt::before {
+            content: counter(count, decimal-leading-zero) ".";
+            color: #5ea5b8ff;
+            margin-left: -1vw;
+            padding-right: 12px;
+        }
+
+        dd {
+            margin-left: 5vw;
+            margin-bottom: 6vh;
+            font-size: 1.15rem;
+        }
+
+
+        /* Footer Horizontal List */
+
+
+
+            .horizontal-list {
+                display: flex;
+                -moz-box-pack: justify;
+                justify-content: space-between;
+                flex-direction: column;
+                -moz-box-align: center;
+                align-items: center;
+                list-style: none;
+                margin: 0px;
+                padding: 0px;
+            }
+
+            
+        @media (min-width: 768px) {
+
+            .horizontal-list {
+                align-items: flex-end;
+                flex-direction: row;
+            }
+            
+        }
+
+    </style>
+
+{% endblock %}

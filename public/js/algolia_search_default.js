@@ -104,12 +104,16 @@ $(document).ready(function(){
         $(".js-reset-search-icon-container").hide();
       } else {$(".js-reset-search-icon-container").show();}
 
+      
+      window.scrollTo(0, 0); //view goes to correct location
+
 
       //put the proxy input value into "the only one true search input" (i.e. #searchbox .ais-SearchBox-input input)
       document.querySelector('#searchbox .ais-SearchBox-input').value = $(this).val();
       
       //then refresh algolia search
       search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
+
 
 
       // note : $("#homepage-search-input").on triggers scroll to top (see home/_search_container.html.twig) 

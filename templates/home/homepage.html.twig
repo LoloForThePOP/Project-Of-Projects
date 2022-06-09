@@ -38,6 +38,8 @@
 
         <style>
 
+          /* When authenticated user has not created any presentation */
+
           .no-project-container {
             width: 100%;
             height: 170px;
@@ -61,7 +63,7 @@
 
       {% if user_presentations | length > 0 %}
 
-        {{ display.collection("", user_presentations | reverse, "user-presentations") }} {# collection title managed in macro#}
+        {{ display.collection("", user_presentations | reverse, "user-presentations") }} {# collection title managed in macro #}
 
         <style>
 
@@ -138,6 +140,45 @@
         {# some presentations by category #}
         
         {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+
+        <div class="container my-4 px-2">
+
+          <h3 class="show-map-title fw-bold text-center mb-4">Afficher la carte des projets</h3>
+
+          <style>
+
+            @media screen and (max-width: 580px) {
+
+              .show-map-title{
+                font-size:1.17em;
+              }
+    
+            }
+
+          </style>
+
+          <img src="{{asset ('misc/project-map.jpg', 'larger')}}" class="js-display-geosearch d-block mx-lg-auto img-fluid" style="border-radius:4px; cursor:pointer;" alt="A Map with some markers on it" loading="lazy" width="600">
+
+          <script>
+
+            $(".js-display-geosearch").on("click", function() {
+
+              console.log("geos");
+
+              $(".ais-InstantSearch").show(); //display search results panel
+
+              
+              window.scrollTo(0, 0); //view goes to correct location
+
+              
+              $(".js-toggle-geosearch-map").click(); //display geosearch map
+
+        
+            });
+
+          </script>
+
+        </div>
         
 
         {# some presentations by category #}
@@ -151,7 +192,7 @@
 
         {# some presentations by categories intersection
         
-        {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
+          {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
 
           
         {# last project presentation #}
@@ -180,15 +221,6 @@
     </div>
 
   </div> {# closes an unknow div which mess up footer display #}
-  
-
-  {# Priced Plans
-
-  <div class="col-xxl-11 pe-lg-5 mt-3">
-
-    {% include "plans/container.html.twig" %}
-
-  </div> #} 
 
 
 {% endblock %}

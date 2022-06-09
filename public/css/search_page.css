@@ -118,8 +118,10 @@
   display: none;
 }
 
-.ais-GeoSearch-map {
+.ais-GeoSearch {
   height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
+
+  width: 100%;
   
 }
 

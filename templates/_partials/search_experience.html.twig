@@ -53,7 +53,34 @@
 
       {# Hide left Panel Button (Small Screens Only) #}
 
-      <img id="" class="js-hide-left-panel hide-left-panel-icon d-md-none btn" src="{{ asset('back-dark.svg', 'misc')}}" alt="Hide left panel icon" style="width: 35px; position: absolute; right: 0; padding: 4px; background-color: rgb(231, 231, 231)">
+      <div class="d-flex d-md-none justify-content-center mt-3">
+
+        <div class="js-hide-left-panel hide-left-panel-button">
+
+          <img id="" src="{{ asset('back-dark.svg', 'misc')}}" alt="Hide left panel icon" style="width: 35px; padding: 4px;">
+
+          <span class="ms-3">Masquer</span> 
+
+        </div>
+
+        <style>
+
+          .hide-left-panel-button {
+            display: inline-flex;
+            padding: 6px 20px;
+            border-radius: 5px;
+            background-color: #dbe7ff;
+            font-weight: bold;
+          }
+
+
+        </style>
+
+
+
+      </div>
+
+
 
       <script>
             
@@ -90,7 +117,7 @@
 
       {# Toggle Map Display - Button (small screens) #}
 
-      <div class="d-md-none mb-3">
+      <div class="d-inline-block d-md-none mb-3">
 
         <span id="" class="js-toggle-geosearch-map js-hide-geosearch-map text-primary fs-6 me-3">Masquer la carte</span>
 

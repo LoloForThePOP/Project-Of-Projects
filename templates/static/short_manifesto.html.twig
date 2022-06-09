@@ -1,11 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Qui sommes-nous ?{% endblock %}
+{% block title %}Manifesto{% endblock %}
 
 
 {% block body %}
 
-    <div class="page-container static-content container px-0 col-md-11 col-lg-7">
+    <div class="page-container static-content container px-0 col-md-11 col-lg-7" style="padding-bottom:106px;">
+
+       {#  <div class="title-container">
+
+            <h1 class="page-title fw-bold">Mission</h1>
+
+        </div> #}
+
+        
+
+        <style>
+
+            .title-container {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: rgb(239, 241, 255);
+                max-width: 760px;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 30px 20px ;
+                z-index: 1;
+                border-top-left-radius: 4px;
+                border-top-right-radius: 4px;
+            }
+                
+            .page-title{
+
+                font-size: 9vh;
+                color:rgb(53, 57, 82);
+
+            }
+
+            @media (max-width: 768px) {
+
+                .title-container {
+
+                    display: none;
+                }
+    
+            }
+
+        </style>
         
         <section class="dl-blurbs">
 
@@ -17,7 +59,7 @@
 
                 <dt>Accélérer</dt>
 
-                    <dd>Les projets sont déterminants pour lutter contre les défis majeurs qui nous concernent tous, par exemple lutter contre le dérèglement climatique, accélérons-les.</dd>
+                    <dd>Les projets sont déterminants pour lutter contre les défis majeurs qui nous concernent tous, par exemple lutter contre le dérèglement climatique.</dd>
 
 
                 <dt>Agir</dt>
@@ -26,7 +68,7 @@
                 
                 <dt>Ensemble</dt>
 
-                    <dd>Les Projets de toutes tailles sont les briques de la réalisation des plus grands projets. Chaque projet réussi, c’est potentiellement des centaines d’autres projets qui progresseront. Alors présentons-les tous.</dd>
+                    <dd>Les Projets de toutes tailles sont les briques de la réalisation des plus grands projets. Chaque projet réussi, c’est potentiellement des centaines d’autres projets qui progresseront.</dd>
 
             </dl>
 
@@ -39,11 +81,144 @@
 
             <ul class="horizontal-list">
 
-                <li>Découvrir les Projets</li>
-                <li>Ajouter votre Projet</li>
-                <li>Le Manifeste version longue</li>
+                 <a href="#" class="js-enter-search-experience">
+                     
+                    <li class="now-action-item">
+
+                        <img id="search_icon_small_screens" class="cta-item-img" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:40px; filter: invert(78%) sepia(3%) saturate(6150%) hue-rotate(163deg) brightness(85%) contrast(92%);">
+
+                        <div class="cta-item-text">Trouver un Projet</div>
+                    
+                    </li>
+                
+                </a>
+
+                <script>
+
+                    $('.js-enter-search-experience')
+                        .click(function() {
+
+                            $(".search-experience-container").show();
+                        
+                        });
+
+                </script>
+
+                <a href="{{ path ('create_presentation') }}">
+                    
+                    <li class="now-action-item">
+
+                        <img class="cta-item-img" src="{{ asset('add_presentation.svg', 'misc')}}" height="34"  alt="bucket with a plus icon">
+
+                        <div class="cta-item-text">Ajouter votre Projet</div>
+
+                    </li>
+                
+                </a>
+
+
+                <a href="{{ asset('pdf/project-of-projects-manifesto-fr.pdf', 'static')}}" target="_blank" rel="noopener noreferrer">
+
+                    <li class="now-action-item">
+
+                        <img id="search_icon_small_screens" class="cta-item-img" src="{{ asset('pdf-file.png', 'misc')}}" alt="pdf file icon" style="height:50px;">
+
+                        <div class="cta-item-text">Le Manifeste<br>(version longue)</div>
+                    
+                    </li>
+
+                </a>
+
+                
+
+                
 
             </ul>
+
+            <style>
+
+                .now-action-item {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px 28px;
+                    border: 1px solid #c2c4e3;
+                    height: 167px;
+                    border-radius: 5px;
+                }
+
+                .now-action-item:hover {
+                    background-color: #ecf2f9;
+                }
+
+
+                .cta-item-img{
+                    margin-bottom: 20px;
+                }
+
+                .cta-item-text{
+                    text-align: center;
+                    font-size: 1.15em;
+                    font-weight: bold;
+                }
+
+                
+        /* Footer Horizontal List */
+
+
+
+            .horizontal-list {
+                display: flex;
+                -moz-box-pack: justify;
+                justify-content: space-between;
+                flex-direction: column;
+                -moz-box-align: center;
+                align-items: center;
+                list-style: none;
+                margin: 0px;
+                padding: 0px;
+            }
+
+            
+            .horizontal-list a {
+                
+                color: #364e6c;
+            }
+
+                
+            @media (min-width: 768px) {
+
+                .horizontal-list a {
+
+                    width: 29%;
+                    margin-bottom: 24px;  
+
+                }
+
+                .horizontal-list {
+                    flex-direction: row;
+                }
+                
+            }
+                
+            @media (max-width: 768px) {
+
+                section h1{
+                    text-align: center;
+                }
+
+
+                .horizontal-list a {
+
+                    width: 90%;
+                    margin-bottom: 24px;  
+
+                }
+                
+            }
+
+            </style>
 
         </section>
 
@@ -63,14 +238,6 @@
             line-height: 1.5;
         }
 
-        .page-title{
-
-            font-weight: bold; 
-            color: green; 
-            margin-bottom: 6vh;
-            font-size:8vh;
-
-        }
 
         .dl-blurbs {
             display: grid;
@@ -111,6 +278,10 @@
         }
 
         @media (max-width: 768px) {
+            
+            dl {
+                padding-top: 20px;
+            }
 
            
             dt {
@@ -143,32 +314,6 @@
             font-size: 1.15rem;
         }
 
-
-        /* Footer Horizontal List */
-
-
-
-            .horizontal-list {
-                display: flex;
-                -moz-box-pack: justify;
-                justify-content: space-between;
-                flex-direction: column;
-                -moz-box-align: center;
-                align-items: center;
-                list-style: none;
-                margin: 0px;
-                padding: 0px;
-            }
-
-            
-        @media (min-width: 768px) {
-
-            .horizontal-list {
-                align-items: flex-end;
-                flex-direction: row;
-            }
-            
-        }
 
     </style>
 

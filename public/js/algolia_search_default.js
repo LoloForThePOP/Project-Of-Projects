@@ -2,6 +2,7 @@
 
 $(document).ready(function(){
 
+
   /* Closing search experience container */
   /* Warning : order of events matters (to do : factorize) */
 
@@ -134,10 +135,16 @@ $(document).ready(function(){
 
       initialZoom: 4,
 
+      mapOptions: {
+
+        minZoom: 2,
+
+      },
+
       initialPosition: {
 
-        lat: 47,
-        lng: 3,
+        lat: 46.3,
+        lng: 2.15,
         
       },
 

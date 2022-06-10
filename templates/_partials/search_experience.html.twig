@@ -105,7 +105,7 @@
       </div>
 
 
-      <h2 class="filters-categories-title">Tri par catégories</h2>
+      <h2 class="filters-categories-title">Trier par catégories</h2>
 
       <div id="filters-list"></div>
 
@@ -123,33 +123,34 @@
 
         <span id="" class="js-toggle-geosearch-map js-show-geosearch-map text-primary me-3">Afficher la carte</span>     
 
-        <span id=""  class="js-filter-geosearch-map">Filtrer</span>     
+        <span id=""  class="js-filter-geosearch-map text-primary">Filtrer</span>     
 
       </div>
 
       {# Search with a Google Map #}
 
-      <div class="ais-GeoSearch">
+        <div class="ais-GeoSearch">
 
-        <div class="ais-GeoSearch-map">
+          <div class="ais-GeoSearch-map">
 
-          <!-- Map element here -->
+            <!-- Map element here -->
 
-          <div id="maps">
+            <div id="maps">
 
-            <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
+              <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
+                
+                Attention ! Certains projets n'apparaissent pas sur la carte (par exemple les projets informatiques).
+                
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               
-              Attention ! Certains projets n'apparaissent pas sur la carte (par exemple les projets informatiques).
-              
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            
+              </div>
+
             </div>
-
+            
           </div>
-          
-        </div>
 
-      </div>
+        </div>  
+
 
       <div id="hits"></div>
 
@@ -163,18 +164,23 @@
   <script>
 
     // Manage Map Appearance - Disappearance according to clicked button status
+
+    
       
     $(".js-toggle-geosearch-map").click(function() {
 
       if($(this).hasClass('js-hide-geosearch-map')){
-        $('.js-hide-geosearch-map, .ais-GeoSearch').hide();
+
+        $('.ais-GeoSearch').hide();
+        $('.js-hide-geosearch-map').hide();
         $('.js-show-geosearch-map').show();
-        
 
       } 
       
       else {
-        $('.js-hide-geosearch-map, .ais-GeoSearch').show();
+        $('.ais-GeoSearch').show();
+
+        $('.js-hide-geosearch-map').show();
         $('.js-show-geosearch-map').hide();
       }
 

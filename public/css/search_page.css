@@ -95,79 +95,8 @@
 
 }
 
-/* Search with a map */
 
-.left-panel .js-hide-geosearch-map, .right-panel .js-hide-geosearch-map {
 
-  display: none;
-}
-
-.left-panel .js-hide-geosearch-map, .left-panel .js-show-geosearch-map{
-
-  margin-top: 17px;
-}
-
-.ais-GeoSearch {
-
-  display: none;
-
-}
-
-.app-maps-info{
-
-  display: none;
-}
-
-.ais-GeoSearch {
-  height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
-
-  width: 100%;
-  
-}
-
-/* Info Box allows to Display Specific Info over markers in a Google Map  */
-
-.infoBox{
-  background-color: white;
-  padding: 17px 7px;
-  border: 1px solid rgb(162, 162, 255);
-  border-radius: 3px;
-  font-size: 15px;
-  width: 286px;
-}
-
-.infoBox a div{
-  display: flex;
-  flex-direction: column;
-}
-
-.infoBox a div .img-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.infoBox a div .img-container img{
-  max-width: 110px;
-  max-height: 110px;
-  border-radius: 3px;
-}
-
-.infoBox a .avatar-square-rounded{ /* when no thumbnail available */
-  margin-bottom: 10px;
-}
-
-.infoBox a div .text-container{
-  padding-left: 15px;
-}
-
-.ais-GeoSearch-control {
-  display: none;
-}
-
-  
-  
 @media screen and (max-width: 580px) {
 
   .avatar-initial-80 {
@@ -261,3 +190,95 @@
   }
 
 }
+
+
+
+
+/* Search with a map */
+
+.left-panel .js-hide-geosearch-map, .right-panel .js-hide-geosearch-map {
+
+  display: none;
+}
+
+.left-panel .js-hide-geosearch-map, .left-panel .js-show-geosearch-map{
+
+  margin-top: 17px;
+}
+
+.ais-GeoSearch {
+
+  height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
+  display: none;
+}
+
+
+/* This is a notification box before the map display */
+
+.app-maps-info{
+
+  display: none;
+
+}
+
+/* Info Box allows to Display Specific Info over markers on a Google Map  */
+
+.infoBox{
+  width: 286px;
+  padding: 17px 7px;
+  border: 1px solid rgb(162, 162, 255);
+  font-size: 15px;
+  background-color: white;
+  border-radius: 3px;
+}
+
+.infoBox a div{
+  display: flex;
+  flex-direction: column;
+}
+
+.infoBox a div .img-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.infoBox a div .img-container img{
+  max-width: 110px;
+  max-height: 110px;
+  border-radius: 3px;
+}
+
+.infoBox a .avatar-square-rounded{ /* when no thumbnail available */
+  margin-bottom: 10px;
+}
+
+.infoBox a div .text-container{
+  padding-left: 15px;
+}
+
+.ais-GeoSearch-control {
+  display: none;
+}
+
+@media screen and (max-width: 580px) {
+
+  .ais-GeoSearch {
+    height: 360px;
+  }
+
+  .infoBox{
+    width: 286px;
+    padding: 15px 3px;
+  }
+
+  .infoBox a div .img-container img{
+    max-width: 60px;
+    max-height: 60px;
+  }
+
+}
+
+  
+  

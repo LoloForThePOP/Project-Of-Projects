@@ -38,18 +38,18 @@ class HomeController extends AbstractController
     
     /**
      * 
-     * Testing geosearch capability
+     * Test something
      * 
-     * @Route("/geos", name="geos")
+     * @Route("/test-something", name="test_something")
      */
-    public function geos(): Response
+    /* public function geos(): Response
     {
 
-        return $this->render("/test_geosearch.html.twig", [
+        return $this->render("/test_something.html.twig", [
             
         ]);
 
-    }
+    } */
 
 
 

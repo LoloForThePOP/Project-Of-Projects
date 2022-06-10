@@ -141,15 +141,29 @@
         
         {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
 
-        <div class="container my-4 px-2">
 
-          <h3 class="show-map-title fw-bold text-center mb-4">Afficher la carte des projets</h3>
+
+
+        {# A Google Map Image to Access Geosearch #}
+
+
+        <div class="container access-geosearch px-2">
+
+          <h3 class="fw-bold text-center mb-4">Afficher la carte des projets</h3>
 
           <style>
 
+            .container.access-geosearch{
+              margin-bottom: 80px;
+            }
+
             @media screen and (max-width: 580px) {
 
-              .show-map-title{
+              .container.access-geosearch{
+                margin-bottom: 40px;
+              }
+
+              .container.access-geosearch h3{
                 font-size:1.17em;
               }
     

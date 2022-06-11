@@ -41,18 +41,42 @@
     
     <script>
 
-        var customEvents = document.createElement("forCustomEvents"); /* used to add event listeners and dispatch custom events.
-        * Ex: customEvents.dispatchEvent(new Event("greeting", {'name': Fabien}));
+        /* Add event listeners and dispatch custom events.*/
+        var customEvents = document.createElement("forCustomEvents"); 
+        /*Ex: customEvents.dispatchEvent(new Event("greeting", {'name': Fabien}));
         * customEvents.addEventListener("greeting", function(e) { console.log("hello"+e.name); });*/
+
+
+        // check if user device is a tiny screen
+        var tinyScreen = false;
+
+        function checkTinyScreen(){
+
+           if ($(window).width() < 590) {
+            tinyScreen = true;
+            }else {
+            tinyScreen = false;
+            } 
+
+        }
+
+        checkTinyScreen(); //check on page load
+
+        $(window).on('resize', function() {
+
+            checkTinyScreen();
+
+        });
 
     </script>
     
 
+    {# Display some html chunks on user demand, to reduce page load #}
 
-
-
-    {# Display some html chunks to reduce page load #}
+    {# Access to the appropriate route to call #}
     <script> var getChunkRouteName = '{{path("ajax_render_chunk")}}'; </script>
+
+    {# Manage chunk demand and display #}
     <script src="/js/ajax_chunk.js"></script>
 
 

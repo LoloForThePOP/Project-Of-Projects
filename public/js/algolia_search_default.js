@@ -143,8 +143,8 @@ $(document).ready(function(){
 
       initialPosition: {
 
-        lat: 46.3,
-        lng: 2.15,
+        lat: 58.2276,
+        lng: 2.21,
         
       },
 

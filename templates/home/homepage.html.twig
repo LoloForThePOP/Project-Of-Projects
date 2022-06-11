@@ -177,15 +177,21 @@
 
             $(".js-display-geosearch").on("click", function() {
 
-              console.log("geos");
+              $("#main-body-container").addClass("visually-hidden");
 
               $(".ais-InstantSearch").show(); //display search results panel
 
-              
               window.scrollTo(0, 0); //view goes to correct location
 
-              
+              if(tinyScreen){ //delared in base.html.twig
+
+                $("#searchbox").css('display','none'); // otherwise filter panel can mess up, and searchbox is already accessible in navheader.
+
+              }
+
               $(".js-toggle-geosearch-map").click(); //display geosearch map
+              
+              
 
         
             });

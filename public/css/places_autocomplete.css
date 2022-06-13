@@ -21,9 +21,6 @@
     font-size: 1.05em !important;
 }
 
-ul li:hover {
-background-color: rgb(222, 226, 231);
-}
 
 .table > tbody > tr > td {
     vertical-align: middle;

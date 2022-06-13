@@ -6,14 +6,19 @@ $(document).ready(function(){
   /* Closing search experience container */
   /* Warning : order of events matters (to do : factorize) */
 
-  //when closing a search experience, we clear search proxies
+  //when closing a search experience, we clear search proxies and clear geosearch map display
   $(".js-close-search-experience, .sm-search-back-icon-container").click(function() {
 
     $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").val('');
+    
+    //to do : factorize
+    $('.ais-GeoSearch').hide(); 
+    $('.js-hide-geosearch-map').hide();
+    $('.js-show-geosearch-map').show();
 
   });
 
-  //search panel close button (except from homepage, and only on large screens from navbar searchbar)
+  //setting search panel close button (except from homepage, and only on large screens from header navbar searchbar)
   $(".js-close-search-experience").click(function() {
 
     $(".search-experience-container").hide();

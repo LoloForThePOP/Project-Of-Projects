@@ -172,13 +172,6 @@
     right: 0;
   }
 
-  /* Search on a Map */
-
-  
-  .ais-GeoSearch-map {
-    height: 213px;
-  }
-
 
 }
 
@@ -191,11 +184,6 @@
 
 }
 
-
-
-
-/* Search with a map */
-
 .left-panel .js-hide-geosearch-map, .right-panel .js-hide-geosearch-map {
 
   display: none;
@@ -206,11 +194,22 @@
   margin-top: 17px;
 }
 
+#maps{
+  height: 500px;
+}
+
 .ais-GeoSearch {
 
-  height: 500px; /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
+ /* Make sure that you explicitly set the height of the map container, otherwise it won’t show. (https://www.algolia.com/doc/api-reference/widgets/geo-search/js/?client=js) */
   display: none;
 }
+
+
+.ais-GeoSearch-map {
+
+  margin-bottom: 30px;
+}
+
 
 
 /* This is a notification box before the map display */
@@ -264,7 +263,14 @@
 
 @media screen and (max-width: 580px) {
 
-  .ais-GeoSearch {
+  /* Search with a Map */
+
+  .ais-GeoSearch-map {
+
+    height: 213px;
+  }
+
+  #maps {
     height: 360px;
   }
 

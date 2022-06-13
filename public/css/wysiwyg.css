@@ -30,7 +30,7 @@
 }
 
 
-/* Slideshow outline in edition mode */
+/* Slideshow outline only in edition mode */
 
 .in-edition-mode #slideshow-struct-container {
 
@@ -42,7 +42,7 @@
 }
 
 
-/* Contact ways are not displayed in consultation mode when no wantact ways provided */
+/* Contact ways are not displayed in consultation mode when no contact ways are provided */
 
 .in-consultation-mode [data-display="false"] {
     display:none !important;
@@ -51,7 +51,7 @@
 
 
 
-/* Delete item Button */
+/* Delete Item Buttons */
 
 .delete-button {
     visibility: hidden;

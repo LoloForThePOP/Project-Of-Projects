@@ -17,11 +17,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
   
-  {# Google Map Inclusion for Geosearch #}
-    
 
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&language=fr"></script>
-
+  {# Note : Google Map js Inclusion for Geosearch and google Places Usage is done in base.html.twig template #}
 
   {# Allow to create infobox on a google map #}
 
@@ -130,6 +127,16 @@
       {# Search with a Google Map #}
 
         <div class="ais-GeoSearch">
+          
+            <!-- Additional Info about map results -->
+
+            <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
+                
+              Attention ! Certains projets n'apparaissent pas sur la carte (par exemple les projets informatiques).
+              
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            
+            </div>
 
           <div class="ais-GeoSearch-map">
 
@@ -137,13 +144,6 @@
 
             <div id="maps">
 
-              <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
-                
-                Attention ! Certains projets n'apparaissent pas sur la carte (par exemple les projets informatiques).
-                
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              
-              </div>
 
             </div>
             
@@ -166,7 +166,6 @@
     // Manage Map Appearance - Disappearance according to clicked button status
 
     
-      
     $(".js-toggle-geosearch-map").click(function() {
 
       if($(this).hasClass('js-hide-geosearch-map')){
@@ -175,11 +174,11 @@
         $('.js-hide-geosearch-map').hide();
         $('.js-show-geosearch-map').show();
 
-      } 
+      }
       
       else {
-        $('.ais-GeoSearch').show();
 
+        $('.ais-GeoSearch').show();
         $('.js-hide-geosearch-map').show();
         $('.js-show-geosearch-map').hide();
       }
@@ -211,22 +210,13 @@
 
     );
 
+    //when a map is displayed, a filter results button is displayed above this map, here we attach action to this button.
 
     $(".js-filter-geosearch-map").click(function() {
 
       $('.search-experience-container .left-panel').show();
 
     });
-
-
-
-
-    
-
-
-
-
-
 
   </script>
 

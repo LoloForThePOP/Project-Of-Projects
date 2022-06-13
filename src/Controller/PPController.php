@@ -69,7 +69,7 @@ class PPController extends AbstractController
 
                 // Time protection
                 'antispam_time'     => true,
-                'antispam_time_min' => 4,
+                'antispam_time_min' => 3,
                 'antispam_time_max' => 3600,
             )
         );

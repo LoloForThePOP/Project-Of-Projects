@@ -30,10 +30,11 @@
                 {% set readablePlaceTypeBefore = "" %}
                 {% set readablePlaceTypeAfter = "" %}
 
-                {% if place.type =="locality" %}
+                {% if place.type =="locality" or place.type =="postal_code" %}
 
                     {% set readablePlaceTypeBefore = "Ville : " %}
                     {% set readablePlaceTypeAfter = "(" ~ place.country ~ ")" %}
+
 
                 {% elseif place.type =="administrative_area_level_1" %}
 
@@ -84,7 +85,19 @@
 
                     <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal">
 
-                        {{readablePlaceTypeBefore}} {{place.name | capitalize}} {{readablePlaceTypeAfter}}
+                        {% set readablePlaceTypeBetween = '' %}
+
+                        {% if not place.type == "postal_code" %}
+
+                            {% set readablePlaceTypeBetween = place.name %}
+
+                        {% else %}
+
+                            {% set readablePlaceTypeBetween = place.locality %}
+                            
+                        {% endif %}
+
+                        {{readablePlaceTypeBefore}} {{readablePlaceTypeBetween | capitalize}} {{readablePlaceTypeAfter}}
 
                         {% if place.type == "locality" and place.postalCode is not empty  %}
 

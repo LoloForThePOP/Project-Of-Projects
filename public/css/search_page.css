@@ -257,6 +257,16 @@
   padding-left: 15px;
 }
 
+.infoBox .avatar-80{
+  width: 60px;
+  height: 60px;
+}
+
+.infoBox .avatar-initial-80 {
+  top: 15px;
+  left: 15px;
+}
+
 .ais-GeoSearch-control {
   display: none;
 }
@@ -283,6 +293,13 @@
     max-width: 60px;
     max-height: 60px;
   }
+
+  .infoBox a div .img-container img{
+    max-width: 60px;
+    max-height: 60px;
+  }
+
+
 
 }
 

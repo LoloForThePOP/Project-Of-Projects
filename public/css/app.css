@@ -50,11 +50,13 @@ a{
 
 /* Flash Messages (static by default below header navbar) 
 
-   Can be position:fixed elsewhere with complementary class below
+   Can be position fixed elsewhere (used in combination with complementary class below)
 
 */
 
 #flash-messages{
+
+    scroll-margin-top: 65px; /* Prevent anchors to be messed up by fixed horizontal navbar */
 
     font-size: 1.14em;
 

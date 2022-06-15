@@ -832,7 +832,7 @@ class PPController extends AbstractController
 
         if(!$presentation->getIsAdminValidated()){
 
-            $this->addFlash('danger', "!!! La présentation n'a pas encore été validée par un administrateur du site. Demandez lui de la valider avant qu'elle puisse être transférée à un autre compte");
+            $this->addFlash('danger', "!!! La présentation n'a pas encore été validée par un administrateur du site. Demandez-lui de la valider avant qu'elle puisse être transférée à un autre compte.");
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $presentation->getStringId(),

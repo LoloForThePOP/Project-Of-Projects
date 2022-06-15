@@ -18,7 +18,7 @@ class QuestionAnswerType extends AbstractType
             
             ->add('question', TextType::class, 
                 [
-                    'label' => 'Question que des personnes vous posent',
+                    'label' => 'Une question que des personnes vous posent',
                     'attr' => [
                         
                         'placeholder'    => 'Écrire ici la question',
@@ -49,6 +49,7 @@ class QuestionAnswerType extends AbstractType
                     'attr' => [
                         
                         'placeholder'    => 'Écrire ici la réponse',
+                        'rows' => '8',
                     ],
                     'required'   => true,
                     'constraints' => array(

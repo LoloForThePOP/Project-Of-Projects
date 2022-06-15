@@ -11,6 +11,8 @@
 
     padding: 15px 12px 10px 12px;
     margin-bottom: 28px;
+
+    scroll-margin-top: 85px; /* Prevent anchors to be messed up by fixed horizontal navbar */
     
     border: 1px solid rgb(221, 221, 177);
     border-radius: 6px;
@@ -97,6 +99,13 @@
 .hide-element {
 
     display: none;
+}
+
+/* Show new lines in elements that have been content edited */
+
+[data-edit] {
+
+    white-space: pre-wrap;
 }
 
 

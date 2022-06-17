@@ -36,7 +36,9 @@ class TreatItem {
 
                 else{
 
-                    $elementToTreat['icon'] = null; 
+                    $standardIcons = ['w1', 'w2', 'w3', 'w4', 'w5', 'w6', 'w7', 'w8'];
+
+                    $elementToTreat['icon'] = $standardIcons[array_rand($standardIcons)]; 
 
                 }
                 

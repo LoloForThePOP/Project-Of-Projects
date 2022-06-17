@@ -42,14 +42,14 @@ class HomeController extends AbstractController
      * 
      * @Route("/test-something", name="test_something")
      */
-    /* public function geos(): Response
+     public function test(): Response
     {
 
         return $this->render("/test_something.html.twig", [
             
         ]);
 
-    } */
+    }
 
 
 

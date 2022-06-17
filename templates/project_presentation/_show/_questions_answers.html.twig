@@ -16,7 +16,6 @@
         <div id="questionsAnswers" class="js-elements-list pp-struct-content">
 
             {% for qa in qas %}
-
                 
                 <!-- Q & A container -->
 
@@ -30,7 +29,7 @@
                 
                     <!-- Question Display with Collapse Symbol Container -->
 
-                    <div class="row collapsed" 
+                    <div class="collapse-container row collapsed" 
                         
                         data-bs-toggle="collapse" 
                         
@@ -174,6 +173,12 @@
 
                 .questionRow {
                     padding: 5px 0;
+                }
+
+                .questionRow .collapse-container {
+
+                    padding-right: 0;
+                    
                 }
     
                 .questionRow .collapseSymbolDisplay:after {

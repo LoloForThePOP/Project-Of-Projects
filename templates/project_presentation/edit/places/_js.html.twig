@@ -12,7 +12,7 @@
         var input = document.getElementById('autocomplete');
                         
         var options = {
-            types: ['(regions)'],
+            //types: ['(regions)'],
         };
 
         var autocomplete = new google.maps.places.Autocomplete(input, options);
@@ -30,15 +30,20 @@
         longitude = autocomplete.getPlace().geometry.location.lng();
     
         var componentMap = {
-            country: '',
+            
+            street_number:'',
+            route:'',
+            sublocality_level_1:'',
             postal_code : '',
             locality: '',
-            administrative_area_level_1 : '',
             administrative_area_level_2 : '',
-            sublocality_level_1:'',
+            administrative_area_level_1 : '',
+            country: '',
         };
 
         console.log(place_type);
+        console.log(place_name);
+        console.log(place);
 
         // getting places components
 
@@ -60,7 +65,17 @@
             }
         }
 
-        // add place ajax request
+        // Creating a readable name if place type is just a street number
+
+        if(place_type == 'street_number'){
+
+            place_name = componentMap['street_number'] + ' ' + componentMap['route'];
+
+        }
+
+        // add a place in db (with ajax request)
+
+        // feedback wainting for answer
             
             
         $('#feedbackBox').html('<div class="loader me-2"></div><span class="h5">Demande en Cours...</span>');
@@ -112,7 +127,10 @@
                         placeType_fr='Pays'
                             break;
                     case 'route':
-                        placeType_fr='Rue'
+                        placeType_fr='Adresse'
+                        break;
+                    case 'street_number':
+                        placeType_fr='Adresse'
                         break;
                     default:
                         // code block

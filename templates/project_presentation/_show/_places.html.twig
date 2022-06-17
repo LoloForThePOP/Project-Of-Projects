@@ -27,26 +27,45 @@
                 {# create a human readable place type #}
                 {# ex: (City of) London (United Kingdom) #}
 
-                {% set readablePlaceTypeBefore = "" %}
-                {% set readablePlaceTypeAfter = "" %}
+                {% set readablePlace = "" %}
 
-                {% if place.type =="locality" or place.type =="postal_code" %}
+                {% if place.type =="locality" %}
 
-                    {% set readablePlaceTypeBefore = "Ville : " %}
-                    {% set readablePlaceTypeAfter = "(" ~ place.country ~ ")" %}
+                    {% set readablePlace = "Ville : "  ~ place.name ~  " (" ~ place.country ~ ")" %}
 
+                    {% if place.postalCode is not empty %}
+
+                        {% set readablePlace = "Ville : "  ~ place.name ~ " (" ~ place.postalCode ~ ")" ~ " (" ~ place.country ~ ")" %}
+                    
+                    {% endif %}       
+
+                {% elseif place.type =="postal_code" %}
+
+                    {% set readablePlace = "Ville : "  ~ place.locality ~ " (" ~ place.name ~ ")" %}
+
+                {% elseif place.type =="street_number" %}
+
+                    {% set readablePlace = "Ville : "  ~ place.locality %}
+
+                {% elseif place.type == "route" %}
+
+                    {% set readablePlace = "Ville : "  ~ place.locality %}
+
+                {% elseif place.type == "sublocality_level_1" %}
+
+                    {% set readablePlace = "Ville : "  ~ place.locality %}
 
                 {% elseif place.type =="administrative_area_level_1" %}
 
-                    {% set readablePlaceTypeBefore = "Région " %}
+                    {% set readablePlace = "Région " ~ place.name %}
 
                 {% elseif place.type =="administrative_area_level_2" %}
 
-                    {% set readablePlaceTypeBefore = "Département :" %}
+                    {% set readablePlace = "Département : " ~ place.name %}
 
                 {% elseif place.type =="country" %}
 
-                    {% set readablePlaceTypeBefore = "" %}
+                    {% set readablePlace = place.name %}
                 
                 {% endif %}
 
@@ -85,25 +104,7 @@
 
                     <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal">
 
-                        {% set readablePlaceTypeBetween = '' %}
-
-                        {% if not place.type == "postal_code" %}
-
-                            {% set readablePlaceTypeBetween = place.name %}
-
-                        {% else %}
-
-                            {% set readablePlaceTypeBetween = place.locality %}
-                            
-                        {% endif %}
-
-                        {{readablePlaceTypeBefore}} {{readablePlaceTypeBetween | capitalize}} {{readablePlaceTypeAfter}}
-
-                        {% if place.type == "locality" and place.postalCode is not empty  %}
-
-                            ({{place.postalCode}})
-                        
-                        {% endif %}
+                        {{readablePlace}}
 
                     </div>
                     

@@ -1,7 +1,7 @@
 .document-outer
 {
-    width:170px; 
-    min-height:140px;
+    width: 170px; 
+    min-height: 140px;
 
     position: relative;
     
@@ -50,7 +50,7 @@
     align-items: center;
     justify-content: center;
 
-    padding: 0;
+    padding: 2px;
 
     text-align: center;
     word-break: break-word;
@@ -112,8 +112,8 @@
 
     .documentRepresentation
     {
-        width:180px; 
-        height:130px;
+        width: 180px; 
+        height: 130px;
     }
 
     .pp-document-title

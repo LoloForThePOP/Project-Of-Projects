@@ -1,4 +1,4 @@
-<div class="pp-upper-box row">
+<div class="pp-upper-box pp-struct-container row">
 
     <div class="container">
 
@@ -12,7 +12,7 @@
 
         {# Logo Column & {Title + Goal + keywords} Column #}
 
-        <div class="row ">
+        <div class="row">
 
             {# a logo is displayed in two case : it already exists; or we display a fake logo placeholder for user presenters only #}
 
@@ -111,6 +111,22 @@
 
 
         
+    @media screen and (min-width: 520px) {
+            
+        .pp-upper-box {
+
+            margin-left: 0; /* Overriding bootstrap row class defaults defaults */
+            margin-right: 0;
+
+            padding: 15px 12px 16px 12px; /* Overriding some pp-struct-container defaults */
+
+        }
+
+    }
+        
+
+
+        
     @media screen and (max-width: 990px) {
             
         .pp-logo-container{
@@ -122,8 +138,13 @@
         
     @media screen and (max-width: 580px) {
 
-        .pp-upper-box {
+        .pp-upper-box { /* Overriding some pp-struct-container defaults */
             margin-bottom: 10px;
+            padding: 0;
+            padding-bottom: 20px;
+            border-top: 0;
+            border-left: 0;
+            border-right: 0;
         }
    
         .keywords-container{

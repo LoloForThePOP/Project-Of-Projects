@@ -22,7 +22,8 @@
     /* Slideshow container : removing horizontal padding and structure border by default (these are added in edition mode, see wysiwyg.css) */
 
     #slideshow-struct-container{
-        padding: 10px 0px 10px 0px;
+        padding: 10px 12px 12px 10px;
+    
     }
 
 

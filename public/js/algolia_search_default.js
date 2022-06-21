@@ -228,6 +228,7 @@ $(document).ready(function(){
       container: '#filters-list',
       attribute: 'categories.descriptionFr',
       operator: 'and',
+      limit: 30,
       
     }),
 

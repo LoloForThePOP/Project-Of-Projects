@@ -31,7 +31,7 @@ class ImageSlideType extends AbstractType
                 'caption',
                 TextType::class,
                 [
-                    'label' => "Légende / Titre (facultatifs) pour cette image",
+                    'label' => "Légende / Titre (facultatif) pour cette image",
 
                     'attr' => [
 
@@ -45,7 +45,7 @@ class ImageSlideType extends AbstractType
                 'licence',
                 TextType::class,
                 [
-                    'label' => " Crédits ou droits d'utilisation de l'image",
+                    'label' => "Crédits ou droits d'utilisation de l'image - ©",
 
                     'attr' => [
 

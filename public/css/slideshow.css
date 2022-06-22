@@ -137,9 +137,11 @@
 }
 
 
+.caption-container.no-caption{
 
+    min-height: 30px;
 
-
+}
 
 
 .thumbnails-container{
@@ -176,6 +178,27 @@
         bottom:0; 
         right:0; 
         background-color: white;
+    }
+
+
+    /* Specific display when only one slide */
+        
+    #slides.only-one-slide .thumbnails-container{
+
+        display: none;
+
+    }
+
+    #slides.only-one-slide .slides-container{
+
+        width: 100% !important;
+
+    }
+
+    #slides.only-one-slide .caption-container{
+
+        width: 100% !important;
+
     }
 
 
@@ -233,6 +256,12 @@
 
         padding: 4px 0;
           
+    }
+
+    .caption-container.no-caption {
+
+        min-height: 10px;
+        
     }
 
     /* Number text (1/3 etc) */

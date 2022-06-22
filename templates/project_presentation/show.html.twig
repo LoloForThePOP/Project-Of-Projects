@@ -261,7 +261,7 @@
 
         
     {# Contact Project Members : Business Cards & Private Message Button #}
-    {# !!! Also contains Private Message Button & Switcher #}
+    {# !!! Also contains "Send Private Message Button" & "Allow - Disallow PM Switcher" #}
 
     {% if not presentation.isDeleted and (countBC > 0 or privateMessagesActive or userPresenter) %}
 
@@ -272,6 +272,8 @@
         </div>
 
     {% endif %}
+
+    {# Add Presentation Structure Buttons (Placeholders or Other Buttons in a Modal Box) #}
 
     {% if userPresenter %}
 
@@ -476,7 +478,27 @@
 
 {% endblock %}
 
-{% block javascripts %}    
+{% block javascripts %}
+
+    <script>
+
+        /* $(document).ready(function(){
+
+            const maxPlaceholdersSlots = 6;
+            var placeholderSlotsFilled = $('.inner-placeholder-container').length;
+
+            if (placeholderSlotsFilled < maxPlaceholdersSlots){
+                
+                console.log('Il reste de la place !');
+
+                $('.menu-button').each(function( index ) {
+                    console.log( index + ": " + $( this ).text() );
+                  });
+            }    
+
+        }); */
+
+    </script>
 
     {% if is_granted('edit', presentation) %}
 

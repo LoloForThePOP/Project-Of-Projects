@@ -172,7 +172,7 @@
 
 	if ($('.hasCaptionFlag').length == 0) {
 
-		$('.caption-container').css("min-height", "30px");
+		$('.caption-container').addClass('no-caption')
 
 	}
 	
@@ -180,9 +180,7 @@
 
 	if ($('.mySlides').length == 1) {
 
-		$('.thumbnails-container').remove();
-		$('.slides-container').removeClass("col-lg-9");
-		$('.caption-container').removeClass("col-lg-9");
+		$('#slides').addClass('only-one-slide');
 
 	}
 

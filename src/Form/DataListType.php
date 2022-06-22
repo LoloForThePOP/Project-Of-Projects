@@ -17,7 +17,7 @@ class DataListType extends AbstractType
 
             ->add('name', TextType::class, 
                 [
-                    'label' => 'Nom de la donnée',
+                    'label' => 'Titre de la donnée',
 
                     'attr' => [
                         

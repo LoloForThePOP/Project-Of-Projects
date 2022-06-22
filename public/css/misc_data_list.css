@@ -6,8 +6,17 @@
 }
 
 .misc-data-card{
+
     position: relative;
     margin-bottom: 13px;
+    cursor: move;
+    
+}
+
+.misc-data-card .name, .misc-data-card .value{
+
+    cursor: auto;
+
 }
 
 .misc-data-card .name{

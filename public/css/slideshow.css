@@ -121,7 +121,7 @@
 }
 
 
-.caption-container p {
+.caption-container span {
 
     width: 100%;
 
@@ -229,7 +229,7 @@
           
     }
         
-    .caption-container p {
+    .caption-container span {
 
         padding: 4px 0;
           

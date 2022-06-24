@@ -22,9 +22,9 @@ class TreatItem {
 
                 $parse = parse_url($elementToTreat['url']);
 
-                $availableWebsitesLogos = ["youtube.com", "linkedin.com", "facebook.com", "instagram.com", "twitch.tv", "twitter.com", "discord.gg", "discord.com", "github.com", "tiktok.com", "trello.com", "pinterest.fr", "pinterest.com", "itch.io", "gamejolt.com"];
+                $availableWebsitesLogos = ["youtube.com", "linkedin.com", "facebook.com", "instagram.com", "twitch.tv", "twitter.com", "discord.gg", "discord.com", "github.com", "tiktok.com", "trello.com", "pinterest.fr", "pinterest.com", "itch.io", "gamejolt.com", "wikipedia.org"];
 
-                $host = str_ireplace('www.', '', $parse['host']);                
+                $host = str_ireplace(['www.','fr.'], '', $parse['host']);                
 
                 if(in_array($host, $availableWebsitesLogos)){
 

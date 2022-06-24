@@ -28,32 +28,39 @@
                 {# ex: (City of) London (United Kingdom) #}
 
                 {% set readablePlace = "" %}
+                {% set readablePlaceDetails = "" %}
 
                 {% if place.type =="locality" %}
 
-                    {% set readablePlace = "Ville : "  ~ place.name ~  " (" ~ place.country ~ ")" %}
+                    {% set readablePlace = place.name ~  " (" ~ place.country ~ ")" %}
 
                     {% if place.postalCode is not empty %}
 
-                        {% set readablePlace = "Ville : "  ~ place.name ~ " (" ~ place.postalCode ~ ")" ~ " (" ~ place.country ~ ")" %}
+                        {% set readablePlace = place.name ~ " (" ~ place.postalCode ~ ")"~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
                     
                     {% endif %}       
 
                 {% elseif place.type =="postal_code" %}
 
-                    {% set readablePlace = "Ville : "  ~ place.locality ~ " (" ~ place.name ~ ")" %}
+                    {# in this case, place.name is postal code #}
+
+                    {% set readablePlace = place.locality ~ " (" ~ place.name ~ ")"~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
 
                 {% elseif place.type =="street_number" %}
 
-                    {% set readablePlace = "Ville : "  ~ place.locality %}
+                    {% set readablePlace = place.locality ~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
+
+                    {% set readablePlaceDetails = place.name %}
 
                 {% elseif place.type == "route" %}
 
-                    {% set readablePlace = "Ville : "  ~ place.locality %}
+                    {% set readablePlace = place.locality ~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
+                    
+                    {% set readablePlaceDetails = "" %}
 
                 {% elseif place.type == "sublocality_level_1" %}
 
-                    {% set readablePlace = "Ville : "  ~ place.locality %}
+                    {% set readablePlace = place.name ~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
 
                 {% elseif place.type =="administrative_area_level_1" %}
 
@@ -105,6 +112,14 @@
                     <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal">
 
                         {{readablePlace}}
+
+                        {% if readablePlaceDetails is not empty %}{# For example we got an address with a street number #}
+
+                            <div class="place-details">
+                                {{readablePlaceDetails}}
+                            </div>
+                        
+                        {% endif %}
 
                     </div>
                     
@@ -160,6 +175,12 @@
             background-color: inherit;
         }
 
+        .place-details{
+
+            font-size: 15px;
+
+        }
+
 
         
 
@@ -175,6 +196,12 @@
                 border-left: 3px solid yellowgreen;
                 background-color: rgb(233, 250, 232);
     
+            }
+
+            .place-details{
+
+                font-size: 13px;
+            
             }
 
 

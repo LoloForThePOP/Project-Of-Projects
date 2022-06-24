@@ -173,6 +173,17 @@
     cursor: text;
 }
 
+/* Sortability Drag and Drop Affordance - Guidance */
+   
+.in-edition-mode .questionRow, .in-edition-mode .misc-data-card, .in-edition-mode .pp-website-card, .in-edition-mode .place-card {
+    cursor: move;
+}
+
+.questionRow  > *, .misc-data-card > *, .pp-website-card > *, .place-card > * {
+    cursor: auto;
+}
+
+
 /* Some Forms Styling */
     
 label, legend {

@@ -462,17 +462,23 @@
 
             {# Dropdown Content #}
 
-            <ul id="page-info-dropdown-content" class="dropdown-menu px-3" aria-labelledby="page-info-dropdown">
+            <ul id="page-info-dropdown-content" class="dropdown-menu px-3" aria-labelledby="page-info-dropdown" style="max-width: 360px;">
 
                 <li class="mb-1" >
                     
-                    Page créée le {{presentationCreatedAt}}
+                    Page créée le {{presentationCreatedAt}}.
+                
+                </li>
+
+                <li class="mb-1" >
+                    
+                    Par {{presentationCreator}}.
                 
                 </li>
 
                 <li class="" >
                     
-                    Par {{presentationCreator}}
+                    <p class="text-muted mb-1">Propon souahite vous fournir une information de qualité, mais ne saurait garantir l'exactitude et la complétude des informations présentées par ses utilisateurs.</p>
                 
                 </li>
             

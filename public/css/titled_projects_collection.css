@@ -86,8 +86,15 @@
 
     .project-card{
         width: 220px; 
-        min-height: 280px; 
+        min-height: 300px; 
         margin-right: 10px;
+    }
+    
+        
+    .project-card .goal{
+
+        line-height: 1.12;
+        
     }
 
 }
@@ -118,5 +125,6 @@
     .titled-projects-container{
         margin-bottom: 40px;
     }
+
 
 }

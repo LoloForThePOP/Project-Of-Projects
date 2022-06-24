@@ -34,9 +34,44 @@
     
         {% set userPresenter = true %}
 
+        {# tracks users presenting their projects #}
         <div class="d-none" data-track-view='{"key":"creator-3p-view"}'></div>
 
+        {# feedback below is moved "precisely" under some ajax form fields when there is a form field error #}
         <div id="live-feedback" class=""></div>
+
+        {# feedback when no internet connection #}
+
+        <div class="no-internet-connection">
+
+            !!! Vous êtes hors-ligne.
+            <br>
+
+            Veuillez vérifiez votre connexion.
+
+        </div>
+
+        <style>
+
+            .no-internet-connection{
+                display: none;
+                position: fixed;
+                top:20%;
+                right: 0;
+                z-index: 10;
+                width: 330px;
+                padding: 10px;
+                background-color: rgb(255, 177, 177);
+            }
+
+            body.user-offline .no-internet-connection{
+                display: block;
+            }
+
+
+
+
+        </style>
     
     {% else %}
     

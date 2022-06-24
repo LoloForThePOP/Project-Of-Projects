@@ -6,6 +6,18 @@
     
     $(document).ready(function(){
 
+            
+        // Detect if user is offline/online status in simple way.
+        // Thx to Didier L. https://stackoverflow.com/questions/189430/detect-the-internet-connection-is-offline
+
+        window.addEventListener('online',  updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        function updateOnlineStatus(event) {
+            var condition = navigator.onLine ? "user-online" : "user-offline";
+            document.body.className = condition;
+        }
+
         // make delete item icons appear when clicking on a trash icon        
     
         $(".show-delete-items-buttons").click(function() {

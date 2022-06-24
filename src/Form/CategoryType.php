@@ -43,7 +43,7 @@ class CategoryType extends AbstractType
                 TextareaType::class,
                 [
 
-                    'label' => 'Description en Français',
+                    'label' => 'Description en Français (Utiliser des Majuscules pour les Noms)',
                     'required'   => false,
                     'attr' => [
 

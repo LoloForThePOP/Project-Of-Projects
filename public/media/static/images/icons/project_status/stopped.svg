@@ -1,0 +1,11 @@
+<svg width="39" height="39" enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 39 39" xmlns="http://www.w3.org/2000/svg">
+ <switch transform="translate(-31.2 -30.4)">
+  <foreignObject width="1" height="1" requiredExtensions="http://ns.adobe.com/AdobeIllustrator/10.0/"/>
+  <g>
+   <rect x="31.2" y="30.4" width="39" height="39"/>
+   <g display="none">
+    <path d="m70.2 67.9h-13.2-21-4.8l1.5 1.5v-13.2-21-4.8l-1.5 1.5h13.2 21 4.8l-1.5-1.5v13.2 21 4.8c0 1.9 2.9 1.9 2.9 0v-13.2-21-4.8c0-0.8-0.7-1.5-1.5-1.5h-13.2-21-4.8c-0.8 0-1.5 0.7-1.5 1.5v13.2 21 4.8c0 0.8 0.7 1.5 1.5 1.5h13.2 21 4.8c1.9-0.1 1.9-3 0.1-3z" display="inline"/>
+   </g>
+  </g>
+ </switch>
+</svg>

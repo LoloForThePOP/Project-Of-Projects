@@ -1,10 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% set presentationCreatedAt = presentation.createdAt | date("Y - m - d") %}
+{% set presentationCreator = presentation.creator.userName %}
+
 {% block meta %}
 
-<meta name="author" content="{{ presentation.creator }}">
+<meta name="author" content="{{ presentationCreator }}">
 <meta name="keywords" content="{{ presentation.keywords }}">
-<meta name="date" content="{{ presentation.createdAt | date}}">
+<meta name="date" content="{{ presentationCreatedAt}}">
 
 {% endblock %}
 
@@ -49,21 +52,6 @@
         {# forms inclusions (ex: add a document form, add a website form, etc.) #}
 
         {% include "project_presentation/_show/forms.html.twig" %}
-
-        {# reusable modal box #}
-
-        {% embed "utilities/modal_skeleton.html.twig" with { 'modal_id': "reusable-modal", 'modal_title': "", 'modal_size': "modal-fullscreen"} %}
-
-            {% block modalBody %}{% endblock %}
-
-            
-            {% block footerCloseButton %}
-                <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Fermer</button>
-            {% endblock %}
-        
-            {% block footerButtons %}{% endblock %}
-
-        {% endembed %}
  
     {% endif %}
 
@@ -92,7 +80,29 @@
 
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
+   
+        {# WIP - project status / progression - edition mode
 
+        {% if userPresenter %}
+
+            <div class="mt-5 pt-3">
+                    
+                <button data-bs-toggle="modal" data-bs-target="#project_status_edition"  type="button" class="pp-edition-mode d-flex align-items-center btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);">
+
+                    <img class="mb-1 me-2" src="{{ asset('progress_status.svg', 'pp_wysiwyg')}}" alt="project status icon" width="27">
+                    
+                    <span class="h5 fw-bold ps-1">Statut - Progression</span>
+                
+                </button>
+                
+                {% include 'project_presentation/edit/_status.html.twig' with {'contactUsPhone': contactUsPhone} %}
+
+            </div>
+
+        {% endif %} #}
+
+
+        
     {# Upper box containing Project Title + Goal + Logo #}
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
@@ -404,16 +414,6 @@
             
             {% include 'project_presentation/edit/_software_help.html.twig' with {'contactUsPhone': contactUsPhone} %}
 
-            {# Advice Button
-                
-            <button data-bs-toggle="modal" data-bs-target="#pp-edit-helper-level-2"  type="button" class="pp-edition-mode btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);">
-
-                <span class="fw-bold" style="font-size: 22px;">! </span>
-                
-                <span class="h5 fw-bold ps-1">Conseils rapides</span>
-            
-            </button> #}
-
         </div>
 
         {# End of misc buttons container #}
@@ -450,23 +450,46 @@
 
 
 
-
-
         {# Misc Buttons Row #}
 
         <div class="my-5">
 
-            {# Report Abuse Button #}
+            {# Page Info #}
+
+            {# Trigger Dropdown Button #}
+
+            <button id="page-info-dropdown" data-bs-toggle="dropdown" aria-expanded="false" type="button" class="pp-consultation-mode btn btn-light fw-normal me-2 mb-2 ">Informations sur la page ▾</button>
+
+            {# Dropdown Content #}
+
+            <ul id="page-info-dropdown-content" class="dropdown-menu px-3" aria-labelledby="page-info-dropdown">
+
+                <li class="mb-1" >
+                    
+                    Page créée le {{presentationCreatedAt}}
+                
+                </li>
+
+                <li class="" >
+                    
+                    Par {{presentationCreator}}
+                
+                </li>
+            
+            </ul>
+            
+            {# Report a Problem Button #}
 
             <a class="text-decoration-none" href="{{ path('contact_website', {'context': 'report_abuse', 'item' : 'presentation', 'identifier': stringId }) }}">
 
-                <button type="button" class="pp-consultation-mode btn btn-light fw-normal me-2 mb-2 ">Signaler un abus</button>
+                <button type="button" class="pp-consultation-mode btn btn-light fw-normal me-2 mb-2 ">Signaler un problème</button>
                 
             </a>
 
+
         </div>
 
-</div>
+    </div>
 
 
 {% endblock %}

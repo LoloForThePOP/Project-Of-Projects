@@ -7,7 +7,7 @@ use App\Entity\PPBase;
 use App\Service\TreatItem;
 use App\Form\ImageSlideType;
 use App\Service\AssessQuality;
-use App\Form\AddVideoSlideType;
+use App\Form\VideoSlideType;
 use App\Service\CacheThumbnail;
 use App\Repository\SlideRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -81,69 +81,6 @@ class SlideController extends AbstractController
 
     }
 
-    
-    /**
-     * Allow to add a youtube video slide into a slideshow
-     * 
-     * @Route("/projects/{stringId}/slides/add-youtube-slide",name="add_youtube_slide")
-     * 
-     * @return Response
-     */
-    public function addYoutubeSlide(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, AssessQuality $assessQuality, TreatItem $specificTreatments)
-    {
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
-        $videoSlide = new Slide();
-
-        $addVideoForm = $this->createForm(AddVideoSlideType::class, $videoSlide);
-
-        $videoSlide->setType("youtube_video");
-
-        $addVideoForm->handleRequest($request);
-
-        if ($addVideoForm->isSubmitted() && $addVideoForm->isValid()) {
-
-            $youtubeVideoIdentifier = $specificTreatments->specificTreatments('youtube_video', $addVideoForm->get('address')->getData());//user might has given a complete youtube video url or just the video identifier. We extract the video identifier in the first case.
-
-            $videoSlide->setAddress($youtubeVideoIdentifier);            
-
-            // count previous slide in order to set new slides positions
-
-            $videoSlide->setPosition(count($presentation->getSlides()));
-            $presentation->addSlide($videoSlide);
-            $manager->persist($videoSlide);
-
-            $assessQuality->assessQuality($presentation);  
-
-            $cacheThumbnail->cacheThumbnail($presentation);
-
-            $manager->flush();            
-
-            $this->addFlash(
-                'success',
-                "✅ vidéo ajoutée"
-            );
-
-            return $this->redirectToRoute('show_presentation', [
-
-                'stringId' => $presentation->getStringId(),
-                '_fragment' => 'slideshow-struct-container',
-
-            ]);
-
-        }
-
-        return $this->render('project_presentation/edit/slides/edit_youtube_video.html.twig', [
-
-            'presentation' => $presentation,
-            'stringId' => $presentation->getStringId(),
-            'form' => $addVideoForm->createView(),
-            'context' => 'new',
-
-        ]);
-    }
-
 
     /**
      * Allow to update a youtube video slide
@@ -160,7 +97,7 @@ class SlideController extends AbstractController
 
         $slide->setFile(null); //otherwise get a bug (caused by vitch upload ?)
 
-        $form = $this->createForm(AddVideoSlideType::class, $slide);
+        $form = $this->createForm(VideoSlideType::class, $slide);
         
         $form->handleRequest($request);
 

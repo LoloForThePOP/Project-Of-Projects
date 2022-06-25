@@ -17,6 +17,7 @@ use App\Form\StringIdType;
 use App\Service\TreatItem;
 use App\Service\LiveSavePP;
 use App\Form\ImageSlideType;
+use App\Form\VideoSlideType;
 use App\Service\ImageResizer;
 use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
@@ -252,8 +253,6 @@ class PPController extends AbstractController
 
                 $componentItem = $addQAForm->getData();
 
-                $componentItem = $specificTreatments->specificTreatments('questionsAnswers', $componentItem);
-
                 $presentation->addOtherComponentItem('questionsAnswers', $componentItem);
 
                 $manager->flush();
@@ -333,6 +332,44 @@ class PPController extends AbstractController
                 $this->addFlash(
                     'success',
                     "✅ Image ajoutée"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+                    [
+
+                        'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'slideshow-struct-container',
+
+                    ]
+                );
+
+            }
+
+            $videoSlide = new Slide();
+            $videoSlide->setType('youtube_video'); //only Youtube Videos are allowed currently.
+            $addVideoForm = $this->createForm(VideoSlideType::class, $videoSlide);
+            $addVideoForm->handleRequest($request);
+            
+            if ($addVideoForm->isSubmitted() && $addVideoForm->isValid()) {
+
+                $youtubeVideoIdentifier = $specificTreatments->specificTreatments('youtube_video', $addVideoForm->get('address')->getData());//user might has given a complete youtube video url or just the video identifier. We extract the video identifier in the first case.
+
+                $videoSlide->setAddress($youtubeVideoIdentifier);   
+
+                // count previous slide in order to set new slides positions
+                $videoSlide->setPosition(count($presentation->getSlides()));
+
+                $presentation->addSlide($videoSlide);
+                $manager->persist($videoSlide);
+
+                $assessQuality->assessQuality($presentation);  
+
+                $cacheThumbnail->cacheThumbnail($presentation);
+
+                $this->addFlash(
+                    'success',
+                    "✅ Vidéo ajoutée"
                 );
 
                 return $this->redirectToRoute(
@@ -493,6 +530,7 @@ class PPController extends AbstractController
                 'addBusinessCardForm' => $addBusinessCardForm->createView(),
                 'addDocumentForm' => $addDocumentForm->createView(),
                 'addImageForm' => $addImageForm->createView(),
+                'addVideoForm' => $addVideoForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
                 'updateStringIdForm' => $updateStringIdForm->createView(),
             ]);

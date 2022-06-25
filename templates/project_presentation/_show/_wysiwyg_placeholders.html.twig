@@ -9,12 +9,10 @@
     </div>
 
     {# add a video placeholder #}
-
-    {% set addVideoRoute = path('add_youtube_slide', {'stringId': stringId}) %}
     
     <div id="" class="pp-edition-mode placeholder-container col-4 ">
             
-        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_youtube_video", 'route': addVideoRoute, 'label': "Vidéos"} %}
+        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'addElementModal':"#addVideoSlideFormModal", 'iconName':"add_youtube_video", 'label': "Vidéos"} %}
         
     </div>
     

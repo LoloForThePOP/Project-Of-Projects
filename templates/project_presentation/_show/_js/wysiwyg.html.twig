@@ -114,10 +114,10 @@
 
         function ajaxSavePresentation(metadata, elem=null){
 
-            console.log(metadata);
+            //console.log(metadata);
             
             content = elem.remove(".inline-success-feedback").html().trim(); // avoid feedback mark from being saved with content (see below).
-            console.log(content);
+            //console.log(content);
 
             $.ajax({
 
@@ -134,11 +134,14 @@
 
                     elem.append('<span class="inline-success-feedback"> ✅</span>');
 
-                    $(".inline-success-feedback").fadeOut(2000, function() { 
+                    $(".inline-success-feedback").fadeOut(1000, function() { 
 
                         $(this).remove(); 
 
                     });
+
+                   
+                    $("#"+JSON.parse(metadata).subid+" .date").remove(); //clearing createdAt or updatedAt display.
 
                     customEvents.dispatchEvent(
 

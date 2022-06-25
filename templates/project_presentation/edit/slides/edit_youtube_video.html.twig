@@ -1,21 +1,7 @@
 
 {% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
 
-    {% set title %}
-
-        {% if context == 'new' %}
-
-            Ajouter
-
-        {% else %}
-
-            Modifier
-
-        {% endif %}
-        
-        une vidéo youtube
-    
-    {% endset %}
+    {% set title = "Modifier une Diapositive Vidéo Youtube" %}
 
     {% block title %}{{title}}{% endblock %}
 

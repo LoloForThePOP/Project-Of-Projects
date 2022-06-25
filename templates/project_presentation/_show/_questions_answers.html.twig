@@ -45,7 +45,7 @@
                         
                         <!-- Question -->
 
-                        <div class="col-11">
+                        <div class="questionContainer">
                                 
                             <span data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"question" }' class="question">{{ qa.question [:1] | upper ~ qa.question [1:] }}</span>
                             
@@ -53,7 +53,8 @@
 
                         <!-- Collapse Symbol -->
 
-                        <div class="collapseSymbolDisplay col-1"></div>
+                        <div class="collapseSymbolContainer"></div>
+
                     </div>
                       
 
@@ -76,7 +77,25 @@
                      
                         
                         <div data-edit='{"entity": "PPBase", "id": {{presentation.id}}, "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"answer" }' class="answer">{{ qa.answer is not empty ? qa.answer  | sanitize_html ('newlines') : '' }}</div>
-                    
+
+                        {% if qa.createdAt is defined or qa.updatedAt is defined %}
+                            
+                            <div class="date">
+
+                                {% if qa.updatedAt is defined %}
+
+                                    (Réponse mise à jour le {{ qa.updatedAt.date | date("Y - m - d") }}).
+
+                                {% else %}
+                                    
+                                    (Réponse créée le {{ qa.createdAt.date | date("Y - m - d") }}).
+
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+ 
                     </div>
 
                     <hr class="qa-separator m-0">            
@@ -130,19 +149,25 @@
             }
 
                     
-            #questionsAnswers .col-11{
+            #questionsAnswers .questionContainer{
+                flex: 0 0 auto;
                 width: 89%;
                 padding-right : 0;
             }
+                    
+            #questionsAnswers .collapseSymbolContainer{
+                flex: 0 0 auto;
+                width: 11%;
+            }
 
         
-            .questionRow .collapseSymbolDisplay:after {
+            .questionRow .collapseSymbolContainer:after {
         
                 font-size: 1.2rem !important;
                 content: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/></svg>');
             }
         
-            .collapsed .collapseSymbolDisplay:after {
+            .collapsed .collapseSymbolContainer:after {
                 content: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
             }
 
@@ -157,6 +182,13 @@
 
             #questionsAnswers .edit-link:hover{
                 background-color: #dbe2ff;
+            }
+            
+
+            #questionsAnswers .date{
+                margin-top: 2px;
+                color: #44494e;
+                
             }
             
     
@@ -181,21 +213,24 @@
                     
                 }
     
-                .questionRow .collapseSymbolDisplay:after {
+                .questionRow .collapseSymbolContainer:after {
         
                     font-size: 0.9rem !important;
     
                 }
                     
-                #questionsAnswers .col-11{
-                    width: 90%; /* reduced to prevent arrow overflow on mobile */
+                #questionsAnswers .questionContainer{
+                    width: 94%; 
                     padding-right : 0;
                 }
 
-                #questionsAnswers .col-1 {
-                    padding: 0;
-                    width: 7%;
-                    padding-top: 3px;
+                #questionsAnswers .collapseSymbolContainer {
+
+                    display: flex;
+                    justify-content: center;
+                    width: 6%;
+                    padding: 4px 0 0 0;
+
                 }
     
                 .question{
@@ -218,11 +253,10 @@
         
                 }
 
-                .collapseSymbolDisplay{
-                    
-                    display: flex;
-                    justify-content: center;
-                }        
+                #questionsAnswers .date {
+                    font-size: 14px;
+                }  
+
             }
         
         </style>

@@ -782,6 +782,7 @@ class PPBase implements \Serializable, NormalizableInterface
                 if ($item['id']==$item_id) {
                     
                     $item = $updatedItem;
+                    $item['updatedAt'] = new \DateTimeImmutable();
                     return true;
                 }
 
@@ -800,6 +801,7 @@ class PPBase implements \Serializable, NormalizableInterface
         if ($component_type!==null) {
 
             $item['id'] = uniqid();
+            $item['createdAt'] = new \DateTimeImmutable();
             $item['position'] = count($this->getOC($component_type));
             $this->otherComponents[$component_type][] = $item;
 

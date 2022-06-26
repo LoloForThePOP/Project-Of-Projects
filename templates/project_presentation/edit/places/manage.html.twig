@@ -70,7 +70,19 @@
 
                 {% set readablePlaceType = "" %}
 
-                {% if place.type =="locality" %}
+                {% if place.type =="postal_code" %}
+
+                    {% set readablePlaceType = "Ville" %}
+
+                {% elseif place.type =="route" %}
+
+                    {% set readablePlaceType = "Adresse" %}
+
+                {% elseif place.type =="street_number" %}
+
+                    {% set readablePlaceType = "Adresse" %}
+
+                {% elseif place.type =="locality" %}
 
                     {% set readablePlaceType = "Ville" %}
 

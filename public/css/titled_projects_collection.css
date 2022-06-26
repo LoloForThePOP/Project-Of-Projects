@@ -5,9 +5,10 @@
 
 
 .collection-title{
-    color: #242456;
-    font-weight: 700;
     margin-bottom: 35px;
+    text-align: center;
+    font-weight: 700;
+    color: #242456;
 }
 
 

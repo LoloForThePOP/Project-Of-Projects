@@ -84,11 +84,11 @@
 
                                 {% if qa.updatedAt is defined %}
 
-                                    (Réponse mise à jour le {{ qa.updatedAt.date | date("Y - m - d") }}).
+                                    Réponse modifiée le {{ qa.updatedAt.date | date("Y - m - d") }}
 
                                 {% else %}
                                     
-                                    (Réponse créée le {{ qa.createdAt.date | date("Y - m - d") }}).
+                                    Réponse ajoutée le {{ qa.createdAt.date | date("Y - m - d") }}
 
                                 {% endif %}
 

@@ -15,21 +15,23 @@
 .mySlides {
 
     display: none;
-    height:400px;
     position: relative;
+    height: 400px;
 
     align-items: center; /* Note : flex display is set in Slideshow Javascript */
     justify-content: center;
 }
 
+
 .mySlides > img {
     
-    max-width:100%;
-    max-height:100%;
-    display:block;
-    margin:auto;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    margin: auto;
 
 }
+
 
 .slide-content-licence {
 	background: rgba(0,0,0,.7);
@@ -191,7 +193,8 @@
 
     #slides.only-one-slide .slides-container{
 
-        width: 100% !important;
+        max-width: 640px !important;
+        margin: auto;
 
     }
 

@@ -12,11 +12,11 @@
     
 }
 
-.misc-data-card .name, .misc-data-card .value{
+/* .misc-data-card .name, .misc-data-card .value{
 
     cursor: auto;
 
-}
+} */
 
 .misc-data-card .name{
     font-size: 18px;
@@ -25,9 +25,25 @@
     line-height: 1.05;
 }
 
+.misc-data-card .indentation-container{
+  
+    padding-left: 16px;
+
+}
+
+
 .misc-data-card .value{
     font-size: 17px;
     line-height: 1.05;
+    margin-bottom: 3px;
+
+}
+
+.misc-data-card .date{
+    display: none;
+    color: rgb(96, 96, 96);
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .pp-container.in-edition-mode .edit-mode-outline{
@@ -40,6 +56,29 @@
 .pp-container.in-edition-mode .edit-mode-outline:hover{
     background-color: #ededec;
 }
+
+
+.show-details-text-container{
+
+    padding-left: 10px;
+    margin-top: 4px;
+
+}
+
+.pp-container.in-edition-mode .show-details-text-container{
+
+    padding-left: 0px;
+
+}
+
+.show-details-text{
+
+    font-size: 14px; 
+    color:rgb(142, 142, 142); 
+    cursor: pointer;
+
+}
+
             
 @media screen and (max-width: 580px) {
 
@@ -73,11 +112,26 @@
         font-size: 15px;
         margin-bottom: 8px;
         line-height: 1;
-        margin-left: 8px;
+        
+    }
+        
+    .misc-data-card .indentation-container{
+    
+        padding-left: 8px;
+        
     }
 
     .pp-container.in-edition-mode .edit-mode-outline{
         margin-right: 0;
+    }
+
+    .show-details-text-container {
+        padding-left: 0;
+        margin-top: -7px;
+    }
+
+    .pp-container.in-edition-mode .show-details-text-container {
+        padding-left: 3px;
     }
 
 }

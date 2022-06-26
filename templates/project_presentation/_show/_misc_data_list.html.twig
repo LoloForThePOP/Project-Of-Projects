@@ -8,13 +8,46 @@
 
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "data", 'title': "Quelques données",} %}
 
-    {% macro misc_data_card_inner(dataName, dataValue, dataId, presentationId) %}
+    {# Card Content Macro #}
 
-        <div class="text-body">
+    {% macro misc_data_card_inner(data, presentationId) %}
+
+        <div class="">
+
+            {# Data Name #}
                                         
-            <div class="name" data-text="Titre de la donnée (Ex: Budget)" data-edit='{"entity": "PPBase", "id": "{{presentationId}}",  "property": "dataList", "subid": "{{dataId}}", "subproperty":"name"}'>{{ dataName[:1]|upper ~ dataName[1:] }}</div>
+            <div class="name" data-text="Titre de la donnée (Ex: Budget)" data-edit='{"entity": "PPBase", "id": "{{presentationId}}",  "property": "dataList", "subid": "{{data.id}}", "subproperty":"name"}'>{{ data.name[:1]|upper ~ data.name[1:] }}</div>
 
-            <div class="value ps-md-3" data-text="Contenu de la donnée (Ex: 1300 €))" data-edit='{"entity": "PPBase", "id": "{{presentationId}}",  "property": "dataList", "subid": "{{dataId}}", "subproperty":"value"}'>{{ dataValue[:1]|upper ~ dataValue[1:] }}</div>
+            {# Indentation Container #}
+
+            <div class="indentation-container">
+
+                {# Data Value #}
+
+                <div class="value" data-text="Contenu de la donnée (Ex: 1300 €))" data-edit='{"entity": "PPBase", "id": "{{presentationId}}",  "property": "dataList", "subid": "{{data.id}}", "subproperty":"value"}'>{{ data.value[:1]|upper ~ data.value[1:] }}</div>
+
+                {# Data Date Created or Updated #}
+
+                {% if data.createdAt is defined or data.updatedAt is defined %}
+                                    
+                    <div class="date">
+
+                        {% if data.updatedAt is defined %}
+
+                            Modifié le {{ data.updatedAt.date | date("Y-m-d") }}
+
+                        {% else %}
+                            
+                            Ajouté le {{ data.createdAt.date | date("Y-m-d") }}
+
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}  
+
+            </div>
+
 
         </div>
         
@@ -28,14 +61,15 @@
 
     {% endblock %}
 
+
     {% block mainContent %}
 
         <div id="dataList" class="js-elements-list pp-struct-content row m-0 pb-0 pb-md-3">
 
             {% for data in presentation.getOC('dataList') %}
 
-                <div id="{{data.id}}" class="js-sortable-element misc-data-card edit-mode-outline col-6 col-md-5">{{ _self.misc_data_card_inner(data.name, data.value, data.id, presentation.id) }}{% if userPresenter %}
-
+                <div id="{{data.id}}" class="js-sortable-element misc-data-card edit-mode-outline col-6 col-md-5">{{ _self.misc_data_card_inner(data, presentation.id) }}{% if userPresenter %}
+                    
                         {# Delete data item (Red Cross) button #}
 
                         <button type="button" data-elements-type="dataList" class="js-delete-element pp-edition-mode btn delete-button" data-id="{{data.id}}">&times</button>
@@ -45,6 +79,26 @@
                 </div>
                 
             {% endfor %}
+
+            <div class="show-details-text-container">
+
+                <span class="js-show-misc-details show-details-text">Détails</span>
+                    
+                <script>
+
+                    $( ".js-show-misc-details" ).on( "click", function() {
+
+                        $( ".misc-data-card .date" ).toggle();                
+                        
+                    });
+
+                </script> 
+
+            </div>
+
+            
+        
+
 
         </div>
 

@@ -32,19 +32,13 @@
 
                 {% if place.type =="locality" %}
 
-                    {% set readablePlace = place.name ~  " (" ~ place.country ~ ")" %}
-
-                    {% if place.postalCode is not empty %}
-
-                        {% set readablePlace = place.name ~ " (" ~ place.postalCode ~ ")"~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
-                    
-                    {% endif %}       
+                    {% set readablePlace = place.name ~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
 
                 {% elseif place.type =="postal_code" %}
 
                     {# in this case, place.name is postal code #}
 
-                    {% set readablePlace = place.locality ~ " (" ~ place.name ~ ")"~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
+                    {% set readablePlace = place.locality ~ " (" ~ place.administrativeAreaLevel1 ~ ")" ~ " (" ~ place.country ~ ")" %}
 
                 {% elseif place.type =="street_number" %}
 
@@ -87,7 +81,7 @@
 
                     {% block modalBody %}
 
-                        <div id="js-googleMap-{{place.id}}" style="width:100%;height:400px;"></div>
+                        <div id="js-googleMap-{{place.id}}" style="width:100%; height:400px;"></div>
 
                     {% endblock %}
 

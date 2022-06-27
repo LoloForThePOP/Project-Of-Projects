@@ -852,6 +852,39 @@ class PPBase implements \Serializable, NormalizableInterface
 
     }
 
+
+    public function editProjectStatus($statusType, $value){
+
+        if (isset($this->otherComponents['status'][$statusType])) {
+
+            $editValues = 
+                [
+                    'value' => $value,
+                    'updatedAt' => new \DateTimeImmutable(),
+                ];
+
+            $this->otherComponents['status'][$statusType] = array_merge($this->otherComponents['status'][$statusType], $editValues);
+
+        }
+
+        else {
+           
+            $this->otherComponents['status'][$statusType] = [
+                'value' => $value,
+                'createdAt' => new \DateTimeImmutable(),
+            ];
+        }
+
+    }
+
+    public function getProjectStatus($statusType){
+
+        return $this->otherComponents['status'][$statusType];
+
+    }
+
+
+
     /**
      * @return Collection|Document[]
      */

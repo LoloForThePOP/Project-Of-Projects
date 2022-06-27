@@ -1,4 +1,3 @@
-
 {% block stylesheet %}
 
 <link href="/css/misc_data_list.css" rel="stylesheet">
@@ -36,9 +35,13 @@
 
                             Modifié le {{ data.updatedAt.date | date("Y-m-d") }}
 
-                        {% else %}
+                        {% elseif data.createdAt is defined %}
                             
                             Ajouté le {{ data.createdAt.date | date("Y-m-d") }}
+
+                        {% else %}
+                            
+                            Date non précisée
 
                         {% endif %}
 
@@ -96,12 +99,7 @@
 
             </div>
 
-            
-        
-
-
         </div>
-
 
     {% endblock %}
 

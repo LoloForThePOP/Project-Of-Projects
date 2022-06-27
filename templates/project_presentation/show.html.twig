@@ -116,28 +116,6 @@
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
    
-        {# WIP - project status / progression - edition mode
-
-        {% if userPresenter %}
-
-            <div class="mt-5 pt-3">
-                    
-                <button data-bs-toggle="modal" data-bs-target="#project_status_edition"  type="button" class="pp-edition-mode d-flex align-items-center btn px-4 py-3 me-3 mb-3" style="border-color: rgb(216, 216, 201);">
-
-                    <img class="mb-1 me-2" src="{{ asset('progress_status.svg', 'pp_wysiwyg')}}" alt="project status icon" width="27">
-                    
-                    <span class="h5 fw-bold ps-1">Statut - Progression</span>
-                
-                </button>
-                
-                {% include 'project_presentation/edit/_status.html.twig' with {'contactUsPhone': contactUsPhone} %}
-
-            </div>
-
-        {% endif %} #}
-
-
-        
     {# Upper box containing Project Title + Goal + Logo #}
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}

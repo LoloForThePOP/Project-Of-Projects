@@ -11,7 +11,7 @@ use App\Entity\Document;
 use App\Form\PPBaseType;
 use App\Form\PersorgType;
 use App\Form\WebsiteType;
-use App\Form\DataListType;
+use App\Form\MiscDataType;
 use App\Form\DocumentType;
 use App\Form\StringIdType;
 use App\Service\TreatItem;
@@ -215,7 +215,7 @@ class PPController extends AbstractController
 
             }
 
-            $addDataListElemForm = $this->createForm(DataListType::class);
+            $addDataListElemForm = $this->createForm(MiscDataType::class);
             $addDataListElemForm->handleRequest($request);
             if ($addDataListElemForm->isSubmitted() && $addDataListElemForm->isValid()) {
 
@@ -736,7 +736,6 @@ class PPController extends AbstractController
      * 
     */ 
     public function ajaxPPLiveSave(LiveSavePP $liveSave, Request $request) {
-
         
         if ($request->isXmlHttpRequest()) {
             
@@ -746,7 +745,6 @@ class PPController extends AbstractController
 
             $metadata = json_decode($request->request->get('metadata'), true);
 
-            
             $entityName = ucfirst($metadata['entity']); //ex : "PPBase"; "Slide"
             $entityId = $metadata['id']; //ex: 2084
             $property = $metadata['property']; //ex : "websites" (websites is a key from the $otherComponents attribute from PPBase entity)

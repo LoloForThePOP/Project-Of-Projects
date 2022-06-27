@@ -1,6 +1,9 @@
 {# Modal Box for Menu Buttons #}
 
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "project_status_edition", 'modal_title': "Statut - Progression", 'modal_size': "modal-xl"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "project_status_edition", 'modal_title': "Statut (État Actuel du Projet)"} %}
+
+
+    {# Status list #}
 
     {% set status = [ 
 
@@ -41,98 +44,96 @@
 
             <div class="row">
 
-                {% for item in status %}
-                    
-                    <div 
-                    
-                        id="" 
-                    
-                        class="cat-button"                    
-                    >
+                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 
-                        {# Button Icon #}
+                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                    </symbol>
 
-                        <div class="bt-left-col">
+                  </svg>
 
-                            <img class="category-icon" src="{{asset ("project_status/"~ item.uniqueName ~".svg", 'icons')}}" alt="{{item.uniqueName}}" loading="lazy" width="35" height="35">
+                <div class="alert alert-info d-flex align-items-center" role="alert">
 
-                        </div>
+                    <svg class="flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
 
-                        {# Button Description #}
-
-                        <div class="bt-right-col">
-
-                            {{item.description_fr}}
-
-                        </div>
-
+                    <div>
+                      Sélectionnez le bouton qui vous concerne et qui correspond à votre situation.
                     </div>
 
-                {% endfor %}
-                
-           
+                </div>
+
+            </div>
+
+            {# General Choices #}
+
+            <div class="mb-3">
+
+                <ul class="general-status list-group">
+                  
+                    {% for item in status %}
+                        
+                        <li id="" class="project-status-button list-group-item list-group-item-action">
+
+                            {# <img class="category-icon" src="{{asset ("project_status/"~ item.uniqueName ~".svg", 'icons')}}" alt="{{item.uniqueName}}" loading="lazy" width="25" height="25"> #}
+                            
+                            {{item.description_fr}}
+                        
+                        </li>
+
+                    {% endfor %}
+             
+                </ul>
+
+            </div>
+
+            {# User can add some infos and remarks #}
+
+            <div class="mb-3">
+
+                <form>
+
+                    <div class="form-group">
+
+                      <label for="projectStatusUserRemarksTextarea" class="lh-sm" style="font-size: large; font-weight: normal;">Ici vous pouvez apporter des précisions ou des remarques :</label>
+
+                      <textarea id="projectStatusUserRemarksTextarea" class="form-control" rows="3" placeholder="Écrire ici" data-edit-status='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"userRemarks"}'>{% if presentation.getProjectStatus('userRemarks') is defined %}{{presentation.getProjectStatus('userRemarks').value}}{% endif %}
+                      </textarea>
+
+                    </div>
+                    
+                </form>
+
             </div>
 
         </div>
 
     {% endblock %}
 
-    {% block footerButtons %}
+    {% block footerCloseButton %}
+                        
+        <button type="button" class="btn btn-validate" data-bs-dismiss="modal">Ok</button>
 
     {% endblock %}
 
 {% endembed %}
 
 <style>
-  
-.cat-button{
 
-    float: left;
-    width: 100%;
-    max-width:230px;
-    height: 61px;
+    .project-status-button{
+        cursor: pointer;
+        font-size: larger;
+    }
 
-    margin-right: 15px;
-    margin-bottom: 15px;
+    .status-hover{
+        cursor: pointer;
+        font-size: larger;
+    }
 
-    font-size:1.1em;
-    line-height:1.4em !important;
-    font-weight:700;
-    
-    border: 1px solid black !important;
-    border-radius: 4px;
-    background-color: white;
-    cursor:pointer;
-}
-
-.cat-button:hover{
-    background-color:rgb(234, 245, 255);
-}
-
-.cat-button .category-icon{
-    width: 35px;
-    height: 35px;
-}
-
-/* La selection de la classe parente Permet un Override du Hover */
-#cat-grid .selectedCategory, #cat-grid .selectedCategory:hover {
-    background-color: yellow !important;
-}
-
-.bt-left-col{
-    width: 58px;
-    height: 100%;
-    float:left;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.bt-right-col{
-    height: 100%;
-    display: flex;
-    align-items: center;
-    
-}
+    .project-status-button.list-group-item-action.active {
+        color: black;
+        z-index: 2;
+        background-color: #cce1ff;
+        border-color: #bcd7ff;
+    }
 
 </style>

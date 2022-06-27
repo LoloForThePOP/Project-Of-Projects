@@ -224,10 +224,64 @@
 
         }
 
+
+    var timeoutId;
+
+    $( "#projectStatusUserRemarksTextarea" ).on( "input", function() {
+
+        metadata = $(this).attr("data-edit-status");
+
+        // If a timer was already started, clear it.
+        if (timeoutId) clearTimeout(timeoutId);
+
+        content = $(this).val();
+
+        timeoutId = setTimeout(function() {
+
+            console.log(metadata);
+            console.log($(this));
+
+            $.ajax({
+
+                url: "{{path('live_save_pp')}}",
+                type: "POST",
+                data: {
+                    "metadata": metadata,
+                    "content": content,
+                },
+                
+                success: function(data) {
+
+                    console.log("edited structure ok done");
+
+                    $(this).append('<span class="inline-success-feedback"> ✅</span>');
+
+
+                },
+
+                error : function(xhr, textStatus, errorThrown) {
+
+                    console.log(errorThrown);
+                    
+                    $(this).after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
+
+                    
+                    //console.log(xhr.responseJSON);
+                }  
+
+            });
+
+
+        }, 1250);
+
     });
 
     // + when a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
     // --> See : reorder_delete_elements.html.twig (when deleting elements), and update_presentation_settings.html.twig (hide or show private messages card). 
+    
+
+});
+
 
 
 </script>

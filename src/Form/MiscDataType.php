@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class DataListType extends AbstractType
+class MiscDataType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -35,9 +35,9 @@ class DataListType extends AbstractType
                         new \Symfony\Component\Validator\Constraints\Length(
                             [
                                 "min" => 2,
-                                "max" => 2500,
-                                "minMessage" => "Le commentaire doit contenir au minimum {{ limit }} caractères",
-                                "maxMessage" => "Le commentaire doit contenir au plus {{ limit }} caractères",
+                                "max" => 250,
+                                "minMessage" => "Le nom de la donnée doit contenir au minimum {{ limit }} caractères",
+                                "maxMessage" => "Le nom de la donnée doit contenir au plus {{ limit }} caractères",
                             ]
                         ),
                     )
@@ -64,7 +64,7 @@ class DataListType extends AbstractType
                         new \Symfony\Component\Validator\Constraints\Length(
                             [
                                 "min" => 1,
-                                "max" => 2500,
+                                "max" => 250,
                                 "minMessage" => "Le contenu de la donnée doit contenir au minimum {{ limit }} caractères",
                                 "maxMessage" => "Le contenu de la donnée doit contenir au plus {{ limit }} caractères",
                             ]
@@ -72,6 +72,8 @@ class DataListType extends AbstractType
                     )
                 ]
             )
+
+            
         ;
     }
 

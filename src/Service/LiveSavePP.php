@@ -130,6 +130,7 @@ class LiveSavePP {
             case 'websites':
             case 'questionsAnswers':
             case 'dataList':
+            case 'status':
     
                 $allowAccess = true;
                 break;
@@ -150,6 +151,7 @@ class LiveSavePP {
                 case 'answer':
                 case 'name':
                 case 'value':
+                case 'userRemarks':
         
                     $allowAccess = true;
                     break;
@@ -225,6 +227,14 @@ class LiveSavePP {
     public function save(){
 
         switch ($this->property) {
+
+            case 'status':
+
+                $this->pp->editProjectStatus($this->subProperty, $this->content);
+
+                break;
+
+
 
             case 'websites': //these special cases : we update the following proporty in PPBase entity : $otherComponents
             case 'questionsAnswers':

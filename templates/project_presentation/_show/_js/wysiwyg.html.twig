@@ -229,7 +229,7 @@
 
     $( "#projectStatusUserRemarksTextarea" ).on( "input", function() {
 
-        metadata = $(this).attr("data-edit-status");
+        metadata = $(this).attr("data-edit-project-status");
 
         // If a timer was already started, clear it.
         if (timeoutId) clearTimeout(timeoutId);
@@ -237,9 +237,6 @@
         content = $(this).val();
 
         timeoutId = setTimeout(function() {
-
-            console.log(metadata);
-            console.log($(this));
 
             $.ajax({
 
@@ -275,6 +272,62 @@
         }, 1250);
 
     });
+
+
+
+    $( ".project-status-button" ).on( "click", function() {
+
+        if($(this).hasClass("active")){
+
+            $(this).removeClass("active");
+            metadata = $(this).attr("data-edit-project-status");
+
+        }
+
+        else{
+
+            $(this).addClass("active")
+            
+            metadata = $(this).attr("data-edit-project-status");
+            value = $(this).attr("data-value");
+
+            $.ajax({
+
+                url: "{{path('live_save_pp')}}",
+                type: "POST",
+                data: {
+                    "metadata": metadata,
+                    "content": value,
+                },
+                
+                success: function(data) {
+    
+                    console.log("edited structure ok done");
+    
+                },
+    
+                error : function(xhr, textStatus, errorThrown) {
+    
+                    console.log(errorThrown);
+                    
+                    $(this).after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
+    
+                    //console.log(xhr.responseJSON);
+                }  
+    
+            });
+    
+
+        };
+
+        
+        
+
+        
+    });
+
+
+
 
     // + when a structure has just been made empty in edition mode, it should not be displayed in consultation mode.
     // --> See : reorder_delete_elements.html.twig (when deleting elements), and update_presentation_settings.html.twig (hide or show private messages card). 

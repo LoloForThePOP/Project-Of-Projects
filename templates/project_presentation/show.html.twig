@@ -116,6 +116,27 @@
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
 
+    <div id="project-status-display-container" class="border">
+
+        <div class="enumerated-status-display">
+
+            <script>
+
+                const ProjectStatusTag = ({ uniqueName, readable }) => `
+                    
+                    <div data-tag-identifier="${uniqueName}" class="tag btn btn-sm btn-light me-3 mb-3">
+                        ${readable}
+                    </div>
+                `;
+
+            </script>
+
+        </div>
+
+        <div class="userRemarks-status-display"></div>
+
+    </div>
+
  
 
     {# Upper box containing Project Title + Goal + Logo #}

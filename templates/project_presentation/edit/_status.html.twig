@@ -2,151 +2,8 @@
 
 {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "project_status_edition", 'modal_title': "Statut (État Actuel du Projet) ", 'modal_size': "modal-fullscreen modal-dialog-scrollable"} %}
 
-    {# Status list #}
-
-    {% set status = [ 
-        
-        {
-            
-            'uniqueName': 'general', 
-
-            'description_fr': 'Généralité', 
-        
-            'statusTypeItems':  
-            
-                [
-                    
-                    {'uniqueName': 'idea', 'description_fr':"À l'étude, Idée, Réflexion"}, 
-            
-                    {'uniqueName': 'production', 'description_fr':'Réalisation démarrée'} ,
-
-                    {
-                        'uniqueName': "pause", 'description_fr' : "En pause"
-                    }, 
-            
-                    {'uniqueName': "cancel",'description_fr' : "Annulé ou abandonné"}, 
-            
-                    {'uniqueName': "done",'description_fr' : "Terminé"}, 
-                    
-                ]
-            
-        }, 
-        
-        
-        {
-
-            'uniqueName' : 'modelisation',
-
-            'description_fr': 'Objets', 
-
-            'statusTypeItems': [
-
-                { 
-                    'uniqueName': "computer_simulation",
-                    'description_fr' : "Simulation informatique",
-                }, 
-        
-                { 
-                    'uniqueName': "reduced_scale_labo_prototype",
-                    'description_fr' : "Prototype taille réduite testé en labo",
-                }, 
-        
-                { 
-                    'uniqueName': "planned_scale_labo_prototype",
-                    'description_fr' : "Prototype à l'échelle testé en labo",
-                }, 
-        
-                { 
-                    'uniqueName': "reduced_scale_real_world_prototype",
-                    'description_fr' : "Prototype taille réduite testé en monde réel",
-                }, 
-        
-                { 
-                    'uniqueName': "planned_scale_real_world_prototype",
-                    'description_fr' : "Prototype à l'échelle testé en monde réel",
-                }, 
-            ],
-
-        }, 
-        
-        
-        {
-
-            'uniqueName' : 'sales',
-
-            'description_fr': 'Ventes', 
-
-            'statusTypeItems': [
-
-                { 
-                    'uniqueName': "will_be_marketed",
-                    'description_fr' : "Sera commercialisé",
-                }, 
-        
-                { 
-                    'uniqueName': "sale_offering_began",
-                    'description_fr' : "Commence à être commercialisé",
-                }, 
-        
-                { 
-                    'uniqueName': "first_sales_done",
-                    'description_fr' : "Premières ventes effectuées",
-                }, 
-        
-                { 
-                    'uniqueName': "marketed_significantly",
-                    'description_fr' : "Déjà commercialisé à moyenne ou grande échelle",
-                }, 
-        
-            ],
-
-        }, 
-        
-        {
-
-            'uniqueName' : 'administrative',
-
-            'description_fr': 'Soumissions Administratives', 
-
-            'statusTypeItems': [
-
-                { 
-                    'uniqueName': "first_discussions",
-                    'description_fr' : "Premières discussions",
-                }, 
-
-                { 
-                    'uniqueName': "submitted",
-                    'description_fr' : "Proposé, soumis<br>(Attente de décision)",
-                }, 
-        
-                { 
-                    'uniqueName': "approved",
-                    'description_fr' : "Décision : Accepté",
-                }, 
-        
-                { 
-                    'uniqueName': "rejected",
-                    'description_fr' : "Décision : Rejeté",
-                }, 
-        
-                { 
-                    'uniqueName': "postponed",
-                    'description_fr' : "Décision Reportée",
-                }, 
-        
-            ],
-
-        }, 
-        
-    ] %}
-
-
-
-
     {% block modalHeader %}{% endblock %}
     {% block closingCross %}{% endblock %}
-
 
     {# Project Status Selection Buttons Display #}
 
@@ -219,20 +76,12 @@
 
             {# User can add some infos and remarks #}
 
-            <div class="d-flex justify-content-center mb-5">
+            <div class="d-flex flex-column align-items-center mb-5">
 
-                <form>
+                <h5 class="text-center fw-bold lh-sm mb-3" style="font-size: large; font-weight: normal;">Ici vous pouvez apporter des précisions ou des remarques</h5>
 
-                    <div class="form-group">
-
-                      <label for="projectStatusUserRemarksTextarea" class="lh-sm mb-3" style="font-size: large; font-weight: normal;">Ici vous pouvez apporter des précisions ou des remarques</label>
-
-                      <textarea id="projectStatusUserRemarksTextarea" class="form-control" rows="3" placeholder="Écrire ici" data-edit-project-status='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"userRemarks"}' style="max-width: 600px;">{% if presentation.getProjectStatus('userRemarks') is defined %}{{presentation.getProjectStatus('userRemarks').value}}{% endif %}
-                      </textarea>
-
-                    </div>
-                    
-                </form>
+                <div class="border" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"userRemarks"}' data-text="Écrire ici" style="width: 600px; max-width: 100%; min-height: 110px; padding: 5px 10px;">{% if presentation.getProjectStatus('userRemarks') is defined %}{{presentation.getProjectStatus('userRemarks').value | trim}}{% endif %}
+                </div>
 
             </div>
 

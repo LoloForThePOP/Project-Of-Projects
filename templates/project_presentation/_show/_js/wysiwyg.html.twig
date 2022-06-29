@@ -114,10 +114,13 @@
 
         function ajaxSavePresentation(metadata, elem=null){
 
-            //console.log(metadata);
+            console.log(metadata);
             
             content = elem.remove(".inline-success-feedback").html().trim(); // avoid feedback mark from being saved with content (see below).
-            //console.log(content);
+
+            console.log(content);
+
+            if(content=='<br>'){elem.empty(); content=''} //when contenteditable is cleared, an undesired <br> is added (+ this br tag prevents placeholder to show up).
 
             $.ajax({
 
@@ -209,6 +212,7 @@
         function refresh_misc(metadata, content){
 
             metadata = JSON.parse(metadata)
+            console.log("refresh_misc_function"+content);
                 
             if (metadata.property == "websites" && metadata.subproperty == "url"){
                 
@@ -221,104 +225,110 @@
                 
                 $( "[data-need-title = "+metadata.id+"] .needTitle" ).html(content);
             }
+                
+            if (metadata.entity == "PPBase" && metadata.property == "status"){
+                
+                if(metadata.subproperty=='userRemarks'){
+
+                    console.log('dd')
+
+                    $( ".userRemarks-status-display" ).html(content);
+
+                }
+                
+                else{ //user pushed on an enumerated Project Status Choice
+
+                    console.log(content)
+
+                    if(content===''){//tag must be removed
+
+                        $("[data-tag-identifier='" + metadata.subproperty + "']").remove();
+
+                    }
+
+                    else{
+                        $('.enumerated-status-display').append([
+                            { uniqueName: metadata.subproperty, readable: content },
+                        ].map(ProjectStatusTag).join(''));
+
+                    }
+
+                    
+                    //$( "#enumerated-status-display" ).append(content);
+
+                }
+
+            }
 
         }
 
 
-    var timeoutId;
 
-    $( "#projectStatusUserRemarksTextarea" ).on( "input", function() {
+    $( "ul .project-status-button" ).on( "click", function() {
 
-        metadata = $(this).attr("data-edit-project-status");
+        $(this).siblings().removeClass("active");
 
-        // If a timer was already started, clear it.
-        if (timeoutId) clearTimeout(timeoutId);
-
-        content = $(this).val();
-
-        timeoutId = setTimeout(function() {
-
-            $.ajax({
-
-                url: "{{path('live_save_pp')}}",
-                type: "POST",
-                data: {
-                    "metadata": metadata,
-                    "content": content,
-                },
-                
-                success: function(data) {
-
-                    console.log("edited structure ok done");
-
-                    $(this).append('<span class="inline-success-feedback"> ✅</span>');
-
-
-                },
-
-                error : function(xhr, textStatus, errorThrown) {
-
-                    console.log(errorThrown);
-                    
-                    $(this).after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
-
-                    
-                    //console.log(xhr.responseJSON);
-                }  
-
-            });
-
-
-        }, 1250);
-
-    });
-
-
-
-    $( ".project-status-button" ).on( "click", function() {
 
         if($(this).hasClass("active")){
 
             $(this).removeClass("active");
-            metadata = $(this).attr("data-edit-project-status");
+            value='';
 
         }
 
         else{
 
             $(this).addClass("active")
-            
-            metadata = $(this).attr("data-edit-project-status");
             value = $(this).attr("data-value");
-
-            $.ajax({
-
-                url: "{{path('live_save_pp')}}",
-                type: "POST",
-                data: {
-                    "metadata": metadata,
-                    "content": value,
-                },
-                
-                success: function(data) {
-    
-                    console.log("edited structure ok done");
-    
-                },
-    
-                error : function(xhr, textStatus, errorThrown) {
-    
-                    console.log(errorThrown);
-                    
-                    $(this).after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
-    
-                    //console.log(xhr.responseJSON);
-                }  
-    
-            });
-    
-
+          
         };
+
+        console.log(value);
+        console.log($("[data-value='" + value + "']").text());
+          
+        metadata = $(this).attr("data-edit-project-status");
+        
+
+        $.ajax({
+
+            url: "{{path('live_save_pp')}}",
+            type: "POST",
+            data: {
+                "metadata": metadata,
+                "content": value,
+            },
+            
+            success: function(data) {
+
+                console.log("project status updated !");
+
+                customEvents.dispatchEvent(
+
+                    new CustomEvent('presentationChangedOnRemote', {
+
+                        detail: {
+
+                            "structure": 'misc',
+                            "metadata": metadata,
+                            "content": $("[data-value='" + value + "']").text(), //we update project status display with a readable string (not an identifier), so here we search for this readable string.
+
+                        }
+                    })
+
+                );
+
+            },
+
+            error : function(xhr, textStatus, errorThrown) {
+
+                console.log(errorThrown);
+                
+                $(this).after($( "#live-feedback" ).attr("class", "text-danger").text(xhr.responseJSON.error));
+
+                //console.log(xhr.responseJSON);
+            }  
+
+        });
 
         
         

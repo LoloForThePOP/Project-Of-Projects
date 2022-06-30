@@ -533,6 +533,7 @@ class PPController extends AbstractController
                 'addVideoForm' => $addVideoForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
                 'updateStringIdForm' => $updateStringIdForm->createView(),
+                
             ]);
 
         }

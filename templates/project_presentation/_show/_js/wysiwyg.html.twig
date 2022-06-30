@@ -227,36 +227,8 @@
             }
                 
             if (metadata.entity == "PPBase" && metadata.property == "status"){
-                
-                if(metadata.subproperty=='userRemarks'){
 
-                    console.log('dd')
-
-                    $( ".userRemarks-status-display" ).html(content);
-
-                }
-                
-                else{ //user pushed on an enumerated Project Status Choice
-
-                    console.log(content)
-
-                    if(content===''){//tag must be removed
-
-                        $("[data-tag-identifier='" + metadata.subproperty + "']").remove();
-
-                    }
-
-                    else{
-                        $('.enumerated-status-display').append([
-                            { uniqueName: metadata.subproperty, readable: content },
-                        ].map(ProjectStatusTag).join(''));
-
-                    }
-
-                    
-                    //$( "#enumerated-status-display" ).append(content);
-
-                }
+                $(".project-status-display ." + metadata.subproperty).text(content);
 
             }
 

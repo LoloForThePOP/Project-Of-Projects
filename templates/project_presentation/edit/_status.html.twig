@@ -13,53 +13,82 @@
 
         <div class="modal-header-in-body">
 
-            <h5 class="modal-title w-100 fw-bold text-center py-3">Statut (État Actuel du Projet)</h5>
+            <h5 class="modal-title w-100 fw-bold text-center py-md-3">Statut (État Actuel du Projet)</h5>
 
         </div>
 
-        <div class="container mt-4">
+        {# Notification to user #}
 
-            <div class="row mb-4">
+        <div class="container px-3 my-4">
+        
+            {# Info Icon ready to be reused elsewhere #}
 
-                {# Info Icon ready to be reused elsewhere #}
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
 
-                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
+                </symbol>
 
-                    <symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16">
-                      <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-                    </symbol>
+                </svg>
 
-                  </svg>
+            {# Notification to user #}
 
-                {# Notification to user #}
+            <div class="alert alert-info d-flex justify-content-center align-items-center px-2" role="alert">
 
-                <div class="alert alert-info d-flex justify-content-center align-items-center" role="alert">
+                <svg class="flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
 
-                    <svg class="flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/></svg>
-
-                    <div class="fs-5">
-                      Sélectionnez seulement les colonnes et les boutons qui vous concernent et qui correspondent à votre situation.
-                    </div>
-
+                <div class="fs-5">
+                    Sélectionnez seulement les colonnes ou les boutons qui vous concernent et qui correspondent à votre situation.
                 </div>
 
             </div>
 
-            <div class="d-flex mb-5">
+        </div>
 
-                {% for statusType in status %}
+        <div class="container px-2 mt-4">
+
+            <div class="d-flex flex-column flex-lg-row justify-content-around px-2 mb-5">
+
+                {% for statusCategory in statusCatalog %}
+
+                {% set uniqueCategoryName = statusCategory.categoryLabels.uniqueName %}
 
                 <div class="status-type-list-container d-inline-block">
 
-                    <h5 class="d-flex align-items-center justify-content-center fw-bold mb-0" style="height: 63px; background-color:beige">{{statusType.description_fr}}</h5>
-
-                    <ul class="list-group">
+                    <h5 class="category-title" data-bs-toggle="collapse" href="#category-{{uniqueCategoryName}}">
+                        
+                        {{statusCategory.categoryLabels.description_fr}} ▾
                     
-                        {% for statusTypeItem in statusType.statusTypeItems %}
-                
-                            <li id="" class="project-status-button list-group-item list-group-item-action py-3" data-edit-project-status='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"{{statusType.uniqueName}}"}' data-value="{{statusTypeItem.uniqueName}}">
+                    </h5>
 
-                                {{statusTypeItem.description_fr | raw }}
+                    <ul id="category-{{uniqueCategoryName}}" class="list-group collapse">
+
+                        {% for item in statusCategory.items %}
+                
+                            <li 
+                                class="
+
+                                    {% for actualStatus in projectStatus %}{#check if project status is concerned #}
+
+                                        {% if actualStatus.value == item.uniqueName %} active 
+
+                                        {% endif %}
+
+                                    {% endfor %}
+                                
+                                    project-status-button 
+                                    list-group-item 
+                                    list-group-item-action 
+                                    py-3
+                                " 
+                                
+                                data-edit-project-status='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"{{uniqueCategoryName}}"}' 
+                                
+                                data-value="{{item.uniqueName}}
+                                
+                            ">
+
+                                {{item.description_fr | raw }}
                         
                             </li>
                         
@@ -78,9 +107,9 @@
 
             <div class="d-flex flex-column align-items-center mb-5">
 
-                <h5 class="text-center fw-bold lh-sm mb-3" style="font-size: large; font-weight: normal;">Ici vous pouvez apporter des précisions ou des remarques</h5>
+                <h5 class="text-center fw-bold lh-sm mb-3" style="font-size: large; font-weight: normal;">Ici vous pouvez apporter des précisions ou des remarques sur l'avancement de votre projet</h5>
 
-                <div class="border" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"userRemarks"}' data-text="Écrire ici" style="width: 600px; max-width: 100%; min-height: 110px; padding: 5px 10px;">{% if presentation.getProjectStatus('userRemarks') is defined %}{{presentation.getProjectStatus('userRemarks').value | trim}}{% endif %}
+                <div class="border" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"userRemarks"}' data-text="Écrire ici" style="width: 600px; max-width: 100%; min-height: 110px; padding: 5px 10px;">{% if projectStatus.userRemarks is defined %}{{projectStatus.userRemarks.value}}{% endif %}
                 </div>
 
             </div>
@@ -91,7 +120,7 @@
 
         <div class="d-flex flex-row-reverse border-top pt-3 me-5">
 
-            <button type="button" class="btn btn-validate px-2 me-5" data-bs-dismiss="modal">Ok</button>
+            <button type="button" class="btn btn-validate px-2 my-3 me-5" data-bs-dismiss="modal">Ok</button>
 
         </div>
 
@@ -130,9 +159,32 @@
 
     }
 
+    .status-type-list-container .category-title {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        height: 63px;
+
+        padding: 0 8px;
+        margin-bottom: 0;
+
+        font-weight: bold;
+        
+        background-color:beige; 
+        cursor:pointer;
+
+    }
+
+    .status-type-list-container .category-title:hover {
+        background-color: #bcd7ff;
+    }
+
     .project-status-button{
         cursor: pointer;
         font-size: larger;
+        background-color: cornsilk;
     }
 
     .status-hover{
@@ -145,6 +197,22 @@
         z-index: 2;
         background-color: #cce1ff;
         border-color: #bcd7ff;
+    }
+
+    @media screen and (max-width: 1200px) {
+
+
+        .status-type-list-container{
+
+            margin-right: 0rem;
+
+        }
+
+        .status-type-list-container .category-title {
+
+            font-size: 1.1rem;
+        }
+
     }
 
 </style>

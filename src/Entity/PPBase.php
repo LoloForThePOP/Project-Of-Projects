@@ -6,6 +6,7 @@ use DateTime;
 use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\PPBaseRepository;
+use App\Entity\ProjectStatus;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\Common\Collections\Collection;
@@ -825,6 +826,16 @@ class PPBase implements \Serializable, NormalizableInterface
         
         return $this;
     }
+
+
+    public function getStatusCatalog()
+    {
+
+        return ProjectStatus::CATALOG;
+
+
+    }
+
 
 
     public function positionOtherComponentItem($component_type, $itemsPositions)

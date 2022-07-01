@@ -60,8 +60,7 @@
 
 
                 </div>
-
-
+                
             </div>
 
         </div>
@@ -74,30 +73,28 @@
 
         </div>
 
+        {# Project status or progression Edition Icon only Small Screens #}
+
+        <div class="edit-status-button-container d-flex justify-content-center d-lg-none">
+
+            {% include 'project_presentation/_show/_upper_box/_status.html.twig' %}
+
+        </div>
+
     </div>
 
-    <div class="container right-col-md col-lg-3">
+    {# Right column (only >= lg screens) #}
+
+    <div class="container right-col-md col-lg-3 d-none d-lg-flex">
         
-        {# WIP - project status or progression - edition mode #}
+        {# Project status or progression icon in edition mode #}
 
         {% if userPresenter %}
 
             <div class="">
-                    
-                <div data-bs-toggle="modal" data-bs-target="#project_status_edition" class="pp-edition-mode select-status-button d-flex px-2 py-2">
 
-                    <img class="mb-1 me-2" src="{{ asset('progress_status.svg', 'pp_wysiwyg')}}" alt="project status icon" width="27">
-                    
-                    <span class="h5 ps-1">Statut - Progression</span>
-                
-                </div>
+                {% include 'project_presentation/_show/_upper_box/_status.html.twig' %}
 
-                <div class="">
-
-                    {% include 'project_presentation/edit/_status.html.twig' %}
-
-                </div>
-                
             </div>
 
         {% endif %}
@@ -117,22 +114,6 @@
         border-left: 1px solid rgb(204, 204, 161);   
     }
 
-    .select-status-button{
-
-        border-color: rgb(216, 216, 201); 
-        border-bottom: 1px solid #ddddb1;
-        border-left:0; 
-        border-right:0; 
-        border-top:0;
-        cursor: pointer;
-          
-    }
-
-    .select-status-button:hover{
-
-        background-color: #e0ecff;
-          
-    }
 
 
     .pp-placeholder-container {

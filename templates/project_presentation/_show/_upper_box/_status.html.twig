@@ -1,0 +1,52 @@
+{# icon (open a modal defined below) #}
+
+<div data-bs-toggle="modal" data-bs-target="#project_status_edition" class="edit-status-button pp-edition-mode d-inline-block px-2 pt-2 pb-0 pt-lg-0 pb-lg-2">
+
+    <img class="mb-1 me-md-2" src="{{ asset('progress_status.svg', 'pp_wysiwyg')}}" alt="project status icon" width="27">
+    
+    <span class="ps-1">Statut - Progression</span>
+
+</div>
+
+
+<style>
+    
+    .edit-status-button{
+
+        font-size: 20px;
+        font-weight: 500;
+
+        border-color: rgb(216, 216, 201); 
+        border: none;
+        border-bottom: 1px solid #ddddb1;
+        cursor: pointer;
+          
+    }
+
+    .edit-status-button:hover{
+
+        background-color: #e0ecff;
+          
+    }
+
+       
+    @media screen and (max-width: 580px) {
+
+            
+        .edit-status-button{
+ 
+            border: none !important;
+            font-size: 15px;
+            
+        }
+
+        .edit-status-button img{
+ 
+            width: 24px;
+            height: 24px;
+            
+        }
+        
+    }
+
+</style>

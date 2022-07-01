@@ -80,7 +80,7 @@ class PPBase implements \Serializable, NormalizableInterface
      *     maxSize = "1500k",
      *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
      *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp"},
-     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     *     mimeTypesMessage = "Pour ajouter un logo, le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="project_logo_image", fileNameProperty="logo")
      * 

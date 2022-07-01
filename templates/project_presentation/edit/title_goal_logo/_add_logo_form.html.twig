@@ -1,52 +1,56 @@
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "add_logo_form_modal", 'modal_title': "Ajouter un Logo"} %}
-    
-{% block modalBody %}
 
-        {{ form_start(form) }}
+{# This form is hidden except  #}
 
-        <div class="mb-3">
+{{ form_start(form) }}
 
-            <div class="mb-3">
-                {{ form_errors(form.logoFile) }}
-            </div>
-            
-            {{ form_widget(form.logoFile) }}
+    <div class="text-center">
 
-        </div>
-
-        <div class="d-none">
-
-            {{ form_rest(form) }}
-
-        </div>
-
-    {% endblock %}
-
-    {% block footerButtons %}
-
-        <button type="submit" class="btn btn-success">Valider</button>
-
-        {{ form_end(form) }}
-
-    {% endblock %}
-
-
-    {% block formErrors %}
+        {{ form_errors(form.logoFile) }}
         
-        {% if not form.vars.valid %}
+    </div>
 
-            <script>
-            
-                $(document).ready(function(){
-            
-                    $('#{{modal_id}}').modal('show');
-            
-                });
-            
-            </script>
+    <div class="d-none">
 
-        {% endif %}
-    
-    {% endblock %}
+        {{ form_widget(form.logoFile) }}
 
-{% endembed %}
+        {{ form_rest(form) }}
+
+        <button id="submit-logo-form" type="submit"></button>
+
+    </div>
+
+{{ form_end(form) }}
+
+    <script>
+
+        $(document).ready(function(){
+
+
+            $('#logoPlaceholder').on('click', function (){
+
+                $("#pp_base_logoFile_file").click();
+
+            });
+
+            // Thanks at https://stackoverflow.com/questions/5942821/how-to-fire-event-on-file-select
+       
+            /* when used asynchronously, resets the value to address navigating away from the page 
+            and choosing to upload the same file */ 
+
+            $('#pp_base_logoFile_file').on('click touchstart' , function(){
+                $(this).val('');
+            });
+
+
+            //Trigger now when you have selected any file 
+            $("#pp_base_logoFile_file").change(function(e) {
+
+                $("#submit-logo-form").click();
+                
+            });
+
+
+        });
+
+
+    </script>

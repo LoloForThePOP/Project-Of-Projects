@@ -1,27 +1,17 @@
-
 {% if not presentation.logo is empty %}
 
     <img id="pp-logo" class="img-fluid" src="{{ vich_uploader_asset(presentation) | imagine_filter('logo')}}" alt="Logo du Projet">
 
     {# Edit Logo button #}
 
-    <a class="pp-edition-mode" href="{{ path('edit_pp_base', {'stringId': presentation.stringId}) }}">
-
-        <div class="edit-icon-position d-lg-none">
-
-            <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-
-        </div>
-        
-    </a>
-
     <a class="pp-edition-mode coverable-link" href="{{ path ('edit_pp_base', {'stringId': presentation.stringId}) }}"></a>
 
 {% else %}
 
-    <a id="logoPlaceholder" data-bs-toggle="modal" data-bs-target="#add_logo_form_modal" class="pp-edition-mode text-decoration-none">
+    <a id="logoPlaceholder" class="pp-edition-mode text-decoration-none">
 
         <img class="no-logo-image img-fluid" src="{{ asset('no_logo.svg', 'pp_wysiwyg') }}" height="90" width="90" alt="add a logo icon" >
+
     
     </a>
 
@@ -32,12 +22,14 @@
 
     #pp-logo{
         
+        margin-bottom: 0.5rem;
         border-radius: 4px;
     }
 
     .pp-logo-container .edit-icon-position{
 
         position: absolute; 
+
         bottom:0; 
         right:0; 
         
@@ -47,6 +39,7 @@
         background-color: #fff;
     
     }
+
 
     #logoPlaceholder{
 

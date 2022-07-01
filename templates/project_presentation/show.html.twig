@@ -81,6 +81,15 @@
         
     {% endif %}
 
+
+    {# Project Status #}
+
+    {% set statusCatalog = presentation.getStatusCatalog %}
+    
+    {% set projectStatus = presentation.getOC("status") %}
+
+
+
     
     {% if userPresenter %}
     
@@ -116,11 +125,7 @@
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
 
-    {% set statusCatalog = presentation.getStatusCatalog %}
-    {% set projectStatus = presentation.getOC("status") %}
-
-
-    <div class="project-status-display border">
+    <div class="project-status-display border d-none">
 
         <div class="enumerated-tags">
 

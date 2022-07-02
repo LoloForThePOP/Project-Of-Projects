@@ -73,6 +73,35 @@ class MiscDataType extends AbstractType
                 ]
             )
 
+            ->add('source', TextType::class, 
+                [
+                    'label' => 'Ajouter une source',
+
+                    'attr' => [
+                        
+                        'placeholder'    => 'Ex : wikipedia (consulté en 2022)',
+                    ],
+
+                    'required'   => false,
+                    
+                    'constraints' => array(
+                        new \Symfony\Component\Validator\Constraints\NotBlank( 
+                            [
+                                'message' => 'Ce champ ne peut être vide'
+                            ]
+                        ),
+                        new \Symfony\Component\Validator\Constraints\Length(
+                            [
+                                "min" => 1,
+                                "max" => 250,
+                                "minMessage" => "La source doit contenir au minimum {{ limit }} caractères",
+                                "maxMessage" => "La source doit contenir au plus {{ limit }} caractères",
+                            ]
+                        ),
+                    )
+                ]
+            )
+
             
         ;
     }

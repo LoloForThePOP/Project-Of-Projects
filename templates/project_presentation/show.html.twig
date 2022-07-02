@@ -103,7 +103,13 @@
     {# Setting some variables #}
 
     {% set hasKeywords = presentation.keywords is not empty %}
-    {% set countCategories = presentation.categories | length %}
+
+      <link href="/css/show_more_less_button.css" rel="stylesheet">
+
+    {% set presentationCategories = presentation.categories %}
+    {% set countCategories = presentationCategories | length %}
+
+
     {% set countSlides = presentation.slides | length %}
     {% set countMiscDataList = presentation.getOC('dataList') | length %}
     {% set countWebsites = presentation.getOC('websites') | length %}
@@ -124,65 +130,6 @@
 
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode'}} container">
-
-    <div class="project-status-display border d-none">
-
-        <div class="enumerated-tags">
-
-            {% for statusCategory in statusCatalog %}
-
-                {% apply spaceless %}{# removes whitespaces between tags, usefull to check if this tag content is empty (whitespace appart) with css #}
-
-                    <div class="{{statusCategory.categoryLabels.uniqueName}} status-info status-tag btn btn-sm btn-light me-3 mb-3">
-                                
-                        {% for key in projectStatus | keys %}{# searching if project is concerned by this category status #}
-
-                            {% if key == statusCategory.categoryLabels.uniqueName %}
-
-                                {% for item in statusCategory.items %} {# retrieving this project status readable description #}
-
-                                    {% if projectStatus[key].value == item.uniqueName %} 
-                                        {{item.description_fr}}
-                                    {% endif %} 
-                                    
-                                {% endfor %}
-
-                                {{statusCategory.categoryLabels.description_fr}}
-                            
-                            {% endif %}
-
-                                
-                        {% endfor %}
-
-                    </div>
-
-                {% endapply %}
-                
-            {% endfor %}
-
-        </div>
-
-        <div class="status-info userRemarks">
-
-            {% if projectStatus.userRemarks is defined and projectStatus.userRemarks is not empty %}
-
-                {{projectStatus.userRemarks.value}}
-            
-            {% endif %}
-
-        </div>
-
-        
-        <style>
-
-            .status-info:empty{
-                display: none;
-            }
-
-        </style>
-
-
-    </div>
 
     {# Upper box containing Project Title + Goal + Logo #}
     
@@ -266,6 +213,21 @@
         <div id="dataList-struct-container" class="pp-struct-container col-lg-10">
 
             {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
+            
+        </div>
+
+    {% endif %}
+
+        
+    {# Project Status (Consultation Mode) #}
+
+    {% if projectStatus is defined %}
+
+        <div id="status-struct-container" class="pp-struct-container col-lg-5">
+
+
+            {% include 'project_presentation/_show/_status.html.twig' %}
+
             
         </div>
 
@@ -575,6 +537,46 @@
 
 
         </div>
+
+        {# Other Project Presentation to Consult Suggestions #}
+
+        {% if not userPresenter %}
+
+            <link href="/css/titled_projects_collection.css" rel="stylesheet">
+
+            <script src="/js/show_more_less_button.js"></script>
+            <link href="/css/show_more_less_button.css" rel="stylesheet">
+
+            {% import "utilities/_macro_titled_collection.html.twig" as display %}
+
+
+            {% set algoliaQueryString = '' %}
+
+            {% for category in presentationCategories %}
+
+                {% set algoliaQueryString = algoliaQueryString ~ 'categories.uniqueName:'~ category.uniqueName %}
+
+                {% if not loop.last %}
+
+                    {% set algoliaQueryString = algoliaQueryString ~ ' OR ' %}
+                
+                {% endif %}
+
+            {% endfor %}
+
+            {% set algoliaQueryString = '(' ~ algoliaQueryString ~ ')' %}
+
+
+            <div class="">
+
+                {{ render(path('backend_search', {label: 'Projets en rapport', filters: algoliaQueryString})) }}
+
+            </div>
+
+        {% endif %}
+
+
+
 
     </div>
 

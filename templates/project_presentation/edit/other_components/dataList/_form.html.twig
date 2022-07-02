@@ -4,7 +4,25 @@
 
         {{ form_start(form) }}
 
-        {{ form_widget(form) }}
+        {{ form_row(form.name) }}
+        {{ form_row(form.value) }}
+
+
+                        
+        <div class="mt-4 mb-2">
+
+            <h5 class="" data-bs-toggle="collapse" href="#miscDataFormShowMoreOptions" role="button" aria-expanded="false" aria-controls="miscDataFormShowMoreOptions">
+                Afficher plus d'options ▾
+            </h5>
+
+            <div id="miscDataFormShowMoreOptions" class="collapse no-transition mt-2">
+                    
+                {{ form_row(form.source) }}
+
+            </div>
+            
+        </div>
+        
 
     {% endblock %}
 

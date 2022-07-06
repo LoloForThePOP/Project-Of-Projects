@@ -22,9 +22,9 @@ class ProjectStatus
             
                 [
                     
-                    ['uniqueName'=> 'idea', 'description_fr'=>"À l'étude (idée, réflexion)"], 
+                    ['uniqueName'=> 'idea', 'description_fr'=>"Encore à l'état d'idée,<br>de réflexion"], 
             
-                    ['uniqueName'=> 'production', 'description_fr'=>'Réalisation démarrée'] ,
+                    ['uniqueName'=> 'production', 'description_fr'=>'La réalisation concrète<br>est démarrée'] ,
 
                     [
                         'uniqueName'=> "pause", 'description_fr' => "En pause"
@@ -46,7 +46,7 @@ class ProjectStatus
             [
                 'uniqueName' => 'sales',
 
-                'description_fr'=> 'Ventes (ou pas)', 
+                'description_fr'=> 'Si des ventes<br>seront réalisées', 
     
             ],
 
@@ -55,12 +55,12 @@ class ProjectStatus
 
                 [ 
                     'uniqueName'=> "will_be_marketed",
-                    'description_fr' => "Sera commercialisé",
+                    'description_fr' => "Un produit ou service<br>sera commercialisé",
                 ], 
         
                 [ 
                     'uniqueName'=> "sale_offering_began",
-                    'description_fr' => "Commence à être commercialisé",
+                    'description_fr' => "Un produit ou service<br>commence à être commercialisé",
                 ], 
         
                 [ 
@@ -86,7 +86,7 @@ class ProjectStatus
 
                 'uniqueName' => 'modelisation',
 
-                'description_fr'=> 'Objet matériel', 
+                'description_fr'=> 'Si vous créez<br>un objet matériel', 
 
             ],
 
@@ -95,22 +95,22 @@ class ProjectStatus
 
                 [ 
                     'uniqueName'=> "computer_simulation",
-                    'description_fr' => "Simulation informatique",
+                    'description_fr' => "C'est actuellement une<br>simulation informatique",
                 ], 
         
                 [ 
                     'uniqueName'=> "labo_prototype",
-                    'description_fr' => "Prototype testé en labo",
+                    'description_fr' => "C'est actuellement un<br>prototype testé en labo",
                 ], 
       
                 [ 
                     'uniqueName'=> "real_world_prototype",
-                    'description_fr' => "Prototype testé en monde réel",
+                    'description_fr' => "C'est actuellement un prototype<br>testé dans le monde réel",
                 ], 
       
                 [ 
                     'uniqueName'=> "realised_object",
-                    'description_fr' => "Objet réalisé",
+                    'description_fr' => "L'objet est réalisé",
                 ], 
         
             ],
@@ -124,7 +124,7 @@ class ProjectStatus
 
                 'uniqueName' => 'submission',
 
-                'description_fr'=> 'Soumission ou vote', 
+                'description_fr'=> "Si le projet est soumis<br>à une décision ou un vote", 
 
             ],
 

@@ -23,7 +23,7 @@
         
             {# Notification to user #}
 
-            <div class="alert alert-info d-flex justify-content-center align-items-center ps-3 pe-2" role="alert">
+            <div class="alert alert-info d-flex justify-content-center align-items-center fw-bold ps-3 pe-2" role="alert">
 
                 <div class="fs-5">
                     Sélectionnez seulement les colonnes et les boutons qui correspondent à votre situation.
@@ -35,6 +35,8 @@
 
         <div class="container px-2 mt-4">
 
+            {# User can choose some enumerated status types #}
+
             <div class="d-flex flex-column flex-lg-row justify-content-around px-2 mb-5">
 
                 {% for statusCategory in statusCatalog %}
@@ -45,7 +47,7 @@
 
                     <h5 class="category-title" data-bs-toggle="collapse" href="#category-{{uniqueCategoryName}}">
                         
-                        {{statusCategory.categoryLabels.description_fr}} ▾
+                        {{statusCategory.categoryLabels.description_fr  | raw }} ▾
                     
                     </h5>
 
@@ -95,7 +97,7 @@
 
             <div class="d-flex flex-column align-items-center mb-5">
 
-                <h5 class="text-center fw-bold lh-sm mb-3" style="font-size: large; font-weight: normal;">Ici vous pouvez apporter des précisions ou des remarques sur l'avancement de votre projet</h5>
+                <h5 class="text-center fw-bold lh-sm mb-3" style="font-size: large; font-weight: normal;">Ici vous pouvez ajouter des précisions ou des remarques sur l'avancement de votre projet</h5>
 
                 <div class="border" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"userRemarks"}' data-text="Écrire ici" style="width: 600px; max-width: 100%; min-height: 110px; padding: 5px 10px;">{% if projectStatus.userRemarks is defined %}{{projectStatus.userRemarks.value}}{% endif %}
                 </div>
@@ -134,9 +136,10 @@
 
     .status-type-list-container{
 
+        min-width: 250px;
+        min-height: 390px;
         margin-right: 1rem;
         margin-bottom: 1rem;
-        min-width: 250px;
         text-align: center;
 
     }
@@ -192,6 +195,8 @@
 
         .status-type-list-container{
 
+
+            min-height: unset;
             margin-right: 0rem;
 
         }

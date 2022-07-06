@@ -549,7 +549,7 @@ class PPController extends AbstractController
 
                 $this->addFlash(
                     'success',
-                    "✅ Votre présentation est enregistrée. Vous pouvez désormais la modifier quand vous voulez en vous connectant sur le site avec votre e-mail et votre mot de passe."
+                    "✅ Votre présentation est enregistrée. Vous pouvez désormais la modifier quand vous voulez, il suffit de vous connecter avec votre e-mail et votre mot de passe."
                 );
 
                 return $this->redirectToRoute('show_presentation', [

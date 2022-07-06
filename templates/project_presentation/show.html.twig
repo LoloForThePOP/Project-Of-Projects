@@ -233,7 +233,7 @@
     {% endif %}
 
         
-    {# Project Status (Consultation Mode) #}
+    {# Project Status (Consultation Mode)
 
     {% if projectStatus is defined %}
 
@@ -245,7 +245,7 @@
             
         </div>
 
-    {% endif %}
+    {% endif %} #}
 
 
     {# Documents #}
@@ -551,7 +551,7 @@
 
         </div>
 
-        {# Other Project Presentation to Consult Suggestions
+        {# Other Project Presentation to Consult Suggestions #}
 
         {% if not userPresenter %}
 
@@ -563,7 +563,7 @@
             {% import "utilities/_macro_titled_collection.html.twig" as display %}
 
 
-            {% set algoliaQueryString = '' %}
+            {% set algoliaQueryString = null %}
 
             {% for category in presentationCategories %}
 
@@ -572,12 +572,20 @@
                 {% if not loop.last %}
 
                     {% set algoliaQueryString = algoliaQueryString ~ ' OR ' %}
-                
+
+                {% else %}
+                    
+                    {% set algoliaQueryString = '(' ~ algoliaQueryString ~ ')' %}
+
                 {% endif %}
 
             {% endfor %}
 
-            {% set algoliaQueryString = '(' ~ algoliaQueryString ~ ')' %}
+            <pre>
+                {{ dump(algoliaQueryString) }}
+            </pre>
+
+            
 
 
             <div class="">
@@ -586,7 +594,7 @@
 
             </div>
 
-        {% endif %} #}
+        {% endif %}
 
 
 

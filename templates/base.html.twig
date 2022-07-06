@@ -36,7 +36,7 @@
 
     <script src="/js/jquery-3.6.0.js"></script>
 
-    <script src="/js/tracking.js"></script>
+    {# <script src="/js/tracking.js"></script> #}
         
     {# Google Map Inclusion for Geosearch and google Places usage #}
         
@@ -77,8 +77,7 @@
 
     {# Display some html chunks on user demand, to reduce page load #}
 
-    {# Access to the appropriate route to call #}
-    <script> var getChunkRouteName = '{{path("ajax_render_chunk")}}'; </script>
+    <script> var getChunkRouteName = '{{path("ajax_render_chunk")}}'; </script>{# Access to the appropriate route to call #}
 
     {# Manage chunk demand and display #}
     <script src="/js/ajax_chunk.js"></script>
@@ -96,7 +95,7 @@
 
 <body>
 
-    {% include "_partials/GDPR.html.twig" %}
+    {# {% include "_partials/GDPR.html.twig" %} #}
 
     {# Header Navbar #}
 

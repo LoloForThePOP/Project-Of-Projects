@@ -1,35 +1,35 @@
 
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "introduction-box", 'modal_title': "", 'modal_size': "modal-fullscreen-xl-down modal-lg"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "introduction-box", 'modal_title': "", 'modal_size': "modal-fullscreen-xl-down modal-lg modal-dialog-centered", 'modal_body_classes': "d-flex"} %}
 
     {% block modalHeader %}{% endblock %}
 
     {% block modalBody %}
 
-        <div class="row">
+        <div class="row flex-column-reverse flex-md-row">
 
-            <div class="col-7 col-md-6">
+            <div class="col-md-6 ps-md-4 ps-lg-5 d-flex align-items-center">
 
-                <div class="fs-4 pt-md-5 ps-md-4 ps-lg-5">
+                <div class="fs-4">
 
-                    <p>
-                        ✨ Bienvenue !
+                    <p class="">
+                        ⭐ Bienvenue !
                     </p>
 
                     <p>
-                        Je pose des questions et je remplis automatiquement votre page de projet.
+                        Je pose des questions et je remplis automatiquement ✨ la présentation de votre projet.
                     </p>
 
                     <p>
-                        Si vous faites une erreur, vous pourrez la modifier après ✅
+                        Si vous faites une erreur, vous pourrez la modifier ensuite ✅
                     </p>
 
                 </div>
 
             </div>
 
-            <div class="col-5 col-md-6 d-flex align-items-center">
+            <div class="col-md-6 d-flex align-items-center justify-content-center">
 
-                <img class="img-fluid" src="{{asset ("presentation_helper/interviewer.svg", 'larger')}}" alt="A girl that is talking to you" loading="lazy" width="420" height="430">
+                <img class="introductive-girl img-fluid" src="{{asset ("presentation_helper/interviewer.svg", 'larger')}}" alt="A girl that is talking to you" loading="lazy" width="420" height="430">
 
             </div>
 
@@ -40,7 +40,26 @@
 
         <style>
 
+    
+            #introduction-box {
+                background-color: cadetblue;
+            }
+
+
             @media screen and (max-width: 580px) {
+
+                #introduction-box p{
+                    text-align: center;
+                }
+
+                #introduction-box .row{
+                    justify-content: space-evenly;
+                }
+
+                .introductive-girl{
+                    max-height: 310px;
+                    margin-bottom: 22px;
+                }
 
                 .col-5 {
                     padding: 0;

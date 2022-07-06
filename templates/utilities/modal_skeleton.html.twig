@@ -35,7 +35,7 @@
 
             {% endblock %}
 
-            <div class="modal-body ui-front"> {# ui-front is used by jquery autocomplete (when included) #}
+            <div class="modal-body ui-front {{modal_body_classes ?? ""}}"> {# ui-front is used by jquery autocomplete (when included) #}
 
                 {% block modalBody %}{% endblock %}
 

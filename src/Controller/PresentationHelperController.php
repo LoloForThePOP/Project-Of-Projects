@@ -15,10 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PresentationHelperController extends AbstractController
 {
-    
-    
+
     /**
-     * Allow user to follow a step by step guide to present its project
+     * Allow user to follow a step by step guidance to present its project
      * 
      * position = 0 means begining; position = null means end.
      * 
@@ -30,8 +29,6 @@ class PresentationHelperController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         $categories = $categoryRepository->findBy([], ['position' => 'ASC']);
-
-       
 
         if($position==null){
 
@@ -66,6 +63,15 @@ class PresentationHelperController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $helperType=$form->get('helperItemType')->getData();
+
+            if ($helperType=="goal") {
+
+                $goal=$form->get('goal')->getData();
+                $presentation->setGoal($goal);
+
+                $manager->flush();
+
+            }
 
             if ($helperType=="title") {
 
@@ -143,7 +149,7 @@ class PresentationHelperController extends AbstractController
 
             $nextPosition=$form->get('nextPosition')->getData();
 
-            // Do we repeat (example : user wants to add another website)
+            // Do we repeat current position (example : user wants to add another website)
 
             $repeatInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
 
@@ -155,7 +161,7 @@ class PresentationHelperController extends AbstractController
 
                 $this->addFlash(
                     'success fs-4',
-                    "✅ La construction de votre page de projet progresse."
+                    "🧙 La construction de votre page de projet progresse ✅"
                 );
                 
             }

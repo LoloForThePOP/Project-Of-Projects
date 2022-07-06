@@ -147,6 +147,20 @@
 
     {% endif %}
 
+    
+    {# Guest Presenter Sign Up Invitation #}
+
+    {% if userPresenter and presentation.getDataItem('guest-presenter-token') is not empty %}
+
+        <div class="my-5">
+
+            {% include 'project_presentation/_show/_notifications/save_your_presentation.html.twig' %}
+
+        </div>
+
+    {% endif %}
+
+
     {# Notification "invisible project because of quality assessment" #}
 
     {% if userPresenter and overallQualityAssessment < 2 %}
@@ -440,7 +454,6 @@
 
         </button>
 
-
         {# Misc Buttons Container #}
 
         <div class="mt-5 pt-3">
@@ -521,7 +534,7 @@
 
                 <li class="" >
                     
-                    <p class="text-muted mb-1">Propon souhaite vous fournir une information fiable, mais ne peut garantir l'exactitude et la complétude des informations présentées par ses utilisateurs.</p>
+                    <p class="text-muted mb-1">Propon souhaite vous fournir une information fiable, mais ne peut garantir l'exactitude ainsi que la complétude des informations présentées par ses utilisateurs.</p>
                 
                 </li>
             
@@ -538,7 +551,7 @@
 
         </div>
 
-        {# Other Project Presentation to Consult Suggestions #}
+        {# Other Project Presentation to Consult Suggestions
 
         {% if not userPresenter %}
 
@@ -573,7 +586,7 @@
 
             </div>
 
-        {% endif %}
+        {% endif %} #}
 
 
 

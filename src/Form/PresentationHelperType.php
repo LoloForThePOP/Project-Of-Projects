@@ -17,6 +17,25 @@ class PresentationHelperType extends AbstractType
         $builder
 
             ->add(
+
+                'goal',
+
+                TextType::class,
+
+                [
+                    'label' => 'Objectif du Projet',
+
+                    'attr' => [
+
+                        'placeholder'    => 'Écrire ici l\'objectif',
+                        'autofocus' => true
+                    ],
+
+                    'required'   => true,
+                ]
+            )
+
+            ->add(
                 'title',
                 TextType::class,
 
@@ -52,7 +71,7 @@ class PresentationHelperType extends AbstractType
                 'websiteDescription',
                 TextType::class,
                 [
-                    'label' => 'Titre de l\'adresse',
+                    'label' => "Donner un titre à l'adresse",
                     'attr' => [
 
                         'placeholder'    => 'Exemple : Compte Twitter; Site web officiel; etc.',

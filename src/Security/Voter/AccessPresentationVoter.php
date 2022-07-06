@@ -3,12 +3,24 @@
 namespace App\Security\Voter;
 
 use App\Entity\PPBase;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class AccessPresentationVoter extends Voter
 {
+
+    private $requestStack;
+
+    public function __construct(RequestStack $requestStack) {
+
+        $this->requestStack = $requestStack;
+
+    }
+
+
+
     protected function supports(string $attribute, $subject): bool
     {
         // replace with your own logic
@@ -19,7 +31,9 @@ class AccessPresentationVoter extends Voter
 
     protected function voteOnAttribute(string $attribute, $presentation, TokenInterface $token): bool
     {
+
         $user = $token->getUser();
+
 
         switch ($attribute) {
 
@@ -52,7 +66,18 @@ class AccessPresentationVoter extends Voter
             return false;
         }
 
-        // if user is anonymous, do not grant access
+        // if presentation is created by a guest anonymous user, we check if guest user token is same as presentation guest user token
+        if (array_key_exists('guest-presenter-token', $presentation->getData())) {
+
+            if ($presentation->getDataItem('guest-presenter-token') == $this->requestStack->getSession()->get('guest-presenter-token')){
+                return true;
+            }
+
+            return false;
+
+        }
+
+        // otherwise if user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;
         }
@@ -62,6 +87,7 @@ class AccessPresentationVoter extends Voter
             return true;
         }
 
+        // otherwise we check if user is an admin
         if(in_array('ROLE_ADMIN', $user->getRoles())){
             return true;
         }

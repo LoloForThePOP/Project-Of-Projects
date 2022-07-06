@@ -285,7 +285,7 @@ class FakeDataFixtures extends Fixture
         $users = []; // contains all users, we'll use this array to hydrate project presentation creators
 
         // One admin user creation
-/* AVOIDING DUPLICATA WHEN FIXTURE APPENDING
+        
         $admin = new User();
 
         $admin
@@ -340,7 +340,7 @@ class FakeDataFixtures extends Fixture
 
         $manager->persist($otherTestUser);
 
-        $users[] = $otherTestUser; */
+        $users[] = $otherTestUser; 
 
         // Casual users creation
 

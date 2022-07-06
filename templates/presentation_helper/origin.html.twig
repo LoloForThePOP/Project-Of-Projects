@@ -2,11 +2,17 @@
 
 {% block title %}Aide à la présentation de projet{% endblock %}
 
+
+{# "priorQuestion" is a prior question user can answer with yes or no, so that a form appears or not with an actual Question (questionFr) 
+    "finalRenderingLabel" is the label that will be integrated on consultation page, if relevant.
+#}
+
 {% set helperItems = [ 
         
-        
+    { 'uniqueName': "goal", 'type': "goal", 'questionFr': "Quel est l'objectif de votre Projet ?", 'finalRenderingLabel': ""}, 
+    
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
-
+        
     { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
 
     { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
@@ -15,9 +21,9 @@
 
     { 'uniqueName': "places", 'type': "places", 'priorQuestion': "Votre Projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
     
-    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Acceptez-vous de l'aide (recherchez-vous des contributeurs bénévoles ou payés) ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
+    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Acceptez-vous de l'aide ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
-    { 'uniqueName': "categories_keywords", 'type': "categories_keywords", 'questionFr': "Faciliter la découverte de votre Projet"},
+    { 'uniqueName': "categories_keywords", 'type': "categories_keywords", 'questionFr': "Facilitez la découverte de votre Projet"},
 
 ] %}
 
@@ -88,7 +94,7 @@
 
         #flash-messages {
             
-            animation: fadeout 4s ease-in-out forwards;
+            animation: fadeout 8s ease-in-out forwards;
             opacity: 1;
         }
                 

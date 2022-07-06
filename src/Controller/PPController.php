@@ -11,8 +11,8 @@ use App\Entity\Document;
 use App\Form\PPBaseType;
 use App\Form\PersorgType;
 use App\Form\WebsiteType;
-use App\Form\MiscDataType;
 use App\Form\DocumentType;
+use App\Form\MiscDataType;
 use App\Form\StringIdType;
 use App\Service\TreatItem;
 use App\Service\LiveSavePP;
@@ -36,10 +36,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Url;
+use App\Form\WithoutUsernameRegistrationFormType;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -134,15 +137,16 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, Slug $slug)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, Slug $slug, UserPasswordHasherInterface $encoder)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
 
         $user = $this->getUser();
 
-        //updating views count
-        if($user != $presentation->getCreator()){
+        //updating views count only if user is not this presentation's presentor (as registered user or as a guest)
+
+        if($user != $presentation->getCreator() && !array_key_exists('guest-presenter-token', $presentation->getData()) ){
 
             $presentation->setDataItem('viewsCount', $presentation->getDataItem('viewsCount')+1);
 
@@ -409,7 +413,7 @@ class PPController extends AbstractController
                 );
 
             }
-
+       
           
             $newECS = new ContributorStructure();
             $ecsForm = $this->createForm(ContributorStructureType::class, $newECS);
@@ -517,6 +521,46 @@ class PPController extends AbstractController
           
             }
 
+            //create an account possibility for guest user presenters
+            $guestPresenterForm = $this->createForm(WithoutUsernameRegistrationFormType::class);
+            $guestPresenterForm->handleRequest($request);
+
+            if ($guestPresenterForm->isSubmitted() && $guestPresenterForm->isValid()){
+
+
+                $shadowUser = $presentation->getCreator(); // The fake user we created when we created an empty guest user presentation. We update this user.
+
+                $guestPresenterEmail= $guestPresenterForm->get('email')->getData();
+
+                // hashing guest user provided password
+                
+                $guestPresenterPassword = $encoder->hashPassword(
+                    $shadowUser,
+                    $guestPresenterForm->get('plainPassword')->getData()
+                );
+
+
+                $shadowUser ->setEmail($guestPresenterEmail)
+                            ->setPassword($guestPresenterPassword);
+
+                $presentation->unsetDataItem("guest-presenter-token");
+
+                $manager->flush();
+
+                $this->addFlash(
+                    'success',
+                    "✅ Votre présentation est enregistrée. Vous pouvez désormais la modifier quand vous voulez en vous connectant sur le site avec votre e-mail et votre mot de passe."
+                );
+
+                return $this->redirectToRoute('show_presentation', [
+                    'stringId' => $presentation->getStringId(),
+                ]);
+            
+            }
+
+
+
+
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
@@ -533,19 +577,72 @@ class PPController extends AbstractController
                 'addVideoForm' => $addVideoForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
                 'updateStringIdForm' => $updateStringIdForm->createView(),
+                'newUserForm' => $guestPresenterForm->createView(),
+                
                 
             ]);
 
         }
-
+        
 
         return $this->render('/project_presentation/show.html.twig', [
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
+            
         ]);
     }
 
+
+
+    /**
+     * Allow anonymous user to create a presentation and then create an account in order to save it.
+     * 
+     * @Route("/create-guest-user-presentation", name="edit_presentation_as_guest_user")
+     * 
+     * @return Response
+    */
+    public function guestUserEditPresentation(Request $request, RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger){
+
+        //Creating a php session token attached to anonymous user
+        //This token is also attached to the newly created presentation
+        //So that we can check and distinguish if guest user can edit a presentation.
+
+        $guestPresenterToken = substr(str_shuffle(MD5(microtime())), 0, 15);
+        $session = $requestStack->getSession();
+        $session->set('guest-presenter-token', $guestPresenterToken);
+
+
+        // Creation of an "empty shadow user" for the purpose of editing a presentation as a guest user
+
+        $newUser= new User();
+        $anonymousUserNameId = substr(str_shuffle(MD5(microtime())), 0, 6); // creating a random username for shadow user
+
+        $newUser->setUserName('user'.$anonymousUserNameId)
+                ->setEmail('test'.$anonymousUserNameId.'@test.com')
+                ->setUserNameSlug(strtolower($slugger->slug($newUser->getUserName())))
+                ->setPassword('test'.$anonymousUserNameId)
+                ->setParameter('isVerified', true);
+
+                $manager->persist($newUser);
+
+        // Creation of an "empty" project presentation which can be edited by the guest user
+        $presentation = new PPBase();
+
+        $presentation->setDataItem('guest-presenter-token', $guestPresenterToken)
+                    ->setGoal('This is project goal')
+                    ->setCreator($newUser);
+        
+        $manager->persist($presentation);
+
+        $manager->flush();
+
+        return $this->redirectToRoute('presentation_helper', [
+            'stringId' => $presentation->getStringId(),
+            'position' => 0,
+        ]);
+
+    }
 
 
     /**

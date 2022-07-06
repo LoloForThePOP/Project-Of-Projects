@@ -1093,6 +1093,14 @@ class PPBase implements \Serializable, NormalizableInterface
         return $this;
     }
 
+    public function unsetDataItem($key)
+    {
+        unset($this->data[$key]);
+
+        return true;
+    }
+
+    
 
 
 

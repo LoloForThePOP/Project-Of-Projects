@@ -598,11 +598,11 @@ class PPController extends AbstractController
     /**
      * Allow anonymous user to create a presentation and then create an account in order to save it.
      * 
-     * @Route("/create-guest-user-presentation", name="edit_presentation_as_guest_user")
+     * @Route("/presenter-un-projet", name="edit_presentation_as_guest_user")
      * 
      * @return Response
     */
-    public function guestUserEditPresentation(Request $request, RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger){
+    public function guestUserEditPresentation(RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger){
 
         //Creating a php session token attached to anonymous user
         //This token is also attached to the newly created presentation

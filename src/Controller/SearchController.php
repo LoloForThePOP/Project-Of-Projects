@@ -24,17 +24,18 @@ class SearchController extends AbstractController
      * @Route("/backend-search/{label}/{filters}", name="backend_search")
      *
      */
-    public function backendSearch($filters='', $label='')
+    public function backendSearch($label='', $filters='')
     {
 
         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
 
-        $results = $this->searchService->search($em, PPBase::class, '', 
-            
-            [
-                'filters' => $filters,
-            ]
-        );   
+        $searchOptions = [];
+
+        if ($filters != '') {
+            $searchOptions['filters']= $filters;
+        }
+
+        $results = $this->searchService->search($em, PPBase::class, '', $searchOptions);   
 
         return $this->render('utilities/_display_collection_wrapper_template.html.twig', [
             'label' => $label,

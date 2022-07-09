@@ -66,14 +66,12 @@ class AccessPresentationVoter extends Voter
             return false;
         }
 
-        // if presentation is created by a guest anonymous user, we check if guest user token is same as presentation guest user token
+        // if presentation has been created by a guest anonymous user, we check if the current user session token is the same as the presentation guest user-creator token
         if (array_key_exists('guest-presenter-token', $presentation->getData())) {
 
             if ($presentation->getDataItem('guest-presenter-token') == $this->requestStack->getSession()->get('guest-presenter-token')){
                 return true;
             }
-
-            return false;
 
         }
 

@@ -543,13 +543,15 @@ class PPController extends AbstractController
                 $shadowUser ->setEmail($guestPresenterEmail)
                             ->setPassword($guestPresenterPassword);
 
-                $presentation->unsetDataItem("guest-presenter-token");
+                $presentation->setDataItem("guest-presenter-activated", true);
+
+                //$presentation->unsetDataItem("guest-presenter-token"); //removed so that guest user can continue his work without being disconnected meanwhile.
 
                 $manager->flush();
 
                 $this->addFlash(
                     'success',
-                    "✅ Votre présentation est enregistrée. Vous pouvez désormais la modifier quand vous voulez, il suffit de vous connecter avec votre e-mail et votre mot de passe."
+                    "✅ Votre présentation est enregistrée. Vous pouvez continuer à la modifier dès maintenant. Pour la modifier une autre fois, il suffira de vous connecter avec votre e-mail et votre mot de passe."
                 );
 
                 return $this->redirectToRoute('show_presentation', [
@@ -583,7 +585,6 @@ class PPController extends AbstractController
             ]);
 
         }
-        
 
         return $this->render('/project_presentation/show.html.twig', [
             'presentation' => $presentation,
@@ -591,18 +592,20 @@ class PPController extends AbstractController
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
             
         ]);
+
     }
 
 
 
     /**
      * Allow anonymous user to create a presentation and then create an account in order to save it.
+     * Landing is on which page the user will arrive (presentation helper, or wysiwyg presentation page)
      * 
-     * @Route("/presenter-un-projet", name="edit_presentation_as_guest_user")
+     * @Route("/presenter-un-projet/{landing?}", name="edit_presentation_as_guest_user")
      * 
      * @return Response
     */
-    public function guestUserEditPresentation(RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger){
+    public function guestUserEditPresentation(RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger, $landing){
 
         //Creating a php session token attached to anonymous user
         //This token is also attached to the newly created presentation
@@ -630,12 +633,28 @@ class PPController extends AbstractController
         $presentation = new PPBase();
 
         $presentation->setDataItem('guest-presenter-token', $guestPresenterToken)
-                    ->setGoal('This is project goal')
+                    ->setDataItem("guest-presenter-activated", false)
+                    ->setGoal("Écrire ici l'objectif du Projet")
                     ->setCreator($newUser);
         
         $manager->persist($presentation);
 
         $manager->flush();
+
+        if ($landing=="wysiwyg") {
+
+            $this->addFlash(
+                'success',
+                "✅ Présentez librement votre projet ! <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
+            );
+
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+            ]);
+
+
+        }
 
         return $this->redirectToRoute('presentation_helper', [
             'stringId' => $presentation->getStringId(),

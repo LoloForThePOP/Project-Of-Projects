@@ -150,7 +150,7 @@
     
     {# Guest Presenter Sign Up Invitation #}
 
-    {% if userPresenter and presentation.getDataItem('guest-presenter-token') is not empty %}
+    {% if userPresenter and presentation.data['guest-presenter-activated'] is defined and presentation.data['guest-presenter-activated'] == false %}
 
         <div class="my-5">
 
@@ -159,6 +159,20 @@
         </div>
 
     {% endif %}
+ 
+
+    
+    {# Guest Presenter Sign Up Invitation
+
+    {% if userPresenter and presentation.getDataItem('guest-presenter-token') is not empty %}
+
+        <div class="my-5">
+
+            {% include 'project_presentation/_show/_notifications/save_your_presentation.html.twig' %}
+
+        </div>
+
+    {% endif %} #}
 
 
     {# Notification "invisible project because of quality assessment" #}
@@ -581,9 +595,9 @@
 
             {% endfor %}
 
-            <div class="">
+           <div class="">
 
-                {{ render(path('backend_search', {label: "Suggestions d'autres Projets", filters: algoliaQueryString}, "hide-525" ) ) }}
+                {{ render(path('backend_search', {label: "Suggestions d'autres Projets", filters: algoliaQueryString} ) ) }}
 
             </div>
 

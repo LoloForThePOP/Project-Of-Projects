@@ -121,7 +121,6 @@
       {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}
 
     </div>
-    
 
     {# Search Bar container #}
 
@@ -131,92 +130,85 @@
 
     </div>
 
+    {# some presentations by category #}
 
-
-        {# some presentations by category #}
-
-        {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
-            
-
-        {# some presentations by category #}
+    {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
         
-        {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
-
-
-
-
-        {# A Google Map Image to Access Geosearch #}
-
-
-        <div class="container access-geosearch px-2 d-none d-sm-block">
-
-          <h3 class="fw-bold text-center mb-4">Afficher la carte des projets</h3>
-
-          <style>
-
-            .container.access-geosearch{
-              margin-bottom: 80px;
-            }
-
-            @media screen and (max-width: 580px) {
-
-              .container.access-geosearch{
-                margin-bottom: 40px;
-              }
-
-              .container.access-geosearch h3{
-                font-size:1.17em;
-              }
+    {# some presentations by category #}
     
-            }
+    {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
 
-          </style>
+    {# A Google Map Image to Access Geosearch #}
 
-          <img src="{{asset ('misc/project-map.jpg', 'larger')}}" class="js-display-geosearch d-block mx-lg-auto img-fluid" style="border-radius:4px; cursor:pointer;" alt="A Map with some markers on it" loading="lazy" width="600">
 
-          <script>
+    <div class="container access-geosearch px-2 d-none d-sm-block">
 
-            $(".js-display-geosearch").on("click", function() {
+      <h3 class="fw-bold text-center mb-4">Afficher la carte des projets</h3>
 
-              $("#main-body-container").addClass("visually-hidden");
+      <style>
 
-              $(".ais-InstantSearch").show(); //display search results panel
+        .container.access-geosearch{
+          margin-bottom: 80px;
+        }
 
-              window.scrollTo(0, 0); //view goes to correct location
+        @media screen and (max-width: 580px) {
 
-              if(tinyScreen){ //delared in base.html.twig
+          .container.access-geosearch{
+            margin-bottom: 40px;
+          }
 
-                $("#searchbox").css('display','none'); // otherwise filter panel can mess up, and searchbox is already accessible in navheader.
+          .container.access-geosearch h3{
+            font-size:1.17em;
+          }
 
-              }
+        }
 
-              $(".js-toggle-geosearch-map").click(); //display geosearch map
-              
-            });
+      </style>
 
-          </script>
+      <img src="{{asset ('misc/project-map.jpg', 'larger')}}" class="js-display-geosearch d-block mx-lg-auto img-fluid" style="border-radius:4px; cursor:pointer;" alt="A Map with some markers on it" loading="lazy" width="600">
 
-        </div>
-        
+      <script>
 
-        {# some presentations by category #}
-        
-        {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
-        
+        $(".js-display-geosearch").on("click", function() {
 
-        {# some presentations by category #}
-        
-        {{ render(path('backend_search', {label: 'Aéronautique', filters: '(categories.uniqueName:space)'})) }}
+          $("#main-body-container").addClass("visually-hidden");
 
-        {# some presentations by categories intersection
-        
-          {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
+          $(".ais-InstantSearch").show(); //display search results panel
 
+          window.scrollTo(0, 0); //view goes to correct location
+
+          if(tinyScreen){ //delared in base.html.twig
+
+            $("#searchbox").css('display','none'); // otherwise filter panel can mess up, and searchbox is already accessible in navheader.
+
+          }
+
+          $(".js-toggle-geosearch-map").click(); //display geosearch map
           
-        {# last project presentation #}
-        
-        {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
+        });
+
+      </script>
+
+    </div>
     
+
+    {# some presentations by category #}
+    
+    {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
+    
+
+    {# some presentations by category #}
+    
+    {{ render(path('backend_search', {label: 'Aéronautique', filters: '(categories.uniqueName:space)'})) }}
+
+    {# some presentations by categories intersection
+    
+      {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
+
+      
+    {# last project presentation #}
+      
+      {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
 
     </div>
 
@@ -224,7 +216,7 @@
 
     <div class="mb-5 pb-4 text-center">
 
-      <a href="{{ path ('create_presentation') }}">
+      <a href="{{ path ('edit_presentation_as_guest_user') }}">
 
         <button class="btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
 
@@ -236,9 +228,10 @@
 
       </a>
 
+
     </div>
 
-  </div> {# closes an unknow div which mess up footer display #}
+</div> {# closes an unknow div which mess up footer display #}
 
 
 {% endblock %}

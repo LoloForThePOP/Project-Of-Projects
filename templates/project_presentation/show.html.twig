@@ -208,43 +208,47 @@
     {% endif %}
 
 
-    {# Slideshow images & videos #}
+    <div class="row mx-0 px-0">
 
-    {% if countSlides > 0  %}
+        {# Slideshow images & videos #}
 
-        <div id="slideshow-struct-container" class="pp-struct-container">
+        {% if countSlides > 0  %}
+
+            <div id="slideshow-struct-container" class="pp-struct-container col-lg-6">
+                    
+                {% include 'project_presentation/_show/slides/slides.html.twig' %}
+
+            </div>
+
+        {% endif %}
+
+        {# Text Description #}
+
+        {% if not presentation.textDescription is empty %} 
+
+            <div id="text-description-struct-container" class="pp-struct-container col-lg-6">
                 
-            {% include 'project_presentation/_show/slides/slides.html.twig' %}
+                {% include 'project_presentation/_show/text_description/main.html.twig' %}
 
-        </div>
-
-    {% endif %}
-
-
-    {# Text Description #}
-
-    {% if not presentation.textDescription is empty %} 
-
-        <div id="text-description-struct-container" class="pp-struct-container col-12 col-md-10">
-            
-            {% include 'project_presentation/_show/text_description/main.html.twig' %}
-
-        </div>
-    
-    {% endif %}
-
+            </div>
         
-    {# Miscelaneous Data List #}
+        {% endif %}
 
-    {% if countMiscDataList > 0 %}
-
-        <div id="dataList-struct-container" class="pp-struct-container col-lg-10">
-
-            {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
+    </div>
             
-        </div>
+        {# Miscelaneous Data List #}
 
-    {% endif %}
+        {% if countMiscDataList > 0 %}
+
+            <div id="dataList-struct-container" class="pp-struct-container col-lg-10">
+
+                {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
+                
+            </div>
+
+        {% endif %}    
+
+
 
         
     {# Project Status (Consultation Mode)

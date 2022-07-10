@@ -23,6 +23,7 @@
 
     #slideshow-struct-container{
         padding: 10px 12px 12px 10px;
+        border: none;
     
     }
 
@@ -109,8 +110,43 @@
 }
 
 
-/* Media queries */
+/* Slideshow in consultation mode */
 
+
+.in-consultation-mode .thumbnails-container {
+
+    display: none !important;
+ 
+ }
+
+.in-consultation-mode .caption-container {
+
+    width: 100%; /* Because now that thumbnail container is hidden, we need more space to center captions. */
+ 
+ }
+
+ /* Text Description in consultation mode */
+
+ @media screen and (min-width: 992px) {
+
+    #text-description-struct-container {
+
+        border: none; 
+
+    }
+
+
+    .in-consultation-mode #text-description-struct-container {
+
+        padding-top: 25px;
+        
+    }
+
+ }
+
+
+
+/* Media queries */
 
 @media screen and (max-width: 768px) {
 
@@ -173,7 +209,6 @@
 
     #slideshow-struct-container{
         padding: 0px;
-        border: none;
     }
 
 

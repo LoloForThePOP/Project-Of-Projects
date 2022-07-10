@@ -15,7 +15,7 @@
 				{# Add an image button (triggers a modal with a form) #}
 			
 				<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
-				class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
+				class="pp-edition-mode btn btn-light btn-sm mb-2 me-3">+ Image</button>
 
 				{# Add a video button (triggers a modal with a form) #}
 
@@ -31,7 +31,7 @@
 
 				{# Link to reorder slides page #}
 
-				<a id="manage-slides" href="{{ path('order_slides', {'stringId': presentation.stringId}) }}" class="text-decoration-none me-3">
+				<a id="manage-slides" href="{{ path('order_slides', {'stringId': presentation.stringId}) }}" class="d-lg-none text-decoration-none me-3">
                         
 					<button type="button" class="pp-edition-mode btn btn-light btn-sm" aria-label="Manage Order and Titles Button">Ordre</button>
 
@@ -71,7 +71,7 @@
 				
 			{#  Slides Container #}
 
-			<div class="slides-container px-0 col-lg-9 edit-hoverable-item"> 
+			<div class="slides-container px-0 col edit-hoverable-item"> 
 
 				{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
 

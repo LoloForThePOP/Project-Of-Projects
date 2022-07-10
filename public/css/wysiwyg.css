@@ -36,10 +36,9 @@
 
     padding: 15px 12px 10px 12px;
     margin-bottom: 28px;
-    border: 1px solid rgb(221, 221, 177);
-    border-radius: 6px;
 
 }
+
 
 
 /* Contact ways are not displayed in consultation mode when no contact ways are provided */

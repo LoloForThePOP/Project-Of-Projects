@@ -54,7 +54,7 @@
 
 		<!-- Caption Container -->
 					
-		<div class="caption-container col-lg-9 d-flex align-items-center" >
+		<div class="caption-container {{userPresenter ? "col-lg-9" : "col-lg-12" }} d-flex align-items-center" >
 
 			{% for slide in presentation.slides %}
 
@@ -89,12 +89,16 @@
 				{% endif %}
 			
 			{% endif %}
-			
-			<div class="thumbnails-container col-lg-3 pe-0 d-none {{ showThumbnails ? 'd-lg-flex' }} align-items-center">
-			
-				{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+
+			{% if userPresenter %} {# Displaying Thumbnails only for user presenters so they can change orders #}
+				  
+				<div class="pp-edition-mode thumbnails-container col-lg-3 pe-0 d-none {{ showThumbnails ? 'd-lg-flex' }} align-items-center">
 				
-			</div>
+					{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+					
+				</div>
+
+			{% endif %}
 
 		</div>	
 

@@ -24,7 +24,7 @@
             
             {% set longText = false %}
 
-            {% if textDescription | length > 300 %}
+            {% if textDescription | length > 600 %}
             
                 {% set longText = true %}
 
@@ -98,7 +98,7 @@
                 
                 display: block;
                 
-                height: 4.9em; /* height = lineheight * no of lines to display */
+                height: 13.9em; /* height = lineheight * no of lines to display */
 
                 overflow: hidden;
 
@@ -115,7 +115,7 @@
 
                 .long-text #collapseTextDescription.collapse:not(.show) {
 
-                    height: 3em;
+                    height: 4em;
 
                 }
 

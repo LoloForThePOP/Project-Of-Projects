@@ -1,5 +1,5 @@
 
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "introduction-box", 'modal_title': "", 'modal_size': "modal-fullscreen-xl-down modal-lg modal-dialog-centered", 'modal_body_classes': "d-flex"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "introduction-box", 'modal_title': "", 'modal_size': "modal-fullscreen-xl-down modal-lg modal-dialog-centered", 'modal_body_classes': "d-flex", 'modal_footer_classes': "justify-content-center justify-content-lg-end"} %}
 
     {% block modalHeader %}{% endblock %}
 
@@ -7,7 +7,7 @@
 
         <div class="row flex-column-reverse flex-md-row">
 
-            <div class="col-md-6 ps-md-4 ps-lg-5 d-flex align-items-center">
+            <div class="col-md-6 ps-md-5 d-flex align-items-center">
 
                 <div class="fs-4">
 
@@ -77,7 +77,7 @@
 
     {% block footerCloseButton %}
 
-        <button type="button" class="btn btn-go-back" data-bs-dismiss="modal">Ok</button>
+        <button type="button" class="btn btn-go-back extreme-right-button text-center" data-bs-dismiss="modal">Ok</button>    
 
     {% endblock %}
 

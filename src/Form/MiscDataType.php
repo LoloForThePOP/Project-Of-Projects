@@ -79,17 +79,12 @@ class MiscDataType extends AbstractType
 
                     'attr' => [
                         
-                        'placeholder'    => 'Ex : wikipedia (consulté en 2022)',
+                        'placeholder'    => 'Exemple : wikipedia - consulté en 2022',
                     ],
 
                     'required'   => false,
                     
                     'constraints' => array(
-                        new \Symfony\Component\Validator\Constraints\NotBlank( 
-                            [
-                                'message' => 'Ce champ ne peut être vide'
-                            ]
-                        ),
                         new \Symfony\Component\Validator\Constraints\Length(
                             [
                                 "min" => 1,

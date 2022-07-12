@@ -112,9 +112,10 @@
 
 
 .show-more-button{
-    background-color: rgb(252, 252, 252);
-    font-weight: normal;
-    color:rgb(52, 52, 52);
+    font-size: 15px;
+    font-weight: 700;
+    color:rgb(97, 97, 97); 
+    cursor: pointer;
 }
 
 

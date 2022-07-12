@@ -18,7 +18,7 @@
             {% for qa in qas %}
 
             
-                {% if loop.index == 3 %}
+                {% if loop.index == 3  and not userPresenter %}
                 
                     <div class="collapse no-transition px-0" id="collapse-qas">
 
@@ -112,13 +112,13 @@
                 </div>
 
                 
-                {% if loop.index > 2 and loop.last %}
+                {% if loop.index > 2 and loop.last and not userPresenter %}
 
                     </div>
                     
-                    <div class="container px-0">
+                    <div class="container px-0 mt-2 mb-3" onclick="this.style.display = 'none'">
 
-                        <span class="show-more-button mt-3 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-qas" aria-expanded="false" aria-controls="collapse-qas">Afficher plus</span>
+                        <span class="show-more-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-qas" aria-expanded="false" aria-controls="collapse-qas">Afficher plus</span>
                     
                     </div>
                 

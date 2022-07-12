@@ -110,12 +110,11 @@
 }
 
 
-
-.show-more-button{
-    font-size: 15px;
-    font-weight: 700;
-    color:rgb(97, 97, 97); 
-    cursor: pointer;
+.show-more-button {
+	margin-left: 3px;
+	font-size: 15px;
+	color: rgb(53, 53, 53);
+	cursor: pointer;
 }
 
 

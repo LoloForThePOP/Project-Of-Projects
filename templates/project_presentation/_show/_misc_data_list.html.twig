@@ -25,7 +25,7 @@
 
                 <div class="value" data-text="Contenu de la donnée (Ex: 1300 €))" data-edit='{"entity": "PPBase", "id": "{{presentationId}}",  "property": "dataList", "subid": "{{data.id}}", "subproperty":"value"}'>{{ data.value[:1]|upper ~ data.value[1:] }}</div>
 
-                {# Data Date Created or Updated #}
+                {# Data Date Created or Updated
 
                 {% if data.createdAt is defined or data.updatedAt is defined %}
                                     
@@ -47,7 +47,7 @@
 
                     </div>
 
-                {% endif %}  
+                {% endif %}   #}
 
             </div>
 
@@ -71,13 +71,13 @@
 
             {% for data in presentation.getOC('dataList') %}
             
-                {% if loop.index == 3 %}
+                {% if loop.index == 3 and not userPresenter %}
                 
                     <div class="collapse no-transition row px-0 mx-0" id="collapse-misc-data">
 
                 {% endif %}
 
-                <div id="{{data.id}}" class="js-sortable-element misc-data-card edit-mode-outline col-6 col-md-5">{{ _self.misc_data_card_inner(data, presentation.id) }}{% if userPresenter %}
+                <div id="{{data.id}}" class="js-sortable-element misc-data-card edit-mode-outline col-6 col-md-5 col-lg-6">{{ _self.misc_data_card_inner(data, presentation.id) }}{% if userPresenter %}
                     
                         {# Delete data item (Red Cross) button #}
 
@@ -88,13 +88,13 @@
                 </div>
 
                 
-                {% if loop.last and loop.index > 2 %}
+                {% if loop.last and loop.index > 2 and not userPresenter %}
 
                     </div>
                     
-                    <div class="container px-0">
+                    <div class="container px-0 mt-3 mb-2" onclick="this.style.display = 'none'">
 
-                        <span class="show-more-button mt-3 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-misc-data" aria-expanded="false" aria-controls="collapse-misc-data">Afficher plus</span>
+                        <span class="show-more-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-misc-data" aria-expanded="false" aria-controls="collapse-misc-data">Afficher plus</span>
                     
                     </div>
                 

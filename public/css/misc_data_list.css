@@ -49,7 +49,6 @@
 .pp-container.in-edition-mode .edit-mode-outline{
     border: 1px solid rgb(221, 221, 177);
     border-radius: 6px;
-    margin-right: 5px;
     padding: 6px;
 }
 
@@ -121,9 +120,6 @@
         
     }
 
-    .pp-container.in-edition-mode .edit-mode-outline{
-        margin-right: 0;
-    }
 
     .show-details-text-container {
         padding-left: 0;

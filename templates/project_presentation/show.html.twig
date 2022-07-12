@@ -235,20 +235,87 @@
         {% endif %}
 
     </div>
-{# 
+
+
+    <div class="container px-0">
+
+        <div class="row gx-lg-4">
         
-            <div class="container px-0">
+        {# Slideshow images & videos
 
-                <div class="row row-cols-2">     
+        {% if countSlides > 0  %}
+            
+            <div class="col-lg-6 px-0">
+            
+                <div id="slideshow-struct-container" class="pp-struct-container">
+                        
+                    {% include 'project_presentation/_show/slides/slides.html.twig' %}
 
-                    <div id="dataList-struct-container" class="pp-struct-container">
+                </div>
+                
+            </div>
+
+        {% endif %} #}
+
+        {# Text Description
+
+        {% if not presentation.textDescription is empty %} 
+
+            <div class="col-lg-6 px-0">
+            
+                <div id="text-description-struct-container" class="pp-struct-container">
+                    
+                    {% include 'project_presentation/_show/text_description/main.html.twig' %}
+
+                </div>
+            
+            </div>
+
+        {% endif %} #}
+
+            {# Miscelaneous Data List #}
+
+            {% if countMiscDataList > 0 %}
+
+                <div class="col-lg-6">
+
+                    <div id="dataList-struct-container" class="pp-struct-container ">
 
                         {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
-                    
+                                    
                     </div>
 
+                </div>
 
-                    <div id="questionsAnswers-struct-container" class="pp-struct-container">
+            {% endif %}
+                    
+
+            {# Documents #}
+
+            {% if countDocuments > 0 %}
+
+                <div class="col-lg-6">
+
+
+                        <div id="documents-struct-container" class="pp-struct-container">
+
+                            {% include 'project_presentation/_show/_documents.html.twig' %}
+
+                        </div>
+
+
+                </div>
+
+            {% endif %}   
+            
+
+            {# Questions & Answers #}
+
+            {% if countQA > 0 %}
+
+                <div class="col-lg-6">
+                
+                    <div id="questionsAnswers-struct-container" class="pp-struct-container ">
                 
                         {% include 'project_presentation/_show/_questions_answers.html.twig' %}
                 
@@ -256,131 +323,100 @@
 
                 </div>
 
-            </div> 
+            {% endif %}
+
+                    
+            {# Needs #}
+
+            {% if countNeeds > 0 %}
+
+                <div class="col-lg-6">
+                        
+                    <div id="needs-struct-container" class="pp-struct-container">
+                        
+                        {% include 'project_presentation/_show/needs/main.html.twig' %}
+                        
+                    </div>
+                    
+                </div>
+
+            {% endif %}
+
             
-         #}
-            
-        {# Miscelaneous Data List #}
+            {# Places #}
 
-        {% if countMiscDataList > 0 %}
+            {% if countPlaces > 0 %}
 
-            <div id="dataList-struct-container" class="pp-struct-container col-lg-10">
-
-                {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
+                <div class="col-lg-6">
+                    
+                    <div id="places-struct-container" class="pp-struct-container">
+                        
+                        {% include 'project_presentation/_show/_places.html.twig' %}
+                    
+                    </div>
                 
-            </div>
-
-        {% endif %}    
-
-
-
-        
-    {# Project Status (Consultation Mode)
-
-    {% if projectStatus is defined %}
-
-        <div id="status-struct-container" class="pp-struct-container col-lg-5">
-
-
-            {% include 'project_presentation/_show/_status.html.twig' %}
-
-            
-        </div>
-
-    {% endif %} #}
-
-
-    {# Documents #}
-
-
-    {% if countDocuments > 0 %}
-
-        <div id="documents-struct-container" class="pp-struct-container col-12">
-
-            {% include 'project_presentation/_show/_documents.html.twig' %}
-
-        </div>
-
-    {% endif %}
-
-        
-    {# Questions & Answers #}
-
-    {% if countQA > 0 %}
-        
-        <div id="questionsAnswers-struct-container" class="pp-struct-container col-12 col-lg-9">
-            
-            {% include 'project_presentation/_show/_questions_answers.html.twig' %}
-            
-        </div>
-
-    {% endif %}
-
+                </div>
+                
+            {% endif %}
     
-    {# Needs #}
-
-    {% if countNeeds > 0 %}
-        
-        <div id="needs-struct-container" class="pp-struct-container col-12 col-md-9 col-lg-7">
             
-            {% include 'project_presentation/_show/needs/main.html.twig' %}
+            {# Websites #}
+
+            {% if countWebsites > 0  %}
+
+                <div class="col-lg-6">
             
-        </div>
+                    <div id="websites-struct-container" class="pp-struct-container col-12">
+                        
+                        {% include 'project_presentation/_show/_websites.html.twig' %}
+                        
+                    </div>   
+                
+                </div>
 
-    {% endif %}
+            {% endif %}
 
-    
-    {# Places #}
-
-    {% if countPlaces > 0 %}
-        
-        <div id="places-struct-container" class="pp-struct-container col-12">
             
-            {% include 'project_presentation/_show/_places.html.twig' %}
-        
-        </div>
 
-    {% endif %}
-    
-    
-    {# Websites #}
+            {# External Contributors Structures (ex: sponsors; partners; etc.) #}
 
-    {% if countWebsites > 0  %}
-    
-        <div id="websites-struct-container" class="pp-struct-container col-12">
+            {% if countECS > 0 %}
+
+                <div class="col-lg-6">
+                    
+                    <div id="ecs-struct-container" class="pp-struct-container">
+
+                        {% include 'project_presentation/_show/_external_contributors.html.twig' %}
+
+                    </div>
+
+                </div>
+                    
+            {% endif %}
+
             
-            {% include 'project_presentation/_show/_websites.html.twig' %}
-            
-        </div>
+                
+            {# Contact Project Members : Business Cards & Private Message Button #}
+            {# !!! Also contains "Send Private Message Button" & "Allow - Disallow PM Switcher" #}
 
-    {% endif %}
+            {% if not presentation.isDeleted and (countBC > 0 or privateMessagesActive or userPresenter) %}
 
+                <div class="col-lg-6">
 
-    {# External Contributors Structures (ex: sponsors; partners; etc.) #}
+                    <div id="businessCards-struct-container" data-display="{{countBC > 0 or privateMessagesActive ? "true" : "false"}}" class="pp-struct-container col-12">
 
-    {% if countECS > 0 %}
+                        {% include 'project_presentation/_show/_contact_members.html.twig' %}
 
-        <div id="ecs-struct-container" class="pp-struct-container col-12">
+                    </div>    
+                
+                </div>
 
-            {% include 'project_presentation/_show/_external_contributors.html.twig' %}
-
-        </div>
-            
-    {% endif %}
-
-        
-    {# Contact Project Members : Business Cards & Private Message Button #}
-    {# !!! Also contains "Send Private Message Button" & "Allow - Disallow PM Switcher" #}
-
-    {% if not presentation.isDeleted and (countBC > 0 or privateMessagesActive or userPresenter) %}
-
-        <div id="businessCards-struct-container" data-display="{{countBC > 0 or privateMessagesActive ? "true" : "false"}}" class="pp-struct-container col-12">
-
-            {% include 'project_presentation/_show/_contact_members.html.twig' %}
+            {% endif %}
 
         </div>
 
-    {% endif %}
+    </div> 
+
 
     {# Add Presentation Structure Buttons (Placeholders or Other Buttons in a Modal Box) #}
 
@@ -680,3 +716,17 @@
 
 {% endblock %}
 
+
+    {# Project Status (Consultation Mode)
+
+    {% if projectStatus is defined %}
+
+        <div id="status-struct-container" class="pp-struct-container col-lg-5">
+
+
+            {% include 'project_presentation/_show/_status.html.twig' %}
+
+            
+        </div>
+
+    {% endif %} #}

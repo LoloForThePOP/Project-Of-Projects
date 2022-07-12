@@ -27,9 +27,10 @@
 
             {% if textDescription | length > 870 %}
             
-                {% set longTextLargeSreens = true %}
+                {% set longTextLargeScreens = true %}
 
             {% endif %}
+
 
             {% if textDescription | length > 300 %}
             
@@ -113,6 +114,13 @@
                 margin-top: 13px;
             }
 
+            .long-text #collapseTextDescription.collapse:not(.show) {
+                
+                display: block;
+                height: 23em; /* height = lineheight * no of lines to display */
+                overflow: hidden;
+
+            }   
             
             #read-text-description .collapse:not(.collapse-lg){ /* when text is entirely displayed on large screens but not on small screens */
 
@@ -121,13 +129,6 @@
 
             }
             
-            .long-text #collapseTextDescription.collapse:not(.show) {
-                
-                display: block;
-                height: 23em; /* height = lineheight * no of lines to display */
-                overflow: hidden;
-
-            }   
 
             .pp-text-description{
                 

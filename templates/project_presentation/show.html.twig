@@ -343,23 +343,6 @@
             {% endif %}
 
             
-            {# Places #}
-
-            {% if countPlaces > 0 %}
-
-                <div class="col-lg-6">
-                    
-                    <div id="places-struct-container" class="pp-struct-container">
-                        
-                        {% include 'project_presentation/_show/_places.html.twig' %}
-                    
-                    </div>
-                
-                </div>
-                
-            {% endif %}
-    
-            
             {# Websites #}
 
             {% if countWebsites > 0  %}
@@ -376,6 +359,23 @@
 
             {% endif %}
 
+            
+            {# Places #}
+
+            {% if countPlaces > 0 %}
+
+                <div class="col-lg-6">
+                    
+                    <div id="places-struct-container" class="pp-struct-container">
+                        
+                        {% include 'project_presentation/_show/_places.html.twig' %}
+                    
+                    </div>
+                
+                </div>
+                
+            {% endif %}
+    
             
 
             {# External Contributors Structures (ex: sponsors; partners; etc.) #}

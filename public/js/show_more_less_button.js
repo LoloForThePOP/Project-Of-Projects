@@ -73,5 +73,5 @@ function updateHeight(el) {
 // thanks to karim79 for this function
 // http://stackoverflow.com/a/4793630/5667951
 function insertAfter(referenceNode, newNode) {
-    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+  referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
 }

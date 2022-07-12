@@ -22,28 +22,21 @@
 
             {% set textDescription = presentation.textDescription %}
             
-            {% set longTextSmallScreens = false %}
-            {% set longTextLargeScreens = false %}
+            {% set longText = false %}
 
-            {% if textDescription | length > 870 %}
+            {% if textDescription | length > 600 %}
             
-                {% set longTextLargeSreens = true %}
-
-            {% endif %}
-
-            {% if textDescription | length > 300 %}
-            
-                {% set longTextSmallScreens = true %}
+                {% set longText = true %}
 
             {% endif %}
 
             {# Text Description Display (2 cases : short text description; collapsible long text description) #}
             
-            <div id="read-text-description" class="{{ longTextLargeScreens or longTextSmallScreens ? 'long-text' }} container px-0 pl-md-3">
+            <div id="read-text-description" class="{{ longText ? 'long-text' }} container px-0 pl-md-3">
 
                 <!-- Text Description (Display) -->
 
-                <div id="collapseTextDescription" class="pp-text-description position-relative edit-hoverable-item {{ longTextSmallScreens ? 'collapse no-transition'}} {{ longTextLargeScreens ? 'collapse-lg'}} ">
+                <div id="collapseTextDescription" class="pp-text-description position-relative edit-hoverable-item {{ longText ? 'collapse no-transition'}}">
 
                     {{ textDescription | sanitize_html ('default') }}
 
@@ -51,23 +44,11 @@
 
                 </div>
 
-                {% if longTextLargeScreens %}
+                {% if longText %}
                     
                     <!-- Toggle Collapse Button -->
 
-                    <div class="d-none d-lg-block mt-4 mb-2">
-
-                        <button style="z-index: index 5;" class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
-                        
-                    </div>
-                
-                {% endif %}
-
-                {% if longTextSmallScreens %}
-                    
-                    <!-- Toggle Collapse Button -->
-
-                    <div class="d-lg-none mt-4 mb-2">
+                    <div class="mt-4 mb-2">
 
                         <button style="z-index: index 5;" class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
                         
@@ -112,19 +93,13 @@
             .long-text button:not(.collapsed) {
                 margin-top: 13px;
             }
-
-            
-            #read-text-description .collapse:not(.collapse-lg){ /* when text is entirely displayed on large screens but not on small screens */
-
-                display: block;
-                height: 100%;
-
-            }
             
             .long-text #collapseTextDescription.collapse:not(.show) {
                 
                 display: block;
+                
                 height: 23em; /* height = lineheight * no of lines to display */
+
                 overflow: hidden;
 
             }   
@@ -138,7 +113,7 @@
             @media screen and (max-width: 580px) {
 
 
-                .long-text #collapseTextDescription.collapse:not(.show), .long-text #collapseTextDescription.collapse-sm:not(.show) {
+                .long-text #collapseTextDescription.collapse:not(.show) {
 
                     height: 4em;
 

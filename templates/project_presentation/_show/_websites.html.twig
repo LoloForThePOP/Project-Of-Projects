@@ -22,7 +22,13 @@
             {% set websites = presentation.getOC('websites') %}
 
             {% for website in websites %}
-            
+
+                    {% if loop.index == 3 %}
+                    
+                        <div class="collapse px-0" id="collapse-websites">
+
+                    {% endif %}
+                
                     <div id="{{website.id}}" class="js-sortable-element pp-website-card d-flex align-items-center">
 
                         {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
@@ -41,6 +47,18 @@
 
 
                     </div>
+
+                    {% if loop.index > 2 and loop.last %}
+
+                        </div>
+                        
+                        <div class="container px-0">
+
+                            <button class="show-more-button btn d-block btn-sm btn-light mt-1 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-websites" aria-expanded="false" aria-controls="collapseExample">Afficher plus</button>
+                        
+                        </div>
+                    
+                    {% endif %}
                 
             {% endfor %}
 

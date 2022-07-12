@@ -16,7 +16,14 @@
         <div id="questionsAnswers" class="js-elements-list pp-struct-content">
 
             {% for qa in qas %}
+
+            
+                {% if loop.index == 3 %}
                 
+                    <div class="collapse px-0" id="collapse-qas">
+
+                {% endif %}
+            
                 <!-- Q & A container -->
 
                 <div 
@@ -70,8 +77,9 @@
                     <!-- Answer Display (+ edit button for presenters)-->
 
                     <div id="collapse-answer-{{ qa.id }}" class="answer-container disabled collapse no-transition">
-{# 
-                        <div class="rte" style="width: 40px; height: 70px; background-color: rgb(210, 210, 246); float: right;">
+
+
+                        {# <div class="rte" style="width: 40px; height: 70px; background-color: rgb(210, 210, 246); float: right;">
                             <div class="custom-list-icon"></div>
                         </div> #}
                      
@@ -100,7 +108,21 @@
 
                     <hr class="qa-separator m-0">            
 
+                
                 </div>
+
+                
+                {% if loop.index > 2 and loop.last %}
+
+                    </div>
+                    
+                    <div class="container px-0">
+
+                        <button class="show-more-button btn d-block btn-sm btn-light mt-3 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-qas" aria-expanded="false" aria-controls="collapseExample">Afficher plus</button>
+                    
+                    </div>
+                
+                {% endif %}
 
                 
 

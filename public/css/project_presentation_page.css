@@ -110,6 +110,15 @@
 }
 
 
+
+.show-more-button{
+    background-color: rgb(252, 252, 252);
+    font-weight: normal;
+    color:rgb(52, 52, 52);
+}
+
+
+
 /* Slideshow in consultation mode */
 
 
@@ -143,6 +152,7 @@
     }
 
  }
+
 
 
 

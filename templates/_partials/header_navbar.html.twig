@@ -2,7 +2,7 @@
 
 <header>
 
-  <nav class="navbar navbar-dark navbar-expand-md fixed-top pb-0 bg-dark" style="border-bottom: 2px solid orange;">
+  <nav class="navbar navbar-expand-md fixed-top navbar-light bg-white" style="border-bottom: 2px solid orange;">
 
     <div class="container-fluid ps-4 ps-md-5">
 
@@ -14,19 +14,19 @@
 
       {# Website Logo #}
 
-      <a class="navbar-brand pb-0 ps-lg-4 me-lg-5" href="/">
+      <a class="navbar-brand py-0 ps-lg-4 me-lg-5" href="/">
 
-        <img src="/media/static/images/pop_logo.svg" alt="website logo" loading="lazy" width="37px" height="44px"/>
+        <img src="/media/static/images/pop_logo.svg" alt="website logo" loading="lazy" width="37px" height="37px"/>
 
       </a>
 
       {# Static Menu #}
 
-      <ul class="navbar-nav static-menu fw-bold">
+      <ul class="navbar-nav d-flex align-items-center static-menu fw-bold" style="flex-direction: inherit;">
 
         <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
-          <a class="nav-link text-white" aria-current="page" href="/">Accueil</a>
+          <a class="nav-link" aria-current="page" href="/">Accueil</a>
 
         </li>
 
@@ -158,55 +158,59 @@
               {{app.user.userName}}
             </div>
   
-            <li>
-  
-              <a class="dropdown-item" href="{{path ('create_presentation')}}">Ajouter un Projet</a>
-  
-            </li>
-  
-            <li>
-  
-              <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
-                Mes Projets présentés
-              </a>
-  
-            </li>
-  
-            {# Dropdown Divider #}
-  
-            <li>
-  
-              <hr class="dropdown-divider">
-  
-            </li>
-  
-            <li>
-  
-              <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
-                Mon Compte
-              </a>
-  
-            </li>
-  
-            {# Dropdown Divider #}
-  
-            <li>
-  
-              <hr class="dropdown-divider">
-  
-            </li>
-  
-            {# logout button #}
-  
-            <li>
-  
-              <a class="dropdown-item" href="{{path('app_logout')}}">
-  
-                Déconnexion
-  
-              </a>
-  
-            </li>
+           <ul class="ps-0" style="list-style:none;">
+
+              <li>
+    
+                <a class="dropdown-item" href="{{path ('create_presentation')}}">Ajouter un Projet</a>
+    
+              </li>
+    
+              <li>
+    
+                <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
+                  Mes Projets présentés
+                </a>
+    
+              </li>
+    
+              {# Dropdown Divider #}
+    
+              <li>
+    
+                <hr class="dropdown-divider">
+    
+              </li>
+    
+              <li>
+    
+                <a class="dropdown-item" href="{{path("show_user_profile", {'userNameSlug': app.user.userNameSlug})}}">
+                  Mon Compte
+                </a>
+    
+              </li>
+    
+              {# Dropdown Divider #}
+    
+              <li>
+    
+                <hr class="dropdown-divider">
+    
+              </li>
+    
+              {# logout button #}
+    
+              <li>
+    
+                <a class="dropdown-item" href="{{path('app_logout')}}">
+    
+                  Déconnexion
+    
+                </a>
+    
+              </li>
+            
+            </ul>
 
            </div>
         
@@ -226,7 +230,7 @@
 
       {# These elements are collapsed and displayed only on small screens #}
       
-      <div id="navbarSMToggle" class="collapse navbar-collapse" style="margin-bottom: 7px;">
+      <div id="navbarSMToggle" class="collapse navbar-collapse text-center">
 
         <div class="d-md-none">
 
@@ -271,17 +275,17 @@
 
             {# login access button (for sm screens) #}
 
-            <div class="d-md-none">
+            <div class="d-md-none text-center">
 
-              <h4 class="fw-bold text-white">Connexion</h4>
+              <h4 class="fw-bold text-center mt-4 mb-3">Connexion</h4>
                 
               <a href="{{ path('connect_google_start') }}">
 
-                <button class="btn text-white me-3">
+                <button class="sm-connect-btn btn">
 
                     <img src="{{asset ('connect/google.svg', 'misc')}}" class="" alt="Google Logo" loading="lazy" width="50" height="50">
 
-                    <span class="">Avec Google</span>
+                    <span class="ms-2">Avec Google</span>
 
                 </button>
 
@@ -289,11 +293,11 @@
 
               <a href="{{ path('connect_facebook_start') }}">
 
-                  <button class="btn text-white">
+                  <button class="sm-connect-btn btn">
 
                       <img src="{{asset ('connect/facebook.svg', 'misc')}}" class="" alt="Facebook Logo" loading="lazy" width="50" height="50">
 
-                      <span class="">Avec Facebook</span>
+                      <span class="ms-2">Avec Facebook</span>
 
                   </button>
 
@@ -301,15 +305,27 @@
               
               <a href="{{path('app_login')}}">
 
-                <button class="btn text-white">
+                <button class="sm-connect-btn btn">
 
                   <img src="{{asset ('connect/email.svg', 'misc')}}" class="" alt="Facebook Logo" loading="lazy" width="50" height="50">
 
-                  <span class="">Avec E-mail</span>
+                  <span class="ms-2">Avec E-mail</span>
 
-              </button>
+                </button>
 
               </a>
+
+
+              <style>
+
+                .sm-connect-btn{
+
+                    width: 210px;
+
+                }
+              
+              
+              </style>
 
             </div>
 
@@ -324,7 +340,7 @@
 
             <li class="d-none d-md-block nav-item dropdown rounded">
 
-              <a id="userAccountDropdown" class="nav-link dropdown-toggle btn btn-primary fw-bold text-white" href="#"
+              <a id="userAccountDropdown" class="nav-link dropdown-toggle btn btn-outline-primary fw-bold" href="#"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false"
                 style="padding: 6px 9px; margin-right: 10px;">
 
@@ -334,11 +350,12 @@
 
               {# User Account Dropdown Content #}
 
-              <ul aria-labelledby="userAccountDropdown" class="dropdown-menu dropdown-menu-end fw-bold" style="width: 260px;">
+              <ul aria-labelledby="userAccountDropdown" class="dropdown-menu dropdown-menu-end" style="width: 260px;">
 
                 {{ userAccountMenu }}
 
               </ul>
+
 
             </li>
 
@@ -359,7 +376,6 @@
 <style>
 
   .dropdown-item{
-    font-weight: bold;
     font-size: 1.15em;
   }
 

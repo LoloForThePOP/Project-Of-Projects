@@ -233,30 +233,33 @@ label:active:after {
 
 /* App Buttons */
 
+
 .btn-see-result{
 
     background-color: #c8efb6;
 }
 
+
 .btn-validate{
 
-    background-color: #27ae60;
-    color: white;
+    background-color: #e8fcd4;
 }
 
 .btn-validate:hover{
 
-    background-color: #5bb982;
-    color: white;
+    background-color: #80cfa1;
 }
 
 .btn-go-back{
 
-    background-color: #D1EAFB;
+    background-color: #DFF2FF;
 }
 
+
 .main-container{ /* see base.html */
+
     padding-top: 55px;
+
 }
 
 

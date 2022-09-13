@@ -5,32 +5,32 @@
 
 {% block body %}
 
-    <div class="page-container container col-sm-8 col-xxl-8">
+    <div class="page-container container px-2 col-md-8 col-xxl-8">
 
-        <div class="row align-items-center py-3">
+        <div class="row align-items-center py-3 text-center text-lg-start">
 
-            <div class="col-lg-6">
+            <div class="col-lg-6 pt-3 text-success">
 
-                <h3 class="fw-bold mb-4">Inscription sur le site</h3>
+                <h3 class="fw-bold mb-5 text-body text-center">Inscription sur le site</h3>
 
                 {{form_start(registrationForm)}}
 
                 
 
-                <div class="mb-3">
-                    {{ form_label(registrationForm.userName) }}
+                <div class="my-5 mb-lg-3">
+                    <span class="me-2" style="display: inline-block;transform: matrix(-1, 0, 0, 1, 0, 0);">✒️</span> {{ form_label(registrationForm.userName) }}
                     {{form_errors(registrationForm.userName)}}
                     {{ form_widget(registrationForm.userName) }}
                 </div>
 
-                <div class="mb-3">
-                    {{ form_label(registrationForm.email) }}
+                <div class="my-5 mb-lg-3">
+                    <span class="fs-4 text-success me-2">@</span> {{ form_label(registrationForm.email) }}
                     {{form_errors(registrationForm.email)}}
                     {{ form_widget(registrationForm.email) }}
                 </div>
 
-                <div class="mb-3">
-                    {{ form_label(registrationForm.plainPassword) }}
+                <div class="my-5 mb-lg-3">
+                    <span class="me-2">🔑</span> {{ form_label(registrationForm.plainPassword) }}
                     {{ form_errors(registrationForm.plainPassword) }}
                     {{ form_widget(registrationForm.plainPassword) }}
                 </div>
@@ -44,15 +44,15 @@
 
                 <!-- ui Actions Buttons -->
 
-                <div class="mt-4">
+                <div class="mt-5 d-flex justify-content-evenly">
 
-                    <button type="submit" value="" class="btn btn-success me-3 mb-2">
-                        <span class="h5 fw-bold">Valider</span>
+                    <button type="submit" value="" class="btn btn-validate me-3 mb-2">
+                        <span class="h5 fw-bold">✔️ Valider</span>
                     </button>
 
                     <a href="{{path('homepage')}}">
-                        <button type="button" value="" class="btn btn-primary mb-2">
-                            <span class="h5 fw-bold">Retour</span>
+                        <button type="button" value="" class="btn btn-go-back mb-2">
+                            <span class="h5 fw-bold">❌ Retour</span>
                         </button>
                     </a>
 
@@ -62,9 +62,9 @@
 
             </div>
 
-            <div class="d-none d-lg-block col-12 col-md-8 col-lg-6">
+            <div class="d-none d-lg-block col-12 col-md-8 col-lg-6 ps-lg-5">
 
-                <img src="{{asset('account/register.png', 'larger')}}" class="d-block mx-lg-auto img-fluid" alt="Two men, one is showing an entry door." loading="lazy" width="700" height="500">
+                <img src="{{asset('account/register.png', 'larger')}}" class="rounded d-block mx-lg-auto img-fluid" alt="Two men, one is showing an entry door." loading="lazy" width="700" height="500">
 
             </div>
 

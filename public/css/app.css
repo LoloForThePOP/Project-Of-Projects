@@ -266,7 +266,7 @@ label:active:after {
 /* (test) page container */
 
 .page-container{
-   padding-top: 40px;
+   padding-top: 60px;
    padding-bottom: 50px;
    min-height: 75vh;
 } 

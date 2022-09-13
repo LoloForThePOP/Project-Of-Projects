@@ -14,7 +14,7 @@
 
 {% block body %}
 
-  <div class="page-container container-lg px-0 px-lg-3 col-xxl-10">
+  <div class="page-container container-lg px-0 px-lg-3 col-xxl-12">
 
     {# Displaying registered user presentations #}
 
@@ -88,7 +88,7 @@
 
     {% if not app.user %}
 
-      <div id="homepage-jumbotron-struct-container" class="px-0 px-md-4 px-lg-4 col-xxl-11">
+      <div id="homepage-jumbotron-struct-container" class="container col-xxl-11 px-0 px-md-4 px-lg-4">
 
         {% include "home/_jumbotron.html.twig" %}
 
@@ -124,7 +124,7 @@
 
     {# Search Bar container #}
 
-    <div class="col-xxl-11 pe-lg-5 mb-3">
+    <div class="container col-xxl-11 mb-3">
       
       {% include "home/_search_container.html.twig" %}
 

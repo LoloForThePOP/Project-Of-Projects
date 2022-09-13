@@ -4,6 +4,14 @@
 }
 
 
+.collection-container{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+}
+
 .collection-title{
     margin-bottom: 35px;
     text-align: center;
@@ -12,21 +20,13 @@
 }
 
 
-.collection-container{
-
-    display: flex;
-    flex-wrap: wrap;
-
-}
-
 .project-card{
     display: inline-block; 
     width: 260px; 
     height: 270px; 
     overflow: hidden;
     border: 1px solid rgb(227, 221, 211); 
-    border-radius: 4px;        
-    margin-right: 10px;
+    border-radius: 4px;
     margin-bottom: 15px;
     
 }
@@ -83,6 +83,11 @@
 }
 
 
+.read-more {
+    margin-left: 47%;
+}
+
+
 @media screen and (max-width: 810px) {
 
     .project-card{
@@ -113,6 +118,7 @@
 
     .collection-container{
     
+        justify-content: unset;
         flex-wrap: nowrap;
         overflow-x: auto;
     }

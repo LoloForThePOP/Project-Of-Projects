@@ -36,7 +36,7 @@ class AdminDashboardController extends AbstractDashboardController
         return Dashboard::new()
 
         // the name visible to end users
-        ->setTitle('<a href="/">Propon</a>');
+        ->setTitle('<a href="/"><img src="/media/static/images/pop_logo.svg" style="width: 25px; margin-right: 14px;">Propon</a>');
     }
 
     

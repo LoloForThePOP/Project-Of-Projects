@@ -29,6 +29,7 @@
     max-height: 100%;
     display: block;
     margin: auto;
+    border-radius: 6px;
 
 }
 
@@ -66,7 +67,7 @@
     color: #fff !important;
     line-height: 50px;
     text-align: center;
-    background-color:rgba(0, 0, 0, 0.3);
+    background-color: rgba(160, 160, 160, 0.3);
 
     z-index: 5;
 }
@@ -116,9 +117,8 @@
     margin-top: 5px;
     margin-bottom: 10px;
     
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size:1.18em;
-    line-height: 1.4;
+    font-size: 1.12em;
+    line-height: 1.3;
 
 }
 

@@ -6,7 +6,7 @@
 
       <!-- Columns -->
 
-      <div class="section col-md-3">
+      <div class="section col-md-4">
 
         <h5 class="">Démarrer</h5>
 
@@ -20,24 +20,26 @@
 
       </div>
 
-      <div class="section col-md-3">
+      <div class="section col-md-4">
 
         <h5>Le Projet des Projets</h5>
 
         <ul>
 
-          <li><a href="{{path('static', {'page_name': "about_us",})}}">Qui sommes-nous ?</a></li>
+          <li><a href="{{path('static', {'page_name': "about_us",})}}">Rejoignez-nous</a></li>
+
+          <li><a href="{{path('contact_website')}}">Contactez-nous</a></li>
 
           <li><a href="{{path('static', {'page_name': "short_manifesto",})}}">Manifeste du Projet des Projets</a></li>
 
-          <li><a href="{{path('contact_website')}}">Contactez-nous</a></li>
+          <li><a href="{{path('static', {'page_name': "credits",})}}">Crédits et remerciements</a></li>
 
         </ul>
 
       </div>
 
 
-      <div class="section col-md-3">
+      <div class="section col-md-4">
 
         <h5>Mentions Légales</h5>
 
@@ -46,19 +48,6 @@
           <li><a href="{{path('static', {'page_name': "terms",})}}">Conditions d'utilisation</a></li>
 
           <li><a href="{{path ('static', {'page_name': "privacy",})}}">Politique de confidentialité</a></li>
-
-        </ul>
-
-      </div>
-
-      
-      <div class="section col-md-3">
-
-        <h5>Divers</h5>
-
-        <ul>
-
-          <li><a href="{{path('static', {'page_name': "credits",})}}">Crédits et remerciements</a></li>
 
         </ul>
 
@@ -117,25 +106,19 @@
   }
 
 
+      
+  @media screen and (max-width: 768px) {
+
+    footer h5 {
+      font-size: 1.1em;
+    } 
+
+    footer .section {
+      font-size: 1em;
+    }
     
-@media screen and (max-width: 768px) {
 
-  footer h5 {
-    font-size: 1.1em;
-  } 
-
-  footer .section {
-    font-size: 1em;
   }
-  
-
-}
-
-    
-@media screen and (max-width: 580px) {
-
-
-}
 
 
 </style>

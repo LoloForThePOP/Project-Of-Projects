@@ -5,33 +5,48 @@
     margin-bottom: 50px;
 }
 
+
+.pp-struct-container-wrapper{
+
+    margin-bottom: 28px;
+
+}
+
 /* Each Structure Container*/
 
 .pp-struct-container {
 
+    height: 100%;
+
     padding: 15px 12px 10px 12px;
-    margin-bottom: 28px;
 
     scroll-margin-top: 85px; /* Prevent anchors to be messed up by fixed horizontal navbar */
     
-    border: 1px solid rgb(221, 221, 177);
-    border-radius: 6px;
+    border: 1px solid #dee2e6;
+    border-radius: 0.25rem;
     
 } 
 
-    /* Slideshow container : removing horizontal padding and structure border by default (these are added in edition mode, see wysiwyg.css) */
 
-    #slideshow-struct-container{
-        padding: 10px 12px 12px 10px;
-        border: none;
-    
-    }
+/* Slideshow container : removing horizontal padding and structure border by default (these are added in edition mode, see wysiwyg.css) */
+
+#slideshow-struct-container{
+    padding: 10px 12px 12px 10px;
+
+}
+
+
+#text-description-struct-container {
+	display: flex;
+	align-items: center;
+}
 
 
 /* Each Structure Title Container (contains title + edit button) */
 
 .pp-struct-title-container{
 
+    margin-left: 10px;
     margin-bottom: 32px;
 
 }
@@ -42,9 +57,8 @@
 
     display: inline;
     color : navy;
-    font-family : Verdana, Geneva, Tahoma, sans-serif; 
     font-size: 1.8rem;
-    margin:0px;
+    margin: 0px;
 
 }
 
@@ -138,20 +152,13 @@
 
  @media screen and (min-width: 992px) {
 
-    #text-description-struct-container {
-
-        border: none; 
-
-    }
-
-
     .in-consultation-mode #text-description-struct-container {
 
         padding-top: 25px;
         
     }
 
- }
+}
 
 
 
@@ -191,16 +198,15 @@
 
     .pp-struct-title-container{
 
+        margin-left: 0px;
         margin-bottom: 18px;
 
     }
 
     .pp-struct-title{
 
-        color : navy;
-        font-family : Verdana, Geneva, Tahoma, sans-serif;
-
         font-size: 20px;
+        color : navy;
 
     }
 

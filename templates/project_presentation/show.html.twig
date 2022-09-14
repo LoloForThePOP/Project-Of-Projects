@@ -208,78 +208,51 @@
     {% endif %}
 
 
-    <div class="row mx-0 px-0">
-
-        {# Slideshow images & videos #}
-
-        {% if countSlides > 0  %}
-
-            <div id="slideshow-struct-container" class="pp-struct-container col-lg-6">
-                    
-                {% include 'project_presentation/_show/slides/slides.html.twig' %}
-
-            </div>
-
-        {% endif %}
-
-        {# Text Description #}
-
-        {% if not presentation.textDescription is empty %} 
-
-            <div id="text-description-struct-container" class="pp-struct-container col-lg-6">
-                
-                {% include 'project_presentation/_show/text_description/main.html.twig' %}
-
-            </div>
-        
-        {% endif %}
-
-    </div>
-
 
     <div class="container px-0">
 
-        <div class="row gx-lg-4">
-        
-        {# Slideshow images & videos
+        <div class="row">
+    
+            {# Slideshow images & videos #}
 
-        {% if countSlides > 0  %}
-            
-            <div class="col-lg-6 px-0">
-            
-                <div id="slideshow-struct-container" class="pp-struct-container">
-                        
-                    {% include 'project_presentation/_show/slides/slides.html.twig' %}
+            {% if countSlides > 0  %}
 
-                </div>
+                <div class="col-lg-6 pp-struct-container-wrapper">
+
+                    <div id="slideshow-struct-container" class="pp-struct-container">
+                            
+                        {% include 'project_presentation/_show/slides/slides.html.twig' %}
+
+                    </div>
                 
-            </div>
+                </div>
 
-        {% endif %} #}
+            {% endif %}
 
-        {# Text Description
+            {# Text Description #}
 
-        {% if not presentation.textDescription is empty %} 
+            {% if not presentation.textDescription is empty %} 
 
-            <div class="col-lg-6 px-0">
-            
-                <div id="text-description-struct-container" class="pp-struct-container">
-                    
-                    {% include 'project_presentation/_show/text_description/main.html.twig' %}
+                <div class="col-lg-6 pp-struct-container-wrapper">
 
+                    <div id="text-description-struct-container" class="pp-struct-container">
+                        
+                        {% include 'project_presentation/_show/text_description/main.html.twig' %}
+
+                    </div>
+                
                 </div>
             
-            </div>
+            {% endif %}
 
-        {% endif %} #}
 
             {# Miscelaneous Data List #}
 
             {% if countMiscDataList > 0 %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
 
-                    <div id="dataList-struct-container" class="pp-struct-container ">
+                    <div id="dataList-struct-container" class="pp-struct-container">
 
                         {% include 'project_presentation/_show/_misc_data_list.html.twig' %}
                                     
@@ -294,14 +267,13 @@
 
             {% if countDocuments > 0 %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
 
+                    <div id="documents-struct-container" class="pp-struct-container">
 
-                        <div id="documents-struct-container" class="pp-struct-container">
+                        {% include 'project_presentation/_show/_documents.html.twig' %}
 
-                            {% include 'project_presentation/_show/_documents.html.twig' %}
-
-                        </div>
+                    </div>
 
 
                 </div>
@@ -313,7 +285,7 @@
 
             {% if countQA > 0 %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
                 
                     <div id="questionsAnswers-struct-container" class="pp-struct-container ">
                 
@@ -330,7 +302,7 @@
 
             {% if countNeeds > 0 %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
                         
                     <div id="needs-struct-container" class="pp-struct-container">
                         
@@ -347,7 +319,7 @@
 
             {% if countWebsites > 0  %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
             
                     <div id="websites-struct-container" class="pp-struct-container col-12">
                         
@@ -364,7 +336,7 @@
 
             {% if countPlaces > 0 %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
                     
                     <div id="places-struct-container" class="pp-struct-container">
                         
@@ -382,7 +354,7 @@
 
             {% if countECS > 0 %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
                     
                     <div id="ecs-struct-container" class="pp-struct-container">
 
@@ -401,7 +373,7 @@
 
             {% if not presentation.isDeleted and (countBC > 0 or privateMessagesActive or userPresenter) %}
 
-                <div class="col-lg-6">
+                <div class="col-lg-6 pp-struct-container-wrapper">
 
                     <div id="businessCards-struct-container" data-display="{{countBC > 0 or privateMessagesActive ? "true" : "false"}}" class="pp-struct-container col-12">
 
@@ -470,7 +442,7 @@
 
         {% if is_granted('ROLE_ADMIN') %}
 
-            <div class="alert mt-4">
+            <div class="alert ps-0 mt-4">
 
                 <div class="menu-button py-3 fw-bold">
 

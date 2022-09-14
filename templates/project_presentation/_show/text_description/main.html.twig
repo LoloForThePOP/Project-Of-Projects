@@ -1,18 +1,6 @@
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "text_description", 'title': "Description du Projet",} %}
 
-    {% block editButtons %}
-
-        {# Edit Text Description Button #}
-
-        <a id="edit-text-description-icon" class="pp-edition-mode text-decoration-none ms-2" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'>
-                
-            <img class="edit-icon d-lg-none" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-            
-        </a>
-
-    {% endblock %}
-
-    {% block showDeleteElementsButtons %}{% endblock %}
+    {% block structureTitle %}{% endblock %}
 
     {% block mainContent %}
 
@@ -132,7 +120,6 @@
 
             .pp-text-description{
                 
-                font-family: Georgia, 'Times New Roman', Times, serif;
                 font-size:1.15em;
             }
 

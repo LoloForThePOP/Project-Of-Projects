@@ -17,7 +17,7 @@ class ContactWebsiteType extends AbstractType
                 'authorEmail',
                 EmailType::class,
                 [
-                    'label' => 'Votre adresse email',
+                    'label' => 'Votre adresse e-mail',
 
                     'attr' => [
                         

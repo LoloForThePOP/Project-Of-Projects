@@ -68,7 +68,6 @@
 		
 		<div class="row m-0">
 				
-				
 			{#  Slides Container #}
 
 			<div class="slides-container px-0 col edit-hoverable-item"> 
@@ -80,19 +79,15 @@
 			{#  Thumbnails Container #}
 			{% set showThumbnails = false %}
 
-			{% if countSlides > 1 %}
+			{% if countSlides > 1 and userPresenter %}
 				
-				{% if userPresenter or countSlides > 1 %}
-
-					{% set showThumbnails = true %}
-
-				{% endif %}
+				{% set showThumbnails = true %}
 			
 			{% endif %}
 
 			{% if userPresenter %} {# Displaying Thumbnails only for user presenters so they can change orders #}
 				  
-				<div class="pp-edition-mode thumbnails-container col-lg-3 px-0 d-none {{ showThumbnails ? 'd-lg-flex' }} align-items-center">
+				<div class="pp-edition-mode thumbnails-container col-lg-2 px-0 d-none {{ showThumbnails ? 'd-lg-flex' }} flex-column align-items-center">
 				
 					{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
 					

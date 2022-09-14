@@ -16,7 +16,7 @@ class EmailFormType extends AbstractType
                 'email',
                 EmailType::class,
                 [
-                    'label' => 'Écrire votre adresse email :',
+                    'label' => 'Écrire votre adresse e-mail :',
 
                     'attr' => [
 

@@ -5,36 +5,57 @@
 
 {% block body %}
 
-    <div class="page-container static-content container px-0 col-md-11 col-lg-7" style="padding-bottom:106px;">
+    <div class="page-container static-content container px-0 col-md-11 col-lg-7">
 
-       {#  <div class="title-container">
 
-            <h1 class="page-title fw-bold">Mission</h1>
+        <style>
 
-        </div> #}
+            .page-container{
+                padding-top: 55px;
+                padding-bottom: 106px;
+            }
 
+
+           @media (max-width: 768px) {
+
+                .page-container{
+                    padding-top: 44px;
+                    padding-bottom: 50px;
+                }
+    
+            }
         
+        
+        
+        
+        </style>
+
+
+
+       <div class="title-container">
+
+            <h1 class="page-title fw-bold"><span class="d-lg-none me-2">🧭</span> Ce qui nous Anime <span class="d-lg-none ms-2">🧭</span></h1>
+
+        </div>
+
 
         <style>
 
             .title-container {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: rgb(239, 241, 255);
+                display: inline-block;
+                text-align: center;
+                background-color: rgb(243, 245, 255);
                 max-width: 760px;
                 width: 100%;
                 box-sizing: border-box;
                 padding: 30px 20px ;
                 z-index: 1;
-                border-top-left-radius: 4px;
-                border-top-right-radius: 4px;
             }
                 
             .page-title{
 
-                font-size: 9vh;
-                color:rgb(53, 57, 82);
+                font-size: 45px;
+                color: rgb(61, 72, 138);
 
             }
 
@@ -42,7 +63,16 @@
 
                 .title-container {
 
-                    display: none;
+                    padding: 14px 0px ;
+                }
+
+
+                .page-title{
+
+                    font-size: 24px;
+                    margin-bottom: 0;
+
+                        
                 }
     
             }
@@ -53,20 +83,20 @@
 
             <dl>
 
-                <dt>Engagés</dt>
+                <dt>🤚 Engagés</dt>
 
-                    <dd>Propon est une initiative ouverte. Son objectif est d'avoir un impact positif sur la société et sur notre environnement.</dd>
+                    <dd>Propon est une initiative ouverte. Son objectif est d'avoir un impact positif sur la société et notre environnement.</dd>
 
-                <dt>Agir</dt>
+                <dt>👉 Agir</dt>
 
                     <dd>Les projets sont déterminants pour lutter contre les défis majeurs qui nous concernent tous, par exemple lutter contre le dérèglement climatique.</dd>
 
 
-                <dt>Accélérer</dt>
+                <dt>⚡️ Accélérer</dt>
 
                     <dd>Présenter les Projets à grande échelle améliore leur capacité à être découverts, favorisant ainsi des mises en contact pour qu'ils réussissent.</dd>
                 
-                <dt>Ensemble</dt>
+                <dt>💪 Ensemble</dt>
 
                     <dd>Les Projets de toutes tailles sont les briques de la réalisation des plus grands projets. Chaque projet réussi, c’est potentiellement des centaines d’autres projets qui progresseront.</dd>
 
@@ -77,7 +107,7 @@
 
         <section>
 
-            <h1 class="fw-bold mb-5">Et Maintenant ?</h1>
+            <h1 class="text-center fw-bold mb-5">⏱️ Et Maintenant ?</h1>
 
             <ul class="horizontal-list">
 
@@ -110,7 +140,7 @@
 
                         <img class="cta-item-img" src="{{ asset('add_presentation.svg', 'misc')}}" height="34"  alt="bucket with a plus icon">
 
-                        <div class="cta-item-text">Ajouter votre Projet</div>
+                        <div class="cta-item-text">Ajouter un Projet</div>
 
                     </li>
                 
@@ -146,6 +176,7 @@
                     border: 1px solid #c2c4e3;
                     height: 167px;
                     border-radius: 5px;
+                    background-color: #fcfffc;
                 }
 
                 .now-action-item:hover {
@@ -187,7 +218,7 @@
             }
 
                 
-            @media (min-width: 768px) {
+            @media (min-width: 780px) {
 
                 .horizontal-list a {
 
@@ -231,10 +262,10 @@
 
 
         body {
-            font-family: "Montserrat", sans-serif;
             font-size: 0.875em;
             color: #444444;
             line-height: 1.5;
+            background-color: ivory;
         }
 
 
@@ -276,10 +307,11 @@
 
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1000px) {
             
             dl {
-                padding-top: 20px;
+                padding-top: 27px;
+                margin-bottom: 37px;
             }
 
            
@@ -296,7 +328,7 @@
             counter-increment: count;
             color: #40814d;
             font-family: "Montserrat", sans-serif;
-            font-size: 4vw;
+            font-size: 37px;
             text-transform: uppercase;
         }
 

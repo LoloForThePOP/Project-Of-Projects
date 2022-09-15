@@ -14,11 +14,21 @@
 
       {# Website Logo #}
 
-      <a class="navbar-brand py-0 ps-lg-4 me-lg-5" href="/">
+      <a class="navbar-brand py-0 me-lg-4" href="/">
 
-        <img src="/media/static/images/pop_logo.svg" alt="website logo" loading="lazy" width="37px" height="37px"/>
+        <img class="website-logo" src="/media/static/images/pop_logo.svg" alt="website logo" loading="lazy"/>
 
       </a>
+
+      <style>
+
+        .website-logo{
+
+          width: 80px;
+
+        }
+      
+      </style>
 
       {# Static Menu #}
 
@@ -277,7 +287,7 @@
 
             <div class="d-md-none text-center">
 
-              <h4 class="fw-bold text-center mt-4 mb-3">Connexion</h4>
+              <h4 class="fw-bold text-center mt-4 mb-3">Connexion 👇</h4>
                 
               <a href="{{ path('connect_google_start') }}">
 
@@ -340,7 +350,7 @@
 
             <li class="d-none d-md-block nav-item dropdown rounded">
 
-              <a id="userAccountDropdown" class="nav-link dropdown-toggle btn btn-outline-primary fw-bold" href="#"
+              <a id="userAccountDropdown" class="dropdown-toggle btn btn-outline-primary fw-bold" href="#"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false"
                 style="padding: 6px 9px; margin-right: 10px;">
 

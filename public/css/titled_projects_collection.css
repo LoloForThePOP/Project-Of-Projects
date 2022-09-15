@@ -23,11 +23,12 @@
 .project-card{
     display: inline-block; 
     width: 260px; 
-    height: 270px; 
+    height: 290px; 
     overflow: hidden;
     border: 1px solid rgb(227, 221, 211); 
     border-radius: 4px;
     margin-bottom: 15px;
+    padding-top: 7px;
     
 }
 

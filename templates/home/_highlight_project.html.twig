@@ -1,0 +1,124 @@
+
+<a href="{{ path ("long_path_show_presentation", {'stringId': highlightedProject.stringId } ) }}">
+
+
+    <div class="container highlight-project">
+
+        <div class="row">
+            
+            <div class="col-md-8 text-col">
+
+                {% if highlightedProject.title is not empty %}
+
+                    <div class="title">
+
+                        <h2>{{ highlightedProject.title[:1] | upper ~ highlightedProject.title[1:] }}</h2>
+                    
+                    </div>
+
+                {% endif %}
+
+                <div class="goal">{{ highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:] }}</div> 
+
+                <div class="see-more">
+
+                    <button type="button" class="btn btn-outline-light">Afficher plus</button>
+                
+                
+                </div>
+            
+            </div>
+
+            <div class="col-md-4 img-col">
+             
+
+                {% if highlightedProject.slides | length > 0 %}
+
+                    {# Taking first slide image as a project thumbnail #}
+
+                    {% set slide = highlightedProject.slides.first %}
+
+                    {% if slide.type == 'youtube_video' %}
+
+                        <img src="https://img.youtube.com/vi/{{slide.address}}/0.jpg" alt="image miniature d'une video">
+                    
+                    {% elseif slide.type == 'image' %}
+
+                        <img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
+                    
+                    {% endif %}
+
+                {% else %}
+
+                    <img src="{{ asset('misc/target_arrow_project.png', 'larger')}}" alt="Target with arrow representing a project">
+
+                {% endif %}
+
+            </div>
+            
+        </div>
+
+    </div>
+
+</a>
+
+
+
+<style>
+
+    .highlight-project{
+
+        cursor: pointer;
+
+    }
+
+    .highlight-project .text-col{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        background-color: #1a6a18;
+
+    }
+
+    .highlight-project .title{
+
+        text-align: center;
+        color: white;
+        
+    }
+
+    .highlight-project .goal{
+
+        padding: 0 75px;
+        font-size: 20px;
+        color: white;
+
+        
+
+    }
+
+    .highlight-project .see-more{
+
+        text-align: center;        
+
+    }
+
+
+    .highlight-project .img-col{
+
+        padding: 0;
+    }
+
+    .highlight-project .img-col img{
+
+        object-fit: cover;
+        height: 350px;
+        width: 100%
+    }
+
+
+
+
+</style>

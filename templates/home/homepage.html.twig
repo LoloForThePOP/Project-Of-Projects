@@ -16,6 +16,8 @@
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-12">
 
+    {% include "home/_highlight_project.html.twig" with {highlightedProject: highlightedProject} %}
+
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -143,7 +145,7 @@
 
     <div class="container access-geosearch px-2 d-none d-sm-block">
 
-      <h3 class="access-geosearch-title fw-bold text-center">Afficher la carte des projets</h3>
+      <h3 class="access-geosearch-title fw-bold text-center d-md-none">Afficher la carte des projets</h3>
 
       <style>
 
@@ -171,7 +173,30 @@
 
       </style>
 
-      <img src="{{asset ('misc/project-mapt.webp', 'larger')}}" class="js-display-geosearch d-block mx-lg-auto img-fluid" style="border-radius: 8px; cursor:pointer;" alt="A Map with some markers on it" loading="lazy" width="600">
+      <div class="row">
+
+        <div class="col-6 p-0" style="display: flex; justify-content: center; align-items: center; color: white; background-color: blue; text-align: center;">
+
+
+          <h3>
+
+            Afficher <br> la carte <br> des projets
+          
+          
+          </h3>
+        
+        
+        
+        
+        </div>
+
+
+
+        <div class="col-6 p-0 m-0"><img src="{{asset ('misc/project-mapt.webp', 'larger')}}" class="js-display-geosearch d-block mx-0 img-fluid" style="border-radius-right: 8px; cursor:pointer;" alt="A Map with some markers on it" loading="lazy" width="600"></div>
+      
+      </div>
+
+      
 
       <script>
 

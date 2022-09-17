@@ -1,0 +1,170 @@
+<div class="container access-geosearch px-2">
+
+      <h3 class="access-geosearch-title fw-bold text-center d-md-none">Afficher la carte des projets</h3>
+
+      <style>
+
+        .access-geosearch-title{
+
+          margin-bottom: 30px;
+
+        }
+
+        .container.access-geosearch{
+          margin-bottom: 80px;
+        }
+
+        @media screen and (max-width: 580px) {
+
+          .container.access-geosearch{
+            margin-bottom: 40px;
+          }
+
+          .container.access-geosearch h3{
+            font-size: 1.25em;
+          }
+
+        }
+
+      </style>
+
+      <div class="js-display-geosearch row access-geosearch">
+
+        <div class="col-6 left-col p-0" style="display: flex; justify-content: center; align-items: center; color: white; background-color: blue; text-align: center;">
+
+          <h3 class="fash-title">
+
+            Afficher <br> la carte <br> des projets
+          
+          </h3>
+
+        </div>
+
+        <div class="col-6 rigth-col p-0 m-0">
+        
+          <img src="{{asset ('misc/project-mapt.webp', 'larger')}}" class="d-block mx-0 img-fluid" style="cursor:pointer;" alt="A Map with some markers on it" loading="lazy" width="600">
+        
+        </div>
+
+      
+      </div>
+
+      
+          <style>
+
+
+            .row.access-geosearch{
+
+              cursor: pointer;
+
+            }
+
+
+            .row.access-geosearch .left-col{
+
+              border-radius: 4px 0 0 4px;
+
+            }
+
+            .row.access-geosearch .rigth-col img{
+
+              border-radius: 0 4px 4px 0;
+
+            }
+
+            /* Thanks to https://codepen.io/perry_nt/pen/zKJyGq ❤️ */
+
+            h3.fash-title {
+              position: relative;
+              padding: 13px 1em;
+              color: white;
+              font-size: 2.5em;
+              line-height: 1.8em;
+              letter-spacing: 0.1em;
+              text-transform: uppercase;
+              text-shadow: 0 2px 0 rgba(0, 0, 0, 0.5);
+              transition: all 500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+
+            h3.fash-title:before, h3.fash-title:after {
+              content: "";
+              position: absolute;
+              left: 37.5%;
+              width: 25%;
+              height: 3px;
+              background: white;
+              transition: all 1500ms cubic-bezier(0.215, 0.61, 0.355, 1);
+            }
+
+            h3.fash-title:before {
+              top: 0;
+            }
+
+            h3.fash-title:after {
+              bottom: 0;
+            }
+
+            h3.fash-title:hover {
+              cursor: pointer;
+              letter-spacing: 0.5em;
+            }
+
+            h3.fash-title:hover:before, h3.fash-title:hover:after {
+              left: 0;
+              width: 100%;
+            }
+
+
+            @media screen and (max-width: 820px) {
+
+              h3.fash-title {
+
+                font-size: 1.8em !important;
+                line-height: 1.2em;
+              }
+
+            }
+
+            @media screen and (max-width: 580px) {
+
+              h3.fash-title {
+
+                font-size: 1em !important;
+                line-height: 1em;
+              }
+
+            }
+
+
+
+
+          </style>
+        
+        
+        
+
+      
+
+      <script>
+
+        $(".js-display-geosearch").on("click", function() {
+
+          $("#main-body-container").addClass("visually-hidden");
+
+          $(".ais-InstantSearch").show(); //display search results panel
+
+          window.scrollTo(0, 0); //view goes to correct location
+
+          if(tinyScreen){ //delared in base.html.twig
+
+            $("#searchbox").css('display','none'); // otherwise filter panel can mess up, and searchbox is already accessible in navheader.
+
+          }
+
+          $(".js-toggle-geosearch-map").click(); //display geosearch map
+          
+        });
+
+      </script>
+
+    </div>

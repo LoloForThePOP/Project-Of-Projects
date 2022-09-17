@@ -16,13 +16,6 @@
 
   <div class="page-container container-lg px-0 px-lg-3 col-xxl-12">
 
-    {# Highlight a random project #}
-
-    {% include "home/_highlight_project.html.twig" with {highlightedProject: highlightedProject} %}
-
-
-
-
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -121,11 +114,12 @@
     {# basic pool alert display #}
     {% include "home/_basic_pool_alert.html.twig" %}
     
+    
+    {# Editor's Choice presentations #}
+
     <div>
 
-      {# Editor's Choice presentations #}
-
-      {{ render(path('get_picked_elements', {label: 'Projets à la une'})) }}
+      {{ render(path('get_picked_elements', {label: '😎 Projets à la une'})) }}
 
     </div>
 
@@ -139,103 +133,36 @@
 
     {# some presentations by category #}
 
-    {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
-        
-    {# some presentations by category #}
+    {{ render(path('backend_search', {label: '🌳 Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
+
     
-    {{ render(path('backend_search', {label: 'Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+    {# Highlight a random project #}
 
-    {# A Google Map Image to Access Geosearch #}
+    {% include "home/_highlight_project.html.twig" with {highlightedProject: highlightedProject} %}
 
-
-    <div class="container access-geosearch px-2 d-none d-sm-block">
-
-      <h3 class="access-geosearch-title fw-bold text-center d-md-none">Afficher la carte des projets</h3>
-
-      <style>
-
-        .access-geosearch-title{
-
-          margin-bottom: 30px;
-
-        }
-
-        .container.access-geosearch{
-          margin-bottom: 80px;
-        }
-
-        @media screen and (max-width: 580px) {
-
-          .container.access-geosearch{
-            margin-bottom: 40px;
-          }
-
-          .container.access-geosearch h3{
-            font-size:1.17em;
-          }
-
-        }
-
-      </style>
-
-      <div class="row">
-
-        <div class="col-6 p-0" style="display: flex; justify-content: center; align-items: center; color: white; background-color: blue; text-align: center;">
-
-
-          <h3>
-
-            Afficher <br> la carte <br> des projets
-          
-          
-          </h3>
         
-        
-        
-        
-        </div>
-
-
-
-        <div class="col-6 p-0 m-0"><img src="{{asset ('misc/project-mapt.webp', 'larger')}}" class="js-display-geosearch d-block mx-0 img-fluid" style="border-radius-right: 8px; cursor:pointer;" alt="A Map with some markers on it" loading="lazy" width="600"></div>
-      
-      </div>
-
-      
-
-      <script>
-
-        $(".js-display-geosearch").on("click", function() {
-
-          $("#main-body-container").addClass("visually-hidden");
-
-          $(".ais-InstantSearch").show(); //display search results panel
-
-          window.scrollTo(0, 0); //view goes to correct location
-
-          if(tinyScreen){ //delared in base.html.twig
-
-            $("#searchbox").css('display','none'); // otherwise filter panel can mess up, and searchbox is already accessible in navheader.
-
-          }
-
-          $(".js-toggle-geosearch-map").click(); //display geosearch map
-          
-        });
-
-      </script>
-
-    </div>
-    
 
     {# some presentations by category #}
     
-    {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
+    {{ render(path('backend_search', {label: '🖥️ Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+
+
+
+    {# Styled container to Access Geosearch #}
+
+    {% include "home/_access_geosearch_jumbotron.html.twig" %}
+
     
+    
+    {# some presentations by category #}
+    
+    {{ render(path('backend_search', {label: '🏺 Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
+    
+
 
     {# some presentations by category #}
     
-    {{ render(path('backend_search', {label: 'Aéronautique', filters: '(categories.uniqueName:space)'})) }}
+    {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)'})) }}
 
     {# some presentations by categories intersection
     
@@ -244,7 +171,7 @@
       
     {# last project presentation #}
       
-      {{ display.collection("Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
+      {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
 
     </div>
 

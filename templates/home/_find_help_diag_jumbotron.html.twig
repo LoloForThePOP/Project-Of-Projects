@@ -1,0 +1,134 @@
+
+<div class="diag-jumbotron">
+
+  {# Upper decoration : diagonal box #}
+
+  <div class="diagonal-box">
+
+    <div class="diag">🙋‍♀️ Si vous avez besoin d'Aide</div>
+
+  </div>
+
+  <div class="row inner-jumbo">
+
+    {# Left Column : an image #}
+  
+    <div class="img-ctn col-7 d-flex align-items-center justify-content-center">
+    
+      <img class="" src="{{asset('misc/resources_types_choices.png', 'larger')}}" alt="types de ressources que vous pouvez demander" loading="lazy">
+
+    </div>
+
+    {# Right Column : some text #}
+
+    <div class="text-ctn col-5 px-0 fs-5">
+    
+      <h4 class="text-center fw-bold mt-5 mb-4">À plusieurs on va plus loin</h4>
+    
+      <p class="text-justify px-3 mb-4" >De quoi avez-vous besoin ? Pour faire progresser votre projet, <b>présentez vos besoins et trouvez de l'aide</b>. Les visiteurs intéressés peuvent vous contacter avec des messages privés. </p>
+
+      <div class="col text-center">
+      
+        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" style="" type="button">Je présente mon projet avec mes besoins</button></a>
+      
+      </div>
+
+      </div>
+  
+  </div>
+
+  {# Bottom decoration : waved box #}   
+
+  <div class="wave-container">
+
+    <div class="wave"></div>
+
+  </div>
+
+</div>
+
+<style>
+
+  .diag-jumbotron{
+    margin-bottom: 70px;
+  }
+
+  .diagonal-box {
+    height:200px;
+    background-color: #bedcfa;
+    transform: skewY(-6deg);
+
+  } 
+
+  .diag { 	
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    transform: skewY(6deg);
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 65px;
+  }
+
+  .inner-jumbo > * {
+    z-index:2;
+  }
+
+  .inner-jumbo img {
+    margin-top: -20px;
+    width: 520px;
+    border: 1px solid #7c84ac;
+    border-radius: 0.25rem;
+  }
+
+  .inner-jumbo .text-ctn {
+    margin-left: -40px;
+
+  }
+
+  .separation-line{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 30%;
+    height: 10px;
+    background-color: blue;
+  }
+
+  .wave-container {
+    position: relative;
+    background: #bedcfa;
+    height: 23vh;
+    margin-top: -73px;
+  }
+
+  .wave {
+    position: absolute;
+    height: 70px;
+    width: 100%;
+    background: #bedcfa;
+    bottom: 0;
+  }
+
+  .wave::before, .wave::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 100% 50%;
+  }
+
+  .wave::before {
+    width: 55%;
+    height: 109%;
+    background-color: #fff;
+    right: -1.5%;
+    top: 60%;
+  }
+  
+  .wave::after {
+    width: 55%;
+    height: 100%;
+    background-color: #bedcfa;
+    top: 33%;
+  }
+
+</style>

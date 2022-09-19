@@ -123,13 +123,11 @@
 
     </div>
 
-    {# Search Bar container #}
+    
+    {# Find help diagonal jumbotron #}
 
-    <div class="container col-xxl-11 mb-3">
-      
-      {% include "home/_search_container.html.twig" %}
+    {% include "home/_find_help_diag_jumbotron.html.twig" %}
 
-    </div>
 
     {# some presentations by category #}
 
@@ -146,18 +144,15 @@
     
     {{ render(path('backend_search', {label: '🖥️ Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
 
-
-
     {# Styled container to Access Geosearch #}
 
     {% include "home/_access_geosearch_jumbotron.html.twig" %}
 
-    
-    
     {# some presentations by category #}
     
     {{ render(path('backend_search', {label: '🏺 Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
-    
+
+
 
 
     {# some presentations by category #}
@@ -165,34 +160,121 @@
     {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)'})) }}
 
     {# some presentations by categories intersection
+    {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
     
-      {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
+    
+    {# Search Bar container #}
 
+    <div class="container col-xxl-11 mb-3">
       
+      {% include "home/_search_container.html.twig" %}
+
+    </div>
+
     {# last project presentation #}
       
-      {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
+    {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
 
-    </div>
 
-    {# Call to action : Add a Project button #}
+      {# Call to action : Add a Project button #}
 
-    <div class="mb-5 pb-4 text-center">
+      <div class="last-cta-container mb-5 p-5 text-center">
 
-      <a href="{{ path ('edit_presentation_as_guest_user') }}">
+        <div class="row">
 
-        <button class="btn px-4 py-3 mb-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
+          <div class="last-cta-container-img-col col-4">
 
-          <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
+            <img class="img-fluid" src="{{asset('misc/cool_people_looking_at_you.webp', 'larger')}}" alt="Un groupe de personnes cool en face de la plage nous regarde" loading="lazy">
           
-          <span class="h5 fw-bold ps-2">Ajouter un Projet</span>
-      
-        </button>
+          </div>
 
-      </a>
+          <div class="last-cta-container-text-col col-4">
+          
+            <h4>⚡️ Passez à l'Action</h4>
+
+            <p>
+
+              Présenter son projet est un moyen simple de le faire connaître.
+
+            </p>
+
+                  
+            <a href="{{ path ('edit_presentation_as_guest_user') }}">
+
+              <button class="btn px-4 py-3" style="border-color: rgb(216, 216, 201);" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
+
+                <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
+                
+                <span class="h5 fw-bold ps-2">Présenter un Projet</span>
+            
+              </button>
+
+            </a>
 
 
-    </div>
+
+          </div>
+
+
+          <div class="last-cta-container-img-col col-4">
+
+            <img class="img-fluid" src="{{asset('misc/montains_at_golden_hours.webp', 'larger')}}" alt="Des montagnes lors du lever du soleil." loading="lazy">
+          
+          </div>
+        
+        </div>
+
+      </div>
+
+    <style>
+
+      .last-cta-container {
+
+        background-image: linear-gradient(rgba(0, 0, 0, 0.05) 50%, 0, transparent 100%), linear-gradient(-135deg, #0cc, #066); 
+        border: 1px solid #a0a0a0;
+        border-radius: 2px;
+
+      }
+
+
+      .last-cta-container-img-col{
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+      }
+
+      .last-cta-container-text-col{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+      }
+
+      .last-cta-container-text-col h4 {
+        font-size: 36px;
+        font-weight: 900;
+        color: rgb(29, 112, 57);
+      }
+
+      .last-cta-container-text-col p {
+        font-size: 22px;
+      }
+
+      .last-cta-container-img-col img{
+
+        border-radius: 4px;
+
+      }
+
+    
+    </style>
+
+
+
+
 
 </div> {# closes an unknow div which mess up footer display #}
 

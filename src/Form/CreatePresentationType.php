@@ -21,7 +21,7 @@ class CreatePresentationType extends AbstractType
                 TextType::class,
 
                 [
-                    'label' => 'Objectif du Projet',
+                    'label' => "Quel est l'objectif du Projet ?",
 
                     'attr' => [
 

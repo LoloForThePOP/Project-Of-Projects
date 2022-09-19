@@ -4,27 +4,28 @@
 
     <div class="container highlight-project">
 
-        <div class="row">
+        <div class="row reverse-column-sm">
             
             <div class="col-md-8 text-col">
 
                 {% if highlightedProject.title is not empty %}
 
-
                     <h2 class="title">
-
+                        
                         {{ highlightedProject.title[:1] | upper ~ highlightedProject.title[1:] }}
                     
                     </h2>
 
                 {% endif %}
 
-                <div class="goal">{{ highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:] }}</div> 
+                {# Goal is ellipsed on tiny screens #}
+
+                <div class="goal d-none d-md-block">{{ highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:] }}</div> 
+                <div class="goal d-md-none">{{ highlightedProject.goal | length < 73 ? highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:] : highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:69] ~ '...' }}</div> 
 
                 <div class="see-more">
 
                     <button type="button" class="btn btn-outline-light">Afficher plus</button>
-                
                 
                 </div>
             
@@ -80,7 +81,7 @@
         flex-direction: column;
         justify-content: space-evenly;
 
-        background-color: #1a6a18;
+        background-color: #17568e;
         border-radius: 4px 0 0 4px;
 
     }
@@ -131,18 +132,76 @@
             margin-bottom: 40px;
 
         }
-            
+
         .highlight-project .goal{
 
             padding: 0 15px;
             font-size: 16px;
-
 
         }
 
         .highlight-project .img-col img{
 
             height: 220px;
+        }
+
+    }
+
+
+    
+    @media screen and (max-width: 820px) {
+
+        .highlight-project{
+
+            padding: 10px;
+
+        }
+        
+        .reverse-column-sm{
+            flex-direction: column-reverse;
+        }
+
+            
+        .highlight-project .text-col{
+
+            background-color: #1a6a18;
+            border-radius: 4px 4px 0 0;
+
+        }
+            
+        .highlight-project .text-col{
+
+            padding: 17px 0 30px 0;
+            background-color: #1a6a18;
+            border-radius: 0 0 4px 4px;
+
+        }
+            
+        .highlight-project .img-col img{
+            
+            border-radius: 4px 4px 0 0;
+
+        }
+            
+        .highlight-project .title{
+
+            margin-top: 7px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            
+        }
+            
+        .highlight-project .goal{
+
+            padding: 0 12px;
+            margin-bottom: 0px;
+            
+        }
+            
+        .highlight-project .see-more {
+
+            display: none;
+            
         }
 
     }

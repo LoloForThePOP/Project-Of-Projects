@@ -1,11 +1,11 @@
 
-<div class="diag-jumbotron-1">
+<div class="diag-jumbotron-2">
 
   {# Upper decoration : diagonal box #}
 
   <div class="diagonal-box">
 
-    <div class="diag">🙋‍♀️ Si vous avez besoin d'Aide</div>
+    <div class="diag">👉 Allez à l'Essentiel 👌</div>
 
   </div>
 
@@ -15,7 +15,7 @@
   
     <div class="img-ctn col-7 d-flex align-items-center justify-content-center">
     
-      <img class="" src="{{asset('misc/resources_types_choices.png', 'larger')}}" alt="types de ressources que vous pouvez demander" loading="lazy">
+      <img class="" src="{{asset('misc/summarize.png', 'larger')}}" alt="Des cadres arrondis chacun remplit d'une icône, ils symbolisent une page résumée" loading="lazy">
 
     </div>
 
@@ -23,13 +23,19 @@
 
     <div class="text-ctn col-5 px-0 fs-5">
     
-      <h4 class="text-center fw-bold mt-5 mb-4">À plusieurs on va plus loin</h4>
+      <h4 class="text-center fw-bold mt-5 mb-4">On <u>Aime tous les résumés</u></h4>
     
-      <p class="text-justify px-3 mb-4" >De quoi avez-vous besoin ? Pour faire progresser votre projet, <b>présentez vos besoins et trouvez de l'aide</b>. Les visiteurs intéressés peuvent vous contacter avec des messages privés. </p>
+      <p class="text-justify px-3 mb-4" >
+        
+        ✔️ Avec Propon, <b>obtenez rapidement une présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre.</b> <br><br>
+
+        ❌ Trop d'informations présentées ou éparpillées, c'est le risque d'<b>abandonner la lecture</b> ou <b>ne pas comprendre votre projet</b>. C'est dommage !
+        
+      </p>
 
       <div class="col text-center">
       
-        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" style="" type="button">Je présente mon projet avec mes besoins</button></a>
+        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" style="" type="button">Je résume mon projet</button></a>
       
       </div>
 
@@ -49,18 +55,18 @@
 
 <style>
 
-  .diag-jumbotron-1{
+  .diag-jumbotron-2{
     margin-bottom: 70px;
   }
 
-  .diag-jumbotron-1 .diagonal-box {
+  .diag-jumbotron-2 .diagonal-box {
     height:200px;
     background-color: #bedcfa;
     transform: skewY(-6deg);
 
   } 
 
-  .diag-jumbotron-1 .diag { 	
+  .diag-jumbotron-2 .diag { 	
     display: flex;
     align-items: center;
     justify-content:center;
@@ -70,23 +76,22 @@
     padding-top: 65px;
   }
 
-  .diag-jumbotron-1 .inner-jumbo > * {
+  .diag-jumbotron-2 .inner-jumbo > * {
     z-index:2;
   }
 
-  .diag-jumbotron-1 .inner-jumbo img {
-    margin-top: -20px;
-    width: 520px;
-    border: 1px solid #7c84ac;
+  .diag-jumbotron-2 .inner-jumbo img {
+    width: 470px;
+    margin-top: -37px;
     border-radius: 0.25rem;
   }
 
-  .diag-jumbotron-1 .inner-jumbo .text-ctn {
+  .diag-jumbotron-2 .inner-jumbo .text-ctn {
     margin-left: -40px;
 
   }
 
-  .diag-jumbotron-1 .separation-line{
+  .diag-jumbotron-2 .separation-line{
     margin-top: 30px;
     margin-bottom: 30px;
     width: 30%;
@@ -94,14 +99,14 @@
     background-color: blue;
   }
 
-  .diag-jumbotron-1 .wave-container {
+  .diag-jumbotron-2 .wave-container {
     position: relative;
     background: #bedcfa;
     height: 23vh;
     margin-top: -73px;
   }
 
-  .diag-jumbotron-1 .wave {
+  .diag-jumbotron-2 .wave {
     position: absolute;
     height: 70px;
     width: 100%;
@@ -109,14 +114,14 @@
     bottom: 0;
   }
 
-  .diag-jumbotron-1 .wave::before, .diag-jumbotron-1 .wave::after {
+  .diag-jumbotron-2 .wave::before, .diag-jumbotron-2 .wave::after {
     content: "";
     display: block;
     position: absolute;
     border-radius: 100% 50%;
   }
 
-  .diag-jumbotron-1 .wave::before {
+  .diag-jumbotron-2 .wave::before {
     width: 55%;
     height: 109%;
     background-color: #fff;
@@ -124,7 +129,7 @@
     top: 60%;
   }
   
-  .diag-jumbotron-1 .wave::after {
+  .diag-jumbotron-2 .wave::after {
     width: 55%;
     height: 100%;
     background-color: #bedcfa;

@@ -15,7 +15,7 @@
 {% block body %}
 
   <style>
-  
+
     @media screen and (max-width: 820px){}
       .page-container {
         padding-top: 39px;
@@ -151,7 +151,7 @@
     
     {# some presentations by category #}
     
-    {{ render(path('backend_search', {label: '🖥️ Projets Informatiques', filters: '(categories.uniqueName:software)'})) }}
+    {{ render(path('backend_search', {label: '🖥️ Numérique', filters: '(categories.uniqueName:software)'})) }}
 
 
 
@@ -159,6 +159,9 @@
 
     {% include "home/_diag_jumbotron_3.html.twig" %}
 
+    {# some presentations by category #}
+    
+    {{ render(path('backend_search', {label: '📗📘 Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)'})) }}
 
 
 
@@ -174,6 +177,10 @@
     {# Presentation helper diagonal jumbotron #}
 
     {% include "home/_diag_jumbotron_4.html.twig" %}
+    
+    {# some presentations by category #}
+    
+    {{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', filters: '(categories.uniqueName:humane)'})) }}
 
 
     {# Highlight a random project #}

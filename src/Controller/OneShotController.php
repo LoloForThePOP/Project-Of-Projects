@@ -30,7 +30,7 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager): Response
+    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail): Response
     {
 
         /* 
@@ -56,9 +56,17 @@ class OneShotController extends AbstractController
         
             $presentations = $repo->findAll();
 
-            $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
-
+            $manager = $this->getDoctrine()->getManagerForClass(PPBase::class);
+            
             foreach ($presentations as $presentation) {
+
+                $cacheThumbnail->cacheThumbnail($presentation);
+
+            } 
+
+
+        
+/*             foreach ($presentations as $presentation) {
                 $searchService->index($em, $presentation);
             } 
         
@@ -66,7 +74,7 @@ class OneShotController extends AbstractController
 
             foreach ($categories as $category) {
                 $searchService->index($em, $category);
-            } 
+            }  */
         
 /*  
         $places = $placesRepo->findAll();

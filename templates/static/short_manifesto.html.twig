@@ -5,36 +5,15 @@
 
 {% block body %}
 
+
+
+
+
     <div class="page-container static-content container px-0 col-md-11 col-lg-7">
+ 
+        <div class="title-container">
 
-
-        <style>
-
-            .page-container{
-                padding-top: 55px;
-                padding-bottom: 106px;
-            }
-
-
-           @media (max-width: 768px) {
-
-                .page-container{
-                    padding-top: 44px;
-                    padding-bottom: 50px;
-                }
-    
-            }
-        
-        
-        
-        
-        </style>
-
-
-
-       <div class="title-container">
-
-            <h1 class="page-title fw-bold"><span class="d-lg-none me-2">🧭</span><span class="d-none d-md-inline">-</span> Ce qui nous Anime <span class="d-none d-md-inline">-</span></h1>
+            <h1 class="page-title fw-bold"><span class="d-lg-none me-2">🧭</span><span class="d-none d-md-inline">-</span> Rejoignez-Nous <span class="d-none d-md-inline">-</span></h1>
 
         </div>
 
@@ -67,6 +46,18 @@
                 background-color: #40814d;
                 width: 100%;
                 height: 6px;
+                bottom: 70px;
+                left: 0;
+                right: 0;
+                border-radius: 50px;
+            }
+
+            .page-title::after {
+                content: '';
+                position: absolute;
+                background-color: #40814d;
+                width: 100%;
+                height: 6px;
                 bottom: -25px;
                 left: 0;
                 right: 0;
@@ -90,7 +81,7 @@
                         
                 }
                     
-                .page-title::before {
+                .page-title::before, .page-title::after {
                     display: none;
                 }
     
@@ -104,20 +95,20 @@
 
                 <dt>🤚 Engagés</dt>
 
-                    <dd>Propon est une initiative ouverte. Son objectif est d'avoir un impact positif sur la société et notre environnement.</dd>
+                    <dd>Propon est une <b>initiative ouverte</b> . Son objectif est d'avoir un <b>impact positif</b> sur la société et notre environnement.</dd>
 
                 <dt>👉 Agir</dt>
 
-                    <dd>Les projets sont déterminants pour lutter contre les défis majeurs qui nous concernent tous, par exemple lutter contre le dérèglement climatique.</dd>
+                    <dd>Les projets sont déterminants pour <b>lutter contre les défis majeurs qui nous concernent tous</b>, par exemple lutter contre le dérèglement climatique.</dd>
 
 
                 <dt>⚡️ Accélérer</dt>
 
-                    <dd>Présenter les Projets à grande échelle améliore leur capacité à être découverts, favorisant ainsi des mises en contact pour qu'ils réussissent.</dd>
+                    <dd>Présenter les Projets améliore leur capacité à être découverts, favorisant ainsi <b>des mises en contact pour qu'ils réussissent</b>.</dd>
                 
                 <dt>💪 Ensemble</dt>
 
-                    <dd>Les Projets de toutes tailles sont les briques de la réalisation des plus grands projets. Chaque projet réussi, c’est potentiellement des centaines d’autres projets qui progresseront.</dd>
+                    <dd>Les Projets de toutes tailles sont <b>les briques de la réalisation des plus grands projets</b>. Chaque projet réussi, c’est potentiellement <b>des centaines d’autres projets amenés à progresser</b>.</dd>
 
             </dl>
 

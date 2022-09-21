@@ -1,14 +1,14 @@
-<div class="last-cta-container mb-5 p-5 text-center">
+<div class="last-cta-container mb-5 p-0 p-md-5 text-center">
 
   <div class="row">
 
-    <div class="last-cta-container-img-col col-4">
+    <div class="last-cta-container-img-col col-12 col-md-4">
 
       <img class="img-fluid" src="{{asset('misc/cool_people_looking_at_you.webp', 'larger')}}" alt="Un groupe de personnes cool en face de la plage nous regarde" loading="lazy">
     
     </div>
 
-    <div class="last-cta-container-text-col col-4">
+    <div class="last-cta-container-text-col col-12 col-md-4 py-4 py-md-0">
     
       <h4>⚡️ Passez à l'Action</h4>
 
@@ -21,7 +21,7 @@
             
       <a href="{{ path ('create_presentation') }}">
 
-        <button class="btn px-4 py-3" style="" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
+        <button class="btn px-3 px-md-4 py-2 py-md-3" style="" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
 
           <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
           
@@ -35,7 +35,7 @@
 
     </div>
 
-    <div class="last-cta-container-img-col col-4">
+    <div class="last-cta-container-img-col col-12 col-md-4">
 
       <img class="img-fluid" src="{{asset('misc/montains_at_golden_hours.webp', 'larger')}}" alt="Des montagnes lors du lever du soleil." loading="lazy">
     
@@ -46,7 +46,7 @@
 </div>
 
 
-  <div class="row fs-5 mt-5 fw-bold">
+  <div class="last-moto row fs-5 mt-5 fw-bold">
 
     <div class="text-center">Propon est une initiative gratuite dédiée à la promotion des projets pour la réussite de tous. Rejoignez le mouvement.</div>
   
@@ -98,6 +98,21 @@
 
   .last-cta-container button :hover{
     background-color: white;
+  }
+
+  @media screen and (max-width: 580px) {
+
+    .last-cta-container-text-col h4 {
+      font-size: 26px;
+    }
+
+    .last-cta-container-text-col p {
+      font-size: 17px;
+    }
+    
+    .last-moto {
+      font-size: 15px !important;
+    }
   }
 
 

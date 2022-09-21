@@ -13,7 +13,7 @@
 
     {# Left Column : an image #}
   
-    <div class="img-ctn col-7 d-flex align-items-center justify-content-center">
+    <div class="img-ctn col-12 col-md-7 d-flex align-items-center justify-content-center">
     
       <img class="" src="{{asset('misc/advices.webp', 'larger')}}" alt="Une jeune femme debout qui plie son coude et tend son doigt vers le haut." loading="lazy">
 
@@ -21,21 +21,36 @@
 
     {# Right Column : some text #}
 
-    <div class="text-ctn col-5 px-0 fs-5">
+    <div class="text-ctn col-12 col-md-5 px-0 fs-5">
 
-      <h4 class="text-center fw-bold mt-5 mb-4">Il ne reste qu'à remplir ;-)</h4>
-    
-      <p class="text-justify px-3" >
-
-        <b>Présenter son projet n'est pas toujours simple</b>. Quelles informations recherchent les gens ? Quelles questions les intéressent ?  
-
-      </p>
-    
-      <p class="text-justify px-3 mb-4" >
+      <h4 class="text-center fw-bold mt-5 mb-4">Il suffit de remplir ;-)</h4>
+      
+      <div class="d-none d-md-block">
         
-        <b>Pour réussir votre présentation, remplissez simplement notre modèle de page. Vous pouvez aussi utiliser nos suggestions.
+        <p class="text-justify px-3" >
 
-      </p>
+          <b>Présenter son projet n'est pas toujours simple</b>. Quelles informations recherchent les gens ? Quelles questions les intéressent ?  
+
+        </p>
+      
+        <p class="text-justify px-3 mb-4" >
+          
+          Pour réussir votre présentation, <b>remplissez simplement notre modèle de page</b>. Vous pouvez aussi utiliser nos suggestions.
+
+        </p>
+
+      </div>
+      
+      <div class="d-md-none">
+        
+        <p class="text-center px-3" >
+
+          Présenter son projet n'est pas toujours simple. Avec Propon, c'est facile, <b>remplissez simplement notre modèle de page</b>. Vous pouvez aussi utiliser nos suggestions.
+
+        </p>
+
+      </div>
+
 
       <div class="col text-center">
       
@@ -138,6 +153,56 @@
     height: 100%;
     background-color: #bedcfa;
     top: 33%;
+  }
+
+  
+  @media screen and (max-width: 580px) {
+
+    .diag-jumbotron-4 .diagonal-box {
+      height: 60px;
+      transform: skewY(-3deg);
+      margin-bottom: 32px;
+    }
+
+    .diag-jumbotron-4 .inner-jumbo img {
+      width: 50%;
+      margin-bottom: 10px;
+    }
+
+    .diag-jumbotron-4 .diag {
+      transform: skewY(3deg);
+      padding-top: 16px;
+      font-size: 21px; 
+    }
+      
+    .diag-jumbotron-4 .inner-jumbo .text-ctn {
+      font-size: 17px !important;
+      margin-left: 0px;
+
+    }
+      
+    .diag-jumbotron-4 .text-ctn h4  {
+
+      display: none;
+
+    }
+      
+    .diag-jumbotron-4 .text-ctn .btn-sm  {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+
+    .diag-jumbotron-4 .wave-container {
+      height: 5vh;
+      margin-top: 20px;
+    }
+
+    .diag-jumbotron-4 .wave {
+      height: 30px;
+    }
+      
+
   }
 
 </style>

@@ -13,7 +13,7 @@
 
     {# Left Column : an image #}
   
-    <div class="img-ctn col-7 d-flex align-items-center justify-content-center">
+    <div class="img-ctn col-12 col-md-7 d-flex align-items-center justify-content-center">
     
       <img class="" src="{{asset('misc/summarize.png', 'larger')}}" alt="Des cadres arrondis chacun remplit d'une icône, ils symbolisent une page résumée" loading="lazy">
 
@@ -21,21 +21,33 @@
 
     {# Right Column : some text #}
 
-    <div class="text-ctn col-5 px-0 fs-5">
+    <div class="text-ctn col-12 col-md-5 px-0 fs-5">
     
       <h4 class="text-center fw-bold mt-5 mb-4">On <u>Aime tous les résumés</u></h4>
     
-      <p class="text-justify px-3 mb-4" >
+      <p class="d-none d-md-block text-justify px-3 mb-4" >
         
         ✔️ Avec Propon, <b>obtenez rapidement une présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre.</b> <br><br>
 
         ❌ Trop d'informations présentées ou éparpillées, c'est le risque d'<b>abandonner la lecture</b> ou <b>ne pas comprendre votre projet</b>. C'est dommage !
         
       </p>
+    
+      <p class="d-md-none text-center px-3 mb-4" >
+        
+        Avec Propon, <b>obtenez rapidement une présentation simple, claire, et résumée</b> de votre projet.
+        
+      </p>
 
-      <div class="col text-center">
+      <div class="d-none d-md-block col text-center">
       
         <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" style="" type="button">Je résume mon projet</button></a>
+      
+      </div>
+
+      <div class="d-md-none col text-center">
+      
+        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" style="" type="button">Je passe à l'action</button></a>
       
       </div>
 
@@ -134,6 +146,55 @@
     height: 100%;
     background-color: #bedcfa;
     top: 33%;
+  }
+
+  
+  @media screen and (max-width: 580px) {
+
+    .diag-jumbotron-2 .diagonal-box {
+      height: 60px;
+      transform: skewY(-3deg);
+      margin-bottom: 55px;
+    }
+
+    .diag-jumbotron-2 .inner-jumbo img {
+      width: 60%;
+    }
+
+    .diag-jumbotron-2 .diag {
+      transform: skewY(3deg);
+      padding-top: 16px;
+      font-size: 21px; 
+    }
+      
+    .diag-jumbotron-2 .inner-jumbo .text-ctn {
+      font-size: 17px !important;
+      margin-left: 0px;
+
+    }
+      
+    .diag-jumbotron-2 .text-ctn h4  {
+
+      display: none;
+
+    }
+      
+    .diag-jumbotron-2 .text-ctn .btn-sm  {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+
+    .diag-jumbotron-2 .wave-container {
+      height: 5vh;
+      margin-top: 20px;
+    }
+
+    .diag-jumbotron-2 .wave {
+      height: 30px;
+    }
+      
+
   }
 
 </style>

@@ -13,27 +13,37 @@
 
     {# Left Column : an image #}
   
-    <div class="img-ctn col-7 d-flex align-items-center justify-content-center">
+    <div class="img-ctn col-12 col-md-7 d-flex align-items-center justify-content-center">
     
-      <img class="" src="{{asset('misc/business_card.webp', 'larger')}}" alt="Dessin d'une main qui tend une carte de visite" loading="lazy">
+      <img class="d-none d-md-inline" src="{{asset('misc/business_card.webp', 'larger')}}" alt="Dessin d'une main qui tend une carte de visite" loading="lazy">
+    
+      <img class="d-md-none" src="{{asset('misc/business_card_tiny_screens.webp', 'larger')}}" alt="Dessin d'une main qui tend une carte de visite" loading="lazy">
 
     </div>
 
     {# Right Column : some text #}
 
-    <div class="text-ctn col-5 px-0 fs-5">
+    <div class="text-ctn col-12 col-md-5 px-0 fs-5">
 
       <h4 class="text-center fw-bold mt-5 mb-4">Vous l'obtenez directement</h4>
     
-      <p class="text-justify px-3" >
+      <p class="d-none d-md-block text-justify px-3" >
 
         ✔️ Utilisez <b>votre adresse courte, personnalisée, et gratuite</b>, par exemple : propon.org/mon-projet, et <b>partagez-là</b> sur des forums, des réseaux sociaux, et d'autres situations.
 
       </p>
     
-      <p class="text-justify px-3" >
+      <p class="d-none d-md-block text-justify px-3" >
         
         ❌ Ne soyez plus génés lorsqu'on vous demande un résumé de votre projet.
+
+      </p>
+    
+      <p class="d-md-none text-center px-3" >
+        
+        👉 propon.org/mon-projet 👈 <br>
+        
+        Partagez votre adresse personalisée gratuite sur les forums et les réseaux sociaux.
 
       </p>
 
@@ -138,6 +148,56 @@
     height: 100%;
     background-color: #bedcfa;
     top: 33%;
+  }
+
+  
+  @media screen and (max-width: 580px) {
+
+    .diag-jumbotron-3 .diagonal-box {
+      height: 60px;
+      transform: skewY(-3deg);
+      margin-bottom: 40px;
+    }
+
+    .diag-jumbotron-3 .inner-jumbo img {
+      width: 80%;
+      margin-bottom: 10px;
+    }
+
+    .diag-jumbotron-3 .diag {
+      transform: skewY(3deg);
+      padding-top: 16px;
+      font-size: 21px; 
+    }
+      
+    .diag-jumbotron-3 .inner-jumbo .text-ctn {
+      font-size: 17px !important;
+      margin-left: 0px;
+
+    }
+      
+    .diag-jumbotron-3 .text-ctn h4  {
+
+      display: none;
+
+    }
+      
+    .diag-jumbotron-3 .text-ctn .btn-sm  {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+
+    .diag-jumbotron-3 .wave-container {
+      height: 5vh;
+      margin-top: 20px;
+    }
+
+    .diag-jumbotron-3 .wave {
+      height: 30px;
+    }
+      
+
   }
 
 </style>

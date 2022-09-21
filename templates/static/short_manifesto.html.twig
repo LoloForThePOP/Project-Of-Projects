@@ -34,7 +34,7 @@
 
        <div class="title-container">
 
-            <h1 class="page-title fw-bold"><span class="d-lg-none me-2">🧭</span> Ce qui nous Anime <span class="fs-2 ms-2">🧐</span></h1>
+            <h1 class="page-title fw-bold"><span class="d-lg-none me-2">🧭</span><span class="d-none d-md-block">-</span> Ce qui nous Anime <span class="d-none d-md-block">-</span></h1>
 
         </div>
 
@@ -49,20 +49,36 @@
                 box-sizing: border-box;
                 padding: 30px 20px ;
                 z-index: 1;
+                margin-bottom: 50px;
             }
                 
             .page-title{
 
                 font-size: 45px;
                 color: rgb(61, 72, 138);
+                display:inline-block;
+                position: relative;
 
+            }
+
+            .page-title::before {
+                content: '';
+                position: absolute;
+                background-color: #40814d;
+                width: 100%;
+                height: 6px;
+                bottom: -25px;
+                left: 0;
+                right: 0;
+                border-radius: 50px;
             }
 
             @media (max-width: 768px) {
 
                 .title-container {
 
-                    padding: 14px 0px ;
+                    padding: 14px 0px;
+                    margin-bottom: 0px;
                 }
 
 
@@ -72,6 +88,10 @@
                     margin-bottom: 0;
 
                         
+                }
+                    
+                .page-title::before {
+                    display: none;
                 }
     
             }
@@ -288,6 +308,7 @@
             padding-right: 4vw;
             margin: 0;
             margin-bottom: 10vh;
+            border-radius: 70px;
         }
 
         @media (min-width: 1024px) {

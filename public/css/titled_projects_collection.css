@@ -16,7 +16,7 @@
 	margin-bottom: 40px;
 	text-align: center;
 	font-weight: 700;
-	color: #242456;
+	color: rgb(72, 67, 61);
 }
 
 
@@ -132,7 +132,8 @@
 
     
     .titled-projects-container{
-        margin-bottom: 40px;
+        margin-top: 0px;
+        margin-bottom: 15px;
     }
 
 

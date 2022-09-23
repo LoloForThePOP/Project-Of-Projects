@@ -36,6 +36,7 @@
 
     padding: 15px 12px 10px 12px;
     margin-bottom: 28px;
+    border: 1px solid #dee2e6;
 
 }
 
@@ -205,6 +206,13 @@ textarea:focus, input:focus{
     .edit-icon{
         width: 16px;
         height: 16px;
+    }
+
+        
+    .in-edition-mode .pp-struct-title-container {
+
+        text-align: left;
+
     }
 
 }

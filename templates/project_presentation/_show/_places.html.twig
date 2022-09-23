@@ -101,7 +101,7 @@
 
                 {% endembed %}
 
-                <div id="{{place.id}}" class="js-sortable-element place-card col-12 col-md-7 col-lg-11">
+                <div id="{{place.id}}" class="js-sortable-element place-card">
 
                     <div data-bs-toggle="modal" data-bs-target="#{{modal_id}}" data-bs-dismiss="modal">
 
@@ -152,6 +152,16 @@
 
     <style>
 
+        #places{
+
+            padding-left: 15px;
+            padding-right: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+        }
+
         .place-card{
 
             position: relative;
@@ -180,6 +190,12 @@
 
         @media screen and (max-width: 580px) {
 
+            #places{
+
+                padding-left: 0px;
+                padding-right: 0px;
+
+            }
 
             .place-card{
 
@@ -207,7 +223,3 @@
     {% endblock %}
 
 {% endembed %}
-
-
-
-

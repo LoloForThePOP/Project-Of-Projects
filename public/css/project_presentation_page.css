@@ -35,6 +35,10 @@
 
 }
 
+#slideshow-struct-container {
+	border: 1px solid #dee2e6;
+}
+
 
 #text-description-struct-container {
 	display: flex;
@@ -46,8 +50,9 @@
 
 .pp-struct-title-container{
 
-    margin-left: 10px;
+    margin-top: 10px;
     margin-bottom: 32px;
+    text-align: center;
 
 }
 
@@ -123,6 +128,10 @@
     white-space: pre-wrap;
 }
 
+.show-more-button-container {
+	text-align: center;
+}
+
 
 .show-more-button {
 	margin-left: 3px;
@@ -181,6 +190,12 @@
 }
 
 @media screen and (max-width: 580px) {
+        
+    .pp-struct-container-wrapper{
+
+        margin-bottom: 0px;
+
+    }
 
     .pp-container{
 
@@ -191,14 +206,15 @@
 
     .pp-struct-container {
 
-        padding-right: 6px;
+        height: unset;
+        padding-top: 20px;
         margin-bottom: 17px;
 
     }
 
     .pp-struct-title-container{
 
-        margin-left: 0px;
+        margin-top: 0;
         margin-bottom: 18px;
 
     }
@@ -220,10 +236,11 @@
     }
 
     .pp-struct-content{
-        padding-left: 5px;
+        padding-left: 0px;
     }
 
     #slideshow-struct-container{
+        border: none;
         padding: 0px;
     }
 

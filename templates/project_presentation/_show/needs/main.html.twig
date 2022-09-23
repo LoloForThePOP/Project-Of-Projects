@@ -126,7 +126,7 @@
 
                         </div>
                         
-                        <div class="container px-0 mt-3 mb-2" onclick="this.style.display = 'none'" >
+                        <div class="show-more-button-container container px-0 mt-3 mb-2" onclick="this.style.display = 'none'" >
 
                             <span class="show-more-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-needs" aria-expanded="false" aria-controls="collapse-needs">Afficher plus</span>
                         
@@ -143,9 +143,19 @@
         
     <style>
 
+        #needs{
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-left: 20px;
+            padding-right: 20px;
+
+        }
+
         .need-card{
 
-            position:relative;
+            position: relative;
             cursor: pointer;
             font-weight: bold;
             font-size: 1.15em;
@@ -175,6 +185,14 @@
         
 
         @media screen and (max-width: 580px) {
+
+                
+            #needs{
+
+                padding-left: 0px;
+                padding-right: 0px;
+
+            }
 
             .need-card {
                

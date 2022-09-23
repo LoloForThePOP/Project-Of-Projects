@@ -17,7 +17,7 @@
 
     {% block mainContent %}
 
-        <div id="documents" class="js-elements-list pp-struct-content sm-horiz-scroll row ps-4 ps-md-5" style="margin-right: 0 !important;">{# margin 0 otherwise documents overflow container #}
+        <div id="documents" class="js-elements-list pp-struct-content sm-horiz-scroll row">
 
             {% for document in presentation.documents %}
                 
@@ -54,8 +54,20 @@
         </div>
 
     <style>
+
+        #documents {
+            margin: 0 !important;
+            display: flex;
+            justify-content: space-evenly;
+        }
                 
         @media screen and (max-width: 580px) {
+                
+            #documents {
+                margin: unset;
+                padding-left: 15px;
+                justify-content: unset;  
+            }
 
             .sm-horiz-scroll{
                 flex-wrap: nowrap;

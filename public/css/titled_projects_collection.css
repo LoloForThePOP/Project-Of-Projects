@@ -80,7 +80,8 @@
 }
 
 .other-info-container{
-    padding: 0 5px 10px 15px;
+    padding: 0 10px 0px 10px;
+    text-align: center;
 }
 
 
@@ -133,7 +134,7 @@
     
     .titled-projects-container{
         margin-top: 0px;
-        margin-bottom: 15px;
+        margin-bottom: 30px;
     }
 
 

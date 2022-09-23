@@ -2,7 +2,7 @@
 
     {% macro helpRow(image_src, image_alt, text) %}
 
-        <div class="row">
+        <div class="helpRow row">
 
             <div class="col-6 px-0">
 
@@ -39,7 +39,7 @@
         {{ _self.helpRow(
             asset('switch_edit_consult_mode.png', 'tutorial'),
             "Représentation d'un basculement entre le mode d'édition, et le mode de consultation.",
-            "Pour voir le résultat, cliquer sur l'icône oeil. Pour modifier la page, cliquer sur l'icône crayon.", 
+            "Pour voir le résultat, appuyez sur l'icône oeil. Pour modifier la page, appuyez sur l'icône crayon.", 
         ) }}
 
         {# Reorder items #}
@@ -47,7 +47,7 @@
         {{ _self.helpRow(
             asset('drag_and_drop.png', 'tutorial'),
             "Représentation d'un glisser-déposer d'élément (= drag and drop)",
-            "Pour changer l'ordre des éléments, restez appuyer sur un élément, puis déplacez-le à l'endroit désiré.", 
+            "Pour modifier l'ordre des éléments, restez appuyer sur un élément, puis déplacez-le à l'endroit désiré.", 
         ) }}
 
         {# Delete item #}
@@ -55,7 +55,7 @@
         {{ _self.helpRow(
             asset('delete_items.png', 'tutorial'),
             "Représentation d'une poubelle",
-            "Pour supprimer des éléments, cliquer sur une corbeille, puis sélectionner les éléments désirés.", 
+            "Pour supprimer des éléments, appuyez sur une corbeille, puis sélectionner les éléments désirés.", 
         ) }}
 
         {# Add item #}
@@ -63,7 +63,7 @@
         {{ _self.helpRow(
             asset('edit_item.png', 'tutorial'),
             "Représentation d'une sélection d'élément",
-            "Pour modifier un élément, cliquer dessus, ou cliquer sur un crayon gris.", 
+            "Pour modifier un élément, appuyez simplement dessus, ou appuyez sur un crayon gris.", 
         ) }}
 
         {# Autosave #}
@@ -71,7 +71,7 @@
         {{ _self.helpRow(
             asset('autosave.png', 'tutorial'),
             "Représentation d'une sauvegarde automatique",
-            "Les modifications sont enregistrées automatiquement.", 
+            "Les modifications sont enregistrées automatiquement 😘", 
         ) }}
 
         <div class="mt-5 mb-4 d-flex justify-content-center">
@@ -106,6 +106,10 @@
 
     .help-content .row{
         margin-bottom: 21px;
+    }
+
+    .help-content .helpRow{
+        min-height: 250px;
     }
 
     .help-content .row:nth-child(even){
@@ -167,6 +171,12 @@
 
 
     @media screen and (max-width: 580px) {
+
+        .help-content .helpRow {
+
+            min-height: 150px;
+            
+        }
 
         .help-content .text-container{
 

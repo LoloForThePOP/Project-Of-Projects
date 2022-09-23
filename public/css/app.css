@@ -18,6 +18,10 @@ a{
     font-weight: bold;
 }
 
+.modal-title{
+    text-align: center;
+}
+
 /* Extend Bootstrap 5 */
 
 .sharp {

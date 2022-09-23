@@ -7,7 +7,6 @@
     margin-bottom: 22px;
     border: 1px solid rgb(171, 173, 190);
     border-radius: 4px;
-    margin-right: 25px;
 }
 
 .bc-content-wrapper{
@@ -47,8 +46,8 @@
 
     .bc-outer{
 
-        margin-right:0;
         padding: 12px;
+        border: none;
 
     }
     

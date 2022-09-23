@@ -52,7 +52,7 @@
                         
                         <!-- Question -->
 
-                        <div class="questionContainer">
+                        <div class="question-container">
                                 
                             <span data-edit='{"entity": "PPBase", "id": {{presentation.id}},  "property": "questionsAnswers", "subid": "{{qa.id}}", "subproperty":"question" }' class="question">{{ qa.question [:1] | upper ~ qa.question [1:] }}</span>
                             
@@ -116,7 +116,7 @@
 
                     </div>
                     
-                    <div class="container px-0 mt-2 mb-3" onclick="this.style.display = 'none'">
+                    <div class="show-more-button-container container px-0 mt-3 mb-2" onclick="this.style.display = 'none'">
 
                         <span class="show-more-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-qas" aria-expanded="false" aria-controls="collapse-qas">Afficher plus</span>
                     
@@ -136,7 +136,7 @@
                 padding: 12px 0;
             }
             
-            .questionContainer:hover {
+            .question-container:hover {
                 background-color: #f5f5ff;
             }
         
@@ -171,7 +171,7 @@
             }
 
                     
-            #questionsAnswers .questionContainer{
+            #questionsAnswers .question-container{
                 flex: 0 0 auto;
                 width: 89%;
                 padding-right : 0;
@@ -223,6 +223,8 @@
                 .questionRow .collapse-container {
 
                     padding-right: 0;
+                    padding-left: 4px;
+                    margin: 0px;
                     
                 }
     
@@ -232,10 +234,10 @@
     
                 }
                     
-                #questionsAnswers .questionContainer{
-                    width: 94%; 
+                #questionsAnswers .question-container{
+                    width: 92%; 
                     padding-right: 0;
-                    padding-left: 6px;
+                    padding-left: 0;
                 }
 
                 #questionsAnswers .collapseSymbolContainer {

@@ -325,5 +325,10 @@ label:active:after {
         text-align: center;
     }
 
+    .sm-border-none{
+
+        border: none !important;
+    }
+
 
 }

@@ -330,5 +330,13 @@ label:active:after {
         border: none !important;
     }
 
+    .sm-center-modal{
+        
+        display: flex;
+        align-items: center;
+        min-height: calc(100% - 1rem);
+  
+    }
+
 
 }

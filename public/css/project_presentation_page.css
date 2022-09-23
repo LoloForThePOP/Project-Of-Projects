@@ -243,6 +243,10 @@
         border: none;
         padding: 0px;
     }
+        
+    #text-description-struct-container {
+        padding-top: 13px;
+    }
 
 
 }

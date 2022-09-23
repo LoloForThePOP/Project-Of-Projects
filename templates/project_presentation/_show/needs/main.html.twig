@@ -14,8 +14,6 @@
 
             <div id="needs" class="js-elements-list pp-struct-content">
 
-                
-                
                 {% for need in presentation.needs %}
 
                     {% if loop.index == 4  and not userPresenter %}
@@ -47,13 +45,13 @@
 
                     {% endset %}
 
-                    {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': needTitle } %}
+                    {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': modal_id, 'modal_title': needTitle, 'modal_size': "modal-dialog-centered" } %}
 
                         {% block modalBody %}
 
                             <!-- Date Display -->
 
-                            <div class = "mb-2" >
+                            <div class = "mb-2" style="color: #42392f;">
 
                                 <span class="">
                                     Publié le 
@@ -111,8 +109,8 @@
 
                             <a href="{{path("new_pp_conversation", {'stringId': stringId, 'context': need.title})}}" class="pp-consultation-mode text-decoration-none">
                                         
-                                <button type="button" class="btn btn-light">
-                                    Contacter
+                                <button type="button" class="btn btn-validate">
+                                    ✉️ Contacter
                                 </button>
                         
                             </a>

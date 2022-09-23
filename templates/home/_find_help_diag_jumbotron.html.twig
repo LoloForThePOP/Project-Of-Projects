@@ -5,7 +5,9 @@
 
   <div class="diagonal-box">
 
-    <div class="diag">🙋‍♀️ Si vous avez besoin d'Aide</div>
+    <div class="diag d-none d-md-block">🙋‍♀️ Si vous avez besoin d'Aide</div>
+
+    <div class="diag d-md-none">🙋‍♀️ Besoin d'Aide pour votre projet ?</div>
 
   </div>
 
@@ -13,9 +15,11 @@
 
     {# Left Column : an image #}
   
-    <div class="img-ctn col-md-7 d-none d-md-flex align-items-center justify-content-center">
+    <div class="img-ctn col-md-7 d-flex align-items-center justify-content-center">
     
-      <img class="" src="{{asset('misc/resources_types_choices.png', 'larger')}}" alt="types de ressources que vous pouvez demander" loading="lazy">
+      <img class="d-none d-md-inline" src="{{asset('misc/resources_types_choices.png', 'larger')}}" alt="types de ressources que vous pouvez demander" loading="lazy">
+    
+      <img class="d-md-none" src="{{asset('misc/planting_trees.svg', 'larger')}}" alt="Des petits arbres à côté d'une pelle" loading="lazy">
 
     </div>
 
@@ -27,7 +31,7 @@
     
       <p class="d-none d-md-block text-justify px-3 mb-4" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. </p>
     
-      <p class="d-block d-md-none text-center px-3 mb-2" >Vous recherchez des compétences, du matériel, des conseils ? Faites le savoir.</p>
+      <p class="d-block d-md-none text-center px-3 mb-4 mb-md-2" >Vous recherchez des compétences, du matériel, des conseils ? Faites le savoir.</p>
 
       <div class="col text-center">
       
@@ -143,7 +147,7 @@
     .diag-jumbotron-1 .diagonal-box {
       height: 60px;
       transform: skewY(-3deg);
-      margin-bottom: 20px;
+      margin-bottom: 38px;
     }
 
     .diag-jumbotron-1 .diag {
@@ -152,6 +156,15 @@
       font-size: 21px; 
     }
       
+    .diag-jumbotron-1 .inner-jumbo img {
+      margin-top: -20px;
+      margin-bottom: 30px;
+      max-width: 50%;
+      border: none;
+      border-radius: 0.25rem;
+    }
+
+        
     .diag-jumbotron-1 .inner-jumbo .text-ctn {
       font-size: 17px !important;
       margin-left: 0px;

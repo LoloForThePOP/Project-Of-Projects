@@ -28,7 +28,7 @@
 
             {# Text Description Display (2 cases : short text description; collapsible long text description) #}
             
-            <div id="read-text-description" class="{{ longTextLargeScreens or longTextSmallScreens ? 'long-text' }} container px-0 pl-md-3">
+            <div id="read-text-description" class="{{ longTextLargeScreens or longTextSmallScreens ? 'long-text' }} container">
 
                 <!-- Text Description (Display) -->
 
@@ -44,7 +44,7 @@
                     
                     <!-- Toggle Collapse Button -->
 
-                    <div class="d-none d-lg-block mt-4 mb-2">
+                    <div class="d-none d-lg-block mt-4">
 
                         <button style="z-index: index 5;" class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
                         
@@ -56,7 +56,7 @@
                     
                     <!-- Toggle Collapse Button -->
 
-                    <div class="d-lg-none mt-3 mb-2">
+                    <div class="d-lg-none mt-3">
 
                         <button style="z-index: index 5;" class="collapsed btn btn-primary btn-sm" data-bs-toggle="collapse" data-bs-target="#collapseTextDescription"></button>
                         
@@ -77,14 +77,30 @@
         </div>
 
         <script>
+
+            // trigger to enter live edit mode.
+
             $('#collapseTextDescription, #edit-text-description-icon').on('click', function (){
+
                 $("#read-text-description").addClass("pp-consultation-mode");
+                $("#text-descr-live-edition-container").addClass("live-edit-session"); // we add this class to give full width to this container
+
             });
+
         </script>
 
         
 
         <style>
+
+            #text_description{
+
+                padding: 20px 0;
+            }
+
+            #read-text-description{
+                padding: 0 30px;
+            }
 
             .edit-text-highlight{
                 background-color: blue;
@@ -105,7 +121,7 @@
             .long-text #collapseTextDescription.collapse:not(.show) {
                 
                 display: block;
-                /* height: 30em; height = lineheight * no of lines to display */
+                max-height: 30em; /* height = lineheight * no of lines to display */
                 overflow: hidden;
 
             }   
@@ -113,17 +129,29 @@
             #read-text-description .collapse:not(.collapse-lg){ /* when text is entirely displayed on large screens but not on small screens */
 
                 display: block;
-                height: 100%;
 
             }
             
 
             .pp-text-description{
                 
-                font-size:1.15em;
+                font-size: 1.15em;
             }
 
+            #text-descr-live-edition-container.live-edit-session {
+
+                width: 100%;
+
+            }
+
+
+
             @media screen and (max-width: 580px) {
+
+                    
+                #read-text-description{
+                    padding: 0;
+                }
 
 
                 .long-text #collapseTextDescription.collapse:not(.show), .long-text #collapseTextDescription.collapse-sm:not(.show) {

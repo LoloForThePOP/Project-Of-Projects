@@ -1,0 +1,227 @@
+
+
+{% macro highlight (presentation) %}
+
+<a href="{{ path ("long_path_show_presentation", {'stringId': presentation.stringId } ) }}">
+
+    <div class="container highlight-project-responsive">
+
+        <div class="row h-100 reverse-column-sm">
+            
+            <div class="text-col">
+
+                {% if presentation.title is not empty %}
+
+                    <h2 class="title">
+                        
+                        {{ presentation.title[:1] | upper ~ presentation.title[1:] }}
+                    
+                    </h2>
+
+                {% endif %}
+
+                {# Goal is ellipsed on tiny screens #}
+
+                <div class="goal">{{ presentation.goal | length < 68 ? presentation.goal[:1] | upper ~ presentation.goal[1:] : presentation.goal[:1] | upper ~ presentation.goal[1:64] ~ '...' }}</div> 
+
+                <div class="see-more">
+
+                    <button type="button" class="btn btn-outline-light btn-sm">Afficher plus</button>
+                
+                </div>
+            
+            </div>
+
+            <div class="img-col">
+             
+
+                {% if presentation.slides | length > 0 %}
+
+                    {# Taking first slide image as a project thumbnail #}
+
+                    {% set slide = presentation.slides.first %}
+
+                    {% if slide.type == 'youtube_video' %}
+
+                        <img src="https://img.youtube.com/vi/{{slide.address}}/0.jpg" alt="image miniature d'une video">
+                    
+                    {% elseif slide.type == 'image' %}
+
+                        <img src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
+                    
+                    {% endif %}
+
+                {% else %}
+
+                    <img src="{{ asset('misc/target_arrow_project.png', 'larger')}}" alt="Target with arrow representing a project">
+
+                {% endif %}
+
+            </div>
+            
+        </div>
+
+    </div>
+
+</a>
+
+
+
+<style>
+
+    .highlight-project-responsive{
+
+        margin-bottom: 50px;
+        cursor: pointer;
+        height: 100%;
+        padding-right: 15px;
+        padding-left: 15px;
+
+    }
+
+    .highlight-project-responsive .text-col{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
+        flex: 0 0 auto;
+        width: 63%;
+
+        padding: 14px 0;
+
+        background-color: #17568e;
+        border-radius: 4px 0 0 4px;
+
+    }
+
+    .highlight-project-responsive .title{
+
+        margin-bottom: 0;
+        text-align: center;
+        color: white;
+        font-size: 24px;
+        
+    }
+
+    .highlight-project-responsive .goal{
+
+        padding: 0 8px;
+        text-align: center;
+        font-size: 19px;
+        color: white;
+
+
+    }
+
+    .highlight-project-responsive .see-more{
+
+        text-align: center;        
+
+    }
+
+
+    .highlight-project-responsive .img-col{
+
+        background-color: black;
+        display: flex;
+        align-items: center;
+        flex: 0 0 auto;
+        width: 37%;
+        padding: 0;
+        border-radius: 0 4px 4px 0;
+    }
+
+    .highlight-project-responsive .img-col img{
+
+        object-fit: cover;
+        height: 170px;
+        width: 100%;
+        border-radius: 0 4px 4px 0;
+    }
+
+
+    @media screen and (max-width: 820px) {
+
+        .highlight-project-responsive{
+
+            margin-bottom: 28px;
+
+        }
+
+        .highlight-project-responsive .goal{
+
+            padding: 0 15px;
+            font-size: 16px;
+
+        }
+
+        .highlight-project-responsive .img-col img{
+
+            height: 220px;
+        }
+
+    }
+
+
+    
+    @media screen and (max-width: 820px) {
+
+        .highlight-project-responsive{
+
+            padding: 0 10px;
+
+        }
+        
+        .reverse-column-sm{
+            flex-direction: column-reverse;
+        }
+
+            
+        .highlight-project-responsive .text-col{
+
+            background-color: #1a6a18;
+            border-radius: 4px 4px 0 0;
+
+        }
+            
+        .highlight-project-responsive .text-col{
+
+            padding: 17px 0 30px 0;
+            background-color: #1a6a18;
+            border-radius: 0 0 4px 4px;
+
+        }
+            
+        .highlight-project-responsive .img-col img{
+            
+            border-radius: 4px 4px 0 0;
+
+        }
+            
+        .highlight-project-responsive .title{
+
+            margin-top: 7px;
+            margin-bottom: 10px;
+            font-size: 20px;
+            
+        }
+            
+        .highlight-project-responsive .goal{
+
+            padding: 0 12px;
+            margin-bottom: 0px;
+            
+        }
+            
+        .highlight-project-responsive .see-more {
+
+            display: none;
+            
+        }
+
+    }
+
+</style>
+
+{% endmacro %}

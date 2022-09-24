@@ -110,6 +110,11 @@
 
 @media screen and (max-width: 580px) {
 
+    .document-outer
+    {
+        margin-right: 1rem;
+    }
+
     .documentRepresentation
     {
         width: 180px; 

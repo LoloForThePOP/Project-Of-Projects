@@ -1,4 +1,4 @@
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-share", 'modal_title': "Partager cette présentation", 'modal_size': "modal-lg sm-center-modal"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "pp-share", 'modal_title': "Partager cette présentation", 'modal_size': "modal-lg modal-dialog-centered"} %}
 
     {% block modalBody %}
 
@@ -12,9 +12,9 @@
 
                         <div>
 
-                            <p class="mb-3">
-                            Pour faire connaître ce projet, <span class="text-success">copiez son adresse et partagez-là</span>.
-                            </p>
+                            <p class="text-primary fs-4 mb-3">Pour faire connaître ce projet</p>
+
+                            <p><span class="text-success">Copiez son adresse et partagez-là.</span></p>
 
                             <div class="mb-4">Voici son adresse :</div>
 
@@ -103,6 +103,11 @@
 
 <style>
 
+.share-whole-content .text-container{
+
+            text-align: center;
+        }
+
     #pp-share .modal-title{
         text-align: center;
         color: green;
@@ -169,6 +174,15 @@
         line-height: 1.1;
 
         background-color: rgb(255, 255, 255);
+
+    }
+
+    #presentationAbsoluteURL{ /* Center Text in Textarea */
+            
+        white-space: normal;
+        text-align: justify;
+        -moz-text-align-last: center; /* Firefox 12+ */
+        text-align-last: center;
 
     }
 

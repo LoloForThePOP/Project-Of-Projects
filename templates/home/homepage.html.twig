@@ -127,26 +127,27 @@
     {% include "home/_basic_pool_alert.html.twig" %}
 
 
+    {# Four highlighted projects
+    <div class="">
 
-    <h2 class="h3 text-center fw-bold mb-5" style="color:rgb(72, 67, 61)"> <span class="" style="display: inline-block;transform: matrix(-1, 0, 0, 1, 0, 0);"> 👇</span> Découvertes 👇</h2>
+        <h2 class="h3 text-center fw-bold mb-5" style="color:rgb(72, 67, 61)"> <span class="" style="display: inline-block;transform: matrix(-1, 0, 0, 1, 0, 0);"> 👇</span> Découvertes 👇</h2>
 
-    
+        <div class="row g-2" style="margin-left: -40px; margin-right: -40px;">
 
-    <div class="row g-2" style="margin-left: -40px; margin-right: -40px;">
+          {% for presentation in halfHighlightedProjects %}
+              
+            <div class="col-6 mb-2">
 
-      {% for presentation in halfHighlightedProjects %}
-          
-        <div class="col-6 mb-2">
+              {{ highlight.highlight (presentation) }}
+            
+            </div>
 
-          {{ highlight.highlight (presentation) }}
+          {% endfor %}
         
         </div>
 
-      {% endfor %}
-    
-    </div>
+    </div> #}
 
-    
     
     {# Editor's Choice presentations #}
 
@@ -279,9 +280,9 @@
       
       </div>
 
-      <div class="text-col col-9 text-center d-flex justify-content-center align-items-center">
+      <div class="text-col col-9">
       
-        <span class="" style="color: #a6711e">Les Projets </span><span class="" style="color: green">de toutes tailles</span><br><span style="color: #a6711e">sont les briques pour</span><br><span class="" style="color: green">réaliser les plus grands projets</span>
+        <span class="" style="color: #a6711e">Les Projets </span> <span class="" style="color: green">de toutes tailles </span><br class="d-md-none"><span style="color: #a6711e">sont les briques pour </span><br class="d-md-none"> <span class="" style="color: green">réaliser les plus grands projets.</span>
       
       </div>
     

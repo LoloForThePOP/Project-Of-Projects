@@ -71,16 +71,15 @@
 
 .pp-struct-icon{
     
-    margin-right : 7px;
-
     width: 22px;
     height: 22px; 
 
+    margin-right : 7px;
     margin-bottom: 5px;
 
-    /* change svg colors 
+    /* change svg colors  */
     
-    filter: invert(73%) sepia(92%) saturate(2564%) hue-rotate(8deg) brightness(112%) contrast(104%); */
+    filter: invert(49%) sepia(28%) saturate(2722%) hue-rotate(215deg) brightness(101%) contrast(103%);
 }
 
 /* Each Structure Content */

@@ -13,11 +13,13 @@
 
     {# Left Column : an image #}
   
-    <div class="img-ctn col-12 d-flex align-items-center justify-content-center position-relative ">
+    <div class="img-ctn col-12 d-flex flex-column align-items-center justify-content-center position-relative ">
     
       <img class="d-none d-md-block" src="{{asset('misc/edit_3p_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
 
       <div class="d-none d-md-block position-absolute" style="width: 50%; right:7%; top: 27%"><h3>Utilisez les <b class="text-success">emplacements prévus</b> et les <b class="text-success">sauvegardes automatiques</b> !</h3></div>
+
+      <div class="d-md-none" style="margin-bottom: 20px; text-align: center; font-size: 17px !important;">Utilisez les  emplacements prévus et les sauvegardes automatiques !</div>
 
       <img class="d-md-none" src="{{asset('misc/sm_use_website_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
 
@@ -131,7 +133,7 @@
     .diag-jumbotron-5 .diagonal-box {
       height: 60px;
       transform: skewY(-3deg);
-      margin-bottom: 32px;
+      margin-bottom: 20px;
     }
 
     .diag-jumbotron-5 .inner-jumbo img {

@@ -2,13 +2,13 @@
 
     {% block title %}Ajouter un besoin{% endblock %}
 
-    {% block mainContentTitle %}Ajouter un besoin{% endblock %}
+    {% block mainContentTitle %}<span class="text-center fs-2 my-5">Ajouter un besoin</span>{% endblock %}
 
     {% block collapsibleMoreInfo %}{% endblock %}
 
     {% block mainContent %}
 
-        {% include "project_presentation/edit/needs/_form.html.twig" %}
+        <div class="text-center">{% include "project_presentation/edit/needs/_form.html.twig" %}</div>
 
     {% endblock %}
 

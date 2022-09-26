@@ -69,12 +69,12 @@
 
 </div>
 
-    <div class="mt-4 mt-md-5">
+    <div class="d-flex justify-content-evenly mt-4 mt-md-5">
 
-        <button class="btn btn-lg btn-validate sharp me-2 mb-2">{{ button_label | default('Enregistrer') }}</button>
+        <button class="btn btn-lg btn-validate sharp">{{ button_label | default('✔️ Enregistrer') }}</button>
 
         <a href="{{ path('show_presentation', {'stringId': stringId}) }}#needs">
-            <button type="button" class="btn btn-lg btn-go-back mb-2">Annuler</button>
+            <button type="button" class="btn btn-lg btn-go-back">❌ Annuler</button>
         </a>
 
     </div>
@@ -92,11 +92,13 @@
 <style>
 
     .form-row{
-        margin-bottom: 30px;
+        margin-bottom: 40px;
     }
 
     .label-box{
+        font-size: 20px;
         margin-bottom: 15px;
+        color: #4e3313;
     }
 
     .needs-icon-title {
@@ -131,8 +133,10 @@
         }
 
         .label-box{
-            padding-left: 8px;
+            padding-left: 0px;
+            font-size: 18px;
         }
+        
 
     }
 

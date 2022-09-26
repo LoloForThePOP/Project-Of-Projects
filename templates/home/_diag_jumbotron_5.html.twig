@@ -1,0 +1,177 @@
+
+<div class="diag-jumbotron-5">
+
+  {# Upper decoration : diagonal box #}
+
+  <div class="diagonal-box">
+
+    <div class="diag">Gagnez du temps 👇</div>
+
+  </div>
+
+  <div class="row inner-jumbo">
+
+    {# Left Column : an image #}
+  
+    <div class="img-ctn col-12 d-flex align-items-center justify-content-center position-relative ">
+    
+      <img class="d-none d-md-block" src="{{asset('misc/edit_3p_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
+
+      <div class="d-none d-md-block position-absolute" style="width: 50%; right:7%; top: 27%"><h3>Utilisez les <b class="text-success">emplacements prévus</b> et les <b class="text-success">sauvegardes automatiques</b> !</h3></div>
+
+      <img class="d-md-none" src="{{asset('misc/sm_use_website_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
+
+    </div>
+
+
+  </div>
+
+  {# Bottom decoration : waved box #}   
+
+  <div class="wave-container">
+
+    <div class="wave"></div>
+
+  </div>
+
+</div>
+
+<style>
+
+  .diag-jumbotron-5{
+    margin-bottom: 70px;
+  }
+
+  .diag-jumbotron-5 .diagonal-box {
+    height:200px;
+    background-color: #bedcfa;
+    transform: skewY(-6deg);
+
+  } 
+
+  .diag-jumbotron-5 .diag { 	
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    transform: skewY(6deg);
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 65px;
+  }
+
+  .diag-jumbotron-5 .inner-jumbo > * {
+    z-index:2;
+  }
+
+  .diag-jumbotron-5 .inner-jumbo img {
+    margin-top: -20px;
+    width: 100%;
+    border-radius: 0.25rem;
+  }
+
+  .diag-jumbotron-5 .inner-jumbo .text-ctn {
+    margin-left: -40px;
+
+  }
+
+  .diag-jumbotron-5 .separation-line{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 30%;
+    height: 10px;
+    background-color: blue;
+  }
+
+  .diag-jumbotron-5 .wave-container {
+    position: relative;
+    background: #bedcfa;
+    height: 23vh;
+    margin-top: -73px;
+  }
+
+  .diag-jumbotron-5 .wave {
+    position: absolute;
+    height: 70px;
+    width: 100%;
+    background: #bedcfa;
+    bottom: 0;
+  }
+
+  .diag-jumbotron-5 .wave::before, .diag-jumbotron-5 .wave::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 100% 50%;
+  }
+
+  .diag-jumbotron-5 .wave::before {
+    width: 55%;
+    height: 109%;
+    background-color: #fff;
+    right: -1.5%;
+    top: 60%;
+  }
+  
+  .diag-jumbotron-5 .wave::after {
+    width: 55%;
+    height: 100%;
+    background-color: #bedcfa;
+    top: 33%;
+  }
+
+  
+  @media screen and (max-width: 580px) {
+
+    
+    .diag-jumbotron-5{
+      margin-bottom: 46px;
+    }
+          
+
+    .diag-jumbotron-5 .diagonal-box {
+      height: 60px;
+      transform: skewY(-3deg);
+      margin-bottom: 32px;
+    }
+
+    .diag-jumbotron-5 .inner-jumbo img {
+      margin-bottom: 10px;
+    }
+
+    .diag-jumbotron-5 .diag {
+      transform: skewY(3deg);
+      padding-top: 16px;
+      font-size: 21px; 
+    }
+      
+    .diag-jumbotron-5 .inner-jumbo .text-ctn {
+      font-size: 17px !important;
+      margin-left: 0px;
+
+    }
+      
+    .diag-jumbotron-5 .text-ctn h4  {
+
+      display: none;
+
+    }
+      
+    .diag-jumbotron-5 .text-ctn .btn-sm  {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+
+    .diag-jumbotron-5 .wave-container {
+      height: 5vh;
+      margin-top: 20px;
+    }
+
+    .diag-jumbotron-5 .wave {
+      height: 30px;
+    }
+      
+
+  }
+
+</style>

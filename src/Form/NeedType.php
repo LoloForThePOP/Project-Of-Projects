@@ -42,7 +42,7 @@ class NeedType extends AbstractType
                 TextType::class,
                 [
 
-                    'label' => 'Titre du besoin',
+                    'label' => 'Quel est le titre de ce besoin ?',
                     'required'   => true,
                     'attr' => [
 
@@ -70,7 +70,7 @@ class NeedType extends AbstractType
                 TextareaType::class,
                 [
 
-                    'label' => 'Description',
+                    'label' => 'Décrivez votre besoin',
                     'required'   => false,
                     'attr' => [
 

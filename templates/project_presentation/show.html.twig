@@ -629,52 +629,60 @@
         
     {% endif %}
 
-        {# Notification "Your presentation url is randomized for now " #}
+    {# Notification "Your presentation url is randomized for now " #}
 
-        {% if userPresenter and not validatedStringId and overallQualityAssessment < 2 %}
+    {% if userPresenter and not validatedStringId and overallQualityAssessment < 2 %}
 
-            {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
+        {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
 
-        {% endif %}
-
-
-        {# Other Project Presentation to Consult Suggestions #}
-
-        {% if not userPresenter %}
-
-            <link href="/css/titled_projects_collection.css" rel="stylesheet">
-
-            <script src="/js/show_more_less_button.js"></script>
-            <link href="/css/show_more_less_button.css" rel="stylesheet">
-
-            {% import "utilities/_macro_titled_collection.html.twig" as display %}
+    {% endif %}
 
 
-            {% set algoliaQueryString = "none" %}
+    {# Other Project Presentation to Consult Suggestions #}
 
-            {% for category in presentationCategories %}
+    {% if not userPresenter %}
 
-                {% set algoliaQueryString = algoliaQueryString ~ 'categories.uniqueName:'~ category.uniqueName %}
+        <link href="/css/titled_projects_collection.css" rel="stylesheet">
 
-                {% if not loop.last %}
+        <script src="/js/show_more_less_button.js"></script>
+        <link href="/css/show_more_less_button.css" rel="stylesheet">
 
-                    {% set algoliaQueryString = algoliaQueryString ~ ' OR ' %}
+        {% import "utilities/_macro_titled_collection.html.twig" as display %}
 
-                {% else %}
-                    
-                    {% set algoliaQueryString = '(' ~ algoliaQueryString ~ ')' %}
 
-                {% endif %}
+        {% set algoliaQueryString = "none" %}
 
-            {% endfor %}
+        {% for category in presentationCategories %}
 
-           <div class="">
+            {% set algoliaQueryString = algoliaQueryString ~ 'categories.uniqueName:'~ category.uniqueName %}
 
-                {{ render(path('backend_search', {label: "Suggestions d'autres Projets", shuffle: "yep", filters: algoliaQueryString, } ) ) }}
+            {% if not loop.last %}
 
-            </div>
+                {% set algoliaQueryString = algoliaQueryString ~ ' OR ' %}
 
-        {% endif %}
+            {% else %}
+                
+                {% set algoliaQueryString = '(' ~ algoliaQueryString ~ ')' %}
+
+            {% endif %}
+
+        {% endfor %}
+
+        <div class="">
+
+            {{ render(path('backend_search', {label: "Suggestions d'autres Projets", shuffle: "yep", filters: algoliaQueryString, } ) ) }}
+
+        </div>
+
+    {% endif %}
+
+    {% set odd = [0, 0, 0, 0, 0, 0, 0, 1] %}
+
+	{% if  random (odd) == 1 and not app.user  %}
+
+		<p class="text-center">Ajouter votre projet et partagez votre adresse personalisée gratuite 👉 <a href="{{path('create_presentation')}}">J'y vais.</a></p>
+	
+	{% endif %}
 
 
 

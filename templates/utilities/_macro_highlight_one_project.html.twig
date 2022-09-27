@@ -1,5 +1,8 @@
 
-<a href="{{ path ("long_path_show_presentation", {'stringId': highlightedProject.stringId } ) }}">
+
+{% macro highlight (presentation) %}
+
+<a href="{{ path ("long_path_show_presentation", {'stringId': presentation.stringId } ) }}">
 
     <div class="container highlight-project">
 
@@ -7,11 +10,11 @@
             
             <div class="col-md-8 text-col">
 
-                {% if highlightedProject.title is not empty %}
+                {% if presentation.title is not empty %}
 
                     <h2 class="title">
                         
-                        {{ highlightedProject.title[:1] | upper ~ highlightedProject.title[1:] }}
+                        {{ presentation.title[:1] | upper ~ presentation.title[1:] }}
                     
                     </h2>
 
@@ -19,8 +22,8 @@
 
                 {# Goal is ellipsed on tiny screens #}
 
-                <div class="goal d-none d-md-block">{{ highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:] }}</div> 
-                <div class="goal d-md-none">{{ highlightedProject.goal | length < 73 ? highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:] : highlightedProject.goal[:1] | upper ~ highlightedProject.goal[1:69] ~ '...' }}</div> 
+                <div class="goal d-none d-md-block">{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</div> 
+                <div class="goal d-md-none">{{ presentation.goal | length < 73 ? presentation.goal[:1] | upper ~ presentation.goal[1:] : presentation.goal[:1] | upper ~ presentation.goal[1:69] ~ '...' }}</div> 
 
                 <div class="see-more">
 
@@ -33,11 +36,11 @@
             <div class="col-md-4 img-col">
              
 
-                {% if highlightedProject.slides | length > 0 %}
+                {% if presentation.slides | length > 0 %}
 
                     {# Taking first slide image as a project thumbnail #}
 
-                    {% set slide = highlightedProject.slides.first %}
+                    {% set slide = presentation.slides.first %}
 
                     {% if slide.type == 'youtube_video' %}
 
@@ -128,7 +131,7 @@
 
         .highlight-project{
 
-            margin-bottom: 28px;
+            margin-bottom: 34px;
 
         }
 
@@ -209,3 +212,5 @@
 
 
 </style>
+
+{% endmacro %}

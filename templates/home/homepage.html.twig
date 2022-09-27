@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% import "utilities/_macro_titled_collection.html.twig" as display %}
-{% import "utilities/_macro_highlight_presentation.html.twig" as highlight %}
+{% import "utilities/_macro_highlight_one_project.html.twig" as highlight %}
 
 {% block body %}
 
@@ -162,35 +162,78 @@
 
     {% include "home/_find_help_diag_jumbotron.html.twig" %}
 
+    {# Highlight a random project #}
+
+    <div class="d-md-none">
+    
+      {{ highlight.highlight (highlightedProjects[0]) }}
+
+    </div>
+
 
     {# some presentations by category #}
 
-    {{ render(path('backend_search', {label: '🌳 Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
+    {% cache "cat1" ttl(72000) %}
+      
+      {{ render(path('backend_search', {label: '🌳 Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
 
+    {% endcache %}
     
     {# Summarize diagonal jumbotron #}
 
     {% include "home/_diag_jumbotron_2.html.twig" %}
+    
+    {# Highlight a random project #}
+
+    <div class="d-md-none">
+    
+      {{ highlight.highlight (highlightedProjects[1]) }}
+      
+    </div>
 
     
     {# some presentations by category #}
     
-    {{ render(path('backend_search', {label: '🖥️ Numérique', filters: '(categories.uniqueName:software)'})) }}
+    {% cache "cat2" ttl(72000) %}
+      
+      {{ render(path('backend_search', {label: '🖥️ Numérique', filters: '(categories.uniqueName:software)'})) }}
 
-
-
+    {% endcache %}
+    
     {# Business card diagonal jumbotron #}
 
     {% include "home/_diag_jumbotron_3.html.twig" %}
 
-    {# some presentations by category #}
     
-    {{ render(path('backend_search', {label: '📗📘 Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)'})) }}
+    {# Highlight a random project #}
 
+    <div class="d-md-none">
+    
+      {{ highlight.highlight (highlightedProjects[2]) }}
+      
+    </div>
 
+    {# some presentations by category #}
+
+    {% cache "cat3" ttl(72000) %}
+      
+      {{ render(path('backend_search', {label: '📗📘 Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)'})) }}
+
+    {% endcache %}
+    
+   
     {# Summarize diagonal jumbotron #}
 
     {% include "home/_diag_jumbotron_5.html.twig" %}
+
+    
+    {# Highlight a random project #}
+
+    <div class="d-md-none">
+    
+      {{ highlight.highlight (highlightedProjects[3]) }}
+      
+    </div>
 
 
 
@@ -199,28 +242,41 @@
     {% include "home/_access_geosearch_jumbotron.html.twig" %}
 
     {# some presentations by category #}
-    
-    {{ render(path('backend_search', {label: '🏺 Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
 
+    {% cache "cat4" ttl(72000) %}
+      
+      {{ render(path('backend_search', {label: '🏺 Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
+
+    {% endcache %}
+    
     
     {# Presentation helper diagonal jumbotron #}
 
     {% include "home/_diag_jumbotron_4.html.twig" %}
     
     {# some presentations by category #}
-    
-    {{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', filters: '(categories.uniqueName:humane)'})) }}
 
+    {% cache "cat5" ttl(72000) %}
+      
+      {{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', filters: '(categories.uniqueName:humane)'})) }}
+
+    {% endcache %}
+    
 
     {# Highlight a random project #}
 
-    {% include "home/_highlight_project.html.twig" with {highlightedProject: highlightedProject} %}
-
+    {{ highlight.highlight (highlightedProjects[4]) }}
 
 
     {# some presentations by category #}
+
+    {% cache "cat6" ttl(72000) %}
+      
+      {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)'})) }}
+
+    {% endcache %}
     
-    {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)'})) }}
+    
 
     {# some presentations by categories intersection
     {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
@@ -275,7 +331,7 @@
 
     {# last project presentation #}
       
-      {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
+    {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
 
     <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
     

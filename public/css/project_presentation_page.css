@@ -77,7 +77,7 @@
     margin-right : 7px;
     margin-bottom: 5px;
 
-    /* change svg colors  */
+    /* change svg color  */
     
     filter: invert(49%) sepia(28%) saturate(2722%) hue-rotate(215deg) brightness(101%) contrast(103%);
 }

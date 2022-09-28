@@ -55,13 +55,11 @@ liip_imagine:
 
         standard_thumbnail_md_test:
             
-            quality: 50
-            filters:
-                thumbnail: { size: [300, 170], mode: inset }
-               
-            post_processors:
-                mozjpeg: { quality: 40 }
+            quality: 85
 
+            filters:
+                thumbnail: { size: [340, 193], mode: inset }
+               
 
         logo:
 

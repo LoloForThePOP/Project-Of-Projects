@@ -23,7 +23,7 @@
                 {# Goal is ellipsed on tiny screens #}
 
                 <div class="goal d-none d-md-block">{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</div> 
-                <div class="goal d-md-none">{{ presentation.goal | length < 73 ? presentation.goal[:1] | upper ~ presentation.goal[1:] : presentation.goal[:1] | upper ~ presentation.goal[1:69] ~ '...' }}</div> 
+                <div class="goal d-md-none">{{ presentation.goal | length < 83 ? presentation.goal[:1] | upper ~ presentation.goal[1:] : presentation.goal[:1] | upper ~ presentation.goal[1:79] ~ '...' }}</div> 
 
                 <div class="see-more">
 

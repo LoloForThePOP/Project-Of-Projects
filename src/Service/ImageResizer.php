@@ -45,7 +45,7 @@ class ImageResizer {
             $image->quality_jpg = 100;
 
             if ($imageEntity instanceof Slide) {
-                $image->resizeToBestFit(700, 700);
+                $image->resizeToBestFit(900, 900);
             }
 
             //PPBase instance means image is a project logo, persorg instance means image is a persorg or organisation avatar

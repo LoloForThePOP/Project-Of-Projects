@@ -605,7 +605,7 @@ class PPController extends AbstractController
      * 
      * @return Response
     */
-    public function guestUserEditPresentation(RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger, $landing){
+  /*   public function guestUserEditPresentation(RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger, $landing){
 
         //Creating a php session token attached to anonymous user
         //This token is also attached to the newly created presentation
@@ -661,7 +661,7 @@ class PPController extends AbstractController
             'position' => 0,
         ]);
 
-    }
+    } */
 
 
     /**

@@ -96,7 +96,7 @@
 
                 <dt>🤚 Engagés</dt>
 
-                    <dd>Propon est une <b>initiative ouverte</b> . Son objectif est d'avoir un <b>impact positif</b> sur la société et notre environnement.</dd>
+                    <dd>Propon est une <b>initiative ouverte</b>. Son objectif est d'avoir un <b>impact positif</b> sur la société et notre environnement.</dd>
 
                 <dt>👉 Agir</dt>
 
@@ -105,11 +105,11 @@
 
                 <dt>⚡️ Accélérer</dt>
 
-                    <dd>Présenter les Projets améliore leur capacité à être découverts, favorisant ainsi <b>des mises en contact pour qu'ils réussissent</b>.</dd>
+                    <dd>En présentant vos projets et vos besoins, <b>on améliore ensemble leur découverte et leurs chances de trouver des participants</b>.</dd>
                 
                 <dt>💪 Ensemble</dt>
 
-                    <dd>Les Projets de toutes tailles sont <b>les briques de la réalisation des plus grands projets</b>. Chaque projet réussi, c’est potentiellement <b>des centaines d’autres projets amenés à progresser</b>.</dd>
+                    <dd>Les projets de toutes tailles sont <b>les briques de la réalisation des plus grands projets</b>. Chaque projet réussi, c’est potentiellement <b>des centaines d’autres projets qui progressent</b>.</dd>
 
             </dl>
 
@@ -121,6 +121,20 @@
             <h1 class="text-center fw-bold mb-5">⏱️ Et Maintenant ?</h1>
 
             <ul class="horizontal-list">
+            
+                <a href="{{ path ('create_presentation') }}">
+                    
+                    <li class="now-action-item">
+
+                        <img class="cta-item-img" src="{{ asset('add_presentation.svg', 'misc')}}" height="34"  alt="bucket with a plus icon">
+
+                        <div class="cta-item-text">Présenter un Projet</div>
+
+                    </li>
+                
+                </a>
+
+                {# Use search engine to find a project #}
 
                  <a href="#" class="js-enter-search-experience">
                      
@@ -145,19 +159,6 @@
 
                 </script>
 
-                <a href="{{ path ('create_presentation') }}">
-                    
-                    <li class="now-action-item">
-
-                        <img class="cta-item-img" src="{{ asset('add_presentation.svg', 'misc')}}" height="34"  alt="bucket with a plus icon">
-
-                        <div class="cta-item-text">Ajouter un Projet</div>
-
-                    </li>
-                
-                </a>
-
-
                 <a href="{{ asset('pdf/project-of-projects-manifesto-fr.pdf', 'static')}}" target="_blank" rel="noopener noreferrer">
 
                     <li class="now-action-item">
@@ -171,9 +172,6 @@
                 </a>
 
                 
-
-                
-
             </ul>
 
             <style>
@@ -187,7 +185,6 @@
                     border: 1px solid #c2c4e3;
                     height: 167px;
                     border-radius: 5px;
-                    background-color: #fcfffc;
                 }
 
                 .now-action-item:hover {

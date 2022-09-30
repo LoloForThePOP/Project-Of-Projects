@@ -27,7 +27,7 @@
 
     {% block moreInfoContent %}
                             
-        <ul class="h5">
+        <ul class="">
 
             <li><strong>Choisissez des catégories</strong> pour que des visiteurs intéressés découvrent votre projet</li>
 
@@ -46,7 +46,7 @@
 
     {% block mainContent %}
 
-        <div id="cat-grid" class="col-xxl-10 clearfix">
+        <div id="cat-grid" class="container col-xxl-10 clearfix">
 
             {% include "project_presentation/edit/categories/_categories_list.html.twig" %}
         
@@ -54,7 +54,7 @@
 
         <div id="keywords-struct-container" class="">
             
-            <h4 class="h3 fw-bold mb-3">Mots-clés</h4>
+            <h4 class="h3 fw-bold mb-3 text-center">Mots-clés</h4>
 
             {% include "project_presentation/edit/categories/_manage_keywords.html.twig" %}
         
@@ -72,6 +72,10 @@
 
             #keywords-struct-container{
                 margin-top: 20px;
+            }
+
+            .action-buttons-container{
+                text-align: center;
             }
 
         </style>

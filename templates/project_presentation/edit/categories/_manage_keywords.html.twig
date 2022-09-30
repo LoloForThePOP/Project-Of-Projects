@@ -10,6 +10,14 @@
 
     <div id="keywords-display">
 
+        <style>
+        
+            #keywords-input-container, #keywords-display{
+                text-align: center;
+            }
+
+        </style>
+
         {% if presentation.keywords | length > 0 %}
 
             {% set keywords = presentation.keywords | split(',') %}

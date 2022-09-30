@@ -12,14 +12,14 @@
     margin-right: 15px;
     margin-bottom: 15px;
 
-    font-size:1.1em;
-    line-height:1.4em !important;
-    font-weight:700;
+    font-size: 1.1em;
+    line-height: 1.4em !important;
+    font-weight: 700;
     
     border: 1px solid black !important;
     border-radius: 4px;
     background-color: white;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .cat-button:hover{

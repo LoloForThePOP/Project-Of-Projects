@@ -199,6 +199,14 @@ textarea:focus, input:focus{
 
 
 
+.in-consultation-mode #text-description-struct-container > * {
+
+    cursor: default;
+    
+}
+
+
+
 /* Media Queries */
 
 @media screen and (max-width: 580px) {

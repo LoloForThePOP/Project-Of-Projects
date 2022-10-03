@@ -38,10 +38,12 @@
 
         <div class="no-project-container">
 
-          <h5 class="fs-4 fw-bold mb-2 mb-md-4">Bienvenue ;-)</h5>
+          <h5 class="text-center fs-4 fw-bold mb-2 mb-md-4">👋 Bienvenue parmis nous !</h5>
 
-          <p class="fs-5">
-            Pour présenter votre projet, c'est <a href="{{path ('create_presentation')}}"> <span class="badge bg-primary fw-bold" >ici</span></a>
+          <p class="">
+
+            Pour ⏱️ <b>résumer votre projet</b>, 🙋‍♀️ <b>trouver de l'aide</b>, et 💌 <b>partager votre adresse personalisée gratuite</b>, <a href="{{path ('create_presentation')}}"> <span class="fw-bold" >c'est ici.</span></a>
+            
           </p>
 
 
@@ -54,17 +56,30 @@
 
           .no-project-container {
             width: 100%;
-            height: 170px;
+            min-height: 170px;
             padding: 35px;
             border: 2px solid rgb(230, 230, 223);
             border-radius: 4px;
+            font-size: 1.25rem;
+          }
+
+          .no-project-container p {
+            margin-bottom: 0;
+            text-align: center;
           }
           
           @media screen and (max-width: 580px) {
                   
             .no-project-container {
-              height: 130px;
+              min-height: unset;
               padding: 15px;
+              padding-bottom: 20px;
+              margin-bottom: 30px;
+            }
+              
+            .no-project-container p {
+              text-align: left;
+              font-size: 1.05rem;
             }
 
           }

@@ -172,19 +172,20 @@ a{
 
 /* Forms */
 
+    label, legend {
 
-label, legend {
-    font-size:1.15em !important;
-    font-weight:700;
-    margin-bottom: 10px !important;
-}
+        font-size: 1.15em !important;
+        font-weight: 700;
+        margin-bottom: 10px !important;
+
+    }
 
 
-::placeholder {
-    font-size:1.15em !important;
-    font-weight:bold;
-    color: #7b8a8b  !important;
-  }
+    ::placeholder {
+        font-size: 1.15em !important;
+        font-weight: bold;
+        color: #7b8a8b  !important;
+    }
 
 
 
@@ -293,6 +294,20 @@ label:active:after {
 
 
 @media screen and (max-width: 580px) {
+
+    /* Forms */
+
+    label, legend {
+
+        font-size: 1em !important;
+
+    }
+
+
+    ::placeholder {
+        font-size: 1em !important;
+    }
+
         
     .avatar-circle-80 {
         width: 70px;

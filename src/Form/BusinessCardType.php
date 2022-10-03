@@ -24,7 +24,7 @@ class BusinessCardType extends AbstractType
                 'title',
                 TextType::class,
                 [
-                    'label' => 'Un nom, une fonction ?',
+                    'label' => 'Nom ou fonction de la personne à contacter ?',
 
                     'attr' => [
                         
@@ -86,7 +86,7 @@ class BusinessCardType extends AbstractType
                 'website1',
                 UrlType::class,
                 [
-                    'label' => 'Un site web ou réseau social ?',
+                    'label' => 'Un site web ou un réseau social ?',
 
                     'attr' => [
                         

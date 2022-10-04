@@ -114,7 +114,7 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success fs-4',
-                "✅ La présentation du projet a été créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
+                "✅ La présentation du projet est créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
             );
 
             return $this->redirectToRoute('show_presentation', [

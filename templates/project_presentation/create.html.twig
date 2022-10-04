@@ -13,10 +13,12 @@
                 {# Project Goal #}
 
                 <div class="mb-4">
+                
+                    <div class="text-center h4 mb-4">⏱️ Top chrono, c'est parti !</div>
 
-                    <div class="text-center mb-2 mb-md-3">
+                    <div class="fw-bold h5 text-center mb-2 mb-md-3">
 
-                        <span class="fw-bold h5">
+                        <span class="">
 
                             {{form_label(form.goal)}}
                             
@@ -26,21 +28,14 @@
 
                     </div>
 
-                    <div class="mb-md-3">
-
-                        {{form_widget(form.goal)}}
-
-                    </div>
-
-                </div>
-
+                    
                 {# Project Goals Exemples #}
 
                 <div class="card shadow mb-4 mb-lg-5">
 
                     <div class="card-body p-3">
 
-                        <h4 class="mb-3">Exemples</h4>
+                        <h4 class="mb-3">📘 Exemples</h4>
 
                         <!-- Unordered list -->
 
@@ -56,13 +51,22 @@
 
                 </div>
 
+
+                    <div class="mb-md-3">
+
+                        {{form_widget(form.goal)}}
+
+                    </div>
+
+                </div>
+
                 {# Action Buttons #}
 
-                <div class="d-flex justify-content-md-center mb-3">
+                <div class="d-flex justify-content-center mb-3">
 
                     {# Presentation Helper Proposition is only displayed above medium screens #}
                     
-                    <button id="js-submit-form" type="submit" class="btn btn-validate btn-lg me-3 mb-2">Ajouter le Projet 🚀</button>
+                    <button id="js-submit-form" type="submit" class="btn btn-validate btn-lg me-3 mb-2">Je valide 🚀</button>
 
                     <a href="{{ path('homepage') }}">
 

@@ -166,8 +166,11 @@
     "laminas/laminas-code": {
         "version": "3.4.1"
     },
-    "lcobucci/clock": {
-        "version": "2.0.0"
+    "laminas/laminas-eventmanager": {
+        "version": "3.4.0"
+    },
+    "laminas/laminas-zendframework-bridge": {
+        "version": "1.4.1"
     },
     "lcobucci/jwt": {
         "version": "3.4.6"
@@ -668,6 +671,15 @@
     },
     "symfony/security-http": {
         "version": "5.4.x-dev"
+    },
+    "symfony/sendgrid-mailer": {
+        "version": "5.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "4.4",
+            "ref": "b46e4f8f1adb2864f0aa9c0ff57aea3324a07199"
+        }
     },
     "symfony/serializer": {
         "version": "5.4.x-dev"

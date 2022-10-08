@@ -23,7 +23,7 @@ monolog:
             handler: symfony_mailer
         symfony_mailer:
             type:         symfony_mailer
-            from_email:   'error@propon.org'
+            from_email:   'contact@propon.org'
             to_email:     'contact@propon.org'
             subject:      'An Error Occurred! %%message%%'
             level:        debug

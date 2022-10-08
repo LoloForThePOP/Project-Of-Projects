@@ -12,6 +12,7 @@ use Algolia\SearchBundle\SearchService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -51,7 +52,6 @@ class OneShotController extends AbstractController
         
         $manager->flush();
 
-        */ 
        
         
             $presentations = $repo->findAll();
@@ -63,7 +63,8 @@ class OneShotController extends AbstractController
                 $cacheThumbnail->cacheThumbnail($presentation);
 
             } 
-
+ */ 
+       
 
         
 /*             foreach ($presentations as $presentation) {
@@ -89,6 +90,8 @@ class OneShotController extends AbstractController
             );
 
         } */
+
+        throw new HttpException(500, "Exception sent by email test");
 
         $manager->flush();
 

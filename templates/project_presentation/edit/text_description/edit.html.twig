@@ -23,7 +23,7 @@
 
     <!-- Project Text Description Rich Text Editor -->
 
-    <div class="col-md-9">
+    <div class="container col-md-9 px-0">
 
         {{form_start(form)}}
 
@@ -46,12 +46,12 @@
 
         {# Action Buttons #}
 
-        <div class= "pt-2">
+        <div class= "d-flex justify-content-center mb-4 pt-2">
             
-            <button type="submit" class="btn btn-validate btn-lg mb-4 me-3">Enregistrer</button>
+            <button type="submit" class="btn btn-validate btn-lg me-3">✔️ Enregistrer</button>
         
             <a class="text-decoration-none text-white" href="{{ path('show_presentation', {'stringId': stringId}) }}#text_description">
-                <button type="button" class="btn btn-lg btn-go-back mb-4">Annuler</button>
+                <button type="button" class="btn btn-lg btn-go-back">❌ Annuler</button>
             </a>
 
         </div>

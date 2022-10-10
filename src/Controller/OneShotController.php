@@ -91,7 +91,7 @@ class OneShotController extends AbstractController
 
         } */
 
-        throw new HttpException(500, "Exception sent by email test");
+        //throw new HttpException(500, "Exception sent by email test");
 
         $manager->flush();
 

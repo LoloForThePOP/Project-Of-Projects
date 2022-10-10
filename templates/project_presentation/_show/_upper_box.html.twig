@@ -1,6 +1,6 @@
-<div class="pp-upper-box pp-struct-container row">
+<div class="pp-upper-box pp-struct-container row col-lg-9"> {# when I want to reuse 100% width,  move col-lg-9 back to left-col-md class #}
 
-    <div class="container left-col-md col-lg-9 ">
+    <div class="container left-col-md ">
 
         {# Title Displayed at the top (only for small screens) #}
 
@@ -83,9 +83,9 @@
 
     </div>
 
-    {# Right column (only >= lg screens) #}
+    {# Right column (only >= lg screens)
 
-    <div class="container right-col-md col-lg-3 d-none d-lg-flex">
+    <div class="container right-col-md col-lg-3 d-none d-lg-flex"> #}
         
         {# Project status or progression icon in edition mode
 
@@ -97,9 +97,10 @@
 
             </div>
 
-        {% endif %} #}
+        {% endif %} 
 
-    </div>
+    </div> #}
+
 
 </div>
 
@@ -150,8 +151,8 @@
             
         .pp-upper-box {
 
-            margin-left: 0; /* Overriding bootstrap row class defaults defaults */
-            margin-right: 0;
+            margin-left: auto;
+            margin-right: auto;
 
             padding: 20px 12px 20px 12px; /* Overriding some pp-struct-container defaults */
 

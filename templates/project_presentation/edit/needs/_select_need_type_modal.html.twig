@@ -1,21 +1,24 @@
 
     <!-- Need Types Possibilitiess -->
 
+
+{# 
+    {
+        'type': 'task', 
+        'title_fr': 'Un Service Ponctuel', 
+        'example_fr': ''
+    },
+ #}
+
     {% set needTypesPossibilities = 
         
         [ 
 
             {
                 'type': 'skill', 
-                'title_fr': 'Une Compétence', 
+                'title_fr': 'Une Compétence, un Service Ponctuel', 
                 'example_fr': ''
             },
-
-            {
-                'type': 'task', 
-                'title_fr': 'Un Service Ponctuel', 
-                'example_fr': ''
-            },  
 
             {
                 'type': 'material', 
@@ -60,7 +63,7 @@
 
         <div id="selectNeedTypeModal" class="modal" tabindex="-1" role="dialog" aria-labelledby="needTypeModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
                 <div class="modal-content">
 
@@ -68,7 +71,7 @@
 
                     <div class="modal-header">
 
-                        <h5 class="modal-title fw-bold" id="needTypeModalLabel">Choisir le type de votre besoin</h5>
+                        <h5 class="modal-title fw-bold" id="needTypeModalLabel">Quel est le type de votre besoin ?</h5>
 
                         <!-- Close Modal (Cross Button)  -->
 

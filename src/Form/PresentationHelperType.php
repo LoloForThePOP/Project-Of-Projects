@@ -17,25 +17,6 @@ class PresentationHelperType extends AbstractType
         $builder
 
             ->add(
-
-                'goal',
-
-                TextType::class,
-
-                [
-                    'label' => 'Objectif du Projet',
-
-                    'attr' => [
-
-                        'placeholder'    => 'Écrire ici l\'objectif',
-                        'autofocus' => true
-                    ],
-
-                    'required'   => true,
-                ]
-            )
-
-            ->add(
                 'title',
                 TextType::class,
 
@@ -71,7 +52,7 @@ class PresentationHelperType extends AbstractType
                 'websiteDescription',
                 TextType::class,
                 [
-                    'label' => "Donner un titre à l'adresse",
+                    'label' => "Pouvez-vous donner un titre à cette adresse ?",
                     'attr' => [
 
                         'placeholder'    => 'Exemple : Compte Twitter; Site web officiel; etc.',
@@ -85,7 +66,7 @@ class PresentationHelperType extends AbstractType
                 UrlType::class,
                 [
 
-                    'label' => 'Adresse du site',
+                    'label' => 'Quelle est son adresse ?',
                     'attr' => [
 
                         'placeholder'    => 'www.exemple.com',
@@ -100,7 +81,7 @@ class PresentationHelperType extends AbstractType
                 TextType::class,
                 [
 
-                    'label' => 'Titre du besoin',
+                    'label' => '✒️ Donnez un titre à votre besoin',
                     'required'   => false,
                     'attr' => [
 
@@ -113,7 +94,7 @@ class PresentationHelperType extends AbstractType
                 TextareaType::class,
                 [
 
-                    'label' => 'Description',
+                    'label' => '📄 Décrivez votre besoin',
                     'required'   => false,
                     'attr' => [
 

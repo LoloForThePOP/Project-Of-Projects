@@ -8,22 +8,18 @@
 #}
 
 {% set helperItems = [ 
+            
+    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "✒️ Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
         
-    { 'uniqueName': "goal", 'type': "goal", 'questionFr': "Quel est l'objectif de votre Projet ?", 'finalRenderingLabel': ""}, 
+    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "🎯 Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
+
+    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "🏗️ Votre Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
+
+    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "🌐 Avez-vous déjà un site web ou un réseau social en lien avec votre Projet ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
+
+    { 'uniqueName': "places", 'type': "places", 'priorQuestion': "🌍 Votre Projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
     
-    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
-        
-    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
-
-    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "Le Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
-
-    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "Avez-vous déjà un site web ou un réseau social en lien avec votre Projet ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
-
-    { 'uniqueName': "places", 'type': "places", 'priorQuestion': "Votre Projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
-    
-    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "Acceptez-vous de l'aide ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
-
-    { 'uniqueName': "categories_keywords", 'type': "categories_keywords", 'questionFr': "Facilitez la découverte de votre Projet"},
+    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "🙃 Acceptez-vous de l'aide ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
 ] %}
 
@@ -62,17 +58,11 @@
 
     {% set hasPriorQuestion = currentItem.priorQuestion is defined %}
         
-    <div class="page-container container" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
+    <div class="container page-container mt-5" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
 
-        
-        
-        {% if currentPosition == 0 %} {# entering interview, displaying a friendly message #}
+        <h4 class="text-center mb-5">⏱️ La construction de votre page de projet progresse</h4>
 
-            {% include "presentation_helper/_introduction_modal.html.twig" %}
-
-        {% endif %}
-
-        {% include "presentation_helper/_jumbotron.html.twig" %}
+        {% include "presentation_helper/_template.html.twig" %}
 
         {# sometimes we ask user whether he would like an item #}
 
@@ -92,18 +82,7 @@
 
         }
 
-        #flash-messages {
-            
-            animation: fadeout 8s ease-in-out forwards;
-            opacity: 1;
-        }
                 
-        @keyframes fadeout {
-
-            100% { opacity: 0; height:0;  }
-
-        }
-
 
         @media screen and (max-width: 580px) {
 
@@ -143,7 +122,7 @@
                         break;
                         
                     case 'websites':
-                        relatedInputId = 'presentation_helper_websiteDescription';
+                        relatedInputId = 'presentation_helper_url';
                         break;
                         
                     case 'needs':

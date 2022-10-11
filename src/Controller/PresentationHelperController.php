@@ -64,15 +64,6 @@ class PresentationHelperController extends AbstractController
 
             $helperType=$form->get('helperItemType')->getData();
 
-            if ($helperType=="goal") {
-
-                $goal=$form->get('goal')->getData();
-                $presentation->setGoal($goal);
-
-                $manager->flush();
-
-            }
-
             if ($helperType=="title") {
 
                 $title=$form->get('title')->getData();
@@ -155,15 +146,6 @@ class PresentationHelperController extends AbstractController
 
             if ($repeatInstance == "true") {
                 $nextPosition = $currentPosition;
-            }
-
-            if ($nextPosition != null) {
-
-                $this->addFlash(
-                    'success fs-4',
-                    "🧙 La construction de votre page de projet progresse ✅"
-                );
-                
             }
 
             return $this->redirectToRoute('presentation_helper', [

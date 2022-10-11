@@ -1,4 +1,4 @@
-{% embed "utilities/backdrop_modal_skeleton.html.twig" %}
+{% embed "utilities/backdrop_modal_skeleton.html.twig" with {'modal_dialog_utils': " modal-dialog-centered"} %}
 
     {% block titleContent %}{{currentItem.repeatableMessage}}{% endblock %}
 
@@ -14,9 +14,9 @@
     
     {% block footerContent %}
 
-        <button id="add-another-item" type="button" class="btn btn-validate me-2">oui</button>
+        <button id="add-another-item" type="button" class="btn btn-validate me-4">✔️ oui</button>
         
-        <button id="dismiss-add-another-item" type="button" class="btn btn-primary">non</button>
+        <button id="dismiss-add-another-item" type="button" class="btn btn-go-back">❌ non</button>
     
     {% endblock %}
 

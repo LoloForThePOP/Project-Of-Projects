@@ -12,7 +12,7 @@
 
         {% if presentation.title is empty and userPresenter %} {# a strikethrough placeholder is displayed on contenteditable #}
 
-        <div class="line-through pp-edition-mode"></div>
+        <div class=""><div class="line-through pp-edition-mode"></div></div>
 
             <script>
 
@@ -42,7 +42,7 @@
                 @media screen and (max-width: 580px) {
 
                     .line-through{
-                        width: 150px;
+                        display: none !important;
                     }
 
                 }

@@ -1,26 +1,32 @@
 
-<div class="pp-edition-mode">
-    
-    <div class="notification alert alert-success alert-dismissible fade show fw-bold pb-3" role="alert">
 
-        <p class="pt-2 mb-4">
-                          
-            <span class="h5 fw-bold align-bottom">
-                🙋 L'adresse web de votre page de projet est {{ url ('homepage') }}
-            </span>
+<div class="notification random-url-for-now alert alert-success alert-dismissible fade show fw-bold pb-3" role="alert">
 
-            <span class="h5 fw-bold align-bottom border border-3 border-danger px-2 me-1 rounded">{{presentation.stringId}}</span>
+    <p class="pt-2 mb-4">
+                        
+        <span class="fw-bold align-bottom">
+            🙋 L'adresse de votre page de projet est {{ url ('homepage') }}
+        </span>
 
-            <span class="h5 fw-bold align-bottom">/</span>
-          
-        </p>
+        <span class="fw-bold align-bottom border border-3 border-danger px-2 me-1 rounded">{{presentation.stringId}}</span>
 
-        <div class="h5 fw-bold ps-lg-4">
+        <span class="fw-bold align-bottom">/</span>
+        
+    </p>
 
-            <p class="">Vous pourrez la personnaliser lorsque vous aurez rempli les éléments marqués avec une croix rouge 👍</p>
+    <div class="fw-bold ps-lg-4">
 
-        </div>
+        <p class="">Pour la personnaliser il reste à remplir les éléments marqués avec une croix rouge 👍</p>
 
-    </div>  
-    
+    </div>
+
 </div>
+
+<style>
+
+.random-url-for-now{
+
+    margin-top: 40px;
+}
+
+</style>

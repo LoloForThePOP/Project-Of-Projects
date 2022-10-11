@@ -633,7 +633,11 @@
 
     {% if userPresenter and not validatedStringId and overallQualityAssessment < 2 %}
 
-        {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
+        <div class="pp-edition-mode">
+        
+            {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
+        
+        </div>
 
     {% endif %}
 

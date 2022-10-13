@@ -137,7 +137,7 @@ class SlideController extends AbstractController
     }
 
     /**
-     * Allow to update a slide by redirecting to appropriate method
+     * When user wants to update a slide, this controller redirects to appropriate route according to slide type
      * 
      * @Route("/projects/{stringId}/slides/update/{id_slide}",name="update_slide")
      * 

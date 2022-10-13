@@ -23,7 +23,7 @@ class ComponentsController extends AbstractController
      * @Route("/projects/{stringId}/component/ajax-reorder-elements/", name="ajax_reorder_component_elements")
      * 
     */ 
-    public function ajaxReorderComponentElements(Request $request, PPBase $presentation, EntityManagerInterface $manager) {
+    public function ajaxReorderComponentElements(Request $request, PPBase $presentation, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail) {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
@@ -51,6 +51,11 @@ class ComponentsController extends AbstractController
             }
 
             $manager->flush();
+
+            if ($entityType="slides") {
+
+                $cacheThumbnail->cacheThumbnail($presentation);
+            }
 
             return  new JsonResponse(true);
 
@@ -104,8 +109,7 @@ class ComponentsController extends AbstractController
                 }
             }
 
-            $dataResponse = [
-            ];
+            $dataResponse = [];
 
             return new JsonResponse($dataResponse);
 

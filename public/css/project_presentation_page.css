@@ -77,9 +77,9 @@
     margin-right : 7px;
     margin-bottom: 5px;
 
-    /* change svg color  */
+    /* change svg color. Thanks at https://codepen.io/sosuke/pen/Pjoqqp */
     
-    filter: invert(49%) sepia(28%) saturate(2722%) hue-rotate(215deg) brightness(101%) contrast(103%);
+    filter: invert(55%) sepia(60%) saturate(316%) hue-rotate(118deg) brightness(87%) contrast(78%);
 }
 
 /* Each Structure Content */

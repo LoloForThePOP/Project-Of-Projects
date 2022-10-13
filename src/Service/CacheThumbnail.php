@@ -29,10 +29,11 @@ class CacheThumbnail {
     }
 
     /**
-    * Cache presentation thumbnail path in entity PPBase $cache.
-    * We try to find an image we use as an "automatic thumbnail" if no one is formally provided.
+    * Cache presentation thumbnail path, in entity PPBase $cache.
+    * First we check if user has provided a custom thumbnail for its presentation.
+    * Otherwise we try to find an image we use as an "automatic thumbnail" if no one is formally provided.
     * Here is priority order : customThumbnail (= formal thumbnail provided by user); presentation first slide; presentation logo. If none of these items exists, we set null and we'll display a default one letter thumbnail.
-    * Thumbnail path is store in PPBase entity, $cache['thumbnail'] property.
+    * Thumbnail path is stored in PPBase entity, $cache['thumbnail'] property.
     */
 
     public function cacheThumbnail (PPBase $presentation){
@@ -42,9 +43,19 @@ class CacheThumbnail {
         $previousThumbnailParentImagePath = $presentation->getCacheItem('thumbnailParentImageAddress');
         $newThumbnailParentImagePath = null;
 
-        if (! $presentation->getSlides()->isEmpty()) {
+        if (!empty($presentation->getCustomThumbnail())) {
 
-            $slide = $presentation->getSlides()->first();
+            $newThumbnailParentImagePath = $this->uploaderHelper->asset($presentation, 'customThumbnailFile');
+
+            $this->manageThumbnail('resolve', $newThumbnailParentImagePath, $filter);
+
+            $presentation->setCacheItem('thumbnailAddress', $this->resolveThumbnailPath($newThumbnailParentImagePath, $filter));
+
+        }
+
+        elseif (! $presentation->getSlides()->isEmpty()) {
+
+            $slide = $presentation->getSlides()->first(); // when I reorder slideshow, it seems first slide is not always the slide with the smaller position (it puzzles me because slides should be ordered by position, and it works when instead of reordering slideshow, I remove a slide).
 
             if($slide->getType()=='image'){
 

@@ -49,6 +49,29 @@ class PPBaseType extends AbstractType
             )
 
             ->add(
+                'customThumbnailFile',
+                VichImageType::class,
+
+                [
+                    'label' => 'Vignette de la Présentation',
+
+                    'attr' => [
+
+                        'placeholder'    => '',
+                    ],
+
+                    'required'   => false,
+
+                    'allow_delete' => false,
+                    'download_label' => false,
+                    'download_uri' => false,
+                    'image_uri' => false,
+                    'asset_helper' => true,
+                ]
+            
+            )
+
+            ->add(
 
                 'logoFile',
                 VichImageType::class,

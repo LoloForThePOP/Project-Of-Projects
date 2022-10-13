@@ -1,0 +1,114 @@
+
+{% embed "project_presentation/edit/update_element_skeleton.html.twig" %}
+
+    {% block title %}Thumbnail (Vignette){% endblock %}
+
+    {% block mainContentTitle %}Vignette de présentation (=Thumbnail){% endblock %}
+
+    {% block collapsibleMoreInfo %}{% endblock %}
+
+    {% block mainContent %}
+        
+        <div class="">
+
+            <div class="mb-5 text-center">
+
+                <h5 class="fw-bold mb-3">Vignette actuelle</h5>
+                    
+                {% if presentation.cache.thumbnailAddress is not empty %}
+
+                    <img class="thumbnail" src="{{ presentation.cache.thumbnailAddress }}" alt="Presentation Thumbnail">
+            
+                {% else %} {# no cached thumbnail : default avatar #}
+
+                    <div class="avatar-square-rounded avatar-80 mx-auto" style="background-color: {{ random (defaultThumbnailBG) }} !important;" >
+                        
+                        <span class="avatar-initial avatar-initial-80">
+
+                        {{ presentation.goal | slice (0,1) | upper }}
+
+                        </span>
+
+                    </div>       
+
+                {% endif %}
+
+            </div>
+            
+            <div class="fw-bold mb-3 h5 text-center"> 
+                Choisir une vignette ?
+            </div>
+
+            <div class="">
+
+                {{ form_errors(form.customThumbnailFile) }}
+
+            </div>
+            
+            <div class="mt-2">
+                
+                {{ form_widget(form.customThumbnailFile) }}
+
+            </div>
+            
+        </div>
+
+        
+        <div class="d-none">
+
+            {{ form_rest(form) }}
+
+        </div>
+
+
+        <style>
+        
+            .thumbnail{
+
+                max-width: 300px;
+                max-height: 300px;
+
+            }
+            
+            @media screen and (max-width: 580px) {
+
+                            
+                .thumbnail {
+                    max-width: 100%;
+                    max-height: 300px;
+                }
+
+            }
+
+        </style>
+        
+
+    {% endblock %}
+
+
+     {% block actionButtons %}
+
+                <div class="action-buttons-container text-center">
+
+                    {# Update Form Valitation Button #}
+
+                    <button class="btn btn-lg btn-validate mb-2 me-3">✔️ Valider</button>
+
+                    {# Back to Result Button #}
+        
+                    <a 
+                    
+                        class="text-decoration-none text-white" 
+                        href="{{path('show_presentation', {'stringId': stringId })}}#{% block seeResultAnchor %}{% endblock %}">
+
+                        <button type="button" class="btn btn-lg btn-go-back mb-2 me-2">❌ Retour</button>
+
+                    </a>
+                    
+                </div>
+
+            {% endblock %}
+
+{% endembed %}
+
+

@@ -2,7 +2,7 @@
 
 {% if hasKeywords or countCategories > 0 %}
 
-    <div id="pp-categories-keywords" class="edit-hoverable-item text-left" >
+    <div id="pp-categories-keywords" class="edit-hoverable-item text-left d-inline-block" >
 
         {% if hasKeywords %}
 
@@ -115,7 +115,6 @@
 
         {% endif %}
 
-
     </div>
     
     <!-- Keywords Styles -->
@@ -153,14 +152,15 @@
 {% elseif userPresenter %} {# placeholder when no keywords and no category #}
 
     <a class="pp-edition-mode text-decoration-none ps-md-0 text-body" href="{{path('select_categories_keywords', {'stringId': presentation.stringId})}}">
+
+            <div id="categories-keywords-placeholder" class="">
+
+                <img class="keywordsIcon img-fluid mb-1" src="{{ asset('hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
+
+                <span class="">Catégories & Mots-clés</span>
+
+            </div>
         
-        <div id="categories-keywords-placeholder" class="">
-
-            <img class="keywordsIcon img-fluid" src="{{ asset('hashtag.svg', 'pp_wysiwyg') }}" height="25" width="25" alt="add keywords icon" >
-
-            <span class="">Catégories & Mots-clés</span>
-
-        </div>
 
     </a>
 
@@ -168,11 +168,10 @@
 
 		#categories-keywords-placeholder{
 
-            display: flex;
-            align-items: center;
+            display: inline-block;
 
-            width: 400px;
-            padding: 5px 10px;
+            padding: 5px 10px 5px 0px;
+
             margin-top: 3px;
 
             font-size: 20px;
@@ -181,13 +180,6 @@
             cursor: pointer;
 
 		}
-
-        
-        .keywordsIcon {
-
-            margin-right : 15px;
-            
-        }
 
 		#categories-keywords-placeholder:hover {
 			
@@ -199,10 +191,10 @@
 
 			#categories-keywords-placeholder{
 
-                width:100%;
+                width: 100%;
                 font-size: 16px;
                 padding-left: 12px;
-                margin-bottom: 5px;
+                text-align: center;
 
 			}
                 
@@ -219,3 +211,5 @@
     
 
 {% endif %}
+
+<div class="pp-edition-mode d-inline ms-md-3 sm-text-center mt-2 mt-md-0"><a class="" href="{{ path ('edit_pp_thumbnail', {'stringId': presentation.stringId}) }}">🖼️ Vignette</a></div>

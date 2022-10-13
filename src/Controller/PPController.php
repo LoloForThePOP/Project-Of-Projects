@@ -25,6 +25,7 @@ use App\Service\AssessQuality;
 use App\Service\MailerService;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
+use App\Form\CustomThumbnailType;
 use App\Form\RegistrationFormType;
 use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
@@ -968,6 +969,49 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * Allow to edit pp thumbnail
+     * 
+     * @Route("/projects/{stringId}/edit/thumbnail", name="edit_pp_thumbnail")
+     * 
+     * @return void
+     */
+    public function editThumbnail(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
+    {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        $form = $this->createForm(PPBaseType::class, $presentation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+                             
+            $manager->flush();
+
+            $cacheThumbnail->cacheThumbnail($presentation);
+
+            $this->addFlash(
+                'success',
+                "✅ La vignette de votre présentation est modifiée !"
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+
+                'stringId' => $presentation->getStringId(),
+            ]);
+
+        }
+
+        return $this->render('project_presentation/edit/edit_custom_thumbnail.html.twig', [
+            'presentation' => $presentation,
+            'stringId' => $presentation->getStringId(),
+            'form' => $form->createView(),
+
+        ]);
+
     }
 
 

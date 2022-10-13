@@ -66,7 +66,7 @@ class PPBase implements \Serializable, NormalizableInterface
 
 
     /**
-     * the name of the image logo file (example : logo-4234564567.jpg)
+     * the name of the logo image file (example : logo-4234564567.jpg)
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -87,6 +87,29 @@ class PPBase implements \Serializable, NormalizableInterface
      * @var File|null
      */
     public $logoFile;
+
+    /**
+     * the name of the custom thumbnail image file (example : custom-thumb-4234564567.jpg)
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $customThumbnail;
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     *  @Assert\Image(
+     *     maxSize = "5500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 5500 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp"},
+     *     mimeTypesMessage = "Pour ajouter votr evignette, le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
+     * @Vich\UploadableField(mapping="project_custom_thumbnail_image", fileNameProperty="customThumbnail")
+     * 
+     * @var File|null
+     */
+    public $customThumbnailFile;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -367,6 +390,46 @@ class PPBase implements \Serializable, NormalizableInterface
     {
         return $this->logoFile;
     }
+    
+
+    public function getCustomThumbnail(): ?string
+    {
+        return $this->customThumbnail;
+    }
+
+    public function setCustomThumbnail(?string $customThumbnail): self
+    {
+        $this->customThumbnail = $customThumbnail;
+
+        return $this;
+    }
+
+
+    /**
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $customThumbnailFile
+     */
+    public function setCustomthumbnailFile(?File $customThumbnailFile = null): void
+    {
+        $this->customThumbnailFile = $customThumbnailFile;
+
+        // It is required that at least one field changes if you are using doctrine
+        // otherwise the event listeners won't be called and the file is lost
+        // So we update one field
+
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getCustomThumbnailFile(): ?File
+    {
+        return $this->customThumbnailFile;
+    }
+
+
+
+
+
+
 
     public function getKeywords(): ?string
     {

@@ -14,6 +14,16 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
 
+        project_custom_thumbnail_image:
+
+            uri_prefix: /media/uploads/pp/custom_thumbnails
+            upload_destination: '%kernel.project_dir%/public/media/uploads/pp/custom_thumbnails'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+   
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+
         presentation_slide_file:
 
             uri_prefix: /media/uploads/pp/slides

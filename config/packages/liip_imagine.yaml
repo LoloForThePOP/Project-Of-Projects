@@ -55,7 +55,7 @@ liip_imagine:
 
         standard_thumbnail_md_test:
             
-            quality: 85
+            quality: 90
 
             filters:
                 thumbnail: { size: [340, 193], mode: inset }

@@ -54,11 +54,16 @@ liip_imagine:
                 mozjpeg: { quality: 40 }
 
         standard_thumbnail_md_test:
+
             
-            quality: 90
+            quality: 80
 
             filters:
-                thumbnail: { size: [340, 193], mode: inset }
+                scale:
+
+                    # input ?x? px -> output ?x? px (relative down-scale)
+                    dim: [ 500, 500 ]
+
                
 
         logo:

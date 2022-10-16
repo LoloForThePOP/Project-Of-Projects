@@ -57,6 +57,8 @@
                                     },
                                     
                                     success: function(data) {
+                                        //removing previous feedback symbol
+                                        $( ".edit-text-feedback" ).remove(); 
                                         //refreshing read only content
                                         $("#collapseTextDescription").html(editorContent); 
                                         //adding some positive feedback to editor

@@ -37,6 +37,12 @@ function cookiesResolution(cookiesPreferences) {
 
         mixpanel.opt_out_tracking();
 
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'analytics_storage': 'denied'
+        });
+          
+
     }
 
 };

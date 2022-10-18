@@ -1,5 +1,5 @@
 
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "gdpr-selection", 'modal_title': "", 'modal_size': "modal-fullscreen-md-down modal-lg"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "gdpr-selection", 'modal_title': "", 'modal_size': "modal-fullscreen-md-down modal-lg modal-dialog-centered"} %}
 
     {% block modalHeader %}{% endblock %}
 
@@ -24,7 +24,7 @@
                 <div class="">
 
                     <div class="d-flex justify-content-center">
-                        <button data-cookies-choice="accept" data-track-click='{"key":"cookies-overall-choice", "attributes":{"type": "accept"} }'  data-bs-dismiss="modal" type="button" class="cookies-choice btn btn-validate sharp mb-4">Ok pour moi 👍</button>
+                        <button data-cookies-choice="accept" data-track-click='{"key":"cookies-overall-choice", "attributes":{"type": "accept"} }'  data-bs-dismiss="modal" type="button" class="cookies-choice btn btn-validate sharp mb-4">Ok pour moi (merci 👍)</button>
                     </div>
 
                     <div class="d-flex justify-content-center">

@@ -90,14 +90,6 @@ class PPController extends AbstractController
 
             $askForGuidance=$form->get('acceptGuidance')->getData();
 
-            if($askForGuidance=="yes"){
-                    
-                return $this->redirectToRoute('presentation_helper', [
-                    "stringId" => $presentation->getStringId(),                
-                    "position" => 0,                
-                ]);
-
-            }
 
             /* Email Webmaster that a new presentation has been created (moderation) */
 
@@ -113,14 +105,17 @@ class PPController extends AbstractController
 
             $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'/project_presentation/email_webmaster_notif_new_pp.html.twig', $emailParameters);
 
+
             $this->addFlash(
                 'success fs-4',
                 "✅ La présentation du projet est créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
             );
 
-            return $this->redirectToRoute('show_presentation', [
+            return $this->redirectToRoute('presentation_helper', [
                 "stringId" => $presentation->getStringId(),                
+                "position" => 0,                
             ]);
+
         }
 
         return $this->render('project_presentation/create.html.twig', [

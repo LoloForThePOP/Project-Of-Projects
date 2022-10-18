@@ -56,13 +56,13 @@ liip_imagine:
         standard_thumbnail_md_test:
 
             
-            quality: 75
+            quality: 84
 
             filters:
                 scale:
 
                     # input ?x? px -> output ?x? px (relative down-scale)
-                    dim: [ 340, 193 ]
+                    dim: [ 360, 204 ]
 
                
 

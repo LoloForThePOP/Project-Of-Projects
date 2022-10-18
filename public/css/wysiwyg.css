@@ -179,7 +179,12 @@
     cursor: move;
 }
 
-.questionRow  > *, .misc-data-card > *, .pp-website-card > *, .place-card > * {
+
+.in-consultation-mode .pp-website-card > *{
+    cursor: pointer;
+}
+
+.questionRow  > *, .misc-data-card > *, .place-card > * {
     cursor: auto;
 }
 

@@ -818,8 +818,6 @@ class PPController extends AbstractController
             $assessQuality->assessQuality($presentation);  
 
             $manager->flush();
-
-            $imageResizer->edit($presentation);
             
             $cacheThumbnail->cacheThumbnail($presentation);
                        
@@ -973,7 +971,7 @@ class PPController extends AbstractController
      * 
      * @return void
      */
-    public function editThumbnail(PPBase $presentation, Request $request, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail)
+    public function editThumbnail(PPBase $presentation, Request $request, EntityManagerInterface $manager, ImageResizer $imageResizer, CacheThumbnail $cacheThumbnail)
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);

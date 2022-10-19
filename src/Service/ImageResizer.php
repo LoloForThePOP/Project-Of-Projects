@@ -25,8 +25,7 @@ class ImageResizer {
     */
 
     public function edit ($imageEntity){
-
-        
+       
         $imagePath = substr($this->uploaderHelper->asset($imageEntity), 1);
         
         if ($imagePath != false) {
@@ -48,7 +47,7 @@ class ImageResizer {
                 $image->resizeToBestFit(900, 900);
             }
 
-            //PPBase instance means image is a project logo, persorg instance means image is a persorg or organisation avatar
+            //PPBase instance means image is a project logo, or thumbnail, persorg instance means image is a persorg or organisation avatar
             elseif ($imageEntity instanceof PPBase or $imageEntity instanceof Persorg){
 
                 $image->resizeToBestFit(250, 250);

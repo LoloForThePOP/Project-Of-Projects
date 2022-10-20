@@ -23,6 +23,8 @@
 
     {{ form_start(form) }}
 
+        {{ form_errors(form) }}
+
         {% if currentItem.type == "title" %}
 
             <div class="container col-md-5">
@@ -118,8 +120,6 @@
 
         {% elseif currentItem.type == "websites" %}
 
-
-        
             <div class="container col-md-6 text-center">
 
                 <div class="mb-4">
@@ -128,6 +128,30 @@
                 </div>
 
                 {{ form_row(form.websiteDescription) }}
+
+            </div>
+
+        {% elseif currentItem.type == "logo" %}
+
+            <div class="container col-md-6 text-center">
+
+                <div class="">
+
+                    {{ form_row(form.logoFile) }}
+                
+                </div>
+
+            </div>
+
+        {% elseif currentItem.type == "imageSlide" %}
+
+            <div class="container col-md-6 text-center">
+
+                <div class="mb-3">
+
+                    {{ form_row(form.imageSlide.file) }}
+                
+                </div>
 
             </div>
 

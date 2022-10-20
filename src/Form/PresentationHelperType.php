@@ -3,9 +3,12 @@
 namespace App\Form;
 
 use Symfony\Component\Form\AbstractType;
+use App\Form\ImageSlideWithoutVichHelperType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -104,6 +107,39 @@ class PresentationHelperType extends AbstractType
                     ],
                 ]
             )
+
+            ->add(
+
+                'logoFile',
+                FileType::class,
+
+                [
+                    'label' => 'Cliquer pour sélectionner votre logo',
+
+                    'attr' => [
+
+                        'placeholder'    => '',
+                    ],
+
+                    'required'   => false,
+
+                    'constraints' => [
+                        new Image([
+                            'maxSize' => '5000k',
+                            'maxSizeMessage' => "Le poids maximal accepté pour chaque logo est de {{ limit }} {{ suffix }}",
+                            'mimeTypes' => ["image/png", "image/jpeg", "image/jpg", "image/webp"],
+                            'mimeTypesMessage' => "Pour ajouter un logo, le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}",
+                           
+                        ])
+                    ]
+
+                ]
+
+
+
+            )
+
+            ->add('imageSlide', ImageSlideWithoutVichHelperType::class)
 
             ->add('selectedNeedType', HiddenType::class)
 

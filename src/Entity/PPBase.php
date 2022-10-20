@@ -77,8 +77,8 @@ class PPBase implements \Serializable, NormalizableInterface
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      *  @Assert\Image(
-     *     maxSize = "1500k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
+     *     maxSize = "5000k",
+     *     maxSizeMessage = "Le poids maximal accepté pour chaque logo est de {{ limit }} {{ suffix }}",
      *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp"},
      *     mimeTypesMessage = "Pour ajouter un logo, le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
@@ -101,7 +101,7 @@ class PPBase implements \Serializable, NormalizableInterface
      * 
      *  @Assert\Image(
      *     maxSize = "5500k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 5500 k",
+     *     maxSizeMessage = "Poids maximal accepté pour l'image : {{ limit }} {{ suffix }}",
      *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp"},
      *     mimeTypesMessage = "Pour ajouter votr evignette, le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )

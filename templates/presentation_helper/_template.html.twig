@@ -1,16 +1,19 @@
 
 
-{% if hasPriorQuestion and repeatInstance == "false" %}
+{% if hasPriorQuestion and repeatInstance == "false" and form.vars.valid %}
 
     {% include "presentation_helper/_ask_to_choose.html.twig" %}
 
 {% endif %}
 
-<div class="form {{ hasPriorQuestion and repeatInstance == "false" ? 'hide-me' : '' }}">
+
+
+<div class="form {{ hasPriorQuestion and repeatInstance == "false" and form.vars.valid ? 'hide-me' : '' }}">
 
     {% include "presentation_helper/_form.html.twig" %}
 
 </div>
+
 
 <style>
 

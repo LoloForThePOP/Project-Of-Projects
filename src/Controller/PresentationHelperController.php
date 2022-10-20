@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Need;
+use App\Entity\Slide;
 use App\Entity\PPBase;
 use App\Service\TreatItem;
 use App\Form\PresentationHelperType;
@@ -68,6 +69,30 @@ class PresentationHelperController extends AbstractController
 
                 $title=$form->get('title')->getData();
                 $presentation->setTitle($title);
+
+                $manager->flush();
+
+            }
+
+            if ($helperType=="logo") {
+
+                $logo=$form->get('logoFile')->getData();
+                $presentation->setLogoFile($logo);
+
+                $manager->flush();
+
+            }
+
+            if ($helperType=="imageSlide") {
+
+                //dd($imageSlideFile);
+                $slide = new Slide();
+
+                $slide = $form->get('imageSlide')->getData();
+                $slide->setType('image');
+
+                $manager->persist($slide);
+                $presentation->addSlide($slide);
 
                 $manager->flush();
 

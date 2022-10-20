@@ -60,7 +60,7 @@
 
 				{# span is used because <br> is inserted into contenteditable html element if left empty #}
 
-				<span class="caption" data-edit='{"entity": "slide", "property": "caption", "id": {{slide.id}} }' data-slide-id="{{slide.id}}">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</span>
+				<span class="caption" data-text="Titre ou légende de l'image" data-edit='{"entity": "slide", "property": "caption", "id": {{slide.id}} }' data-slide-id="{{slide.id}}">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</span>
 				
 			{% endfor %}
 

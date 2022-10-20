@@ -84,7 +84,7 @@ class Category
      * 
      *  @Assert\Image(
      *     maxSize = "20k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 20 k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : {{ limit }} {{ suffix }}",
      *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif", "image/svg", "image/svg+xml", },
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )

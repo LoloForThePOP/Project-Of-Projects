@@ -7,15 +7,14 @@
 
     <div class="page-container container px-2 col-md-8 col-xxl-8">
 
-        <div class="row align-items-center py-3 text-center text-lg-start">
+        <div class="row align-items-center text-center text-lg-start">
 
-            <div class="col-lg-6 pt-3 text-success">
+            <h3 class="fw-bold text-body text-center">Inscription sur le site</h3>
 
-                <h3 class="fw-bold mb-5 text-body text-center">Inscription sur le site</h3>
+            <div class="col-lg-6 text-success">
 
                 {{form_start(registrationForm)}}
 
-                
 
                 <div class="my-5 mb-lg-3">
                     <span class="me-2" style="display: inline-block;transform: matrix(-1, 0, 0, 1, 0, 0);">✒️</span> {{ form_label(registrationForm.userName) }}
@@ -35,6 +34,7 @@
                     {{ form_widget(registrationForm.plainPassword) }}
                 </div>
 
+                <p class="text-body">En cliquant sur valider, vous acceptez nos <a href="{{path ('static', {'page_name': "terms",})}}"target="_blank" rel="noopener noreferrer">conditions générales d'utilisation</a>.</p>
                 {#   <div>
                     {{ form_label(registrationForm.agreeTerms) }}
                     {{ form_widget(registrationForm.agreeTerms) }}

@@ -148,7 +148,7 @@
     {% endif %}
 
     
-    {# Guest Presenter Sign Up Invitation #}
+    {# Guest Presenter Sign Up Invitation
 
     {% if userPresenter and presentation.data['guest-presenter-activated'] is defined and presentation.data['guest-presenter-activated'] == false %}
 
@@ -158,7 +158,7 @@
 
         </div>
 
-    {% endif %}
+    {% endif %} #}
  
 
     
@@ -175,13 +175,13 @@
     {% endif %} #}
 
 
-    {# Notification "invisible project because of quality assessment" #}
+    {# Notification "invisible project because of quality assessment"
 
     {% if userPresenter and overallQualityAssessment < 2 %}
 
         {% include 'project_presentation/_show/_notifications/quality_assessment_invisible_presentation.html.twig' %}
 
-    {% endif %}
+    {% endif %} #}
 
     {# Notification presentation is not published #}
 
@@ -587,7 +587,7 @@
         
         {# Notification invisible project because waiting for admin validation #}
 
-        {% if presentation.isAdminValidated == false and overallQualityAssessment >= 2 %}
+        {% if presentation.isAdminValidated == false %}
 
             <div class="mt-5">
                 {% include 'project_presentation/_show/_notifications/not_admin_validated.html.twig' %}
@@ -629,7 +629,7 @@
         
     {% endif %}
 
-    {# Notification "Your presentation url is randomized for now " #}
+    {# Notification "Your presentation url is randomized for now "
 
     {% if userPresenter and not validatedStringId and overallQualityAssessment < 2 %}
 
@@ -639,7 +639,7 @@
         
         </div>
 
-    {% endif %}
+    {% endif %} #}
 
 
     {# Other Project Presentation to Consult Suggestions #}

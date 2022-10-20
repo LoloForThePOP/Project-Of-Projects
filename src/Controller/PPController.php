@@ -767,13 +767,21 @@ class PPController extends AbstractController
 
                         $presentation->setIsAdminValidated($switchState);
 
-                        if ($switchState=="true") {
+                        if ($switchState=="true") {            
+                            
+                            /* Email user presenter its presentation has been validated */
 
                             $sender = $this->getParameter('app.general_contact_email');
                             
                             $receiver = $presentation->getCreator()->getEmail();
-                
-                            $mailer->send($sender, 'Propon', $receiver, "Votre présentation de projet est validée sur Propon.", "Votre présentation a été validée par un membre de notre équipe. Merci pour votre confiance en notre outil. <br>L'équipe Propon.");
+
+                            $emailParameters=[
+
+                                "address" => $this->generateUrl('show_presentation', ["stringId"=>$presentation->getStringId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                                
+                            ];
+
+                            $mailer->send($sender, 'Propon', $receiver, "Votre présentation de projet est validée sur Propon.",'/project_presentation/email_presenter_validated_pp.html.twig', $emailParameters);
 
                         }
     

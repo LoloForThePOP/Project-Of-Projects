@@ -12,6 +12,8 @@
 
         <img class="no-logo-image img-fluid" src="{{ asset('no_logo.svg', 'pp_wysiwyg') }}" height="90" width="90" alt="add a logo icon" >
 
+        <div class="no-logo-text">Logo</div>
+
     </a>
 
 {% endif %}
@@ -42,6 +44,8 @@
 
     #logoPlaceholder{
 
+        position: relative;
+
         display: flex;
         align-items: center;
         justify-content: center;
@@ -57,6 +61,16 @@
     #logoPlaceholder:hover {
         cursor: pointer;
         background-color: lavender;
+    }
+
+    .no-logo-text{
+        position: absolute;
+        top: 34%;
+        font-weight: bold;
+        font-size: 28px;
+        background-color: white;
+        opacity: 89.4%;
+
     }
 
 
@@ -84,6 +98,14 @@
             padding: 15px;
             min-height: initial;
             
+        }
+
+            
+        .no-logo-text{
+            
+            top: 31%;
+            font-size: 16px;
+
         }
 
 

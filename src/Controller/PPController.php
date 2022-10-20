@@ -88,7 +88,7 @@ class PPController extends AbstractController
             $manager->persist($presentation);
             $manager->flush();
 
-            $askForGuidance=$form->get('acceptGuidance')->getData();
+            $askForGuidance = $form->get('acceptGuidance')->getData();
 
 
             /* Email Webmaster that a new presentation has been created (moderation) */
@@ -104,12 +104,6 @@ class PPController extends AbstractController
             ];
 
             $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'/project_presentation/email_webmaster_notif_new_pp.html.twig', $emailParameters);
-
-
-            $this->addFlash(
-                'success fs-4',
-                "✅ La présentation du projet est créée. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
-            );
 
             return $this->redirectToRoute('presentation_helper', [
                 "stringId" => $presentation->getStringId(),                
@@ -475,48 +469,6 @@ class PPController extends AbstractController
                 }
             }
 
-            // personalize presentation stringId (= slug)
-            $updateStringIdForm = $this->createForm(StringIdType::class, $presentation);
-            $suggestedStringId = null;
-
-            if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getDataItem("validatedStringId") == false) {
-
-                $suggestedStringId = $slug->suggestSlug($presentation);
-                $updateStringIdForm->handleRequest($request);
-
-                if ($updateStringIdForm->isSubmitted() && $updateStringIdForm->isValid()){
-
-                    $slugedInput = $slug->slugInput($updateStringIdForm->get('stringId')->getData());
-
-                    $presentation->setStringId($slugedInput);
-                    $presentation->setDataItem("validatedStringId", true);
-
-                    $manager->flush();
-
-                    $newPresentationURL = $this->generateUrl('show_presentation', [
-                        'stringId' => $presentation->getStringId(),
-                    ], UrlGeneratorInterface::ABSOLUTE_URL);
-
-                    $this->addFlash(
-                        'success',
-                        "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b><br>
-                        👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
-                    );
-
-                    return $this->redirectToRoute(
-                        'show_presentation',
-                        [
-
-                            'stringId' => $presentation->getStringId(),
-                            '_fragment' => 'flash-messages',
-
-                        ]
-                    );
-                }
-
-          
-            }
-
             //create an account possibility for guest user presenters
             $guestPresenterForm = $this->createForm(WithoutUsernameRegistrationFormType::class);
             $guestPresenterForm->handleRequest($request);
@@ -562,7 +514,6 @@ class PPController extends AbstractController
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
-                'suggestedStringId' =>$suggestedStringId,
                 'contactUsPhone' => $this->getParameter('app.contact_phone'),
                 'addWebsiteForm' => $addWebsiteForm->createView(),
                 'addQAForm' => $addQAForm->createView(),
@@ -574,7 +525,6 @@ class PPController extends AbstractController
                 'addImageForm' => $addImageForm->createView(),
                 'addVideoForm' => $addVideoForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
-                'updateStringIdForm' => $updateStringIdForm->createView(),
                 'newUserForm' => $guestPresenterForm->createView(),
                 
                 
@@ -924,6 +874,37 @@ class PPController extends AbstractController
     /**
      * Allow to edit pp stringId
      * 
+     * @Route("/projects/{stringId}/validate-string-id", name="validate_pp_string_id")
+     * 
+     * @return void
+     */
+    public function validateStringId(PPBase $presentation, EntityManagerInterface $manager)
+    {
+
+        $presentation->setDataItem("validatedStringId", true);
+        $manager->flush();
+
+        $presentationURL = $this->generateUrl('show_presentation', [
+            'stringId' => $presentation->getStringId(),
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $this->addFlash(
+            'success',
+            "👉 L'adresse de votre page de projet est <b>$presentationURL</b><br>
+            👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
+        );
+
+        return $this->redirectToRoute('show_presentation', [
+            'stringId' => $presentation->getStringId(),
+            '_fragment' => 'flash-messages'
+        ]);
+
+    }
+
+
+    /**
+     * Allow to edit pp stringId
+     * 
      * @Route("/projects/{stringId}/edit/string-id", name="edit_pp_string_id")
      * 
      * @return void
@@ -932,38 +913,32 @@ class PPController extends AbstractController
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
-
-        if ($presentation->getOverallQualityAssessment() > 1 &&$presentation->getDataItem("validatedStringId") == true) {
-            
-            $form = $this->createForm(StringIdType::class, $presentation);
-
-            $form->handleRequest($request);
-
-            if ($form->isSubmitted() && $form->isValid()) {
-
-                $presentation->setStringId($slug->slugInput($form->get('stringId')->getData()));
-
-                $manager->flush();
-
-                $newPresentationURL = $this->generateUrl('show_presentation', [
-                    'stringId' => $presentation->getStringId(),
-                ], UrlGeneratorInterface::ABSOLUTE_URL);
-                        
-                $this->addFlash(
-                    'success',
-                    "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b><br>
-                    👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
-                );
-
-                return $this->redirectToRoute('show_presentation', [
-                    'stringId' => $presentation->getStringId(),
-                    '_fragment' => 'flash-messages'
-                ]);
-            }
-        }
-
         
+        $form = $this->createForm(StringIdType::class, $presentation);
 
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $presentation->setStringId($slug->slugInput($form->get('stringId')->getData()));
+
+            $manager->flush();
+
+            $newPresentationURL = $this->generateUrl('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+            ], UrlGeneratorInterface::ABSOLUTE_URL);
+                    
+            $this->addFlash(
+                'success',
+                "👉 L'adresse de votre page de projet est désormais <b>$newPresentationURL</b><br>
+                👉 Pour la copier, partager, ou modifier, utilisez le bouton \"Partager la présentation\" en bas de page."
+            );
+
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $presentation->getStringId(),
+                '_fragment' => 'flash-messages'
+            ]);
+        }
 
         return $this->render('project_presentation/edit/title_goal_logo/_update_string_id_form.html.twig', [
             'presentation' => $presentation,

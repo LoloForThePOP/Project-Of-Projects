@@ -1,86 +1,23 @@
 
 <div class="pp-edition-mode">
     
-    <div class="notification notification-create-presentation-custom-url alert alert-success alert-dismissible fade show fw-bold pb-4" role="alert">
+    <div class="notification notification-create-presentation-custom-url alert alert-success alert-dismissible fade show fw-bold d-lg-flex justify-content-lg-evenly sm-text-center" role="alert">
 
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-
-        <p class="lh-lg pt-2 mb-4">
+        <p class="lh-lg mb-2 mb-lg-0">
                           
             <span class="fw-bold align-bottom">
-                🙋 L'adresse de votre page de projet est {{ url ('homepage') }}</span><span class="h5 fw-bold align-bottom border border-3 border-danger px-1 mx-1 rounded">{{presentation.stringId}}</span><span class="h5 fw-bold align-bottom">/</span>
+                🙋 L'adresse de votre page de projet est {{ url ('homepage') }}</span><span class="fw-bold align-bottom border border-3 border-danger px-1 mx-1 rounded">{{presentation.stringId}}</span><span class="fw-bold align-bottom">/
+            </span>
           
         </p>
 
-        <hr class="mb-3">
+        <div class="">
 
-        <div class="fw-bold ps-md-4">
-
-            <p class="">On va créer une adresse du tonnerre plus simple à comprendre 👍</p>
-
-            <div id="create-string-id-advices" class="alert alert-warning" style="display:none;">
-
-                <p class="mb-3">Pour créer votre adresse web :</p>
-
-                <ul>
-                    <li class="mb-2">Ne pas utiliser d'espaces (utiliser des tirets - à la place)</li>
-                    <li class="mb-2">Ne pas utiliser d'accents (é; à; è; ê)</li>
-                    <li class="mb-2">Ne pas utiliser de majuscules ou d'apostrophes '</li>
-                </ul>
-            
-            </div>
-
-            <p class="lh-lg-tiny-screen mb-3">
-                <span>Voulez-vous remplacer <span class="border border-3 border-danger px-2 me-1 rounded">{{presentation.stringId}}</span> par :</span>
-            </p>
-
-            <div id="string-id-form-container">
-
-                {{ form_start(updateStringIdForm) }}
-
-                <div class="mb-3">
-            
-                    {{ form_errors(updateStringIdForm.stringId) }}
-            
-                </div>
-            
-                <div class="mb-4">
-                    
-                    {{ form_widget(updateStringIdForm.stringId, {'value' : suggestedStringId})  }}
-            
-                </div>
-                
-                {# Action Possibilities #}
-            
-                <div class="">
-            
-                    <button id="submit-string-id-form" type="submit" class="btn btn-light me-3">Je valide</button>
-            
-                    <button id="change-string-id-focus" type="button" class="btn btn-light me-3">Je modifie</button>
-            
-                </div>
-            
-                {{ form_end(updateStringIdForm) }}
-
-            </div>
-
+            <a href="{{ path('validate_pp_string_id', {'stringId': presentation.stringId}) }}"><button type="button" class="btn btn-outline-primary me-4">✔️ Je valide</button></a>
+    
+            <a href="{{ path('edit_pp_string_id', {'stringId': presentation.stringId}) }}"><button id="change-string-id-focus" type="button" class="btn btn-outline-primary">✍️ Je modifie</button></a>
+    
         </div>
-
-        <script>
-
-            $(document).ready(function(){
-
-                $("#change-string-id-focus").on('click', function (){
-
-                    $("#string_id_stringId").focus();
-                    $("#create-string-id-advices").show();
-                    $("#change-string-id-focus").hide();
-
-                });
-
-            });
-
-        </script>
 
     </div>  
     
@@ -88,6 +25,13 @@
 
 
 <style>
+
+
+    .notification-create-presentation-custom-url{
+
+        font-size: 20px;
+
+    }
 
     @media screen and (max-width: 580px) {
 

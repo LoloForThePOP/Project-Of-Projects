@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Need;
 use App\Entity\Slide;
+use App\Service\Slug;
 use App\Entity\PPBase;
 use App\Service\TreatItem;
 use App\Form\PresentationHelperType;
@@ -24,7 +25,7 @@ class PresentationHelperController extends AbstractController
      * 
      * @Route("{stringId}/helper/{position}/{repeatInstance}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository): Response
+    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -69,6 +70,8 @@ class PresentationHelperController extends AbstractController
 
                 $title=$form->get('title')->getData();
                 $presentation->setTitle($title);
+
+                $presentation->setStringId($slug->slugInput($title));
 
                 $manager->flush();
 

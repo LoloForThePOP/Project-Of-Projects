@@ -7,6 +7,9 @@ use App\Entity\Slide;
 use App\Service\Slug;
 use App\Entity\PPBase;
 use App\Service\TreatItem;
+use App\Service\ImageResizer;
+use App\Service\AssessQuality;
+use App\Service\CacheThumbnail;
 use App\Form\PresentationHelperType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,14 +28,18 @@ class PresentationHelperController extends AbstractController
      * 
      * @Route("{stringId}/helper/{position}/{repeatInstance}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug): Response
+    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         $categories = $categoryRepository->findBy([], ['position' => 'ASC']);
 
+        // End Of presentation helper
+
         if($position==null){
+
+            $assessQuality->assessQuality($presentation);
 
             $this->addFlash(
                 'success fs-4',
@@ -79,10 +86,13 @@ class PresentationHelperController extends AbstractController
 
             if ($helperType=="logo") {
 
-                $logo=$form->get('logoFile')->getData();
+                $logo = $form->get('logoFile')->getData();
                 $presentation->setLogoFile($logo);
 
                 $manager->flush();
+
+                $imageResizer->edit($presentation, 'logoFile');
+                $cacheThumbnail->cacheThumbnail($presentation);
 
             }
 
@@ -98,6 +108,9 @@ class PresentationHelperController extends AbstractController
                 $presentation->addSlide($slide);
 
                 $manager->flush();
+
+                $imageResizer->edit($slide);
+                $cacheThumbnail->cacheThumbnail($presentation);
 
             }
 

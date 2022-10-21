@@ -385,7 +385,7 @@ class PPController extends AbstractController
 
                 $manager->flush();
 
-                $imageResizer->edit($presentation);
+                $imageResizer->edit($presentation, "logoFile");
                 $cacheThumbnail->cacheThumbnail($presentation);
 
                 $this->addFlash(

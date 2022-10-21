@@ -61,7 +61,7 @@ liip_imagine:
             filters:
                 scale:
 
-                    # input ?x? px -> output ?x? px (relative down-scale)
+                    # input ?x? px -> output ?x? px
                     dim: [ 340, 340 ]
                
 
@@ -75,7 +75,7 @@ liip_imagine:
                 # use and setup the "scale" filter
                 scale:
 
-                    # input ?x? px -> output ?x? px (relative down-scale)
+                    # input ?x? px -> output ?x? px 
                     dim: [ 500, 500 ]
 
         slide_upload:

@@ -20,7 +20,7 @@
 
         <div class="pp-document-title col-9">
 
-            {{ document.title | striptags | length > 52 ? document.title | striptags | slice(0, 49) ~ '...' : document.title | striptags }}
+            {{ document.title | striptags | length > 60 ? document.title | striptags | slice(0, 57) ~ '...' : document.title | striptags }}
 
         </div>
 

@@ -26,7 +26,6 @@ class CreatePresentationType extends AbstractType
                     'attr' => [
 
                         'placeholder'    => 'Écrire ici l\'objectif',
-                        'autofocus' => true
                     ],
 
                     'required'   => true,

@@ -547,11 +547,11 @@ class PPController extends AbstractController
      * Allow anonymous user to create a presentation and then create an account in order to save it.
      * Landing is on which page the user will arrive (presentation helper, or wysiwyg presentation page)
      * 
-     * @Route("/presenter-un-projet/{landing?}", name="edit_presentation_as_guest_user")
+     * @Route("/presenter-un-projet/{goal}", name="edit_presentation_as_guest_user")
      * 
      * @return Response
     */
-  /*   public function guestUserEditPresentation(RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger, $landing){
+    public function guestUserEditPresentation(RequestStack $requestStack, EntityManagerInterface $manager, SluggerInterface $slugger, $goal){
 
         //Creating a php session token attached to anonymous user
         //This token is also attached to the newly created presentation
@@ -580,34 +580,19 @@ class PPController extends AbstractController
 
         $presentation->setDataItem('guest-presenter-token', $guestPresenterToken)
                     ->setDataItem("guest-presenter-activated", false)
-                    ->setGoal("Écrire ici l'objectif du Projet")
+                    ->setGoal($goal)
                     ->setCreator($newUser);
         
         $manager->persist($presentation);
 
         $manager->flush();
 
-        if ($landing=="wysiwyg") {
-
-            $this->addFlash(
-                'success',
-                "✅ Présentez librement votre projet ! <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide en bas de page."
-            );
-
-
-            return $this->redirectToRoute('show_presentation', [
-                'stringId' => $presentation->getStringId(),
-            ]);
-
-
-        }
-
         return $this->redirectToRoute('presentation_helper', [
             'stringId' => $presentation->getStringId(),
             'position' => 0,
         ]);
 
-    } */
+    }
 
 
     /**

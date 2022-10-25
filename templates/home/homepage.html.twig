@@ -178,6 +178,66 @@
 
     {% include "home/_find_help_diag_jumbotron.html.twig" %}
 
+
+    {# Create a presentation form #}
+
+    {% set createPresentationForm = form.createView %}
+
+    <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-5 mt-md-4 mb-4">
+
+      <div class="col-12 col-md-8 mx-auto">
+      
+          {{form_start(createPresentationForm)}}
+
+          <div class="fw-bold fs-2 mb-2">⏱️ Prêt à battre un record de vitesse ?</div>
+
+          <div class="mb-3">{{form_label(createPresentationForm.goal)}}</div>
+                            
+          {{ form_errors(createPresentationForm.goal) }}
+              
+            {{form_widget(createPresentationForm.goal)}}
+
+            <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+          {{ form_end(createPresentationForm) }}
+
+      
+      </div>
+
+      <style>
+
+        #create_presentation_goal{
+          display: inline;
+          width: 70%;
+          height: 47px;
+          margin-right: 20px;
+        }
+
+        .create-presentation-button{
+          margin-bottom: 4px;
+        }
+
+                
+        @media screen and (max-width: 580px) {
+
+          #create_presentation_goal{
+            width: 68%;
+            margin-right: 5px;
+          }
+
+            
+          .create-presentation-button{
+            padding: 8px 9px;
+            margin-bottom: 4px;
+          }
+
+        }
+      
+      </style>
+
+    </div>
+
+
     {# Highlight a random project
 
     <div class="d-md-none">
@@ -223,7 +283,6 @@
     
     </style>
 
-    
     {# some presentations by category #}
     
     {% cache "cat2" ttl(72000) %}
@@ -235,6 +294,41 @@
     {# Business card diagonal jumbotron #}
 
     {% include "home/_diag_jumbotron_3.html.twig" %}
+
+
+    {# How it works + FAQ #}
+    
+    {% include "home/_hiw_faq.html.twig" %}
+    
+
+    {# Create a presentation form #}
+
+    {% set createPresentationForm2 = form.createView %}
+
+    <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-5 mt-md-4 mb-4">
+
+      <div class="col-12 col-md-8 mx-auto">
+      
+          {{form_start(createPresentationForm2)}}
+
+          <div class="fw-bold fs-2 mb-2">🧭 Prêt à tester la simplicité ?</div>
+
+          <div class="mb-3">{{form_label(createPresentationForm2.goal)}}</div>
+                            
+          {{ form_errors(createPresentationForm2.goal) }}
+              
+            {{form_widget(createPresentationForm2.goal)}}
+
+            <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+          {{ form_end(createPresentationForm2) }}
+
+      
+      </div>
+
+    </div>
+
+
 
     
     {# Highlight a random project
@@ -267,6 +361,34 @@
       
     </div> #}
 
+    
+    {# Create a presentation form #}
+
+    {% set createPresentationForm3 = form.createView %}
+
+    <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-5 mt-md-4 mb-4">
+
+      <div class="col-12 col-md-8 mx-auto">
+      
+          {{form_start(createPresentationForm3)}}
+
+          <div class="fw-bold fs-2 mb-2">👁️ Gagnez en visibilité sur le web</div>
+
+          <div class="mb-3">{{form_label(createPresentationForm3.goal)}}</div>
+                            
+          {{ form_errors(createPresentationForm3.goal) }}
+              
+            {{form_widget(createPresentationForm3.goal)}}
+
+            <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+          {{ form_end(createPresentationForm3) }}
+
+      
+      </div>
+
+    </div>
+
 
 
     {# Styled container to Access Geosearch #}
@@ -288,16 +410,49 @@
 
     {# Quote on mobiles #}
     
-    <div class="projects-change-the-world border p-3 mb-5 text-center"><p class="mb-0">🌈 Les projets changent le monde <span style="display: inline-block; transform: matrix(-1, 0, 0, 1, 0, 0);">🌈</span><br>Faites connaître le vôtre</p></div>
+    <div class="projects-change-the-world border mb-5 text-center fw-bold ">
+    
+    
+      <p class="mb-0">✨ Les projets changent le monde ☄️<br>Faites connaître le vôtre</p>
+
+      {% set createPresentationForm4 = form.createView %}
+    
+      <div class="mb-4">
+
+        {{form_start(createPresentationForm4)}}
+
+          <div class="mb-3">{{form_label(createPresentationForm4.goal)}}</div>
+                            
+          {{ form_errors(createPresentationForm4.goal) }}
+              
+            {{form_widget(createPresentationForm4.goal)}}
+
+            <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+          {{ form_end(createPresentationForm4) }}
+
+      </div>
+    
+    </div>
 
     
     <style>
       
-      @media screen and (min-width: 820px) {
+
+      .projects-change-the-world{
+
+          padding: 14px;
+          text-align: center;
+          font-size: 40px;
+      } 
+  
+      @media screen and (max-width: 580px) {
 
           .projects-change-the-world{
-              text-align: center;
-              font-size: 23px;
+
+              padding: 14px;
+              text-align: left;
+              font-size: 15px;
           } 
           
 
@@ -341,44 +496,78 @@
 
     </div>
 
-    <div class="quote d-flex container col-lg-8 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
-      
-         <div class="img-col col-3">
+    <div class="quote container col-lg-8 rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
+
+        <div class="d-flex align-items-center ">
+          
+          <div class="img-col col-3">
 
             <img class="img-fluid" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-quotes/bulb.webp">
+          
+          </div>
+
+          <div class="text-col col-9 col-md-8 text-center">
+          
+            Chacun a un projet à défendre. <br><span class="text-primary">Chacun a un projet à réaliser</span>.
         
+          </div>
+      
         </div>
 
-        <div class="text-col col-9 col-md-8 text-center">
+        <style>
+            
+          .quote img{
+
+            max-height: 145px;
+          }
+
+          .quote .text-col{
+
+            font-size: calc(1.325rem + 0.9vw);
+          }
+
+
+          @media screen and (max-width: 580px) {
+            
+            .quote .text-col {
+              font-size: calc(0.9rem + 0.3vw);
+            }
+
+          }
         
-          Chacun a un projet à défendre. <br><span class="text-primary">Chacun a un projet à réaliser</span>.
+        </style>
+
+        <hr class="w-75 mt-5 mx-auto">
+
         
+            
+        {# Create a presentation form #}
+
+        {% set createPresentationForm5 = form.createView %}
+
+        <div class="mt-4 pb-4">
+
+          <div class="col-12 col-md-8 mx-auto">
+          
+              {{form_start(createPresentationForm5)}}
+
+              <div class="fs-5 mb-3">Et vous, quel est votre projet ?</div>
+                                
+                {{ form_errors(createPresentationForm5.goal) }}
+                  
+                {{form_widget(createPresentationForm5.goal)}}
+
+                <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+              {{ form_end(createPresentationForm5) }}
+
+          
+          </div>
+                
         </div>
-    
+
     </div>
 
-    <style>
-    
-      .quote img{
-
-        max-height: 145px;
-      }
-
-      .quote .text-col{
-
-        font-size: calc(1.325rem + 0.9vw);
-      }
-
-
-      @media screen and (max-width: 580px) {
-        
-        .quote .text-col {
-          font-size: calc(0.9rem + 0.3vw);
-        }
-
-      }
-    
-    </style>
 
     {# last project presentation #}
       

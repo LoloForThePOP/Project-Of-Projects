@@ -54,11 +54,11 @@ class HomeController extends AbstractController
 
             $emailParameters=[
 
-                "goal" => $projectGoal(),
+                "goal" => $projectGoal,
                 
             ];
 
-            $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'/project_presentation/email_webmaster_notif_new_pp.html.twig', $emailParameters);
+            $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'Project Goal : '.$projectGoal);
 
             return $this->redirectToRoute('edit_presentation_as_guest_user', [
                 'goal' => $projectGoal,

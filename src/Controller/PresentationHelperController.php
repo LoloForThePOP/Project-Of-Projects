@@ -12,6 +12,7 @@ use App\Service\AssessQuality;
 use App\Service\CacheThumbnail;
 use App\Form\PresentationHelperType;
 use App\Repository\CategoryRepository;
+use App\Repository\PPBaseRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class PresentationHelperController extends AbstractController
      * 
      * @Route("{stringId}/helper/{position}/{repeatInstance}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
+    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, PPBaseRepository $ppRepo): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -78,7 +79,21 @@ class PresentationHelperController extends AbstractController
                 $title=$form->get('title')->getData();
                 $presentation->setTitle($title);
 
-                $presentation->setStringId($slug->slugInput($title));
+                //setting a slug
+
+                $stringId = $slug->slugInput($title);
+
+                // checking if result is unique
+                
+                $twin = $ppRepo->findOneBy(['stringId' => $stringId]);
+
+                if ($twin !== null) {
+
+                    $stringId .="-".$presentation->getId();
+                    
+                }
+
+                $presentation->setStringId($stringId);
 
                 $manager->flush();
 

@@ -60,9 +60,28 @@ class HomeController extends AbstractController
 
             $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'Project Goal : '.$projectGoal);
 
-            return $this->redirectToRoute('edit_presentation_as_guest_user', [
-                'goal' => $projectGoal,
-            ]);
+
+            if ($this->isGranted('ROLE_USER')) {
+
+                $presentation->setCreator($this->getUser());
+
+                $manager->persist($presentation);
+                $manager->flush();
+
+                return $this->redirectToRoute('presentation_helper', [
+                    "stringId" => $presentation->getStringId(),                
+                    "position" => 0,                
+                ]);
+
+            }
+
+            else{
+
+                return $this->redirectToRoute('edit_presentation_as_guest_user', [
+                    'goal' => $projectGoal,
+                ]);
+            }
+
         }
      
         // last 20 inserted projects presentations

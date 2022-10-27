@@ -296,7 +296,9 @@
     {% include "home/_diag_jumbotron_3.html.twig" %}
 
     {# some presentations by category #}
-    {{ render(path('backend_search', {label: 'ℹ️ Bases de Données', filters: '(categories.uniqueName:data)'})) }}
+    {% cache "cat35" ttl(72000) %}
+      {{ render(path('backend_search', {label: 'ℹ️ Bases de Données', filters: '(categories.uniqueName:data)'})) }}
+    {% endcache %}
 
     {# How it works + FAQ #}
     

@@ -29,7 +29,7 @@ class PresentationHelperController extends AbstractController
      * 
      * @Route("{stringId}/helper/{position}/{repeatInstance}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, PPBaseRepository $ppRepo): Response
+    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance='false', TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
     {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
@@ -76,26 +76,29 @@ class PresentationHelperController extends AbstractController
 
             if ($helperType=="title") {
 
-                $title=$form->get('title')->getData();
-                $presentation->setTitle($title);
+                $title = $form->get('title')->getData();
 
-                //setting a slug
+                if(!empty($title)){
 
-                $stringId = $slug->slugInput($title);
+                    $presentation->setTitle($title);
 
-                // checking if result is unique
-                
-                $twin = $ppRepo->findOneBy(['stringId' => $stringId]);
+                    //setting a slug
+                    $stringId = $slug->slugInput($title);
 
-                if ($twin !== null) {
+                    // checking if result is unique
+                    $twin = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['stringId' => $stringId]);
 
-                    $stringId .="-".$presentation->getId();
-                    
+                    if ($twin !== null) {
+
+                        $stringId .="-".$presentation->getId();
+                        
+                    }
+
+                    $presentation->setStringId($stringId);
+
+                    $manager->flush();
+
                 }
-
-                $presentation->setStringId($stringId);
-
-                $manager->flush();
 
             }
 

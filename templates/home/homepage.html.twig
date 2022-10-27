@@ -295,11 +295,13 @@
 
     {% include "home/_diag_jumbotron_3.html.twig" %}
 
+    {# some presentations by category #}
+    {{ render(path('backend_search', {label: 'ℹ️ Bases de Données', filters: '(categories.uniqueName:data)'})) }}
 
     {# How it works + FAQ #}
     
     {% include "home/_hiw_faq.html.twig" %}
-    
+
 
     {# Create a presentation form #}
 

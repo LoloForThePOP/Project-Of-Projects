@@ -5,13 +5,12 @@
 
         <button id="accept-invitation" type="button" class="btn btn-validate border big-select-button me-0 me-md-5" style="color: #0d6efd;">✔️ Oui</button>
 
-        <button type="button" class="btn btn-go-back border big-select-button">
-
-            <a class="d-flex text-body justify-content-center align-items-center w-100 h-100" href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
-                ❌ Non
-            </a>
+        <div class=""> {# for parent flex container (otherwise a tag is not well positionned) #}
             
-        </button>
+            <a class="d-flex text-body justify-content-center align-items-center w-100 h-100" href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}"><button type="button" class="btn btn-go-back border big-select-button">❌ Non</button></a>
+
+        
+        </div>
 
 </div>
 

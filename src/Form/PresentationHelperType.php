@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Form\VideoSlideType;
 use Symfony\Component\Form\AbstractType;
 use App\Form\ImageSlideWithoutVichHelperType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -139,6 +140,7 @@ class PresentationHelperType extends AbstractType
 
             )
 
+            ->add('videoSlide', VideoSlideType::class)
             ->add('imageSlide', ImageSlideWithoutVichHelperType::class)
 
             ->add('selectedNeedType', HiddenType::class)

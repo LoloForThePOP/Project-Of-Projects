@@ -21,7 +21,7 @@ class ImageSlideWithoutVichHelperType extends AbstractType
                 FileType::class,
                 
                 [
-                    'label' => 'Cliquer pour sélectionner une image',
+                    'label' => 'Cliquer pour sélectionner une image 👇',
 
                     'attr' => [
 
@@ -37,7 +37,7 @@ class ImageSlideWithoutVichHelperType extends AbstractType
                 'caption',
                 TextType::class,
                 [
-                    'label' => "Vous pouvez ajouter une légende / titre / commentaire (facultatif) à cette image",
+                    'label' => "Vous pouvez aussi ajouter une description à cette image (facultatif)",
 
                     'attr' => [
 

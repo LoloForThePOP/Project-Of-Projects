@@ -20,7 +20,7 @@ class VideoSlideType extends AbstractType
                     'label' => 'Code de la vidéo',
                     'attr' => [
 
-                        'placeholder'    => 'Écrire ici le code de la vidéo',
+                        'placeholder'    => 'Écrire ici le lien de la vidéo',
                     ],
                 ]
             )

@@ -52,6 +52,17 @@ a{
     line-height: 1.6;
 }
 
+@media screen and (max-width: 580px) {
+
+    .modal-title {
+        font-size: 1.15em;
+    }
+    
+}
+
+
+
+
 /* Flash Messages (static by default below header navbar) 
 
    Can be position fixed elsewhere (used in combination with complementary class below)

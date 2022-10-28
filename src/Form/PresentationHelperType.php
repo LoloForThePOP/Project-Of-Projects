@@ -140,7 +140,7 @@ class PresentationHelperType extends AbstractType
 
             )
 
-            ->add('videoSlide', VideoSlideType::class)
+            
             ->add('imageSlide', ImageSlideWithoutVichHelperType::class)
 
             ->add('selectedNeedType', HiddenType::class)

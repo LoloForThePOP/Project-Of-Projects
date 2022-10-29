@@ -17,7 +17,7 @@ class VideoSlideType extends AbstractType
                 'address',
                 TextType::class,
                 [
-                    'label' => 'Code de la vidéo',
+                    'label' => 'Lien de la vidéo',
                     'attr' => [
 
                         'placeholder'    => 'Écrire ici le lien de la vidéo',

@@ -129,6 +129,7 @@ class SlideController extends AbstractController
 
             'form' => $form->createView(),
             'stringId' => $pp->getStringId(), 
+            'currentYoutubeVideoIdentifier' => $slide->getAddress(),
             'presentation' => $pp,
             'context' => "update",
             

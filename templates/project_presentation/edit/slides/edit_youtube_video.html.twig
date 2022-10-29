@@ -10,14 +10,22 @@
     {% block moreInfoButtonLabel %}Comment faire ?{% endblock %}
 
     {% block moreInfoContent %}
-    
-        <h5 class="fw-bold mb-3">Sur la page Youtube de la vidéo désirée, recopier son code (zone encadrée en rouge dans l'exemple ci-dessous).</h5>
 
-        <p class="h5 fw-bold mb-3">https://www.youtube.com/watch?v=<span
-                class="px-1 border border-2 border-danger rounded">xxxxxxxxxx</span></p>
+        <div class="text-start">
+            <p class="fw-bold">En 3 étapes :</p>
 
-        <p class="h5 fw-bold">!!! Youtube peut désactiver l'affichage de vidéos avec copyright (par exemple certains clips musicaux).</p>
-    
+            <ol>
+                <li>Allez sur la page Youtube de la vidéo désirée;</li>
+                <li>Cliquez sur partager;</li>
+                <li>Copier directement le lien (exemple: https://youtu.be/wwl05u5U9vo).</li>
+            </ol>
+
+            <p class="fw-bold">!!! Youtube peut désactiver l'affichage de vidéos avec copyright (par exemple certains clips musicaux).</p>
+        
+        </div>
+
+        
+
     {% endblock %}
 
     {% block mainContent %}
@@ -26,7 +34,8 @@
 
         <div class="mb-4">
 
-            {{form_row(form.address)}}
+
+            {{form_row(form.address, {'value' : 'https://youtu.be/'~ currentYoutubeVideoIdentifier})}}
 
         </div>
 

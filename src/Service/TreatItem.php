@@ -44,14 +44,14 @@ class TreatItem {
                 
                 return $elementToTreat;
 
-            case 'youtube_video': //used to extract youtube video identifier from user input. Sometimes, user gives a complete Youtube url (https://www...), but we just need video identifier. 
+            case 'youtube_video': //used to extract youtube video identifier from youtube url user input. 
+                
 
-                $youtubeVideoIdentifier = $elementToTreat; //$elementToTreat is user input : a complete youtube url or directly the youtube video identifier.
-
-                if (strpos($elementToTreat, 'youtu') !== false) {// just in case user provided a complete youtube video url instead of video identifier, in this case we extract the youtube video identifier
-                    parse_str( parse_url( $elementToTreat, PHP_URL_QUERY ), $array_of_url_vars );
-                    $youtubeVideoIdentifier = $array_of_url_vars['v'];
-                }
+                // Thanks at https://stackoverflow.com/questions/37186181/how-to-extract-youtube-id-from-this-url
+                
+                $url = urldecode(rawurldecode($elementToTreat));
+                preg_match("/^(?:http(?:s)?:\/\/)?(?:www\.)?(?:m\.)?(?:youtu\.be\/|youtube\.com\/(?:(?:watch)?\?(?:.*&)?v(?:i)?=|(?:embed|v|vi|user)\/))([^\?&\"'>]+)/", $url, $matches);
+                $youtubeVideoIdentifier=$matches[1];
 
                 return $youtubeVideoIdentifier;
 

@@ -82,8 +82,6 @@
 			{% if countSlides > 1 and userPresenter %}
 				
 				{% set showThumbnails = true %}
-
-				
 			
 			{% endif %}
 
@@ -109,6 +107,10 @@
 	}
 
 </style>
+
+
+
+<script src="https://unpkg.com/js-image-zoom@0.7.0/js-image-zoom.js" type="application/javascript"></script>
 
 <script>
 
@@ -155,6 +157,15 @@
 		
 		slides[slideIndex-1].style.display = "flex";
 
+		var options = {
+				zoomLensStyle: 'opacity: 0.1; background-color: blue;',
+				offset: {vertical: 0, horizontal: 0}
+			};
+
+		window.imageZoom = new ImageZoom(document.getElementById("image-slide-wrapper-"+slides[slideIndex-1].id), options);
+
+		window[imageZoom].kill();
+
 		if(typeof(captions[slideIndex-1]) != 'undefined'){
 			captions[slideIndex-1].style.display = "block";
 		}
@@ -184,8 +195,6 @@
 		$('#slides').addClass('only-one-slide');
 
 	}
-
-
 </script>
 
 {# displaying appropriate image or video slide when hovering its thumbnail (a mess if more than 4 slides ) #}
@@ -205,3 +214,18 @@
 		}
 
 	</script>
+
+
+
+	<style>
+
+		.js-image-zoom__zoomed-image{
+			
+			border: 1px solid brown;
+			border-radius: 4px;
+			z-index: 2;
+				
+		}
+
+	</style>
+

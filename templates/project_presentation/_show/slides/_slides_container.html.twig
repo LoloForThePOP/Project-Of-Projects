@@ -6,7 +6,11 @@
 
 		{% if slide.type == 'image' %}
 		
-			<img id="{{slide.id}}" src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
+			<div id="image-slide-wrapper-{{slide.id}}" class="image-slide-wrapper">
+			
+				<img id="{{slide.id}}" src="{{ vich_uploader_asset(slide) }}" alt="{{slide.file}}">
+				
+			</div>
 
 		{% endif %}
 

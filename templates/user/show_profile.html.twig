@@ -12,21 +12,21 @@
 {% block body %}
 
 
-<div class="container col-md-11 col-lg-8 my-5 p-0 pb-3">
+<div class="container col-md-11 col-lg-8 my-5 p-0 pt-md-4 pb-3">
 
     <!-- User Name and Image Area -->
 
-    <div class="row mb-4">
+    <div class="row d-flex justify-content-center mb-4">
 
         {# user image #}
 
-        <div class="col-auto pr-3 d-flex align-items-center justify-content-center">
+        <div class="col-auto d-flex align-items-center justify-content-center">
 
             <!-- user personalized image -->
 
             {% if user.persorg.image is not empty %}
 
-            <img class="img-fluid" src="{{ vich_uploader_asset(user.persorg)  | imagine_filter('persorg_thumbnail_sm') }}" width="90" height="90">
+            <img class="rounded-1" src="{{ vich_uploader_asset(user.persorg)  | imagine_filter('persorg_thumbnail_sm') }}" width="" height="" style="max-width:100%; max-height:100px;">
 
             <!-- else default one letter image -->
 
@@ -48,7 +48,7 @@
 
         {# user name #}
 
-        <div class="col ps-0 ps-md-3 d-flex align-items-center">
+        <div class="col-auto ps-0 ps-md-3 d-flex align-items-center">
 
             <h3><b>{{user.username}}</b></h3>
 
@@ -62,13 +62,13 @@
 
     <!-- Actions Possibilities -->
 
-    <div class="row mb-5">
+    <div class="row text-center mb-5">
 
         {% if user is same as(app.user) %}
             
             <div class="mt-0 mt-md-3">
 
-                <a href="{{ path ('edit_public_profile')}} " class="btn btn-light me-3 mb-2">Mes informations publiques</a>
+                <a href="{{ path ('edit_public_profile')}} " class="btn btn-light me-md-3 mb-2">Mes informations publiques</a>
 
                 <a href="{{ path ('update_account_menu') }}" class="btn btn-light me-2 mb-2">Mon compte utilisateur</a>
 
@@ -80,67 +80,34 @@
 
     <!--End of Actions Possibilities -->
 
-
-
-    <!-- User Created Project Presentations -->
-    
-    <div class="mb-5">
-        
-        {% if user.createdPresentations | length > 0 %}
-
-            {% set user_presentations = user.createdPresentations %}
-
-            {% set user_presentations_label %}
-
-                {% if user.createdPresentations | length == 1 %}
-
-                    1 présentation créée
-
-                {% else %}
-
-                    {{user.createdPresentations | length}} présentations créées
-
-                {% endif %}
-
-            {% endset %}
-
-            
-            {% import "utilities/_macro_titled_collection.html.twig" as display %}
-
-            {% block javascripts %}<script src="/js/show_more_less_button.js"></script>{% endblock %}
-
-            {{ display.collection(user_presentations_label, user.createdPresentations | reverse) }}
-            
-        {% endif %}
-
-    </div>
-
-    <!-- End of User Created Project Presentations -->
-
-
    <!-- User Description --> 
 
-    <div class="row m-0 mb-5">
+    <div class="row d-flex justify-content-center m-0 mb-5">
         
-        <div class="user-persorg-description col-md-11 col-lg-8 p-3 border border-primary rounded">
+        <div class="user-persorg-description col-md-11 col-lg-8 p-3 rounded" style="border: 1px solid #bbbbfe;">
                         
             {% if not user.persorg.description %}
 
-                <span class="h5"> 
-                    Aucune description de profil n'a été renseignée. 
-                </span>   
+                <div class="text-center">
+                    
+                    <span class="h5"> 
+                        Aucune description de profil n'a été renseignée. 
+                    </span>   
 
-                {% if user is same as app.user %}
+                    {% if user is same as app.user %}
 
-                    <div class="h5"> 
+                        <div class="fs-5"> 
 
-                        Vous pouvez remplir une description 
-                        
-                        <a class="h5" href=""> <span class="badge bg-primary">ici</span></a>
+                            Vous pouvez remplir une description 
+                            
+                            <a href="{{ path ('edit_public_profile')}}" class=""> <span class="badge bg-primary">ici</span></a>
 
-                    </div>
+                        </div>
 
-                {% endif %}
+                    {% endif %}
+
+                </div>
+
 
             {% else %}
             
@@ -159,7 +126,7 @@
 
     {% if user.persorg.website1 is not empty or user.persorg.website2 is not empty %}
 
-        <div class="row mb-4">
+        <div class="row text-center mb-4">
 
             <h4 class="fw-bold mb-4">Sites web ou réseaux sociaux</h4>
 
@@ -196,6 +163,43 @@
     {% endif %}
 
     <!-- end of User Websites --> 
+
+    
+
+    <!-- User Created Project Presentations -->
+    
+    <div class="mb-5">
+        
+        {% if user.createdPresentations | length > 0 %}
+
+            {% set user_presentations = user.createdPresentations %}
+
+            {% set user_presentations_label %}
+
+                {% if user.createdPresentations | length == 1 %}
+
+                    1 présentation créée
+
+                {% else %}
+
+                    {{user.createdPresentations | length}} présentations créées
+
+                {% endif %}
+
+            {% endset %}
+
+            
+            {% import "utilities/_macro_titled_collection.html.twig" as display %}
+
+            {% block javascripts %}<script src="/js/show_more_less_button.js"></script>{% endblock %}
+
+            {{ display.collection(user_presentations_label, user.createdPresentations | reverse) }}
+            
+        {% endif %}
+
+    </div>
+
+    <!-- End of User Created Project Presentations -->
 
 </div>
 

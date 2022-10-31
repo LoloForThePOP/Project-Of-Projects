@@ -6,7 +6,7 @@
 
 {% block body %}
 
-    <div class="container col-md-8 col-lg-6 mt-5">
+    <div class="container col-md-8 col-lg-4 text-center mt-5">
 
         <h4 class="fw-bold mb-5">Créer un compte pour un nouvel utilisateur et lui transférer la présentation ({{ stringId }}).</h4>
 
@@ -31,8 +31,12 @@
                     {{ form_widget(form.email) }}
 
                 </div>
+
+                
                 
                 <div class="mb-5">
+                
+                    {% include "utilities/_toggle_password_visibility.html.twig" %}
 
                     {{ form_label(form.plainPassword, 'Choisir un mot de passe pour le nouvel utilisateur (ne pas choisir toujours le même mot de passe)') }}
 

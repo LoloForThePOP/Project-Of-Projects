@@ -5,6 +5,8 @@
 
 {% block body %}
 
+{% include "utilities/_toggle_password_visibility.html.twig" %}
+
 
 <style>
 
@@ -109,6 +111,7 @@
                     </div>
 
                     {# Password Input #}
+                    {# see included utilities for password visibiliy toggle #}
 
                     <div class="form-group mb-4"> <input type="password" name="password" id="inputPassword"
                             placeholder="Mot de passe" class="form-control" autocomplete="current-password" required>
@@ -174,6 +177,7 @@
     </div>
 
 </div>
+
 
 <style>
 

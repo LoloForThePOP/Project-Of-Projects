@@ -72,7 +72,7 @@ class UpdatePasswordType extends AbstractType
 
                     'second_options' => [
                         
-                        'label' => 'Nouveau mot de passe',
+                        'label' => 'Confirmer le nouveau mot de passe',
 
                         'attr' => [
                                 

@@ -57,6 +57,14 @@
 		<div class="caption-container {{userPresenter ? "col-lg-9" : "col-lg-12" }} d-flex align-items-center" >
 
 			{% for slide in presentation.slides %}
+					
+				{# Flag if we have some captions #}
+
+				{% if slide.caption is not empty %}
+
+					<span class="hasCaptionFlag d-none"></span>
+				
+				{% endif %}
 
 				{# span is used because <br> is inserted into contenteditable html element if left empty #}
 
@@ -157,14 +165,14 @@
 		
 		slides[slideIndex-1].style.display = "flex";
 
+		/* Zoom Image Capability
+
 		var options = {
 				zoomLensStyle: 'opacity: 0.1; background-color: blue;',
 				offset: {vertical: 0, horizontal: 0}
 			};
 
-		window.imageZoom = new ImageZoom(document.getElementById("image-slide-wrapper-"+slides[slideIndex-1].id), options);
-
-		window[imageZoom].kill();
+		window.imageZoom = new ImageZoom(document.getElementById("image-slide-wrapper-"+slides[slideIndex-1].id), options); */
 
 		if(typeof(captions[slideIndex-1]) != 'undefined'){
 			captions[slideIndex-1].style.display = "block";
@@ -182,19 +190,33 @@
 	
 	// reducing caption container height when no slide with caption (see caption flag in _thumbnail_container.html.twig)
 
-	if ($('.hasCaptionFlag').length == 0) {
+	function hasCaptions(){
+
+		if ($('.hasCaptionFlag').length == 0) {
 
 		$('.caption-container').addClass('no-caption')
 
+		}else{
+
+			$('.caption-container').removeClass('no-caption');
+
+		}
+
 	}
+
+	hasCaptions();
+	
 	
 	// remove thumbnails container when only one slide is displayed
+
 
 	if ($('.mySlides').length == 1) {
 
 		$('#slides').addClass('only-one-slide');
 
-	}
+	} 
+
+
 </script>
 
 {# displaying appropriate image or video slide when hovering its thumbnail (a mess if more than 4 slides ) #}

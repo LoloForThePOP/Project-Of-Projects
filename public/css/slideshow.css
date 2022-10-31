@@ -1,13 +1,14 @@
-#slides{
-
-    margin-bottom: 45px;
-
-}
-
 .slides-container {
 
     position: relative;
     
+}
+
+
+#slideshow-struct-container{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 /* Hide the images by default */
@@ -16,10 +17,14 @@
 
     display: none;
     position: relative;
-    height: 400px;
 
     align-items: center; /* Note : flex display is set in Slideshow Javascript */
     justify-content: center;
+}
+
+.mySlides, .image-slide-wrapper {
+
+    height: 400px;
 }
 
 
@@ -211,7 +216,7 @@
         margin-bottom: 23px;
     }
 
-    .mySlides {
+    .mySlides, .image-slide-wrapper {
         
         height:190px;
     }
@@ -234,7 +239,7 @@
     /* Position the "previous button" to the left */
 
     .prev {
-        margin-left:-10px;
+        margin-left: -10px;
     }
 
     /* Position the "next button" to the right */

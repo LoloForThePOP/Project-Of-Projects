@@ -156,13 +156,20 @@
  
  }
 
+.in-consultation-mode .caption-container.no-caption{
+
+    display: none !important;
+ 
+}
+
  /* Text Description in consultation mode */
 
  @media screen and (min-width: 992px) {
 
     .in-consultation-mode #text-description-struct-container {
 
-        padding-top: 25px;
+        padding-top: 20px;
+        padding-bottom: 20px;
         
     }
 
@@ -241,6 +248,12 @@
     #slideshow-struct-container{
         border: none;
         padding: 0px;
+    }
+
+    .in-consultation-mode .caption-container.no-caption{
+
+        display: block !important; /* We keep blank and visible to keep some vertical space (kind of "padding-top") */
+     
     }
 
 }

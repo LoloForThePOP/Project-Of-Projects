@@ -101,6 +101,28 @@
 
         </script>
 
+        <script>
+
+             $(document).ready(function(){
+
+                //remove empty paragraphs
+
+                $('#read-text-description p').each(function(){
+                    if($.trim($(this).text()) == '' && $(this).children().length == 0){
+                        $(this).hide(); 
+                    }
+                });
+
+                //remove last visible paragraph or ul margin bottom
+                // to do : here we remove each last of type (ul + p) margin, we should remove only p OR ul margin.
+
+                $('#read-text-description p:visible:last, #read-text-description ul:visible:last').addClass('remove-margin-bottom');
+
+
+             })
+
+        </script>
+
         
 
         <style>
@@ -110,10 +132,12 @@
                 padding: 20px 0;
             }
 
-            #text_description p:last-of-type, #text_description ul:last-of-type{
+            #text_description .remove-margin-bottom{
 
                 margin-bottom: 0;
+
             }
+
 
             #read-text-description{
                 padding: 0 30px;

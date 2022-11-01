@@ -168,7 +168,7 @@
 				};
 
 			window.imageZoom = new ImageZoom(document.getElementById("image-slide-wrapper-"+slides[slideIndex-1].id), options);
-				
+
 		}
 
 
@@ -191,6 +191,8 @@
 	
 	// reducing caption container height when no slide with caption (see caption flag in _thumbnail_container.html.twig)
 
+
+
 	function hasCaptions(){
 
 		var hasCaptionFlag = false;
@@ -205,7 +207,7 @@
 
 		if (!hasCaptionFlag) {
 
-		$('.caption-container').addClass('no-caption')
+			$('.caption-container').addClass('no-caption')
 
 		}else{
 
@@ -215,7 +217,11 @@
 
 	}
 
-	hasCaptions();
+	$(document).ready(function(){
+
+		hasCaptions();
+
+	});
 	
 	
 	// remove thumbnails container when only one slide is displayed

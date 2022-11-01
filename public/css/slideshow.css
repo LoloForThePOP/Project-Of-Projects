@@ -213,12 +213,12 @@
 @media screen and (max-width: 580px) {
         
     #slides{
-        margin-bottom: 23px;
+        margin-bottom: 10px;
     }
 
     .mySlides, .image-slide-wrapper {
         
-        height:190px;
+        height: 190px;
     }
 
     /* Next & previous buttons */

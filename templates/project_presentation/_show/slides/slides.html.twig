@@ -187,11 +187,8 @@
 		}
 
 	}
-
 	
 	// reducing caption container height when no slide with caption (see caption flag in _thumbnail_container.html.twig)
-
-
 
 	function hasCaptions(){
 
@@ -217,12 +214,6 @@
 
 	}
 
-	$(document).ready(function(){
-
-		hasCaptions();
-
-	});
-	
 	
 	// remove thumbnails container when only one slide is displayed
 
@@ -251,6 +242,13 @@
 			});
 
 		}
+
+			
+		$(document).ready(function(){
+
+			hasCaptions();
+
+		});
 
 	</script>
 

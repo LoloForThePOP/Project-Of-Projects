@@ -22,6 +22,11 @@
     justify-content: center;
 }
 
+.image-slide-wrapper {
+
+    position: relative;  /* necessary for Zoom Lens js */
+}
+
 .mySlides, .image-slide-wrapper {
 
     height: 400px;

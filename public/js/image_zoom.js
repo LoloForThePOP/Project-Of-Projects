@@ -1,8 +1,16 @@
-function imageZoom(imgID, resultID) {
+
+// thanks at https://www.w3schools.com/howto/howto_js_image_zoom.asp
+
+
+function imageZoom(imgParentWrapperId, resultID) {
 
   var img, lens, result, cx, cy;
-  img = document.getElementById(imgID);
+  img = document.getElementById(imgParentWrapperId).getElementsByTagName('img')[0];
+
+  console.log(img);
   result = document.getElementById(resultID);
+
+  console.log(result);
 
   /* Create lens: */
   lens = document.createElement("DIV");
@@ -10,6 +18,11 @@ function imageZoom(imgID, resultID) {
 
   /* Insert lens: */
   img.parentElement.insertBefore(lens, img);
+
+  console.log("resOffWidth"+result.offsetWidth);
+  console.log("resOffHeight"+result.offsetHeigth);
+  console.log("lensOffWidth"+lens.offsetWidth);
+  console.log("lensOffHeight"+lens.offsetHeight);
 
   /* Calculate the ratio between result DIV and lens: */
   cx = result.offsetWidth / lens.offsetWidth;
@@ -51,8 +64,15 @@ function imageZoom(imgID, resultID) {
     lens.style.left = x + "px";
     lens.style.top = y + "px";
 
+    
+
     /* Display what the lens "sees": */
     result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+
+    console.log("x"+x);
+    console.log("cx"+cx);
+    console.log("y"+y);
+    console.log("cy"+cy);
 
   }
 
@@ -74,5 +94,5 @@ function imageZoom(imgID, resultID) {
     return {x : x, y : y};
 
   }
-  
+
 } 

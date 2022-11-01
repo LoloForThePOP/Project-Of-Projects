@@ -272,7 +272,7 @@
     .caption-container.no-caption {
 
         display: flex;
-        min-height: 10px;
+        min-height: 8px;
         
     }
 

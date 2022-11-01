@@ -18,7 +18,7 @@ class ImageSlideType extends AbstractType
                 'file',
                 VichImageType::class,
                 array(
-                    'label'     => 'Choisir une image',
+                    'label'     => '🖼️ Choisir une image',
                     'required'     => false,
                     'allow_delete' => false,
                     'download_label' => false,
@@ -31,7 +31,7 @@ class ImageSlideType extends AbstractType
                 'caption',
                 TextType::class,
                 [
-                    'label' => "Légende / Titre (facultatif) pour cette image",
+                    'label' => "✍️ Légende / Titre (facultatif) pour cette image",
 
                     'attr' => [
 
@@ -45,7 +45,7 @@ class ImageSlideType extends AbstractType
                 'licence',
                 TextType::class,
                 [
-                    'label' => "Crédits ou droits d'utilisation de l'image - ©",
+                    'label' => "© Crédits ou droits d'utilisation de l'image",
 
                     'attr' => [
 

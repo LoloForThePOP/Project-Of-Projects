@@ -231,6 +231,12 @@
                 $(".project-status-display ." + metadata.subproperty).text(content);
 
             }
+                
+            if (metadata.entity == "slide" && metadata.property == "caption"){
+
+                hasCaptions();
+
+            }
 
         }
 

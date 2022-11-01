@@ -58,14 +58,6 @@
 
 			{% for slide in presentation.slides %}
 					
-				{# Flag if we have some captions #}
-
-				{% if slide.caption is not empty %}
-
-					<span class="hasCaptionFlag d-none"></span>
-				
-				{% endif %}
-
 				{# span is used because <br> is inserted into contenteditable html element if left empty #}
 
 				<span class="caption" data-text="Titre ou légende de l'image" data-edit='{"entity": "slide", "property": "caption", "id": {{slide.id}} }' data-slide-id="{{slide.id}}">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</span>
@@ -165,14 +157,23 @@
 		
 		slides[slideIndex-1].style.display = "flex";
 
-		/* Zoom Image Capability
+		/* Zoom Image Capability */
 
-		var options = {
-				zoomLensStyle: 'opacity: 0.1; background-color: blue;',
-				offset: {vertical: 0, horizontal: 0}
-			};
 
-		window.imageZoom = new ImageZoom(document.getElementById("image-slide-wrapper-"+slides[slideIndex-1].id), options); */
+		if(tinyScreen == false){
+			
+			var options = {
+					zoomLensStyle: 'opacity: 0.1; background-color: blue;',
+					offset: {vertical: 0, horizontal: 0}
+				};
+
+			window.imageZoom = new ImageZoom(document.getElementById("image-slide-wrapper-"+slides[slideIndex-1].id), options);
+				
+		}
+
+
+
+		//jQuery.getScript( url [, success ] )
 
 		if(typeof(captions[slideIndex-1]) != 'undefined'){
 			captions[slideIndex-1].style.display = "block";
@@ -192,7 +193,17 @@
 
 	function hasCaptions(){
 
-		if ($('.hasCaptionFlag').length == 0) {
+		var hasCaptionFlag = false;
+
+		$('.caption').each(function(){
+
+			if($.trim($(this).text()) !== ''){
+				hasCaptionFlag = true; 
+			}
+
+		});
+
+		if (!hasCaptionFlag) {
 
 		$('.caption-container').addClass('no-caption')
 

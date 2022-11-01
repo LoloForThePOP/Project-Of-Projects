@@ -147,6 +147,18 @@
 
             <div class="container col-md-6 text-center">
 
+                {% if repeatInstance =="true" %}
+
+                    <div class="text-success">
+
+                        Image ajoutée<br>
+                    
+                        Choisissez l'image suivante
+                        
+                    </div>
+                
+                {% endif %}
+
                 <div class="mb-4">
 
                     {{ form_row(form.imageSlide.file) }}

@@ -8,6 +8,8 @@
 
         <div id="text_description" class="pp-struct-content">
 
+            <div id="image-zoom-result" class="img-zoom-result"></div>
+
             {% set textDescription = presentation.textDescription %}
             
             {% set longTextSmallScreens = false %}
@@ -129,7 +131,23 @@
 
             #text_description{
 
+                position: relative;
                 padding: 20px 0;
+            }
+
+            .img-zoom-result {
+                max-width: 400px;
+                max-height: 400px;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                margin: auto;
+                border: 1px solid brown;
+                border-radius: 4px;
+                z-index: 2;
+                margin-left: -10000px; /* display result only when cursor is moving (we set margin-left : auto when appropriate in js) */
             }
 
             #text_description .remove-margin-bottom{

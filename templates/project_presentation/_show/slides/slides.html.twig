@@ -245,10 +245,8 @@ function imageZoom(imgParentWrapperId, resultID) {
   var img, lens, result, cx, cy;
   img = document.getElementById(imgParentWrapperId).getElementsByTagName('img')[0];
 
-  console.log(img);
   result = document.getElementById(resultID);
 
-  console.log(result);
 
   /* Create lens: */
   lens = document.createElement("DIV");
@@ -256,11 +254,6 @@ function imageZoom(imgParentWrapperId, resultID) {
 
   /* Insert lens: */
   img.parentElement.insertBefore(lens, img);
-
-  console.log("resOffWidth"+result.offsetWidth);
-  console.log("resOffHeight"+result.offsetHeigth);
-  console.log("lensOffWidth"+lens.offsetWidth);
-  console.log("lensOffHeight"+lens.offsetHeight);
 
   /* Calculate the ratio between result DIV and lens: */
   cx = result.offsetWidth / lens.offsetWidth;
@@ -280,6 +273,10 @@ function imageZoom(imgParentWrapperId, resultID) {
 
 
   function moveLens(e) {
+
+	
+    
+
     var pos, x, y;
 
     /* Prevent any other actions that may occur when moving over the image */
@@ -293,7 +290,7 @@ function imageZoom(imgParentWrapperId, resultID) {
     y = pos.y - (lens.offsetHeight / 2);
     
     /* Prevent the lens from being positioned outside the image: */
-    if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth;}
+    if (x > img.width - lens.offsetWidth) {x = img.width - lens.offsetWidth; }
     if (x < 0) {x = 0;}
     if (y > img.height - lens.offsetHeight) {y = img.height - lens.offsetHeight;}
     if (y < 0) {y = 0;}
@@ -302,15 +299,14 @@ function imageZoom(imgParentWrapperId, resultID) {
     lens.style.left = x + "px";
     lens.style.top = y + "px";
 
-    
-
     /* Display what the lens "sees": */
     result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
+	result.style.marginLeft = "auto";
 
-    console.log("x"+x);
-    console.log("cx"+cx);
-    console.log("y"+y);
-    console.log("cy"+cy);
+	if (pos.x - (lens.offsetWidth / 2) > img.width - lens.offsetWidth + 20) { result.style.marginLeft = "-10000px"; }
+    if (pos.x - (lens.offsetWidth / 2) < 0) { result.style.marginLeft = "-10000px";}
+    if (pos.y - (lens.offsetHeight / 2) > img.height - lens.offsetHeight) { result.style.marginLeft = "-10000px";}
+    if (pos.y - (lens.offsetHeight / 2) < 0) { result.style.marginLeft = "-10000px";}
 
   }
 
@@ -335,9 +331,10 @@ function imageZoom(imgParentWrapperId, resultID) {
 
 } 
 
-				imageZoom("image-slide-wrapper-270", "myresult");
+imageZoom("image-slide-wrapper-270", "image-zoom-result");
 
 			 })
+
 	</script> 
 
 
@@ -347,17 +344,13 @@ function imageZoom(imgParentWrapperId, resultID) {
 			position: absolute;
 			border: 1px solid #d4d4d4;
 			/*set the size of the lens:*/
-			width: 40px;
-			height: 40px;
-			z-index: 15;
+			width: 80px;
+			height: 80px;
+			z-index: 2;
+			background-color: blue;
+			opacity: 0.2;
 		}
 
-		.img-zoom-result {
-			border: 1px solid #d4d4d4;
-			/*set the size of the result div:*/
-			width: 300px;
-			height: 300px;
-		}
 
 	</style>
 

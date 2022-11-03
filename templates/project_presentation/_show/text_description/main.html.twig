@@ -15,7 +15,7 @@
             {% set longTextSmallScreens = false %}
             {% set longTextLargeScreens = false %}
 
-            {% if textDescription | length > 1120 %}
+            {% if textDescription | length > 830 %}
             
                 {% set longTextLargeScreens = true %}
 
@@ -144,7 +144,7 @@
                 top: 0;
                 bottom: 0;
                 margin: auto;
-                border: 1px solid brown;
+                 border: 1px solid #d4d4d4;
                 border-radius: 4px;
                 z-index: 2;
                 margin-left: -10000px; /* display result only when cursor is moving (we set margin-left : auto when appropriate in js) */
@@ -194,13 +194,23 @@
 
             .pp-text-description{
                 
-                font-size: 1.15em;
+                font-size: 1.08em;
             }
 
             #text-descr-live-edition-container.live-edit-session {
 
                 width: 100%;
                 height: 100%;
+
+            }
+
+
+
+            @media screen and (max-width: 1200px) {
+
+                #read-text-description {
+                    padding: 0px 5px;
+                }
 
             }
 

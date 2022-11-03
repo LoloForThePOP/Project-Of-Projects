@@ -108,139 +108,85 @@
 
 </style>
 
+	<script>
 
-<script>
+		var slideIndex = 1;
 
-	var slideIndex = 1;
+		function plusSlides(n) {
 
-	showSlides(slideIndex);
-
-	function plusSlides(n) {
-
-		showSlides(slideIndex += n);
-		
-	}
-
-	function currentSlide(n) {
-		showSlides(slideIndex = n);
-	}
-
-	function showSlides(n) {
-
-		var i;
-		var slides = document.getElementsByClassName("mySlides");
-		var dots = document.getElementsByClassName("SlideImageThumbnail");
-		var thumbnail = document.getElementsByClassName("thumbnail");
-		var captions = document.getElementsByClassName("caption");
-		
-		if (n > slides.length) {slideIndex = 1}
-		
-		if (n < 1) {slideIndex = slides.length}
-		
-		for (i = 0; i < slides.length; i++) {
-
-			slides[i].style.display = "none";
-
-			if(typeof(captions[i]) != 'undefined'){
-				captions[i].style.display = "none";
-			}
+			showSlides(slideIndex += n);
 			
 		}
-		
-		for (i = 0; i < dots.length; i++) {
-			dots[i].className = dots[i].className.replace(" active", "");
-			thumbnail[i].className = thumbnail[i].className.replace(" active", "");
-		}
-		
-		slides[slideIndex-1].style.display = "flex";
 
-
-		if(typeof(captions[slideIndex-1]) != 'undefined'){
-			captions[slideIndex-1].style.display = "block";
-		}
-		
-		dots[slideIndex-1].className += " active";
-		thumbnail[slideIndex-1].className += " active";
-
-		if(typeof(captionText) != 'undefined' && captionText != null){
-			captionText.innerHTML = dots[slideIndex-1].getAttribute('data-caption');
+		function currentSlide(n) {
+			showSlides(slideIndex = n);
 		}
 
-	}
-	
-	// reducing caption container height when no slide with caption (see caption flag in _thumbnail_container.html.twig)
+		function showSlides(n) {
 
-	function hasCaptions(){
+			var i;
+			var slides = document.getElementsByClassName("mySlides");
+			var dots = document.getElementsByClassName("SlideImageThumbnail");
+			var thumbnail = document.getElementsByClassName("thumbnail");
+			var captions = document.getElementsByClassName("caption");
+			
+			if (n > slides.length) {slideIndex = 1}
+			
+			if (n < 1) {slideIndex = slides.length}
+			
+			for (i = 0; i < slides.length; i++) {
 
-		var hasCaptionFlag = false;
+				slides[i].style.display = "none";
 
-		$('.caption').each(function(){
+				if(typeof(captions[i]) != 'undefined'){
+					captions[i].style.display = "none";
+				}
+				
+			}
+			
+			for (i = 0; i < dots.length; i++) {
+				dots[i].className = dots[i].className.replace(" active", "");
+				thumbnail[i].className = thumbnail[i].className.replace(" active", "");
+			}
+			
+			slides[slideIndex-1].style.display = "flex";
 
-			if($.trim($(this).text()) !== ''){
-				hasCaptionFlag = true; 
+			killImageZoom(); //deleting previous lens
+			imageZoom("image-slide-wrapper-"+slides[slideIndex-1].id, "image-zoom-result");
+
+
+			if(typeof(captions[slideIndex-1]) != 'undefined'){
+				captions[slideIndex-1].style.display = "block";
+			}
+			
+			dots[slideIndex-1].className += " active";
+			thumbnail[slideIndex-1].className += " active";
+
+			if(typeof(captionText) != 'undefined' && captionText != null){
+				captionText.innerHTML = dots[slideIndex-1].getAttribute('data-caption');
 			}
 
-		});
-
-		if (!hasCaptionFlag) {
-
-			$('.caption-container').addClass('no-caption')
-
-		}else{
-
-			$('.caption-container').removeClass('no-caption');
 
 		}
 
-	}
-
-	
-	// remove thumbnails container when only one slide is displayed
-
-
-	if ($('.mySlides').length == 1) {
-
-		$('#slides').addClass('only-one-slide');
-
-	} 
-
-
-</script>
-
-{# displaying appropriate image or video slide when hovering its thumbnail (a mess if more than 4 slides ) #}
-
-	<script>
-
-		mouseoverThumbnail(); //if($( ".thumbnail" ).length < 5) {}
-
-		function mouseoverThumbnail() {
-		
-			$( ".thumbnail" ).mouseover(function() {
-
-				currentSlide($(this).data("loop-index"));
-				
-			});
-
-		}
-
-		hasCaptions();
-
-		
-
-	</script>
-
-	<script>
 		
 		$(document).ready(function(){
 
-			// thanks at https://www.w3schools.com/howto/howto_js_image_zoom.asp
-			function imageZoom(imgParentWrapperId, resultID) {
+			showSlides(slideIndex);
+		
+		});
 
-			var img, lens, result, cx, cy;
+</script>
+
+	<script>
+
+		// thanks at https://www.w3schools.com/howto/howto_js_image_zoom.asp
+		function imageZoom(imgParentWrapperId, resultID) {
+
+			var img, lens, result, cx, cy, timeout;
 			img = document.getElementById(imgParentWrapperId).getElementsByTagName('img')[0];
 
 			result = document.getElementById(resultID);
-
 
 			/* Create lens: */
 			lens = document.createElement("DIV");
@@ -259,12 +205,16 @@
 
 			/* Execute a function when someone moves the cursor over the image, or the lens: */
 			lens.addEventListener("mousemove", moveLens);
-			img.addEventListener("mousemove", moveLens);			
-
+			img.addEventListener("mousemove", moveLens);
+			
+			lens.addEventListener("mouseout", closeZoom);
 
 			/* And also for touch screens: */
 			lens.addEventListener("touchmove", moveLens);
 			img.addEventListener("touchmove", moveLens);
+
+
+			lens.style.opacity="0";
 
 
 			function moveLens(e) {
@@ -273,6 +223,9 @@
 
 				/* Prevent any other actions that may occur when moving over the image */
 				e.preventDefault();
+
+				/* MAke lens appears */
+				lens.style.opacity="0.2";
 
 				/* Get the cursor's x and y positions: */
 				pos = getCursorPos(e);
@@ -293,9 +246,17 @@
 
 				/* Display what the lens "sees": */
 				result.style.backgroundPosition = "-" + (x * cx) + "px -" + (y * cy) + "px";
-
-				result.style.marginLeft = "auto";
 				
+				result.style.marginLeft = "auto";
+
+			}
+
+			function closeZoom(e) {
+
+				/* Prevent any other actions that may occur when moving out the image */
+				e.preventDefault();
+
+				result.style.marginLeft = "-10000px";
 
 			}
 
@@ -318,13 +279,80 @@
 
 			}
 
-			} 
+		}
 
-			imageZoom("image-slide-wrapper-270", "image-zoom-result");
 
-		})
+		function killImageZoom(){
+			const elements = document.getElementsByClassName("img-zoom-lens");
+			while(elements.length > 0){
+				elements[0].parentNode.removeChild(elements[0]);
+			}
+		}
+	
+	</script>
 
-	</script> 
+	<script>
+		
+		// reducing caption container height when no slide with caption (see caption flag in _thumbnail_container.html.twig)
+
+		function hasCaptions(){
+
+			var hasCaptionFlag = false;
+
+			$('.caption').each(function(){
+
+				if($.trim($(this).text()) !== ''){
+					hasCaptionFlag = true; 
+				}
+
+			});
+
+			if (!hasCaptionFlag) {
+
+				$('.caption-container').addClass('no-caption')
+
+			}else{
+
+				$('.caption-container').removeClass('no-caption');
+
+			}
+
+		}
+
+		
+		// remove thumbnails container when only one slide is displayed
+
+
+		if ($('.mySlides').length == 1) {
+
+			$('#slides').addClass('only-one-slide');
+
+		} 
+
+
+	</script>
+
+	{# displaying appropriate image or video slide when hovering its thumbnail (a mess if more than 4 slides ) #}
+
+	<script>
+
+		mouseoverThumbnail(); //if($( ".thumbnail" ).length < 5) {}
+
+		function mouseoverThumbnail() {
+		
+			$( ".thumbnail" ).mouseover(function() {
+
+				currentSlide($(this).data("loop-index"));
+				
+			});
+
+		}
+
+		hasCaptions();
+
+		
+
+	</script>
 
 
 	<style>
@@ -337,10 +365,9 @@
 			height: 80px;
 			z-index: 2;
 			background-color: blue;
-			opacity: 0.2;
+			opacity: 0; /* Make lens invisible at initialisation */
 			border-radius: 8px;
 		}
-
 
 	</style>
 

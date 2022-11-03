@@ -49,8 +49,6 @@
 }
 
 
-
-
 /* Delete Item Buttons */
 
 .delete-button {
@@ -187,6 +185,19 @@
 .questionRow  > *, .misc-data-card > *, .place-card > * {
     cursor: auto;
 }
+
+
+/* Zoom images is not seen in edition mode */
+
+.in-edition-mode .img-zoom-lens{
+    opacity: 0 !important;
+}
+
+.in-edition-mode .image-zoom-result{
+    opacity: 0;
+}
+
+
 
 
 /* Some Forms Styling */

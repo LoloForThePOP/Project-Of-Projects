@@ -151,8 +151,13 @@
 			
 			slides[slideIndex-1].style.display = "flex";
 
-			killImageZoom(); //deleting previous lens
-			imageZoom("image-slide-wrapper-"+slides[slideIndex-1].id, "image-zoom-result");
+			if(!tinyScreen){
+
+				killImageZoom(); //deleting previous lens
+				imageZoom("image-slide-wrapper-"+slides[slideIndex-1].id, "image-zoom-result");
+			}
+
+			
 
 
 			if(typeof(captions[slideIndex-1]) != 'undefined'){
@@ -217,9 +222,9 @@
 				
 				lens.addEventListener("mouseout", closeZoom);
 
-				/* And also for touch screens: */
+				/* And also for touch screens:
 				lens.addEventListener("touchmove", moveLens);
-				img.addEventListener("touchmove", moveLens);
+				img.addEventListener("touchmove", moveLens); */
 
 
 				lens.style.opacity="0";

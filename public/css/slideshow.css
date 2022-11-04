@@ -221,8 +221,14 @@
     }
 
     .mySlides, .image-slide-wrapper {
-        
+
+        display: flex;        
         height: 190px;
+    }
+
+    .image-slide-wrapper > img {
+      
+        max-height: 190px;
     }
 
     /* Next & previous buttons */

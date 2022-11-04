@@ -15,7 +15,7 @@
             {% set longTextSmallScreens = false %}
             {% set longTextLargeScreens = false %}
 
-            {% if textDescription | length > 720 %}
+            {% if textDescription | length > 880 %}
             
                 {% set longTextLargeScreens = true %}
 
@@ -178,20 +178,27 @@
                 margin-top: 13px;
             }
 
-            .long-text #collapseTextDescription.collapse:not(.show) {
+            .long-text #collapseTextDescription.collapse-lg:not(.show) {
                 
                 display: block;
                 max-height: 25em; /* height = lineheight * no of lines to display */
                 overflow: hidden;
 
-            }   
+            }
+
+            #collapseTextDescription:not(.collapse-lg) {
+
+                display: initial;
+                overflow: auto;
+                height: 100%;
+
+            }
             
             #read-text-description .collapse:not(.collapse-lg){ /* when text is entirely displayed on large screens but not on small screens */
 
                 display: block;
 
-            }
-            
+            }            
 
             .pp-text-description{
                 
@@ -244,6 +251,8 @@
 
                 .long-text #collapseTextDescription.collapse:not(.show), .long-text #collapseTextDescription.collapse-sm:not(.show) {
 
+                    display: block;
+                    overflow: hidden;
                     height: 4.4em;
 
                 }

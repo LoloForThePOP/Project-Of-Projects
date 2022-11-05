@@ -15,7 +15,7 @@
             {% set longTextSmallScreens = false %}
             {% set longTextLargeScreens = false %}
 
-            {% if textDescription | length > 880 %}
+            {% if textDescription | length > 780 %}
             
                 {% set longTextLargeScreens = true %}
 
@@ -135,20 +135,6 @@
                 padding: 20px 0;
             }
 
-            .img-zoom-result {
-                max-width: 400px;
-                max-height: 400px;
-                position: absolute;
-                left: 0;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                margin: auto;
-                border: 1px solid #d4d4d4;
-                border-radius: 4px;
-                z-index: 2;
-                margin-left: -10000px; /* display result only when cursor is moving (we set margin-left : auto when appropriate in js) */
-            }
 
 
             #text_description .remove-margin-bottom{

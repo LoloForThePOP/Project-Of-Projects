@@ -487,7 +487,6 @@
 
     </div> 
 
-
     {# Add a Presentation Structure Buttons (Placeholders or Other Buttons in a Modal Box) #}
 
     {% if userPresenter %}
@@ -627,19 +626,6 @@
         
     {% endif %}
 
-    {# Notification "Your presentation url is randomized for now "
-
-    {% if userPresenter and not validatedStringId and overallQualityAssessment < 2 %}
-
-        <div class="pp-edition-mode">
-        
-            {% include 'project_presentation/_show/_notifications/random_url_for_now.html.twig' %}
-        
-        </div>
-
-    {% endif %} #}
-
-
     {# Other Project Presentation to Consult Suggestions #}
 
     {% if not userPresenter %}
@@ -685,6 +671,75 @@
 		<p class="text-center">Ajouter votre projet et partagez votre adresse personalisée gratuite 👉 <a href="{{path('create_presentation')}}">C'est ici.</a></p>
 	
 	{% endif %}
+
+
+    {# Create a Project Form CTA #}
+
+    {% set odd2 = [0, 0, 0, 1] %}
+    
+    {% if not app.user and random (odd2) == 1 %}
+
+        <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-4 mb-4">
+
+            <div class="col-12 col-md-8 mx-auto">
+            
+                {{form_start(createPresentationFormCTA)}}
+
+                <div class="createPresentationFormCTATitle fw-bold mb-3">💡 Et vous, quel est l'objectif de votre projet ?</div>
+                                    
+                {{ form_errors(createPresentationFormCTA.goal) }}
+                    
+                    {{form_widget(createPresentationFormCTA.goal)}}
+
+                    <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+                {{ form_end(createPresentationFormCTA) }}
+
+            
+            </div>
+
+            <style>
+
+                .createPresentationFormCTATitle{
+                    font-size: 22px;
+                }
+
+                #create_presentation_goal{
+                display: inline;
+                width: 70%;
+                height: 47px;
+                margin-right: 20px;
+                }
+
+                .create-presentation-button{
+                margin-bottom: 4px;
+                }
+
+                        
+                @media screen and (max-width: 580px) {
+
+                    .createPresentationFormCTATitle{
+                        font-size: 16px;
+                    }
+
+                    #create_presentation_goal{
+                        width: 68%;
+                        margin-right: 5px;
+                    }
+
+                        
+                    .create-presentation-button{
+                        padding: 8px 9px;
+                        margin-bottom: 4px;
+                    }
+
+                }
+            
+            </style>
+
+        </div>
+
+    {% endif %}
 
 
 

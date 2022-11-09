@@ -127,7 +127,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, Slug $slug, UserPasswordHasherInterface $encoder)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality,UserPasswordHasherInterface $encoder, MailerService $mailer)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
@@ -532,10 +532,54 @@ class PPController extends AbstractController
 
         }
 
+        // create a presentation form CTA 
+
+         /* Create a Presentation Form */
+
+         $newPresentation = new PPBase();
+
+         $createPresentationFormCTA = $this->createForm(
+             CreatePresentationType::class,
+             $newPresentation,
+             array(
+ 
+                 // Time protection
+                 'antispam_time'     => true,
+                 'antispam_time_min' => 3,
+                 'antispam_time_max' => 3600,
+             )
+         );
+ 
+         $createPresentationFormCTA->handleRequest($request);
+ 
+         if ($createPresentationFormCTA->isSubmitted() && $createPresentationFormCTA->isValid()) {
+ 
+            $projectGoal = $createPresentationFormCTA->getData('goal');
+             
+            /* Email Webmaster that a new presentation has been created (moderation) */
+ 
+             $sender = $this->getParameter('app.mailer_email');
+             $receiver = $this->getParameter('app.general_contact_email');
+ 
+             $emailParameters=[
+ 
+                "goal" => $projectGoal,
+                 
+             ];
+ 
+            $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'Project Goal : '.$projectGoal);
+ 
+            return $this->redirectToRoute('edit_presentation_as_guest_user', [
+                'goal' => $projectGoal,
+            ]);
+ 
+        }
+
         return $this->render('/project_presentation/show.html.twig', [
             'presentation' => $presentation,
             'stringId' => $presentation->getStringId(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
+            'createPresentationFormCTA' => $createPresentationFormCTA->createView(),
             
         ]);
 

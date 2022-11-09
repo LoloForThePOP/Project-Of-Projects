@@ -9,19 +9,47 @@
 
   </div>
 
+  <!-- Modal -->
+<div class="modal fade" id="typeProjectGoalModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      
+      <div class="modal-body text-center">
+       
+        {{form_start(form)}}
+
+          <div class="fw-bold fs-2 mb-2">⏱️ Prêt à battre un record de vitesse ?</div>
+
+          <div class="mb-3">{{form_label(form.goal)}}</div>
+                            
+          {{ form_errors(form.goal) }}
+              
+            {{form_widget(form.goal)}}
+
+            <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+        {{ form_end(form) }}
+
+      </div>
+     
+    </div>
+  </div>
+</div>
+
+
   <div class="row inner-jumbo">
 
     {# Left Column : an image #}
   
     <div class="img-ctn col-12 d-flex flex-column align-items-center justify-content-center position-relative ">
     
-      <img class="d-none d-md-block" src="{{asset('misc/edit_3p_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
+      <img class="d-none d-md-block" src="{{asset('misc/edit_3p_demo.gif', 'larger')}}" data-bs-toggle="modal" data-bs-target="#typeProjectGoalModal" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
 
       <div class="d-none d-md-block position-absolute" style="width: 50%; right:7%; top: 27%"><h3>Utilisez les <b class="text-success">emplacements prévus</b> et les <b class="text-success">sauvegardes automatiques</b> ✔️</h3></div>
 
       <div class="d-md-none" style="margin-bottom: 20px; text-align: center; font-size: 17px !important;">Utilisez les  emplacements prévus et les sauvegardes automatiques 👇</div>
 
-      <img class="d-md-none" src="{{asset('misc/sm_use_website_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
+      <img class="d-md-none" src="{{asset('misc/sm_use_website_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." data-bs-toggle="modal" data-bs-target="#typeProjectGoalModal" loading="lazy">
 
     </div>
 

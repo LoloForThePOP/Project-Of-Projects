@@ -41,9 +41,7 @@
       lens.addEventListener("touchmove", moveLens);
       img.addEventListener("touchmove", moveLens); */
 
-
       lens.style.opacity="0";
-
     
     }
 

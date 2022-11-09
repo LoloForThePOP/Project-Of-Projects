@@ -17,10 +17,21 @@
 
   <style>
 
-    @media screen and (max-width: 820px){}
+
+    .fs-2{
+      font-size: 23px !important;
+    }
+
+    @media screen and (max-width: 820px){
+
       .page-container {
         padding-top: 39px;
       }
+
+      .fs-2{
+        font-size: 18px !important;
+      }
+
     }
   
   </style>
@@ -350,11 +361,14 @@
       {{ render(path('backend_search', {label: '📗📘 Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)'})) }}
 
     {% endcache %}
+
+
+    {% set createPresentationFormModal = form.createView %}
     
    
     {# Summarize diagonal jumbotron #}
 
-    {% include "home/_diag_jumbotron_5.html.twig" %}
+    {% include "home/_diag_jumbotron_5.html.twig" with {'form': createPresentationFormModal} %}
 
     
     {# Highlight a random project

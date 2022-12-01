@@ -18,9 +18,9 @@
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
   
 
-  {# Note : Google Map js Inclusion for Geosearch and google Places Usage is done in base.html.twig template #}
+  {# Note : Google Map js Inclusion for Geosearch and Google Places Usage is done in base.html.twig template #}
 
-  {# Allow to create infobox on a google map #}
+  {# Allow to create infobox on a google map - configured in algolia_search_default.js #}
 
   <script src="/js/infobox.js"></script>
 
@@ -42,15 +42,19 @@
 
   {# Algolia Search Experience Template #}
 
-  <div class="search-experience-container ais-InstantSearch mt-3 mb-5" >
+  <div class="search-experience-container ais-InstantSearch mt-3 mt-md-4 mb-5" >
 
     <div class="left-panel">
-            
-      <button type="button" class="js-close-search-experience d-none d-md-block btn btn-primary mt-md-3">Fermer la recherche</button>
+
+      <div class="">
+      
+        <button type="button" class="js-close-search-experience d-none d-md-inline btn btn-primary mt-md-3 w-90">❌ Fermer la recherche</button>  
+
+      </div>
 
       {# Hide left Panel Button (Small Screens Only) #}
 
-      <div class="d-flex d-md-none justify-content-center mt-3">
+      <div class="d-flex d-md-none mt-3">
 
         <div class="js-hide-left-panel hide-left-panel-button">
 
@@ -95,9 +99,9 @@
 
       <div class="d-none d-md-block">
           
-        <button id="" type="button" class="js-toggle-geosearch-map js-hide-geosearch-map btn btn-primary">Masquer la carte</button>
+        <button id="" type="button" class="js-toggle-geosearch-map js-hide-geosearch-map btn btn-primary w-90">❌ Masquer la carte</button>
 
-        <button id="" type="button" class="js-toggle-geosearch-map js-show-geosearch-map btn btn-primary">Afficher la carte</button>
+        <button id="" type="button" class="js-toggle-geosearch-map js-show-geosearch-map btn btn-primary w-90">🌍 Afficher la carte</button>
 
       </div>
 
@@ -116,11 +120,11 @@
 
       <div class="d-inline-block d-md-none mb-3">
 
-        <span id="" class="js-toggle-geosearch-map js-hide-geosearch-map text-primary fs-6 me-3">Masquer la carte</span>
+        <span id="" class="js-toggle-geosearch-map js-hide-geosearch-map text-primary fs-6 me-3">❌ Masquer la carte</span>
 
-        <span id="" class="js-toggle-geosearch-map js-show-geosearch-map text-primary me-3">Afficher sur la carte</span>     
+        <span id="" class="js-toggle-geosearch-map js-show-geosearch-map text-primary me-3">🌍 Afficher sur la carte</span>     
 
-        <span id=""  class="js-filter-geosearch-map text-primary">Filtrer</span>     
+        <span id=""  class="js-filter-geosearch-map text-primary">✨ Filtrer</span>     
 
       </div>
 

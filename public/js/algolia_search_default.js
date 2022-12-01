@@ -171,7 +171,7 @@ $(document).ready(function(){
 
           click: function(e) {
 
-            console.log(e.item);
+            //console.log(e.item);
 
             content = '<a class="link-wrapper" href="https://www.propon.org/'+e.item.stringId+'" data-id="'+e.item.id+'" target="_blank"><div>';
 
@@ -211,7 +211,7 @@ $(document).ready(function(){
             
             content += textContent+'</div></a>'; 
 
-            o.getMap() && o.close(), o.setContent(content), o.open(e.map, e.marker)
+            o.getMap() && o.close(), o.setContent(content), o.open(e.map, e.marker) // from infobox.js
 
           },
 

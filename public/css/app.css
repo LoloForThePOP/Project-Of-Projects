@@ -52,6 +52,10 @@ a{
     line-height: 1.6;
 }
 
+.w-90{
+    width: 90% !important;
+}
+
 @media screen and (max-width: 580px) {
 
     .modal-title {

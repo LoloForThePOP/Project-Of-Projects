@@ -33,7 +33,7 @@
 }
 
 .ais-Hits-item {
-  margin-bottom: 1em;
+  margin-bottom: 0.4em;
   width: calc(50% - 1rem);
 }
 
@@ -92,6 +92,71 @@
   font-size: 28px;
   margin-top : 17px;
   margin-bottom : 16px;
+
+}
+
+
+/* Info Box allows to Display Specific Info over markers on a Google Map  */
+
+a.link-wrapper {
+	display: inline-block;
+	width: 100%;
+  margin-top: -12px;
+}
+
+.infoBox{
+  width: 286px;
+  padding: 17px 7px;
+  border: 1px solid rgb(162, 162, 255);
+  font-size: 15px;
+  background-color: white;
+  border-radius: 6px;
+}
+
+.infoBox a div{
+  display: flex;
+  flex-direction: column;
+}
+
+.infoBox a div .img-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.infoBox a div .img-container img{
+  max-width: 110px;
+  max-height: 110px;
+  border-radius: 3px;
+}
+
+.infoBox a .avatar-square-rounded{ /* when no thumbnail available */
+  margin-bottom: 10px;
+}
+
+.infoBox a div .text-container{
+  text-align: center;
+  padding-left: 15px;
+  color: black;
+}
+
+.infoBox .avatar-80{
+  width: 60px;
+  height: 60px;
+}
+
+.infoBox .avatar-initial-80 {
+  top: 15px;
+  left: 15px;
+}
+
+
+.gm-style img[title=" Close "] { /* Close popover button */
+
+	width: 24px;
+  height: 24px; 
+  margin-top: -4px !important;
 
 }
 
@@ -225,52 +290,6 @@
 
 }
 
-/* Info Box allows to Display Specific Info over markers on a Google Map  */
-
-.infoBox{
-  width: 286px;
-  padding: 17px 7px;
-  border: 1px solid rgb(162, 162, 255);
-  font-size: 15px;
-  background-color: white;
-  border-radius: 3px;
-}
-
-.infoBox a div{
-  display: flex;
-  flex-direction: column;
-}
-
-.infoBox a div .img-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.infoBox a div .img-container img{
-  max-width: 110px;
-  max-height: 110px;
-  border-radius: 3px;
-}
-
-.infoBox a .avatar-square-rounded{ /* when no thumbnail available */
-  margin-bottom: 10px;
-}
-
-.infoBox a div .text-container{
-  padding-left: 15px;
-}
-
-.infoBox .avatar-80{
-  width: 60px;
-  height: 60px;
-}
-
-.infoBox .avatar-initial-80 {
-  top: 15px;
-  left: 15px;
-}
 
 .ais-GeoSearch-control {
   display: none;

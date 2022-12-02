@@ -37,7 +37,7 @@ cd project-of-projects
 composer install
 
 #### 4- Configure your database access: in the .env file:
-Example for mysql: go to this line: DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+Example for mysql: go to this line: DATABASE_URL=mysql://your_db_username:your_db_password@127.0.0.1:3306/choose_a_db_name
 
 Then replace it like this (adapt to your own): DATABASE_URL=mysql://root:@127.0.0.1:3306/projectofprojects
 
@@ -55,9 +55,9 @@ php bin/console doctrine:fixtures:load --no-interaction
 
 #### 8- Enable or Disable Algolia Search Engine
 
-The website uses Algolia which is a powerfull search engine that can be easily integrated in websites. If you want to use it like me you need to register to Algolia website in order to get Algolia credentials (then insert them in your .env.local file) (there is a free plan).
+The website uses Algolia which is a powerfull search engine that can be easily integrated in websites. If you want to use it as it is implemented by default, you need to register to Algolia website (https://www.algolia.com/) in order to get Algolia credentials (then insert these credentials in your .env.local file) (there is a free plan).
 
-If you do not want to use Algolia and avoid errors, at least go to file algolia_search.yaml and unsubsribe to automatic Algolia calls : 
+If you do not want to use Algolia and avoid errors, go to file algolia_search.yaml and unsubsribe to automatic Algolia calls : 
 
 algolia_search:
     doctrineSubscribedEvents: []

@@ -121,18 +121,6 @@
             <h1 class="text-center fw-bold mb-5">⏱️ Et Maintenant ?</h1>
 
             <ul class="horizontal-list">
-            
-                <a href="{{ path ('create_presentation') }}">
-                    
-                    <li class="now-action-item">
-
-                        <img class="cta-item-img" src="{{ asset('add_presentation.svg', 'misc')}}" height="34"  alt="bucket with a plus icon">
-
-                        <div class="cta-item-text">Présenter un Projet</div>
-
-                    </li>
-                
-                </a>
 
                 {# Use search engine to find a project #}
 
@@ -158,6 +146,18 @@
                         });
 
                 </script>
+            
+                <a href="{{ path ('create_presentation') }}">
+                    
+                    <li class="now-action-item">
+
+                        <img class="cta-item-img" src="{{ asset('add_presentation.svg', 'misc')}}" height="34"  alt="bucket with a plus icon">
+
+                        <div class="cta-item-text">Déposer une annonce gratuitement</div>
+
+                    </li>
+                
+                </a>
 
                 <a href="{{ asset('pdf/project-of-projects-manifesto-fr.pdf', 'static')}}" target="_blank" rel="noopener noreferrer">
 

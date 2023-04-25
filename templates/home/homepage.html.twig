@@ -191,7 +191,7 @@
 
 
     {# Create a presentation form #}
-
+{# 
     {% set createPresentationForm = form.createView %}
 
     <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-5 mt-md-4 mb-4">
@@ -246,7 +246,7 @@
       
       </style>
 
-    </div>
+    </div> #}
 
 
     {# Highlight a random project
@@ -266,9 +266,9 @@
 
     {% endcache %}
     
-    {# Summarize diagonal jumbotron #}
+    {# Summarize diagonal jumbotron
 
-    {% include "home/_diag_jumbotron_2.html.twig" %}
+    {% include "home/_diag_jumbotron_2.html.twig" %} #}
     
     {# Highlight a random project
 
@@ -278,7 +278,7 @@
       
     </div> #}
 
-    <div class="dont-waste-time border p-3 mb-5"><p class="mb-0">⌚ Ne perdez pas votre temps ni celui des autres : résumez votre projet et partagez son adresse personalisée gratuite.</p></div>
+   {#  <div class="dont-waste-time border p-3 mb-5"><p class="mb-0">⌚ Ne perdez pas votre temps ni celui des autres : résumez votre projet et partagez son adresse personalisée gratuite.</p></div> #}
 
 
     <style>
@@ -307,7 +307,7 @@
     
     {# Business card diagonal jumbotron #}
 
-    {% include "home/_diag_jumbotron_3.html.twig" %}
+    {# {% include "home/_diag_jumbotron_3.html.twig" %} #}
 
     {# some presentations by category #}
     {% cache "cat35" ttl(72000) %}
@@ -321,7 +321,7 @@
 
     {# Create a presentation form #}
 
-    {% set createPresentationForm2 = form.createView %}
+    {# {% set createPresentationForm2 = form.createView %}
 
     <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-5 mt-md-4 mb-4">
 
@@ -344,7 +344,7 @@
       
       </div>
 
-    </div>
+    </div> #}
 
 
 
@@ -371,8 +371,8 @@
    
     {# Summarize diagonal jumbotron #}
 
-    {% include "home/_diag_jumbotron_5.html.twig" with {'form': createPresentationFormModal} %}
-
+{#     {% include "home/_diag_jumbotron_5.html.twig" with {'form': createPresentationFormModal} %}
+ #}
     
     {# Highlight a random project
 
@@ -385,7 +385,7 @@
     
     {# Create a presentation form #}
 
-    {% set createPresentationForm3 = form.createView %}
+  {#   {% set createPresentationForm3 = form.createView %}
 
     <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-5 mt-md-4 mb-4">
 
@@ -408,14 +408,14 @@
       
       </div>
 
-    </div>
+    </div> #}
 
 
 
     {# Styled container to Access Geosearch #}
 
-    {% include "home/_access_geosearch_jumbotron.html.twig" %}
-
+{#     {% include "home/_access_geosearch_jumbotron.html.twig" %}
+ #}
     {# some presentations by category #}
 
     {% cache "cat4" ttl(72000) %}
@@ -427,10 +427,10 @@
     
     {# Presentation helper diagonal jumbotron #}
 
-    {% include "home/_diag_jumbotron_4.html.twig" %}
-
+{#     {% include "home/_diag_jumbotron_4.html.twig" %}
+ #}
     {# Quote on mobiles #}
-    
+    {# 
     <div class="projects-change-the-world border mb-5 text-center fw-bold ">
     
     
@@ -455,7 +455,7 @@
       </div>
     
     </div>
-
+ #}
     
     <style>
       
@@ -492,16 +492,16 @@
 
     {# Highlight a random project #} 
 
-    {{ highlight.highlight (highlightedProjects[0]) }}
+{#     {{ highlight.highlight (highlightedProjects[0]) }}
+ #}
 
-
-    {# some presentations by category #}
+    {# some presentations by category
 
     {% cache "cat6" ttl(72000) %}
       
       {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)'})) }}
 
-    {% endcache %}
+    {% endcache %} #}
     
     
 
@@ -509,17 +509,17 @@
     {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
     
     
-    {# > md screens : Search Bar container #}
+    {# > md screens : Search Bar container
 
     <div class="container col-xxl-11 mb-3">
       
       {% include "home/_search_container.html.twig" %}
 
-    </div>
+    </div> #}
 
-    <div class="quote container col-lg-8 rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
+   {#  <div class="quote container col-lg-8 rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">#}
 
-        <div class="d-flex align-items-center ">
+      {#   <div class="d-flex align-items-center ">
           
           <div class="img-col col-3">
 
@@ -533,7 +533,7 @@
         
           </div>
       
-        </div>
+        </div> #}
 
         <style>
             
@@ -563,7 +563,7 @@
         
             
         {# Create a presentation form #}
-
+{# 
         {% set createPresentationForm5 = form.createView %}
 
         <div class="mt-4 pb-4">
@@ -585,16 +585,16 @@
           
           </div>
                 
-        </div>
+        </div> #}
 
-    </div>
+{#     </div> 
+ #}
 
-
-    {# last project presentation #}
+    {# last project presentation 
       
-    {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
+    {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}#}
 
-    <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
+   {#  <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
     
       <div class="img-col col-3">
 
@@ -608,7 +608,7 @@
       
       </div>
     
-    </div>
+    </div> #}
 
 
     {# Last call to action : Add a Project button #}

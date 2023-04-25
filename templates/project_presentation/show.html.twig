@@ -664,11 +664,11 @@
 
     {% endif %}
 
-    {% set odd = [0, 0, 0, 0, 0, 0, 0, 1] %}
+    {% set odd = [1] %}
 
 	{% if  random (odd) == 1 and not app.user  %}
 
-		<p class="text-center">Ajouter votre projet et partagez votre adresse personalisée gratuite 👉 <a href="{{path('create_presentation')}}">C'est ici.</a></p>
+		<p class="text-center container col-md-6">Déposer votre annonce pour créer une équipe, trouvez de l'aide ou des associés 👉 <a href="{{path('create_presentation')}}">c'est ici.</a> Vous n'avez pas encore de logo ou de réseaux sociaux ? Déposez votre annonce pour trouver des participants !</p>
 	
 	{% endif %}
 

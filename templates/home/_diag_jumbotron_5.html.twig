@@ -39,20 +39,27 @@
 
   <div class="row inner-jumbo">
 
-    {# Left Column : an image #}
-  
-    <div class="img-ctn col-12 d-flex flex-column align-items-center justify-content-center position-relative ">
+    <a href="{{ path ('create_presentation') }}">
+
+      {# Left Column : an image #}
     
-      <img class="d-none d-md-block" src="{{asset('misc/edit_3p_demo.gif', 'larger')}}" data-bs-toggle="modal" data-bs-target="#typeProjectGoalModal" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
+      <div class="img-ctn col-12 d-flex flex-column align-items-center justify-content-center position-relative ">
+      
+        <img class="d-none d-md-block" src="{{asset('misc/edit_3p_demo.gif', 'larger')}}" data-bs-toggle="modal" data-bs-target="#typeProjectGoalModal" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." loading="lazy">
 
-      <div class="d-none d-md-block position-absolute" style="width: 50%; right:7%; top: 27%"><h3>Utilisez les <b class="text-success">emplacements prévus</b> ✔️</h3></div>
+        <div class="d-none d-md-block position-absolute" style="width: 50%; right:7%; top: 27%"><h3>Utilisez les <b class="text-success">emplacements prévus</b> ✔️</h3></div>
 
-      <div class="d-md-none" style="margin-bottom: 20px; text-align: center; font-size: 17px !important;">Utilisez les  emplacements prévus ✔️</div>
+        <div class="d-none d-md-block position-absolute" style="width: 50%; right:7%; top: 47%"><h3>Sauvegardes <b class="text-success">Automatiques</b> ✔️</h3></div>
 
-      <img class="d-md-none" src="{{asset('misc/sm_use_website_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." data-bs-toggle="modal" data-bs-target="#typeProjectGoalModal" loading="lazy">
+        <div class="d-md-none" style="text-align: center; font-size: 17px !important;">Utilisez les  emplacements prévus ✔️</div>
 
-    </div>
+        <div class="d-md-none" style="margin-bottom: 20px; text-align: center; font-size: 17px !important;">Sauvegardes automatiques ✔️</div>
 
+        <img class="d-md-none" src="{{asset('misc/sm_use_website_demo.gif', 'larger')}}" alt="Une démonstration de modification du titre du projet et de l'objectif du projet." data-bs-toggle="modal" data-bs-target="#typeProjectGoalModal" loading="lazy">
+
+      </div>
+
+    </a>
 
   </div>
 

@@ -10,11 +10,11 @@
 
     {% block text %}
 
-        <h1 class="jumbotron-title display-5 lh-1 mb-lg-4 text-center">Faites décoller votre PROJET 🚀</h1>
+        <h1 class="jumbotron-title display-5 lh-1 mb-lg-4 text-center">L'Encyclopédie des Projets 🚀</h1>
 
-        <p class="text-center text-md-start lead"><b>Pour créer une équipe, trouver un associé, ou trouver des participants, déposez votre petite annonce 100% gratuite (visible par tous sans inscription ni commission 👍). Vous n'avez pas encore de logo ? Cela n'est pas nécessaire pour commencer.</b>
+        <p class="text-center text-md-start lead"><b>Propon est une initiative gratuite visant à répertorier les projets pour la réussite de tous. Présentez votre projet et rendez-le plus visible grâce à notre outil simple, rapide, et <u>100% gratuit</u> à utiliser</b>. 
 
-        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center justify-content-md-start pt-3">
+        <div class="d-flex flex-column flex-md-row justify-content-center align-items-center pt-3">
 
             <a href="{{path('create_presentation')}}">
 
@@ -22,11 +22,12 @@
         
                   <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
                   
-                  <span class="fw-bold ps-2">Déposer une Annonce</span>
+                  <span class="fw-bold ps-2">Présenter un projet</span>
               
                 </button>
         
               </a>
+
 
               <a class="" href="{{path('static', {'page_name': "short_manifesto",})}}">
   
@@ -42,42 +43,29 @@
         </div>
 
         <style>
-
             .jumbotron-title{
-
                 font-size: 34px;
                 
             }
-
             .jbtr-cta-btn{
-
                 min-width: 202px;
                 border-color: rgb(216, 216, 201);
                 
             }
-
             .jbtr-cta-btn:hover{
-
                 background-color: rgb(245, 255, 243);
-
             }
             
             @media screen and (max-width: 580px) {
-
                 .jumbotron-title{
-
                     font-size: 24px;
                     
                 }
-
                 .jbtr-cta-btn{
-
                     min-width: 230px;
                     
                 }
-
             }
-
         </style>
 
     

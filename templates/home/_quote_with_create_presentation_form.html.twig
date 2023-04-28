@@ -1,0 +1,65 @@
+  <div class="quote container col-lg-8 rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
+
+        <div class="d-flex align-items-center ">
+          
+          <div class="img-col col-3">
+
+            <img class="img-fluid" src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-quotes/bulb.webp">
+          
+          </div>
+
+          <div class="text-col col-9 col-md-8 text-center">
+          
+            Chacun a un projet à défendre. <br><span class="text-primary">Chacun a un projet à réaliser</span>.
+        
+          </div>
+      
+        </div>
+
+        <style>
+            
+          .quote img{
+            max-height: 145px;
+          }
+          .quote .text-col{
+            font-size: calc(1.325rem + 0.9vw);
+          }
+          @media screen and (max-width: 580px) {
+            
+            .quote .text-col {
+              font-size: calc(0.9rem + 0.3vw);
+            }
+          }
+        
+        </style>
+
+        <hr class="w-75 mt-4 mt-lg-5 mx-auto">
+
+        
+            
+        {# Create a presentation form #}
+
+        {% set createPresentationForm5 = form.createView %}
+
+        <div class="mt-4 pb-4">
+
+          <div class="col-12 col-md-8 mx-auto">
+          
+              {{form_start(createPresentationForm5)}}
+
+              <div class="fs-5 mb-3">Et vous, quel est votre projet ?</div>
+                                
+                {{ form_errors(createPresentationForm5.goal) }}
+                  
+                {{form_widget(createPresentationForm5.goal)}}
+
+                <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
+
+              {{ form_end(createPresentationForm5) }}
+
+          
+          </div>
+                
+        </div>
+
+    </div>

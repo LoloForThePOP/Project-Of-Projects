@@ -33,7 +33,7 @@ class MailerService {
 
         if (substr($content, -4) == 'twig') {//$content is a twig template address
 
-            $email = (new templatedEmail());
+            $email = new templatedEmail();
 
             $templatedInstance = true;
              
@@ -41,7 +41,7 @@ class MailerService {
 
         else{//$content is an html string
 
-            $email = (new Email());
+            $email = new Email();
 
         }
 
@@ -57,7 +57,7 @@ class MailerService {
 
             if ($emailParameters) {
 
-                $email-> context($emailParameters);
+                $email->context($emailParameters);
             }
             
         }

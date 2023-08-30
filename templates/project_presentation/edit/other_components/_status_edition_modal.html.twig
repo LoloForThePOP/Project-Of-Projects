@@ -13,7 +13,11 @@
 
         <div class="modal-header-in-body">
 
-            <h5 class="modal-title w-100 fw-bold text-center py-md-3">Statut<br class="d-md-none"> (État Actuel du Projet) </h5>
+            <h5 class="modal-title w-100 fw-bold text-center py-md-3">
+            
+                <img class="mb-1 me-2" src="{{ asset('progress_status.svg', 'pp_wysiwyg')}}" alt="project status icon" width="27">
+                
+                Statut <br class="d-md-none"> (État Actuel du Projet) </h5>
 
         </div>
 
@@ -25,8 +29,8 @@
 
             <div class="alert alert-info d-flex justify-content-center align-items-center fw-bold ps-3 pe-2" role="alert">
 
-                <div class="fs-5">
-                    Sélectionnez seulement les colonnes et les boutons qui correspondent à votre situation.
+                <div class="sm-fs-6 fs-5">
+                    Sélectionnez les colonnes et les boutons qui correspondent à votre situation.
                 </div>
 
             </div>
@@ -37,7 +41,7 @@
 
             {# User can choose some enumerated status types #}
 
-            <div class="d-flex flex-column flex-lg-row justify-content-around px-2 mb-5">
+            <div class="d-flex flex-column flex-lg-row justify-content-around px-2 mb-2">
 
                 {% for statusCategory in statusCatalog %}
 
@@ -109,7 +113,7 @@
         <div class="d-flex flex-row-reverse border-top pt-3">
 
             <div class="me-5">
-                <button type="button" class="btn btn-validate px-2 my-3 me-5" data-bs-dismiss="modal">Ok</button>
+                <button type="button" class="btn btn-validate px-2 my-3 me-5" data-bs-dismiss="modal">✔️ Ok</button>
             </div>
 
         </div>
@@ -128,7 +132,7 @@
         flex-shrink: 0;
         align-items: center;
         justify-content: space-between;
-        padding: 1rem 1rem;
+        padding: 0;
         border-bottom: 1px solid #dee2e6;
         border-radius: 0;
 
@@ -174,7 +178,8 @@
 
     .project-status-button{
         cursor: pointer;
-        font-size: larger;
+        font-size: 17px;
+        line-height: 1.15;
         background-color: cornsilk;
     }
 
@@ -192,9 +197,14 @@
 
     @media screen and (max-width: 1200px) {
 
+        .modal-header-in-body{
+
+            padding: 0.6rem 0 0.8rem 0;
+
+        }
+
 
         .status-type-list-container{
-
 
             min-height: unset;
             margin-right: 0rem;

@@ -1,0 +1,434 @@
+
+
+{% macro oneCommentContainer(comment, parentCommentId, showRepliedUserName) %}
+    
+    <div class="oneCommentContainer">
+
+        <!-- Comment Header -->
+        <div class="errors"></div>
+                            
+        <!-- Comment Header -->
+
+        <header>
+
+            <p>
+            
+                <!-- Comment's Author -->
+
+                <a href="{{ path('show_user_profile', {'userNameSlug' : comment.user.userNameSlug}) }}">
+
+                    <span class="commentUserName {{ comment.isCreatedByPresentationTeam ? 'badge bg-primary text-white' }}">
+                                    
+                        {{comment.user.persorg.name}}
+                                    
+                    </span>
+
+                </a> 
+                                  
+                <!-- Comment's Date -->
+
+                <span class="commentDate">
+                
+                    le
+
+                    <time>
+                        {{ comment.createdAt | date("d/m/Y")}}                
+                    </time>
+
+                    {% if comment.updatedAt is not null %}
+                        (modifié ensuite)
+                    {% endif %}
+
+                </span>
+                      
+            </p>
+
+        </header>
+
+        <!-- Comment Content -->
+
+        <p class="commentContent">
+
+            {% if comment.repliedUser is not null %}<span class="repliedUserBadge">@{{comment.repliedUser.userNameSlug}}</span>{% endif %}
+
+            {{ comment.content | nl2br  }}
+
+        </p>
+
+        <!-- Comment footer -->
+        <div>
+
+            <!-- Reply to Comment Button -->
+
+                <span class="replyCommentButton position-relative" data-comment-id="{{comment.id}}" data-parent-comment-id="{{parentCommentId}}">Répondre{% if not is_granted('ROLE_USER') %}<a class="coverable-link" href="{{path('app_login')}}"></a>{% endif %}</span >
+
+            <!-- End of Reply to Comment Button -->
+
+            <!-- Edit Comment Access -->
+
+            {% if is_granted('update', comment) %}
+
+                <a class="me-2" href="{{ path('update_comment', {'id': comment.id} ) }}">Modifier</a>
+
+            {% endif %}
+
+            <!-- Delete Comment (ajax request) -->
+
+            {% if is_granted('delete', comment) %}
+
+                <sapn class="js-remove-comment text-danger cursor-pointer" data-comment-id="{{comment.id}}" href="#">Supprimer</span>
+
+            {% endif %}
+
+        <!-- End of Comment Footer -->
+        </div>     
+
+    <!-- End of comment container -->               
+    </div>
+
+    
+
+{% endmacro %}
+
+{# new comment pattern #}
+<script>
+
+    const newCommentPattern = ({ newCommentContent, newCommentUrl }) => `
+
+        <div class="liveNewComment">
+
+            <div>Commentaire ajouté ✅</div>
+
+            <div>
+
+                ${newCommentContent}
+            
+            </div>
+
+            <div>
+
+                <a href="${newCommentUrl}" class="">Modifier</a>
+            
+            </div>
+
+        </div>
+    `;
+
+</script>
+
+<h5 class="fw-bold sm-fs-6 mb-3 mt-md-3">Commentaires ({{countComments}})</h5>
+
+<form id="" class="commentForm position-relative mb-2 mb-md-3" method="post">
+
+    <textarea id="" class="commentContent" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea><br>
+
+    <!-- Submit Form -->
+
+    <div class="d-flex justify-content-end">
+
+        <button type="submit" class="btn btn-light btn-sm d-flex align-items-center">
+        
+            Ajouter
+
+            <svg class="ms-1" style="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+            </svg>
+            
+        </button>
+    
+    </div>
+
+    {# if visitor is not connected, we cover the form with a coverable link #}
+
+    {% if not is_granted('ROLE_USER') %} 
+
+        <a class="coverable-link" href="{{path('app_login')}}"></a>
+        
+    {% endif %}
+
+</form>
+
+<script>
+    
+    $(document).ready(function(){
+
+        // creating a reply comment form (in addition to the create new comment form)
+        var replyForm = $(".commentForm").clone().addClass("replyCommentForm");
+        $(".commentForm").after(replyForm);
+        replyForm.hide();
+
+        // when user click on reply to a comment, we're placing the reply comment form where appropriate
+        $(".replyCommentButton ").on( "click", function( event ){
+
+            $(this).parent().after( $(".replyCommentForm")); // insert reply comment form after the message to answer
+
+            $(".replyCommentForm").show();
+            
+            $(".replyCommentForm textarea").val('').focus(); 
+
+            $(".replyCommentForm").attr("data-parent-comment-id", $(this).attr("data-parent-comment-id")) // store parent comment id for data base storage.
+
+            $(".replyCommentForm").attr("data-comment-id", $(this).attr("data-comment-id")) // store replied comment id to notify replied comment user.
+
+        });
+
+        $('.commentForm textarea').bind('input propertychange', function() {
+
+            var buttonColor;
+
+            if(this.value.length){
+
+                buttonColor = "#ddf5c4";
+               
+            }
+
+            else{ buttonColor = "#ecf0f1";}
+
+            //$('.commentForm button').css('background-color', buttonColor);
+            $("button", $(this).parent()).css('background-color', buttonColor);
+
+        });
+
+        
+        
+
+        // submitting a comment   
+    
+        $(".commentForm ").on( "submit", function( event ){
+
+            event.preventDefault();
+
+            var commentContent = $('textarea',this).val();
+            var parentCommentId = $(this).attr("data-parent-comment-id"); // or null
+            var repliedCommentId = $(this).attr("data-comment-id"); // or null
+
+            var presentationId = {{presentation.id}};
+
+            console.log(commentContent);
+            console.log(parentCommentId);
+            console.log(repliedCommentId);
+            console.log(presentationId);
+
+            $("button[type='submit']", $(this)).append('<div class="loader ms-2"></div>');
+
+            var $t = $(this);
+
+            $.ajax({  
+
+              url: "{{path('ajax_create_comment')}}",
+              type: 'POST',   
+              dataType: 'json',
+              data: {
+                    "commentContent": commentContent,
+                    "parentCommentId": parentCommentId,
+                    "repliedCommentId": repliedCommentId,
+                    "presentationId": presentationId,
+              },
+  
+              async: true,  
+              
+              success: function(data, status) {
+                
+                $( ".errors", $t.closest(".oneCommentContainer")).text("");
+
+                $(".loader").remove();
+                console.log(data);
+
+                $t.hide(); // hidding comment form
+
+                $t.after([
+                    { newCommentContent: commentContent, newCommentUrl: data.newCommentEditionUrl },
+                ].map(newCommentPattern)); // we hydrate javascript new comment pattern
+
+              },  
+  
+                error : function(xhr, textStatus, errorThrown) {
+
+                    $(".loader").remove();
+
+                    console.log(errorThrown);
+                    
+                    $( ".errors", $t.closest(".oneCommentContainer")).addClass("text-danger").text(xhr.responseJSON.error);
+
+                    
+                    //console.log(xhr.responseJSON);
+                }  
+  
+            });
+    
+
+        });
+
+        // Remove a Comment
+
+        $('.js-remove-comment').on('click', function (){
+
+            var commentId = $(this).attr("data-comment-id");
+
+            if (confirm("Confirmez-vous retirer ce commentaire et ses possibles réponses ?"))
+            { 
+
+                $(this).html('<div class="loader"></div>');
+
+                var $t = $(this);
+                
+                $.ajax({  
+
+                    url: "{{path('ajax_remove_comment') }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    data: {
+                        "commentId": commentId,
+                    },
+
+                    async: true,  
+
+                    success: function(data, status) {
+
+                        //case comment might have child : we delete parent and potential childs
+
+                        if($t.closest('.oneCommentContainer').parent(".threadContainer").length) {
+
+                            $t.closest(".threadContainer").remove();
+
+	                    } else { // we delete only one comment
+	                    $t.closest('.oneCommentContainer').remove();
+	                    }                       
+                    
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                }); 
+                    
+            }
+
+
+        });
+
+    });
+
+
+
+</script>
+
+
+{# Comments display loop #}
+
+{% for comment in presentation.comments | reverse %}
+
+    {% if comment.getParent is null %} {# we display only parent comments (and then its potential child) #}
+
+        <!-- thread container -->
+
+        <article class="threadContainer mb-3 comment-{{ cycle(['odd', 'even'], loop.index0) }}">
+
+            {{ _self.oneCommentContainer(comment, comment.id) }}
+
+            <!-- Maybe Some Comment Childs -->
+
+            {% if comment.replies | length > 0 %}
+
+                <!-- Child Comments container with Indentation -->
+
+                <div class="commentRepliesContainer ps-4 ps-md-5 mt-4 mt-md-3">
+
+                    {% for subComment in comment.replies %}
+
+                        {{ _self.oneCommentContainer(subComment, comment.id) }}
+
+                    {% endfor %}
+                
+                </div>
+                <!-- End Of Comment Child Comments container -->
+
+            {% endif %}
+
+            <!-- End of Comment Section -->
+
+        </article>
+
+    {% endif %}
+
+{% endfor %}
+
+
+<style>
+             
+    .commentForm textarea {
+      color: black !important;
+      font-size: 1.05em !important;
+      line-height: 1.15em !important;
+      width: 100%;
+      height: 60px !important;
+      padding: 12px 12px !important;
+      margin-bottom: 3px;
+    }
+
+    .commentForm textarea::placeholder {
+        font-size:1em !important;
+        font-weight:bold;
+        color: #7b8a8b  !important;
+    }
+
+    .oneCommentContainer{
+        margin-bottom: 15px;
+    }
+
+    .oneCommentContainer {
+        margin-bottom: 15px;
+        background-color: #fbfdff;
+        padding: 5px 10px;
+        border-radius: 4px;
+        border: 1px solid #efefef;
+    }
+
+    .oneCommentContainer .commentUserName{
+        color: #526074;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .oneCommentContainer .commentDate{
+        padding-left: 3px;
+        font-size: 12px;
+        color: #312f4c;
+    }
+
+    .commentContent{
+
+        font-size: 1.05em;
+        
+    }
+
+    .replyCommentButton{
+        padding: 5px;
+        font-size: 0.95em;
+        cursor: pointer;
+        margin-right: 7px;
+        
+    }
+
+    .replyCommentButton:hover{
+        background-color: #ddf5c4;
+        border-radius: 6px;
+        
+
+        
+    }
+
+    .repliedUserBadge {
+	    font-size: 15px;
+	    color: green;
+    }
+
+    .liveNewComment {
+        margin-top: 10px;
+        margin-bottom: 16px;
+        background-color: #ddf5c4;
+        border-radius: 4px;
+        padding: 7px 12px;
+    }
+
+</style>

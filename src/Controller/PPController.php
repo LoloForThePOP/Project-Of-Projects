@@ -6,9 +6,11 @@ use App\Entity\User;
 use App\Entity\Slide;
 use App\Service\Slug;
 use App\Entity\PPBase;
+use App\Entity\Comment;
 use App\Entity\Persorg;
 use App\Entity\Document;
 use App\Form\PPBaseType;
+use App\Form\CommentType;
 use App\Form\PersorgType;
 use App\Form\WebsiteType;
 use App\Form\DocumentType;
@@ -133,6 +135,30 @@ class PPController extends AbstractController
         $this->denyAccessUnlessGranted('view', $presentation);
 
         $user = $this->getUser();
+
+        $comment = new Comment;
+
+        $comment->setUser($user)->setApproved(true);
+
+        $commentForm = $this->createForm(CommentType::class, $comment,
+        array(
+
+            // Time protection
+            'antispam_time'     => true,
+            'antispam_time_min' => 4,
+            'antispam_time_max' => 10000000,
+        ));
+
+        $commentForm->handleRequest($request);
+
+        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
+
+            $presentation->addComment($comment);
+            $manager->persist($comment);
+            $manager->flush();
+
+        }
+            
 
         //updating views count only if user is not this presentation's presentor (as registered user or as a guest)
 
@@ -508,9 +534,6 @@ class PPController extends AbstractController
             
             }
 
-
-
-
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
@@ -526,6 +549,7 @@ class PPController extends AbstractController
                 'addVideoForm' => $addVideoForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
                 'newUserForm' => $guestPresenterForm->createView(),
+                'commentForm' => $commentForm->createView(),
                 
                 
             ]);
@@ -580,6 +604,7 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
             'createPresentationFormCTA' => $createPresentationFormCTA->createView(),
+            'commentForm' => $commentForm->createView(),
             
         ]);
 

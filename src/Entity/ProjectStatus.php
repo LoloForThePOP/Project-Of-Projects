@@ -46,7 +46,7 @@ class ProjectStatus
             [
                 'uniqueName' => 'sales',
 
-                'description_fr'=> 'Si des ventes<br>seront réalisées', 
+                'description_fr'=> "S'il y a ou aura des ventes", 
     
             ],
 
@@ -55,17 +55,17 @@ class ProjectStatus
 
                 [ 
                     'uniqueName'=> "will_be_marketed",
-                    'description_fr' => "Un produit ou service<br>sera commercialisé",
+                    'description_fr' => "Le produit ou service<br>n'est pas encore commercialisé",
                 ], 
         
                 [ 
                     'uniqueName'=> "sale_offering_began",
-                    'description_fr' => "Un produit ou service<br>commence à être commercialisé",
+                    'description_fr' => "Le produit ou service<br>commence à être commercialisé",
                 ], 
         
                 [ 
                     'uniqueName'=> "first_sales_done",
-                    'description_fr' => "Premières ventes effectuées",
+                    'description_fr' => "Des premières ventes sont effectuées",
                 ], 
         
                 [ 
@@ -138,17 +138,17 @@ class ProjectStatus
         
                 [ 
                     'uniqueName'=> "approved",
-                    'description_fr' => "Décision : Accepté",
+                    'description_fr' => "Décision acceptée",
                 ], 
         
                 [ 
                     'uniqueName'=> "rejected",
-                    'description_fr' => "Décision : Rejeté",
+                    'description_fr' => "Décision rejetée",
                 ], 
         
                 [ 
                     'uniqueName'=> "postponed",
-                    'description_fr' => "Décision Reportée",
+                    'description_fr' => "Décision reportée",
                 ], 
         
             ],

@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+{% endblock %}
+
+{% block title %}Modifier un commentaire{% endblock %}
+
+{% block body %}
+
+    <div class="page-container">
+
+        <div class="container col-md-4 text-center px-0 mt-4">
+
+        
+        
+            <h5 class="fw-bold mb-4">Modifier un Commentaire</h5>
+
+            {{ form_start(form) }}
+
+            <div class="">
+                {{ form_errors(form) }}
+            </div>
+
+            <div class="mb-4">
+            
+                {{ form_widget(form.content) }}
+                    
+            </div>
+
+            
+            <div class="">
+
+            <a href="{{path('show_presentation', {'stringId': stringId})}}">
+
+                <button type="button" class="btn btn-go-back me-3">❌ Annuler</button>
+
+            </a>
+
+            <button id="" type="submit" class="btn btn-validate">✔️ Valider</button>
+
+            </div>
+
+            {{ form_end(form) }}
+
+        
+        </div>
+    
+    </div>
+
+{% endblock %}

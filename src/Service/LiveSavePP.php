@@ -153,9 +153,11 @@ class LiveSavePP {
                 case 'value':
                 case 'userRemarks':
                 case 'general':
-                case 'modelisation':
+
+                case 'modelisation': //project status
                 case 'sales':
                 case 'administrative':
+                case 'submission':
         
                     $allowAccess = true;
                     break;

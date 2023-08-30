@@ -18,6 +18,7 @@ class CacheThumbnail {
     protected $uploaderHelper;
     protected $imagineCacheManager;
     protected $kernel;
+    protected $entityManager;
 
     public function __construct(EntityManagerInterface $entityManager, UploaderHelper $uploaderHelper, KernelInterface $kernel, CacheManager $imagineCacheManager)
     {

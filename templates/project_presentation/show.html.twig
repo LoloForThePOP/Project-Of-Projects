@@ -27,6 +27,7 @@
 {% block title %}{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}{% endblock %}
 
 {% block body %}
+   
 
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
     
@@ -82,6 +83,17 @@
     {% endif %}
 
 
+    {% if is_granted('ROLE_ADMIN') %}
+
+        {% set userAdmin = true %}
+
+    {% else %}
+    
+        {% set userAdmin = false %}
+        
+    {% endif %}
+
+
     {# Project Status #}
 
     {% set statusCatalog = presentation.getStatusCatalog %}
@@ -89,8 +101,6 @@
     {% set projectStatus = presentation.getOC("status") %}
 
 
-
-    
     {% if userPresenter %}
     
         {# forms inclusions (ex: add a document form, add a website form, etc.) #}
@@ -123,6 +133,8 @@
 
     {% set privateMessagesActive = presentation.getParameter('arePrivateMessagesActivated') %}
     {% set countBC = presentation.getOC('businessCards') | length %}
+
+    {% set countComments = presentation.comments | length %}
 
     {% set overallQualityAssessment = presentation.overallQualityAssessment %}
 
@@ -380,8 +392,6 @@
 
             {% endif %}
 
-
-            
             {# Misc Infos & Buttons #}
 
             <div class="col-lg-6 pp-struct-container-wrapper">
@@ -482,6 +492,25 @@
                 </div>
             
             </div>
+
+
+            
+            {# Project Presentation Comments #}
+
+            <div class="col-lg-6 pp-struct-container-wrapper">
+
+                <div id="comments-struct-container" class="pp-struct-container">
+
+                    {% include "project_presentation/_show/_comments.html.twig" %}
+
+                </div>
+            
+            </div>
+
+        </div>
+    
+    </div>
+
 
         </div>
 

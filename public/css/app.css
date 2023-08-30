@@ -109,8 +109,8 @@ a{
     border-top: 3px solid rgb(90, 90, 248);
     border-right: 3px solid rgb(245, 248, 234);
     border-bottom: 3px solid rgb(90, 90, 248);
-    width: 28px;
-    height: 28px;
+    width: 20px;
+    height: 20px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
   }
@@ -323,6 +323,8 @@ label:active:after {
         font-size: 1em !important;
     }
 
+
+    /* Avatars */
         
     .avatar-circle-80 {
         width: 70px;
@@ -366,6 +368,11 @@ label:active:after {
         align-items: center;
         min-height: calc(100% - 1rem);
   
+    }
+
+    /* Some font size reduction for small screens */
+    .sm-fs-6{
+        font-size: 1rem !important;
     }
 
 

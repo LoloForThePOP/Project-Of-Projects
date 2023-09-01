@@ -33,7 +33,6 @@ class ManageCommentVoter extends Voter
 
         $user = $token->getUser();
 
-
         switch ($attribute) {
 
             case 'update':
@@ -59,6 +58,11 @@ class ManageCommentVoter extends Voter
 
         $user = $token->getUser();
 
+        // if user is anonymous, do not grant access
+        if (!$user instanceof UserInterface) {
+            return false;
+        }
+
         // if user is an admin
         if(in_array('ROLE_ADMIN', $user->getRoles())){
             return true;
@@ -78,6 +82,11 @@ class ManageCommentVoter extends Voter
         // !! $token->getUser() represents an user ONLY if user is logged in. Otherwise, it is not an instance of class User. To check if user is not logged in (i.e. anonymous), test !$token->getUser() instanceof UserInterface
 
         $user = $token->getUser();
+
+        // if user is anonymous, do not grant access
+        if (!$user instanceof UserInterface) {
+            return false;
+        }
 
         // if user is an admin
         if(in_array('ROLE_ADMIN', $user->getRoles())){

@@ -34,7 +34,6 @@ class AccessPresentationVoter extends Voter
 
         $user = $token->getUser();
 
-
         switch ($attribute) {
 
             case 'view':

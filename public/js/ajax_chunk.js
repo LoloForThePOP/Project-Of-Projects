@@ -8,6 +8,10 @@ $(document).ready(function(){
 
     function getChunk(name, target, params){
 
+        console.log("getChunkName "+name);
+        console.log("getChunkTarget "+target);
+        console.log("getChunkParams "+JSON.stringify(params));
+
         $(target).html("");
 
         $(target).append('<div id="ajax-loader" class="my-3 text-center loader"></div>');
@@ -50,8 +54,8 @@ $(document).ready(function(){
         dataChunk = $(this).data("get-chunk");
         dataParams = $(this).data("chunkParams");
 
-        //console.log(dataChunk);
-        //console.log(dataParams);
+        console.log("dataChunk"+dataChunk);
+        console.log("dataParams"+dataParams);
 
         if(typeof(dataParams) == 'undefined' && dataParams == null){
 

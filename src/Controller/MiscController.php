@@ -28,12 +28,16 @@ class MiscController extends AbstractController
 
             $chunkName = $request->request->get('chunkName');
 
+            dump($chunkName);
+
             $additionalParameters = [];
 
             if ($request->request->get('params')) {
 
                 $additionalParameters = $request->request->get('params');
             }
+
+            dump($additionalParameters);
 
             $chunkTemplateDirFileName = '';
 

@@ -1,8 +1,8 @@
 
 
+
 {% macro oneCommentContainer(comment, parentCommentId, showRepliedUserName) %}
-    
-    <div class="oneCommentContainer">
+    <div class="oneCommentContainer {% if app.user == comment.user %}activeUserAuthor{% endif %}">
 
         <!-- Comment Header -->
         <div class="errors"></div>
@@ -122,6 +122,12 @@
 
     <textarea id="" class="commentContent" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea><br>
 
+    {# Antispam protection based on time #}
+    <span class="formTimeLoaded" style="display:none;">{{ 'now' | date('U') }}</span>
+
+    {# Antispam protection based on honey pot #}
+    <input type="text" class="hnyPt" name="hnyPt" autocomplete="off" style="width: 1px; height: 1px; border: none;"/>
+
     <!-- Submit Form -->
 
     <div class="d-flex justify-content-end">
@@ -198,9 +204,12 @@
 
             event.preventDefault();
 
-            var commentContent = $('textarea',this).val();
+            var commentContent = $('textarea', this).val();
             var parentCommentId = $(this).attr("data-parent-comment-id"); // or null
             var repliedCommentId = $(this).attr("data-comment-id"); // or null
+
+            var formTimeLoaded = $('.formTimeLoaded', this).text();
+            var hnyPt = $('.hnyPt', this).val();
 
             var presentationId = {{presentation.id}};
 
@@ -208,6 +217,8 @@
             console.log(parentCommentId);
             console.log(repliedCommentId);
             console.log(presentationId);
+            console.log(formTimeLoaded);
+            console.log(hnyPt);
 
             $("button[type='submit']", $(this)).append('<div class="loader ms-2"></div>');
 
@@ -223,6 +234,9 @@
                     "parentCommentId": parentCommentId,
                     "repliedCommentId": repliedCommentId,
                     "presentationId": presentationId,
+
+                    "formTimeLoaded": formTimeLoaded,
+                    "hnyPt": hnyPt,
               },
   
               async: true,  
@@ -374,14 +388,15 @@
 
     .oneCommentContainer{
         margin-bottom: 15px;
-    }
-
-    .oneCommentContainer {
-        margin-bottom: 15px;
         background-color: #fbfdff;
         padding: 5px 10px;
         border-radius: 4px;
         border: 1px solid #efefef;
+    }
+
+    
+    .oneCommentContainer.activeUserAuthor {
+        background-color: #ffe4c4ba;
     }
 
     .oneCommentContainer .commentUserName{

@@ -38,6 +38,9 @@ class CommentController extends AbstractController
 
             $repliedCommentId = $request->request->get('repliedCommentId');
 
+            $formTimeLoaded = $request->request->get('formTimeLoaded'); //antispam protection based on time
+            $honeyPot = $request->request->get('hnyPt'); //antispam protection based on honey pot
+
             $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['id' => $presentationId]);
 
             $comment = new Comment;
@@ -61,7 +64,6 @@ class CommentController extends AbstractController
                     $comment->setRepliedUser($repliedComment->getUser());
                 }
 
-
             }
             
             $comment
@@ -70,7 +72,7 @@ class CommentController extends AbstractController
                 ->setApproved(true)
                 ->setContent($commentContent);
 
-            $validation=$commentsService->validateComment($comment);
+            $validation=$commentsService->validateComment($comment, $formTimeLoaded, $honeyPot);
 
             if (is_string($validation)) {
                 return new JsonResponse(

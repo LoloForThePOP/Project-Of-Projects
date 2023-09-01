@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use Assert\Blank;
 use Assert\Email;
 use Assert\Length;
 use Assert\NotBlank;
@@ -30,9 +31,59 @@ class CommentService {
     }
 
 
-    public function validateComment(Comment $comment){
+    public function validateComment(Comment $comment, $formTimeLoaded, $honeyPot){
 
         $errors = null;
+
+        // check if comment creation time is not too short (spaming)
+
+        $commentCreationApproximateTimespan = time() - $formTimeLoaded;
+
+        $constraints = [
+
+            new Assert\GreaterThan(['value'=> 5, 'message' => 'Veuillez patienter quelques secondes avant d\'ajouter un commentaire']),
+            
+        ];
+
+        
+        // use the validator to validate the value
+        $errors = $this->validator->validate(
+            $commentCreationApproximateTimespan,
+            $constraints
+        ); 
+
+       
+        if ($errors->count() > 0) {
+
+            return  $errors[0]->getMessage();
+                    
+        }
+
+
+        //check if honey pot is filled
+
+        $constraints = [
+
+            new Assert\Blank(['message' => 'Ce champ devrait être nul']),
+            
+        ];
+
+        // use the validator to validate the value
+        $errors = $this->validator->validate(
+            $honeyPot,
+            $constraints
+        ); 
+
+       
+        if ($errors->count() > 0) {
+
+            return  $errors[0]->getMessage();
+                    
+        }
+        
+
+
+        // check if comment is not empty
 
         $constraints = [
 
@@ -66,7 +117,6 @@ class CommentService {
         $user = $comment->getUser();
 
         $userLastCommentTimespan = time() - $user->getComments()->first()->getCreatedAt()->getTimestamp();
-
 
         $constraints = [
 

@@ -7,6 +7,7 @@ use Assert\Email;
 use Assert\Length;
 use Assert\NotBlank;
 use App\Entity\Comment;
+use App\Validator\NotContainsUrlOrEmail;
 use Assert\GreaterThan;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
@@ -88,6 +89,7 @@ class CommentService {
         $constraints = [
 
             new Assert\NotBlank(['message' => 'Veuillez remplir ce champ']),
+            new NotContainsUrlOrEmail(),
             new Assert\Length([
                 'min' => 1,
                 'max' => 2000,

@@ -60,7 +60,7 @@ class CommentService {
         }
 
 
-        //check if honey pot is filled
+        // check if honey pot is filled
 
         $constraints = [
 
@@ -114,26 +114,29 @@ class CommentService {
 
         //check if user doesn't comment too much in a short timeframe (spamming)
 
-        $user = $comment->getUser();
+        $userComments = $comment->getUser()->getComments();
 
-        $userLastCommentTimespan = time() - $user->getComments()->first()->getCreatedAt()->getTimestamp();
+        if(!$userComments->isEmpty()){
 
-        $constraints = [
+            $userLastCommentTimespan = time() - $userComments->first()->getCreatedAt()->getTimestamp();
 
-            new Assert\GreaterThan(['value'=> 20, 'message' => 'Veuillez patienter quelques secondes avant d\'ajouter un nouveau commentaire !']),
-            
-        ];
+            $constraints = [
 
-    
-        // use the validator to validate the value
-        $errors = $this->validator->validate(
-            $userLastCommentTimespan,
-            $constraints
-        );
-    
-        if ($errors->count()) {
-            return  $errors[0]->getMessage();
-        } 
+                new Assert\GreaterThan(['value'=> 20, 'message' => 'Veuillez patienter quelques secondes avant d\'ajouter un nouveau commentaire !']),
+                
+            ];
+
+            // use the validator to validate the value
+            $errors = $this->validator->validate(
+                $userLastCommentTimespan,
+                $constraints
+            );
+        
+            if ($errors->count()) {
+                return  $errors[0]->getMessage();
+            } 
+
+        }
 
         return true;
 

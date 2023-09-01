@@ -182,7 +182,7 @@
     cursor: pointer;
 }
 
-.questionRow  > *, .misc-data-card > *, .place-card > * {
+.questionRow  > *, .misc-data-card > *, .pp-website-card > *, .place-card > * {
     cursor: auto;
 }
 

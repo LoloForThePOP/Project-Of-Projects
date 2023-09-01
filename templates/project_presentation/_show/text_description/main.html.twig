@@ -8,6 +8,8 @@
 
         <div id="text_description" class="pp-struct-content">
 
+
+            {# Image Zoom Box #}
             <div id="image-zoom-result" class="img-zoom-result"></div>
 
             {% set textDescription = presentation.textDescription %}
@@ -38,7 +40,7 @@
 
                     {{ textDescription | sanitize_html ('default') }}
 
-                    {# This calls ajax.html.twig to edit text, via MiscCController (ajaxRenderChunk method) #}
+                    {# This calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method) #}
 
                     <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
 
@@ -167,14 +169,14 @@
             .long-text #collapseTextDescription.collapse-lg:not(.show) {
                 
                 display: block;
-                max-height: 25em; /* height = lineheight * no of lines to display */
+                max-height: 4.3em; /* height = lineheight * no of lines to display */
                 overflow: hidden;
 
             }
 
             #collapseTextDescription:not(.collapse-lg) {
 
-                display: initial;
+                display: block;
                 overflow: auto;
                 height: 100%;
 

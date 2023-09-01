@@ -57,8 +57,8 @@ class MiscController extends AbstractController
 
                         }
 
-                        //dump($pp);
                     }
+
                     break;
 
 
@@ -80,7 +80,7 @@ class MiscController extends AbstractController
 
             ];
 
-            //dump($dataResponse);
+            dump($htmlChunk);
 
             return new JsonResponse($htmlChunk);
 

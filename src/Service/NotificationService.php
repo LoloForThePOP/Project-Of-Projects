@@ -46,6 +46,10 @@ class NotificationService {
                         $presentation = $notificationParams["presentation"];
                         $comment = $notificationParams["comment"];
 
+                        if ($presentation->getCreator()==$comment->getUser()) {//if project presenter comments its own page, we do not notify him.
+                            return;
+                        }
+
                         $notificationReceiver = $presentation->getCreator();
 
                         $notificationTitle = "Propon  - Nouveau commentaire reçu";
@@ -62,11 +66,18 @@ class NotificationService {
                     case 'repliedComment':
 
                         $repliedComment = $notificationParams["repliedComment"];
+                        $presentation = $notificationParams["presentation"];
+
+                        if ($repliedComment->getUser() == $presentation->getCreator()) {//when comment replier is project presenter, we do not have to notice him twice (he is noticed by default)
+
+                            return;
+                            
+                        }
 
                         $emailContentFilePath = 'email_notifications/replied_comment.html.twig';
 
                         $emailContentParameters = [
-                            'presentation' => $notificationParams["presentation"],
+                            'presentation' => $presentation,
                             'repliedComment' => $repliedComment,
                             'answer' => $notificationParams["answer"],
                         ];
@@ -82,21 +93,13 @@ class NotificationService {
                         break;
 
                 }
-
-                break;
-            
-            default:
-                throw new \Exception("Unsupported notification object");
-                break;
-
-        }
-
+                
         $lastTimeEmailNotification = $notificationReceiver->getDataItem('lastEmailNotificationDate', time());
 
         //The if condition bellow is to finish if notifications are frequent.
         //if we have sent a notification a short time ago, we register this notification in notification journal
-        if ($lastTimeEmailNotification - time() < 3600) {
-            
+        if (time() - $lastTimeEmailNotification < 10) {
+
             $notificationRow = [
                 "createdAt" => new \DateTimeImmutable('now'),
                 "object" => $notificationObject,
@@ -119,8 +122,26 @@ class NotificationService {
             $this->mailerService->send($sender, $senderTitle, $notificationReceiver->getEmail(), $notificationTitle, $emailContentFilePath, $emailContentParameters);
 
         }
+                
+        break;
+
+        default:
+            throw new \Exception("Unsupported notification object");
+            break;
+
+        }
+
 
     }
+
+
+
+
+
+
+
+
+
 
 
 }

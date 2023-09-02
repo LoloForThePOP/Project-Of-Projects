@@ -91,22 +91,13 @@ class CommentController extends AbstractController
 
             //Notification to replied user if he / she's not presentation creator (because anyway we notify presentation creator)
 
-/* 
-            dump("new comment creator: ".$comment->getUser());
-            dump("parent comment user: ".$parentComment->getUser());
-            dump("replied comment user: ".$repliedComment->getUser());
-            dump("pres creator: ".$presentation->getCreator()); */
+            $notificationParams=[
+                "presentation" => $presentation,
+                "repliedComment" => $parentComment,
+                "answer" => $comment,
+            ];
 
-            if ($repliedComment->getUser() !== $presentation->getCreator()) {
-
-                $notificationParams=[
-                    "presentation" => $presentation,
-                    "repliedComment" => $parentComment,
-                    "answer" => $comment,
-                ];
-
-                $notificationService->process('comment', 'repliedComment', $notificationParams);
-            }
+            $notificationService->process('comment', 'repliedComment', $notificationParams);
 
         }
 

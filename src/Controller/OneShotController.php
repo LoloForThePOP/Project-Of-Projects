@@ -94,14 +94,14 @@ class OneShotController extends AbstractController
 
         //throw new HttpException(500, "Exception sent by email test");
 
-        $users=$userRepo->findAll();
+/*         $users=$userRepo->findAll();
 
         foreach ($users as $user) {
 
             $user->setDataItem('lastEmailNotificationDate', 0);
             $user->setDataItem('notificationJournalBuffer', []);
 
-        }
+        } */
 
         $manager->flush();
 

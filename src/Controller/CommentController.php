@@ -85,10 +85,6 @@ class CommentController extends AbstractController
 
             }
 
-            $manager->persist($comment);
-
-            $manager->flush();
-
             //Notification to replied user if he / she's not presentation creator (because anyway we notify presentation creator)
 
             $notificationParams=[
@@ -111,6 +107,11 @@ class CommentController extends AbstractController
         $notificationService->process('comment', 'projectPresentationCommented', $notificationParams);
 
         // End of Notification to project presentation creator
+
+        
+        $manager->persist($comment);
+
+        $manager->flush();
 
 
         $newCommentEditionUrl = $this->generateUrl('update_comment', array('id' => $comment->getId()));

@@ -213,12 +213,6 @@
 
             var presentationId = {{presentation.id}};
 
-            console.log(commentContent);
-            console.log(parentCommentId);
-            console.log(repliedCommentId);
-            console.log(presentationId);
-            console.log(formTimeLoaded);
-            console.log(hnyPt);
 
             $("button[type='submit']", $(this)).append('<div class="loader ms-2"></div>');
 
@@ -244,6 +238,7 @@
               success: function(data, status) {
                 
                 $( ".errors", $t.closest(".oneCommentContainer")).text("");
+                $( ".replyCommentButton", $t.closest(".oneCommentContainer")).remove();
 
                 $(".loader").remove();
                 console.log(data);

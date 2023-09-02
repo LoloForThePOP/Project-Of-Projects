@@ -20,7 +20,6 @@ class AccessPresentationVoter extends Voter
     }
 
 
-
     protected function supports(string $attribute, $subject): bool
     {
         // replace with your own logic

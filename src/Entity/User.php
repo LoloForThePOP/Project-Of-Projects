@@ -142,6 +142,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->conversations = new ArrayCollection();
 
         $this->setDataItem("unreadMessagesCount", 0);
+        $this->setDataItem("lastEmailNotificationDate", 0);
+        $this->setDataItem("notificationJournalBuffer", []);
+    
         $this->createdConversations = new ArrayCollection();
         $this->purchases = new ArrayCollection();
         $this->comments = new ArrayCollection();

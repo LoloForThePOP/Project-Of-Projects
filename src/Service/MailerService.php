@@ -24,10 +24,10 @@ class MailerService {
     /**
     * Allow to send an email
     * $content is a twig template file name with directory, or an html string.
-    * If $content is a twig template, we can pass an array of additional $emailParameters
+    * If $content is a twig template, we can pass an array of additional $contentParameters
     */
 
-    public function send($sender, $senderTitle, $receiver, $subject, $content, $emailParameters=false){
+    public function send($sender, $senderTitle, $receiver, $subject, $content, $contentParameters=false){
 
         $templatedInstance = false;
 
@@ -55,9 +55,9 @@ class MailerService {
             
             $email->htmlTemplate($content);
 
-            if ($emailParameters) {
+            if ($contentParameters) {
 
-                $email->context($emailParameters);
+                $email->context($contentParameters);
             }
             
         }

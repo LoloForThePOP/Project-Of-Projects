@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\PPBase;
 use App\Service\CacheThumbnail;
 use Doctrine\ORM\EntityManager;
+use App\Repository\UserRepository;
 use App\Repository\PlaceRepository;
 use App\Repository\PPBaseRepository;
 use App\Repository\CategoryRepository;
@@ -31,7 +32,7 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail): Response
+    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, UserRepository $userRepo): Response
     {
 
         /* 
@@ -92,6 +93,15 @@ class OneShotController extends AbstractController
         } */
 
         //throw new HttpException(500, "Exception sent by email test");
+
+        $users=$userRepo->findAll();
+
+        foreach ($users as $user) {
+
+            $user->setDataItem('lastEmailNotificationDate', 0);
+            $user->setDataItem('notificationJournalBuffer', []);
+
+        }
 
         $manager->flush();
 

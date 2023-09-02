@@ -1,0 +1,46 @@
+<div>
+
+    <div>Un de vos commentaires a reçu une réponse !</div>
+
+    </br>
+
+    <div>La page commentée : "{{presentation.goal}}"</div>
+
+    </br>
+
+    <div>Votre commentaire : {{repliedComment.content}}
+
+    </div>
+
+    </br>
+
+    <div>La réponse  de {{answer.user.username}} : </br></br>
+        Date : {{answer.createdAt | date("d/m/Y \à h:i:s") }} </br>
+        Message : {{answer.content}}
+
+
+    </div>
+
+    </br>
+
+    <div>
+
+        Pour répondre à ce commentaire, <a href="{{ url ('show_presentation', {"stringId": presentation.stringId}) }}#comments-struct-container">cliquez ici</a>.
+
+    </div>
+    
+    <div>
+        
+        Pour toute question, remarque ou suggestion, <a href="{{ url ('contact_website') }}">cliquez ici</a>.
+    
+    </div>
+
+    </br>
+
+    <div>
+
+        Merci d'utiliser Propon.
+
+    </div>
+
+</div>

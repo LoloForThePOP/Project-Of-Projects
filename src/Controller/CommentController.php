@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Service\CommentService;
 use App\Repository\CommentRepository;
+use App\Service\NotificationService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,7 @@ class CommentController extends AbstractController
      * 
      * @Route("/comment/ajax-create", name="ajax_create_comment")
      */
-    public function ajaxCreateComment(Request $request, EntityManagerInterface $manager, CommentService $commentsService): Response
+    public function ajaxCreateComment(Request $request, EntityManagerInterface $manager, CommentService $commentsService, NotificationService $notificationService): Response
     {
         $this->denyAccessUnlessGranted('ROLE_USER'); //only connected users can comment
 
@@ -45,26 +46,6 @@ class CommentController extends AbstractController
 
             $comment = new Comment;
 
-           if (!is_null($repliedCommentId)) {
-
-                // We associate parent to the comment
-                $parentComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentCommentId]);
-
-                $comment->setParent($parentComment);
-                
-                
-                $repliedComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $repliedCommentId]);
-
-                // to do we notify parentCommentUser
-
-                // When we reply to a first degree child comment : we associate replied comment user so that we can show to whose child is replied to in frontend.
-                //check if we reply to a first degree child
-                if ($repliedCommentId !== $parentCommentId) {
-
-                    $comment->setRepliedUser($repliedComment->getUser());
-                }
-
-            }
             
             $comment
                 ->setUser($this->getUser())
@@ -90,14 +71,65 @@ class CommentController extends AbstractController
 
             $manager->flush();
 
-            $newCommentEditionUrl = $this->generateUrl('update_comment', array('id' => $comment->getId()));
+        //when new comment is a reply
+           if (!is_null($repliedCommentId)) {
 
-            $responseData = [
-                'newCommentEditionUrl' =>  $newCommentEditionUrl,
-            ];
+            // We associate parent to the comment
+            $parentComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentCommentId]);
 
-          
-            return  new JsonResponse($responseData);
+            $comment->setParent($parentComment);
+            
+            $repliedComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $repliedCommentId]);
+
+            // When we reply to a first degree child comment : we associate replied comment user so that we can show to whose child is replied to in frontend.
+
+            //check if we reply to a first degree child
+            if ($repliedCommentId !== $parentCommentId) {
+
+                $comment->setRepliedUser($repliedComment->getUser());
+            }
+
+            //Notification to replied user if he / she's not presentation creator (because anyway we notify presentation creator)
+
+/* 
+            dump("new comment creator: ".$comment->getUser());
+            dump("parent comment user: ".$parentComment->getUser());
+            dump("replied comment user: ".$repliedComment->getUser());
+            dump("pres creator: ".$presentation->getCreator()); */
+
+            if ($repliedComment->getUser() !== $presentation->getCreator()) {
+
+                $notificationParams=[
+                    "presentation" => $presentation,
+                    "repliedComment" => $parentComment,
+                    "answer" => $comment,
+                ];
+
+                $notificationService->process('comment', 'repliedComment', $notificationParams);
+            }
+
+        }
+
+        //Notification to project presentation creator
+
+        $notificationParams=[
+            "presentation" => $presentation,
+            "comment" => $comment,
+        ];
+
+        $notificationService->process('comment', 'projectPresentationCommented', $notificationParams);
+
+        // End of Notification to project presentation creator
+
+
+        $newCommentEditionUrl = $this->generateUrl('update_comment', array('id' => $comment->getId()));
+
+        $responseData = [
+            'newCommentEditionUrl' =>  $newCommentEditionUrl,
+        ];
+
+        
+        return  new JsonResponse($responseData);
 
         }
 

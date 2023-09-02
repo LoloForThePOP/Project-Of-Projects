@@ -8,7 +8,6 @@
 
         <div id="text_description" class="pp-struct-content">
 
-
             {# Image Zoom Box #}
             <div id="image-zoom-result" class="img-zoom-result"></div>
 
@@ -41,9 +40,11 @@
 
                     {{ textDescription | sanitize_html ('default') }}
 
-                    {# This calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method) #}
+                   {#  Sided (cause : can't find error after many trials) Live edition : this calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method) #}
 
-                    <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a>
+                    <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a> 
+
+                    {# <a class="pp-edition-mode coverable-link" href="{{path("edit_pp_text_description", {"stringId":stringId})}}"></a>#}
 
                 </div>
 
@@ -79,10 +80,7 @@
 
         {# Text Description Live Edition Container #}
 
-        <div id="text-descr-live-edition-container" class="pp-edition-mode">
-
-
-        </div>
+        <div id="text-descr-live-edition-container" class="pp-edition-mode"></div>
 
         <script>
 
@@ -111,7 +109,9 @@
 
              $(document).ready(function(){
 
-                //remove empty paragraphs
+                //Format text description output
+
+                //removing empty paragraphs
 
                 $('#read-text-description p').each(function(){
                     if($.trim($(this).text()) == '' && $(this).children().length == 0){
@@ -119,11 +119,10 @@
                     }
                 });
 
-                //remove last visible paragraph or ul margin bottom
+                //removing last visible paragraph or ul margin bottom
                 // to do : here we remove each last of type (ul + p) margin, we should remove only p OR ul margin.
 
                 $('#read-text-description p:visible:last, #read-text-description ul:visible:last').addClass('remove-margin-bottom');
-
 
              })
 
@@ -178,7 +177,7 @@
 
             #collapseTextDescription:not(.collapse-lg) {
 
-                display: block;
+                display: initial;
                 overflow: auto;
                 height: 100%;
 

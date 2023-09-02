@@ -49,7 +49,9 @@ $(document).ready(function(){
 
     ex : <button data-get-chunk='{"name": "plans", "target": "#displayPlans" }>Show Pricing Plans</button>' --> this button will triger an ajax call to get pricing plan details display */
 
-    $("[data-get-chunk]").on('click', function (){
+    $("[data-get-chunk]").on('click', function (e){
+
+        e.preventDefault();
 
         dataChunk = $(this).data("get-chunk");
         dataParams = $(this).data("chunkParams");

@@ -103,6 +103,8 @@
 
     opacity: 0;
 
+    z-index: 5;
+
 }
 
 /* Hide elements related to edition mode */

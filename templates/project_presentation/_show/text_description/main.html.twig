@@ -40,11 +40,11 @@
 
                     {{ textDescription | sanitize_html ('default') }}
 
-                   {#  Sided (cause : can't find error after many trials) Live edition : this calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method) #}
+                   {#  Sided (cause : can't find error after many trials) Live edition : this calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method)
 
-                    <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a> 
+                    <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a> #} 
 
-                    {# <a class="pp-edition-mode coverable-link" href="{{path("edit_pp_text_description", {"stringId":stringId})}}"></a>#}
+                    <a class="pp-edition-mode coverable-link" href="{{path("edit_pp_text_description", {"stringId":stringId})}}"></a>
 
                 </div>
 

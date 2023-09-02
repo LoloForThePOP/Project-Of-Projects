@@ -46,14 +46,13 @@ class CommentController extends AbstractController
 
             $comment = new Comment;
 
-            
             $comment
                 ->setUser($this->getUser())
                 ->setProjectPresentation($presentation)
                 ->setApproved(true)
                 ->setContent($commentContent);
 
-            $validation=$commentsService->validateComment($comment, $formTimeLoaded, $honeyPot);
+            $validation = $commentsService->validateComment($comment, $formTimeLoaded, $honeyPot);
 
             if (is_string($validation)) {
                 return new JsonResponse(
@@ -66,10 +65,6 @@ class CommentController extends AbstractController
                 );
 
             }
-
-            $manager->persist($comment);
-
-            $manager->flush();
 
         //when new comment is a reply
            if (!is_null($repliedCommentId)) {
@@ -87,7 +82,12 @@ class CommentController extends AbstractController
             if ($repliedCommentId !== $parentCommentId) {
 
                 $comment->setRepliedUser($repliedComment->getUser());
+
             }
+
+            $manager->persist($comment);
+
+            $manager->flush();
 
             //Notification to replied user if he / she's not presentation creator (because anyway we notify presentation creator)
 

@@ -4,19 +4,17 @@
 
     </br>
 
-    <div>La page commentée : "{{presentation.goal}}"</div>
+    <div>Voici la page commentée : "{{presentation.goal}}".</div>
 
     </br>
 
-    <div>Votre commentaire : {{repliedComment.content}}
+    <div>Votre commentaire initial : {{repliedComment.content}}
 
     </div>
 
     </br>
 
-    <div>La réponse  de {{answer.user.username}} : </br></br>
-        Date : {{answer.createdAt | date("d/m/Y \à h:i:s") }} </br>
-        Message : {{answer.content}}
+    <div>La réponse de {{answer.user.username}} en date du {{answer.createdAt | date("d/m/Y \à h:i:s") }} : {{answer.content}}
 
 
     </div>

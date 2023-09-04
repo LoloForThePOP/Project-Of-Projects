@@ -99,7 +99,7 @@
     {% set statusCatalog = presentation.getStatusCatalog %}
     
     {% set projectStatus = presentation.getOC("status") %}
-
+    
 
     {% if userPresenter %}
     
@@ -909,18 +909,3 @@
 
 {% endblock %}
 
-
-
-    {# Project Status (Consultation Mode)
-
-    {% if projectStatus is defined %}
-
-        <div id="status-struct-container" class="pp-struct-container col-lg-5">
-
-
-            {% include 'project_presentation/_show/_status.html.twig' %}
-
-            
-        </div>
-
-    {% endif %} #}

@@ -51,7 +51,8 @@
 
                     <h5 class="category-title" data-bs-toggle="collapse" href="#category-{{uniqueCategoryName}}">
                         
-                        {{statusCategory.categoryLabels.description_fr  | raw }} ▾
+                        {{statusCategory.categoryLabels.description_fr  | raw }}
+                        <br>▾
                     
                     </h5>
 
@@ -78,9 +79,12 @@
                                 
                                 data-edit-project-status='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"{{uniqueCategoryName}}"}' 
                                 
-                                data-value="{{item.uniqueName}}
+                                data-value="{{item.uniqueName}}" data-short-descr="{{item.short_description_fr}}" data-bg-color="{{item.bg_color}}"
                                 
-                            ">
+                                >
+
+                                
+                                <img class="statusIcon" src="{{asset ("project_status/"~ item.uniqueName ~".svg", 'icons')}}" alt="project status representative icon">
 
                                 {{item.description_fr | raw }}
                         
@@ -101,7 +105,7 @@
 
             <div class="d-flex flex-column align-items-center mb-5">
 
-                <h5 class="text-center fw-bold lh-sm mb-3" style="font-size: large; font-weight: normal;">Ici vous pouvez ajouter des précisions ou des remarques sur l'avancement de votre projet</h5>
+                <h5 class="text-center fw-bold lh-sm mb-3" style="font-size: large; font-weight: normal; color: #733100;">➜ Ici vous pouvez ajouter des précisions ou des remarques sur l'avancement de votre projet</h5>
 
                 <div class="border" data-edit='{"entity": "PPBase", "id": "{{presentation.id}}",  "property": "status", "subproperty":"userRemarks"}' data-text="Écrire ici" style="width: 600px; max-width: 100%; min-height: 110px; padding: 5px 10px;">{% if projectStatus.userRemarks is defined %}{{projectStatus.userRemarks.value}}{% endif %}
                 </div>
@@ -144,7 +148,6 @@
         min-height: 390px;
         margin-right: 1rem;
         margin-bottom: 1rem;
-        text-align: center;
 
     }
 
@@ -159,6 +162,8 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
+        text-align: center;
         
         height: 63px;
 
@@ -181,6 +186,8 @@
         font-size: 17px;
         line-height: 1.15;
         background-color: cornsilk;
+        display: flex;
+        align-items: center;
     }
 
     .status-hover{
@@ -193,6 +200,12 @@
         z-index: 2;
         background-color: #cce1ff;
         border-color: #bcd7ff;
+    }
+
+    .statusIcon {
+        width: 20px;
+        height: 20px;
+        margin-right: 20px;
     }
 
     @media screen and (max-width: 1200px) {

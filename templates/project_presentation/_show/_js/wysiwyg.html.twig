@@ -208,10 +208,12 @@
 
         // when a structure has been wysiwyg changed, some tag attributes might need to be changed also.
 
-        
         function refresh_misc(metadata, content){
 
             metadata = JSON.parse(metadata)
+
+            //console.log(metadata);
+
             console.log("refresh_misc_function"+content);
                 
             if (metadata.property == "websites" && metadata.subproperty == "url"){
@@ -226,9 +228,19 @@
                 $( "[data-need-title = "+metadata.id+"] .needTitle" ).html(content);
             }
                 
-            if (metadata.entity == "PPBase" && metadata.property == "status"){
+            if (metadata.property == "status" && metadata.entity == "PPBase"){
 
-                $(".project-status-display ." + metadata.subproperty).text(content);
+                $(".project-status-display ." + metadata.subproperty).text(content.text).css("background-color", content.bg_color);
+
+            }
+                
+            if (metadata.property == "status" && metadata.subproperty == "userRemarks"){
+
+                if(content !== ""){
+                    content=content.trim();
+                }
+
+                $(".project-status-display .userRemarks").text(content);
 
             }
                 
@@ -237,10 +249,11 @@
                 hasCaptions();
 
             }
-
+                
         }
 
 
+    /* Project Status Live Edition & Save*/
 
     $( "ul .project-status-button" ).on( "click", function() {
 
@@ -265,6 +278,8 @@
         console.log($("[data-value='" + value + "']").text());
           
         metadata = $(this).attr("data-edit-project-status");
+
+        $t=$(this);
         
 
         $.ajax({
@@ -280,6 +295,18 @@
 
                 console.log("project status updated !");
 
+                var newLabel;
+
+                if(value==""){ //status is deselected without replacement
+
+                    newLabel="";
+
+                }else{
+
+                    newLabel=$t.attr("data-short-descr");
+
+                }
+
                 customEvents.dispatchEvent(
 
                     new CustomEvent('presentationChangedOnRemote', {
@@ -288,7 +315,7 @@
 
                             "structure": 'misc',
                             "metadata": metadata,
-                            "content": $("[data-value='" + value + "']").text(), //we update project status display with a readable string (not an identifier), so here we search for this readable string.
+                            "content": {"text": newLabel, "bg_color": $t.attr("data-bg-color")}, //we update project status display with a readable string (not an identifier), so here we search for this readable string.
 
                         }
                     })
@@ -307,10 +334,6 @@
             }  
 
         });
-
-        
-        
-
         
     });
 

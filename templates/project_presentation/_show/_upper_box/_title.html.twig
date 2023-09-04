@@ -4,7 +4,7 @@
 
     <!-- Structure Container -->
 
-    <div class="pp-title-container position-relative">
+    <div class="pp-title-container">
 
         <!-- Project Title Display -->
 
@@ -60,14 +60,21 @@
 
     <style>
 
+        .pp-title-container{
+            position: relative;
+            display: inline-block;
+        }
+
         .pp-title{
 
             display: inline-block;
             position: relative;
             width: 100%;
 
+            line-height: 1;
+
             padding-top: 0px;
-            margin-bottom: 13px;
+            margin-bottom: 0px;
 
             color: navy;
             font-weight: bold;
@@ -82,7 +89,7 @@
                 padding-top: 2px;
                 padding-left: 0px;
                 padding-right: 0px;
-                width: 100%;
+                max-width: 100%;
 
                 margin-bottom: 20px;
 

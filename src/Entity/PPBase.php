@@ -957,9 +957,17 @@ class PPBase implements \Serializable, NormalizableInterface
 
     }
 
-    public function getProjectStatus($statusType){
+    public function getProjectStatus($statusType = null){
 
-        return $this->otherComponents['status'][$statusType];
+        $output = null;
+
+        if ($statusType !== null) {
+            $output = $this->otherComponents['status'][$statusType];
+        } else {
+            $output = $this->otherComponents['status'];
+        }
+
+        return $output;
 
     }
 

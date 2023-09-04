@@ -17,13 +17,17 @@
     
 {% endmacro %}           
             
-
-
-
-
 <div class="pp-upper-box pp-struct-container row"> 
 
     <div class="container left-col-md col-lg-9">
+
+        {# Status Displayed at the top (only for small screens) #}
+
+        <div class="d-md-none mb-3">
+
+            {% include 'project_presentation/_show/status/_view.html.twig' %}
+
+        </div>
 
         {# Title Displayed at the top (only for small screens) #}
 
@@ -57,11 +61,17 @@
 
                 <div class="container px-0 ps-md-2">
 
-                    {# Title Display only >= Medium Screens #}
+                    {# Title & Status Display only >= Medium Screens #}
 
-                    <div class="d-none d-md-block">
+                    <div class="d-none d-md-flex align-items-center mb-2">
+
+                        {# Project Title Display #}
 
                         {% include 'project_presentation/_show/_upper_box/_title.html.twig' %}
+
+                        {# Project Status Display #}
+        
+                        {% include 'project_presentation/_show/status/_view.html.twig' %}
         
                     </div>
 
@@ -73,9 +83,11 @@
                         
                     </div>
 
-                    {# Keywords Display only >= Medium Screens #}
+                    
 
-                    <div class="d-none d-md-block">
+                    <div class="d-none d-md-flex align-items-center">
+
+                        {# Keywords Display only >= Medium Screens #}
         
                         {% include 'project_presentation/_show/_upper_box/_categories_keywords.html.twig' %}
 
@@ -88,9 +100,9 @@
 
         </div>
 
-        {# Keywords Display only Small Screens #}
+        {# Categories & Keywords Display & Thumbnail Access Display- only Small Screens #}
 
-        <div class="keywords-container row d-md-none">
+        <div class="keywords-container row d-md-none text-center">
 
             {% include 'project_presentation/_show/_upper_box/_categories_keywords.html.twig' %}
 
@@ -98,13 +110,13 @@
 
         {# Project status or progression Edition Icon ; presentation's comments - only Small Screens #}
 
-        <div class="edit-status-button-container d-flex justify-content-center d-lg-none">
+        <div class="edit-status-button-container d-flex justify-content-center d-lg-none text-center">
 
-            {% include 'project_presentation/_show/_upper_box/_status.html.twig' %}
+            {% include 'project_presentation/_show/status/_edit_button.html.twig' %}
 
         </div>
 
-        <div class="d-flex justify-content-center mt-2 d-lg-none">
+        <div class="d-flex justify-content-center mt-0 mt-lg-2 d-lg-none">
         
             {{ _self.accessComments(countComments) }}
         
@@ -120,13 +132,10 @@
 
         {% if userPresenter %}
 
-            <div class="">
 
-                {% include 'project_presentation/_show/_upper_box/_status.html.twig' %}
+                {% include 'project_presentation/_show/status/_edit_button.html.twig' %}
 
-            </div>
-
-                <div class="mt-3 px-2 pt-2 pb-0 pt-lg-0 pb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
+                <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
                 
                     {{ _self.accessComments(countComments) }}
 

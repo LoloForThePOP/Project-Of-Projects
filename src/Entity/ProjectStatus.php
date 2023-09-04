@@ -22,17 +22,42 @@ class ProjectStatus
             
                 [
                     
-                    ['uniqueName'=> 'idea', 'description_fr'=>"Encore à l'état d'idée,<br>de réflexion"], 
-            
-                    ['uniqueName'=> 'production', 'description_fr'=>'La réalisation concrète<br>est démarrée'] ,
+                    [
+                        'uniqueName'=> 'idea', 
+                        'description_fr'=> "Encore à l'état d'idée, de réflexion / prévu",
+                        'short_description_fr'=> "Idée / prévu",
+                        'bg_color'=> "#95d2ff4a",
+                    ], 
+        
+                    [
+                        'uniqueName'=> 'production',
+                        'description_fr'=>'La réalisation concrète est démarrée',
+                        'short_description_fr'=> "En cours",
+                        'bg_color'=> "#e7fbbb",
+                    ],
 
                     [
-                        'uniqueName'=> "pause", 'description_fr' => "En pause"
+                        'uniqueName'=> "pause", 
+                        'description_fr' => "En pause",
+                        'short_description_fr' => "En pause",
+                        'bg_color' => "#fffd8c",
                     ], 
             
-                    ['uniqueName'=> "cancel",'description_fr' => "Annulé ou abandonné"], 
+                    [
+                        'uniqueName'=> "cancel",
+                        'description_fr' => "Annulé ou abandonné",
+                        'short_description_fr' => "Annulé / abandonné",
+                        'bg_color' => "#f9dad2e0",
+
+                    ], 
             
-                    ['uniqueName'=> "done",'description_fr' => "Terminé"], 
+                    [
+                        'uniqueName'=> "done",
+                        'description_fr' => "Terminé",
+                        'short_description_fr' => "Terminé ✓",
+                        'bg_color' => "#e2ffb7",
+
+                    ], 
                     
                 ]
             
@@ -45,7 +70,6 @@ class ProjectStatus
 
             [
                 'uniqueName' => 'sales',
-
                 'description_fr'=> "S'il y a ou aura des ventes", 
     
             ],
@@ -55,22 +79,34 @@ class ProjectStatus
 
                 [ 
                     'uniqueName'=> "will_be_marketed",
-                    'description_fr' => "Le produit ou service<br>n'est pas encore commercialisé",
+                    'description_fr' => "Le produit ou service n'est pas encore commercialisé",
+                    'short_description_fr' => "Sera commercialisé",
+                    'bg_color' => "#ffb4717d",
+
                 ], 
         
                 [ 
-                    'uniqueName'=> "sale_offering_began",
-                    'description_fr' => "Le produit ou service<br>commence à être commercialisé",
+                    'uniqueName'=> "product_for_sale",
+                    'description_fr' => "Le produit ou service commence à être commercialisé",
+                    'short_description_fr' => "Commercialisé",
+                    'bg_color' => "#ffb4717d",
+
                 ], 
         
                 [ 
                     'uniqueName'=> "first_sales_done",
                     'description_fr' => "Des premières ventes sont effectuées",
+                    'short_description_fr' => "Premières ventes effectuées",
+                    'bg_color' => "#ffb4717d",
+
                 ], 
         
                 [ 
                     'uniqueName'=> "marketed_significantly",
                     'description_fr' => "Déjà commercialisé à moyenne ou grande échelle",
+                    'short_description_fr' => "Commercialisé à moyenne / grande échelle",
+                    'bg_color' => "#ffb4717d",
+
                 ], 
         
             ],
@@ -85,8 +121,7 @@ class ProjectStatus
             [
 
                 'uniqueName' => 'modelisation',
-
-                'description_fr'=> 'Si vous créez<br>un objet matériel', 
+                'description_fr'=> 'Si vous créez un objet matériel', 
 
             ],
 
@@ -95,22 +130,34 @@ class ProjectStatus
 
                 [ 
                     'uniqueName'=> "computer_simulation",
-                    'description_fr' => "C'est actuellement une<br>simulation informatique",
+                    'description_fr' => "C'est actuellement une simulation informatique",
+                    'short_description_fr' => "Actuellement simulation informatique",
+                    'bg_color' => "#d18eff4a",
+
                 ], 
         
                 [ 
                     'uniqueName'=> "labo_prototype",
-                    'description_fr' => "C'est actuellement un<br>prototype testé en labo",
+                    'description_fr' => "C'est actuellement un prototype testé en labo",
+                    'short_description_fr' => "Actuellement prototype en labo",
+                    'bg_color' => "#d18eff4a",
+
                 ], 
       
                 [ 
                     'uniqueName'=> "real_world_prototype",
-                    'description_fr' => "C'est actuellement un prototype<br>testé dans le monde réel",
+                    'description_fr' => "C'est actuellement un prototype testé en conditions réelles",
+                    'short_description_fr' => "Actuellement prototype en conditions réelles",
+                    'bg_color' => "#d18eff4a",
+
                 ], 
       
                 [ 
                     'uniqueName'=> "realised_object",
                     'description_fr' => "L'objet est réalisé",
+                    'short_description_fr' => "Objet réalisé",
+                    'bg_color' => "#d18eff4a",
+
                 ], 
         
             ],
@@ -123,8 +170,7 @@ class ProjectStatus
             [
 
                 'uniqueName' => 'submission',
-
-                'description_fr'=> "Si le projet est soumis<br>à une décision ou un vote", 
+                'description_fr'=> "Si le projet est soumis à une décision ou un vote", 
 
             ],
 
@@ -133,22 +179,34 @@ class ProjectStatus
 
                 [ 
                     'uniqueName'=> "submitted",
-                    'description_fr' => "Proposé, soumis<br>(en attente de décision)",
+                    'description_fr' => "Le projet est proposé (décision en attente)",
+                    'short_description_fr' => "Décision en attente",
+                    'bg_color' => "pink",
+
                 ], 
         
                 [ 
                     'uniqueName'=> "approved",
                     'description_fr' => "Décision acceptée",
+                    'short_description_fr' => "Décision acceptée",
+                    'bg_color' => "pink",
+
                 ], 
         
                 [ 
                     'uniqueName'=> "rejected",
                     'description_fr' => "Décision rejetée",
+                    'short_description_fr' => "Décision rejetée",
+                    'bg_color' => "pink",
+
                 ], 
         
                 [ 
                     'uniqueName'=> "postponed",
-                    'description_fr' => "Décision reportée",
+                    'description_fr' => "La décision est reportée à une date indéterminée",
+                    'short_description_fr' => "Décision reportée (date indéterminée)",
+                    'bg_color' => "pink",
+
                 ], 
         
             ],

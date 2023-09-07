@@ -16,22 +16,60 @@
     </a>
     
 {% endmacro %}           
+
+
+{% set likeStructure %} {# javascript in show.html.twig #}
+    
+    <div class="like-struct d-flex align-items-center">
+
+        {# User can't like if not connected #}
+
+        {% if not app.user %}
+
+            <a class="d-flex align-items-center" href="{{path('app_login')}}">
+        
+                <img class="likeIcon me-2" src="{{ asset('thumb_up.svg', 'misc')}}" alt="an icon representing a thumb up filled with a color" width="24" height="22">   
+
+        {% else %}
+
+            <a class="js-like d-flex align-items-center" href="#">
+        
+        {% endif %}
+
+        {% if app.user and presentation.isLikedByUser(app.user) %}
+
+
+            <img class="likeIcon me-2" src="{{ asset('thumb_up.svg', 'misc')}}" alt="an icon representing a thumb up" width="24" height="22" style="display:none;">
+
+            <img class="likeIcon me-2" src="{{ asset('thumb_up_filled.svg', 'misc')}}" alt="an icon representing a thumb up filled with a color" width="24" height="22">
+
+        {% else %}
+                 
+            <img class="likeIcon me-2" src="{{ asset('thumb_up.svg', 'misc')}}" alt="an icon representing a thumb up" width="24" height="22">
+
+            <img class="likeIcon me-2" src="{{ asset('thumb_up_filled.svg', 'misc')}}" alt="an icon representing a thumb up" width="24" height="22" style="display:none;">
+        
+        {% endif %}
+
+        </a>
+
+        <span class="likesCount cursor-default">{{presentation.likes | length}}</span> 
+
+    </div>
+    
+{% endset %}       
+
+
             
 <div class="pp-upper-box pp-struct-container row"> 
 
     <div class="container left-col-md col-lg-9">
 
-        {# Status Displayed at the top (only for small screens) #}
+        {# Status & Title Displayed at the top (only for small screens) #}
 
-        <div class="d-md-none mb-3">
-
+        <div class="d-flex d-md-none">
+        
             {% include 'project_presentation/_show/status/_view.html.twig' %}
-
-        </div>
-
-        {# Title Displayed at the top (only for small screens) #}
-
-        <div class="row d-md-none">
 
             {% include 'project_presentation/_show/_upper_box/_title.html.twig' %}
 
@@ -108,7 +146,7 @@
 
         </div>
 
-        {# Project status or progression Edition Icon ; presentation's comments - only Small Screens #}
+        {# Project status or progression Edition Icon - only Small Screens #}
 
         <div class="edit-status-button-container d-flex justify-content-center d-lg-none text-center">
 
@@ -116,9 +154,13 @@
 
         </div>
 
-        <div class="d-flex justify-content-center mt-0 mt-lg-2 d-lg-none">
+        {# Project comments - only Small Screens #}
+
+        <div class="d-flex justify-content-center align-items-center mt-0 mt-lg-2 d-lg-none">
         
-            {{ _self.accessComments(countComments) }}
+            <div class="me-3">{{ _self.accessComments(countComments) }}</div>
+        
+            {{ likeStructure }}
         
         </div>
 
@@ -132,18 +174,27 @@
 
         {% if userPresenter %}
 
+            {% include 'project_presentation/_show/status/_edit_button.html.twig' %}
 
-                {% include 'project_presentation/_show/status/_edit_button.html.twig' %}
+       {% endif %} 
 
-                <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
-                
-                    {{ _self.accessComments(countComments) }}
+        {# Project Likes #}
 
-                </div>
+        <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3 mb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
+        
+            {{ likeStructure }}
 
+        </div>
 
-        {% endif %} 
+        {# Project Comments Count and Access #}
 
+        <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
+        
+            {{ _self.accessComments(countComments) }}
+
+        </div>
+
+ 
     </div>
 
 
@@ -244,8 +295,11 @@
         }
 
         .commentIcon{
-            width:25px;
-            height: 25px;
+            width: 20px;
+        }
+
+        .likeIcon{
+            width: 18px;
         }
 
     }

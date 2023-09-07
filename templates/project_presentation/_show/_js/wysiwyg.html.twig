@@ -84,10 +84,8 @@
         });
 
 
-
         // initialising inline edit capabilities
         $("[data-edit]").attr('contenteditable','true');
-
 
 
         // ajax live save capability on editable elements
@@ -117,8 +115,6 @@
             console.log(metadata);
             
             content = elem.remove(".inline-success-feedback").html().trim(); // avoid feedback mark from being saved with content (see below).
-
-            console.log(content);
 
             if(content=='<br>'){elem.empty(); content=''} //when contenteditable is cleared, an undesired <br> is added (+ this br tag prevents placeholder to show up).
 

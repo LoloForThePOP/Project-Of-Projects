@@ -66,7 +66,7 @@ class ComponentsController extends AbstractController
     }
 
      /**
-     * Allow to remove an element (ex: a presentation document) (with an ajax request)
+     * Allow to remove an element (ex: a presentation's document) (with an ajax request)
      * 
      * @Route("/projects/{stringId}/component/ajax-remove-element/", name="ajax_remove_component_element")
      * 

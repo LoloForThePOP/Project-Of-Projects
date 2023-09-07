@@ -153,8 +153,9 @@ class LiveSavePP {
                 case 'value':
                 case 'userRemarks':
                 case 'general':
+                case 'like':
 
-                case 'modelisation': //project status
+                case 'modelisation': //project status categories
                 case 'sales':
                 case 'administrative':
                 case 'submission':

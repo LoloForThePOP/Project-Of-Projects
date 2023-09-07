@@ -32,6 +32,10 @@ a{
     cursor: pointer;
 }
 
+.cursor-default {
+    cursor: default;
+}
+
 .bg-night-sky{
     background-color: #232f3e;
 }

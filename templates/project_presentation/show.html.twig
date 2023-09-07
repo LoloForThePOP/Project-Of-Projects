@@ -786,7 +786,6 @@
 
 	{# Image Zoom Only On Large Screens #}
 
-
 	<script>
 
 		if (!tinyScreen)
@@ -799,6 +798,42 @@
 		}
 	
 	</script>
+
+    {# Like button js #}
+
+    <script>
+
+        $(document).ready(function(){
+
+            $( ".js-like" ).on( "click", function(e) {
+
+                e.preventDefault();
+
+                $.ajax({
+
+                    url: "{{ path('ajax_like_pp', {'stringId': presentation.stringId}) }}",
+                    type: "POST",
+                    
+                    success: function(data) {
+
+                        $(".likesCount").text(data.likesCount);
+                        $(".likeIcon").toggle();
+                        
+                    },
+
+                    error : function(xhr, textStatus, errorThrown) {
+
+                        console.log(errorThrown);
+
+                    }  
+
+                });
+
+            });
+
+        });
+    
+    </script>
 
 
     <script>

@@ -201,6 +201,17 @@
 
             }
 
+            @media screen and (min-width: 600px) {
+
+                #collapseTextDescription { /* When text is too long, we use a scrollbar on large screen because we don't want to perturb display stability when user click on show more button. */
+
+                    max-height: 380px;
+                    overflow: auto;
+
+                }
+
+            }
+
 
 
             @media screen and (max-width: 1200px) {

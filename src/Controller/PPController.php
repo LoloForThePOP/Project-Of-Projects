@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Like;
 use App\Entity\User;
 use App\Entity\Slide;
 use App\Service\Slug;
@@ -29,6 +30,7 @@ use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
 use App\Form\CustomThumbnailType;
 use App\Form\RegistrationFormType;
+use App\Repository\LikeRepository;
 use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
@@ -924,6 +926,76 @@ class PPController extends AbstractController
 
     }
 
+    /**
+     * Allow to like - unlike a presentation
+     * 
+     * @Route("/project/{stringId}/like", name="ajax_like_pp")
+     *
+     */
+    public function ajaxLike(PPBase $presentation, EntityManagerInterface $manager, LikeRepository $likeRepo)
+    {
+        $user = $this->getUSer();
+
+        if(!$user){
+
+            return new JsonResponse(
+                
+                [],
+                Response::HTTP_FORBIDDEN,
+            );
+
+        }
+
+        if($presentation->isLikedByUser($user)){
+
+            $like = $likeRepo->findOneBy(
+
+                [
+                    "projectPresentation" => $presentation,
+                    "user" => $user,
+                ]
+
+            );
+
+            $manager->remove($like);
+            $manager->flush();
+
+            return new JsonResponse(
+                
+                [
+                    "code" => 200,
+                    "action" => "remove",
+                    "likesCount" => $likeRepo->count(["projectPresentation"=>$presentation]),
+
+                ],
+            );
+        
+        } else {
+
+            $like = new Like();
+
+            $like   -> setUser($user)
+                    -> setProjectPresentation($presentation);
+
+            $manager->persist($like);
+            $manager->flush();
+
+            return new JsonResponse(
+                
+                [
+                    "code" => 200,
+                    "action" => "add",
+                    "likesCount" => $likeRepo->count(["projectPresentation"=>$presentation]),
+
+                ],
+            );
+                
+        };
+
+        return  new JsonResponse(false);
+
+
+    }
 
     /**
      * Allow to edit pp stringId

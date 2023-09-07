@@ -32,7 +32,7 @@
 
             <div class="placeholder-image-container">
 
-                <img class="placeholder-image img-fluid" src="{{ asset(iconName ~'.svg', 'pp_wysiwyg')}}" alt="Placeholder for {{entityType | default ("an empty structure")}}" width="150" height="150">
+                <img class="placeholder-image" src="{{ asset(iconName ~'.svg', 'pp_wysiwyg')}}" alt="Placeholder for {{entityType | default ("an empty structure")}}" width="150" height="150">
 
             </div>
     
@@ -74,25 +74,25 @@
 
             font-size: 18px;
             font-weight: bold;
+            text-align: center;
 
             color: black;
 
         }
+            
+        .placeholder-image{
+            width: 70px;
+            height: 70px;
+        }
+
 
         @media screen and (max-width: 580px) {
 
             .placeholder-label{
 
-                text-align: center;
                 font-size: 15px;
 
             }
-                
-            .placeholder-image{
-                width: 70px;
-                height: 70px;
-            }
-
 
         }
 

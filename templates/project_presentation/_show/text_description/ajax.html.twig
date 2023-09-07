@@ -1,5 +1,5 @@
             
-<textarea id="tinymce" class="tinymce">
+<textarea id="" class="tinymce">
 
     {{textDescription}}
 
@@ -20,7 +20,7 @@
 
             $.getScript(
 
-                "https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js",
+                "https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js",
 
                 () => console.log('loaded script!')
 
@@ -30,13 +30,32 @@
 
                 let editorChangeHandlerId;
 
-                tinymce.init({
+            tinymce.init({
 
                     mode : "specific_textareas",
+                    selector: 'textarea.tinymce',
+                    plugins: 'emoticons lists',
+                    toolbar: 'undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent',
+                    browser_spellcheck: true,
+                    width : "100%",
+                    height: "100%",
+                    entity_encoding : "raw",
+                    menubar: 'edit format',
 
-                    editor_selector : "tinymce",
+                    menu: {
 
-                    setup: function(editor) {
+                        edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                        format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+                    }, 
+
+                    language: 'fr_FR',
+                    plugins: "emoticons, lists",
+                    content_style: "body {padding: 0px 15px;}",
+                    nowrap : false,
+
+                        setup: function(editor) {
 
                         editor.on('change keyup', function () {
 
@@ -83,34 +102,6 @@
                         });
 
                     },
-
-                    width : "100%",
-
-                    height: "100%",
-
-                    entity_encoding : "raw",
-
-                    menubar: 'edit format',
-
-                    menu: {
-
-                        edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
-
-                        format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
-
-                    }, 
-
-                    language: 'fr_FR',
-
-                    plugins: "emoticons, lists",
-
-                    browser_spellcheck: true,
-
-                    toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
-
-                    content_style: "body {padding: 0px 15px;}",
-
-                    nowrap : false,
 
                 });
                 

@@ -2,7 +2,6 @@
 
 {% macro accessComments(countComments) %}
     
-    
     <a class="" href="#comments-struct-container">
 
         <div class="d-flex align-items-center lh-1">
@@ -30,25 +29,24 @@
         
                 <img class="likeIcon me-2" src="{{ asset('thumb_up.svg', 'misc')}}" alt="an icon representing a thumb up filled with a color" width="24" height="22">   
 
-        {% else %}
+        {% else %} {# User is Logged In #}
 
             <a class="js-like d-flex align-items-center" href="#">
         
-        {% endif %}
+            {% if presentation.isLikedByUser(app.user) %}
 
-        {% if app.user and presentation.isLikedByUser(app.user) %}
+                <img class="likeIcon me-2" src="{{ asset('thumb_up.svg', 'misc')}}" alt="an icon representing a thumb up" width="24" height="22" style="display:none;">
 
+                <img class="likeIcon me-2" src="{{ asset('thumb_up_filled.svg', 'misc')}}" alt="an icon representing a thumb up filled with a color" width="24" height="22">
 
-            <img class="likeIcon me-2" src="{{ asset('thumb_up.svg', 'misc')}}" alt="an icon representing a thumb up" width="24" height="22" style="display:none;">
-
-            <img class="likeIcon me-2" src="{{ asset('thumb_up_filled.svg', 'misc')}}" alt="an icon representing a thumb up filled with a color" width="24" height="22">
-
-        {% else %}
+            {% else %}
                  
             <img class="likeIcon me-2" src="{{ asset('thumb_up.svg', 'misc')}}" alt="an icon representing a thumb up" width="24" height="22">
 
             <img class="likeIcon me-2" src="{{ asset('thumb_up_filled.svg', 'misc')}}" alt="an icon representing a thumb up" width="24" height="22" style="display:none;">
         
+            {% endif %}
+
         {% endif %}
 
         </a>

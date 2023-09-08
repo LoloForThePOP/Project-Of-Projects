@@ -82,11 +82,11 @@ class MiscController extends AbstractController
 
             $htmlChunk = [
 
-                "html" => "yo",
+                "html" => $html
 
             ];
 
-            dump($htmlChunk);
+            //dump($htmlChunk);
 
             return new JsonResponse($htmlChunk);
 

@@ -19,7 +19,7 @@ $(document).ready(function(){
         $.ajax({  
 
             url: getChunkRouteName, //defined as a global variable in the base template
-            dataType:   'json',
+            type:       'POST',   
             
             data: {
                 "chunkName": name,

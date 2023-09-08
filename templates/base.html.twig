@@ -106,7 +106,7 @@
 
     {# Display some html chunks on user demand, to reduce page load #}
 
-    <script> var getChunkRouteName = '{{path("ajax_render_chunk")}}'; </script>{# Access to the appropriate route to call #}
+    <script> var getChunkRouteName = '{{url("ajax_render_chunk")}}'; </script>{# Access to the appropriate route to call #}
 
     {# Manage chunk demand and display #}
     <script src="/js/ajax_chunk.js"></script>

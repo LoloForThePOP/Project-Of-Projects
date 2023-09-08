@@ -29,16 +29,17 @@ $(document).ready(function(){
             
             success: function(data, status) {
 
+                console.log(data);
+                console.log(JSON.stringify(data));
+
                 $("#ajax-loader").remove();
                 $(target).html(data.html);
 
             },  
 
-            error : function(xhr, textStatus, errorThrown) {  
+            error : function(data, textStatus, jqXHR) {  
 
-                console.log(xhr);
-                console.log(textStatus);
-                console.log(errorThrown);
+                console.log(data);
                 //alert('Get chunk ajax request failed.');  
             }  
 

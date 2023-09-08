@@ -75,7 +75,7 @@ class MiscController extends AbstractController
 
             $htmlChunk = [
 
-                'html' => $this->renderView(
+                "html" => $this->renderView(
                     
                     $chunkTemplateDirFileName.'.html.twig', 
 

@@ -40,12 +40,12 @@
 
                     {{ textDescription | sanitize_html ('default') }}
 
-                   {# Live edition : BROKEN. Works only in dev environment not in prod. Can't see why, route seems to be called appropriately. json formatting returned by controller might be the cause when I read error messages but then why does it works on local ??? This calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method) #}
+                   {# This calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method) #}
 
                     <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a> 
 
                     
-              {#   <a class="pp-edition-mode coverable-link" href="{{path("edit_pp_text_description", {"stringId":stringId})}}"></a> #}
+              {# OLD WAY <a class="pp-edition-mode coverable-link" href="{{path("edit_pp_text_description", {"stringId":stringId})}}"></a> #}
 
                 </div>
 

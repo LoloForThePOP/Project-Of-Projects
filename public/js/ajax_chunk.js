@@ -29,9 +29,6 @@ $(document).ready(function(){
             
             success: function(data, status) {
 
-                console.log(data);
-                console.log(JSON.stringify(data));
-
                 $("#ajax-loader").remove();
                 $(target).html(data.html);
 

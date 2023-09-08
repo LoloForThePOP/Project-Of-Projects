@@ -18,9 +18,9 @@
 
             <div class="text-container flex-grow-1 ms-0 ms-md-4 ps-2 ps-md-3 mx-auto">
 
-                <h5 class="fw-bold mb-3">Votre présentation est en attente de validation.</h5>
+                <p class="fw-bold mb-3">Votre présentation est en attente de validation.</p>
 
-                <h5 class="">Un membre de notre équipe va vérifier sa conformité afin qu'elle devienne visible sur le site.</h5>
+                <p class="mb-0">Un membre de notre équipe va vérifier sa conformité afin qu'elle devienne visible sur le site.</p>
 
             </div>
 
@@ -36,13 +36,18 @@
                 width: 130px;
             }
 
+            .notif-admin-validation .text-container{
+                
+                font-size: 1.15em;
+            }
+
             @media screen and (max-width: 580px) {
 
                 .notif-admin-validation .img-container{
                     width: 60px;
                 }
 
-                .notif-admin-validation .text-container h5{
+                .notif-admin-validation .text-container{
                     font-size: 1.05rem;
                 }
 

@@ -299,6 +299,7 @@ label:active:after {
 .notification {
 
     margin-bottom: 32px;
+    border-radius: 10px;
 
 }
 

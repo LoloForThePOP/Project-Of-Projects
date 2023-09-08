@@ -36,7 +36,11 @@ $(document).ready(function(){
             },  
 
             error : function(xhr, textStatus, errorThrown) {  
-                alert('Get chunk ajax request failed.');  
+
+                console.log(xhr);
+                console.log(textStatus);
+                console.log(errorThrown);
+                //alert('Get chunk ajax request failed.');  
             }  
 
         });

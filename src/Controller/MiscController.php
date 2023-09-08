@@ -73,18 +73,20 @@ class MiscController extends AbstractController
 
             }
 
+            $html = $this->renderView(
+                    
+                $chunkTemplateDirFileName.'.html.twig', 
+
+                $additionalParameters
+            );
+
             $htmlChunk = [
 
-                "html" => $this->renderView(
-                    
-                    $chunkTemplateDirFileName.'.html.twig', 
-
-                    $additionalParameters
-                ),
+                "html" => "yo",
 
             ];
 
-            //dump($htmlChunk);
+            dump($htmlChunk);
 
             return new JsonResponse($htmlChunk);
 

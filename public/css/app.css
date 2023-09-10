@@ -22,6 +22,10 @@ a{
     text-align: center;
 }
 
+.carousel-control-prev, .carousel-control-next{
+    z-index: 2;
+}
+
 /* Extend Bootstrap 5 */
 
 .sharp {

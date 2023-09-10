@@ -1,6 +1,3 @@
-
-
-
 {% macro oneCommentContainer(comment, parentCommentId, showRepliedUserName) %}
     <div class="oneCommentContainer {% if app.user == comment.user %}activeUserAuthor{% endif %}">
 
@@ -120,13 +117,13 @@
 
 <form id="" class="commentForm position-relative mb-2 mb-md-3" method="post">
 
-    <textarea id="" class="commentContent" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea><br>
+    <textarea id="" class="commentContent" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea>
 
     {# Antispam protection based on time #}
     <span class="formTimeLoaded" style="display:none;">{{ 'now' | date('U') }}</span>
 
     {# Antispam protection based on honey pot #}
-    <input type="text" class="hnyPt" name="hnyPt" autocomplete="off" style="width: 1px; height: 1px; border: none;"/>
+    <input type="text" class="hnyPt" name="hnyPt" autocomplete="off" style="width: 1px; height: 1px; border: none; display: inherit;"/>
 
     <!-- Submit Form -->
 

@@ -33,7 +33,7 @@ class ContactWebsiteType extends AbstractType
                 TextareaType::class,
                 [
 
-                    'label' => 'Contenu de votre message',
+                    'label' => 'Contenu du message',
 
                     'required'   => true,
 

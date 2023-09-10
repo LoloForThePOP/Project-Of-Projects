@@ -208,4 +208,78 @@
 	</script>
 
 
+	
+    <script>
+
+        var slideIndex = 1;
+
+        function plusSlides(n) {
+
+            showSlides(slideIndex += n);
+            
+        }
+
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+
+            var i;
+            var slides = document.getElementsByClassName("mySlides");
+            var dots = document.getElementsByClassName("SlideImageThumbnail");
+            var thumbnail = document.getElementsByClassName("thumbnail");
+            var captions = document.getElementsByClassName("caption");
+            
+            if (n > slides.length) {slideIndex = 1}
+            
+            if (n < 1) {slideIndex = slides.length}
+            
+            for (i = 0; i < slides.length; i++) {
+
+                slides[i].style.display = "none";
+
+                if(typeof(captions[i]) != 'undefined'){
+                    captions[i].style.display = "none";
+                }
+                
+            }
+            
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+                thumbnail[i].className = thumbnail[i].className.replace(" active", "");
+            }
+            
+            slides[slideIndex-1].style.display = "flex";
+
+            if(!tinyScreen){
+
+                killImageZoom(); //deleting previous lens
+                imageZoom("image-slide-wrapper-"+slides[slideIndex-1].id, "image-zoom-result");
+            }
+
+            if(typeof(captions[slideIndex-1]) != 'undefined'){
+                captions[slideIndex-1].style.display = "block";
+            }
+            
+            dots[slideIndex-1].className += " active";
+            thumbnail[slideIndex-1].className += " active";
+
+            if(typeof(captionText) != 'undefined' && captionText != null){
+
+                captionText.innerHTML = dots[slideIndex-1].getAttribute('data-caption');
+                
+            }
+
+        }
+
+		$(document).ready(function(){ //otherwise first slide caption doesn't show in webpage load
+
+			showSlides(slideIndex);
+
+		});
+
+    </script>
+
+
 

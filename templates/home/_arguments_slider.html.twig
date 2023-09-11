@@ -1,0 +1,223 @@
+{% macro carouselItem(title, imageName, textContent, isActive) %}
+
+    <div class="carousel-item {{ isActive ? 'active' }}">
+
+      <div class="container col-lg-9 px-0">
+        
+        <div class="row">
+          
+          {# Upper decoration : diagonal box #}
+
+          <div class="diagonal-band-box">
+
+            <div class="diag">{{title}}</div>
+
+          </div>
+          
+          <div class="col-5 content-container img-container">
+              <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageName ~ '.webp', 'larger')}}" alt="" loading="lazy">  
+          </div>
+
+          <div class="col-7 content-container text-container">{{textContent}}</div>
+
+        </div>
+      
+      </div>
+
+    </div>    
+
+{% endmacro %}
+
+{% set businessCard %}
+
+    <div class="px-0">
+    
+      <p class="d-none d-md-block text-justify px-3" >
+
+        ✔️ Obtenez <b>votre adresse courte, personnalisée, et gratuite</b>, idéale à partager sur les forums et réseaux sociaux.
+
+      </p>
+    
+      <p class="d-none d-md-block text-justify px-3" >
+        
+        ❌ Ne soyez plus gênés lorsqu'on vous demande une présentation simple et rapide de votre projet.
+
+      </p>
+    
+      <p class="d-md-none text-center px-3" >
+
+        👉 propon.org/mon-projet 👈        
+        <br>
+
+        Obtenez votre adresse courte, personnalisée, et 100 % gratuite. Idéale à partager sur les réseaux sociaux.
+
+      </p>
+
+      {# <div class="col text-center">
+      
+        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" type="button">+ Présenter mon Projet</button></a>
+      
+      </div> #}
+
+    </div>
+
+
+{% endset %}
+
+{% set advices %}
+
+    <h4 class="text-center fw-bold mb-4">🤔 En panne d'inspiration ?</h4>
+        
+    <p class="text-justify px-3 mb-4" >
+        
+        Utilisez simplement nos <b>suggestions</b> et notre <b>modèle de page</b> efficace.
+
+    </p>
+    
+{% endset %}
+
+{% set summarize %}
+
+    
+      <h4 class="text-center fw-bold mb-3"><u>On Aime tous les résumés</u></h4>
+    
+      <p class="d-none d-md-block text-justify px-3 mb-3" >
+        
+        ✔️ <b>Obtenez rapidement une présetation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.</b> <br><br>
+
+        ❌ Trop d'informations présentées ou éparpillées, c'est le risque d'<b>abandonner la lecture</b> ou <b>ne pas comprendre votre projet</b>.
+        
+      </p>
+    
+      <p class="d-md-none text-center px-3" >
+        
+        Avec Propon, <b>obtenez rapidement une présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b>.
+        
+      </p>
+
+      {# <div class="col text-center">
+      
+        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" type="button">+ Présenter mon Projet</button></a>
+      
+      </div> #}
+
+
+{% endset %}
+
+{% set findResources %}
+    
+    <h4 class="text-center fw-bold mb-4">Présentez vos Besoins 👍🏼</h4>
+    
+    {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
+    
+    <p class="text-center px-3" >Vous recherchez des compétences, du matériel, des conseils ? Faites-le savoir en seulement quelques minutes.</p>
+
+    {# <div class="col text-center mt-md-3">
+      
+        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" type="button">+ Présenter mon Projet</button></a>
+      
+    </div> #}
+
+{% endset %}
+
+
+
+
+<div id="rationalArgumentsCarousel" class="carousel slide container col-lg-9 d-flex align-items-center" data-bs-interval="false">
+
+  <div class="carousel-inner d-flex align-items-center">
+
+    <div>
+        
+        {{ _self.carouselItem("Simple & Basique", "advices", advices, true) }}
+
+        {{ _self.carouselItem("🃏 Votre « carte de visite »", "business_card", businessCard, false) }}
+
+        {{ _self.carouselItem("👉 Allez à l'Essentiel 👌", "summarize", summarize, false) }}
+
+        {{ _self.carouselItem("🙋‍♀️ Besoin d'aide pour votre projet ?", "find_resources", findResources, false) }}
+    
+    </div>
+
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#rationalArgumentsCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  
+  <button class="carousel-control-next" type="button" data-bs-target="#rationalArgumentsCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+
+</div>
+
+
+<style>
+
+  .carousel-item .content-container {
+    height: 300px;
+  }
+
+
+.img-container{
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+
+}
+
+.img-container img {
+
+  max-height: 100%;
+  max-width: 100%;
+
+}
+
+.text-container{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    line-height: 1.25;
+
+}
+
+
+.carousel-item .diagonal-band-box
+{
+    height: 80px;
+    background-color: #bedcfa;
+    transform: skewY(-4deg);
+
+} 
+
+.carousel-item .diag {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transform: skewY(4deg);
+	font-size: 27px;
+	font-weight: bold;
+	padding-top: 16px;
+}
+
+@media screen and (max-width: 580px) {
+
+    #rationalArgumentsCarousel{
+        padding: 0;
+    }
+
+    .carousel-item .diag {
+	    font-size: 19px;
+    }
+
+}
+
+
+</style>

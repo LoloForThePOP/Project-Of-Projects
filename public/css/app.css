@@ -22,8 +22,16 @@ a{
     text-align: center;
 }
 
-.carousel-control-prev, .carousel-control-next{
-    z-index: 2;
+.carousel-control-prev, .carousel-control-next {
+
+    display: block;
+    top: unset;
+    bottom: unset;
+	z-index: 2;
+	background-color: black;
+	width: 103px;
+	height: 100px;
+	border-radius: 8px;
 }
 
 /* Extend Bootstrap 5 */

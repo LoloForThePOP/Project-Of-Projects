@@ -28,10 +28,10 @@ a{
     top: unset;
     bottom: unset;
 	z-index: 2;
-	background-color: black;
-	width: 103px;
-	height: 100px;
-	border-radius: 8px;
+	background-color: #4e7da6;
+	width: 70px;
+	height: 70px;
+	border-radius: 50px;
 }
 
 /* Extend Bootstrap 5 */

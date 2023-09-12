@@ -167,12 +167,6 @@
     </div>
 
 
-    
-    {# Find help diagonal jumbotron #}
-
-    {% include "home/_find_help_diag_jumbotron.html.twig" %}
-
-
     {# Create a presentation form #}
 
     {% set createPresentationForm = form.createView %}
@@ -199,6 +193,7 @@
       </div>
 
       <style>
+
         #create_presentation_goal{
           display: inline;
           width: 70%;
@@ -240,11 +235,7 @@
       {{ render(path('backend_search', {label: '🌳 Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
 
     {% endcache %}
-    
-    {# Summarize diagonal jumbotron #}
-
-    {% include "home/_diag_jumbotron_2.html.twig" %}
-    
+        
     {# Highlight a random project
     <div class="d-md-none">
     
@@ -274,9 +265,6 @@
 
     {% endcache %}
     
-    {# Business card diagonal jumbotron #}
-
-    {% include "home/_diag_jumbotron_3.html.twig" %}
 
     {# some presentations by category #}
     {% cache "cat35" ttl(72000) %}
@@ -337,9 +325,7 @@
     {% set createPresentationFormModal = form.createView %}
     
    
-    {# Summarize diagonal jumbotron #}
 
-    {% include "home/_diag_jumbotron_5.html.twig" with {'form': createPresentationFormModal} %}
 
     
     {# Highlight a random project
@@ -391,10 +377,6 @@
 
     {% endcache %}
     
-    
-    {# Presentation helper diagonal jumbotron #}
-
-    {% include "home/_diag_jumbotron_4.html.twig" %}
 
     {# Quote on mobiles #}
     

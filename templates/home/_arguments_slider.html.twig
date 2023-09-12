@@ -14,11 +14,11 @@
 
           </div>
           
-          <div class="col-5 content-container img-container">
+          <div class="col-lg-5 content-container img-container">
               <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageName ~ '.webp', 'larger')}}" alt="" loading="lazy">  
           </div>
 
-          <div class="col-7 content-container text-container">{{textContent}}</div>
+          <div class="col-lg-7 content-container text-container">{{textContent}}</div>
 
         </div>
       
@@ -34,17 +34,17 @@
     
       <p class="d-none d-md-block text-justify px-3" >
 
-        ✔️ Obtenez <b>votre adresse courte, personnalisée, et gratuite</b>, idéale à partager sur les forums et réseaux sociaux.
+        ✔️ Obtenez <b>votre adresse courte, gratuite, et personnalisée</b>. Elle est idéale à partager sur les forums et réseaux sociaux.
 
       </p>
     
       <p class="d-none d-md-block text-justify px-3" >
         
-        ❌ Ne soyez plus gênés lorsqu'on vous demande une présentation simple et rapide de votre projet.
+        ❌ <b>Ne soyez plus gênés</b> lorsqu'on vous demande une présentation simple et rapide de votre projet.
 
       </p>
     
-      <p class="d-md-none text-center px-3" >
+      <p class="d-md-none text-center" >
 
         👉 propon.org/mon-projet 👈        
         <br>
@@ -68,9 +68,9 @@
 
     <h4 class="text-center fw-bold mb-4">🤔 En panne d'inspiration ?</h4>
         
-    <p class="text-justify px-3 mb-4" >
+    <p class="text-justify px-lg-3 mb-4" >
         
-        Utilisez simplement nos <b>suggestions</b> et notre <b>modèle de page</b> efficace.
+        Utilisez nos <b>suggestions simples</b> et notre <b>modèle de page efficace</b>.
 
     </p>
     
@@ -79,19 +79,21 @@
 {% set summarize %}
 
     
-      <h4 class="text-center fw-bold mb-3"><u>On Aime tous les résumés</u></h4>
+      <h4 class="d-none d-md-block text-center fw-bold mb-3"><u>On Aime tous les résumés</u></h4>
+
+      {# <h4 class="d-md-none text-center fw-bold mb-2 fs-5"><u>On Aime tous les résumés</u></h4> #}
     
       <p class="d-none d-md-block text-justify px-3 mb-3" >
         
-        ✔️ <b>Obtenez rapidement une présetation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.</b> <br><br>
+        ✔️ <b>Obtenez une présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.</b> <br><br>
 
         ❌ Trop d'informations présentées ou éparpillées, c'est le risque d'<b>abandonner la lecture</b> ou <b>ne pas comprendre votre projet</b>.
         
       </p>
     
-      <p class="d-md-none text-center px-3" >
+      <p class="d-md-none text-center" >
         
-        Avec Propon, <b>obtenez rapidement une présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b>.
+        <b>Obtenez LA présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b>.
         
       </p>
 
@@ -106,7 +108,7 @@
 
 {% set findResources %}
     
-    <h4 class="text-center fw-bold mb-4">Présentez vos Besoins 👍🏼</h4>
+    <h4 class="text-center fw-bold mb-4">Présentez vos Besoins</h4>
     
     {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
     
@@ -122,7 +124,6 @@
 
 
 
-
 <div id="rationalArgumentsCarousel" class="carousel slide container col-lg-9 d-flex align-items-center" data-bs-interval="false">
 
   <div class="carousel-inner d-flex align-items-center">
@@ -131,11 +132,11 @@
         
         {{ _self.carouselItem("Simple & Basique", "advices", advices, true) }}
 
-        {{ _self.carouselItem("🃏 Votre « carte de visite »", "business_card", businessCard, false) }}
+        {{ _self.carouselItem("Votre « carte de visite »", "business_card", businessCard, false) }}
 
         {{ _self.carouselItem("👉 Allez à l'Essentiel 👌", "summarize", summarize, false) }}
 
-        {{ _self.carouselItem("🙋‍♀️ Besoin d'aide pour votre projet ?", "find_resources", findResources, false) }}
+        {{ _self.carouselItem("Besoin d'aide pour votre projet ?", "find_resources", findResources, false) }}
     
     </div>
 
@@ -191,9 +192,9 @@
 
 .carousel-item .diagonal-band-box
 {
-    height: 80px;
-    background-color: #bedcfa;
-    transform: skewY(-4deg);
+  height: 80px;
+  background-color: #bedcfa;
+  /* transform: skewY(-4deg); */
 
 } 
 
@@ -201,7 +202,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	transform: skewY(4deg);
+	/* transform: skewY(4deg); */
 	font-size: 27px;
 	font-weight: bold;
 	padding-top: 16px;
@@ -210,11 +211,36 @@
 @media screen and (max-width: 580px) {
 
     #rationalArgumentsCarousel{
-        padding: 0;
+      padding: 0;
+    }
+
+    .carousel-item {
+      height: 400px;
+    }
+
+    .carousel-item .content-container {
+      height: unset;
+      text-align: center;
+      font-size: initial;
+    }
+
+    .carousel-item .diagonal-band-box {
+      height: 45px;
+      margin-bottom: 10px;
     }
 
     .carousel-item .diag {
 	    font-size: 19px;
+      padding-top: 8px;
+    }
+
+    .carousel-item .img-container {
+      margin-bottom: 13px;
+    }
+
+    .carousel-item .img-container img {
+      max-height: 200px;
+      max-width: 100%;
     }
 
 }

@@ -34,6 +34,28 @@ a{
 	border-radius: 50px;
 }
 
+
+@media screen and (max-width: 580px) {
+
+    .carousel-control-prev, .carousel-control-next {
+
+        width: 31px;
+        height: 31px;
+    
+    }
+
+    .carousel-control-prev-icon, .carousel-control-next-icon {
+
+        width: 16px;
+        
+    }
+
+}
+
+
+
+
+
 /* Extend Bootstrap 5 */
 
 .sharp {

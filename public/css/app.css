@@ -54,6 +54,15 @@ a{
 }
 
 
+@media (min-width: 992px) {
+   
+    .fs-lg-3 {
+      font-size: 1.75rem !important;
+    }
+
+}
+
+
 
 
 

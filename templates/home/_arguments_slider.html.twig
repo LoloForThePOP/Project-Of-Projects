@@ -8,23 +8,26 @@
           
           {# Upper decoration : diagonal box #}
 
-          <div class="diagonal-band-box">
+          <div class="diagonal-band-box col-12">
 
             <div class="diag">{{title}}</div>
 
           </div>
-          
-          <div class="col-lg-5 content-container img-container">
-              <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageName ~ '.webp', 'larger')}}" alt="" loading="lazy">  
-          </div>
 
-          <div class="col-lg-7 content-container text-container">{{textContent}}</div>
+          <div class="content-container row col-12 pe-0">
+            
+            <div class="col-lg-5 img-container pe-0">
+                <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageName ~ '.webp', 'larger')}}" alt="" loading="lazy">  
+            </div>
+
+            <div class="col-lg-7 text-container pe-0">{{textContent}}</div>
+          
+          </div>
+          
+          <div class="footerBand col-12"></div>
 
         </div>
 
-
-        <div class="footerBand row"></div>
-      
       </div>
 
     </div>    
@@ -37,7 +40,7 @@
     
       <p class="d-none d-md-block text-justify px-3" >
 
-        ✔️ Obtenez <b>votre adresse courte, gratuite, et personnalisée</b>. Elle est idéale à partager sur les forums et réseaux sociaux.
+        ✔️ Obtenez <b>une adresse courte, gratuite, et personnalisée</b>. Elle est idéale à partager sur les forums et réseaux sociaux.
 
       </p>
     
@@ -49,7 +52,7 @@
     
       <p class="d-md-none text-center mb-0" >
 
-        <b>Obtenez votre adresse courte, personnalisée, et 100 % gratuite. Elle est idéale à partager sur les réseaux sociaux.</b>
+        <b>Obtenez une adresse courte, personnalisée, et 100 % gratuite. Elle est idéale à partager sur les réseaux sociaux.</b>
 
       </p>
 
@@ -66,7 +69,7 @@
 
 {% set advices %}
 
-    <h4 class="text-center fw-bold mb-4">🤔 En panne d'inspiration ?</h4>
+    {# <h4 class="text-center fw-bold mb-4">🤔 En panne d'inspiration ?</h4> #}
         
     <p class="text-justify px-lg-3 mb-0" >
         
@@ -79,13 +82,13 @@
 {% set summarize %}
 
     
-      <h4 class="d-none d-md-block text-center fw-bold mb-3"><u>On Aime tous les résumés</u></h4>
+      {# <h4 class="d-none d-md-block text-center fw-bold mb-3"><u>On Aime tous les résumés</u></h4>
 
-      {# <h4 class="d-md-none text-center fw-bold mb-2 fs-5"><u>On Aime tous les résumés</u></h4> #}
+      <h4 class="d-md-none text-center fw-bold mb-2 fs-5"><u>On Aime tous les résumés</u></h4> #}
     
       <p class="d-none d-md-block text-justify px-3 mb-3" >
         
-        ✔️ <b>Obtenez une présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.</b> <br><br>
+        ✔️ <b>Obtenez une présentation claire et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.</b> <br><br>
 
         ❌ Trop d'informations présentées ou éparpillées, c'est le risque d'<b>abandonner la lecture</b> ou <b>ne pas comprendre votre projet</b>.
         
@@ -93,7 +96,7 @@
     
       <p class="d-md-none text-center mb-0" >
         
-        <b>Obtenez LA présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b>.
+        <b>Obtenez LA présentation claire et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b>.
         
       </p>
 
@@ -108,11 +111,11 @@
 
 {% set findResources %}
     
-    <h4 class="text-center fw-bold mb-4">🙋‍♀️ Présentez vos Besoins</h4>
+    <h4 class="d-none d-md-block text-center fw-bold mb-4">🙋‍♀️ Présentez vos Besoins</h4>
     
     {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
     
-    <p class="text-center px-3" >Vous recherchez des compétences, du matériel, des conseils ? Faites-le savoir en seulement quelques minutes.</p>
+    <p class="text-center px-3" >Vous recherchez <b>des compétences, du matériel, des conseils</b> ? Faites-le savoir en seulement quelques minutes.</p>
 
     {# <div class="col text-center mt-md-3">
       
@@ -124,7 +127,10 @@
 
 
 
-<div id="rationalArgumentsCarousel" class="carousel slide container col-lg-9 d-flex align-items-center" data-bs-interval="false">
+
+<h5 class="text-center mb-3 mb-md-4 h3 fw-bold">👉 Pourquoi Utiliser Propon ?</h5>
+
+<div id="rationalArgumentsCarousel" class="carousel container col-lg-8 d-flex align-items-center" data-bs-interval="false">
 
   <div class="carousel-inner d-flex align-items-center">
 
@@ -132,11 +138,11 @@
         
         {{ _self.carouselItem("Simple & Basique", "advices", advices, true) }}
 
-        {{ _self.carouselItem("Votre « carte de visite »", "business_card", businessCard, false) }}
-
-        {{ _self.carouselItem("👉 Allez à l'Essentiel 👌", "summarize", summarize, false) }}
+        {{ _self.carouselItem("👉 L'Essentiel 👌", "summarize", summarize, false) }}
 
         {{ _self.carouselItem("Besoin d'aide pour votre projet ?", "find_resources", findResources, false) }}
+
+        {{ _self.carouselItem("Votre « Carte de Visite »", "business_card", businessCard, false) }}
     
     </div>
 
@@ -159,6 +165,7 @@
 
   .carousel-item .content-container {
     height: 300px;
+    margin-bottom: 7px;
   }
 
 
@@ -167,6 +174,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
+  height: inherit;
   z-index: 2;
 
 }
@@ -192,8 +201,13 @@
 
 .carousel-item .diagonal-band-box
 {
-  height: 80px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+  height: 56px;
   background-color: #bedcfa;
+
   /* transform: skewY(-4deg); */
 
 } 
@@ -205,11 +219,10 @@
 	/* transform: skewY(4deg); */
 	font-size: 27px;
 	font-weight: bold;
-	padding-top: 16px;
 }
 
 .footerBand{
-  height: 35px;
+  height: 48px;
   background-color: #bedcfa;
 }
 
@@ -225,18 +238,18 @@
 
     .carousel-item .content-container {
       height: unset;
+      min-height: 310px;
       text-align: center;
       font-size: initial;
     }
 
     .carousel-item .diagonal-band-box {
-      height: 45px;
+      height: 35px;
       margin-bottom: 10px;
     }
 
     .carousel-item .diag {
-	    font-size: 19px;
-      padding-top: 8px;
+	    font-size: 18px;
     }
 
     .carousel-item .img-container {
@@ -247,6 +260,12 @@
       max-height: 200px;
       max-width: 100%;
     }
+      
+  .footerBand{
+
+    height: 32px;
+
+  }
 
 }
 

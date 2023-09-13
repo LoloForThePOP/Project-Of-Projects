@@ -24,14 +24,15 @@ a{
 
 .carousel-control-prev, .carousel-control-next {
 
-    display: block;
+    display: flex;
     top: unset;
     bottom: unset;
 	z-index: 2;
-	background-color: #4e7da6;
-	width: 70px;
-	height: 70px;
+	background-color: #bedcfa;
+	width: 60px;
+	height: 60px;
 	border-radius: 50px;
+    opacity: unset;
 }
 
 

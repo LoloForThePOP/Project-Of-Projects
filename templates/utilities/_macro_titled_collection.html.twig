@@ -22,7 +22,7 @@
 
         <h3 class="collection-title">{{title}}</h3>
 
-        <div class="hide-too-long {{ hideThreshold | default('hide-335') }}  show-tiny-screens collection-container">
+        <div class="hide-too-long {{ hideThreshold | default('hide-335') }} show-tiny-screens collection-container">
                 
             {% for item in items %}
 
@@ -56,22 +56,22 @@
 
                     <div class="other-info-container">
 
-                        <div class="goal {% if title is empty %}no-title{% endif %} ">
+                        <div class="goal no-title">{# {% if title is empty %}no-title{% endif %}  #}
 
                             {{ item.goal | length < 81 ? item.goal[:1] | upper ~ item.goal[1:] : item.goal[:1] | upper ~ item.goal[1:77] ~ '...' }}
 
 
                         </div>
 
-                        {% if title is not empty %}
+{#                         {% if title is not empty %}
 
                             <div class="title">
                                 {{ item.title[:1] | upper ~ item.title[1:] | slice(0, 63)}}
                             </div>
 
-                        {% endif %}
+                        {% endif %} #}
 
-                        {% if item.keywords | length > 0 %}
+{#                      {% if item.keywords | length > 0 %}
 
                             <div class="keywords text-break">
 
@@ -85,7 +85,7 @@
 
                             </div>
 
-                        {% endif %}
+                        {% endif %} #}
 
                     </div>
 

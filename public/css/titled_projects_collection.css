@@ -23,7 +23,7 @@
 .project-card{
     display: inline-block; 
     width: 300px; 
-    height: 350px; 
+    height: 290px; 
     overflow: hidden;
     border: 1px solid rgb(227, 221, 211); 
     border-radius: 4px;
@@ -39,7 +39,7 @@
 
 .project-card .goal{
 
-    color: #195232;
+    color: #45429a;
     margin-bottom: 4px;
     font-size: 17px;
     font-weight: bold;
@@ -48,6 +48,7 @@
 }
 
 .project-card .title {
+    margin-top: 6px;
     margin-bottom: 6px;
     line-height: 1.13em;
     font-size: 17px;

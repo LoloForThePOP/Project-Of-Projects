@@ -112,9 +112,6 @@
     {% endif %}
 
 
-    {% include "home/_arguments_slider.html.twig" %}
-
-
     {# Case user not logged in : displaying homepage jumbotron #}
 
     {% if not app.user %}
@@ -167,11 +164,17 @@
     </div>
 
 
+    {% include "home/_arguments_slider.html.twig" %}
+
+    <br><br>
+
+
+
     {# Create a presentation form #}
 
     {% set createPresentationForm = form.createView %}
 
-    <div class="container col border p-2 p-md-4 py-3 py-md-5 text-center mt-5 mt-md-4 mb-4">
+    <div class="container col border p-2 p-md-4 py-3 py-md-4 text-center mt-5 mt-md-4 mb-4">
 
       <div class="col-12 col-md-8 mx-auto">
       
@@ -230,11 +233,11 @@
 
     {# some presentations by category #}
 
-    {% cache "cat1" ttl(72000) %}
+    {% cache "cat1" ttl(72000) %}   {% endcache %}
       
       {{ render(path('backend_search', {label: '🌳 Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
 
-    {% endcache %}
+ 
         
     {# Highlight a random project
     <div class="d-md-none">
@@ -259,17 +262,17 @@
 
     {# some presentations by category #}
     
-    {% cache "cat2" ttl(72000) %}
+    {% cache "cat2" ttl(72000) %}    {% endcache %}
       
       {{ render(path('backend_search', {label: '🖥️ Numérique', filters: '(categories.uniqueName:software)'})) }}
 
-    {% endcache %}
+
     
 
     {# some presentations by category #}
-    {% cache "cat35" ttl(72000) %}
+    {% cache "cat35" ttl(72000) %} {% endcache %}
       {{ render(path('backend_search', {label: 'ℹ️ Bases de Données', filters: '(categories.uniqueName:data)'})) }}
-    {% endcache %}
+   
 
     {# How it works + FAQ #}
     
@@ -315,11 +318,11 @@
 
     {# some presentations by category #}
 
-    {% cache "cat3" ttl(72000) %}
+    {% cache "cat3" ttl(72000) %}  {% endcache %}
       
       {{ render(path('backend_search', {label: '📗📘 Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)'})) }}
 
-    {% endcache %}
+  
 
 
     {% set createPresentationFormModal = form.createView %}
@@ -371,11 +374,11 @@
 
     {# some presentations by category #}
 
-    {% cache "cat4" ttl(72000) %}
+    {% cache "cat4" ttl(72000) %}    {% endcache %}
       
       {{ render(path('backend_search', {label: '🏺 Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
 
-    {% endcache %}
+
     
 
     {# Quote on mobiles #}
@@ -427,11 +430,11 @@
     
     {# some presentations by category #}
 
-    {% cache "cat5" ttl(72000) %}
+    {% cache "cat5" ttl(72000) %}    {% endcache %}
       
       {{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', filters: '(categories.uniqueName:humane)'})) }}
 
-    {% endcache %}
+
     
 
     {# Highlight a random project #} 
@@ -441,11 +444,11 @@
 
     {# some presentations by category #}
 
-    {% cache "cat6" ttl(72000) %}
+    {% cache "cat6" ttl(72000) %}{% endcache %}
       
       {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)'})) }}
 
-    {% endcache %}
+    
     
     
 

@@ -444,7 +444,7 @@
 
     {% cache "cat6" ttl(72000) %}{% endcache %}
       
-      {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)'})) }}
+      {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}
 
     
     

@@ -21,10 +21,10 @@ class SearchController extends AbstractController
      * 
      * label : the label displayed on view (ex: "Environmental Projects").
      * 
-     * @Route("/backend-search/{label}/{filters}/{shuffle}", name="backend_search")
+     * @Route("/backend-search/{label}/{filters}/{iconName}/{shuffle}", name="backend_search")
      *
      */
-    public function backendSearch($label='', $filters='none', $shuffle=null)
+    public function backendSearch($label='', $iconName='', $filters='none', $shuffle=0)
     {
 
         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
@@ -32,17 +32,18 @@ class SearchController extends AbstractController
         $searchOptions = [];
 
         if ($filters != 'none') {
-            $searchOptions['filters']= $filters;
+            $searchOptions['filters'] = $filters;
         }
 
         $results = $this->searchService->search($em, PPBase::class, '', $searchOptions); 
 
-        if ($shuffle != null) {
+        if ($shuffle != 0) {
             shuffle($results);
         }
 
         return $this->render('utilities/_display_collection_wrapper_template.html.twig', [
             'label' => $label,
+            'iconName' => $iconName,
             'results' => $results,
         ]);
 

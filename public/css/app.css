@@ -403,7 +403,7 @@ label:active:after {
 
     .sm-text-center{
 
-        text-align: center;
+        text-align: center !important;
     }
 
     .sm-border-none{

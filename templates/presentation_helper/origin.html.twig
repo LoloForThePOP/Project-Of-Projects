@@ -11,7 +11,7 @@
                     
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "✒️ Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
         
-    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "🎯 Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?",'finalRenderingLabel': ""}, 
+    { 'uniqueName': "goal_details", 'type': "textDescription", 'priorQuestion': "🎯 Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?", 'questionFr': "Quel résultat final visez-vous ?", 'finalRenderingLabel': ""}, 
 
     { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "🏗️ Votre Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
 
@@ -45,6 +45,8 @@
 
 {% set itemsCount = helperItems | length %}
 
+{% set progressionPercentage = ( (currentPosition + 1) / itemsCount ) * 100 %}
+
 {% if helperItems[position + 1] is defined %}
 
     {% set nextPosition = position + 1 %}
@@ -53,20 +55,33 @@
 
 {% set nextItem = null %}
 
-{% if helperItems[position + 1] is defined %}
+    {% if helperItems[position + 1] is defined %}
 
-    {% set nextItem = helperItems[position + 1] %}
+        {% set nextItem = helperItems[position + 1] %}
 
-{% endif %}
+    {% endif %}
+
+{% set previousPosition = null %}
+
+    {% if helperItems[position - 1] is defined %}
+
+        {% set previousPosition = position - 1 %}
+
+    {% endif %}
 
 
 {% block body %}
 
     {% set hasPriorQuestion = currentItem.priorQuestion is defined %}
+
         
     <div class="container page-container mt-5" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
 
-        <h4 class="text-center mb-5">⏱️ La construction de votre page de projet progresse</h4>
+        {% if currentPosition + 1 != itemsCount %}<h4 class="text-center sm-fs-4 mb-3">⏱️ La construction de la présentation progresse !</h4>{% endif %}
+
+        <div class="progress container col-md-6 px-0 mb-5" role="progressbar" aria-valuenow="{{progressionPercentage}}" aria-valuemin="0" aria-valuemax="100" style="height: 20px">
+            <div class="progress-bar" style="width: {{ progressionPercentage }}%">{{ progressionPercentage | round(0, 'floor') }} %</div>
+        </div>
 
         {% include "presentation_helper/_template.html.twig" %}
 
@@ -78,7 +93,14 @@
 
         {% endif %}
 
+        {# Quit presentation helper #}
+
+        <div class="text-end text-center text-info mt-4 mt-md-5"><a href="{{ path('show_presentation', {'stringId': stringId}) }}">Quitter le mode pas à pas</a></div>
+
     </div>
+
+    
+
 
     <style>
 
@@ -86,9 +108,7 @@
 
             display: none;
 
-        }
-
-                
+        }                
 
         @media screen and (max-width: 580px) {
 
@@ -102,6 +122,10 @@
 
             .fs-4{
                 font-size: 19px !important;
+            }
+
+            .sm-fs-4{
+                font-size: 16px;
             }
 
         }

@@ -1,4 +1,4 @@
-{% macro collection ( title="", items, class="", hideThreshold ) %}
+{% macro collection ( title="", items, class="", hideThreshold, icon = false ) %}
 
     {% if class == "user-presentations" %} {# Manage plural forms #}
 
@@ -20,7 +20,17 @@
 
     <div class="titled-projects-container {{class}}">
 
-        <h3 class="collection-title">{{title}}</h3>
+        <h3 class="collection-title">
+
+            {% if icon %}
+            
+                <img class="collection-icon" src="{{asset ("collection_categories/"~ icon ~".svg", 'icons')}}" alt="An icon representing the project category" width = "27">
+
+            {% endif %}
+            
+            {{title}}
+        
+        </h3>
 
         <div class="hide-too-long {{ hideThreshold | default('hide-335') }} show-tiny-screens collection-container">
                 

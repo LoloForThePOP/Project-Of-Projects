@@ -1,4 +1,4 @@
-{% macro carouselItem(title, imageName, textContent, isActive) %}
+{% macro carouselItem(title, imageName, imgAlt, textContent, isActive) %}
 
     <div class="carousel-item {{ isActive ? 'active' }}">
 
@@ -17,7 +17,7 @@
           <div class="content-container row col-12 pe-0">
             
             <div class="col-lg-5 img-container pe-0">
-                <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageName ~ '.webp', 'larger')}}" alt="" loading="lazy">  
+                <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageName ~ '.webp', 'larger')}}" alt="{{imgAlt}}" loading="lazy">  
             </div>
 
             <div class="col-lg-7 text-container pe-0">{{textContent}}</div>
@@ -136,13 +136,13 @@
 
     <div>
         
-        {{ _self.carouselItem("Simple & Basique", "advices", advices, true) }}
+        {{ _self.carouselItem("Simple & Basique", "advices", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, true) }}
 
-        {{ _self.carouselItem("L'Essentiel", "summarize", summarize, false) }}
+        {{ _self.carouselItem("L'Essentiel", "summarize", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
 
-        {{ _self.carouselItem("Trouver de l'Aide", "find_resources", findResources, false) }}
+        {{ _self.carouselItem("Trouver de l'Aide", "find_resources", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
 
-        {{ _self.carouselItem("Votre « Carte de Visite »", "business_card", businessCard, false) }}
+        {{ _self.carouselItem("Votre « Carte de Visite »", "business_card", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }}
     
     </div>
 

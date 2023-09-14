@@ -1,29 +1,45 @@
 
 <h1 class="text-center fw-bold fs-4 lh-1 mb-5">{{currentItem.priorQuestion}}</h1>
 
-<div id="invitation-container" class="select-buttons-container container col-md-9">
+<div id="invitation-container" class="select-buttons-container container col-md-7">
 
-        <button id="accept-invitation" type="button" class="btn btn-validate border big-select-button me-0 me-md-5" style="color: #0d6efd;">✔️ Oui</button>
+    <button id="accept-invitation" type="button" class="btn btn-validate border big-select-button" style="color: #0d6efd;">✔️ Oui</button>
 
-        <div class=""> {# for parent flex container (otherwise a tag is not well positionned) #}
-            
-            <a class="d-flex text-body justify-content-center align-items-center w-100 h-100" href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}"><button type="button" class="btn btn-go-back border big-select-button">❌ Non</button></a>
-
+    <div class=""> {# this div for parent flex container (otherwise a tag is not well positionned) #}
         
+        <a class="d-flex text-body justify-content-center align-items-center w-100 h-100" href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}"><button type="button" class="btn btn-go-back border big-select-button">❌ Non</button></a>
+
+    </div>
+
+    {% if previousPosition is not null %}
+
+        <div class=""> {# this div for parent flex container (otherwise a tag is not well positionned) #}
+
+            <a class="d-flex text-body justify-content-center align-items-center w-100 h-100" href="{{ path('presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="btn btn-light border big-select-button">⬅️ Précédent</button></a>           
+                    
         </div>
+            
+    {% endif %}
+
 
 </div>
+
 
 <style>
 
     .select-buttons-container{
+
         display: flex;
-        justify-content: center;
+        justify-content: space-evenly;
+
     }
 
     .big-select-button{
+
         font-size: 1rem;
-        padding: 10px 30px;
+        padding: 10px 0px;
+        width: 150px;
+        
     }
 
     .big-select-button:hover {
@@ -33,12 +49,13 @@
     @media screen and (max-width: 580px) {
 
         .select-buttons-container{
-            justify-content: space-around;
+            padding: 0;
         }
                 
         .big-select-button {
-            padding: 2px 24px;
+            padding: 2px 16px;
             height: 40px;
+            width: unset;
         }
 
     }

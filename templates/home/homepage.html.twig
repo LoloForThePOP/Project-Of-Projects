@@ -270,7 +270,7 @@
 
     {# some presentations by category #}
     {% cache "cat35" ttl(72000) %} {% endcache %}
-      {{ render(path('backend_search', {label: 'ℹ️ Bases de Données', filters: '(categories.uniqueName:data)'})) }}
+      {{ render ( path ('backend_search', {label: 'ℹ️ Bases de Données', filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}
    
 
     {# How it works + FAQ #}
@@ -375,7 +375,7 @@
 
     {% cache "cat4" ttl(72000) %}    {% endcache %}
       
-      {{ render(path('backend_search', {label: '🏺 Histoire et Patrimoine', filters: '(categories.uniqueName:history)'})) }}
+      {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)', iconName: 'amphora'})) }}
 
 
     
@@ -444,7 +444,7 @@
 
     {% cache "cat6" ttl(72000) %}{% endcache %}
       
-      {{ render(path('backend_search', {label: '🛩️ Aéronautique', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}
+      {{ render(path('backend_search', {label: 'Aéronautique', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}
 
     
     

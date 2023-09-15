@@ -24,7 +24,13 @@
           
           </div>
           
-          <div class="footerBand col-12"></div>
+            {# Bottom decoration : waved box #}   
+
+            <div class="wave-container">
+
+              <div class="wave"></div>
+
+            </div>
 
         </div>
 
@@ -125,7 +131,70 @@
 
 {% endset %}
 
+<style>
 
+  .carousel-item{
+    min-height: 420px;
+  }
+
+
+  .wave-container {
+    position: relative;
+    background: #bedcfa;
+    height: 52px;
+    margin-top: -15px;
+  }
+
+  .wave-container .wave {
+    height: 36px;
+    width: 100%;
+    background: #bedcfa;
+    bottom: 0;
+  }
+
+  .wave-container .wave::before, .wave-container .wave::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 94% 50%;
+  }
+
+  .wave-container .wave::before {
+    width: 55%;
+    height: 109%;
+    background-color: #fff;
+    right: -1.5%;
+    top: 60%;
+  }
+  
+.wave-container .wave::after {
+	width: 55%;
+	height: 100%;
+	background-color: #bedcfa;
+	top: 31%;
+	left: 0;
+}
+
+
+
+
+  @media screen and (max-width: 580px) {
+
+    .wave-container {
+      height: 29px;
+      margin-top: -4px;
+    }
+
+
+    .wave-container .wave {
+      height: 23px;
+    }
+    
+  }
+      
+
+
+</style>
 
 
 <h5 class="text-center mb-3 mb-md-4 h3 fw-bold">👉 Pourquoi Utiliser Propon ? 👌</h5>
@@ -136,13 +205,16 @@
 
     <div>
         
-        {{ _self.carouselItem("Simple & Basique", "advices", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, true) }}
-
-        {{ _self.carouselItem("L'Essentiel", "summarize", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
+        {{ _self.carouselItem("L'Essentiel", "summarize", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, true) }}
 
         {{ _self.carouselItem("Trouver de l'Aide", "find_resources", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
 
+        {{ _self.carouselItem("Simple & Basique", "advices", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
+
+
         {{ _self.carouselItem("Votre « Carte de Visite »", "business_card", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }}
+        
+
     
     </div>
 
@@ -221,10 +293,6 @@
 	font-weight: bold;
 }
 
-.footerBand{
-  height: 48px;
-  background-color: #bedcfa;
-}
 
 @media screen and (max-width: 580px) {
 
@@ -245,7 +313,7 @@
 
     .carousel-item .diagonal-band-box {
       height: 35px;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
     }
 
     .carousel-item .diag {
@@ -253,19 +321,18 @@
     }
 
     .carousel-item .img-container {
-      margin-bottom: 13px;
+      margin-bottom: 0px;
     }
 
     .carousel-item .img-container img {
-      max-height: 200px;
+      max-height: 160px;
       max-width: 100%;
     }
+
+    .carousel-item .text-container {
+      font-size: 16px;
+    }
       
-  .footerBand{
-
-    height: 32px;
-
-  }
 
 }
 

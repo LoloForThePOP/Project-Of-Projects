@@ -159,7 +159,7 @@
 
     <div>
 
-      {{ render(path('get_picked_elements', {label: '😎 Projets à la une'})) }}
+      {{ render(path('get_picked_elements', {label: 'Projets à la une', iconName: 'cool'} )) }}
 
     </div>
 
@@ -234,7 +234,7 @@
 
     {% cache "cat1" ttl(72000) %}   {% endcache %}
       
-      {{ render(path('backend_search', {label: '🌳 Protéger l\'Environnement', filters: '(categories.uniqueName:environment)'})) }}
+      {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}
 
  
         
@@ -263,14 +263,14 @@
     
     {% cache "cat2" ttl(72000) %}    {% endcache %}
       
-      {{ render(path('backend_search', {label: '🖥️ Numérique', filters: '(categories.uniqueName:software)'})) }}
+      {{ render(path('backend_search', {label: 'Numérique', filters: '(categories.uniqueName:software)', iconName: 'computer' })) }}
 
 
     
 
     {# some presentations by category #}
     {% cache "cat35" ttl(72000) %} {% endcache %}
-      {{ render ( path ('backend_search', {label: 'ℹ️ Bases de Données', filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}
+      {{ render ( path ('backend_search', {label: 'Bases de Données', filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}
    
 
     {# How it works + FAQ #}
@@ -304,7 +304,20 @@
       </div>
 
     </div>
+    {# Find help diagonal jumbotron #}
+    {% include "home/_find_help_diag_jumbotron.html.twig" %}
+	
+	
+    {# Summarize diagonal jumbotron #}
+    {% include "home/_diag_jumbotron_2.html.twig" %}
+	
+	
+    {# Business card diagonal jumbotron #}
+    {% include "home/_diag_jumbotron_3.html.twig" %}
 
+	
+	{# Presentation helper diagonal jumbotron #}
+    {% include "home/_diag_jumbotron_4.html.twig" %}
 
 
     
@@ -319,7 +332,7 @@
 
     {% cache "cat3" ttl(72000) %}  {% endcache %}
       
-      {{ render(path('backend_search', {label: '📗📘 Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)'})) }}
+      {{ render(path('backend_search', {label: 'Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }}
 
   
 

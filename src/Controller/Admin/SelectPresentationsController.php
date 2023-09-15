@@ -73,10 +73,10 @@ class SelectPresentationsController extends AbstractController
      * 
      * Allow to get picked elements (return an hysrated collection of selected elements)
      *  
-     * @Route("/get-picked-elements/{label}", name="get_picked_elements") 
+     * @Route("/get-picked-elements/{label}/{iconName}", name="get_picked_elements") 
      * 
      */
-    public function getPickedElements(PPBaseRepository $ppRepo, $label='')
+    public function getPickedElements(PPBaseRepository $ppRepo, $label='none', $iconName = '')
     {
         $elements = [];
 
@@ -92,6 +92,7 @@ class SelectPresentationsController extends AbstractController
 
         return $this->render('utilities/_display_collection_wrapper_template.html.twig', [
             'label' => $label,
+            'iconName' => $iconName,
             'results' => $elements,
             'hideTooLong' => "hide-525",
         ]);

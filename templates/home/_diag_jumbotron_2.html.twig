@@ -1,0 +1,199 @@
+
+<div class="diag-jumbotron-2">
+
+  {# Upper decoration : diagonal box #}
+
+  <div class="diagonal-box">
+
+    <div class="diag">👉 Allez à l'Essentiel 👌</div>
+
+  </div>
+
+  <div class="inner-jumbo">
+
+    {# Left Column : an image #}
+  
+    <div class="img-ctn col-12 col-md-7 d-flex align-items-center justify-content-center">
+    
+      <img class="" src="{{asset('misc/summarize.png', 'larger')}}" alt="Des cadres arrondis chacun remplit d'une icône, ils symbolisent une page résumée" loading="lazy">
+
+    </div>
+
+    {# Right Column : some text #}
+
+    <div class="text-ctn col-12 col-md-5 px-0">
+    
+      <h4 class="text-center fw-bold mt-5 mb-4"><u>On Aime tous les résumés</u></h4>
+    
+      <p class="d-none d-md-block text-justify px-3 mb-4" >
+        
+        ✔️ <b>Obtenez rapidement une présetation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.</b> <br><br>
+
+        ❌ Trop d'informations présentées ou éparpillées, c'est le risque d'<b>abandonner la lecture</b> ou <b>ne pas comprendre votre projet</b>.
+        
+      </p>
+    
+      <p class="d-md-none text-center px-3 mb-4" >
+        
+        Avec Propon, <b>obtenez rapidement une présentation simple, claire, et résumée</b> de votre projet. Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.
+        
+      </p>
+
+      <div class="col text-center">
+      
+        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" type="button">+ Présenter mon Projet</button></a>
+      
+      </div>
+
+    </div>
+  
+  </div>
+
+  {# Bottom decoration : waved box #}   
+
+  <div class="wave-container">
+
+    <div class="wave"></div>
+
+  </div>
+
+</div>
+
+<style>
+
+  .diag-jumbotron-2{
+    margin-bottom: 70px;
+  }
+
+  .diag-jumbotron-2 .diagonal-box {
+    height:200px;
+    background-color: #bedcfa;
+    transform: skewY(-6deg);
+
+  } 
+
+  .diag-jumbotron-2 .diag { 	
+    display: flex;
+    align-items: center;
+    justify-content:center;
+    transform: skewY(6deg);
+    font-size: 40px;
+    font-weight: bold;
+    padding-top: 65px;
+  }
+
+  .diag-jumbotron-2 .inner-jumbo > * {
+    z-index:2;
+  }
+
+  .diag-jumbotron-2 .inner-jumbo img {
+    width: 470px;
+    margin-top: -37px;
+    border-radius: 0.25rem;
+  }
+
+  .diag-jumbotron-2 .inner-jumbo .text-ctn {
+    margin-left: -40px;
+
+  }
+
+  .diag-jumbotron-2 .separation-line{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 30%;
+    height: 10px;
+    background-color: blue;
+  }
+
+  .diag-jumbotron-2 .wave-container {
+    position: relative;
+    background: #bedcfa;
+    height: 23vh;
+    margin-top: -73px;
+  }
+
+  .diag-jumbotron-2 .wave {
+    position: absolute;
+    height: 70px;
+    width: 100%;
+    background: #bedcfa;
+    bottom: 0;
+  }
+
+  .diag-jumbotron-2 .wave::before, .diag-jumbotron-2 .wave::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 100% 50%;
+  }
+
+  .diag-jumbotron-2 .wave::before {
+    width: 55%;
+    height: 109%;
+    background-color: #fff;
+    right: -1.5%;
+    top: 60%;
+  }
+  
+  .diag-jumbotron-2 .wave::after {
+    width: 55%;
+    height: 100%;
+    background-color: #bedcfa;
+    top: 33%;
+  }
+
+  
+  @media screen and (max-width: 580px) {
+    
+    .diag-jumbotron-2{
+      margin-bottom: 46px;
+    }
+          
+
+    .diag-jumbotron-2 .diagonal-box {
+      height: 60px;
+      transform: skewY(-3deg);
+      margin-bottom: 55px;
+    }
+
+    .diag-jumbotron-2 .inner-jumbo img {
+      width: 60%;
+    }
+
+    .diag-jumbotron-2 .diag {
+      transform: skewY(3deg);
+      padding-top: 16px;
+      font-size: 21px; 
+    }
+      
+    .diag-jumbotron-2 .inner-jumbo .text-ctn {
+      font-size: 17px !important;
+      margin-left: 0px;
+
+    }
+      
+    .diag-jumbotron-2 .text-ctn h4  {
+
+      display: none;
+
+    }
+      
+    .diag-jumbotron-2 .text-ctn .btn-sm  {
+      padding: 0.25rem 0.5rem;
+      font-size: 0.875rem;
+      border-radius: 0.2rem;
+    }
+
+    .diag-jumbotron-2 .wave-container {
+      height: 5vh;
+      margin-top: 20px;
+    }
+
+    .diag-jumbotron-2 .wave {
+      height: 30px;
+    }
+      
+
+  }
+
+</style>

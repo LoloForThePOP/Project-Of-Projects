@@ -114,7 +114,7 @@ class MiscController extends AbstractController
 
 
      /**
-     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="application/xml"})
+     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
      */
     public function index(Request $request, EntityManagerInterface $manager)
     {
@@ -189,7 +189,7 @@ class MiscController extends AbstractController
             )
         );
 
-        $response->headers->set('Content-Type', 'text/xml');
+        $response->headers->set('Content-Type', 'application/xml');
 
         return $response;
 

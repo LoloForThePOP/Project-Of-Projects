@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+{% for item in sitemapPreparation %}
+
+    <url>
+
+        {# Check if hostname is already present in url #}
+        <loc>
+
+            {%if item.loc | replace({hostname:''}) == item.loc %}
+
+                {{hostname}}{{item.loc}}
+
+            {%else%}
+
+                {{item.loc}}
+
+            {%endif%}
+
+        </loc>
+
+        {# If updated date
+        {% if url.updatedAt is defined %}
+            <lastmod>{{url.updatedAt}}</lastmod>
+        {% endif %} #}
+
+        {# Check if change frequency is defined
+        {% if url.changefreq is defined %}
+            <changefreq>{{url.changefreq}}</changefreq>
+        {% endif %} #}
+
+        {# Check if a priority is defined
+        {% if url.priority is defined %}
+            <priority>{{url.priority}}</priority>
+        {% endif %} #}
+
+        {# Check if we got an image 
+        {% if url.image is defined and url.image is not empty %}
+            <image:image>
+                <image:loc>{%if url.image.loc | replace({hostname:''}) == url.image.loc%}{{hostname}}{{url.image.loc}}{%else%}{{url.image.loc}}{%endif%}</image:loc>
+                <image:title>{{ url.image.title }}</image:title>
+            </image:image>
+        {% endif %}#}
+        
+    </url>
+
+{% endfor %}
+
+</urlset>

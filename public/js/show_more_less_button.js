@@ -43,7 +43,7 @@ window.onresize = function() {
 function updateReadMore() {
   if (allOSB.length > 0) {
     for (var i = 0; i < allOSB.length; i++) {
-      if (allOSB[i].scrollHeight > mxh) {
+      if (allOSB[i].scrollHeight > mxh + 50) {
         if (allOSB[i].hasAttribute("style")) {
           updateHeight(allOSB[i]);
         }

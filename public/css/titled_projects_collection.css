@@ -12,11 +12,22 @@
 
 }
 
+
 .collection-title {
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	margin-bottom: 40px;
-	text-align: center;
 	font-weight: 700;
 	color: rgb(72, 67, 61);
+
+}
+
+
+
+.collection-icon{
+    margin-right: 6px;
 }
 
 
@@ -143,11 +154,15 @@
         flex-shrink: 0;
 
     }
-
     
     .titled-projects-container{
         margin-top: 0px;
         margin-bottom: 30px;
+    }
+
+    .collection-icon{
+        width: 27px;
+        margin-right: 5px;
     }
 
 

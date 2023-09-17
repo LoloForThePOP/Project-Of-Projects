@@ -131,73 +131,9 @@
 
 {% endset %}
 
-<style>
-
-  .carousel-item{
-    min-height: 420px;
-  }
 
 
-  .wave-container {
-    position: relative;
-    background: #bedcfa;
-    height: 52px;
-    margin-top: -15px;
-  }
-
-  .wave-container .wave {
-    height: 36px;
-    width: 100%;
-    background: #bedcfa;
-    bottom: 0;
-  }
-
-  .wave-container .wave::before, .wave-container .wave::after {
-    content: "";
-    display: block;
-    position: absolute;
-    border-radius: 94% 50%;
-  }
-
-  .wave-container .wave::before {
-    width: 55%;
-    height: 109%;
-    background-color: #fff;
-    right: -1.5%;
-    top: 60%;
-  }
-  
-.wave-container .wave::after {
-	width: 55%;
-	height: 100%;
-	background-color: #bedcfa;
-	top: 31%;
-	left: 0;
-}
-
-
-
-
-  @media screen and (max-width: 580px) {
-
-    .wave-container {
-      height: 29px;
-      margin-top: -4px;
-    }
-
-
-    .wave-container .wave {
-      height: 23px;
-    }
-    
-  }
-      
-
-
-</style>
-
-
-<h5 class="text-center mb-3 mb-md-4 h3 fw-bold">👉 Pourquoi Utiliser Propon ? 👌</h5>
+<h5 class="arguments-slider-title">👉 Pourquoi Utiliser Propon ? 👌</h5>
 
 <div id="rationalArgumentsCarousel" class="carousel container col-lg-8 d-flex align-items-center" data-bs-interval="false">
 
@@ -234,6 +170,18 @@
 
 
 <style>
+
+  .arguments-slider-title{
+
+    font-size: 30px;
+    text-align: center;
+    font-weight: bold;
+  }
+
+
+  .carousel-item{
+    min-height: 420px;
+  }
 
   .carousel-item .content-container {
     height: 300px;
@@ -280,7 +228,9 @@
   height: 56px;
   background-color: #bedcfa;
 
-  /* transform: skewY(-4deg); */
+  transform: skewY(-4deg);
+  margin-top: 30px;
+  margin-bottom: 20px;
 
 } 
 
@@ -288,13 +238,59 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* transform: skewY(4deg); */
+	transform: skewY(4deg);
 	font-size: 27px;
 	font-weight: bold;
 }
 
 
+
+
+  .wave-container {
+    position: relative;
+    background: #bedcfa;
+    height: 52px;
+    margin-top: -15px;
+  }
+
+  .wave-container .wave {
+    height: 36px;
+    width: 100%;
+    background: #bedcfa;
+    bottom: 0;
+  }
+
+  .wave-container .wave::before, .wave-container .wave::after {
+    content: "";
+    display: block;
+    position: absolute;
+    border-radius: 94% 50%;
+  }
+
+  .wave-container .wave::before {
+    width: 55%;
+    height: 109%;
+    background-color: #fff;
+    right: -1.5%;
+    top: 60%;
+  }
+  
+.wave-container .wave::after {
+	width: 55%;
+	height: 100%;
+	background-color: #bedcfa;
+	top: 31%;
+	left: 0;
+}
+
+
+
+
 @media screen and (max-width: 580px) {
+
+  .arguments-slider-title {
+	font-size: 18px;
+}
 
     #rationalArgumentsCarousel{
       padding: 0;
@@ -331,6 +327,23 @@
 
     .carousel-item .text-container {
       font-size: 16px;
+    }
+
+    
+    .wave-container {
+      height: 29px;
+      margin-top: -4px;
+    }
+
+
+    .wave-container .wave {
+      height: 23px;
+    }
+
+
+    .carousel-item .diagonal-band-box {
+
+      margin-top: 13px;
     }
       
 

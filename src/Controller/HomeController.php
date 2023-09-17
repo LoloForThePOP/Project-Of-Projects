@@ -106,22 +106,5 @@ class HomeController extends AbstractController
     }
 
     
-    /**
-     * 
-     * Test something
-     * 
-     * @Route("/test-something", name="test_something")
-     */
-     public function test(): Response
-    {
-
-        return $this->render("/test_something.html.twig", [
-            
-        ]);
-
-    }
-
-
-
 
 }

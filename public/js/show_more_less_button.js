@@ -14,10 +14,11 @@ window.onload = function() {
     
     // Add read-more button to each hide too long section
     for (var i = 0; i < allOSB.length; i++) {
-      var el = document.createElement("button");
+      var el = document.createElement("a");
       el.innerHTML = "Afficher +";
       el.setAttribute("type", "button");
       el.setAttribute("class", "read-more hid");
+      el.setAttribute("src", "#");
       
       insertAfter(allOSB[i], el);
     }

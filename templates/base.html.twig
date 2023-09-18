@@ -6,6 +6,23 @@
 
 <head>
 
+
+    {% macro openGraph (title, siteName, pageUrl, description, type, imageUrl = null) %}
+
+        <meta property="og:title" content="{{title}}">
+        <meta property="og:site_name" content="{{siteName}}">
+        <meta property="og:url" content="{{pageUrl}}">
+        <meta property="og:description" content="{{description}}">
+        <meta property="og:type" content="{{type}}">
+
+        {% if imageUrl is not empty %}
+        
+            <meta property="og:image" content="{{imageUrl}}">
+        
+        {% endif %}
+
+    {% endmacro %}
+
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">

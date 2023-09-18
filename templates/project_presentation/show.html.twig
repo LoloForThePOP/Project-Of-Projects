@@ -3,15 +3,26 @@
 {% set presentationCreatedAt = presentation.createdAt | date("Y - m - d") %}
 {% set presentationCreator = presentation.creator.userName %}
 
+{# Page title for search engines, open graph, etc #}
+{% set titleMetadata %}{{ presentation.title ? presentation.title ~ " - " : '' }}{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}{% endset %}
+{# Page description for search engines, open graph, etc #}
+{% set metadataDescription %}{{ presentation.textDescription | slice (0, 220) | striptags }}{% endset %}
+{# Project Thumbnail Url for open graph #}
+{% set metadataImageUrl %}{{ presentation.cache.thumbnailAddress ?: null }}{% endset %}
+{# Current page url for open graph #}
+{% set currentPageUrl = app.request.uri %}
 
+
+{% block title %}{{ titleMetadata }}{% endblock %}
 
 {% block headTag %}
 
-    <meta name="description" content="{{ presentation.textDescription | slice (0, 220) | striptags }}">
-
+    <meta name="description" content="{{metadataDescription}}">
     <meta name="author" content="{{ presentationCreator }}">
     <meta name="keywords" content="{{ presentation.keywords }}">
     <meta name="date" content="{{ presentationCreatedAt}}">
+
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl) }} {# Call from base.html.twig #}
 
 {% endblock %}
 
@@ -28,10 +39,9 @@
 
 {% endblock %}
 
-{% block title %}{{ presentation.title ?: '' }} - {{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}{% endblock %}
+
 
 {% block body %}
-   
 
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
     

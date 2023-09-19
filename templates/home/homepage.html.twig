@@ -2,9 +2,11 @@
 
 {% block headTag %}
 
-  <meta name="description" content="Plateforme de présentation de projets prévus ou en cours. Trouvez de l'aide. Apportez votre aide. Présentez gratuitement votre projet, ou recherchez des projets.">
+  <meta name="description" content="Plateforme de présentation de projets prévus ou en cours. Trouvez de l'aide. Apportez votre aide. Présentez gratuitement votre projet, recherchez des projets.">
 
   <meta name="keywords" content="présentation de projets, entraide">
+
+  {{ _self.openGraph('Plateforme de Présentation de Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des participants.', 'website', app.request.uri ~'media/static/images/pop_logo.svg') }}
 
 {% endblock %}
 
@@ -51,11 +53,11 @@
 
         <div class="no-project-container">
 
-          <h5 class="text-center fs-4 fw-bold mb-2 mb-md-4">👋 Bienvenue parmis nous !</h5>
+          <h5 class="text-center fs-4 fw-bold mb-2 mb-md-4">👋 Bienvenue parmi nous !</h5>
 
           <p class="">
 
-            Pour ⏱️ <b>résumer votre projet</b>, 🙋‍♀️ <b>trouver de l'aide</b>, et 💌 <b>partager votre adresse personalisée gratuite</b>, <a href="{{path ('create_presentation')}}"> <span class="fw-bold" >c'est ici TOP CHRONO.</span></a>
+            Pour ⏱️ <b>résumer votre projet</b>, 🙋‍♀️ <b>trouver de l'aide</b>, et 💌 <b>partager votre adresse personnalisée gratuite</b>, <a href="{{path ('create_presentation')}}"> <span class="fw-bold" >c'est ici TOP CHRONO.</span></a>
             
           </p>
 
@@ -253,7 +255,7 @@
       
     </div> #}
 {# 
-    <div class="dont-waste-time border p-3 mb-5"><p class="mb-0">⌚ Ne perdez pas votre temps ni celui des autres : résumez votre projet et partagez son adresse personalisée gratuite.</p></div>
+    <div class="dont-waste-time border p-3 mb-5"><p class="mb-0">⌚ Ne perdez pas votre temps ni celui des autres : résumez votre projet et partagez son adresse personnalisée gratuite.</p></div>
 
  #}
     <style>

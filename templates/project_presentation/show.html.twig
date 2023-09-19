@@ -24,6 +24,10 @@
 
     {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl) }} {# Call from base.html.twig #}
 
+    {# Different urls can lead to project presentation page so we use a canonical tag #}
+
+    <link rel= "canonical" href= "{{ url ( 'show_presentation' , {'stringId' : presentation.stringId }) }}" />
+
 {% endblock %}
 
 {% block stylesheets %}

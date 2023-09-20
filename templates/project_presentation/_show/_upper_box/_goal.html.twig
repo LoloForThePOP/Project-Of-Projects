@@ -1,7 +1,7 @@
 
-<h4 class="pp-goal {% if presentation.title is empty %} untitledProject {% endif %}"
+<h2 class="pp-goal {% if presentation.title is empty %} untitledProject {% endif %}"
 
-data-edit='{"entity": "PPBase", "property": "goal", "id": {{presentation.id}} }' data-text="Objectif du Projet">{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</h4>
+data-edit='{"entity": "PPBase", "property": "goal", "id": {{presentation.id}} }' data-text="Objectif du Projet">{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</h2>
 
 
 

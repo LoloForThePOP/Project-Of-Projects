@@ -8,7 +8,7 @@
 
         <!-- Project Title Display -->
 
-        <h3 id="" class="pp-title editable-field" data-edit='{"entity": "PPBase", "property": "title", "id": {{presentation.id}} }' data-text="Titre du Projet" >{{presentation.title is not empty ? presentation.title[:1] | upper ~ presentation.title[1:]}}</h3>
+        <h1 id="" class="pp-title editable-field" data-edit='{"entity": "PPBase", "property": "title", "id": {{presentation.id}} }' data-text="Titre du Projet" >{{presentation.title is not empty ? presentation.title[:1] | upper ~ presentation.title[1:]}}</h1>
 
         {% if presentation.title is empty and userPresenter %} {# a strikethrough placeholder is displayed on contenteditable #}
 
@@ -76,8 +76,9 @@
             padding-top: 0px;
             margin-bottom: 0px;
 
-            color: navy;
+            font-size: 28px;
             font-weight: bold;
+            color: navy;
 
         }
 

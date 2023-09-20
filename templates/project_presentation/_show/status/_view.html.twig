@@ -45,7 +45,7 @@
 
     </div>
 
-    <div class="status-info userRemarks">
+    <div class="status-info status-tag userRemarks">
 
         {% if projectStatus.userRemarks is defined and projectStatus.userRemarks is not empty %}
 
@@ -85,6 +85,13 @@
             margin-right: 0 !important;
         }
 
+        .project-status-display .userRemarks {
+
+            background-color: #fbfb6685;
+            margin-top: 5px;
+
+        }
+
         @media screen and (max-width: 580px) {
 
             .project-status-display{
@@ -97,6 +104,12 @@
                 padding-left: 5px;
                 padding-right: 7px;
                 
+            }
+
+            .project-status-display .userRemarks {
+
+                margin-bottom: 5px;
+
             }
 
         }

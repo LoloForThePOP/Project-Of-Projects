@@ -663,11 +663,10 @@
 
         {# End of misc buttons container #}
 
-
         
     {% endif %}
 
-    {# Other Project Presentation to Consult Suggestions #}
+    {# Other Project Presentation to Consult (Suggestions) #}
 
     {% if not userPresenter %}
 
@@ -707,7 +706,7 @@
 
     {% set odd = [1] %}
 
-	{% if  random (odd) == 1 and not app.user  %}
+	{% if random (odd) == 1 and not app.user  %}
 
 		<p class="text-center container col-md-6">Présentez gratuitement votre projet pour le rendre plus visible 👉 <a href="{{path('create_presentation')}}">c'est ici.</a></p>
 	

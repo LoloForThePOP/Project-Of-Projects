@@ -17,12 +17,6 @@
     
 }
 
-.static-content h3::before{
-
-    content: '• ';
-    
-}
-
 .static-content section{
 
     margin-bottom: 36px;

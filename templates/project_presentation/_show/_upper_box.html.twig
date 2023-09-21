@@ -1,5 +1,3 @@
-
-
 {% macro accessComments(countComments) %}
     
     <a class="" href="#comments-struct-container">
@@ -55,7 +53,17 @@
 
     </div>
     
-{% endset %}       
+{% endset %} 
+
+{% set shareIcon %}
+    
+    <a href="#" class="" data-bs-toggle="modal" data-bs-target="#pp-share" >
+
+        <img class="shareIcon" src="{{ asset('share_light.svg', 'misc')}}" alt="share icon" width="22" height="22">
+    
+    </a>
+    
+{% endset %}
 
 
             
@@ -152,13 +160,15 @@
 
         </div>
 
-        {# Project comments - only Small Screens #}
+        {# Project comments, likes, share - only Small Screens #}
 
         <div class="d-flex justify-content-center align-items-center mt-0 mt-lg-2 d-lg-none">
         
             <div class="me-3">{{ _self.accessComments(countComments) }}</div>
+
+            <div class="me-3">{{ likeStructure }}</div>
         
-            {{ likeStructure }}
+            {{ shareIcon }}
         
         </div>
 
@@ -176,11 +186,13 @@
 
        {% endif %} 
 
-        {# Project Likes #}
+        {# Project Likes & Share button #}
 
-        <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3 mb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
+        <div class="d-flex align-items-center px-2 pt-2 pb-0 pt-lg-0 pb-lg-3 mb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
         
-            {{ likeStructure }}
+            <span class="me-3">{{ likeStructure }}</span>
+
+            {{ shareIcon }}
 
         </div>
 
@@ -299,6 +311,12 @@
 
         .likeIcon{
             width: 18px;
+        }
+
+        .shareIcon {
+            width: 17px;
+            height: 17px;
+            margin-bottom: 2px;
         }
 
     }

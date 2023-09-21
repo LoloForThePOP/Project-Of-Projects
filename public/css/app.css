@@ -35,6 +35,11 @@ a{
     opacity: unset;
 }
 
+.bg-success-light{
+    background-color: #d1e7dd
+}
+
+
 
 @media screen and (max-width: 580px) {
 

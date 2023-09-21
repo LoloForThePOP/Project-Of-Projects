@@ -83,12 +83,16 @@ class HomeController extends AbstractController
             }
 
         }
+
+        $presentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=2 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->getResult();
      
         // last 20 inserted projects presentations
 
-        $lastInsertedPresentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=2 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->setMaxResults('30')->getResult();
+        $lastInsertedPresentations = array_slice($presentations, 0, 29);
 
-        // Five Hilighted Projects at random
+        $presentationsCount= count($presentations);
+
+        // Some Hilighted Projects at random
 
         shuffle($lastInsertedPresentations);
         $highlightedProjects = array_slice($lastInsertedPresentations, 0, 5);

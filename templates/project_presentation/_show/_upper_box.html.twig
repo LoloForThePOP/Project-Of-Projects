@@ -6,14 +6,13 @@
             
             <img class="commentIcon me-2" src="{{ asset('dialog.svg', 'misc')}}" alt="an icon representing a dialog">
 
-            <span class="">Commentaires ({{countComments}})</span> 
+            <span class="">{{countComments}}</span> 
         
         </div>
     
     </a>
     
 {% endmacro %}           
-
 
 {% set likeStructure %} {# javascript in show.html.twig #}
     
@@ -65,8 +64,22 @@
     
 {% endset %}
 
+{% macro threeDotsMoreInfo(pageInfo) %}
+    
+    <img id="" class="upper-box-page-info-icon cursor-pointer" src="{{ asset('three_dots.svg', 'misc')}}" alt="three dots icon" width="25" height="25" data-bs-toggle="dropdown" aria-expanded="false" type="button">
 
+    {# Dropdown Content #}
+
+    <ul id="page-info-dropdown-content" class="dropdown-menu px-3" aria-labelledby="page-info-dropdown" style="max-width: 360px;">
+
+        {{pageInfo}}
+
+    </ul>
+    
+{% endmacro %}           
             
+
+
 <div class="pp-upper-box pp-struct-container row"> 
 
     <div class="container left-col-md col-lg-9">
@@ -198,9 +211,18 @@
 
         {# Project Comments Count and Access #}
 
-        <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
+        <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3 mb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
         
             {{ _self.accessComments(countComments) }}
+
+        </div>
+
+        {# Presentation More Info (creation date, etc.) #}
+
+        <div class="pp-consultation-mode px-2 pt-2 pb-0 pt-lg-0 pb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
+
+            {{ _self.threeDotsMoreInfo(pageInfo) }}
+            
 
         </div>
 

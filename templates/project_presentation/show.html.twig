@@ -158,6 +158,29 @@
 
     {% set validatedStringId = presentation.getDataItem('validatedStringId') %}
 
+    {% set pageInfo %}
+
+         <li class="mb-1" >
+                                    
+            Page créée le {{presentationCreatedAt}}.
+        
+        </li>
+
+        <li class="mb-1" >
+            
+            Par {{presentationCreator}}.
+        
+        </li>
+
+        <li class="" >
+            
+            <p class="text-muted mb-1">Propon souhaite vous fournir une information fiable, mais ne peut garantir l'exactitude ainsi que la complétude des informations présentées par ses utilisateurs.</p>
+        
+        </li>
+                            
+        
+    {% endset %}
+
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode' : 'in-consultation-mode'}} container">
 
@@ -409,7 +432,7 @@
 
             {% endif %}
 
-            {# Misc Infos & Buttons #}
+            {# Misc Info & Buttons #}
 
             <div class="col-lg-6 pp-struct-container-wrapper">
                 
@@ -473,24 +496,8 @@
 
                             <ul id="page-info-dropdown-content" class="dropdown-menu px-3" aria-labelledby="page-info-dropdown" style="max-width: 360px;">
 
-                                <li class="mb-1" >
-                                    
-                                    Page créée le {{presentationCreatedAt}}.
-                                
-                                </li>
+                               {{pageInfo}}
 
-                                <li class="mb-1" >
-                                    
-                                    Par {{presentationCreator}}.
-                                
-                                </li>
-
-                                <li class="" >
-                                    
-                                    <p class="text-muted mb-1">Propon souhaite vous fournir une information fiable, mais ne peut garantir l'exactitude ainsi que la complétude des informations présentées par ses utilisateurs.</p>
-                                
-                                </li>
-                            
                             </ul>
                             
                             {# Report a Problem Button #}

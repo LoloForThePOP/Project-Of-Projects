@@ -1,11 +1,11 @@
+{% apply spaceless %}
+            {# removes whitespaces between tags, usefull to check if this tag content is empty (whitespace appart) with css #}
  <div class="project-status-display">
 
     <div class="enumerated-tags">
 
         {% for statusCategory in statusCatalog %}
         
-            {% apply spaceless %}{# removes whitespaces between tags, usefull to check if this tag content is empty (whitespace appart) with css #}
-
                 <div class="{{statusCategory.categoryLabels.uniqueName}} status-info status-tag">
 
                     {% for key in projectStatus | keys %}{# searching if current project is concerned by this category status #}
@@ -37,10 +37,7 @@
                             
                     {% endfor %}
 
-            {% endapply %}</div>
-
-              
-            
+            </div>
         {% endfor %}
 
     </div>
@@ -56,7 +53,7 @@
     </div>
 
  </div>
-
+{% endapply %}
  
     <style>
 

@@ -79,7 +79,7 @@
         
     <p class="text-justify px-lg-3 mb-0" >
         
-        Utilisez nos <b>suggestions simples</b> et notre <b>modèle de page efficace</b>.
+      Pas toujours facile de présenter son projet. Utilisez nos <b>suggestions simples</b> et notre <b>modèle de page efficace</b>.
 
     </p>
     
@@ -133,6 +133,18 @@
 
 {% endset %}
 
+{% set linkNetworks %}
+    
+  <p class="px-3" >Si vous utilisez déjà des réseaux pour votre projet, <b>exposez leur adresse sur votre page Propon pour être suivis</b>.</p>
+
+{% endset %}
+
+{% set improveVisibility %}
+    
+  <p class="px-3" >Votre page Propon <b>améliore la visibilité de votre projet</b> sur le web.</p>
+
+{% endset %}
+
 
 
 <h5 class="arguments-slider-title">👉 Pourquoi Présenter son Projet sur Propon 👌</h5>
@@ -142,18 +154,19 @@
   <div class="carousel-inner d-flex align-items-center">
 
     <div>
+      
+      {{ _self.carouselItem("Rassembler l'Essentiel", "summarize", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, true) }}
+
+      {{ _self.carouselItem("Trouver de l'Aide", "find_resources", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
+
+      {{ _self.carouselItem("Simple & Basique", "advices", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
+
+      {{ _self.carouselItem("Votre « Carte de Visite »", "business_card", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }}
+
+      {{ _self.carouselItem("Relier les Réseaux", "link_networks", "Des icônes de réseaux sociaux qui sont reliée à une page de projet sur propon.", linkNetworks, false) }}
+
+      {{ _self.carouselItem("👁️ Gagner en Visibilité", "improve_visibility", "Une jeune fille maintient trois ballons colorés qui représentent un joli projet, un homme les montre du doigt.", improveVisibility, false) }}
         
-        {{ _self.carouselItem("L'Essentiel", "summarize", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, true) }}
-
-        {{ _self.carouselItem("Trouver de l'Aide", "find_resources", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
-
-        {{ _self.carouselItem("Simple & Basique", "advices", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
-
-
-        {{ _self.carouselItem("Votre « Carte de Visite »", "business_card", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }}
-        
-
-    
     </div>
 
   </div>
@@ -291,7 +304,7 @@
 @media screen and (max-width: 580px) {
 
   .arguments-slider-title {
-	font-size: 18px;
+	font-size: 16px;
 }
 
     #rationalArgumentsCarousel{

@@ -26,21 +26,26 @@
 {% block body %}
 
   <style>
+
     .fs-2{
       font-size: 23px !important;
     }
+
     @media screen and (max-width: 820px){
+
       .page-container {
         padding-top: 39px;
       }
+
       .fs-2{
         font-size: 18px !important;
       }
+
     }
   
   </style>
 
-  <div class="page-container container-lg px-0 px-lg-3 col-xxl-12">
+  <div class="page-container container-lg px-0 col-xxl-12">
 
 
     {# Displaying registered user presentations #}
@@ -129,7 +134,9 @@
         {% include "home/_jumbotron.html.twig" %}
 
         <style>
+
           @media screen and (min-width: 820px) {
+
             #homepage-jumbotron-struct-container{
               margin-top: 3rem;
               margin-bottom: 6rem;
@@ -137,6 +144,7 @@
             }
             
           }
+
         </style>
 
       </div>
@@ -169,7 +177,7 @@
 
     <div>
 
-      {{ render(path('get_picked_elements', {label: 'Projets à la une', iconName: 'cool'} )) }}
+      {{ render(path('get_picked_elements', {label: 'Ils nous font confiance', iconName: ''} )) }}
 
     </div>
 
@@ -179,7 +187,7 @@
     <div class="pb-3 pb-lg-4 mb-4 mb-lg-5">{% include "home/_arguments_slider.html.twig" %}</div>
 
 
-    {# Create a presentation form #}
+    {# Create a presentation form 
 
     {% set createPresentationForm = form.createView %}
 
@@ -230,7 +238,7 @@
       
       </style>
 
-    </div>
+    </div>#}
 
 
     {# Highlight a random project
@@ -244,7 +252,7 @@
 
     {% cache "cat1" ttl(72000) %}   {% endcache %}
       
-      {{ render(path('backend_search', {label: 'Protéger l\'Environnement', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}
+      {{ render(path('backend_search', {label: 'Préserver l\'Environnement', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}
 
  
         
@@ -269,13 +277,13 @@
     
     </style>
 
-    {# some presentations by category #}
+    {# some presentations by category
     
     {% cache "cat2" ttl(72000) %}    {% endcache %}
       
       {{ render(path('backend_search', {label: 'Numérique', filters: '(categories.uniqueName:software)', iconName: 'computer' })) }}
 
-
+     #}
     
 
     {# some presentations by category #}
@@ -288,8 +296,7 @@
     {% include "home/_hiw_faq.html.twig" %}
 
 
-    {# Create a presentation form #}
-
+    {# Create a presentation form
     {% set createPresentationForm2 = form.createView %}
 
     <div class="container col border p-2 p-md-4 py-3 py-md-3 text-center mt-3 mt-md-4 mb-4">
@@ -314,6 +321,9 @@
       </div>
 
     </div>
+
+     #}
+
     
     {# Highlight a random project
     <div class="d-md-none">
@@ -322,11 +332,11 @@
       
     </div> #}
 
-    {# some presentations by category #}
+    {# some presentations by category
 
     {% cache "cat3" ttl(72000) %}  {% endcache %}
       
-      {{ render(path('backend_search', {label: 'Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }}
+      {{ render(path('backend_search', {label: 'Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }} #}
 
   
 
@@ -345,7 +355,7 @@
     </div> #}
 
     
-    {# Create a presentation form #}
+    {# Create a presentation form
 
     {% set createPresentationForm3 = form.createView %}
 
@@ -372,26 +382,28 @@
 
     </div>
 
+     #}
 
 
-    {# Styled container to Access Geosearch #}
 
-    {% include "home/_access_geosearch_jumbotron.html.twig" %}
+    {# Styled container to Access Geosearch
 
-    {# some presentations by category #}
+    {% include "home/_access_geosearch_jumbotron.html.twig" %} #}
+
+    {# some presentations by category
 
     {% cache "cat4" ttl(72000) %}    {% endcache %}
       
-      {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)', iconName: 'amphora'})) }}
+      {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)', iconName: 'amphora'})) }} #}
 
 
     
 
     {# Quote on mobiles #}
     
-    <div class="projects-change-the-world border mb-5 text-center fw-bold container col-lg-7">
+    <div class="projects-change-the-world border mb-5 text-center fw-bold container col-lg-9">
     
-      <p class="mb-0">✨ Les projets changent le monde<br>Faites connaître le vôtre ☄️</p>
+      <p class="mb-0 mt-2">✨ Les projets changent le monde<br>Faites connaître le vôtre ☄️</p>
 
       {% set createPresentationForm4 = form.createView %}
     
@@ -399,7 +411,7 @@
 
         {{form_start(createPresentationForm4)}}
 
-          <div class="mb-3">{{form_label(createPresentationForm4.goal)}}</div>
+          <div class="mb-1 mb-lg-3">{{form_label(createPresentationForm4.goal)}}</div>
                             
           {{ form_errors(createPresentationForm4.goal) }}
               
@@ -415,6 +427,13 @@
 
     
     <style>
+
+      #create_presentation_goal {
+        display: inline;
+        width: 70%;
+        height: 47px;
+        margin-right: 20px;
+      }
       
       .projects-change-the-world{
           padding: 14px;
@@ -423,11 +442,17 @@
       } 
   
       @media screen and (max-width: 580px) {
-          .projects-change-the-world{
-              padding: 14px;
-              text-align: left;
-              font-size: 15px;
-          } 
+
+        .projects-change-the-world{
+            padding: 10px 5px;
+            text-align: left;
+            font-size: 15px;
+        } 
+
+        #create_presentation_goal {
+          width: 68%;
+          margin-right: 5px;
+        }
           
       }
     
@@ -461,13 +486,13 @@
     {{ render(path('backend_search', {label: 'Projets personnalisés', filters: '(categories.uniqueName:material AND categories.uniqueName:environment)'})) }} #}
     
     
-    {# > md screens : Search Bar container #}
+    {# > md screens : Search Bar container
 
     <div class="container col-xxl-11 mb-3">
       
       {% include "home/_search_container.html.twig" %}
 
-    </div>
+    </div> #}
 
 {#     {% include "home/_quote_with_create_presentation_form.html.twig" %}
  #}
@@ -475,7 +500,7 @@
 
     {# last project presentation #}
       
-    {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-525") }}
+    {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-335") }}
 
     <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
     
@@ -485,13 +510,34 @@
       
       </div>
 
-      <div class="text-col col-9 fs-lg-3">
+      <div class="text-col col-9">
       
-        <span class="" style="color: #a6711e">Les Projets </span> <span class="" style="color: green">de toutes tailles </span><br class="d-md-none"><span style="color: #a6711e">sont les briques pour </span><br class="d-md-none"> <span class="" style="color: green">réaliser les plus grands projets.</span>
+        <span class="" style="color: #a6711e">Les Projets </span> <span class="" style="color: green">de toutes tailles </span><br class="d-md-none"><span style="color: #a6711e">sont les briques pour </span><br class=""> <span class="" style="color: green">réaliser les plus grands projets.</span>
       
       </div>
     
     </div>
+
+    <style>
+
+      .quote{
+
+        font-size: 24px;
+
+      }
+
+      @media screen and (max-width: 820px){
+
+        .quote{
+
+          font-size: 16px;
+
+        }
+
+      }
+    
+    
+    </style>
 
 
     {# Last call to action : Add a Project button #}

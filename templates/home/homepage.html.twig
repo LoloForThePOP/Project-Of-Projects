@@ -533,13 +533,13 @@
     </style>
 
 
-    {# some presentations by category #}
+    {# some presentations by category
 
     {% cache "cat6" ttl(72000) %}{% endcache %}
       
       {{ render(path('backend_search', {label: 'Aéronautique', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}
 
-    
+     #}
     
     
 

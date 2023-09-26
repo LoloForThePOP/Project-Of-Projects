@@ -119,7 +119,7 @@
 
 {% set findResources %}
     
-    <h4 class="d-none d-md-block text-center fw-bold mb-4">🙋‍♀️ Présentez vos Besoins</h4>
+    <h3 class="d-none d-md-block text-center fw-bold mb-4 h4">🙋‍♀️ Présentez vos Besoins</h3>
     
     {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
     
@@ -147,7 +147,7 @@
 
 
 
-<h5 class="arguments-slider-title">👉 Pourquoi Présenter son Projet sur Propon 👌</h5>
+<h3 class="arguments-slider-title">👉 Pourquoi Présenter son Projet sur Propon 👌</h3>
 
 <div id="rationalArgumentsCarousel" class="carousel container col-lg-8 d-flex align-items-center" data-bs-interval="false">
 
@@ -191,6 +191,12 @@
     font-size: 30px;
     text-align: center;
     font-weight: bold;
+  }
+
+  .carousel-control-prev, .carousel-control-next {
+
+    background-color: #9ccdfe;
+
   }
 
 
@@ -241,7 +247,7 @@
 	justify-content: center;
 
   height: 56px;
-  background-color: #bedcfa;
+  background-color: #9ccdfe;
 
   transform: skewY(-4deg);
   margin-top: 30px;
@@ -259,11 +265,9 @@
 }
 
 
-
-
   .wave-container {
     position: relative;
-    background: #bedcfa;
+    background: #9ccdfe;
     height: 52px;
     margin-top: -15px;
   }
@@ -271,7 +275,7 @@
   .wave-container .wave {
     height: 36px;
     width: 100%;
-    background: #bedcfa;
+    background: #9ccdfe;
     bottom: 0;
   }
 
@@ -293,7 +297,7 @@
 .wave-container .wave::after {
 	width: 55%;
 	height: 100%;
-	background-color: #bedcfa;
+	background-color: #9ccdfe;
 	top: 31%;
 	left: 0;
 }
@@ -304,65 +308,63 @@
 @media screen and (max-width: 580px) {
 
   .arguments-slider-title {
-	font-size: 16px;
+	  font-size: 16px;
+  }
+
+  #rationalArgumentsCarousel{
+    padding: 0;
+  }
+
+  .carousel-item {
+    height: 400px;
+  }
+
+  .carousel-item .content-container {
+    height: unset;
+    min-height: 310px;
+    text-align: center;
+    font-size: initial;
+  }
+
+  .carousel-item .diagonal-band-box {
+    height: 35px;
+    margin-bottom: 5px;
+  }
+
+  .carousel-item .diag {
+    font-size: 18px;
+  }
+
+  .carousel-item .img-container {
+    margin-bottom: 0px;
+  }
+
+  .carousel-item .img-container img {
+    max-height: 160px;
+    max-width: 100%;
+  }
+
+  .carousel-item .text-container {
+    font-size: 16px;
+  }
+
+  
+  .wave-container {
+    height: 29px;
+    margin-top: -4px;
+  }
+
+
+  .wave-container .wave {
+    height: 23px;
+  }
+
+
+  .carousel-item .diagonal-band-box {
+
+    margin-top: 13px;
+  }
+
 }
-
-    #rationalArgumentsCarousel{
-      padding: 0;
-    }
-
-    .carousel-item {
-      height: 400px;
-    }
-
-    .carousel-item .content-container {
-      height: unset;
-      min-height: 310px;
-      text-align: center;
-      font-size: initial;
-    }
-
-    .carousel-item .diagonal-band-box {
-      height: 35px;
-      margin-bottom: 5px;
-    }
-
-    .carousel-item .diag {
-	    font-size: 18px;
-    }
-
-    .carousel-item .img-container {
-      margin-bottom: 0px;
-    }
-
-    .carousel-item .img-container img {
-      max-height: 160px;
-      max-width: 100%;
-    }
-
-    .carousel-item .text-container {
-      font-size: 16px;
-    }
-
-    
-    .wave-container {
-      height: 29px;
-      margin-top: -4px;
-    }
-
-
-    .wave-container .wave {
-      height: 23px;
-    }
-
-
-    .carousel-item .diagonal-band-box {
-
-      margin-top: 13px;
-    }
-      
-
-}
-
 
 </style>

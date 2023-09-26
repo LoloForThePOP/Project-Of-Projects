@@ -12,11 +12,11 @@
 
                 {% if presentation.title is not empty %}
 
-                    <h2 class="title">
+                    <h4 class="title">
                         
                         {{ presentation.title[:1] | upper ~ presentation.title[1:] }}
                     
-                    </h2>
+                    </h4>
 
                 {% endif %}
 
@@ -92,6 +92,7 @@
 
         margin-bottom: 0;
         text-align: center;
+        font-size: 37px;
         color: white;
         
     }

@@ -6,7 +6,7 @@
 
   <meta name="keywords" content="présentation de projets, entraide">
 
-  {{ _self.openGraph('Présenter les Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des participants.', 'website', app.request.uri ~'media/static/images/pop_logo.svg') }}
+  {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des participants.', 'website', app.request.uri ~'media/static/images/pop_logo.svg') }}
 
 {% endblock %}
 
@@ -58,7 +58,7 @@
 
         <div class="no-project-container">
 
-          <h5 class="text-center fs-4 fw-bold mb-2 mb-md-4">👋 Bienvenue parmi nous !</h5>
+          <h2 class="text-center fs-4 fw-bold mb-2 mb-md-4">👋 Bienvenue parmi nous !</h2>
 
           <p class="">
 
@@ -69,7 +69,9 @@
         </div>
 
         <style>
+
           /* When authenticated user has not created any presentation */
+
           .no-project-container {
             width: 100%;
             min-height: 170px;
@@ -78,6 +80,7 @@
             border-radius: 4px;
             font-size: 1.25rem;
           }
+
           .no-project-container p {
             margin-bottom: 0;
             text-align: center;
@@ -107,6 +110,7 @@
         {{ display.collection("", user_presentations | reverse, "user-presentations") }} {# collection title managed in macro #}
 
         <style>
+
           .user-presentations {
             margin-top: 11px;
           }
@@ -116,6 +120,7 @@
             .user-presentations {
               margin-top: 0px;
             }
+
           }
     
         </style>
@@ -250,11 +255,11 @@
 
     {# some presentations by category #}
 
-    {% cache "cat1" ttl(72000) %}   {% endcache %}
+    {% cache "cat1" ttl(7200) %}   
       
       {{ render(path('backend_search', {label: 'Préserver l\'Environnement', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}
 
- 
+    {% endcache %}
         
     {# Highlight a random project
     <div class="d-md-none">
@@ -287,8 +292,10 @@
     
 
     {# some presentations by category #}
-    {% cache "cat35" ttl(72000) %} {% endcache %}
+    {% cache "cat35" ttl(7200) %} 
       {{ render ( path ('backend_search', {label: 'Bases de Données', filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}
+      
+    {% endcache %}
    
 
     {# How it works + FAQ #}
@@ -338,16 +345,10 @@
       
       {{ render(path('backend_search', {label: 'Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }} #}
 
-  
 
+    {# {% set createPresentationFormModal = form.createView %}
 
-    {% set createPresentationFormModal = form.createView %}
-    
-   
-
-
-    
-    {# Highlight a random project
+    Highlight a random project
     <div class="d-md-none">
     
       {{ highlight.highlight (highlightedProjects[3]) }}
@@ -460,12 +461,11 @@
     
     {# some presentations by category #}
 
-    {% cache "cat5" ttl(72000) %}    {% endcache %}
+    {% cache "cat5" ttl(7200) %}    
       
       {{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', filters: '(categories.uniqueName:humane)'})) }}
 
-
-    
+    {% endcache %}
 
     {# Highlight a random project #} 
 
@@ -475,13 +475,13 @@
 
 {# Some arguments #}
 {# Style Citation : Thanks @ https://codepen.io/chris22smith/pen/oQWavL #}
-<div class="d-none d-md-block container col-7 mt-lg-5">
+<div class="d-none d-md-flex justify-content-center container col-7 mt-lg-5">
 
     <div class="quote">
 
       <blockquote>
 
-        <p>Votre page qui concentre l'essentiel.<br>Votre projet compréhensible (rapidement).</p>
+        <p>Votre page qui concentre <u>l'essentiel</u>.<br>Votre projet <span class="circle-sketch-highlight">compréhensible</span> .<br>⚡ (rapidement) </p>
 
         <cite>Propon</cite>
 
@@ -500,11 +500,14 @@
       }
       .quote blockquote {
         background-color: #fff;
-        border: solid 2px #757575;
+        border: solid 6px #5aa65a;
         display: inline-block;
         margin: 0;
         padding: 1em;
         position: relative;
+      }
+      .quote blockquote p {
+        margin-bottom: -16px;
       }
       .quote blockquote:before {
         background-color: #fff;
@@ -528,6 +531,49 @@
         position: relative;
         z-index: 1;
       }
+
+    .circle-sketch-highlight{
+      position: relative;
+      left: 0.5em;
+    }
+
+    .circle-sketch-highlight::before {
+      content: "";
+      z-index: -1;
+      left: -0.5em;
+      top: -0.1em;
+      border-width: 4px;
+      border-style: solid;
+      border-color: #ff8400;
+      position: absolute;
+      border-right-color: transparent;
+      width: 129%;
+      height: 1.6em;
+      transform: rotate(-1deg);
+      opacity: 0.9;
+      border-radius: 49%;
+      padding: 0.1em 0em;
+    }
+    .circle-sketch-highlight:after{
+      content:"";
+      z-index:-1;
+      left:-0.5em;
+      top:0.1em;
+      padding:0.1em 0.25em;
+      border-width:2px;
+      border-style:solid;
+      border-color:#ef8c22;
+      border-left-color:transparent;
+      border-top-color:transparent;
+      position:absolute;
+      width:100%;
+      height:1em;
+      transform:rotate(-1deg);
+      opacity:0.7;
+      border-radius:50%;
+    }
+
+
     
     
     </style>
@@ -563,21 +609,28 @@
       
     {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-335") }}
 
-    <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
-    
-      <div class="img-col col-3">
 
-        <img class="img-fluid" width="140" src="{{asset ('misc/plant.png', 'larger')}}" loading="lazy">
+
+    {# Quote #}
+
+    <div class="d-flex justify-content-center">
+
+      <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
+      
+        <div class="img-col col-3">
+
+          <img class="img-fluid" width="140" src="{{asset ('misc/plant.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="text-col col-9">
+        
+          <span class="" style="color: #a6711e">Les Projets </span> <span class="" style="color: green">de toutes tailles </span><br class="d-md-none"><span style="color: #a6711e">sont les briques pour </span><br class=""> <span class="" style="color: green">réaliser les plus grands projets.</span>
+        
+        </div>
       
       </div>
-
-      <div class="text-col col-9">
-      
-        <span class="" style="color: #a6711e">Les Projets </span> <span class="" style="color: green">de toutes tailles </span><br class="d-md-none"><span style="color: #a6711e">sont les briques pour </span><br class=""> <span class="" style="color: green">réaliser les plus grands projets.</span>
-      
-      </div>
-    
-    </div>
+  </div>
 
     <style>
 

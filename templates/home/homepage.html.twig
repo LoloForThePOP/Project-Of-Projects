@@ -475,64 +475,63 @@
 
 {# Some arguments #}
 {# Style Citation : Thanks @ https://codepen.io/chris22smith/pen/oQWavL #}
-<div class="d-none d-md-flex justify-content-center container col-7 mt-lg-5">
+{#   <div class="d-none d-md-flex justify-content-center container col-7 mt-lg-5">
 
-    <div class="quote">
+      <div class="quote">
 
-      <blockquote>
+        <blockquote>
 
-        <p>Votre page qui concentre <u>l'essentiel</u>.<br>Votre projet <span class="circle-sketch-highlight">compréhensible</span> .<br>⚡ (rapidement) </p>
+          <p>Votre page qui concentre <u>l'essentiel</u>.<br>Votre projet <span class="circle-sketch-highlight">compréhensible</span> .<br>⚡ (rapidement) </p>
 
-        <cite>Propon</cite>
+          <cite>Propon</cite>
 
-      </blockquote>
+        </blockquote>
 
-    </div>
-</div>
+      </div>
+  </div>
 
+  <style>
 
-    <style>
-          
-      .quote {
-        display: inline-block;
-        margin: 1em;
-        overflow: hidden;
-      }
-      .quote blockquote {
-        background-color: #fff;
-        border: solid 6px #5aa65a;
-        display: inline-block;
-        margin: 0;
-        padding: 1em;
-        position: relative;
-      }
-      .quote blockquote p {
-        margin-bottom: -16px;
-      }
-      .quote blockquote:before {
-        background-color: #fff;
-        bottom: -10%;
-        content: "";
-        left: 0;
-        position: absolute;
-        right: 0;
-        top: -10%;
-        transform: rotate(-15deg) skew(5deg);
-      }
-      .quote blockquote cite {
-        display: block;
-        font-style: italic;
-        text-align: right;
-      }
-      .quote blockquote cite:before {
-        content: "- ";
-      }
-      .quote blockquote > * {
-        position: relative;
-        z-index: 1;
-      }
+    .quote {
+      display: inline-block;
+      margin: 1em;
+      overflow: hidden;
+    }
+    .quote blockquote {
+      background-color: #fff;
+      border: solid 6px #5aa65a;
+      display: inline-block;
+      margin: 0;
+      padding: 1em;
+      position: relative;
+    }
+    .quote blockquote p {
+      margin-bottom: -16px;
+    }
+    .quote blockquote:before {
+      background-color: #fff;
+      bottom: -10%;
+      content: "";
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: -10%;
+      transform: rotate(-15deg) skew(5deg);
+    }
+    .quote blockquote cite {
+      display: block;
+      font-style: italic;
+      text-align: right;
+    }
+    .quote blockquote cite:before {
+      content: "- ";
+    }
+    .quote blockquote > * {
+      position: relative;
+      z-index: 1;
+    }
 
-    .circle-sketch-highlight{
+    .circle-sketch-highlight{ /* Thanks at https://codepen.io/alvarotrigo/pen/dyJbjMX */
       position: relative;
       left: 0.5em;
     }
@@ -554,30 +553,28 @@
       border-radius: 49%;
       padding: 0.1em 0em;
     }
-    .circle-sketch-highlight:after{
-      content:"";
-      z-index:-1;
-      left:-0.5em;
-      top:0.1em;
-      padding:0.1em 0.25em;
-      border-width:2px;
-      border-style:solid;
-      border-color:#ef8c22;
-      border-left-color:transparent;
-      border-top-color:transparent;
-      position:absolute;
-      width:100%;
-      height:1em;
-      transform:rotate(-1deg);
-      opacity:0.7;
-      border-radius:50%;
+
+    .circle-sketch-highlight::after {
+      content: "";
+      z-index: -1;
+      left: 1.35em;
+      top: 0.025em;
+      padding: 0.19em 0.2em;
+      border-width: 4px;
+      border-style: solid;
+      border-color: orange;
+      border-left-color: transparent;
+      border-top-color: transparent;
+      position: absolute;
+      width: 100%;
+      height: 1em;
+      transform: rotate(-1deg);
+      opacity: 0.7;
+      border-radius: 50%;
     }
 
-
-    
-    
-    </style>
-
+  </style>
+ #}
 
     {# some presentations by category
 
@@ -645,6 +642,7 @@
         .quote{
 
           font-size: 16px;
+          margin: 0;
 
         }
 

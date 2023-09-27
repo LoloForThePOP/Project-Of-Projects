@@ -2,34 +2,32 @@
 
   <div class="row">
 
-    <div class="last-cta-container-img-col col-12 col-md-4">
+    <div class="last-cta-container-img-col left-col col-12 col-md-4">
 
       <img class="img-fluid" src="{{asset('misc/cool_people_looking_at_you.webp', 'larger')}}" alt="Un groupe de personnes cool en face de la plage nous regarde" loading="lazy">
     
     </div>
 
-    <div class="last-cta-container-text-col left-col col-12 col-md-4 py-4 py-md-0">
+    <div class="last-cta-container-text-col col-12 col-md-4 py-4 py-md-0">
     
-      <p class="pb-4">
+      <p class="pb-3 pb-md-4">
 
         Présentez votre projet pour améliorer sa visibilité ou trouver des contributeurs.
 
       </p>
 
             
-      <a href="{{ path ('create_presentation') }}">
+      <a class="d-flex justify-content-center mt-0" href="{{ path ('create_presentation') }}">
 
-        <button class="btn px-3 px-md-4 py-2 py-md-3" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
+        <button class="last-cta-container-btn btn px-3 px-md-4 py-2 py-md-3" data-track-click='{"key":"clicked-bottom-create-presentation"}'>
 
-          <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
+          <img class="" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
           
-          <span class="h5 fw-bold ps-2">Je présente mon projet</span>
+          <span class="ps-2">Je présente mon projet</span>
       
         </button>
 
       </a>
-
-
 
     </div>
 
@@ -46,7 +44,7 @@
 
   <div class="last-moto row fs-5 mt-5 fw-bold">
 
-    <div class="text-center mb-3">Propon est une initiative gratuite dédiée à la promotion des projets pour la réussite de tous.</div>
+    <div class="text-center mb-md-3">Propon est une initiative gratuite dédiée à la promotion des projets pour la réussite de tous.</div>
   
   </div>
 
@@ -84,6 +82,12 @@
     font-size: 22px;
   }
 
+  
+  .last-cta-container-btn{
+    font-size: 20px;
+  }
+    
+
   .last-cta-container-img-col img{
 
     border-radius: 4px;
@@ -102,7 +106,7 @@
 
     .last-cta-container {
       
-	    background-image: linear-gradient(rgba(0, 0, 0, 0.05) 50%, 0, transparent 100%);
+	    background-image: unset;
 
     }
 
@@ -119,9 +123,23 @@
       font-size: 15px !important;
 
     }
+
+    .last-cta-container-btn{
+      display: flex;
+      align-items: center;
+      font-size: 16px;
+      font-weight: bold;
+    }
     
     .last-cta-container a {
       margin-top: 20px;
+    }
+
+    .last-cta-container-img-col.left-col img {
+
+      height: 206px;
+      object-fit: none;
+      object-position: 53% 43%;
     }
 
     .last-cta-container-img-col.right-col img {

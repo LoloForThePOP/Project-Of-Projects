@@ -138,6 +138,12 @@
 
 @media screen and (max-width: 580px) {
 
+
+    .collection-icon{
+        width: 27px;
+        margin-right: 5px;
+    }
+
         
     .collection-title{
 
@@ -156,15 +162,19 @@
         flex-shrink: 0;
 
     }
+
+
+    .project-card {
+        height: 250px;
+    }
     
     .titled-projects-container{
         margin-top: 0px;
         margin-bottom: 30px;
     }
 
-    .collection-icon{
-        width: 27px;
-        margin-right: 5px;
+    .project-card .goal {
+        font-size: 15px;
     }
 
 

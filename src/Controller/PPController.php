@@ -166,7 +166,7 @@ class PPController extends AbstractController
 
         if($user != $presentation->getCreator() && !array_key_exists('guest-presenter-token', $presentation->getData()) ){
 
-            $presentation->setDataItem('viewsCount', $presentation->getDataItem('viewsCount')+1);
+            $presentation->setDataItem( 'viewsCount', $presentation->getDataItem('viewsCount') + 1 );
 
             $manager->flush();
 

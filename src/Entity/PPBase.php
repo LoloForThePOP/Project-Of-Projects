@@ -146,10 +146,6 @@ class PPBase implements \Serializable, NormalizableInterface
      */
     private $createdAt;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $viewsCount;
 
     /**
      * Contains some parameters about this presentation
@@ -278,8 +274,6 @@ class PPBase implements \Serializable, NormalizableInterface
 
         $this->cache['thumbnailParentImageAddress'] = null;
         $this->cache['thumbnailAddress'] = null;
-
-        $this->viewsCount = 0;
 
         $this->categories = new ArrayCollection();
         $this->slides = new ArrayCollection();
@@ -549,17 +543,6 @@ class PPBase implements \Serializable, NormalizableInterface
         return $this;
     }
 
-    public function getViewsCount(): ?int
-    {
-        return $this->viewsCount;
-    }
-
-    public function setViewsCount(?int $viewsCount): self
-    {
-        $this->viewsCount = $viewsCount;
-
-        return $this;
-    }
 
     public function getParameters(): ?array
     {

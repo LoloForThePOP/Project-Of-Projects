@@ -23,19 +23,15 @@
 
     {% if ( bc.email1 is not null ) or ( bc.email2 is defined and bc.email2 is not null ) %}
 
-        <div class="mb-2">
+        <div class="d-flex mb-2">
 
             {# Email #}
 
-            <div class="fw-bold">
-
+            <div class="d-inline-block">
                 <img class="contact-card-icon" src="{{ asset('email.svg', 'business_card')}}" height="32" width="32" alt="email icon">
-
-                E-mail :
-
             </div>
 
-            <div class="ps-4">
+            <div class="d-inline-block ps-1">
 
                 <style>
                                         
@@ -97,17 +93,13 @@
 
     {% if ( bc.tel1 is defined and bc.tel1 is not null ) or ( bc.tel2 is defined and bc.tel2 is not null ) %}
 
-        <div class="mb-2"> 
-        
-            <div class="fw-bold">
+        <div class="d-flex mb-2"> 
 
+            <div class="d-inline-block">
                 <img class="contact-card-icon" src="{{ asset('telephone.svg', 'business_card') }}" height="27" width="27" alt="telephone icon">
-            
-                Téléphone :
-                
             </div>
 
-            <div class="ps-4">
+            <div class="d-inline-block ps-1">
 
                 {% if bc.tel1 is defined and bc.tel1 is not null %}
 
@@ -158,17 +150,13 @@
 
     {% if bc.website1 is not null %}
 
-        <div class="mb-2"> 
-            
-            <div class="fw-bold">
+        <div class="d-flex mb-2">
 
+            <div class="d-inline-block">
                 <img class="contact-card-icon" src="{{ asset('website.svg', 'business_card')}}" height="27" width="27" alt="website icon">
-            
-                Site web :
-                
             </div>
 
-            <div class="ps-4">
+            <div class="d-inline-block ps-1">
 
                 {# Websites with potential troncature #}
 
@@ -201,17 +189,15 @@
 
     {% if bc.postalMail is not null %}
 
-        <div class="mb-2">
+        <div class="d-flex mb-2">
         
-            <div class="fw-bold">
+            <div class="d-inline-block">
 
                 <img class="contact-card-icon" src="{{ asset('address.svg', 'business_card')}}" height="27" width="27" alt="address icon">
-                
-                Adresse :
             
             </div> 
         
-            <div class="ps-4">
+            <div class="d-inline-block ps-1">
             
                 {{ bc.postalMail | nl2br }}
                 

@@ -55,16 +55,14 @@ liip_imagine:
 
         standard_thumbnail_md_test:
 
-            
             quality: 80
 
             filters:
                 scale:
 
                     # input ?x? px -> output ?x? px
-                    dim: [ 340, 340 ]
+                    dim: [ 410, 410 ]
                
-
         logo:
         
             quality: 85

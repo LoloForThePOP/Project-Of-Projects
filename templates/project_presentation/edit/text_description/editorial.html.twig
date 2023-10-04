@@ -1,0 +1,130 @@
+
+{# This file should be accessed for admin only #}
+
+
+{% embed "project_presentation/edit/manage_component_skeleton.html.twig" %}
+
+
+{% block title %}Éditorial de la présentation{% endblock %}
+
+
+{% block mainContentTitle %}Texte Éditorial Court{% endblock %}
+
+{% block moreInfoButtonLabel %}Info{% endblock %}
+
+{% block moreInfoContent %}
+
+    <p class="lh-16">Ce texte est utilisé pour décrire brièvement un projet, par exemple pour mettre en exergue le projet du jour, c'est un texte éditorial qui doit rester suffisamment court pour figurer sur la page d'accueil.</p>
+
+{% endblock %}
+
+
+{% block mainContent %}
+
+    <!-- Project Text Description Rich Text Editor -->
+
+    <div class="container col-md-9 px-0">
+
+        {{form_start(form)}}
+
+        <!-- Form Errors Display -->
+
+        <span class="h5 text-danger">
+
+            {{form_errors(form.editorial)}}
+
+        </span>
+
+        <!-- Rich Text Editor Area -->
+
+        <div class="mb-4">
+
+          {{form_widget(form.editorial)}}
+
+        </div>
+
+
+        {# Action Buttons #}
+
+        <div class= "d-flex justify-content-center mb-4 pt-2">
+            
+            <button type="submit" class="btn btn-validate btn-lg me-3">✔️ Enregistrer</button>
+        
+            <a class="text-decoration-none text-white" href="{{ path('show_presentation', {'stringId': stringId}) }}#text_description">
+                <button type="button" class="btn btn-lg btn-go-back">❌ Annuler</button>
+            </a>
+
+        </div>
+
+        {{form_end(form)}}
+
+    </div>
+
+    {% block actionButtons %}{# "overided" with action buttons above" #}{% endblock %}
+
+
+    {% block specificStyles %}
+
+    {% endblock %}
+ 
+
+{% endblock %}
+
+
+{% block specificJavascripts %}
+
+
+    <!-- CDN - TinyMCE Rich Text Editor -->
+
+    <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <!-- Parameters - TinyMCE Rich Text Editor -->
+
+    <script>
+        
+        tinymce.init({
+
+            mode : "specific_textareas",
+
+            editor_selector : "tinymce",
+
+            width : "100%",
+
+            height: "340",
+
+            entity_encoding : "raw",
+
+            menubar: 'edit format',
+
+            menu: {
+
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+            }, 
+
+            language: 'fr_FR',
+
+            plugins: "emoticons, lists",
+
+            browser_spellcheck: true,
+
+            toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
+
+            content_style: "body {padding: 0px 15px;",
+
+            nowrap : false,
+
+        });
+
+    </script>
+
+    
+
+
+
+{% endblock %}
+
+{% endembed %}

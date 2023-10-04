@@ -47,6 +47,14 @@
 
   <div class="page-container container-lg px-0 col-xxl-12">
 
+
+    
+    <div>
+
+      {{render(path('get_picked_elements', {pickType: "projectOfTheDay"} )) }}
+
+    </div>
+
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -184,13 +192,6 @@
       {{ render(path('get_picked_elements', {pickType: "trustUs", label: 'Ils Nous Font Confiance', iconName: 'thank_you'} )) }}
 
     </div>
-
-    <div>
-
-      {{render(path('get_picked_elements', {pickType: "projectOfTheDay"} )) }}
-
-    </div>
-
 
     {# Rational Argument Slider #}
 

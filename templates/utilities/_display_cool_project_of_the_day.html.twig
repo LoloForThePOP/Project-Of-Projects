@@ -6,7 +6,25 @@
 
     <div>
 
+        <img id="" class="img-fluid" src="{{ vich_uploader_asset(projectOfTheDay, 'logoFile') | imagine_filter('logo')}}" alt="Logo du Projet du jour" width="200">
+
+    </div>
+
+    <div>
+
         {{projectOfTheDay.title}}
+
+    </div>
+
+    <div>
+
+        {{ projectOfTheDay.getDataItem('short_editorial_text_fr') | raw }}
+
+    </div>
+
+    <div>
+
+        <img class="" src="{{ projectOfTheDay.cache.thumbnailAddress }}" alt="Presentation Thumbnail">
 
     </div>
 

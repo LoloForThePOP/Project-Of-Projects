@@ -57,7 +57,7 @@
     <script>
 
         var selection_instance = '{{is_granted("ROLE_ADMIN")}}';
-        var pick_up_elements_route = '{{ path("manage_pick_up_elements") }}';
+        var pick_up_elements_route = '{{ path("manage_pick_up_elements", {"pickType": pickType }) }}';
 
         $(document).ready(function(){
 

@@ -47,7 +47,6 @@
 
   <div class="page-container container-lg px-0 col-xxl-12">
 
-
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -182,7 +181,13 @@
 
     <div>
 
-      {{ render(path('get_picked_elements', {label: 'Ils Nous Font Confiance', iconName: 'thank_you'} )) }}
+      {{ render(path('get_picked_elements', {pickType: "trustUs", label: 'Ils Nous Font Confiance', iconName: 'thank_you'} )) }}
+
+    </div>
+
+    <div>
+
+      dump ({{render(path('get_picked_elements', {pickType: "projectOfTheDay", label: 'Projet du jour', iconName: 'thank_you'} )) }})
 
     </div>
 

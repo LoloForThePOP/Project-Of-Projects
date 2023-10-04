@@ -16,8 +16,12 @@
                     <button class="btn btn-light btn-lg me-3">Résultats Sondage</button>
                 </a>
 
-                <a href="{{ path('manage_pick_elements') }}">
+                <a href="{{ path('manage_pick_elements', {'pickType':'trustUs'}) }}">
                     <button class="btn btn-light btn-lg me-3">Ils nous font confiance</button>
+                </a>
+
+                <a href="{{ path('manage_pick_elements', {'pickType':'projectOfTheDay'}) }}">
+                    <button class="btn btn-light btn-lg me-3">Projet cool du jour</button>
                 </a>
 
                 <a href="{{ path('one_shot') }}">

@@ -150,11 +150,8 @@ class SelectPresentationsController extends AbstractController
 
             case 'projectOfTheDay':
 
-                return $this->render('utilities/_display_collection_wrapper_template.html.twig', [
-                    'label' => $label,
-                    'iconName' => $iconName,
+                return $this->render('utilities/_display_cool_project_of_the_day.html.twig', [
                     'results' => $elements,
-                    'hideTooLong' => "hide-525",
                 ]);
                 break;
             

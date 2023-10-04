@@ -1,0 +1,16 @@
+
+
+{% if results is not empty %}
+
+    {% set projectOfTheDay = results | first %}
+
+    <div>
+
+        {{projectOfTheDay.title}}
+
+    </div>
+
+    
+{% endif %}
+
+

@@ -47,14 +47,6 @@
 
   <div class="page-container container-lg px-0 col-xxl-12">
 
-
-    
-    <div>
-
-      {{render(path('get_picked_elements', {pickType: "projectOfTheDay"} )) }}
-
-    </div>
-
     {# Displaying registered user presentations #}
 
     {% if app.user %}
@@ -185,11 +177,19 @@
 
 
     
-    {# Editor's Choice presentations #}
+    {# They trust us presentations #}
 
     <div>
 
       {{ render(path('get_picked_elements', {pickType: "trustUs", label: 'Ils Nous Font Confiance', iconName: 'heart'} )) }}
+
+    </div>
+
+    {# Picked Cool Project of the Day #}
+
+    <div>
+
+      {{render(path('get_picked_elements', {pickType: "projectOfTheDay"} )) }}
 
     </div>
 

@@ -75,6 +75,7 @@ class TextDescriptionController extends AbstractController
             ->add('editorial', TextareaType::class,
             [
                 'required'     => false,
+                'data' => $presentation->getDataItem('short_editorial_text_fr'),
                 'attr' => [
                     'class' => "tinymce",
                 ],

@@ -105,8 +105,13 @@ class MiscController extends AbstractController
      */
     public function test(): Response
     {
+        ob_start();
+        phpinfo();
+        $phpinfo = ob_get_clean();
 
         return $this->render("/test_something.html.twig", [
+
+            'phpinfo' => $phpinfo,
             
         ]);
 

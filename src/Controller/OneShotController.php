@@ -32,8 +32,14 @@ class OneShotController extends AbstractController
      * @Route("/admin/one-shot", name="one_shot")
      * 
      */
-    public function doAction(PPBaseRepository $repo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, UserRepository $userRepo): Response
+    public function doAction(PPBaseRepository $projectsRepo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, UserRepository $userRepo, CacheThumbnail $thumb): Response
     {
+
+        $projects=$projectsRepo->findAll();
+
+        foreach ($projects as $project) {
+            $cacheThumbnail->cacheThumbnail($project);
+        }
 
         /* 
 

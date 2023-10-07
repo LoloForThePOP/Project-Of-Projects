@@ -6,7 +6,7 @@
 
   <meta name="keywords" content="présentation de projets, entraide">
 
-  {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des participants.', 'website', app.request.uri ~'media/static/images/pop_logo.svg') }}
+  {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des participants.', 'website', app.request.uri ~'media/static/images/propon_logo.svg') }}
 
 {% endblock %}
 
@@ -46,7 +46,6 @@
   </style>
 
   <div class="page-container container-lg px-0 col-xxl-12">
-
 
     {# Displaying registered user presentations #}
 
@@ -178,14 +177,21 @@
 
 
     
-    {# Editor's Choice presentations #}
+    {# They trust us presentations #}
 
     <div>
 
-      {{ render(path('get_picked_elements', {label: 'Ils Nous Font Confiance', iconName: 'thank_you'} )) }}
+      {{ render(path('get_picked_elements', {pickType: "trustUs", label: 'Ils Nous Font Confiance', iconName: 'heart'} )) }}
 
     </div>
 
+    {# Picked Cool Project of the Day #}
+
+    <div>
+
+      {{render(path('get_picked_elements', {pickType: "projectOfTheDay"} )) }}
+
+    </div>
 
     {# Rational Argument Slider #}
 

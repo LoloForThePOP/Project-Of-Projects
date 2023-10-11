@@ -272,6 +272,8 @@ class PPBase implements \Serializable, NormalizableInterface
 
         $this->data['viewsCount'] = 0;
 
+        $this->data['short_editorial_text_fr'] = null;
+
         $this->cache['thumbnailParentImageAddress'] = null;
         $this->cache['thumbnailAddress'] = null;
 

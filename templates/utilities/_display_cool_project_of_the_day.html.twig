@@ -27,7 +27,7 @@
         padding: 5px 16px;
         font-size: 25px;
         font-weight: bold;
-        background-color: whitesmoke;
+        background-color: #fff;
         border: 2px dashed #fdab8d;
         border-radius: 2px;
     }
@@ -66,6 +66,7 @@
         margin-left: -40px;
         max-width: 100%;
         height: auto;
+        border-radius: 12px;
     }
 
     .cool-project-container .cta {
@@ -74,7 +75,7 @@
     }
 
     .cool-project-container .cta a{
-        color: black;
+        color: #1a3318;
         
     }
 
@@ -193,9 +194,9 @@
                     
                         <div class="project-title">{{projectOfTheDay.title}}</div>
 
-                        <div class="short-editorial">
+                        <div class="short-editorial">                 
                         
-                            <div class="d-none d-md-block">{{ projectOfTheDay.getDataItem('short_editorial_text_fr') | raw }}</div>
+                            <div class="d-none d-md-block">{{projectOfTheDay.getDataItem('short_editorial_text_fr') ? projectOfTheDay.getDataItem('short_editorial_text_fr') | raw :  projectOfTheDay.goal }}</div>
 
                             <div class="d-md-none">{{ projectOfTheDay.goal }}</div>
 

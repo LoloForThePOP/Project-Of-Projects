@@ -192,13 +192,13 @@
 
                     <div class="col-12 col-md-8">
                     
-                        <div class="project-title">{{projectOfTheDay.title}}</div>
+                        <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}"><div class="project-title">{{projectOfTheDay.title}}</div></a>
 
                         <div class="short-editorial">                 
                         
                             <div class="d-none d-md-block">{{projectOfTheDay.getDataItem('short_editorial_text_fr') ? projectOfTheDay.getDataItem('short_editorial_text_fr') | raw :  projectOfTheDay.goal }}</div>
 
-                            <div class="d-md-none">{{ projectOfTheDay.goal }}</div>
+                            <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}" class="text-body"><div class="d-md-none">{{ projectOfTheDay.goal }}</div></a>
 
                             <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}"><button class="discover-project-button btn">Découvrir
 
@@ -207,17 +207,17 @@
                                   </svg>
                             </button></a>
 
-                            
-                    
                         </div>
                 
                     </div>
+                    
 
                     <div class="col-12 col-md-4 ps-md-0 img-container">
-                    
-                        <img class="thumbnail" src="{{ projectOfTheDay.cache.thumbnailAddress }}" alt="Presentation Thumbnail">
-                    
-                    </div>
+
+                        <img class="thumbnail" src="{{ projectOfTheDay.cache.thumbnailAddress }}" alt="Cool Project of the Day Thumbnail">
+
+                    </div> 
+
 
                 </div>
 

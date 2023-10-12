@@ -26,8 +26,6 @@
 
 }
 
-
-
 .collection-icon{
     margin-right: 6px;
 }
@@ -105,6 +103,16 @@
     margin-left: 47%;
 }
 
+/* Sometimes we want to change display according to specific added classes (ex : when results are showed in a tab navigation) */
+
+.tab-result .collection-title{
+    display: none;
+}
+
+.titled-projects-container.tab-result {
+    margin-top: 50px;
+}
+
 
 @media screen and (max-width: 810px) {
 
@@ -176,5 +184,10 @@
         font-size: 16px;
     }
 
+    /* Sometimes we want to change display according to specific added classes (ex : when results are showed in a tab navigation) */
+
+    .titled-projects-container.tab-result {
+        margin-top: 20px;
+    }
 
 }

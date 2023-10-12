@@ -6,7 +6,7 @@
 
   <meta name="keywords" content="présentation de projets, entraide">
 
-  {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des participants.', 'website', app.request.uri ~'media/static/images/propon_logo.svg') }}
+  {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des contributeurs.', 'website', app.request.uri ~'public/media/static/images/propon_logo.svg') }}
 
 {% endblock %}
 
@@ -46,6 +46,119 @@
   </style>
 
   <div class="page-container container-lg px-0 col-xxl-12">
+
+
+    {# some presentations by category
+
+    {{ render(path('backend_search', {label: 'Aviation', class: 'tab-result' , filters: '(categories.uniqueName:space)', iconName: 'plane' } ) ) }}
+            
+      {% cache "cat6" ttl(72000) %}{% endcache %}
+
+   #}
+
+ <div class="project-by-categories">
+
+      <div class="nav" id="v-tab" role="tablist" aria-orientation="vertical">
+
+        <a class="nav-link " href="#" id="v-history-tab" data-bs-toggle="pill" data-bs-target="#v-history" type="button" role="tab" aria-controls="v-history" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/amphora.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Histoire
+          
+        </a>
+
+        <a class="nav-link " href="#" id="v-space-tab" data-bs-toggle="pill" data-bs-target="#v-space" type="button" role="tab" aria-controls="v-space" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/plane.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Aéronautique
+          
+        </a>
+
+        <a class="nav-link " href="#" id="v-numeric-tab" data-bs-toggle="pill" data-bs-target="#v-numeric" type="button" role="tab" aria-controls="v-numeric" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/computer.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Numérique</a>
+
+        <a class="nav-link " href="#" id="v-inform-tab" data-bs-toggle="pill" data-bs-target="#v-inform" type="button" role="tab" aria-controls="v-inform" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/book.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Informer - Apprendre
+          
+        </a>
+
+        <a class="nav-link " href="#" id="v-environment-tab" data-bs-toggle="pill" data-bs-target="#v-environment" type="button" role="tab" aria-controls="v-environment" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/leaf.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Environnement
+        
+        </a>
+
+        <a class="nav-link " href="#" id="v-humane-tab" data-bs-toggle="pill" data-bs-target="#v-humane" type="button" role="tab" aria-controls="v-humane" aria-selected="false">✊🏻✊🏽✊🏿 Solidarité
+          
+        </a>
+
+        <a class="nav-link " href="#" id="v-db-tab" data-bs-toggle="pill" data-bs-target="#v-db" type="button" role="tab" aria-controls="v-db" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/network.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Bases de Données
+          
+        </a>
+
+      </div>
+
+      <div class="tab-content" id="v-tabContent">
+
+        <div class="tab-pane fade show active" id="v-history" role="tabpanel" aria-labelledby="v-home-tab" tabindex="0">{{ render(path('backend_search', {label: 'Histoire et Patrimoine', class: 'tab-result', filters: '(categories.uniqueName:history)', iconName: 'amphora'})) }}</div>
+
+        <div class="tab-pane fade" id="v-numeric" role="tabpanel" aria-labelledby="v-profile-tab" tabindex="1">{{ render(path('backend_search', {label: 'Numérique', class: 'tab-result', filters: '(categories.uniqueName:software)', iconName: 'computer' })) }}</div>
+
+        <div class="tab-pane fade" id="v-inform" role="tabpanel" aria-labelledby="v-disabled-tab" tabindex="2">{{ render(path('backend_search', {label: 'Informer, Éduquer, Apprendre', class: 'tab-result', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }}</div>
+
+        <div class="tab-pane fade" id="v-space" role="tabpanel" aria-labelledby="v-messages-tab" tabindex="3">{{ render(path('backend_search', {label: 'Préserver l\'Environnement', class: 'tab-result', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}</div>
+
+        <div class="tab-pane fade" id="v-environment" role="tabpanel" aria-labelledby="v-messages-tab" tabindex="3">{{ render(path('backend_search', {label: 'Préserver l\'Environnement', class: 'tab-result', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}</div>
+
+        <div class="tab-pane fade" id="v-humane" role="tabpanel" aria-labelledby="v-settings-tab" tabindex="4">{{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', class: 'tab-result' , filters: '(categories.uniqueName:humane)', iconName: 'none'})) }}</div>
+
+        <div class="tab-pane fade" id="v-db" role="tabpanel" aria-labelledby="v-db-tab" tabindex="4">{{ render(path('backend_search', {label: 'Bases de Données', class: 'tab-result' , filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}</div>
+
+      </div>
+
+    </div>
+
+    <style>
+
+      .project-by-categories .nav{
+        display: flex;
+        justify-content: center;
+      }
+
+      #v-tab .nav-link {
+        font-size: 18px;
+        font-weight: bold;
+        color: #1d77d7;
+      }
+
+      #v-tab .nav-link img{
+
+        width: 24px;
+
+      }    
+
+       @media screen and (max-width: 580px) {
+                  
+        #v-tab {
+          flex-wrap: nowrap;
+          overflow-x: auto;
+          justify-content : start;
+        }
+
+
+        .nav-link {
+          display: flex;
+          align-items: center;
+          white-space: nowrap;
+        }
+
+        .project-by-categories .nav{
+          justify-content: start;
+        }
+
+        .project-by-categories .nav .nav-link:first-of-type{
+          padding-left: 5px;
+        }
+
+      }
+    
+    </style>
+
+
+
+
+
+
 
     {# Displaying registered user presentations #}
 
@@ -257,15 +370,6 @@
     
       {{ highlight.highlight (highlightedProjects[0]) }}
     </div> #}
-
-
-    {# some presentations by category #}
-
-    {% cache "cat1" ttl(7200) %}   
-      
-      {{ render(path('backend_search', {label: 'Préserver l\'Environnement', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}
-
-    {% endcache %}
         
     {# Highlight a random project
     <div class="d-md-none">
@@ -287,22 +391,6 @@
       }
     
     </style>
-
-    {# some presentations by category
-    
-    {% cache "cat2" ttl(72000) %}    {% endcache %}
-      
-      {{ render(path('backend_search', {label: 'Numérique', filters: '(categories.uniqueName:software)', iconName: 'computer' })) }}
-
-     #}
-    
-
-    {# some presentations by category #}
-    {% cache "cat35" ttl(7200) %} 
-      {{ render ( path ('backend_search', {label: 'Bases de Données', filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}
-      
-    {% endcache %}
-   
 
     {# How it works + FAQ #}
     
@@ -344,13 +432,6 @@
       {{ highlight.highlight (highlightedProjects[2]) }}
       
     </div> #}
-
-    {# some presentations by category
-
-    {% cache "cat3" ttl(72000) %}  {% endcache %}
-      
-      {{ render(path('backend_search', {label: 'Informer, Éduquer, Apprendre', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }} #}
-
 
     {# {% set createPresentationFormModal = form.createView %}
 
@@ -397,14 +478,7 @@
 
     {% include "home/_access_geosearch_jumbotron.html.twig" %} #}
 
-    {# some presentations by category
-
-    {% cache "cat4" ttl(72000) %}    {% endcache %}
-      
-      {{ render(path('backend_search', {label: 'Histoire et Patrimoine', filters: '(categories.uniqueName:history)', iconName: 'amphora'})) }} #}
-
-
-    
+  
 
     {# Quote on mobiles #}
     
@@ -469,14 +543,6 @@
     
     </style>
     
-    {# some presentations by category #}
-
-    {% cache "cat5" ttl(7200) %}    
-      
-      {{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', filters: '(categories.uniqueName:humane)'})) }}
-
-    {% endcache %}
-
     {# Highlight a random project #} 
 
     {{ highlight.highlight (highlightedProjects[0]) }}
@@ -586,14 +652,6 @@
   </style>
  #}
 
-    {# some presentations by category
-
-    {% cache "cat6" ttl(72000) %}{% endcache %}
-      
-      {{ render(path('backend_search', {label: 'Aéronautique', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}
-
-     #}
-    
     
 
     {# some presentations by categories intersection
@@ -622,7 +680,7 @@
 
     <div class="d-flex justify-content-center">
 
-      <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-2 mb-5">
+      <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-0 mt-md-2 mb-4 mb-md-5">
       
         <div class="img-col col-3">
 

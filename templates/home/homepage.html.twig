@@ -58,6 +58,8 @@
 
  <div class="project-by-categories">
 
+  <h3 class="d-flex align-items-center justify-content-center fw-bold"><img id="" class="me-3" src="{{ asset('telescope.png', 'misc')}}" alt="telescope icon" width="37" height="37">EXPLORER<img id="" class="ms-3" src="{{ asset('curved_arrow_down.png', 'misc')}}" alt="curved arrow targetting below icon" width="30" height="30"></h3>
+
       <div class="nav" id="v-tab" role="tablist" aria-orientation="vertical">
 
         <a class="nav-link " href="#" id="v-history-tab" data-bs-toggle="pill" data-bs-target="#v-history" type="button" role="tab" aria-controls="v-history" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/amphora.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Histoire
@@ -110,12 +112,80 @@
 
     <style>
 
+/*
+
+
+        .project-by-categories h3 {
+  line-height: 0.5;
+  text-align: center;
+}
+.project-by-categories h3 span {
+  display: inline-block;
+  position: relative;  
+}
+
+
+
+        .project-by-categories h3 span:before,
+.project-by-categories h3 span:after {
+  content: "";
+  position: absolute;
+  height: 5px;
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  top: 0;
+  width: 600px;
+}
+.project-by-categories h3 span:before {
+  right: 100%;
+  margin-right: 15px;
+}
+.project-by-categories h3 span:after {
+  left: 100%;
+  margin-left: 15px;
+}
+
+
+
+*/
+    
+
+h3 {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h3:after {
+    display: inline-block;
+    margin: 0 0 8px 20px;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: #999;
+    width: 40%;
+}
+h3:before {
+    display: inline-block;
+    margin: 0 20px 8px 0;
+    height: 3px;
+    content: " ";
+    text-shadow: none;
+    background-color: #999;
+    width: 40%;
+}
+    
+        .project-by-categories h3{
+          margin-bottom: 1.5rem;
+        }
+
       .project-by-categories .nav{
         display: flex;
         justify-content: center;
       }
 
       #v-tab .nav-link {
+        display: flex;
         font-size: 18px;
         font-weight: bold;
         color: #1d77d7;
@@ -128,6 +198,17 @@
       }    
 
        @media screen and (max-width: 580px) {
+
+        .project-by-categories h3{
+          font-size: 19px;
+          margin-bottom: 10px;
+        }
+
+
+        .project-by-categories h3 img{
+          width: 27px;
+          height: 27px;
+        }
                   
         #v-tab {
           flex-wrap: nowrap;

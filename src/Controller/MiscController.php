@@ -103,15 +103,12 @@ class MiscController extends AbstractController
      * 
      * @Route("/test-something", name="test_something")
      */
-    public function test(): Response
+    public function test()
     {
-        ob_start();
-        phpinfo();
-        $phpinfo = ob_get_clean();
-
+   
         return $this->render("/test_something.html.twig", [
 
-            'phpinfo' => $phpinfo,
+            
             
         ]);
 

@@ -40,6 +40,14 @@
 
 }
 
+/* Text Description in edition mode */
+
+.in-edition-mode #text_description {
+
+    padding-left: 0;
+
+}
+
 
 
 /* Contact ways are not displayed in consultation mode when no contact ways are provided */
@@ -202,7 +210,7 @@
 
 /* Some Forms Styling */
     
-label, legend {
+legend {
 
     font-size: 1.35em !important;
     font-weight : bold !important;

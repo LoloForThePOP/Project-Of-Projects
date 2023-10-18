@@ -1,6 +1,7 @@
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "text_description", 'title': "Description du Projet",} %}
 
-    {% block structureTitle %}{% endblock %}
+    {% block deleteElementsButtons %}{% endblock %}
+
 
     {% block mainContent %}
 
@@ -32,20 +33,18 @@
 
             {# Text Description Display (2 cases : short text description; collapsible long text description) #}
             
-            <div id="read-text-description" class="{{ longTextLargeScreens or longTextSmallScreens ? 'long-text' }} container">
+            <div id="read-text-description" class="{{ longTextLargeScreens or longTextSmallScreens ? 'long-text' }}  pp-consultation-mode container">
 
                 <!-- Text Description (Display & trigger edit for user presenter) -->
 
-                <div id="collapseTextDescription" class="pp-text-description in-edition-mode position-relative edit-hoverable-item {{ longTextSmallScreens ? 'collapse no-transition'}} {{ longTextLargeScreens ? 'collapse-lg'}} ">
+                <div id="collapseTextDescription" class="pp-text-descriptionposition-relative {{ longTextSmallScreens ? 'collapse no-transition'}} {{ longTextLargeScreens ? 'collapse-lg'}} ">
 
-                    {{ textDescription | sanitize_html ('default') }}
+                    {% if not presentation.textDescription is empty %} 
 
-                   {# This calls ajax.html.twig to edit text, via MiscController (ajaxRenderChunk method) #}
+                        {{ textDescription | sanitize_html ('default') }}
 
-                    <a class="pp-edition-mode coverable-link" data-get-chunk='{"name": "edit_text_description", "target": "#text-descr-live-edition-container"}' data-chunk-params='{"idPP": "{{presentation.id}}"}'></a> 
-
-                    {# OLD WAY <a class="pp-edition-mode coverable-link" href="{{path("edit_pp_text_description", {"stringId":stringId})}}"></a> #}
-
+                    {% endif %}
+                   
                 </div>
 
                 {% if longTextLargeScreens %}
@@ -75,35 +74,24 @@
                 
             </div>
 
+            <div id="text-descr-live-edition-container" class="pp-edition-mode">
+                
+                {% if userPresenter %}
+                        
+                    {% include 'project_presentation/_show/text_description/ajax.html.twig' with {"idPP": presentation.id } %}
+                        
+                {% endif %}
+            
+            </div>
+
+
+
 
         </div>
 
         {# Text Description Live Edition Container #}
 
-        <div id="text-descr-live-edition-container" class="pp-edition-mode"></div>
 
-        <script>
-
-            // we enter live edit mode via above coverable link, but then we change display.
-
-              $(document).ready(function(){
-
-                $('#collapseTextDescription, #edit-text-description-icon').on('click', function (){
-
-                    if ($(this).parents().hasClass('in-edition-mode')) { 
-                        
-                        $("#read-text-description").addClass("pp-consultation-mode");
-            
-                        $("#text-descr-live-edition-container").addClass("live-edit-session"); // we add this class to give full width to this container
-
-                    }
-                    
-                });
-
-            });
-
-
-        </script>
 
         <script>
 
@@ -135,7 +123,12 @@
             #text_description{
 
                 position: relative;
-                padding: 20px 0;
+            }
+
+            #read-text-description{
+
+                margin: 20px 0;
+
             }
 
 

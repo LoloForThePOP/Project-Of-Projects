@@ -20,7 +20,7 @@ class WebsiteType extends AbstractType
                 'description',
                 TextType::class,
                 [
-                    'label' => '✍️ Titre (facultatif)',
+                    'label' => 'Titre (facultatif)',
                     'attr' => [
 
                         'placeholder'    => 'Exemple : Site web officiel, Compte Twitter, etc.',
@@ -34,7 +34,7 @@ class WebsiteType extends AbstractType
                 UrlType::class,
                 [
 
-                    'label' => '🔗 Adresse du site',
+                    'label' => 'Adresse du site',
                     'required'   => true,
                     'attr' => [
 

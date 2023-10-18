@@ -265,36 +265,27 @@
     
             {# Slideshow images & videos #}
 
-            {% if countSlides > 0  %}
+            <div class="col-lg-6 pp-struct-container-wrapper">
 
-                <div class="col-lg-6 pp-struct-container-wrapper">
+                <div id="slideshow-struct-container" class="pp-struct-container">
+                        
+                    {% include 'project_presentation/_show/slides/slides.html.twig' %}
 
-                    <div id="slideshow-struct-container" class="pp-struct-container">
-                            
-                        {% include 'project_presentation/_show/slides/slides.html.twig' %}
-
-                    </div>
-                
                 </div>
-
-            {% endif %}
+            
+            </div>
 
             {# Text Description #}
 
-            {% if not presentation.textDescription is empty %} 
+            <div class="col-lg-6 pp-struct-container-wrapper">
 
-                <div class="col-lg-6 pp-struct-container-wrapper">
+                <div id="text-description-struct-container" class="pp-struct-container">
+                    
+                    {% include 'project_presentation/_show/text_description/main.html.twig' %}
 
-                    <div id="text-description-struct-container" class="pp-struct-container">
-                        
-                        {% include 'project_presentation/_show/text_description/main.html.twig' %}
-
-                    </div>
-                
                 </div>
             
-            {% endif %}
-
+            </div>
 
             {# Miscelaneous Data List #}
 
@@ -367,19 +358,25 @@
             
             {# Websites #}
 
-            {% if countWebsites > 0  %}
 
-                <div class="col-lg-6 pp-struct-container-wrapper">
-            
-                    <div id="websites-struct-container" class="pp-struct-container col-12">
-                        
-                        {% include 'project_presentation/_show/_websites.html.twig' %}
-                        
-                    </div>   
+            <div class="col-lg-6 pp-struct-container-wrapper">
+        
+                <div id="websites-struct-container" class="pp-struct-container col-12">
                 
-                </div>
+                    {% include 'project_presentation/_show/_websites.html.twig' %}
 
-            {% endif %}
+
+                    <div class="pp-edition-mode">
+
+                        {% include "project_presentation/edit/other_components/websites/_add_website_form.html.twig" with {'form': addWebsiteForm} %}
+                    
+                    </div>
+
+                        
+                </div>   
+            
+            </div>
+
 
             
             {# Places #}

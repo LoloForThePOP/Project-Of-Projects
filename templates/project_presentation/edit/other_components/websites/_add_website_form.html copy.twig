@@ -1,0 +1,39 @@
+
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "newWebsiteFormModal", 'modal_title': "Ajouter un site web ou réseau social"} %}
+    
+{% block modalBody %}
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+    {% endblock %}
+
+    {% block footerButtons %}
+
+        <button type="submit" class="btn btn-validate">✔️ Valider</button>
+
+        {{ form_end(form) }}
+
+    {% endblock %}
+
+
+    {% block formErrors %}
+        
+        {% if not form.vars.valid %}
+
+            <script>
+            
+                $(document).ready(function(){
+            
+                    $('#{{modal_id}}').modal('show');
+            
+                });
+            
+            </script>
+
+        {% endif %}
+    
+    {% endblock %}
+
+{% endembed %}

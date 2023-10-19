@@ -341,19 +341,15 @@
                     
             {# Needs #}
 
-            {% if countNeeds > 0 %}
-
-                <div class="col-lg-6 pp-struct-container-wrapper">
-                        
-                    <div id="needs-struct-container" class="pp-struct-container">
-                        
-                        {% include 'project_presentation/_show/needs/main.html.twig' %}
-                        
-                    </div>
+            <div class="col-lg-6 pp-struct-container-wrapper">
+                    
+                <div id="needs-struct-container" class="pp-struct-container">
+                    
+                    {% include 'project_presentation/_show/needs/main.html.twig' %}
                     
                 </div>
-
-            {% endif %}
+                
+            </div>
 
             
             {# Websites #}
@@ -538,7 +534,7 @@
 
             {% set showOtherPossibilities = false %}
 
-            {% if countDocuments == 0 or countMiscDataList == 0 or countQA == 0 or countNeeds == 0 or countECS == 0 %}
+            {% if countDocuments == 0 or countMiscDataList == 0 or countQA == 0 or countECS == 0 %}
             
                 {% set showOtherPossibilities = true %}
 

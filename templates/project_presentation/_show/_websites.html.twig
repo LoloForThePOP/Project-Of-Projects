@@ -23,7 +23,7 @@
 
                 {# Placeholder #}
 
-                <img id="" class="no-website" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" src="{{ asset('no_website.png', 'pp_wysiwyg')}}"  alt="Two cute bears from behing looking at a windows.">
+                <img id="" class="no-website" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" src="{{ asset('no_website.png', 'pp_wysiwyg')}}"  alt="A fake website presentation (title + adress).">
 
                 <style>
 
@@ -36,12 +36,16 @@
                     img.no-website {
                         border-radius: 4px;
                         cursor: pointer;
+                        max-width: 75%;
+                        margin-bottom: 15px;
                     }
 
                     @media screen and (max-width: 580px) {
 
                         img.no-website {
+                            max-width: 100%;
                             padding: 0;
+                            margin-bottom: 5px;
                         }
 
                     }

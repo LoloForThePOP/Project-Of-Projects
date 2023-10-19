@@ -10,10 +10,81 @@
 
     {% block mainContent %}
 
-        {% if presentation.needs | length > 0 %}
 
-            <div id="needs" class="js-elements-list pp-struct-content">
+        <div id="needs" class="js-elements-list pp-struct-content">
 
+            {% if countNeeds == 0 %}
+
+                <div class="cta container" data-bs-toggle="modal" data-bs-target="#selectNeedTypeModal">
+                    
+                    <div class="row">
+                        
+                        <div class="col-4">
+
+                            <img id="" class="no-needs" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" src="{{ asset('no_needs.png', 'pp_wysiwyg')}}"  alt="Coloured hands raised from volunteers.">
+
+                        
+                        </div>
+
+                        <div class="col-8 present-needs-text-cta">
+
+                            <div class="text-container">Vous recherchez des conseils, de l'aide ou des participants ? Faites-le savoir ici !</div>
+                        
+                        </div>
+                    
+                    </div>
+                
+                </div>          
+                
+                
+                <style>
+
+                    #needs{
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                    }
+
+                    #needs .cta{
+
+                        cursor: pointer;
+                        margin-bottom: 25px;
+                    }
+
+                    .present-needs-text-cta{
+                        display: flex;
+                        align-items: center;
+                        font-weight: bold;
+                    }
+
+                    .present-needs-text-cta .text-container {
+                        border: 1px solid #2b9a03;
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        color: #296429;
+                    }
+                
+                    img.no-needs {
+                        max-width: 100%;
+                        border-radius: 4px;
+                    }
+
+                    @media screen and (max-width: 580px) {
+
+                        img.no-needs {
+                            max-width: 100%;
+                            padding: 0;
+                        }
+
+                    }
+                
+                </style>
+
+
+            {% else %}
+                                    
                 {% for need in presentation.needs %}
 
                     {% if loop.index == 4  and not userPresenter %}
@@ -134,10 +205,12 @@
 
                 {% endfor %}
 
+            {% endif %}
 
-            </div>
 
-        {% endif %}
+
+        </div>
+
         
     <style>
 

@@ -52,50 +52,79 @@
 
 	<div id="slides" class="slideshow-container">
 
-		<!-- Caption Container -->
-					
-		<div class="caption-container {{userPresenter ? "col-lg-9" : "col-lg-12" }}" >
+		{% if countSlides == 0 %}
 
-			{% for slide in presentation.slides %}
-					
-				{# span is used because <br> is inserted into contenteditable html element if left empty #}
+			<img id="" class="no-slide" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal" src="{{ asset('no_slide.png', 'pp_wysiwyg')}}"  alt="Two cute bears from behing looking at a windows.">
 
-				<span class="caption" data-text="Titre ou légende de l'image" data-edit='{"entity": "slide", "property": "caption", "id": {{slide.id}} }' data-slide-id="{{slide.id}}">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</span>
-				
-			{% endfor %}
+			<style>
 
-		</div>
+				.slideshow-container{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+				}
+			
+				img.no-slide {
+					max-width: 100%;
+					max-height: 270px;
+					margin: auto;
+					border-radius: 12px;
+					cursor: pointer;
+				}
+			
+			</style>
+
+		{% else %}
 		
-		<div class="row m-0">
-				
-			{#  Slides Container #}
+			<!-- Caption Container -->
+						
+			<div class="caption-container {{userPresenter ? "col-lg-9" : "col-lg-12" }}" >
 
-			<div class="slides-container px-0 col edit-hoverable-item"> 
+				{% for slide in presentation.slides %}
+						
+					{# span is used because <br> is inserted into contenteditable html element if left empty #}
 
-				{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
+					<span class="caption" data-text="Titre ou légende de l'image" data-edit='{"entity": "slide", "property": "caption", "id": {{slide.id}} }' data-slide-id="{{slide.id}}">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</span>
+					
+				{% endfor %}
 
 			</div>
-
-			{#  Thumbnails Container #}
-			{% set showThumbnails = false %}
-
-			{% if countSlides > 1 and userPresenter %}
-				
-				{% set showThumbnails = true %}
 			
-			{% endif %}
-
-			{% if userPresenter %} {# Displaying Thumbnails only for user presenters so they can change orders #}
-				  
-				<div class="pp-edition-mode thumbnails-container col-lg-2 px-0 d-none {{ showThumbnails ? 'd-lg-flex' }} flex-column align-items-center">
-				
-					{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+			<div class="row m-0">
 					
+				{#  Slides Container #}
+
+				<div class="slides-container px-0 col edit-hoverable-item"> 
+
+					{% include "project_presentation/_show/slides/_slides_container.html.twig" %}
+
 				</div>
 
-			{% endif %}
+				{#  Thumbnails Container #}
+				{% set showThumbnails = false %}
 
-		</div>	
+				{% if countSlides > 1 and userPresenter %}
+					
+					{% set showThumbnails = true %}
+				
+				{% endif %}
+
+				{% if userPresenter %} {# Displaying Thumbnails only for user presenters so they can change orders #}
+					
+					<div class="pp-edition-mode thumbnails-container col-lg-2 px-0 d-none {{ showThumbnails ? 'd-lg-flex' }} flex-column align-items-center">
+					
+						{% include "project_presentation/_show/slides/_thumbnails_container.html.twig" %}
+						
+					</div>
+
+				{% endif %}
+
+			</div>			
+
+
+
+		{% endif %}
+
 
 	</div>
 

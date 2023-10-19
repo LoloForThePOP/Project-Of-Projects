@@ -17,52 +17,85 @@
 
     {% block mainContent %}
 
-    
-
         <div id="websites" class="js-elements-list pp-struct-content row m-0">
 
-            {% set websites = presentation.getOC('websites') %}
+            {% if countWebsites == 0 %}
 
-            {% for website in websites %}
+                {# Placeholder #}
 
-                    {% if loop.index == 3  and not userPresenter %}
-                    
-                        <div id="collapse-websites" class="collapse no-transition px-0">
+                <img id="" class="no-website" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" src="{{ asset('no_website.png', 'pp_wysiwyg')}}"  alt="Two cute bears from behing looking at a windows.">
 
-                    {% endif %}
+                <style>
+
+                    #websites{
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
                 
-                    <div id="{{website.id}}" class="js-sortable-element pp-website-card d-flex align-items-center">
+                    img.no-website {
+                        border-radius: 4px;
+                        cursor: pointer;
+                    }
 
-                        {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
+                    @media screen and (max-width: 580px) {
 
-                        {# Display website on click in a blank tab #}
+                        img.no-website {
+                            padding: 0;
+                        }
 
-                        <a data-website-link="{{website.id}}" href="{{website.url}}" target="_blank" rel="noopener noreferrer nofollow" class="pp-consultation-mode coverable-link"></a>
+                    }
+                
+                </style>
 
-                        {% if userPresenter %}
+
+
+            {% else %}
+                
+                {% set websites = presentation.getOC('websites') %}
+
+                {% for website in websites %}
+
+                        {% if loop.index == 3  and not userPresenter %}
+                        
+                            <div id="collapse-websites" class="collapse no-transition px-0">
+
+                        {% endif %}
+                    
+                        <div id="{{website.id}}" class="js-sortable-element pp-website-card d-flex align-items-center">
+
+                            {% include "project_presentation/edit/other_components/websites/_card_content.html.twig" %}
+
+                            {# Display website on click in a blank tab #}
+
+                            <a data-website-link="{{website.id}}" href="{{website.url}}" target="_blank" rel="noopener noreferrer nofollow" class="pp-consultation-mode coverable-link"></a>
+
+                            {% if userPresenter %}
+                                
+                                {# Delete website (Red Cross) button #}
+
+                                <button type="button" data-elements-type="websites" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{website.id}}">&times</button>                  
                             
-                            {# Delete website (Red Cross) button #}
+                            {% endif %}
 
-                            <button type="button" data-elements-type="websites" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{website.id}}">&times</button>                  
+
+                        </div>
+
+                        {% if loop.index > 2 and loop.last and not userPresenter %}
+
+                            </div>
+                            
+                            <div class="js-elements-list show-more-button-container container mt-3 mb-2" onclick="this.style.display = 'none'">
+
+                                <a class="show-more-button" data-bs-toggle="collapse" data-bs-target="#collapse-websites" aria-expanded="false" aria-controls="collapse-websites">Afficher plus</a>
+                            
+                            </div>
                         
                         {% endif %}
-
-
-                    </div>
-
-                    {% if loop.index > 2 and loop.last and not userPresenter %}
-
-                        </div>
-                        
-                        <div class="js-elements-list show-more-button-container container mt-3 mb-2" onclick="this.style.display = 'none'">
-
-                            <a class="show-more-button" data-bs-toggle="collapse" data-bs-target="#collapse-websites" aria-expanded="false" aria-controls="collapse-websites">Afficher plus</a>
-                        
-                        </div>
                     
-                    {% endif %}
+                {% endfor %}
                 
-            {% endfor %}
+            {% endif %}
 
         </div>
 

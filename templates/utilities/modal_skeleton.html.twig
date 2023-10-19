@@ -14,7 +14,7 @@
 
 <div class="modal disabled" id="{{modal_id}}" tabindex="-1" aria-labelledby="" aria-hidden="true" {% block modalStatic %}{% endblock %}  >
         
-    <div class="modal-dialog {{modal_size ?? ""}}">
+    <div class="modal-dialog modal-dialog-centered {{modal_size ?? ""}}">
 
         <div class="modal-content">
 
@@ -68,12 +68,4 @@
 {% block formErrors %}
 
 {% endblock %}
-
-<style>
-    
-    @media screen and (max-width: 580px) {
-            
-    }
-
-</style>
   

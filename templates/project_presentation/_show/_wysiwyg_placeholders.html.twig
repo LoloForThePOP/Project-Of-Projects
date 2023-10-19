@@ -1,35 +1,3 @@
-{% if countSlides == 0 %}
-
-    {# add an image placeholder #}
-
-    <div id="" class="pp-edition-mode placeholder-container col-4 col-md-2">
-        
-        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_image", 'addElementModal':"#addImageSlideFormModal", 'label': "Images"} %}
-        
-    </div>
-
-    {# add a video placeholder #}
-    
-    <div id="" class="pp-edition-mode placeholder-container col-4 col-md-2 ">
-            
-        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'addElementModal':"#addVideoSlideFormModal", 'iconName':"add_youtube_video", 'label': "Vidéos"} %}
-        
-    </div>
-    
-{% endif %}
-
-{% if presentation.textDescription is empty %}
-
-    <div class="pp-edition-mode placeholder-container col-4 col-md-2">
-                    
-        {% set addTextDescriptionRoute = path('edit_pp_text_description', {'stringId': presentation.stringId}) %}
-
-        {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName':"add_text_description", 'route' : addTextDescriptionRoute, 'label': "Description texte" } %}
-
-    </div>
-
-{% endif %}
-
 
 {% if countPlaces == 0 %}
 

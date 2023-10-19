@@ -5,7 +5,7 @@
 }
 
 
-#slideshow-struct-container{
+#slideshow-container{
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

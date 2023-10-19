@@ -128,154 +128,245 @@
 
             {% endfor %}
 
-        </div>
-
-        <style>
-
-            .questionRow {
-                padding: 12px 0;
-            }
-            
-            .question-container:hover {
-                background-color: #f5f5ff;
-            }
-        
-            .question {
-
-                display: inline-block; 
-
-                border-left: 3px solid #bebef8;
-                padding-left: 8px;
-        
-                font-size: 1.15em;
-                line-height: 1.15em;
-
-                font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-        
-            } 
-
-            .answer-container{
-
-                padding: 20px 40px 15px 30px;
-            }
-        
-            .answer {
-
-                width: 100%;
-        
-                font-size: 1.18em;
-                line-height: 1.5em;
-
-                font-family: Georgia, 'Times New Roman', Times, serif;
-        
-            }
-
-                    
-            #questionsAnswers .question-container{
-                flex: 0 0 auto;
-                width: 89%;
-                padding-right : 0;
-            }
-                    
-            #questionsAnswers .collapseSymbolContainer{
-                flex: 0 0 auto;
-                width: 11%;
-            }
-
-        
-            .questionRow .collapseSymbolContainer:after {
-        
-                font-size: 1.2rem !important;
-                content: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/></svg>');
-            }
-        
-            .collapsed .collapseSymbolContainer:after {
-                content: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
-            }
-
-            #questionsAnswers .qa-separator:last-child{
-                display:none;
-            }
-
-
-            #questionsAnswers .date{
-                margin-top: 2px;
-                color: #44494e;
-                
-            }
-            
-    
-            @media screen and (max-width: 820px) {
-                
-                .questionRow {
-                    padding: 9px 0;
-                }
-
-            }
-            
-    
-            @media screen and (max-width: 580px) {
+            <style>
 
                 .questionRow {
-                    padding: 5px 0;
+                    padding: 12px 0;
                 }
+                
+                .question-container:hover {
+                    background-color: #f5f5ff;
+                }
+            
+                .question {
 
-                .questionRow .collapse-container {
+                    display: inline-block; 
 
-                    padding-right: 0;
-                    padding-left: 10px;
-                    margin: 0px;
-                    
-                }
-    
-                .questionRow .collapseSymbolContainer:after {
-        
-                    font-size: 0.9rem !important;
-    
-                }
-                    
-                #questionsAnswers .question-container{
-                    width: 92%; 
-                    padding-right: 0;
-                    padding-left: 0;
-                }
+                    border-left: 3px solid #bebef8;
+                    padding-left: 8px;
+            
+                    font-size: 1.15em;
+                    line-height: 1.15em;
 
-                #questionsAnswers .collapseSymbolContainer {
-
-                    display: flex;
-                    justify-content: center;
-                    width: 6%;
-                    padding: 4px 0 0 0;
-
-                }
-    
-                .question{
-        
-                    font-size:16px;
-                    line-height:20px;
-                    padding-left: 5px;
-        
-                }
+                    font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            
+                } 
 
                 .answer-container{
 
-                    padding: 9px 10px 8px 10px;
+                    padding: 20px 40px 15px 30px;
                 }
-        
-                .answer{
-        
-                    font-size: 16px;
+            
+                .answer {
+
+                    width: 100%;
+            
+                    font-size: 1.18em;
                     line-height: 1.5em;
-        
+
+                    font-family: Georgia, 'Times New Roman', Times, serif;
+            
                 }
 
-                #questionsAnswers .date {
-                    font-size: 14px;
-                }  
+                        
+                #questionsAnswers .question-container{
+                    flex: 0 0 auto;
+                    width: 89%;
+                    padding-right : 0;
+                }
+                        
+                #questionsAnswers .collapseSymbolContainer{
+                    flex: 0 0 auto;
+                    width: 11%;
+                }
 
-            }
+            
+                .questionRow .collapseSymbolContainer:after {
+            
+                    font-size: 1.2rem !important;
+                    content: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-up" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z"/></svg>');
+                }
+            
+                .collapsed .collapseSymbolContainer:after {
+                    content: url('data:image/svg+xml;charset=UTF-8, <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-down" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/></svg>');
+                }
+
+                #questionsAnswers .qa-separator:last-child{
+                    display:none;
+                }
+
+
+                #questionsAnswers .date{
+                    margin-top: 2px;
+                    color: #44494e;
+                    
+                }
+                
         
-        </style>
+                @media screen and (max-width: 820px) {
+                    
+                    .questionRow {
+                        padding: 9px 0;
+                    }
+
+                }
+                
+        
+                @media screen and (max-width: 580px) {
+
+                    .questionRow {
+                        padding: 5px 0;
+                    }
+
+                    .questionRow .collapse-container {
+
+                        padding-right: 0;
+                        padding-left: 10px;
+                        margin: 0px;
+                        
+                    }
+        
+                    .questionRow .collapseSymbolContainer:after {
+            
+                        font-size: 0.9rem !important;
+        
+                    }
+                        
+                    #questionsAnswers .question-container{
+                        width: 92%; 
+                        padding-right: 0;
+                        padding-left: 0;
+                    }
+
+                    #questionsAnswers .collapseSymbolContainer {
+
+                        display: flex;
+                        justify-content: center;
+                        width: 6%;
+                        padding: 4px 0 0 0;
+
+                    }
+        
+                    .question{
+            
+                        font-size:16px;
+                        line-height:20px;
+                        padding-left: 5px;
+            
+                    }
+
+                    .answer-container{
+
+                        padding: 9px 10px 8px 10px;
+                    }
+            
+                    .answer{
+            
+                        font-size: 16px;
+                        line-height: 1.5em;
+            
+                    }
+
+                    #questionsAnswers .date {
+                        font-size: 14px;
+                    }  
+
+                }
+            
+            </style>
+
+            {# FAQ Suggestions #}
+
+            {% set faqSuggestions = [ 
+
+                { 'question': "Comment est née l'idée du Projet ?"}, 
+                { 'question': "Quelle est votre ambition avec ce projet ?"}, 
+                { 'question': "Pourquoi participer à votre projet ?"}, 
+                { 'question': "Utilisez-vous certains outils, méthodes, ou logiciels pour réaliser votre projet ? Si oui, lesquels ?"}, 
+                { 'question': "Votre projet a t-il des différences par rapport à ce qui existe déjà ?"}, 
+                { 'question': "Pourquoi ce projet vous tient à coeur, pourquoi souhaitez-vous le réaliser ? Qu'est-ce qui vous motive avec ce projet ?"}, 
+                { 'question': "Votre projet a t-il déjà progressé ? Si oui, comment ? Avez-vous fait des premiers essais ?"}, 
+
+            ] %}
+
+            <div class="faq-suggestions-container pp-edition-mode">
+
+                <div class="d-flex justify-content-center"><button class="btn border mb-3" type="button" data-bs-toggle="collapse" data-bs-target="#suggestions-content-container" aria-expanded="false" aria-controls="collapseExample">
+                    💡 Afficher des Suggestions
+                </button></div>
+
+                <div id="suggestions-content-container" class="collapse">
+
+                    <div class="faq-suggestions-title">Cliquer sur une suggestion pour y répondre</div>
+
+                    <div class="suggestions-container">
+
+                        {% for suggestion in faqSuggestions %}
+
+                            <div class="suggestion" data-bs-toggle="modal" data-bs-target="#add_qa_form_modal">{{suggestion.question}}</div>
+                            
+                        {% endfor %}                    
+                    
+                    </div>
+
+                </div>
+
+                <script>
+
+                    $(document).ready(function(){
+
+                        // delete logo label : english to french translation
+
+                        $(".suggestions-container .suggestion").on('click', function (){
+
+                            $("#add_qa_form_modal textarea").focus();
+                            $("#add_qa_form_modal input").val($(this).text());
+
+                        });
+
+                    });
+                
+                
+                
+                </script>
+
+                <style>
+
+                    [data-bs-target="#suggestions-content-container"][aria-expanded="true"]{
+                        display: none;
+                    }
+
+                    .faq-suggestions-title {
+                        font-weight: bold;
+                        color: #7373ba;
+                        margin-bottom: 10px;
+                        text-align: center;
+                    }
+
+                    .suggestions-container {
+                        max-height: 100px;
+                        overflow-y: auto;
+                        padding-right: 10px;
+                    }
+                
+                    .faq-suggestions-container .suggestion {
+                        padding: 2px 10px;
+                        margin-bottom: 4px;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        border: 1px solid #c8c9e0;
+                    }
+
+                    .faq-suggestions-container .suggestion:hover {
+                        background-color: #f2f2ff;
+                    }
+                
+                </style>    
+
+            </div>
+
+        </div>
+
         
     {% endblock %}
     

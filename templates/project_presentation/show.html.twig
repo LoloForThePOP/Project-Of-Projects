@@ -324,19 +324,15 @@
 
             {# Questions & Answers #}
 
-            {% if countQA > 0 %}
-
-                <div class="col-lg-6 pp-struct-container-wrapper">
-                
-                    <div id="questionsAnswers-struct-container" class="pp-struct-container ">
-                
-                        {% include 'project_presentation/_show/_questions_answers.html.twig' %}
-                
-                    </div>
-
+            <div class="col-lg-6 pp-struct-container-wrapper">
+            
+                <div id="questionsAnswers-struct-container" class="pp-struct-container ">
+            
+                    {% include 'project_presentation/_show/_questions_answers.html.twig' %}
+            
                 </div>
 
-            {% endif %}
+            </div>
 
                     
             {# Needs #}
@@ -534,7 +530,7 @@
 
             {% set showOtherPossibilities = false %}
 
-            {% if countDocuments == 0 or countMiscDataList == 0 or countQA == 0 or countECS == 0 %}
+            {% if countDocuments == 0 or countMiscDataList == 0 or countECS == 0 %}
             
                 {% set showOtherPossibilities = true %}
 

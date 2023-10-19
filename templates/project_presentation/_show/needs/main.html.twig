@@ -19,7 +19,7 @@
                     
                     <div class="row">
                         
-                        <div class="col-4">
+                        <div class="col-4 present-needs-img-cta">
 
                             <img id="" class="no-needs" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" src="{{ asset('no_needs.png', 'pp_wysiwyg')}}"  alt="Coloured hands raised from volunteers.">
 
@@ -51,6 +51,7 @@
 
                         cursor: pointer;
                         margin-bottom: 25px;
+
                     }
 
                     .present-needs-text-cta{
@@ -60,18 +61,56 @@
                     }
 
                     .present-needs-text-cta .text-container {
-                        border: 1px solid #2b9a03;
                         padding: 5px 10px;
+                        border: 1px solid #2b9a03;
                         border-radius: 5px;
                         color: #296429;
+                        background-color: #f1fff1;
                     }
+
                 
+                    .present-needs-img-cta{
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                    }
+                                    
                     img.no-needs {
                         max-width: 100%;
                         border-radius: 4px;
                     }
 
                     @media screen and (max-width: 580px) {
+
+                        #needs .cta{
+
+                           padding: 15px 10px;
+                           margin-bottom: 10px;
+                           background-color: #f1fff1;
+                           border-radius: 6px;
+                           
+                        }
+
+                        .present-needs-text-cta{
+                            padding-right: 0;
+                        }
+
+                        .present-needs-text-cta .text-container {
+                            padding: unset;
+                            border: unset;
+                            border-radius: unset;
+                            color: #296429;
+                            background-color: unset;
+                            line-height: 1.2;
+                            font-size: 14px;
+                        }
+
+                        .present-needs-img-cta{
+
+                            padding: 0;
+                            padding-left: 5px;
+                        }
 
                         img.no-needs {
                             max-width: 100%;
@@ -81,7 +120,6 @@
                     }
                 
                 </style>
-
 
             {% else %}
                                     

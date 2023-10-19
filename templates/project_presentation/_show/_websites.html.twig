@@ -21,31 +21,106 @@
 
             {% if countWebsites == 0 %}
 
-                {# Placeholder #}
+                <div class="cta container" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal">
+                    
+                    <div class="row">
+                        
+                        <div class="col-2 present-websites-img-cta">
 
-                <img id="" class="no-website" data-bs-toggle="modal" data-bs-target="#newWebsiteFormModal" src="{{ asset('no_website.png', 'pp_wysiwyg')}}"  alt="A fake website presentation (title + adress).">
+                            <img id="" class="no-websites" src="{{ asset('no_websites.png', 'pp_wysiwyg')}}"  alt="A radio transmitter antenna with waves.">
 
+                        
+                        </div>
+
+                        <div class="col-10 present-websites-text-cta">
+
+                            <div class="text-container">Vous utilisez déjà un site web ou des réseaux sociaux pour votre projet ? Ajoutez-les ici.</div>
+                        
+                        </div>
+                    
+                    </div>
+                
+                </div>          
+                
+                
                 <style>
 
                     #websites{
+
                         display: flex;
                         justify-content: center;
                         align-items: center;
+
                     }
-                
-                    img.no-website {
-                        border-radius: 4px;
+
+                    #websites .cta{
+
                         cursor: pointer;
-                        max-width: 75%;
-                        margin-bottom: 15px;
+                        margin-bottom: 25px;
+
+                    }
+
+                    .present-websites-text-cta{
+                        display: flex;
+                        align-items: center;
+                        font-weight: bold;
+                    }
+
+                    .present-websites-text-cta .text-container {
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        color: #5d87ac;
+                        background-color: #f1f3ff;
+                    }
+
+                    .present-websites-img-cta{
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        padding: 0;
+                        padding-left: 5px;
+                    }
+                                    
+                    img.no-websites {
+                        max-width: 80px;
+                        border-radius: 4px;
                     }
 
                     @media screen and (max-width: 580px) {
 
-                        img.no-website {
+                        #websites .cta{
+
+                           padding: 15px 10px;
+                           margin-bottom: 10px;
+                           background-color: #f1f3ff;
+                           border-radius: 6px;
+                           
+                        }
+
+                        .present-websites-text-cta{
+                            padding-right: 0;
+                        }
+
+                        .present-websites-text-cta .text-container {
+                            padding: unset;
+                            border-radius: unset;
+                            color: #296429;
+                            background-color: unset;
+                            line-height: 1.2;
+                            font-size: 14px;
+                        }
+
+                        .present-websites-img-cta{
+
+                            padding: 0;
+                            padding-left: 5px;
+                        }
+
+                        img.no-websites {
                             max-width: 100%;
                             padding: 0;
-                            margin-bottom: 5px;
                         }
 
                     }

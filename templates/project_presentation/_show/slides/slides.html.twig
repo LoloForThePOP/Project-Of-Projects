@@ -54,14 +54,24 @@
 
 		{% if countSlides == 0 %}
 
+			<div class="text-placeholder" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal">Ce paysage est monotone... Ajoute des images !</div>
+
 			<img id="" class="no-slide" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal" src="{{ asset('no_slide.png', 'pp_wysiwyg')}}"  alt="Two cute teddy bears from behing looking at a windows.">
 
 			<style>
 
 				.slideshow-container{
 					display: flex;
+					flex-direction: column;
 					align-items: center;
 					justify-content: center;
+				}
+
+				.slideshow-container .text-placeholder {
+					margin-bottom: 7px;
+					font-weight: bold;
+					cursor: pointer;
+					color: #2f3a5a;
 				}
 			
 				img.no-slide {
@@ -71,6 +81,17 @@
 					border-radius: 12px;
 					cursor: pointer;
 				}
+
+
+
+				@media screen and (max-width: 580px) {
+
+					.slideshow-container .text-placeholder {
+						text-align: center;
+						font-size: 13px;
+					}
+			
+            	}
 			
 			</style>
 

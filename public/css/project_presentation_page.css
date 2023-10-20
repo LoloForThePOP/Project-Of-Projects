@@ -40,11 +40,11 @@
 }
 
 
-/* #text-description-struct-container {
+.in-consultation-mode #text-description-struct-container {
 	display: flex;
 	align-items: center;
 }
- */
+ 
 
 /* Each Structure Title Container (contains title + edit button) */
 

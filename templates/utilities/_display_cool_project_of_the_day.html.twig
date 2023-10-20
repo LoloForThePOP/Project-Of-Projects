@@ -1,3 +1,69 @@
+{% if results is not empty %}
+
+    {% set projectOfTheDay = results | first %}
+
+        <div class="cool-project-container">
+
+            <div class="container-title">Projet Cool du Jour</div>
+
+            <img id="" class="logo" src="{{ vich_uploader_asset(projectOfTheDay, 'logoFile') | imagine_filter('logo')}}" alt="Logo du Projet du jour" width="200">
+
+            <div class="container-container px-0">
+
+                <div class="row">
+
+                    <div class="col-12 col-md-8">
+                    
+                        <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}"><div class="project-title">{{projectOfTheDay.title}}</div></a>
+
+                        <div class="short-editorial">                 
+                        
+                            <div class="d-none d-md-block">{{projectOfTheDay.getDataItem('short_editorial_text_fr') ? projectOfTheDay.getDataItem('short_editorial_text_fr') | raw :  projectOfTheDay.goal }}</div>
+
+                            <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}" class="text-body"><div class="d-md-none">{{ projectOfTheDay.goal }}</div></a>
+
+                            <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}"><button class="discover-project-button btn">Découvrir
+
+                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                  </svg>
+                            </button></a>
+
+                        </div>
+                
+                    </div>
+                    
+
+                    <div class="col-12 col-md-4 ps-md-0 img-container">
+
+                        <img class="thumbnail d-none d-md-block" src="{{ projectOfTheDay.cache.thumbnailAddress }}" alt="Cool Project of the Day Thumbnail">
+
+                        <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}">
+
+                            <img class="thumbnail d-md-none" src="{{ projectOfTheDay.cache.thumbnailAddress }}" alt="Cool Project of the Day Thumbnail">
+                        
+                        </a>
+
+                    </div> 
+
+
+                </div>
+
+            </div>
+
+            <div class="cta">
+
+                <div class="cta1"><span class="">Vous connaissez aussi un projet cool ? </span><br class="d-md-none"><span class=""><a href="{{path('contact_website')}}">Partagez-le, contactez-nous.</a></span></div>
+
+                <div class="cta2"><span class="">Votre propre projet ici ? </span><span class=""><br class="d-md-none"><a href="{{path('contact_website')}}">Contactez-nous (service gratuit)</a></span>. </div>
+
+            </div>
+
+
+        </div>
+    
+{% endif %}
+
 
 <style>
 
@@ -174,68 +240,4 @@
 
     }
 
-
 </style>
-
-
-{% if results is not empty %}
-
-    {% set projectOfTheDay = results | first %}
-
-        <div class="cool-project-container">
-
-            <div class="container-title">Projet Cool du Jour</div>
-
-            <img id="" class="logo" src="{{ vich_uploader_asset(projectOfTheDay, 'logoFile') | imagine_filter('logo')}}" alt="Logo du Projet du jour" width="200">
-
-            <div class="container-container px-0">
-
-                <div class="row">
-
-                    <div class="col-12 col-md-8">
-                    
-                        <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}"><div class="project-title">{{projectOfTheDay.title}}</div></a>
-
-                        <div class="short-editorial">                 
-                        
-                            <div class="d-none d-md-block">{{projectOfTheDay.getDataItem('short_editorial_text_fr') ? projectOfTheDay.getDataItem('short_editorial_text_fr') | raw :  projectOfTheDay.goal }}</div>
-
-                            <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}" class="text-body"><div class="d-md-none">{{ projectOfTheDay.goal }}</div></a>
-
-                            <a href="{{ path('show_presentation', {'stringId': projectOfTheDay.stringId}) }}"><button class="discover-project-button btn">Découvrir
-
-                                <svg class="w-4 h-4 ml-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                                  </svg>
-                            </button></a>
-
-                        </div>
-                
-                    </div>
-                    
-
-                    <div class="col-12 col-md-4 ps-md-0 img-container">
-
-                        <img class="thumbnail" src="{{ projectOfTheDay.cache.thumbnailAddress }}" alt="Cool Project of the Day Thumbnail">
-
-                    </div> 
-
-
-                </div>
-
-            </div>
-
-            <div class="cta">
-
-                <div class="cta1"><span class="">Vous connaissez aussi un projet cool ? </span><br class="d-md-none"><span class=""><a href="{{path('contact_website')}}">Partagez-le, contactez-nous.</a></span></div>
-
-                <div class="cta2"><span class="">Votre propre projet ici ? </span><span class=""><br class="d-md-none"><a href="{{path('contact_website')}}">Contactez-nous (service gratuit)</a></span>. </div>
-
-            </div>
-
-
-        </div>
-    
-{% endif %}
-
-

@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use OpenAI;
 use App\Entity\PPBase;
 use App\Entity\Category;
 use App\Service\OpenAIAPI;
+use App\Service\OpenAIService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -85,10 +87,16 @@ class MiscController extends AbstractController
      * 
      * @Route("/test-something", name="test_something")
      */
-     public function test(OpenAIAPI $openAI)
+     public function test()
     {
 
-        $openAI->sendRequestToGPT("bonjour !");
+        $ia = new OpenAIService ($_ENV['OPEN_AI_KEY']);
+
+        $answer = $ia->answer("I'm happy but...");
+        
+
+        dd($answer); 
+
    
         return $this->render("/test_something.html.twig", [
 

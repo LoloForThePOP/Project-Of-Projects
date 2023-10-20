@@ -116,7 +116,7 @@ class MiscController extends AbstractController
 
 
      /**
-     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
+     * @Route("/sitemap", name="sitemap", defaults={"_format"="xml"})
      */
     public function index(Request $request, EntityManagerInterface $manager)
     {

@@ -116,7 +116,7 @@ class MiscController extends AbstractController
 
 
      /**
-     * @Route("/sitemap", name="sitemap", defaults={"_format"="xml"})
+     * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
      */
     public function index(Request $request, EntityManagerInterface $manager)
     {
@@ -183,7 +183,7 @@ class MiscController extends AbstractController
 
         $response = new Response(
             
-            $this->renderView('sitemap.xml.twig', [
+            $this->renderView('sitemap/index.html.twig', [
                 'sitemapPreparation' => $sitemapPreparation,
                 'hostname' => $hostname
                 

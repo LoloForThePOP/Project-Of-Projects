@@ -48,25 +48,6 @@ class MiscController extends AbstractController
                     $chunkTemplateDirFileName = '/plans/_details';
                     break;
 
-                case 'edit_text_description':
-
-                    $chunkTemplateDirFileName = '/project_presentation/_show/text_description/ajax';
-
-                    if (isset($additionalParameters["idPP"])) {
-
-                        $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneById($additionalParameters["idPP"]);
-
-                        if ($this->isGranted('edit', $presentation)) {
-
-                            $additionalParameters["textDescription"] =  $presentation->getTextDescription();
-
-                        }
-
-                    }
-
-                    break;
-
-
                 default:
                 
                     throw new \Exception('Invalid chunk name, passed '.$chunkName);
@@ -103,7 +84,7 @@ class MiscController extends AbstractController
      * 
      * @Route("/test-something", name="test_something")
      */
-    public function test()
+/*     public function test()
     {
    
         return $this->render("/test_something.html.twig", [
@@ -112,7 +93,7 @@ class MiscController extends AbstractController
             
         ]);
 
-    }
+    } */
 
 
      /**
@@ -183,7 +164,7 @@ class MiscController extends AbstractController
 
         $response = new Response(
             
-            $this->renderView('sitemap/index.html.twig', [
+            $this->renderView('sitemap.xml.twig', [
                 'sitemapPreparation' => $sitemapPreparation,
                 'hostname' => $hostname
                 

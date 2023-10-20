@@ -41,6 +41,16 @@
 		
 		{% endblock %}
 
+		{% block deleteElementsButtons %}
+
+        {% if countSlides > 0 %}
+        
+            {{ parent() }}
+        
+        {% endif %}
+
+    {% endblock %}
+
 	{% endembed %}
 
 {% endif %}
@@ -54,7 +64,7 @@
 
 		{% if countSlides == 0 %}
 
-			<div class="text-placeholder" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal">Ce paysage est monotone... Ajoute des images !</div>
+			<div class="text-placeholder" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal">Ce paysage est monotone... Ajouter des images !</div>
 
 			<img id="" class="no-slide" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal" src="{{ asset('no_slide.png', 'pp_wysiwyg')}}"  alt="Two cute teddy bears from behing looking at a windows.">
 

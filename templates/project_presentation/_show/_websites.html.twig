@@ -15,6 +15,16 @@
 
     {% endblock %}
 
+    {% block deleteElementsButtons %}
+
+        {% if countWebsites > 0 %}
+        
+            {{ parent() }}
+        
+        {% endif %}
+
+    {% endblock %}
+
     {% block mainContent %}
 
         <div id="websites" class="js-elements-list pp-struct-content row m-0">
@@ -41,7 +51,6 @@
                     </div>
                 
                 </div>          
-                
                 
                 <style>
 
@@ -126,8 +135,6 @@
                     }
                 
                 </style>
-
-
 
             {% else %}
                 

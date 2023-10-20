@@ -222,6 +222,12 @@ textarea:focus, input:focus{
 }
 
 
+.in-edition-mode #text-description-struct-container {
+
+    display: flex;
+    flex-direction: column;
+    
+}
 
 .in-consultation-mode #text-description-struct-container > * {
 
@@ -253,6 +259,10 @@ textarea:focus, input:focus{
 
         font-size: 1.10em !important;
 
+    }
+
+    .in-edition-mode #text_description {
+        padding: 0;
     }
 
 }

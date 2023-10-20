@@ -265,7 +265,9 @@
     
             {# Slideshow images & videos #}
 
-            <div class="col-lg-6 pp-struct-container-wrapper">
+            
+
+            <div class="col-lg-6 pp-struct-container-wrapper {% if countSlides == 0 %} pp-edition-mode {% endif %}">
 
                 <div id="slideshow-struct-container" class="pp-struct-container">
                         
@@ -324,7 +326,7 @@
 
             {# Questions & Answers #}
 
-            <div class="col-lg-6 pp-struct-container-wrapper">
+            <div class="col-lg-6 pp-struct-container-wrapper {% if countQA == 0 %} pp-edition-mode {% endif %}">
             
                 <div id="questionsAnswers-struct-container" class="pp-struct-container ">
             
@@ -337,7 +339,7 @@
                     
             {# Needs #}
 
-            <div class="col-lg-6 pp-struct-container-wrapper">
+            <div class="col-lg-6 pp-struct-container-wrapper {% if countNeeds == 0 %} pp-edition-mode {% endif %}">
                     
                 <div id="needs-struct-container" class="pp-struct-container">
                     
@@ -351,7 +353,7 @@
             {# Websites #}
 
 
-            <div class="col-lg-6 pp-struct-container-wrapper">
+            <div class="col-lg-6 pp-struct-container-wrapper {% if countWebsites == 0 %} pp-edition-mode {% endif %}">
         
                 <div id="websites-struct-container" class="pp-struct-container col-12">
                 
@@ -365,19 +367,15 @@
             
             {# Places #}
 
-            {% if countPlaces > 0 %}
-
-                <div class="col-lg-6 pp-struct-container-wrapper">
+            <div class="col-lg-6 pp-struct-container-wrapper {% if countPlaces == 0 %} pp-edition-mode {% endif %}">
+                
+                <div id="places-struct-container" class="pp-struct-container">
                     
-                    <div id="places-struct-container" class="pp-struct-container">
-                        
-                        {% include 'project_presentation/_show/_places.html.twig' %}
-                    
-                    </div>
+                    {% include 'project_presentation/_show/_places.html.twig' %}
                 
                 </div>
-                
-            {% endif %}
+            
+            </div>
 
             {# External Contributors Structures (ex: sponsors; partners; etc.) #}
 
@@ -511,6 +509,63 @@
             
             </div>
 
+            
+            {# Other possibilities for user presenter #}
+
+            {% if userPresenter %}
+
+                <div class="col-lg-6 pp-struct-container-wrapper">
+
+                    <div id="" class="pp-struct-container">
+
+                        <div class="row d-flex justify-content-evenly g-2 g-md-3 pt-md-3">
+
+                            {# Other Edition Possibilities. Ex: Add Documents. #}
+
+                            {% set showOtherPossibilities = false %}
+
+                            {% if countDocuments == 0 or countMiscDataList == 0 or countECS == 0 %}
+                            
+                                {% set showOtherPossibilities = true %}
+
+                            {% endif %}
+
+                            {% if showOtherPossibilities == true %}
+
+                                {# Trigger Other Possibilities Menu (Button) #}
+
+                                <div class="pp-edition-mode col-6 col-md-4">
+
+                                    {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres Possibilités" } %}
+
+                                </div>
+                                    
+                                {# menu displayed in a modal #}
+                                
+                                {% include "project_presentation/_show/_non_default_structures_menu.html.twig" %}
+
+                            {% endif %}
+
+                            {# Presentation Manage Parameters Button #}
+
+                            <div class="pp-edition-mode col-6 col-md-4">
+
+                                {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "settings", 'addElementModal':"#pp-settings", 'label': "Réglages" } %}
+
+                            </div>
+
+                            {# menu displayed in a modal #}
+                                
+                            {% include "project_presentation/edit/_settings.html.twig" %}
+                            
+                        </div>
+
+                    </div>
+                
+                </div>
+
+            {% endif %}
+
         </div>
     
     </div>
@@ -519,53 +574,6 @@
     {# Add a Presentation Structure Buttons (Placeholders or Other Buttons in a Modal Box) #}
 
     {% if userPresenter %}
-
-        <div class="row d-flex justify-content-evenly g-2 g-md-3 pt-md-3">
-
-            {# Placeholders for presentation's unfilled components (ex: websites; places; images; etc) #}
-
-            {% include "project_presentation/_show/_wysiwyg_placeholders.html.twig" %}
-
-            {# Other Edition Possibilities. Ex: Add Documents; add a Q&A; etc. Placeholder Icons to opens a modal with choices buttons #}
-
-            {% set showOtherPossibilities = false %}
-
-            {% if countDocuments == 0 or countMiscDataList == 0 or countECS == 0 %}
-            
-                {% set showOtherPossibilities = true %}
-
-            {% endif %}
-
-            {% if showOtherPossibilities == true %}
-
-                {# Trigger Other Possibilities Menu (Button) #}
-
-                <div class="pp-edition-mode col-4 col-md-2">
-
-                    {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "more", 'addElementModal':"#non_default_structures_menu", 'label': "Autres Possibilités" } %}
-
-                </div>
-                    
-                {# menu displayed in a modal #}
-                
-                {% include "project_presentation/_show/_non_default_structures_menu.html.twig" %}
-
-            {% endif %}
-
-            {# Presentation Manage Parameters Button #}
-
-            <div class="pp-edition-mode col-4 col-md-2">
-
-                {% include 'project_presentation/_show/empty_structure_placeholder_skeleton.html.twig' with {'iconName': "settings", 'addElementModal':"#pp-settings", 'label': "Réglages" } %}
-
-            </div>
-
-             {# menu displayed in a modal #}
-                
-             {% include "project_presentation/edit/_settings.html.twig" %}
-            
-        </div>
-
 
         {# Admin Presentation Validation Button #}
 

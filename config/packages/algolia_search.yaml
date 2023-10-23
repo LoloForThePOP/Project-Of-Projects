@@ -1,9 +1,9 @@
 # All available configuration can be found here:
 algolia_search:
-    prefix: '%env(APP_ENV)%_'
-    indices:
-        - name: presentation_bases
-          class: App\Entity\PPBase
-          enable_serializer_groups: true
-          index_if: isSearchable
-
+  doctrineSubscribedEvents: []
+  prefix: '%env(APP_ENV)%_'
+  indices:
+    - name: presentation_bases
+      class: App\Entity\PPBase
+      enable_serializer_groups: true
+      index_if: isSearchable

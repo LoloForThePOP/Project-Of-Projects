@@ -64,14 +64,14 @@
                         
                     </div>
 
-                    <div class="other-info-container">
+                    <div class="goal-container">
 
                         <div class="goal no-title">{# {% if title is empty %}no-title{% endif %}  #}
 
                             {{ item.goal | length < 81 ? item.goal[:1] | upper ~ item.goal[1:] : item.goal[:1] | upper ~ item.goal[1:77] ~ '...' }}
 
-
                         </div>
+
 
 {#                         {% if title is not empty %}
 
@@ -97,6 +97,45 @@
 
                         {% endif %} #}
 
+                    </div>
+
+
+                    <div class="other-info-container">
+
+                        <div class="date">
+
+                            {{item.createdAt | date("d - m - Y") }}
+                        
+                        </div>
+
+                        <div class="stats">
+                        
+                            <span class="stat-chunk">
+
+                                <img class="" src="{{ asset('thumb_up.svg', 'misc')}}" alt="a thumb-up icon">
+
+                                {{item.likes | length }}
+                            
+                            </span>
+
+                            <span class="stat-chunk">
+
+                                <img class="" src="{{ asset('comment.svg', 'misc')}}" alt="a comment icon">
+
+                                {{item.comments | length }}
+                            
+                            </span>
+
+                            <span class="stat-chunk">
+
+                                <img class="" src="{{ asset('eye.svg', 'misc')}}" alt="an eye icon">
+
+                                {{item.getDataItem('viewsCount')}}
+                            
+                            </span>
+                            
+                        </div>
+                    
                     </div>
 
                 </div>

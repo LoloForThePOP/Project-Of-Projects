@@ -60,37 +60,56 @@
 
 <div class="init">
 
-    <div class="container d-flex justify-content-center align-items-center flex-column">
-    
-        <div class="d-flex justify-content-center align-items-center my-5">
+    <div class="container d-flex justify-content-center align-items-center flex-column my-5">
 
-            <div class="col-2">
-            
-                <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/jury.png', 'larger')}}" loading="lazy">
-
-            </div>
-
-            <div class="col-4 d-flex justify-content-center align-items-center">
-            
-                <div class="">
-                    <h4 class="fw-bold">À qui je présente mon projet ?</h4>
-
-                <div class="examples">Exemples : Un(e) Enseignant(e); à tout le monde (grand public); à un jury (préciser si ce jury a un métier précis); à des investisseur; etc.</div>
+        <div class="first-question">
                 
+            <div class="d-flex justify-content-center align-items-center mb-3">
+
+                <div class="col-2">
                 
+                    <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/jury.png', 'larger')}}" loading="lazy">
+
                 </div>
 
+                <div class="col-4 d-flex justify-content-center align-items-center">
+                
+                    <div class="">
+
+                        <h4 class="fw-bold">À qui je présente mon projet ?</h4>
+
+                        <div class="examples">Exemples : <span class=""> Un(e) des Enseignant(es)</span> ; <span>à tout le monde (grand public)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
+                    
+                    </div>
+
+
+                </div>
 
             </div>
 
+            <div class="tiny-form-container d-flex justify-content-center">
+            
+                {{ form_start(form) }}
 
-        </div>
+                {{ form_widget(form.ppTarget) }}
 
-        <div class="d-flex justify-content-center">
+                <button class="btn btn-validate">Valider</button>
+
+                {{ form_end(form) }}
+
+            </div>
+
+            <style>
+
+                .tiny-form-container form{
+                    width: 460px;
+                }
+            
+            
+            </style>
         
-            <div>Apportez des précisions pour obtenir une meilleure présentation</div>
-
         </div>
+    
 
 
 
@@ -106,7 +125,7 @@
             
                 <h4>Comment je présente mon projet ?</h4>
 
-                <div class="examples">Exemples : à l'oral; sur un document papier ou pdf; sur une présentation powerpoint; sur une vidéo; sur un site web; sur un réseau social; sur une plateforme de crowdfunding ?</div>
+                <div class="examples">Exemples : à l'oral; sur un document papier ou pdf; sur une présentation powerpoint; sur une vidéo; sur un site web; sur un réseau social; sur une plateforme de crowdfunding, à la télévision, à la radio, sur un forum ?</div>
 
             </div>
 

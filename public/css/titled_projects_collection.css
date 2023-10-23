@@ -33,8 +33,9 @@
 
 .project-card{
     display: inline-block; 
+    position: relative;
     width: 300px; 
-    height: 290px; 
+    height: 314px; 
     overflow: hidden;
     border: 1px solid rgb(227, 221, 211); 
     border-radius: 4px;
@@ -93,15 +94,37 @@
 
 }
 
-.other-info-container{
+.goal-container{
     padding: 0 10px 0px 10px;
     text-align: center;
 }
 
+.collection-container .other-info-container {
+	position: absolute;
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	bottom: 0;
+	padding-left: 9px;
+	padding-right: 13px;
+	padding-bottom: 8px;
+	color: #7f7f7f;
+	font-size: 14px;
+}
+
+
+.stat-chunk{
+    margin-right: 5px;
+}
+
+.stat-chunk:last-child{
+    margin-right: 0px;
+}
 
 .read-more {
     margin-left: 47%;
 }
+
 
 /* Sometimes we want to change display according to specific added classes (ex : when results are showed in a tab navigation) */
 
@@ -112,6 +135,7 @@
 .titled-projects-container.tab-result {
     margin-top: 40px;
 }
+
 
 
 @media screen and (max-width: 810px) {
@@ -181,7 +205,11 @@
     }
     
     .project-card .goal {
-        font-size: 16px;
+        font-size: 14px;
+    }
+
+    .collection-container .other-info-container {
+        font-size: 12px;
     }
 
     /* Sometimes we want to change display according to specific added classes (ex : when results are showed in a tab navigation) */

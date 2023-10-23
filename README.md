@@ -62,7 +62,12 @@ If you do not want to use Algolia and avoid errors, go to file algolia_search.ya
 algolia_search:
     doctrineSubscribedEvents: []
 
-#### 9- Start your Local Web Server
+#### 9- Create 2 json files
+
+Create editor_selection.json and project_of_the_day.json files in "templates\select_presentations\" folder. These files store project presentation (ids) that you would like to highlight on the website.
+
+#### - 10 Start your Local Web Server
+
 
 To do that, you can **install "Symfony Local Web Server"** (https://symfony.com/download)
 

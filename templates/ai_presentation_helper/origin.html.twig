@@ -62,43 +62,146 @@
 
     <div class="container d-flex justify-content-center align-items-center flex-column my-5">
 
-        <div class="first-question">
-                
-            <div class="d-flex justify-content-center align-items-center mb-3">
+            {{ form_start(form) }}
+        
+            <div class="form-part part1">
 
-                <div class="col-2">
-                
-                    <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/jury.png', 'larger')}}" loading="lazy">
+                        
+                <div class="d-flex justify-content-center align-items-center mb-3">
 
-                </div>
-
-                <div class="col-4 d-flex justify-content-center align-items-center">
-                
-                    <div class="">
-
-                        <h4 class="fw-bold">À qui je présente mon projet ?</h4>
-
-                        <div class="examples">Exemples : <span class=""> Un(e) des Enseignant(es)</span> ; <span>à tout le monde (grand public)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
+                    <div class="col-2">
                     
+                        <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/jury.png', 'larger')}}" loading="lazy">
+
                     </div>
 
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                    
+                        <div class="">
+
+                            <h4 class="fw-bold">À qui je présente mon projet ?</h4>
+
+                            <div class="examples">Exemples : <span class=""> Un(e) des Enseignant(es)</span> ; <span>à tout le monde (grand public)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
+                        
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="tiny-form-container d-flex justify-content-center align-items-center">
+            
+                    {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
+
+                    <span class="btn btn-validate arrow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                    </svg></span>
+
+                    <style>
+                    
+                        .target-input{
+                            display: inline;
+                            width: 80%
+                        }
+                    
+                    </style>
+
+                    
 
                 </div>
 
             </div>
 
-            <div class="tiny-form-container d-flex justify-content-center">
+            <div class="form-part part2 hidden">
+
+                            
+                <div class="d-flex justify-content-center align-items-center mb-3">
+
+                    <div class="col-2">
+                    
+                        <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
+
+                    </div>
+
+                    <div class="col-4 d-flex justify-content-center align-items-center">
+                    
+                        <div class="">
+
+                            <h4>Comment je présente mon projet ?</h4>
+
+                            <div class="examples">Exemples : à l'oral; sur un document papier ou pdf; sur une présentation powerpoint; sur une vidéo; sur un site web; sur un réseau social; sur une plateforme de crowdfunding, à la télévision, à la radio, sur un forum ?</div>
+                        
+                        </div>
+
+
+                    </div>
+
+                </div>
+
+                <div class="tiny-form-container d-flex justify-content-center align-items-center">
+
+                    <span class="btn btn-validate return-arrow-icon">
+                
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>       
+                    
+                    </span>
             
-                {{ form_start(form) }}
+                    {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
 
-                {{ form_widget(form.ppTarget) }}
+                    <button type="submit" class="btn btn-validate">C'est parti !</button>
+                    
 
-                <button class="btn btn-validate">Valider</button>
-
-                {{ form_end(form) }}
+                </div>
 
             </div>
 
+            {{ form_end(form) }}
+            
+    </div>
+
+</div>
+
+
+
+<script>
+// Listen for click on the arrow icon to switch from part 1 to part 2
+document.querySelector(".arrow-icon").addEventListener("click", function() {
+  document.querySelector(".part1").classList.add("hidden");
+  document.querySelector(".part2").classList.remove("hidden");
+});
+
+// Listen for click on the return arrow icon to go back
+document.querySelector(".return-arrow-icon").addEventListener("click", function() {
+  document.querySelector(".part2").classList.add("hidden");
+  document.querySelector(".part1").classList.remove("hidden");
+});
+
+
+</script>
+
+          
+
+
+<style>
+
+/* Styles for the arrow icon */
+.arrow-icon, .return-arrow-icon {
+  cursor: pointer;
+}
+
+/* Styles for the form parts */
+.form-part {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.hidden {
+  display: none;
+}
+
+</style>
             <style>
 
                 .tiny-form-container form{
@@ -107,42 +210,6 @@
             
             
             </style>
-        
-        </div>
-    
-
-
-
-        <div class="row my-5">
-        
-            <div class="col-6">
-            
-                <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
-
-            </div>
-
-            <div class="col-6">
-            
-                <h4>Comment je présente mon projet ?</h4>
-
-                <div class="examples">Exemples : à l'oral; sur un document papier ou pdf; sur une présentation powerpoint; sur une vidéo; sur un site web; sur un réseau social; sur une plateforme de crowdfunding, à la télévision, à la radio, sur un forum ?</div>
-
-            </div>
-
-        </div>
-    
-
-
-
-
-
-    </div>
-
-    <button class="btn">C'est parti !</button>
-
-</div>
-
-
 
     
 <div class="product-presentation">

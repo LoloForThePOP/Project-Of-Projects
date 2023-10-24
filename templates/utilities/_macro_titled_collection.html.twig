@@ -72,32 +72,19 @@
 
                         </div>
 
+                    </div>
 
-{#                         {% if title is not empty %}
+                   {# <div class="title-container">
+                    
+                        {% if title is not empty %}
 
                             <div class="title">
                                 {{ item.title[:1] | upper ~ item.title[1:] | slice(0, 63)}}
                             </div>
 
-                        {% endif %} #}
-
-{#                      {% if item.keywords | length > 0 %}
-
-                            <div class="keywords text-break">
-
-                                {% set keywords = item.keywords | split(',') %}
-
-                                {% for keyword in keywords [0:6] %}
+                        {% endif %}
                     
-                                    #{{keyword | title | replace({" " : ""}) }}
-                    
-                                {% endfor %}
-
-                            </div>
-
-                        {% endif %} #}
-
-                    </div>
+                    </div> #}
 
 
                     <div class="other-info-container">
@@ -137,6 +124,24 @@
                         </div>
                     
                     </div>
+
+
+                    {# {% if item.keywords | length > 0 %}
+
+                            <div class="keywords text-break">
+
+                                {% set keywords = item.keywords | split(',') %}
+
+                                {% for keyword in keywords [0:6] %}
+                    
+                                    #{{keyword | title | replace({" " : ""}) }}
+                    
+                                {% endfor %}
+
+                            </div>
+
+                    {% endif %} #}
+
 
                 </div>
 

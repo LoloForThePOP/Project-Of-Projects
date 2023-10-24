@@ -5,7 +5,7 @@ namespace App\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class AIPPAdviceType extends AbstractType
 {
@@ -15,14 +15,27 @@ class AIPPAdviceType extends AbstractType
 
             ->add(
                 'ppTarget', 
-                TextareaType::class,
+                TextType::class,
                 [
 
                     'label' => 'ppTarget',
                     'required'   => true,
                     'attr' => [
 
-                        'placeholder'    => "Écrire ici. Apportez des précisions pour obtenir une meilleure présentation.",
+                        'placeholder'    => "Écrire ici.",
+                    ],
+                ]
+            )
+            ->add(
+                'ppFormat', 
+                TextType::class,
+                [
+
+                    'label' => 'ppFormat',
+                    'required'   => true,
+                    'attr' => [
+
+                        'placeholder'    => "Écrire ici.",
                     ],
                 ]
             )

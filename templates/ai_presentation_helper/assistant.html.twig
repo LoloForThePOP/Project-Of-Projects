@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AIPresentationHelperController!{% endblock %}
+
+{% block body %}
+
+<div class="container my-5">
+
+    <div class="row">
+
+        <div class="col-md-6">
+
+            <h2>Your Conditions</h2>
+
+            <textarea id="user-textarea" class="form-control" rows="4"></textarea>
+
+            <button id="send-button" class="btn btn-primary mt-2">Send</button>
+
+        </div>
+
+        <div class="col-md-6">
+
+            <h2>Coach's Response</h2>
+
+            <textarea id="ai-assistant" class="form-control" rows="4" readonly></textarea>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#send-button').click(function () {
+            var userMessage = $('#user-textarea').val();
+            $.ajax({
+                type: "POST",
+                url: "{{path('ajax_ai_presentation_helper_assistant')}}",
+                data: { message: userMessage },
+                success: function (response) {
+                    $('#ai-assistant').val(response.data);
+                }
+            });
+        });
+    });
+</script>
+
+
+
+
+
+
+{% endblock %}

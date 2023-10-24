@@ -1,12 +1,9 @@
 {
-    "algolia/algoliasearch-client-php": {
-        "version": "3.1.0"
-    },
     "algolia/search-bundle": {
-        "version": "3.0",
+        "version": "6.0",
         "recipe": {
             "repo": "github.com/symfony/recipes-contrib",
-            "branch": "master",
+            "branch": "main",
             "version": "3.0",
             "ref": "fd172e8feabf6b1c0818e18de90c2a3f82ea0a60"
         },
@@ -303,9 +300,6 @@
     },
     "psr/log": {
         "version": "1.1.4"
-    },
-    "psr/simple-cache": {
-        "version": "1.0.1"
     },
     "ralouphie/getallheaders": {
         "version": "3.0.3"

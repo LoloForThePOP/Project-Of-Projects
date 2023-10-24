@@ -19,12 +19,17 @@ class AIPresentationHelperController extends AbstractController
      */
     public function origin(Request $request): Response
     {
+        
+/*         $client = OpenAI::client($_ENV['OPEN_AI_KEY']);
+        
+        $result = $client->completions()->create([
+            'model' => 'gpt-3.5-turbo-instruct',
+            'prompt' => 'PHP is',
+        ]);
+        
+        dd($result['choices'][0]['text']);  */
 
-
-        // Dans le deuxième contrôleur
-        $data = $this->get('session')->get('key');
-
-                $form = $this->createForm(AIPPAdviceType::class);
+        $form = $this->createForm(AIPPAdviceType::class);
 
         $form->handleRequest($request);
 
@@ -36,8 +41,11 @@ class AIPresentationHelperController extends AbstractController
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
 
             $messages =  [
-                ['role' => 'system', 'content' => "Tu es un coach en présentation de projet. Tu vouvoies la personne. Tu lui donnes une liste de 10 conseils sous la forme d'une liste html, chaque item de la liste avec une îcone font-awesome appropriée. Le résultat doit être responsive."],
-                ['role' => 'user', 'content' => 'Peux-tu donner des conseils je présente mon projet à '.$target.', le format de la présentation est'.$format.'.'],
+
+                ['role' => 'system', 'content' => "Tu es un coach en présentation de projet. Pour parler tu utilises le vouvoiement en français et pas le tutoiement. Tu donnes à ton élève une liste de 10 conseils sous la forme d'une liste html, chaque item de la liste est illustré à gauche avec une îcone font-awesome appropriée (inclure la librairie font-awesome). Utilise un titre avant la liste de conseils (ce titre rappelle d'une part a qui l'utilisateur présente son projet et ce titre rappelle d'autre part quel est le format de sa présentation, par exemple télévision, powerpoint, en fonction de ce que dit l'utilisateur). Tu utilises une conclusion après la liste de conseils, cette conclusion est une seule phrase qui apporte des conseils généraux, elle est encourageante. Tu n'utilises pas de phrase d'introduction dans ta réponse. L'ensemble de ta réponse est inclus dans une balise div avec la classe generalAdvice."],
+
+                ['role' => 'user', 'content' => "Peux-tu me donner des conseils, je présente mon projet à ".$target.", le format de la présentation c'est ".$format."."],
+
             ];
     
             $response = $ia->chat()->create([
@@ -69,8 +77,10 @@ class AIPresentationHelperController extends AbstractController
     public function content(): Response
     {
 
-        dd($$this->get('session')->get('generalAdvice'));
+        $generalAdvice = $this->get('session')->get('generalAdvice');
+
         return $this->render('ai_presentation_helper/assistant.html.twig', [
+            'generalAdvice' => $generalAdvice,
         ]);
 
     }
@@ -78,7 +88,7 @@ class AIPresentationHelperController extends AbstractController
     /**
      * @Route("/ajax-ia-assistant-gratuit-de-presentation-de-projet", name="ajax_ai_presentation_helper_assistant")
      */
-    public function ajaxOriigin(Request $request) {
+    public function ajaxOrigin(Request $request) {
         
         if ($request->isXmlHttpRequest()) {
 

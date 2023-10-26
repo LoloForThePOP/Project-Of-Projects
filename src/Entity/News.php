@@ -2,14 +2,21 @@
 
 namespace App\Entity;
 
-use App\Repository\NewsRepository;
 use Doctrine\ORM\Mapping as ORM;
+
+use App\Repository\NewsRepository;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
+
+
+use Symfony\Component\HttpFoundation\File\File;
+
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+
 
 /**
  * Represents a project news
@@ -68,12 +75,36 @@ class News
     private $image3;
 
     /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $captionImage1;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $captionImage2;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $captionImage3;
+
+
+
+
+
+
+
+
+
+
+    /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      *  @Assert\Image(
-     *     maxSize = "1500k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     maxSize = "6500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : {{ limit }} {{ suffix }}",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif", "image/apng", "image/webp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="news_image", fileNameProperty="image1")
@@ -99,7 +130,7 @@ class News
         //if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->vichUpdatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new \DateTimeImmutable();
         //}
     }
 
@@ -129,9 +160,9 @@ class News
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      *  @Assert\Image(
-     *     maxSize = "1500k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     maxSize = "6500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : {{ limit }} {{ suffix }}",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif", "image/apng", "image/webp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="news_image", fileNameProperty="image2")
@@ -157,7 +188,7 @@ class News
         //if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->vichUpdatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new \DateTimeImmutable();
         //}
     }
 
@@ -187,9 +218,9 @@ class News
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      *  @Assert\Image(
-     *     maxSize = "1500k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     maxSize = "6500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : {{ limit }} {{ suffix }}",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif", "image/apng", "image/webp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="news_image", fileNameProperty="image3")
@@ -215,7 +246,7 @@ class News
         //if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->vichUpdatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new \DateTimeImmutable();
         //}
     }
 
@@ -243,7 +274,7 @@ class News
     public function __construct()
     {
 
-        $this->createdAt = new \DateTime('now');
+        $this->createdAt = new \DateTimeImmutable();
 
     }
 
@@ -255,24 +286,8 @@ class News
     */
     public function updatedTimestamp(): void
     {
-        $this->setUpdatedAt(new \DateTime('now'));
+        $this->setUpdatedAt(new \DateTimeImmutable());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -328,4 +343,61 @@ class News
 
         return $this;
     }
+
+
+    public function getCaptionImage1(): ?string
+    {
+        return $this->captionImage1;
+    }
+
+    public function setCaptionImage1(?string $captionImage1): self
+    {
+        $this->captionImage1 = $captionImage1;
+
+        return $this;
+    }
+
+    public function getCaptionImage2(): ?string
+    {
+        return $this->captionImage2;
+    }
+
+    public function setCaptionImage2(?string $captionImage2): self
+    {
+        $this->captionImage2 = $captionImage2;
+
+        return $this;
+    }
+
+    public function getCaptionImage3(): ?string
+    {
+        return $this->captionImage3;
+    }
+
+    public function setCaptionImage3(?string $captionImage3): self
+    {
+        $this->captionImage3 = $captionImage3;
+
+        return $this;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+

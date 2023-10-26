@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Slide;
 use App\Service\Slug;
 use App\Entity\PPBase;
+use App\Form\NewsType;
 use App\Entity\Comment;
 use App\Entity\Persorg;
 use App\Entity\Document;
@@ -205,6 +206,37 @@ class PPController extends AbstractController
                 );
 
             }
+
+            $addNewsForm = $this->createForm(NewsType::class);
+            $addNewsForm->handleRequest($request);
+
+            if ($addNewsForm->isSubmitted() && $addNewsForm->isValid()) {
+                
+                dd("news form submitted and valid");
+                $manager->flush();
+
+                $this->addFlash(
+                    'success fade-out',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'news-struct-container'
+    
+                    ]
+
+                );
+
+            }
+
+
+
+
 
             $addBusinessCardForm = $this->createForm(BusinessCardType::class);
             $addBusinessCardForm->handleRequest($request);
@@ -553,6 +585,7 @@ class PPController extends AbstractController
                 'addLogoForm' => $addLogoForm->createView(),
                 'newUserForm' => $guestPresenterForm->createView(),
                 'commentForm' => $commentForm->createView(),
+                'addNewsForm' => $addNewsForm->createView(),
                 
                 
             ]);

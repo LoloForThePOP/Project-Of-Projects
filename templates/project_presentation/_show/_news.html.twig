@@ -1,0 +1,31 @@
+
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "news", 'title': "Actualités",} %}
+
+
+    {% block editButtons %}
+
+    {% endblock %}
+
+    {% block deleteElementsButtons %}
+
+        {% if countNews > 0 %}
+        
+            {{ parent() }}
+        
+        {% endif %}
+
+    {% endblock %}
+
+    {% block mainContent %}
+                
+        <div id="news" class="js-elements-list pp-struct-content">
+
+        Coucou c'est nous les news !
+
+        </div>
+
+
+
+    {% endblock %}
+
+{% endembed %}

@@ -145,6 +145,7 @@
     {% set countQA = presentation.getOC('questionsAnswers') | length %}
     {% set countNeeds = presentation.getNeeds | length %}
     {% set countPlaces = presentation.places | length %}
+    {% set countNews = presentation.news | length %}
 
     {% set contributorStructures = presentation.contributorStructures %}
     {% set countECS = contributorStructures | filter((contributorStructures) => contributorStructures.type == "external") | length %}
@@ -284,6 +285,18 @@
                 <div id="text-description-struct-container" class="pp-struct-container">
                     
                     {% include 'project_presentation/_show/text_description/main.html.twig' %}
+
+                </div>
+            
+            </div>
+
+            {# News #}
+
+            <div class="col-lg-6 pp-struct-container-wrapper">
+
+                <div id="news-struct-container" class="pp-struct-container">
+                    
+                    {% include 'project_presentation/_show/_news.html.twig' %}
 
                 </div>
             

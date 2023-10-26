@@ -112,6 +112,7 @@ class PPController extends AbstractController
             return $this->redirectToRoute('presentation_helper', [
                 "stringId" => $presentation->getStringId(),                
                 "position" => 0,                
+                "repeatInstance" => "false",                
             ]);
 
         }
@@ -661,6 +662,7 @@ class PPController extends AbstractController
         return $this->redirectToRoute('presentation_helper', [
             'stringId' => $presentation->getStringId(),
             'position' => 0,
+            'repeatInstance' => "false",
         ]);
 
     }

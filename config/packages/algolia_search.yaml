@@ -5,3 +5,5 @@ algolia_search:
     indices:
        - name: presentation_bases
          class: App\Entity\PPBase
+         enable_serializer_groups: true
+         index_if: isSearchable

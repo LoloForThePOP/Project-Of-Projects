@@ -77,6 +77,8 @@ class MiscController extends AbstractController
 
         }
 
+        return new JsonResponse();
+
     }
 
 

@@ -6,6 +6,8 @@ use App\Entity\Article;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArticleType extends AbstractType
 {
@@ -17,7 +19,7 @@ class ArticleType extends AbstractType
                 TextType::class,
                 [
 
-                    'label' => 'Quel est le titre de ce besoin ?',
+                    'label' => "Quel est le titre de l'article ?",
                     'required'   => true,
                     'attr' => [
 
@@ -32,10 +34,14 @@ class ArticleType extends AbstractType
 
                     'label' => "Contenu de l'article",
                     'required'   => false,
+                    'sanitize_html' => true,
                     'attr' => [
 
+                        'class' => "tinymce",
                         'placeholder' => "",
                     ],
+
+                    
                 ]
             )
 

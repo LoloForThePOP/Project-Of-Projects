@@ -72,3 +72,12 @@ vich_uploader:
             inject_on_load: true
             delete_on_update: true
             delete_on_remove: true
+            
+        article_thumbnail:
+                    
+            uri_prefix: /media/static/images/articles/thumbnails
+            upload_destination: '%kernel.project_dir%/public/media/static/images/articles/thumbnails'
+            
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true

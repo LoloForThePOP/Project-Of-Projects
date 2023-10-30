@@ -24,7 +24,7 @@ class ArticleController extends AbstractController
             'articles' => $articles,
         ]);
     }
-
+    
 
     #[Route('/articles/edit/{id?}', name: 'edit_article')]
     public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager): Response
@@ -67,6 +67,17 @@ class ArticleController extends AbstractController
         ]);
 
     }
+
+    
+    #[Route('/articles/show/{id}', name: 'show_article')]
+    public function show(Article $article): Response
+    {
+
+        return $this->render('article/show.html.twig', [
+            'article' => $article,
+        ]);
+    }
+
 
 
 

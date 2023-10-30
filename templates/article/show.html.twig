@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des articles{% endblock %}
+
+{% block body %}
+
+    <div class="container col-md-8 my-5">
+
+        <h1 class="article-title">{{article.title}}</h1>
+
+        <div class="article-content">
+        
+        
+            {% if not article.content is empty %} 
+
+                {{ article.content | sanitize_html ('default') }}
+
+            {% endif %}</div>
+                
+    </div>
+
+    <style>
+
+        .article-title{
+            text-align: center;
+            margin-bottom: 42px;
+        }
+        
+    </style>
+
+{% endblock %}

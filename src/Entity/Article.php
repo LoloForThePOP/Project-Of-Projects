@@ -5,11 +5,22 @@ namespace App\Entity;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\HttpFoundation\File\File;
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Image;
+
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+
+
 /**
  * Represents a Propon Article
  * 
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @ORM\HasLifecycleCallbacks
+ * @Vich\Uploadable
  * 
  */
 class Article
@@ -56,6 +67,81 @@ class Article
      */
     private $isValidated;
 
+    /**
+     * the name of the thumbnail image file (example : thumb-4234564567.jpg)
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $thumbnail;
+
+
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     *  @Assert\Image(
+     *     maxSize = "5500k",
+     *     maxSizeMessage = "Poids maximal accepté pour l'image : {{ limit }} {{ suffix }}",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp"},
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
+     * @Vich\UploadableField(mapping="article_thumbnail", fileNameProperty="thumbnail")
+     * 
+     * @var File|null
+     */
+    public $thumbnailFile;
+
+    
+
+    public function getThumbnail(): ?string
+    {
+        return $this->thumbnail;
+    }
+
+    public function setThumbnail(?string $thumbnail): self
+    {
+        $this->thumbnail = $thumbnail;
+
+        return $this;
+    }
+
+
+    /**
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $thumbnailFile
+     */
+    public function setThumbnailFile(?File $thumbnailFile = null): void
+    {
+        $this->thumbnailFile = $thumbnailFile;
+
+        // It is required that at least one field changes if you are using doctrine
+        // otherwise the event listeners won't be called and the file is lost
+        // So we update one field
+
+        $this->updatedAt = new \DateTimeImmutable();
+    }
+
+    public function getThumbnailFile(): ?File
+    {
+        return $this->thumbnailFile;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     public function __construct()
     {

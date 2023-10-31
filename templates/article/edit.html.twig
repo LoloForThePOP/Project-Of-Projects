@@ -22,8 +22,8 @@
                 
                 <ul>
 
-                    <li><span class="fw-bold">Les projets en général</span> (par exemple des conseils pour réussir son projet)</li>
-                    <li><span class="fw-bold">Les projets en particulier</span> (par exemple une actualité sur un projet)</li>
+                    <li><span class="fw-bold">Les projets en général</span> (par exemple des conseils pour réussir un projet ou un certain type de projet);</li>
+                    <li><span class="fw-bold">Les projets en particulier</span> (par exemple une actualité sur un projet);</li>
                     <li><span class="fw-bold">Les interviews en rapport avec des projets</span> sont aussi publiées.</li>
                 
                 </ul>
@@ -60,7 +60,30 @@
 
             <div class="mb-5">{{form_row(form.content, {'attr': {'class': 'tinymce'}})}}</div>
 
-            <div class="mb-5">{{form_row(form.thumbnailFile)}}</div>
+            {% set isAdmin = false %}
+
+            {% if is_granted('ROLE_ADMIN') %} {% set isAdmin = true %} {% endif %}
+            
+            <div class="{% if not isAdmin %}d-none{% endif %} border border-primary rounded p-4 mb-5">
+
+                <div class="text-center fs-4 fw-bold mb-4">🔑 Admin</div>
+
+                <div class="mb-2">
+
+                    {{ form_row(form.isValidated) }}
+
+                </div>
+
+                <div class="mb-3">
+
+                    {{ form_row(form.slug) }}
+
+                </div>
+
+                <div class="mb-3">{{form_row(form.thumbnailFile)}}</div>
+            
+            </div>
+
 
             <div class="">
 

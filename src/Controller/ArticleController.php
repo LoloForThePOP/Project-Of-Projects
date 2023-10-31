@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ArticleController extends AbstractController
@@ -27,7 +28,7 @@ class ArticleController extends AbstractController
     
 
     #[Route('/articles/edit/{id?}', name: 'edit_article')]
-    public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager): Response
+    public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger,): Response
     {
         //$this->denyAccessUnlessGranted('edit', $pp);
 
@@ -46,6 +47,13 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
+            // If no slug we create one with article title
+            if ($article->getSlug() === null || trim($article->getSlug()) === '') {
+
+                $article->setSlug(strtolower($slugger->slug($article->getTitle())));
+                
+            }           
 
             $manager->persist($article);
                              

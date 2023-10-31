@@ -91,6 +91,11 @@ class Article
      */
     public $thumbnailFile;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     
 
     public function getThumbnail(): ?string
@@ -248,6 +253,18 @@ class Article
     public function setIsValidated(bool $isValidated): self
     {
         $this->isValidated = $isValidated;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

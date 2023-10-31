@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class ArticleType extends AbstractType
@@ -28,6 +29,23 @@ class ArticleType extends AbstractType
                     ],
                 ]
             )
+            ->add(
+                'slug', 
+                TextType::class,
+                [
+
+                    'label' => "🐌 Slug pour l'article ?",
+                    'required'   => true,
+                    'attr' => [
+
+                        'placeholder'    => "",
+                    ],
+                ]
+            )
+            ->add('isValidated', CheckboxType::class, [
+                    'label'    => 'Validation de l\'article (décocher la case si non validation).',
+                    'required' => false,
+                ])
             ->add(
                 'content', 
                 TextareaType::class,

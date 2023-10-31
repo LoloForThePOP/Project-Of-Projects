@@ -17,15 +17,26 @@ class AppExtension extends AbstractExtension
     {
         $currentDate = new \DateTime();
         $interval = $currentDate->diff($createdAt);
-
+        $stringEnd=""; //french plurals management
         if ($interval->days < 1) {
-            return "Il y a 1 jour";
+            $hours = $interval->h + $interval->i / 60;
+            
+            if ($hours >1) {
+                $stringEnd="s";
+            }
+            return $interval->format('Il y a %h heure'.$stringEnd);
         } elseif ($interval->days < 30) {
-            return $interval->format('Il y a %a jour%s');
+            if ($interval->days >1) {
+                $stringEnd="s";
+            }
+            return $interval->format('Il y a %a jour'.$stringEnd);
         } elseif ($interval->days < 365) {
             return $interval->format('Il y a %m mois');
         } else {
-            return $interval->format('Il y a %y an%s');
+            if ($interval->y > 1) {
+                $stringEnd="s";
+            }
+            return $interval->format('Il y a %y an'.$stringEnd);
         }
     }
 }

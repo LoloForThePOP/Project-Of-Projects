@@ -38,6 +38,13 @@ a{
     background-color: #d1e7dd
 }
 
+.flip-horiz{ 
+    
+    transform: scale(-1, 1);
+
+
+}
+
 
 @media screen and (max-width: 580px) {
 

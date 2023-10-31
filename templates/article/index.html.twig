@@ -1,46 +1,48 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des articles{% endblock %}
+{% block title %}Liste des Articles{% endblock %}
 
 {% block body %}
 
     <div class="my-5">
 
-        <h1 class="text-center mb-3">Liste des articles</h1>
+        <h1 class="text-center mb-3">Liste des Articles</h1>
+    
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+        
+            {% for article in articles %}
 
-        {% for article in articles %}
+                    <div class="col">
 
-            <div class="my-2">
+                        <a href="{{path('show_article', {"id": article.id})}}">
+                            
+                            <div class="card h-100">
 
-                <a href="{{path('show_article', {"id": article.id})}}">{{article.title}}</a>
+                                {% if article.thumbnail is not empty %}
+                                
+                                    <img class="card-img-top" src="{{ vich_uploader_asset(article)  | imagine_filter('standard_thumbnail_md_test') }}" alt="Article Thumbnail"/>
+
+                                {% endif %}
+
+                                <div class="card-body">
+                                    <h5 class="card-title"><a href="{{path('show_article', {"id": article.id})}}">{{article.title}}</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+
+                                <div class="card-footer">
+                                    <small class="text-muted">{{ article.createdAt | formattedElapsedTime }}</small>
+                                </div>
+
+                            </div>
+                        
+                        </a>
+
+                    </div>
                 
-
-                {% if article.thumbnail is not empty %}
-                
-                    <img class="article-thumbnail" src="{{ vich_uploader_asset(article) }}" alt="Article Thumbnail"/>
-
-                {% endif %}
-
-
+            {% endfor %}
             
-
-
-
-                <span class="formated-elapsed-time">
-
-                    
-                    {{ article.createdAt | formattedElapsedTime }}
-
-                </span>
-
-            </div>
-            
-        {% endfor %}
+        </div>
 
     </div>
-
-    <style>
-        
-    </style>
 
 {% endblock %}

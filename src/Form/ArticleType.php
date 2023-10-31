@@ -20,7 +20,7 @@ class ArticleType extends AbstractType
                 TextType::class,
                 [
 
-                    'label' => "Quel est le titre de l'article ?",
+                    'label' => "✒️ Quel est le titre de l'article ?",
                     'required'   => true,
                     'attr' => [
 
@@ -33,7 +33,7 @@ class ArticleType extends AbstractType
                 TextareaType::class,
                 [
 
-                    'label' => "Contenu de l'article",
+                    'label' => "✍️ Quel est le contenu de l'article ?",
                     'required'   => false,
                     'sanitize_html' => true,
                     'attr' => [
@@ -50,7 +50,7 @@ class ArticleType extends AbstractType
                 VichImageType::class,
 
                 [
-                    'label' => "Vignette pour l'article",
+                    'label' => "🖼️ Vignette pour l'article :",
 
                     'attr' => [
 

@@ -1,6 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des articles{% endblock %}
+{% set articleCreatedAt = article.createdAt | date("Y - m - d") %}
+{% set articleCreator = article.author.userName %}
+
+{# Page title for search engines, open graph, etc #}
+{% set titleMetadata %}{{ article.title }}{% endset %}
+{# Page description for search engines, open graph, etc #}
+{% set metadataDescription %}{{ article.content | slice (0, 220) | striptags }}{% endset %}
+{# Article Thumbnail Url for open graph #}
+{% set metadataImageUrl %}{{ article.thumbnail ? app.request.schemeAndHttpHost ~ app.request.baseUrl ~ vich_uploader_asset(article) : null }}{% endset %}
+{# Current page url for open graph #}
+{% set currentPageUrl = app.request.uri %}
+
+
+{% block title %}{{ titleMetadata }}{% endblock %}
+
+{% block headTag %}
+
+    <meta name="description" content="{{metadataDescription}}">
+    <meta name="author" content="{{ articleCreator }}">
+    <meta name="date" content="{{ articleCreatedAt}}">
+
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl) }} {# Call from base.html.twig #}
+
+{% endblock %}
 
 {% block body %}
 

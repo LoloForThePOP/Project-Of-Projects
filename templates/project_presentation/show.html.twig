@@ -22,7 +22,7 @@
     <meta name="keywords" content="{{ presentation.keywords }}">
     <meta name="date" content="{{ presentationCreatedAt}}">
 
-    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl) }} {# Call from base.html.twig #}
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl, null) }} {# Call from base.html.twig #}
 
     {# Different urls can lead to project presentation page so we use a canonical tag #}
 

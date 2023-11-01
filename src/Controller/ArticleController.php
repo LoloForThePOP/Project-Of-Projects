@@ -46,6 +46,7 @@ class ArticleController extends AbstractController
         else{
 
             $article = new Article ();
+            $article->setAuthor($this->getUser());
 
         }
 
@@ -60,7 +61,7 @@ class ArticleController extends AbstractController
 
                 $article->setSlug(strtolower($slugger->slug($article->getTitle())));
 
-            }           
+            }
 
             $manager->persist($article);
                              

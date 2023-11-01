@@ -42,13 +42,13 @@
             
             <div>
 
-  <p><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/><use xlink:href="#info-fill"><symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill="">
-    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path>
-  </symbol></use></svg><b>Pour publier votre article :</b> </p>
-  <ul>
-    <li class="mb-2"><b>Utilisez directement le formulaire ci-dessous.</b></li>
-    <li><b>Ou envoyez-le à l'adresse articles[at]propon.org</b> (mesure anti-spam : remplacer [at] par @) (les formats de fichiers acceptés sont word; libre office / open office; et pdf).</li>
-  </ul>
+                <p><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/><use xlink:href="#info-fill"><symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill="">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path>
+                </symbol></use></svg><b>Pour publier votre article :</b> </p>
+                <ul>
+                    <li class="mb-2"><b>Utilisez directement le formulaire ci-dessous.</b></li>
+                    <li><b>Ou envoyez-le à l'adresse articles[at]propon.org</b> (mesure anti-spam : remplacer [at] par @) (les formats de fichiers acceptés sont word; libre office / open office; et pdf).</li>
+                </ul>
   
             </div>
         </div>
@@ -56,14 +56,18 @@
         
         {{ form_start(form) }}
 
-            <div class="mb-5">{{form_row(form.title)}}</div>
+            <div class="">
+                
+                <div class="mb-5">{{form_row(form.title)}}</div>
 
-            <div class="mb-5">{{form_row(form.content, {'attr': {'class': 'tinymce'}})}}</div>
-
-            {% set isAdmin = false %}
-
-            {% if is_granted('ROLE_ADMIN') %} {% set isAdmin = true %} {% endif %}
+                <div class="mb-5">{{form_row(form.content, {'attr': {'class': 'tinymce'}})}}</div>
             
+            </div>
+
+            
+            {% set isAdmin = false %}
+            {% if is_granted('admin_edit', article) %} {% set isAdmin = true %} {% endif %}
+
             <div class="{% if not isAdmin %}d-none{% endif %} border border-primary rounded p-4 mb-5">
 
                 <div class="text-center fs-4 fw-bold mb-4">🔑 Admin</div>

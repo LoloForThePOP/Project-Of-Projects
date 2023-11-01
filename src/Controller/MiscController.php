@@ -115,7 +115,7 @@ class MiscController extends AbstractController
         // Getting hostname
         $hostname = $request->getSchemeAndHttpHost();
         
-        $sitemapPreparation =[];    // array with potential 'loc', 'title', 'updatedAt'... contents.
+        $sitemapPreparation = [];    // array with potential 'loc', 'title', 'updatedAt'... contents.
             
         // Static urls :
 
@@ -155,9 +155,7 @@ class MiscController extends AbstractController
 
         $accessiblePresentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=2 AND p.isAdminValidated=true ORDER BY p.createdAt DESC')->getResult();
 
-
         foreach ($accessiblePresentations as $accessiblePresentation) {
-
 
             $sitemapPreparation[] = [
 
@@ -170,6 +168,24 @@ class MiscController extends AbstractController
 
             ];
 
+
+        }
+
+        // Articles :
+
+        $accessibleArticles = $manager->createQuery('SELECT a FROM App\Entity\Article a WHERE a.isValidated=true ORDER BY a.createdAt DESC')->getResult();
+
+        foreach ($accessibleArticles as $accessibleArticle) {
+
+            $sitemapPreparation[] = [
+
+            'loc' => $this->generateUrl('show_article', [
+
+                    'slug' => $accessibleArticle->getSlug(),
+
+                ]),
+
+            ];
 
         }
 

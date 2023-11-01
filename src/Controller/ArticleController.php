@@ -7,6 +7,7 @@ use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -28,15 +29,21 @@ class ArticleController extends AbstractController
     
 
     #[Route('/articles/edit/{id?}', name: 'edit_article')]
-    public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger,): Response
+    public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Security $security): Response
     {
-        //$this->denyAccessUnlessGranted('edit', $pp);
-
+        
         if($id != null){
 
             $article = $repo->findOneById($id);
+                
+            if (!$security->isGranted('user_edit', $article) && !$security->isGranted('admin_edit', $article) ) {
 
-        } else{
+                throw $this->createAccessDeniedException();
+
+            }
+        }        
+        
+        else{
 
             $article = new Article ();
 
@@ -52,7 +59,7 @@ class ArticleController extends AbstractController
             if ($article->getSlug() === null || trim($article->getSlug()) === '') {
 
                 $article->setSlug(strtolower($slugger->slug($article->getTitle())));
-                
+
             }           
 
             $manager->persist($article);
@@ -72,12 +79,13 @@ class ArticleController extends AbstractController
 
         return $this->render('article/edit.html.twig', [
             'form' => $form->createView(),
+            'article' => $article,
         ]);
 
     }
 
     
-    #[Route('/articles/show/{id}', name: 'show_article')]
+    #[Route('/articles/show/{slug}', name: 'show_article')]
     public function show(Article $article): Response
     {
 

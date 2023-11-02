@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class NewsType extends AbstractType
@@ -47,7 +48,7 @@ class NewsType extends AbstractType
 
             )
 
-            ->add('captionImage1', TextareaType::class, 
+            ->add('captionImage1', TextType::class, 
                 [
                     'label' => 'Légende',
 

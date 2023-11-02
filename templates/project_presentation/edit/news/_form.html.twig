@@ -9,18 +9,23 @@
         </div>
 
 
-        <div class="images-icons-container">
+        <div class="images-icons-captions-container">
 
-            <div class="upload-image-news" data-image-position="1"><img id="" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon"></div>
-            <div class="upload-image-news" data-image-position="2"><img id="" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon"></div>
-            <div class="upload-image-news" data-image-position="3"><img id="" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon"></div>
+            <div class="chunk">
+            
+                <img class="upload-image-icon-news" data-image-position="1" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
+                
+                {{form_widget(form.captionImage1)}}
+                
+            </div>
+           
         
         </div>
 
         <div class="d-none">
 
             {{form_row(form.image1File)}}
-            {{form_row(form.captionImage1)}}
+            
 
             {{form_row(form.image2File)}}
             {{form_row(form.captionImage2)}}
@@ -30,7 +35,7 @@
         
         </div>
 
-        <button type="submit" class="btn btn-validate btn-lg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg></button>
+        <button type="submit" class="btn btn-light btn-lg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg></button>
 
     {{ form_end(form) }}
 
@@ -43,7 +48,10 @@
 
     $(document).ready(function(){
 
-        $('.upload-image-news').on('click', function (){
+
+        // Trigger click on file input when user clicks on image icon
+
+        $('.upload-image-icon-news').on('click', function (){
 
             var imagePosition = $(this).data("image-position");
 
@@ -51,6 +59,25 @@
 
         });
 
+
+        // Change send button color when textarea changed
+
+        $('.news-form-container textarea').bind('input propertychange', function() {
+
+            var buttonColor;
+
+            if(this.value.length){
+
+                buttonColor = "#ddf5c4";
+               
+            }
+
+            else{ buttonColor = "#ecf0f1";}
+
+            //$('.commentForm button').css('background-color', buttonColor);
+            $(".news-form-container button[type=submit]").css('background-color', buttonColor);
+
+        });
 
     });
 
@@ -66,17 +93,38 @@
 
 <style>
 
+.news-form-container form {
+
+    display: flex;
+
+}    
+
 .news-form-container .textarea-container{
 
-    display: inline-block;
-    width: 90%;
+    min-width: 500px;
+    max-width: 600px;
 
     
 }
 
-.news-form-container .images-icons-container{
+.news-form-container .images-icons-captions-container{
 
-    display: inline-block;
+    padding: 0 15px 0 15px;
+
+    
+}
+
+.news-form-container .images-icons-captions-container .chunk{
+
+    display: flex;
+
+    
+}
+
+.news-form-container .upload-image-icon-news {
+
+    padding: 0 10px 0 0px;
+
     
 }
 

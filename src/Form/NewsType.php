@@ -54,7 +54,7 @@ class NewsType extends AbstractType
 
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici',
+                        'placeholder'    => 'Légende facultative',
                     ],
 
                     'required'   => false,
@@ -78,13 +78,13 @@ class NewsType extends AbstractType
 
             )
 
-            ->add('captionImage2', TextareaType::class, 
+            ->add('captionImage2', TextType::class, 
                 [
                     'label' => 'Légende',
 
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici',
+                        'placeholder'    => 'Légende facultative',
                     ],
 
                     'required'   => false,
@@ -108,13 +108,13 @@ class NewsType extends AbstractType
 
             )
 
-            ->add('captionImage3', TextareaType::class, 
+            ->add('captionImage3', TextType::class, 
                 [
                     'label' => 'Légende',
 
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici',
+                        'placeholder'    => 'Légende facultative',
                     ],
 
                     'required'   => false,

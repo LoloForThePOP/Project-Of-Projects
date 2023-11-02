@@ -261,12 +261,15 @@
     {% endif %}
 
     {# Add a News form #}
+    
+    <div class="d-flex flex-column align-items-center justify-content-center border pt-3 py-4 px-5 mb-5"> 
 
-    <div class="mb-5">
+        <h4 class="fw-bold text-success mb-3"><img id="" class="me-1 mb-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="ms-1 mb-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
 
-        {% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}        
+        <div class="">{% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}</div>        
         
     </div>
+
 
     <div class="container px-0">
 

@@ -15,7 +15,23 @@
             
                 <img class="upload-image-icon-news" data-image-position="1" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
                 
-                {{form_widget(form.captionImage1)}}
+                <div class="caption-input-container" data-caption-position="1">{{form_widget(form.captionImage1)}}</div>
+                
+            </div>
+
+            <div class="chunk">
+            
+                <img class="upload-image-icon-news" data-image-position="2" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
+                
+                <div class="caption-input-container" data-caption-position="2">{{form_widget(form.captionImage2)}}</div>
+                
+            </div>
+
+            <div class="chunk">
+            
+                <img class="upload-image-icon-news" data-image-position="3" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
+                
+                <div class="caption-input-container" data-caption-position="3">{{form_widget(form.captionImage3)}}</div>
                 
             </div>
            
@@ -24,14 +40,13 @@
 
         <div class="d-none">
 
-            {{form_row(form.image1File)}}
+            {{form_row(form.image1File, {'attr': {'data-position': '1'}})}}
             
 
-            {{form_row(form.image2File)}}
-            {{form_row(form.captionImage2)}}
+            {{form_row(form.image2File, {'attr': {'data-position': '2'}})}}
+            
 
-            {{form_row(form.image3File)}}
-            {{form_row(form.captionImage3)}}    
+            {{form_row(form.image3File, {'attr': {'data-position': '3'}})}}
         
         </div>
 
@@ -79,6 +94,21 @@
 
         });
 
+        // Check if (image) file input has a file
+        // If so we trigger image caption input appearence
+
+        $(".news-form-container input:file").change(function (){
+            var position = $(this).data("position");
+            $('.caption-input-container[data-caption-position='+position+']').show();
+            $("#news_captionImage"+position).focus();
+        });
+
+
+
+
+
+
+
     });
 
 
@@ -94,15 +124,28 @@
 <style>
 
 .news-form-container form {
+	display: flex;
+	align-items: center;
+}
 
-    display: flex;
+.news-form-container form button[type="submit"]{
 
+	width: 60px;
+	height: 60px;
+	border-radius: 50px;
 }    
 
 .news-form-container .textarea-container{
 
     min-width: 500px;
     max-width: 600px;
+
+    
+}
+
+.news-form-container textarea{
+
+    height: 100%;
 
     
 }
@@ -117,13 +160,29 @@
 .news-form-container .images-icons-captions-container .chunk{
 
     display: flex;
+    padding: 10px;
 
     
 }
 
 .news-form-container .upload-image-icon-news {
 
-    padding: 0 10px 0 0px;
+    
+    cursor: pointer;
+
+    
+}
+
+.news-form-container .upload-image-icon-news:hover {
+
+    background-color: #b9beff;
+    
+}
+
+.news-form-container .caption-input-container {
+
+    display: none;
+    margin-left: 10px;
 
     
 }

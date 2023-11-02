@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MiscController extends AbstractController
@@ -89,28 +90,53 @@ class MiscController extends AbstractController
      * 
      * @Route("/test-something", name="test_something")
      */
-     public function test()
+   /*   public function test()
     {
 
-        $ia = new OpenAIService ($_ENV['OPEN_AI_KEY']);
+        //$ia = new OpenAIService ($_ENV['OPEN_AI_KEY']);
 
-        $answer = $ia->answer("I'm happy but...");
+        //$answer = $ia->answer("I'm happy but...");
         
-
-        dd($answer); 
-
    
         return $this->render("/test_something.html.twig", [
 
         ]);
 
-    }
+    } */
 
+
+    /**
+     * @Route("/upload-image", name="upload_image", methods={"POST"})
+     */
+    public function uploadImage(Request $request)
+    {
+        // Vérifiez si un fichier a été téléchargé
+        $file = $request->files->get('file');
+
+        if ($file) {
+            // Générez un nom de fichier unique
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+            // Déplacez le fichier téléchargé dans le répertoire d'upload
+            $file->move(
+                $this->getParameter('app.image_upload_directory'),
+                $fileName
+            );
+
+            dump($this->getParameter('app.image_upload_directory'). $fileName);
+
+            // Retournez une réponse JSON avec le chemin de l'image téléchargée
+            return new Response(json_encode(['location' => $this->getParameter('app.image_upload_directory'). $fileName]));
+        }
+
+        // Si aucun fichier n'a été téléchargé, retournez une erreur
+        return new Response('Erreur lors de l\'upload de l\'image', 400);
+    }
 
      /**
      * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
      */
-    public function index(Request $request, EntityManagerInterface $manager)
+    public function sitemap(Request $request, EntityManagerInterface $manager)
     {
         // Getting hostname
         $hostname = $request->getSchemeAndHttpHost();

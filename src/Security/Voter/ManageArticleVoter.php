@@ -8,7 +8,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
-class ManageArticlesVoter extends Voter
+class ManageArticleVoter extends Voter
 {
 
     private $requestStack;

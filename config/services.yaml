@@ -5,6 +5,8 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+    app.image_upload_directory: 'public/media/uploads/articles/thumbnails/'
+
     # website contact phone 
     app.contact_phone: "07 76 64 87 58"
 

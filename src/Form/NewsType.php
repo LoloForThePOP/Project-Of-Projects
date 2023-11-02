@@ -21,9 +21,7 @@ class NewsType extends AbstractType
 
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici',
-
-                        'class' => "tinymce",
+                        'placeholder'    => 'Publier une News',
                     ],
 
                     'sanitize_html' => true,

@@ -2,6 +2,7 @@
 # https://www.algolia.com/doc/api-client/symfony/configuration/
 algolia_search:
     prefix: '%env(APP_ENV)%_'
+    doctrineSubscribedEvents: []
     indices:
        - name: presentation_bases
          class: App\Entity\PPBase

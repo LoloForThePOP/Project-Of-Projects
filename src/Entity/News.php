@@ -229,6 +229,11 @@ class News
      */
     public $image3File;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="news")
+     */
+    private $author;
+
     
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -377,6 +382,18 @@ class News
     public function setCaptionImage3(?string $captionImage3): self
     {
         $this->captionImage3 = $captionImage3;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): self
+    {
+        $this->author = $author;
 
         return $this;
     }

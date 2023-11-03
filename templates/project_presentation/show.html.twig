@@ -261,14 +261,159 @@
     {% endif %}
 
     {# Add a News form #}
-    
-    <div class="d-flex flex-column align-items-center justify-content-center border pt-3 py-4 px-5 mb-5"> 
 
-        <h4 class="fw-bold text-success mb-3"><img id="" class="me-1 mb-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="ms-1 mb-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
 
-        <div class="">{% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}</div>        
+    {% if userPresenter %}
+            
+        <div class="proxy-news-creation-container pp-struct-container">
         
-    </div>
+            <input class="proxy-news-input" type="text" placeholder="Donner des nouvelles">
+
+            <div class="fake-send-button"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
+        
+        </div>
+
+        <style>
+
+            .proxy-news-creation-container{
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                margin-top: 20px;
+                margin-bottom: 20px;
+
+
+            }
+
+            .fake-send-button{
+
+                display: flex;
+                align-items: center;
+                padding: 7px;
+                border-radius: 50px;
+                background-color: #bbcbd7;
+            }
+
+            .fake-send-button img{
+                width: 12px;
+            }
+
+        
+            .proxy-news-input{
+
+                min-width: 130px;
+
+                padding: 0px 5px 0px 5px;
+
+                margin-right: 12px;
+                
+            }
+        
+        </style>
+
+        <script>
+
+             $(document).ready(function(){
+
+                    $(".proxy-news-input").on('click', function (){
+
+                        $(".news-form-struct").css("display","block");
+
+                    });
+
+            });
+        
+        </script>
+
+
+
+
+
+        <div class="news-form-struct pp-edition-mode"> 
+
+            <h4 class="news-form-struct-title"><img id="" class="me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
+
+            <div class="">
+            
+                {% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}
+            
+            </div>        
+            
+        </div>
+
+        <style>
+
+            .news-form-struct{
+
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                border : 1px solid grey;
+
+                padding: 16px 48px 24px 48px;
+                
+                margin-bottom: 48px;
+
+            }
+
+            .news-form-struct-title{
+
+
+                margin-bottom: 16px;
+                text-align: center;
+                font-weight: bold;
+                color: green;
+
+
+            }
+
+            .news-form-struct-title img{
+
+                margin-bottom: 4px;
+
+            }
+
+            @media screen and (max-width: 580px) {
+                
+                .in-edition-mode .pp-edition-mode.news-form-struct{
+
+                    display: none;
+                    padding:0;
+                    border: none;
+
+                }
+
+                .news-form-struct-title{
+
+
+                    margin-top: 16px;
+                    font-size: 16px;
+
+
+                }
+
+                .news-form-struct-title img{
+
+
+                    width: 16px;
+                    height: 16px;
+                    margin-bottom: 0;
+
+
+                }
+
+            }
+        
+        
+        </style>    
+        
+    
+    {% endif %}
+    
 
 
     <div class="container px-0">
@@ -301,7 +446,7 @@
 
             {# News #} 
 
-            <div class="col-lg-6 pp-struct-container-wrapper">
+            <div class="col-lg-6 pp-struct-container-wrapper {% if countNews == 0 %} pp-edition-mode {% endif %}">
 
                 <div id="news-struct-container" class="pp-struct-container">
                     

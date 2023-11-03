@@ -1,3 +1,5 @@
+
+
 <div class="news-form-container">
 
     {{ form_start(form) }}
@@ -9,48 +11,52 @@
         </div>
 
 
-        <div class="images-icons-captions-container">
-
-            <div class="chunk">
+    <div class="not-textarea-container">
             
-                <img class="upload-image-icon-news" data-image-position="1" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
+            <div class="images-icons-captions-container">
+
+                <div class="chunk">
                 
-                <div class="caption-input-container" data-caption-position="1">{{form_widget(form.captionImage1)}}</div>
+                    <img class="upload-image-icon-news" data-image-position="1" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
+                    
+                    <div class="caption-input-container" data-caption-position="1">{{form_widget(form.captionImage1)}}</div>
+                    
+                </div>
+
+                <div class="chunk">
                 
+                    <img class="upload-image-icon-news" data-image-position="2" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
+                    
+                    <div class="caption-input-container" data-caption-position="2">{{form_widget(form.captionImage2)}}</div>
+                    
+                </div>
+
+                <div class="chunk">
+                
+                    <img class="upload-image-icon-news" data-image-position="3" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
+                    
+                    <div class="caption-input-container" data-caption-position="3">{{form_widget(form.captionImage3)}}</div>
+                    
+                </div>
+            
+            
             </div>
 
-            <div class="chunk">
+            <div class="d-none">
+
+                {{form_row(form.image1File, {'attr': {'data-position': '1'}})}}
+                
+
+                {{form_row(form.image2File, {'attr': {'data-position': '2'}})}}
+                
+
+                {{form_row(form.image3File, {'attr': {'data-position': '3'}})}}
             
-                <img class="upload-image-icon-news" data-image-position="2" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
-                
-                <div class="caption-input-container" data-caption-position="2">{{form_widget(form.captionImage2)}}</div>
-                
             </div>
 
-            <div class="chunk">
-            
-                <img class="upload-image-icon-news" data-image-position="3" src="{{ asset('image.svg', 'misc')}}" alt="Image Icon">
-                
-                <div class="caption-input-container" data-caption-position="3">{{form_widget(form.captionImage3)}}</div>
-                
-            </div>
-           
-        
-        </div>
-
-        <div class="d-none">
-
-            {{form_row(form.image1File, {'attr': {'data-position': '1'}})}}
-            
-
-            {{form_row(form.image2File, {'attr': {'data-position': '2'}})}}
-            
-
-            {{form_row(form.image3File, {'attr': {'data-position': '3'}})}}
-        
-        </div>
-
-        <button type="submit" class="btn btn-light btn-lg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg></button>
+            <button type="submit" class="btn btn-light btn-lg"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16"><path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/></svg></button>
+    
+    </div>
 
     {{ form_end(form) }}
 
@@ -98,24 +104,16 @@
         // If so we trigger image caption input appearence
 
         $(".news-form-container input:file").change(function (){
+
             var position = $(this).data("position");
+            $('.upload-image-icon-news[data-image-position='+position+']').attr("src", "{{ asset('image_colored.svg', 'misc')}}");
             $('.caption-input-container[data-caption-position='+position+']').show();
             $("#news_captionImage"+position).focus();
+
         });
 
 
-
-
-
-
-
     });
-
-
-   
-
-
-
 
 
 </script>
@@ -135,26 +133,25 @@
 	border-radius: 50px;
 }    
 
-.news-form-container .textarea-container{
-
-    min-width: 500px;
-    max-width: 600px;
-
-    
-}
 
 .news-form-container textarea{
 
+    width: 500px;
     height: 100%;
+    
+}
 
+.news-form-container .not-textarea-container{
+
+    display: flex;
+	align-items: center;
     
 }
 
 .news-form-container .images-icons-captions-container{
 
     padding: 0 15px 0 15px;
-
-    
+ 
 }
 
 .news-form-container .images-icons-captions-container .chunk{
@@ -185,6 +182,53 @@
     margin-left: 10px;
 
     
+}
+
+
+@media screen and (max-width: 580px) {
+
+
+    .news-form-container form {
+        
+        display: block;
+        
+    }
+
+    .news-form-container .textarea-container{
+
+        max-width: 100%;
+
+    }
+
+    .news-form-container textarea{
+
+        width: 100%;
+        height: 100px;
+        
+    }
+
+    .news-form-container .images-icons-captions-container{
+
+        padding: 15px 0px 0px 0px;
+    
+    }
+
+    .news-form-container .images-icons-captions-container .chunk{
+
+        padding-left: 5px;
+        padding-bottom: 10px;
+
+    }
+
+    .news-form-container input {
+        height: 32px;
+    }
+
+.news-form-container .not-textarea-container {
+	justify-content: space-between;
+}
+
+
 }
 
 

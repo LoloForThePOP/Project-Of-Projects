@@ -20,7 +20,37 @@
                 
         <div id="news" class="js-elements-list pp-struct-content">
 
-            News du projet.
+
+
+            {% for news in presentation.news %}
+
+                {% if news.updatedAt is not empty %}
+                
+                    {{news.updatedAt | formattedElapsedTime }}
+
+                {% else %}
+
+                    {{news.createdAt | formattedElapsedTime }}
+                    
+                {% endif %}
+
+                
+
+                {% set newsTextContent = news.textContent | raw %}
+
+                {{ newsTextContent }}
+
+                {% set hasImage = false %}
+
+                {% if news.image1 is not empty %}une image !{% endif %}
+
+
+
+                <pre>
+                    {{ dump(news) }}
+                </pre>
+                
+            {% endfor %}
 
         </div>
 

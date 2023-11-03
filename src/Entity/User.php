@@ -141,6 +141,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $articles;
 
+    /**
+     * @ORM\OneToMany(targetEntity=News::class, mappedBy="author")
+     */
+    private $news;
+
 
     public function __construct()
     {
@@ -160,6 +165,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->news = new ArrayCollection();
 
     }
 
@@ -592,6 +598,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($article->getAuthor() === $this) {
                 $article->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, News>
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news[] = $news;
+            $news->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            // set the owning side to null (unless already changed)
+            if ($news->getAuthor() === $this) {
+                $news->setAuthor(null);
             }
         }
 

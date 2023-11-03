@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Like;
+use App\Entity\News;
 use App\Entity\User;
 use App\Entity\Slide;
 use App\Service\Slug;
@@ -207,12 +208,17 @@ class PPController extends AbstractController
 
             }
 
-            $addNewsForm = $this->createForm(NewsType::class);
+
+
+            $news = new News();
+            $addNewsForm = $this->createForm(NewsType::class, $news);
             $addNewsForm->handleRequest($request);
 
             if ($addNewsForm->isSubmitted() && $addNewsForm->isValid()) {
                 
-                dd("news form submitted and valid");
+                $news->setProject($presentation);
+                $news->setAuthor($user);
+                $manager->persist($news);
                 $manager->flush();
 
                 $this->addFlash(

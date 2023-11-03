@@ -273,6 +273,25 @@
         
         </div>
 
+
+        <script>
+
+             $(document).ready(function(){
+
+                    $(".proxy-news-input").on('click', function (){
+
+                        $("#covering-footer").css("display","block");
+
+                        $("#covering-footer").append($(".news-form-struct"));
+
+                        $(".news-form-struct").css("display","block");
+
+                    });
+
+            });
+        
+        </script>
+
         <style>
 
             .proxy-news-creation-container{
@@ -311,23 +330,21 @@
                 margin-right: 12px;
                 
             }
-        
+
+            @media screen and (max-width: 580px) {
+
+                #covering-footer .news-form-struct{
+                    margin-left: 10px;
+                    margin-right: 10px;
+                    margin-bottom: 20px;
+                }
+
+
+            }
+
+
+
         </style>
-
-        <script>
-
-             $(document).ready(function(){
-
-                    $(".proxy-news-input").on('click', function (){
-
-                        $(".news-form-struct").css("display","block");
-
-                    });
-
-            });
-        
-        </script>
-
 
 
 
@@ -346,7 +363,7 @@
 
         <style>
 
-            .news-form-struct{
+            .in-edition-mode .pp-edition-mode.news-form-struct{
 
                 display: flex;
                 flex-direction: column;

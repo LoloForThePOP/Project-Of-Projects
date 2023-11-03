@@ -125,6 +125,26 @@ a{
 
 
 
+
+/* Covering footer */
+
+#covering-footer{
+
+    display: none;
+
+    position: fixed;
+    bottom: 0;
+    
+    width: 100%;
+    height: 65%;
+    z-index: 2;
+
+    background-color: white;
+    border-top: 2px solid black;
+}
+
+
+
 /* Flash Messages (static by default below header navbar) 
 
    Can be position fixed elsewhere (used in combination with complementary class below)

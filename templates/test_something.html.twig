@@ -17,15 +17,18 @@
 {% block content %}
       <textarea id="tinymce-editor"></textarea>
 
-           <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
-    <script>
-        tinymce.init({
-            selector: "textarea#tinymce-editor",
-            plugins: "image",
-            toolbar: "insertfile image",
-            images_upload_url: "{{ path('upload_image') }}",
-        });
-    </script>
+      <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+      <script>
+          tinymce.init({
+              selector: "textarea#tinymce-editor",
+              plugins: "image",
+              toolbar: "insertfile image",
+              images_upload_url: "{{ path('upload_image') }}",
+              images_upload_base_path: '/'
+          });
+      </script>
+
 {% endblock %}
 {# 
   <div class="container">

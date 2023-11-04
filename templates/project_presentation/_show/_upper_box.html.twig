@@ -12,6 +12,12 @@
     
     </a>
     
+{% endmacro %}    
+
+{% macro presentationThumbnail(stringId) %}
+    
+    <span class="pp-edition-mode ms-md-3"><a class="" href="{{ path ('edit_pp_thumbnail', {'stringId': stringId}) }}">🖼️ Vignette</a></span>
+    
 {% endmacro %}           
 
 {% set likeStructure %} {# javascript in show.html.twig #}
@@ -148,6 +154,8 @@
         
                         {% include 'project_presentation/_show/_upper_box/_categories_keywords.html.twig' %}
 
+                        {{ _self.presentationThumbnail(presentation.stringId) }}
+
                     </div>
 
 
@@ -159,19 +167,19 @@
 
         {# Categories & Keywords Display & Thumbnail Access Display - only Small Screens #}
 
-        <div class="keywords-container row d-md-none text-center">
+        <div class="keywords-container d-md-none">
 
             {% include 'project_presentation/_show/_upper_box/_categories_keywords.html.twig' %}
-
-        </div>
-
-        {# Project status or progression Edition Icon - only Small Screens #}
-
-        <div class="edit-status-button-container d-flex justify-content-center d-lg-none text-center">
-
+            
+            {# Project status or progression Edition Icon - only Small Screens #}
             {% include 'project_presentation/_show/status/_edit_button.html.twig' %}
 
+            {{ _self.presentationThumbnail(presentation.stringId) }}
+
+            
         </div>
+
+
 
         {# Project comments, likes, share - only Small Screens #}
 

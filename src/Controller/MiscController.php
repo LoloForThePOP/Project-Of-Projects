@@ -105,6 +105,10 @@ class MiscController extends AbstractController
     } */
 
 
+
+
+
+
     /**
      * @Route("/upload-image", name="upload_image", methods={"POST"})
      */
@@ -126,7 +130,7 @@ class MiscController extends AbstractController
             dump($this->getParameter('app.image_upload_directory'). $fileName);
 
             // Retournez une réponse JSON avec le chemin de l'image téléchargée
-            return new Response(json_encode(['location' => $this->getParameter('app.image_upload_directory'). $fileName]));
+            return new Response(json_encode(['location' => "https://127.0.0.1:8000/".$this->getParameter('app.image_upload_directory'). $fileName]));
         }
 
         // Si aucun fichier n'a été téléchargé, retournez une erreur

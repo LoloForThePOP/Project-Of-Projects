@@ -280,7 +280,7 @@
 
                     $(".proxy-news-input").on('click', function (){
 
-                        $("#covering-footer").css("display","block");
+                        $("#covering-footer").addClass("displayFlex");
 
                         $("#covering-footer").append($(".news-form-struct"));
 
@@ -334,6 +334,7 @@
             @media screen and (max-width: 580px) {
 
                 #covering-footer .news-form-struct{
+                    width: 90%;
                     margin-left: 10px;
                     margin-right: 10px;
                     margin-bottom: 20px;

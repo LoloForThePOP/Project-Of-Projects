@@ -214,7 +214,24 @@
 
 
     {# Used on tiny screens, for example to send messages, comments, etc #}
-    <div id="covering-footer"></div>
+    <div id="covering-footer">
+
+        <div class="close-button">&times;</div>
+   
+    </div>
+
+    <script>
+
+        const footerCloseButton = document.querySelector('#covering-footer .close-button');
+        const closeButtonContainer = document.querySelector('#covering-footer');
+
+        footerCloseButton.addEventListener('click', function() {
+
+            closeButtonContainer.style.display = 'none';
+
+        });
+
+    </script>
 
     {% block bottomjavascripts %}{% endblock %}
 

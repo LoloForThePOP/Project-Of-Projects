@@ -140,9 +140,35 @@ a{
     z-index: 2;
 
     background-color: white;
+
     border-top: 2px solid black;
+    border-top-right-radius: 10px;
+	border-top-left-radius: 10px;
 }
 
+
+#covering-footer.displayFlex{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#covering-footer .close-button {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	cursor: pointer;
+	color: #333;
+	background-color: #e0ecfe;
+	border-radius: 50%;
+	width: 27px;
+	height: 27px;
+	text-align: center;
+	line-height: 25px;
+}
+
+/* End of Covering Footer */
 
 
 /* Flash Messages (static by default below header navbar) 

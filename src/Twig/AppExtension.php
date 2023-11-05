@@ -20,11 +20,13 @@ class AppExtension extends AbstractExtension
         $stringEnd=""; //french plurals management
         if ($interval->days < 1) {
             $hours = $interval->h + $interval->i / 60;
-            
-            if ($hours >1) {
+
+            if ($hours < 1) {
+                return $interval->format('Il y a moins d\'une heure');
+            } else {
                 $stringEnd="s";
+                return $interval->format('Il y a %h heure'.$stringEnd);
             }
-            return $interval->format('Il y a %h heure'.$stringEnd);
         } elseif ($interval->days < 30) {
             if ($interval->days >1) {
                 $stringEnd="s";

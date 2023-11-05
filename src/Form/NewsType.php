@@ -22,7 +22,7 @@ class NewsType extends AbstractType
 
                     'attr' => [
                         
-                        'placeholder'    => 'Publier une News',
+                        'placeholder'    => 'Écrire ici',
                     ],
 
                     'sanitize_html' => true,

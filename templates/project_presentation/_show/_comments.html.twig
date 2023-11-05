@@ -26,14 +26,12 @@
 
                 <span class="commentDate">
                 
-                    le
-
                     <time>
-                        {{ comment.createdAt | date("d/m/Y")}}                
+                        {{ comment.createdAt | formattedElapsedTime}}                
                     </time>
 
                     {% if comment.updatedAt is not null %}
-                        (modifié ensuite)
+                        (puis modifié)
                     {% endif %}
 
                 </span>

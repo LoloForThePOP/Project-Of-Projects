@@ -56,6 +56,18 @@
     display:none !important;
 }
 
+/* Add item plus butotn */
+
+.plus-btn {
+	border-radius: 50%;
+	text-align: center;
+	line-height: 110%;
+	background-color: #e2f6e1;
+}
+
+
+
+
 
 /* Delete Item Buttons */
 

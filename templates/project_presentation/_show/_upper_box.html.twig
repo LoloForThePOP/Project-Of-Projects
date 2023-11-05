@@ -16,7 +16,7 @@
 
 {% macro presentationThumbnail(stringId) %}
     
-    <span class="pp-edition-mode ms-md-3"><a class="" href="{{ path ('edit_pp_thumbnail', {'stringId': stringId}) }}">🖼️ Vignette</a></span>
+    <span class="pp-edition-mode ms-2 ms-md-3"><a class="" style="color: rgb(33, 37, 41);" href="{{ path ('edit_pp_thumbnail', {'stringId': stringId}) }}">🖼️ Vignette</a></span>
     
 {% endmacro %}           
 
@@ -167,7 +167,7 @@
 
         {# Categories & Keywords Display & Thumbnail Access Display - only Small Screens #}
 
-        <div class="keywords-container d-md-none">
+        <div class="upper-edition-box-container d-md-none">
 
             {% include 'project_presentation/_show/_upper_box/_categories_keywords.html.twig' %}
             
@@ -319,7 +319,9 @@
             border-radius: 0;
         }
    
-        .keywords-container{
+        .upper-edition-box-container{
+
+            text-align: center;
 
             margin-top: 11px;
             margin-bottom: 15px;

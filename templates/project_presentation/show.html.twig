@@ -278,15 +278,16 @@
 
              $(document).ready(function(){
 
-                    $(".proxy-news-input").on('click', function (){
+                $("#covering-footer").append($(".news-form-struct"));
+                $(".news-form-struct").css("display","block");
 
-                        $("#covering-footer").addClass("displayFlex");
+                $(".proxy-news-input").on('click', function (){
 
-                        $("#covering-footer").append($(".news-form-struct"));
+                    $("#covering-footer").addClass("displayFlex");
+                    $("#covering-footer").show();
+                    $("#news_textContent").focus();
 
-                        $(".news-form-struct").css("display","block");
-
-                    });
+                });
 
             });
         
@@ -347,12 +348,9 @@
 
         </style>
 
-
-
-
         <div class="news-form-struct pp-edition-mode"> 
 
-            <h4 class="news-form-struct-title"><img id="" class="me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
+            <h4 class="news-form-struct-title"><img id="" class="news-icon me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="news-icon ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
 
             <div class="">
             
@@ -389,9 +387,10 @@
 
             }
 
-            .news-form-struct-title img{
+            .news-form-struct-title .news-icon{
 
                 margin-bottom: 4px;
+                filter: invert(49%) sepia(40%) saturate(2752%) hue-rotate(353deg) brightness(108%) contrast(103%)
 
             }
 

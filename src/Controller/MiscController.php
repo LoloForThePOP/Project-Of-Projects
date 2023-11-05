@@ -90,52 +90,47 @@ class MiscController extends AbstractController
      * 
      * @Route("/test-something", name="test_something")
      */
-   /*   public function test()
+     public function test()
     {
 
         //$ia = new OpenAIService ($_ENV['OPEN_AI_KEY']);
 
         //$answer = $ia->answer("I'm happy but...");
+
+        $html = '<html><body>
+    <img src="image1.jpg" alt="Image 1">
+    <img src="image2.png" alt="Image 2">
+    <img src="image3.gif" alt="Image 3">
+</body></html>';
+
+$matches = array();
+
+// Utilisez une expression régulière pour extraire les noms de fichiers d'images depuis la balise "img" avec l'attribut "src"
+$pattern = '/<img[^>]*src=["\']([^"\']+)["\'][^>]*>/i';
+
+if (preg_match_all($pattern, $html, $matches)) {
+    // Les noms de fichiers d'images extraits sont dans $matches[1]
+    $imageFileNames = $matches[1];
+
+
+    // Affichez les noms des fichiers d'images
+    $result="";
+    foreach ($imageFileNames as $fileName) {
+        $result .= "Nom du fichier image : $fileName<br>";
+    }
+} else {
+    $result = "Aucun fichier image trouvé dans la chaîne HTML.";
+}
         
    
         return $this->render("/test_something.html.twig", [
 
+            "result" => $result,
+
         ]);
 
-    } */
-
-
-
-
-
-
-    /**
-     * @Route("/upload-image", name="upload_image", methods={"POST"})
-     */
-    public function uploadImage(Request $request)
-    {
-        // Vérifiez si un fichier a été téléchargé
-        $file = $request->files->get('file');
-
-        if ($file) {
-            // Générez un nom de fichier unique
-            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
-
-            // Déplacez le fichier téléchargé dans le répertoire d'upload
-            $file->move(
-                $this->getParameter('app.image_upload_directory'),
-                $fileName
-            );
-
-            dump($this->getParameter('app.image_upload_directory'). $fileName);
-
-            // Retournez une réponse JSON avec le chemin de l'image téléchargée
-            return new Response(json_encode(['location' => "https://127.0.0.1:8000/".$this->getParameter('app.image_upload_directory'). $fileName]));
-        }
-
-        // Si aucun fichier n'a été téléchargé, retournez une erreur
-        return new Response('Erreur lors de l\'upload de l\'image', 400);
     }
+
 
      /**
      * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})
@@ -234,5 +229,92 @@ class MiscController extends AbstractController
         return $response;
 
     }
+
+
+    /**
+     * @Route("/upload-image", name="upload_image", methods={"POST"})
+    */
+    public function uploadImage(Request $request)
+    {
+        $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
+
+        if (isset($_SERVER['HTTP_ORIGIN'])) {
+            // same-origin requests won't set an origin. If the origin is set, it must be valid.
+            if ($_SERVER['HTTP_ORIGIN'] == $baseUrl) {
+                header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+            } else {
+                $response = new JsonResponse(['message' => 'Origin Denied'], 403);
+                return $response;
+            }
+        }
+
+        // Don't attempt to process the upload on an OPTIONS request
+        if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
+
+            $response = new JsonResponse(['message' => 'Access-Control-Allow-Methods: POST, OPTIONS']);
+            return $response;
+        }
+
+
+        $file = $request->files->get('file');
+
+        //check if file has been dowloaded
+
+        if ($file) {
+
+            //Check file name : 
+            $filename = $file->getClientOriginalName();
+            if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $filename)) {
+                $response = new JsonResponse(['message' => 'Invalid file name.'], 400);
+                return $response;
+            }
+
+            // Check extension
+            $extension = $file->getClientOriginalExtension();
+
+            $allowedExtensions = ["gif", "jpg", "jpeg", "png", "webp"];
+            $extension = $file->getClientOriginalExtension();
+        
+            if (!in_array(strtolower($extension), $allowedExtensions)) {
+                $response = new JsonResponse(['message' => 'Invalid extension.'], 400);
+                return $response;
+            }
+
+            // Check image size :
+
+            $fileSizeInBytes = $file->getSize();
+            $maxSizeInBytes = 1024 * 1024 * 7; //Max size 7 Mb.
+
+            if ($fileSizeInBytes > $maxSizeInBytes) {
+
+                $response = new JsonResponse(['message' => 'Le poids de l\'image est trop élevé.'], 400);
+
+            }
+
+
+            // Générez un nom de fichier unique
+            $fileName = md5(uniqid()) . '.' . $file->guessExtension();
+
+            // Déplacez le fichier téléchargé dans le répertoire d'upload
+            $file->move(
+                $this->getParameter('app.image_upload_directory'),
+                $fileName
+            );
+
+            // Retournez une réponse JSON avec le chemin de l'image téléchargée
+            return new Response(json_encode(['location' => $baseUrl."/".$this->getParameter('app.image_upload_directory'). $fileName]));
+        }
+
+        // Si aucun fichier n'a été téléchargé, retournez une erreur
+        return new Response('Erreur lors de l\'upload de l\'image', 400);
+    }
+
+
+
+
+
+
+
+
 
 }

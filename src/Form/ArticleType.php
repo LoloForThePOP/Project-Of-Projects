@@ -35,7 +35,7 @@ class ArticleType extends AbstractType
                 [
 
                     'label' => "🐌 Slug pour l'article ?",
-                    'required'   => true,
+                    'required'   => false,
                     'attr' => [
 
                         'placeholder'    => "",
@@ -53,7 +53,7 @@ class ArticleType extends AbstractType
 
                     'label' => "✍️ Quel est le contenu de l'article ?",
                     'required'   => false,
-                    'sanitize_html' => true,
+
                     'attr' => [
 
                         'class' => "tinymce",

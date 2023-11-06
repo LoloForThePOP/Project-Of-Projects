@@ -89,7 +89,7 @@ class Article implements Serializable
      *  @Assert\Image(
      *     maxSize = "5500k",
      *     maxSizeMessage = "Poids maximal accepté pour l'image : {{ limit }} {{ suffix }}",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp"},
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/webp", "image/gif"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      * @Vich\UploadableField(mapping="article_thumbnail", fileNameProperty="thumbnail")

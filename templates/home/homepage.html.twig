@@ -29,6 +29,7 @@
 
 {% import "utilities/_macro_titled_collection.html.twig" as display %}
 {% import "utilities/_macro_highlight_one_project.html.twig" as highlight %}
+{% import "utilities/_macro_articles_cards.html.twig" as artCards %}
 
 {% block body %}
 
@@ -50,7 +51,7 @@
 
           <div class="sm-border-none border rounded p-3 pb-1 h-100">
               
-            <h4 class="d-flex align-items-center mb-3"><img class="me-1 " src="{{ asset('goal-star.svg', 'misc')}}" alt="A person trying to catch a star !" height="22">Mes Projets Présentés</h4>
+            <h5 class="d-flex align-items-center justify-content-center justify-content-md-start ps-md-3 mb-3"><img class="me-1 " src="{{ asset('goal.svg', 'misc')}}" alt="A target" height="19">Mes Projets Présentés</h5>
 
             <style>
 
@@ -65,7 +66,7 @@
 
             </style>
 
-            {% set userCreatedPresentations = app.user.createdPresentations %}
+            {% set userCreatedPresentations = app.user.createdPresentations | reverse %}
 
             {% if userCreatedPresentations | length  == 0 %}
 
@@ -114,7 +115,7 @@
               
             {% else %}
                 
-              <div class="list-group ps-3 mt-2 mb-3">
+              <div class="list-group ps-md-3 mt-2 mb-3">
 
                 {% for createdPresentation in userCreatedPresentations %}
 
@@ -197,7 +198,7 @@
 
             <div class="sm-border-none border rounded p-3 pb-4 h-100">
 
-                <h4 class="d-flex align-items-center mb-3"><img class="me-1 " src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="22"> Mes articles</h4>
+                <h5 class="d-flex align-items-center justify-content-center justify-content-md-start mb-3 ps-3"><img class="me-1 " src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="22"> Mes articles</h5>
                 
                 {% set userArticles = app.user.articles %}
 
@@ -218,7 +219,7 @@
 
                 {% else %}
 
-                  <div class="list-group ps-3 mt-2 mb-3">
+                  <div class="list-group ps-md-3 mt-2 mb-3">
 
                     {% for article in userArticles %}
 
@@ -567,7 +568,42 @@
       }
     
     </style>
+
+
+
+    {# Propon Articles #}
+
+    <div class="container my-5">
+
+      <h4 class="d-flex align-items-center justify-content-center fw-bold mb-4"><img class="me-1 " src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="25">Articles</h4>
+
+      <div class="article-cards-container row row-cols-1 row-cols-md-3 g-4">
+
+        {% for article in articles %}
+          {{ artCards.articleCards (article) }}
+        {% endfor %}
     
+      </div>
+
+      <style>
+
+        @media screen and (max-width: 580px) {
+        
+          .article-cards-container {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+          }
+
+        }
+
+      </style>
+
+    </div>
+
+    
+
+
     {# Highlight a random project #} 
 
     {{ highlight.highlight (highlightedProjects[0]) }}
@@ -762,10 +798,6 @@
     }
 
     @media screen and (max-width: 820px){
-
-      .page-container {
-        padding-top: 39px;
-      }
 
       .fs-2{
         font-size: 18px !important;

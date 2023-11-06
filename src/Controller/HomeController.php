@@ -9,6 +9,7 @@ use App\Service\UluleAPI;
 use App\Service\MailerService;
 use App\Form\CreatePresentationType;
 use Algolia\SearchBundle\SearchService;
+use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +25,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function index(Request $request, EntityManagerInterface $manager, MailerService $mailer): Response
+    public function index(Request $request, EntityManagerInterface $manager, MailerService $mailer, ArticleRepository $artRepo): Response
     {
 
         /* Create a Presentation Form */
@@ -150,6 +151,11 @@ class HomeController extends AbstractController
         shuffle($lastInsertedPresentations);
         $highlightedProjects = array_slice($lastInsertedPresentations, 0, 5);
 
+
+
+
+        $articles = $artRepo->findAll();
+
         
         /* UluleAPI $ulule,
         $ulule->fetchProjectInfo(); just testing Ulule api*/
@@ -158,6 +164,7 @@ class HomeController extends AbstractController
             'lastInsertedPresentations' => $lastInsertedPresentations,
             'highlightedProjects' => $highlightedProjects,
             'form' => $form,
+            'articles' => $articles,
         ]);
 
     }

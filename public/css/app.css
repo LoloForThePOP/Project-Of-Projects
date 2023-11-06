@@ -415,6 +415,11 @@ label:active:after {
 
 @media screen and (max-width: 580px) {
 
+    
+    .page-container{
+        padding-top: 28px;
+    } 
+
     /* Forms */
 
     label, legend {

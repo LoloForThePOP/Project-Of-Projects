@@ -1,0 +1,59 @@
+{% macro articleCards (article) %}
+
+<div class="d-md-col col">
+
+    <a href="{{path('show_article', {"slug": article.slug})}}">
+        
+        <div class="article-card card h-100">
+
+            <div class="img-container">
+                
+                {% if article.thumbnail is not empty %}
+                
+                    <img class="" src="{{ vich_uploader_asset(article)   }}" alt="Article Thumbnail"/>{# | imagine_filter('standard_thumbnail_md_test') #}
+
+                {% endif %}
+            
+            </div>
+
+            <div class="card-body">
+                <h5 class="card-title"><a href="{{path('show_article', {"slug": article.slug})}}">{{article.title}}</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+            </div>
+
+            <div class="card-footer">
+                <small class="text-muted">{{ article.createdAt | formattedElapsedTime }}</small>
+            </div>
+
+        </div>
+    
+    </a>
+
+</div>
+
+<style>
+
+    .article-card .img-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        height: 175px;
+
+        margin-left: 25px;
+        margin-right: 25px;
+
+        margin-top: 25px;
+    }
+
+    .article-card .img-container img{
+
+        max-height: 175px;
+        border-radius: 1px;
+    }
+
+</style>
+
+
+{% endmacro %}

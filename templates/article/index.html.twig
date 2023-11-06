@@ -12,32 +12,7 @@
         
             {% for article in articles %}
 
-                    <div class="col">
-
-                        <a href="{{path('show_article', {"slug": article.slug})}}">
-                            
-                            <div class="card h-100">
-
-                                {% if article.thumbnail is not empty %}
-                                
-                                    <img class="card-img-top" src="{{ vich_uploader_asset(article)  | imagine_filter('standard_thumbnail_md_test') }}" alt="Article Thumbnail"/>
-
-                                {% endif %}
-
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{path('show_article', {"slug": article.slug})}}">{{article.title}}</h5>
-                                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                                </div>
-
-                                <div class="card-footer">
-                                    <small class="text-muted">{{ article.createdAt | formattedElapsedTime }}</small>
-                                </div>
-
-                            </div>
-                        
-                        </a>
-
-                    </div>
+                
                 
             {% endfor %}
             

@@ -11,11 +11,6 @@
 
             <div class="container">
 
-
-                <a href="{{ path('display_pool_data') }}">
-                    <button class="btn btn-light btn-lg me-3">Résultats Sondage</button>
-                </a>
-
                 <a href="{{ path('manage_pick_elements', {'pickType':'trustUs'}) }}">
                     <button class="btn btn-light btn-lg me-3">Ils nous font confiance</button>
                 </a>
@@ -24,19 +19,62 @@
                     <button class="btn btn-light btn-lg me-3">Projet cool du jour</button>
                 </a>
 
-                <a href="{{ path('one_shot') }}">
-                    <button class="btn btn-light btn-lg me-3">Action unique</button>
-                </a>
+                {% if is_granted('ROLE_ADMIN') %}
 
-                <a href="{{ path('manage_categories') }}">
-                    <button class="btn btn-light btn-lg me-3">Catégories</button>
-                </a>
+                    <a href="{{ path('display_pool_data') }}">
+                        <button class="btn btn-light btn-lg me-3">Résultats Sondage</button>
+                    </a>
+
+                    <a href="{{ path('one_shot') }}">
+                        <button class="btn btn-light btn-lg me-3">Action unique</button>
+                    </a>
+
+                    <a href="{{ path('manage_categories') }}">
+                        <button class="btn btn-light btn-lg me-3">Catégories</button>
+                    </a>
+
+                {% endif %}
                     
             </div>
 
         </div>
 
-        <div class="row"></div>
+        <div class="row mt-5">
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARTICLE_EDIT') %}
+
+                <div class="col-md-3 border">
+
+                    <h5 class="fw-bold text-center my-2">Articles</h5>
+
+                    <div class="list-group mt-2 mb-3">
+
+                        {% for article in articles | reverse %}
+
+                            <a href="{{path('edit_article', {"id": article.id})}}" class="text-body">
+
+                                <div class="list-group-item list-group-item-action ps-2 pe-1">
+
+                                    <h5 class="d-inline mb-1 fs-6">{{article.title}}</h5>
+                                        
+                                </div>
+
+                            </a>
+                        
+                        {% endfor %}
+
+                    </div>
+                
+                
+                </div>
+
+            {% endif %}
+            
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+            <div class="col-md-3"></div>
+
+        </div>
 
     </div>
 

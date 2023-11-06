@@ -29,10 +29,15 @@
 
     <div class="container col-md-8 my-5">
 
-        <h1 class="article-title">{{article.title}}</h1>
+        <h1 class="article-title">
+        
+            {{article.title}}
+
+            {% if is_granted('admin_edit', article) %} <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">- MODIFIER</span></a>{% endif %}
+        
+        </h1>
 
         <div class="article-content">
-        
         
             {% if not article.content is empty %} 
 

@@ -4,6 +4,8 @@ namespace App\Controller\Admin;
 
 use App\Entity\User;
 use App\Entity\PPBase;
+use App\Entity\Article;
+use App\Repository\ArticleRepository;
 use App\Controller\Admin\PPBaseCrudController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -25,9 +27,11 @@ class AdminDashboardController extends AbstractDashboardController
 
         //return $this->redirect($routeBuilder->setController(PPBaseCrudController::class)->generateUrl());
 
+
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
+
         return $this->render('admin/home.html.twig', [
-            /* 'accounts' => $accounts,
-            'contacts' => $contacts, */
+            'articles' => $articles,
         ]);
     }
 
@@ -48,8 +52,8 @@ class AdminDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     
     {
-        yield MenuItem::linkToCrud('Projets', 'fas fa-list', PPBase::class);
-        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class);
+        yield MenuItem::linkToCrud('Projets', 'fas fa-list', PPBase::class)->setPermission('ROLE_ADMIN');
+        yield MenuItem::linkToCrud('Utilisateurs', 'fas fa-user', User::class)->setPermission('ROLE_ADMIN');
         yield MenuItem::linkToLogout('Se déconnecter', 'fa fa-exit');
     }
 }

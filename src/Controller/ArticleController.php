@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Article;
 use App\Form\ArticleType;
+use App\Service\MailerService;
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +31,7 @@ class ArticleController extends AbstractController
     
 
     #[Route('/articles/edit/{id?}', name: 'edit_article')]
-    public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Security $security): Response
+    public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Security $security, MailerService $mailer): Response
     {
 
         if($id != null){
@@ -88,6 +89,11 @@ class ArticleController extends AbstractController
 
                 }
 
+            }else{//article is new, we inform website admin
+                $sender = $this->getParameter('app.mailer_email');
+                $receiver = $this->getParameter('app.general_contact_email');
+ 
+                $mailer->send($sender, 'Propon', $receiver, "A New Article Has Been Created",'Article Title: '.$article->getTitle());
             }
 
             // If no slug we create one with article title
@@ -120,7 +126,6 @@ class ArticleController extends AbstractController
     }
 
 
-
     // Extract image names from an HTML string
     function extractImageNames($html) {
         $matches = array();
@@ -132,9 +137,6 @@ class ArticleController extends AbstractController
         
         return array();
     }
-    
-
-
  
     #[Route('/articles/show/{slug}', name: 'show_article')]
     public function show(Article $article): Response

@@ -38,6 +38,7 @@
     {% if is_granted('edit', presentation) %}
 
         <link href="/css/wysiwyg.css" rel="stylesheet">
+        <link href="/css/create_news.css" rel="stylesheet">
 
     {% endif %}
 
@@ -293,60 +294,6 @@
         
         </script>
 
-        <style>
-
-            .proxy-news-creation-container{
-
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding-top: 20px;
-                padding-bottom: 20px;
-                margin-top: 20px;
-                margin-bottom: 20px;
-
-
-            }
-
-            .fake-send-button{
-
-                display: flex;
-                align-items: center;
-                padding: 7px;
-                border-radius: 50px;
-                background-color: #d8ebf9;
-            }
-
-            .fake-send-button img{
-                width: 12px;
-            }
-
-        
-            .proxy-news-input{
-
-                min-width: 130px;
-
-                padding: 0px 5px 0px 5px;
-
-                margin-right: 12px;
-                
-            }
-
-            @media screen and (max-width: 580px) {
-
-                #covering-footer .news-form-struct{
-                    width: 90%;
-                    margin-left: 10px;
-                    margin-right: 10px;
-                    margin-bottom: 20px;
-                }
-
-
-            }
-
-
-
-        </style>
 
         <div class="news-form-struct pp-edition-mode"> 
 

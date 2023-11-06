@@ -709,6 +709,20 @@ class PPBase implements \Serializable, NormalizableInterface
     }
 
     /**
+    * Allow to Automaticaly set updatedAt
+    * 
+    * @ORM\PreUpdate
+    */
+    public function updatedTimestamp(): void
+    {
+        $this->setUpdatedAt(new \DateTimeImmutable());
+    }
+
+
+
+
+
+    /**
      * @return Collection|Slide[]
      */
     public function getSlides(): Collection

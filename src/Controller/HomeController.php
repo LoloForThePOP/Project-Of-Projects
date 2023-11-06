@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Entity\PPBase;
+use App\Form\NewsType;
 use App\Service\UluleAPI;
 use App\Service\MailerService;
 use App\Form\CreatePresentationType;
@@ -84,6 +86,56 @@ class HomeController extends AbstractController
             }
 
         }
+
+        if ($this->isGranted('ROLE_USER')) {
+
+            $news = new News();
+            $addNewsForm = $this->createForm(NewsType::class);
+            $addNewsForm->handleRequest($request);
+
+            if ($addNewsForm->isSubmitted() && $addNewsForm->isValid()) {
+                
+                $news->setProject($presentation);
+                $news->setAuthor($this->getUser());
+                $manager->persist($news);
+                $manager->flush();
+
+                $this->addFlash(
+                    'success fade-out',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'news-struct-container'
+    
+                    ]
+
+                );
+
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         $presentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=2 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->getResult();
      

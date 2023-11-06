@@ -140,6 +140,11 @@ class ArticleController extends AbstractController
     public function show(Article $article): Response
     {
 
+        $entityManager = $this->getDoctrine()->getManager();
+
+        $article->setDataItem( 'viewsCount', $article->getDataItem('viewsCount') + 1 );
+        $entityManager->flush();  
+
         return $this->render('article/show.html.twig', [
             'article' => $article,
         ]);

@@ -138,7 +138,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="author")
-     */
+     * @ORM\OrderBy({"createdAt" = "DESC"})
+    */
     private $articles;
 
     /**

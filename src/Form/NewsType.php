@@ -8,6 +8,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class NewsType extends AbstractType
@@ -118,6 +119,20 @@ class NewsType extends AbstractType
                     ],
 
                     'required'   => false,
+                ]
+            )
+
+            ->add(
+                
+                'presentationId', 
+
+                HiddenType::class,
+                
+                [
+
+                    'empty_data' => 'yes',
+                    'required'   => false,
+                    "mapped" => false,
                 ]
             )
 

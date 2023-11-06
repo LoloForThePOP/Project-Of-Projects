@@ -2,15 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\ArticleRepository;
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
 
-use Symfony\Component\HttpFoundation\File\File;
+use App\Repository\ArticleRepository;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints\Image;
 
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
@@ -23,7 +24,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * @Vich\Uploadable
  * 
  */
-class Article
+class Article implements Serializable
 {
     /**
      * @ORM\Id
@@ -73,6 +74,12 @@ class Article
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $thumbnail;
+
+
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $data = [];
 
 
 
@@ -152,6 +159,22 @@ class Article
     {
         $this->createdAt = new \DateTimeImmutable('now');
         $this->isValidated = true;
+
+
+        $this->data['viewsCount'] = 0;
+        $this->data['short_editorial_text_fr'] = null;
+    }
+
+
+    public function serialize()
+    {
+        return serialize($this->id);
+    }
+    
+    public function unserialize($serialized)
+    {
+    $this->id = unserialize($serialized);
+    
     }
 
 
@@ -268,4 +291,39 @@ class Article
 
         return $this;
     }
+
+    
+    public function getData(): ?array
+    {
+        return $this->data;
+    }
+
+    public function setData(?array $data): self
+    {
+        $this->data = $data;
+
+        return $this;
+    }
+
+    public function getDataItem($key)
+    {
+        return $this->data[$key];
+    }
+
+    public function setDataItem($key, $value): self
+    {
+        $this->data[$key] = $value;
+
+        return $this;
+    }
+
+    public function unsetDataItem($key)
+    {
+        unset($this->data[$key]);
+
+        return true;
+    }
+
+
+
 }

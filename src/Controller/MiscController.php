@@ -236,6 +236,16 @@ if (preg_match_all($pattern, $html, $matches)) {
     */
     public function uploadImage(Request $request)
     {
+
+        $session = $request->getSession();
+
+        $imagesCount = $session->get('imagesCount'); // we don't want user to upload too much images in one session
+
+        if ($imagesCount > 10) {
+            $response = new JsonResponse(['message' => "Le nombre maximal de 10 images insérées pendant votre session est dépassé. Veuillez arrêter d'insérer des images ou vous reconnecter pour en insérer d'autres."]);
+            return $response;
+        }
+
         $baseUrl = $request->getScheme() . '://' . $request->getHttpHost() . $request->getBasePath();
 
         if (isset($_SERVER['HTTP_ORIGIN'])) {
@@ -283,7 +293,7 @@ if (preg_match_all($pattern, $html, $matches)) {
             // Check image size :
 
             $fileSizeInBytes = $file->getSize();
-            $maxSizeInBytes = 1024 * 1024 * 7; //Max size 7 Mb.
+            $maxSizeInBytes = 1024 * 1024 * 7; // Max size 7 Mb.
 
             if ($fileSizeInBytes > $maxSizeInBytes) {
 
@@ -292,16 +302,18 @@ if (preg_match_all($pattern, $html, $matches)) {
             }
 
 
-            // Générez un nom de fichier unique
+            // Generate a unique file name
             $fileName = md5(uniqid()) . '.' . $file->guessExtension();
 
-            // Déplacez le fichier téléchargé dans le répertoire d'upload
+            // Move file to appropriate upload folder
             $file->move(
                 $this->getParameter('app.image_upload_directory'),
                 $fileName
             );
 
-            // Retournez une réponse JSON avec le chemin de l'image téléchargée
+            $session->set('imagesCount', $imagesCount++); // we increase images count to further check if max count is not exceeded
+
+            // Return a json response with file location
             return new Response(json_encode(['location' => $baseUrl."/".$this->getParameter('app.image_upload_directory'). $fileName]));
         }
 

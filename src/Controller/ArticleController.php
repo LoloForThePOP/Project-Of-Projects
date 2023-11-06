@@ -90,7 +90,6 @@ class ArticleController extends AbstractController
 
             }
 
-
             // If no slug we create one with article title
             if ($article->getSlug() === null || trim($article->getSlug()) === '') {
 
@@ -108,8 +107,6 @@ class ArticleController extends AbstractController
             );
 
             return $this->redirectToRoute('homepage', [
-
-                'test' => $imageNames,
 
             ]);
 

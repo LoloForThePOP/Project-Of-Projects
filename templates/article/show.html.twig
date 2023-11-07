@@ -13,7 +13,7 @@
 {% set currentPageUrl = app.request.uri %}
 
 
-{% block title %}{{ titleMetadata }}{% endblock %}
+{% block title %}{{ titleMetadata }}{% endblock %} 
 
 {% block headTag %}
 
@@ -27,33 +27,123 @@
 
 {% block body %}
 
-    <div class="container col-md-8 my-5">
 
-        <h1 class="article-title">
-        
-            {{article.title}}
 
-            {% if is_granted('admin_edit', article) %} <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">- MODIFIER</span></a>{% endif %}
+    <div class="article-container container col-md-8 my-5">
+
+        <header>
+
+            <h1 class="article-title">
+            
+                {{article.title}}
+
+                {% if is_granted('admin_edit', article) %} <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">MODIFIER</span></a>{% endif %}
+            
+            </h1>
+            
+            <div class="metadata"> <span class="me-1">Le</span> {{article.createdAt | date("d / m / Y")}} {% if article.updatedAt is not empty %} (modifié le {{article.createdAt | formattedElapsedTime}}){% endif %} par {{articleCreator}}.</div>
+
+        </header>
+
         
-        </h1>
+
 
         <div class="article-content">
         
             {% if not article.content is empty %} 
 
-                {{ article.content | sanitize_html ('default') }}
+                {{ article.content | sanitize_html ('article') }}
 
-            {% endif %}</div>
+            {% endif %}
+            
+        </div>
+
+
+        {# Admins #}
+        
+        {% if is_granted('admin_edit', article) %}
+
+            <div class="my-4">
+
+                <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">MODIFIER</span></a>
+            
+            </div>
+
+        {% endif %}
+
+
+        {# Visible Metadata #}
+
+        <div class="article-footer-metadata">
+        
+        
+        
+        </div>
                 
     </div>
 
     <style>
 
-        .article-title{
-            text-align: center;
+        .article-container header {
+            margin-top: 72px;
             margin-bottom: 42px;
         }
-        
+        .article-container header h1{
+            margin-bottom: 0px;
+        }
+
+        header .metadata{
+            color: grey;
+        }
+
+        .article-title{
+            font-weight: bold;
+            color: green;
+            
+        }
+
+        h2 {
+            color: green;
+            font-weight: bold;
+        }
+
+
+        h2:not(:first-child) {
+            margin-top: 20px;
+        }
+
+        h3 {
+            margin-top: 21px;
+            color: green; 
+            font-weight: bold;
+        }
+
+        p {
+            font-size: 1.1em;
+            margin: 10px 0;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+            margin: 30px auto 30px auto;
+            border-radius: 4px;
+        }
+
+
     </style>
+
+
+
+    <script>
+
+        // Place figcaption before images.
+        // Thanks at https://stackoverflow.com/questions/11183401/jquery-change-the-element-order
+        
+        $('figcaption').each(function() {
+            $(this).insertBefore( $(this).prev('img') );
+        });
+
+    </script>
 
 {% endblock %}

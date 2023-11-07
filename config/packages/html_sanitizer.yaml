@@ -57,3 +57,29 @@ html_sanitizer:
                     allowed_attributes :
 
                         - 'styles'
+        article:
+            extensions:
+                - 'basic'
+                - 'list'
+                # - 'table'
+                - 'image'
+                - 'code'
+                # - 'iframe'
+                # - 'extra'
+
+            tags:
+                img: 
+                    allowed_attributes:
+                        - 'src'
+                        - 'alt'
+                        - 'width'
+                        - 'height'
+                    force_https: true
+                p:
+                    allowed_attributes:
+                        - 'style'
+                h2:
+                    allowed_attributes:
+                        - 'style'
+                h3:
+                    allowed_attributes:

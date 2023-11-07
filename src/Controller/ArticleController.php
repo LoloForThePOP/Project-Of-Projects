@@ -112,7 +112,9 @@ class ArticleController extends AbstractController
                 "✅ Article édité"
             );
 
-            return $this->redirectToRoute('homepage', [
+            return $this->redirectToRoute('show_article', [
+
+                'slug' => $article->getSlug(),
 
             ]);
 

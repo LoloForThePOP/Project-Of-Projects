@@ -21,7 +21,7 @@
         <h1 class="text-center mb-5">Édition d'un Article sur Propon</h1>
 
         {% if not is_granted('admin_edit', article) %}
-                  {# Alerts #}
+          {# Alerts #}
           <div class="alerts">
 
             <div class="alert alert-primary d-flex align-items-center fs-5 mb-3" role="alert">
@@ -75,7 +75,51 @@
                 
                 <div class="mb-5">{{form_row(form.title)}}</div>
 
-                <div class="mb-5">{{form_row(form.content, {'attr': {'class': 'tinymce'}})}}</div>
+                <div class="mb-5">
+                
+                  <h6 class="">
+                  
+                    {{form_label(form.content)}} 
+
+                    <div class="d-inline border px-2 py-1 cursor-pointer ms-2" data-bs-toggle="collapse" href="#collapseTextEditorTutorial">Aide d'utilisation <span class="" style="font-size: 10px;">▼</span></div>
+                  
+                  </h6>
+
+                  <div id="collapseTextEditorTutorial" class="collapse mb-3">
+
+                    <div class="card card-body">
+
+                      <ul class="">
+
+                        <li>Pour <b>insérer un titre</b>, utilisez le boutons H2 (pour un sous-titre utilisez H3);</li>
+                        <li>Pour <b>insérer une image</b>, cliquer sur l'icône d'image puis sur le bouton télécharger;</li>
+                        <li>Pour <b>insérer une légende d'image</b>, cliquer sur l'icône d'image puis sur la case <b>"afficher le sous-titrage"</b>.</li>
+                   
+                      </ul>
+
+                      <p class="fw-bold">
+                      
+                        <span class="">Si vous rencontrez un problème avec l'upload d'images, assurez-vous que :</span>
+                      
+                      </p>
+
+                      <ul class="">
+
+                        <li>Son <b>poids</b> vaut <b>moins de 7 Mb</b>;</li>
+                        <li>Le <b>titre du fichier </b>ne comporte <b>aucun caractère spécial (pas de tirets; points; accents).</b> </li>
+                   
+                      </ul>
+
+                      <p>Si vous rencontrez toujours des problèmes, <b>nous informer permet d'améliorer le site pour tous. Merci pour votre aide.</b></p>
+
+                    </div>
+
+                  </div>
+
+
+                  {{form_widget(form.content, {'attr': {'class': 'tinymce'}})}}
+                
+                </div>
             
             </div>
 
@@ -177,19 +221,17 @@
       mode : "specific_textareas",
       selector: 'textarea.tinymce',
       plugins: 'emoticons lists image',
-      toolbar: 'undo redo emoticons bullist image bold italic underline alignleft aligncenter alignright alignjustify outdent indent',
+      toolbar: 'h2 h3 undo redo emoticons bullist image bold italic underline strikethrough alignleft aligncenter alignright alignjustify',
       browser_spellcheck: true,
       width : "100%",
       height: "500px",
       entity_encoding : "raw",
       
-      
+      menubar: 'edit format', menu: {
 
-      menubar: 'edit format',        menu: {
+        edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall' },
 
-        edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
-
-        format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+        format: { title: 'Format', items: 'superscript subscript codeformat removeformat' },
 
       }, 
 
@@ -199,7 +241,11 @@
 
       images_upload_handler: image_upload_handler,
       file_picker_types: 'image',
+      image_caption: true,
+
       relative_urls : false,
+      remove_script_host : false,
+      convert_urls : true,
 
         
     });

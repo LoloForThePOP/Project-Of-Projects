@@ -107,11 +107,6 @@ class ArticleController extends AbstractController
                              
             $manager->flush();
 
-            $this->addFlash(
-                'success',
-                "✅ Article édité"
-            );
-
             return $this->redirectToRoute('show_article', [
 
                 'slug' => $article->getSlug(),

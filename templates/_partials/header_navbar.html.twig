@@ -257,7 +257,7 @@
 
         <ul class="navbar-nav ms-md-auto gap-2">
 
-          {% if is_granted("ROLE_ADMIN") %}
+          {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_ARTICLE_EDIT") %}
           
           <li class="nav-item d-none d-md-inline">
 

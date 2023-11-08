@@ -201,6 +201,49 @@
 
     <!-- End of User Created Project Presentations -->
 
+
+
+    {# User Created Articles #}
+
+    {% set userArticles = user.articles %}
+
+    {% if userArticles | length > 0 %}
+
+        <div class="container col-md-8 mb-5">
+
+            <h3 class="fw-bold text-center mb-4">Articles Publiés sur Propon</h3>
+            
+            {% for article in user.articles %}
+
+                <div class="list-group-item list-group-item-action">
+
+                    <a href="{{path('show_article', {"slug": article.slug})}}" class="text-body" aria-current="true">
+
+                        <h5 class="d-inline mb-1 fs-6">{{article.title}}</h5>
+                            
+                    </a>
+
+                    {% if article.author == app.user %}<a href="{{path('edit_article', {"id": article.id})}}" class="ms-3">Modifier</a>{% endif %}
+                        
+                    {# Stats #}
+                                    
+                        <span class="stat-chunk ms-3">
+
+                            <img class="" src="{{ asset('eye.svg', 'misc')}}" alt="an eye icon">
+                            {{article.getDataItem('viewsCount')}}
+                            
+                        </span> 
+
+                    </div>
+                
+            {% endfor %}
+            
+        </div>
+            
+    {% endif %}
+
+    
+
 </div>
 
 

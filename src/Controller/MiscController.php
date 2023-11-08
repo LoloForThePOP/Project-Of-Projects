@@ -274,8 +274,8 @@ if (preg_match_all($pattern, $html, $matches)) {
 
             //Check file name : 
             $filename = $file->getClientOriginalName();
-            if (preg_match("/([^\w\s\d\-_~,;:\[\]\(\).])|([\.]{2,})/", $filename)) {
-                $response = new JsonResponse(['message' => 'Invalid file name.'], 400);
+            if (preg_match("/([^\w\s\d\~,;:\[\]\(\).À-ÿ6-8\-_])|([\.]{2,})/", $filename)) {
+                $response = new JsonResponse(["message" => "Le nom du fichier comporte des caracteres non autorises."], 400);
                 return $response;
             }
 
@@ -286,7 +286,7 @@ if (preg_match_all($pattern, $html, $matches)) {
             $extension = $file->getClientOriginalExtension();
         
             if (!in_array(strtolower($extension), $allowedExtensions)) {
-                $response = new JsonResponse(['message' => 'Invalid extension.'], 400);
+                $response = new JsonResponse(['message' => 'Les extensions de fichier acceptées sont "gif", "jpg", "jpeg", "png", "webp".'], 400);
                 return $response;
             }
 

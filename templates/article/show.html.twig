@@ -38,7 +38,7 @@
             
             </h1>
             
-            <div class="metadata"> <span class="me-1">Le</span> {{article.createdAt | date("d / m / Y")}} {% if article.updatedAt is not empty %} (modifié il y a {{article.createdAt | formattedElapsedTime}}){% endif %} par {{articleCreator}}.</div>
+            <div class="metadata"> <span class="me-1">Le</span> {{article.createdAt | date("d / m / Y")}} par {{articleCreator}} {% if article.updatedAt is not empty %} (modifié il y a {{article.createdAt | formattedElapsedTime}}){% endif %}</div>
 
         </header>
 
@@ -73,7 +73,7 @@
 
         <div class="cta mb-5">
 
-            <p class="mb-0">Cet article vous est proposé par Propon, le site de présentation de projets. <a href="{{path("create_presentation")}}">Présentez votre projet sur Propon</a>.</p>
+            <p class="mb-0">Cet article vous est proposé par Propon, le site de présentation de projets.<br class="d-none d-md-block"> <a href="{{path("create_presentation")}}">Présentez votre projet sur Propon.</a></p>
         
         
         
@@ -107,7 +107,7 @@
 
         .article-title{
             font-weight: bold;
-            color: green;
+            color: #1b2e4d;
             
         }
 

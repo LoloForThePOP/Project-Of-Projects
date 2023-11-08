@@ -21,8 +21,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * 
  * @ORM\Entity(repositoryClass=ArticleRepository::class)
  * @ORM\HasLifecycleCallbacks
- * @Vich\Uploadable
- * 
+ * @Vich\Uploadable 
  */
 class Article implements Serializable
 {
@@ -102,6 +101,11 @@ class Article implements Serializable
      * @ORM\Column(type="string", length=255)
      */
     private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $shortDescription;
 
     
 
@@ -322,6 +326,18 @@ class Article implements Serializable
         unset($this->data[$key]);
 
         return true;
+    }
+
+    public function getShortDescription(): ?string
+    {
+        return $this->shortDescription;
+    }
+
+    public function setShortDescription(?string $shortDescription): self
+    {
+        $this->shortDescription = $shortDescription;
+
+        return $this;
     }
 
 

@@ -154,7 +154,7 @@ class HomeController extends AbstractController
 
 
 
-        $articles = $artRepo->findAll();
+        $articles = array_reverse($artRepo->findAll());
 
         
         /* UluleAPI $ulule,

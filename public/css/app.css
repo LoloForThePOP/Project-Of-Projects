@@ -48,6 +48,10 @@ a{
 
 @media screen and (max-width: 580px) {
 
+    h1, .h1 {
+        font-size: calc(1.275rem + 1.5vw);
+    }
+
     .carousel-control-prev, .carousel-control-next {
 
         width: 31px;

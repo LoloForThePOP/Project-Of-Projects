@@ -74,7 +74,7 @@
 
                 <p class="">
 
-                  Pour <b>présenter un projet</b>, <b>trouver de l'aide</b>,<br> et <b>donner des nouvelles</b>, <a href="{{path ('create_presentation')}}" title="this links targets to create a project presentation page."> <span class="fw-bold" >c'est ici 👈</span></a>
+                  Pour <b>présenter un projet</b>, <b>trouver de l'aide</b>,<br> et <b>donner des nouvelles</b>, <a href="{{path ('create_presentation')}}" aria-label="this links targets to create a project presentation page."> <span class="fw-bold" >c'est ici 👈</span></a>
                   
                 </p>
 
@@ -126,6 +126,9 @@
                       <h5 class="mb-1">{{createdPresentation.title}}</h5>
           
                       <small>
+
+                        Il y a 
+
                         {% if createdPresentation.updatedAt is not empty %}
                         
                             {{createdPresentation.updatedAt | formattedElapsedTime }}

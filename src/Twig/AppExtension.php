@@ -22,23 +22,23 @@ class AppExtension extends AbstractExtension
             $hours = $interval->h + $interval->i / 60;
 
             if ($hours < 1) {
-                return $interval->format('Il y a moins d\'une heure');
+                return $interval->format('moins d\'une heure');
             } else {
                 $stringEnd="s";
-                return $interval->format('Il y a %h heure'.$stringEnd);
+                return $interval->format('%h heure'.$stringEnd);
             }
         } elseif ($interval->days < 30) {
             if ($interval->days >1) {
                 $stringEnd="s";
             }
-            return $interval->format('Il y a %a jour'.$stringEnd);
+            return $interval->format('%a jour'.$stringEnd);
         } elseif ($interval->days < 365) {
-            return $interval->format('Il y a %m mois');
+            return $interval->format('%m mois');
         } else {
             if ($interval->y > 1) {
                 $stringEnd="s";
             }
-            return $interval->format('Il y a %y an'.$stringEnd);
+            return $interval->format('%y an'.$stringEnd);
         }
     }
 }

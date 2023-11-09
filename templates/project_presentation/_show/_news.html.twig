@@ -22,17 +22,23 @@
 
 
 
-            {% for news in presentation.news %}
+            {% for news in presentation.news | reverse %}
 
-                {% if news.updatedAt is not empty %}
-                
-                    {{news.updatedAt | formattedElapsedTime }}
+                <time datetime="{{news.createdAt | date("d/m/Y") }}">
 
-                {% else %}
+                    Il y a 
 
-                    {{news.createdAt | formattedElapsedTime }}
+                    {% if news.updatedAt is not empty %}
                     
-                {% endif %}
+                        {{news.updatedAt | formattedElapsedTime }}
+
+                    {% else %}
+
+                        {{news.createdAt | formattedElapsedTime }}
+                        
+                    {% endif %}
+
+                </time>
 
                 
 

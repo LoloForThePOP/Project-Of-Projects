@@ -26,9 +26,11 @@ class NewsType extends AbstractType
                         'placeholder'    => 'Écrire ici',
                     ],
 
-                    'sanitize_html' => true,
+                    //'sanitize_html' => true,
 
                     'required'   => false, //otherwise form won't be submitted
+
+                    //'charset' => 'UTF-8',
                 ]
             )
 

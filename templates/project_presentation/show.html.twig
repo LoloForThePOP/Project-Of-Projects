@@ -82,6 +82,8 @@
                 width: 330px;
                 padding: 10px;
                 background-color: rgb(255, 177, 177);
+                border-top-left-radius: 5px;
+	            border-bottom-left-radius: 5px;
             }
 
             body.user-offline .no-internet-connection{
@@ -261,7 +263,7 @@
 
     {% endif %}
 
-    {# Add a News form 
+    {# Add a News form #}
 
     {% if userPresenter %}
             
@@ -404,7 +406,7 @@
             
             </div>
 
-            {# News 
+            {# News  #}
 
             <div class="col-lg-6 pp-struct-container-wrapper {% if countNews == 0 %} pp-edition-mode {% endif %}">
 
@@ -414,7 +416,7 @@
 
                 </div>
             
-            </div> #}
+            </div>
 
             {# Miscelaneous Data List #}
 
@@ -696,7 +698,7 @@
         </div>
     
     </div>
-#}
+
 
     {# Add a Presentation Structure Buttons (Placeholders or Other Buttons in a Modal Box) #}
 

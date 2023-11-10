@@ -18,50 +18,176 @@
 
     {% block mainContent %}
                 
-        <div id="news" class="js-elements-list pp-struct-content">
-
-
+        <div id="news" class="pp-struct-content">
 
             {% for news in presentation.news | reverse %}
 
-                <time datetime="{{news.createdAt | date("d/m/Y") }}">
-
-                    Il y a 
-
-                    {% if news.updatedAt is not empty %}
+                <div class="news-card">
                     
-                        {{news.updatedAt | formattedElapsedTime }}
+                    <time datetime="{{news.createdAt | date("d/m/Y") }}">
 
-                    {% else %}
+                        Il y a 
 
-                        {{news.createdAt | formattedElapsedTime }}
+                        {% if news.updatedAt is not empty %}
                         
+                            {{news.updatedAt | formattedElapsedTime }}
+
+                        {% else %}
+
+                            {{news.createdAt | formattedElapsedTime }}
+                            
+                        {% endif %}
+
+                    </time>
+
+                    {{ news.textContent | raw }}
+
+
+
+
+
+                    {# Medias display #}
+
+                    {% set hasImage = false %}
+
+                    {% set imagesArray = [] %}
+
+                    {% if news.image1 is not empty %}
+
+                        {% set hasImage = true %}
+
+                        {% set img1 %}
+
+                            <img id="news-{{news.id}}-img1" src="{{ vich_uploader_asset(news,'image1File') }}" alt="{{ news.captionImage1 ?? 'Image 1 de la news' }}">
+                            
+                        {% endset %}
+
+                        {% set imagesArray = imagesArray | merge([img1]) %}
+                                            
                     {% endif %}
 
-                </time>
+                    {% if news.image2 is not empty %}
 
+                        {% set hasImage = true %}
+
+                        {% set img2 %}
+
+                            <img id="news-{{news.id}}-img2" src="{{ vich_uploader_asset(news,'image2File') }}" alt="{{ news.captionImage2 ?? 'Image 2 de la news' }}">
+                            
+                        {% endset %}
+
+                        {% set imagesArray = imagesArray | merge([img2]) %}
+                                            
+                    {% endif %}
+
+                    <div class="other-media-container">
+                        
+                        {% if hasImage %}
+
+                            {# Case we only have one image, we don't insert an image slider #}
+
+                            {% if imagesArray | length == 1 %}
+
+                                {{imagesArray[0]}}
+
+                            {% else %}
+
+                                <div id="newsMediaCaroussel-{{news.id}}" class="carousel slide" data-bs-interval="false">
+
+                                    <div class="carousel-inner">
+                                            
+                                        {% for image in imagesArray %}
+                                                
+                                            <div class="carousel-item {{ loop.first ? 'active' }}">
+                                                {{imagesArray[loop.index0]}}
+
+                                                <div class="images-count">{{loop.index}}/{{imagesArray | length}}</div>
+
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#newsMediaCaroussel-{{news.id}}" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Previous</span>
+                                    </button>
+
+                                    <button class="carousel-control-next" type="button" data-bs-target="#newsMediaCaroussel-{{news.id}}" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="visually-hidden">Next</span>
+                                    </button>
+
+                                </div>
+                            
+                            </div>
+                        
+                        {% endif %}
+
+                    {% endif %}
+               
                 
-
-                {% set newsTextContent = news.textContent | raw %}
-
-                {{ newsTextContent }}
-
-                {% set hasImage = false %}
-
-                {% if news.image1 is not empty %}une image !{% endif %}
-
-
-
-                <pre>
-                    {{ dump(news) }}
-                </pre>
                 
+                </div>
+
             {% endfor %}
+
+            <style>
+
+                .news-card {
+                    border: 1px solid #b7babe;
+                    border-radius: 5px;
+                    padding: 5px 8px;
+                }
+
+                .news-card .other-media-container{
+                    height: 220px;
+                    margin-top: 10px;
+                }
+
+                .news-card .other-media-container img{
+                    max-width: 100%;
+                    height: 100%;
+                    border-radius: 5px;
+                    max-height: 210px;
+                }
+
+
+                .news-card .images-count {
+                    display: inline-block;
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    color: white;
+                    background-color: #5b5b5b;
+                    border-radius: 10px;
+                    font-size: 11px;
+                    padding: 2px 7px;
+                }
+
+                .news-card .carousel img{
+                    display: block;
+                    margin: auto;
+                }
+
+                .news-card time{
+                    font-size: 14px;
+                    color: #666;
+                }
+            
+            
+            
+            </style>
+
+
 
         </div>
 
 
 
+
     {% endblock %}
+
 
 {% endembed %}

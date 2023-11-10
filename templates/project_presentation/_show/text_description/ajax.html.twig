@@ -14,13 +14,6 @@
 
             /* WARNING : IT SEEMS THAT DOCUMENT.READY MESS THINGS UP !!! */
 
-            $.getScript(
-
-                "https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js",
-
-                () => console.log('loaded script!')
-
-            ).done((script,textStatus ) => {
 
                 // TinyMCE Rich Text Editor Init
 
@@ -101,10 +94,5 @@
 
                 });
                 
-                }).fail(( jqxhr, settings, exception ) => {
-                    console.log(exception + ': ' + jqxhr.status);
-                }
-
-            );
 
     </script>

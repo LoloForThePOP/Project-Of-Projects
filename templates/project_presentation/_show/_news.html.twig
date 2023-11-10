@@ -42,10 +42,6 @@
 
                     {{ news.textContent | raw }}
 
-
-
-
-
                     {# Medias display #}
 
                     {% set hasImage = false %}
@@ -80,9 +76,23 @@
                                             
                     {% endif %}
 
-                    <div class="other-media-container">
+                    {% if news.image3 is not empty %}
+
+                        {% set hasImage = true %}
+
+                        {% set img3 %}
+
+                            <img id="news-{{news.id}}-img3" src="{{ vich_uploader_asset(news,'image3File') }}" alt="{{ news.captionImage2 ?? 'Image 3 de la news' }}">
+                            
+                        {% endset %}
+
+                        {% set imagesArray = imagesArray | merge([img3]) %}
+                                            
+                    {% endif %}
+                    
+                    {% if hasImage %}
                         
-                        {% if hasImage %}
+                        <div class="other-media-container">
 
                             {# Case we only have one image, we don't insert an image slider #}
 
@@ -121,17 +131,62 @@
 
                                 </div>
                             
-                            </div>
                         
-                        {% endif %}
+                            {% endif %}
+                            
+                        </div>
 
                     {% endif %}
-               
-                
-                
+
+                    
+
+                    {% if countNews > 0 %}
+
+                        <div class="navigate-news">
+
+                            <div class="nav-button previous-news">News Précédente</div>
+                            <div class="nav-button next-news">News Suivante</div>
+                        
+                        </div>
+
+                    {% endif %}
+                 
                 </div>
 
             {% endfor %}
+
+
+            {% if countNews > 0 %}
+
+                <script>
+                
+                    $(document).ready(function(){
+
+                        $('.news-card:not(:first)').hide();
+
+                        $(".navigate-news .nav-button").on("click", function(event){ 
+
+                            $(".news-card").hide();
+
+                            if($(this).hasClass("next-news")){
+
+                                $(this).closest(".news-card").next().show();
+                            } else{
+
+                                $(this).closest(".news-card").prev().show();
+
+                            }
+
+                            console.log("clicked");
+                
+                        });
+
+                    });
+                
+                </script>
+
+            {% endif %}
+
 
             <style>
 
@@ -166,7 +221,7 @@
                     padding: 2px 7px;
                 }
 
-                .news-card .carousel img{
+                .news-card img{
                     display: block;
                     margin: auto;
                 }
@@ -175,8 +230,27 @@
                     font-size: 14px;
                     color: #666;
                 }
-            
-            
+
+
+                .news-card .navigate-news {
+                    display: flex;
+                    justify-content: space-around;
+                    color: #575775;
+                }
+
+                .news-card .nav-button {
+                    cursor: pointer;
+                }
+
+
+
+                @media screen and (max-width: 580px) {
+
+                    .carousel-control-prev-icon, .carousel-control-next-icon {
+                        display: none;
+                    }
+
+                }
             
             </style>
 

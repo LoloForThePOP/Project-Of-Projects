@@ -133,6 +133,7 @@ class NewsType extends AbstractType
                     'required'   => false,
                     "mapped" => false,
                 ]
+                
             )
 
 

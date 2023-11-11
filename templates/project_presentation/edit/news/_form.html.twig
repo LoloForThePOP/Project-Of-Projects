@@ -63,19 +63,21 @@
 
 
 <script>
-  tinymce.init({
-    selector: 'textarea#news_textContent',
-    plugins: 'charmap emoticons lists wordcount',
-    toolbar: 'undo redo bold italic underline strikethrough align numlist bullist emoticons charmap',
-  });
-</script>
-
-<script>
 
 
 
 
     $(document).ready(function(){
+
+        tinymce.init({
+            selector: 'textarea#news_textContent',
+            plugins: 'charmap emoticons lists wordcount',
+            toolbar: 'undo redo bold italic underline strikethrough bullist emoticons charmap',
+            menubar: '',
+            height: "300px",
+            language: 'fr_FR',
+
+        });
 
         // Trigger click on file input when user clicks on image icon
 
@@ -144,7 +146,6 @@
 .news-form-container textarea{
 
     width: 500px;
-    height: 100%;
     
 }
 
@@ -195,8 +196,6 @@
 @media screen and (max-width: 580px) {
 
     
-
-
     .news-form-container form {
         
         display: block;

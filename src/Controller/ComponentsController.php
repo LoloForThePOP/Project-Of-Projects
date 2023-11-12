@@ -82,8 +82,14 @@ class ComponentsController extends AbstractController
 
             // getting appropriate repository
             // fully qualified entity name
+            
+            if ($entityType != 'news') {//if entity is not News, we remove ending s plural mark to get appropriate entity name 
+                $entityName = 'App\\Entity\\'.ucfirst(substr($entityType, 0, -1));
+            }else{
+                $entityName = 'App\\Entity\\'.ucfirst($entityType);
+            }
 
-            $entityName = 'App\\Entity\\'.ucfirst(substr($entityType, 0, -1));
+            
 
             $element = $this->getDoctrine()->getRepository($entityName)->findOneById($idElement);
 
@@ -95,7 +101,15 @@ class ComponentsController extends AbstractController
 
                 // getting appropriate remover (function as a variable)
 
-                $removerMethodName = "remove".ucfirst(substr($entityType, 0, -1));
+                if ($entityType != 'news') {
+
+                    $removerMethodName = "remove".ucfirst(substr($entityType, 0, -1));
+
+                }else{
+
+                    $removerMethodName = "remove".ucfirst($entityType);
+
+                }
 
                 $presentation-> $removerMethodName($element);
                 

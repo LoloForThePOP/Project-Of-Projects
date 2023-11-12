@@ -1,4 +1,4 @@
-<div class="news-card">
+<div id="news-{{news.id}}" class="news-card">
 
     <div class="upper-box">
 
@@ -16,7 +16,13 @@
                 
             {% endif %}
 
-        </time>     
+        </time>
+
+        {% if userPresenter is defined and userPresenter == true %}
+        
+            <a href=" {{ path("edit_news", { "id": news.id }) }}" class="text-end">Modifier</a>
+        
+        {% endif %}  
     
     </div>
 
@@ -37,8 +43,6 @@
         </div>
 
     {% endif %}
-
-
 
     {# Medias display #}
 
@@ -135,5 +139,9 @@
         </div>
 
     {% endif %}
+
+    {# delete place (Red Cross) button #}
+
+    <button type="button" data-elements-type="news" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{news.id}}">&times</button>
     
 </div>

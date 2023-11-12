@@ -10,9 +10,14 @@
     border: 1px solid #b7babe;
     border-radius: 5px;
 }
+
 .news-card .upper-box{
     
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 2px;
+    
 }
 
 .news-card .text-content{
@@ -70,7 +75,7 @@
 
 .news-card .show-more {
 
-    margin-top: -28px;
+    margin-top: -30px;
     text-align: right;
     
 }
@@ -108,6 +113,12 @@
 
 
 @media screen and (max-width: 580px) {
+
+    .news-card {
+        min-height: unset;
+        max-height: unset;
+        margin: 0 auto 10px auto;
+    }
 
     .carousel-control-prev-icon, .carousel-control-next-icon {
         display: none;

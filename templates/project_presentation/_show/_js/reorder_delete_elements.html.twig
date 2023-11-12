@@ -180,6 +180,7 @@
                 case "slides":
                 case "contributorStructures":
                 case "places":
+                case "news":
 
                     path = "{{path('ajax_remove_component_element', {'stringId': stringId})}}";
                     break;
@@ -216,6 +217,14 @@
                 success: function(data, status) {
 
                     $("#"+idElement).remove();
+
+                    if(elementsType=="news"){
+
+                        $("#news-"+idElement).remove();
+
+                        $( ".nextNewsSlide" ).trigger( "click" );
+
+                    }
 
                     // when removing a slide, some additionnal display treatments
 

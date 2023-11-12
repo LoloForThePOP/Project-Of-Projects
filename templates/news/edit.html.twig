@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier une News{% endblock %}
+
+{% block body %}
+
+<script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+<div class="page-container container col-md-8 px-0 px-md-3 mb-4">
+
+    <h1 class="h3 text-center fw-bold mb-4 mb-md-5">Modifier une News</h1>
+
+    {% set changeImageInfo = "Pour modifier l'image, cliquez ci-dessous" %}
+
+    <div class="container px-0 px-md-3">
+
+        {{ form_start(newsForm) }}
+
+        <div class="border border-primary rounded p-2 p-md-3 mb-3">
+
+            {{form_row(newsForm.textContent)}}
+
+        </div>
+
+        <div class="border border-primary rounded p-3 mb-3">
+
+            {{form_label(newsForm.image1File)}}
+            
+            {% if news.image1 is not empty %}
+
+                <div class="mb-3">
+
+                    <div class="">
+                    
+                        <img class="news-image" src="{{ vich_uploader_asset(news,'image1File') }}" alt="{{ news.captionImage1 ?? 'Image 1 de la news' }}">
+                    
+                    </div>
+
+                
+                </div>
+
+                <div class="fw-bold mb-2">{{changeImageInfo}}</div>
+
+            {% endif %}
+
+            <div class="mb-3">{{form_widget(newsForm.image1File)}}</div>
+            {{form_row(newsForm.captionImage1)}}
+        
+        </div>
+
+        <div class="border border-primary rounded p-3 mb-3">
+
+            {{form_label(newsForm.image2File)}}
+            
+            {% if news.image2 is not empty %}
+
+                <div class="mb-3">
+
+                    <div class="">
+                    
+                        <img class="news-image" src="{{ vich_uploader_asset(news,'image2File') }}" alt="{{ news.captionImage2 ?? 'Image 2 de la news' }}">
+                    
+                    </div>
+
+                </div>
+
+                <div class="fw-bold mb-2">{{changeImageInfo}}</div>
+
+            {% endif %}
+
+            <div class="mb-3">{{form_widget(newsForm.image2File)}}</div>
+            {{form_row(newsForm.captionImage2)}}
+        
+        </div>
+
+        <div class="border border-primary rounded p-3 mb-3">
+
+            {{form_label(newsForm.image3File)}}
+            
+            {% if news.image3 is not empty %}
+
+                <div class="mb-3">
+
+                    <div class="">
+                    
+                        <img class="news-image" src="{{ vich_uploader_asset(news,'image3File') }}" alt="{{ news.captionImage3 ?? 'Image 3 de la news' }}">
+                    
+                    </div>
+
+                </div>
+
+                <div class="fw-bold mb-2">{{changeImageInfo}}</div>
+
+            {% endif %}
+
+            <div class="mb-3">{{form_widget(newsForm.image3File)}}</div>
+            {{form_row(newsForm.captionImage3)}}
+        
+        </div>
+        
+
+        <div class="mt-5 d-flex justify-content-center">
+
+            <button id="" type="submit" class="btn btn-validate me-5">✔️ Valider</button>
+
+            <a href="{{path('show_presentation', {'stringId': ppStringId })}}">
+
+                <button type="button" class="btn btn-go-back">❌ Annuler</button>
+
+            </a>
+
+        </div>
+
+
+        {{ form_end(newsForm) }}
+
+    </div>
+
+
+</div>
+
+<script>
+
+ $(document).ready(function(){
+
+    tinymce.init({
+        selector: 'textarea#news_textContent',
+        plugins: 'charmap emoticons lists wordcount',
+        toolbar: 'undo redo bold italic underline strikethrough bullist emoticons charmap',
+        menubar: '',
+        height: "300px",
+        language: 'fr_FR',
+
+    });
+
+
+    //Delete Image Rendering
+    $(".form-check-label").html("Cocher cette case pour supprimer l'image");
+    $(".form-check").addClass("mt-2")
+
+
+});
+
+</script>
+
+
+<style>
+
+    .news-image{
+        max-width: 200px;
+        height: auto;
+    }
+
+
+</style>
+
+
+
+{% endblock %}

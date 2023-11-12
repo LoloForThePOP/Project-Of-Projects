@@ -15,7 +15,6 @@
 
     {% block mainContent %}
 
-
         <div id="news" class="">
 
             {% set textShowMoreThreshold = 95 %}
@@ -36,8 +35,8 @@
 
                     <div class="newsSliderControls">
 
-                        <a class="item" onclick="plusSlidesNews(-1)">&#10094;</a>
-                        <a class="item" onclick="plusSlidesNews(1)">&#10095;</a>
+                        <a class="item previousNewsSlide" onclick="plusSlidesNews(-1)">&#10094;</a>
+                        <a class="item nextNewsSlide" onclick="plusSlidesNews(1)">&#10095;</a>
                     
                     </div>
 
@@ -47,11 +46,6 @@
                         
                         let slideIndexNews = 1;
 
-                        $(document).ready(function(){
-
-                            showSlidesNews(slideIndexNews);
-
-                        });
 
                         // Next/previous controls
                         function plusSlidesNews(n) {
@@ -74,13 +68,26 @@
                     </script>
 
                     <style>
+
+                        {# initialize news cards slider #}
+
+                        .news-card{
+                            display: none;
+                        }
+
+                        .news-card:first-of-type{
+                            display: block;
+                        }
+
+                        {# end of initialize news cards slider #}
                     
                         .newsSliderControls{
                             display: flex;
                             justify-content: space-between;
                             width: 100%;
                             position: absolute;
-                            top: 50%;
+                            top: 45%;
+                            outline: none;
                         }
 
 
@@ -96,8 +103,6 @@
                             background-color: dodgerblue;
                             color: white;
                             text-decoration: none;
-                            outline: none;
-
                             cursor: pointer;
                         }
 
@@ -108,7 +113,7 @@
                                 display: none;
 
                             }
-                        
+
                         }
                     
                     </style>
@@ -150,8 +155,18 @@
         <style>
         
             #news{
+
                 position: relative;
             }
+
+            @media screen and (max-width: 580px) {
+
+                .news-card {
+                    display: block;
+                }
+
+            }
+        
         
         </style>
 

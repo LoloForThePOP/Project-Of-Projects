@@ -19,7 +19,7 @@ class NewsType extends AbstractType
 
             ->add('textContent', TextareaType::class, 
                 [
-                    'label' => 'Contenu',
+                    'label' => 'Texte de la News',
 
                     'attr' => [
                         
@@ -50,7 +50,7 @@ class NewsType extends AbstractType
 
             ->add('captionImage1', TextType::class, 
                 [
-                    'label' => 'Légende',
+                    'label' => 'Légende Image 1',
 
                     'attr' => [
                         
@@ -80,7 +80,7 @@ class NewsType extends AbstractType
 
             ->add('captionImage2', TextType::class, 
                 [
-                    'label' => 'Légende',
+                    'label' => 'Légende Image 2',
 
                     'attr' => [
                         
@@ -110,7 +110,7 @@ class NewsType extends AbstractType
 
             ->add('captionImage3', TextType::class, 
                 [
-                    'label' => 'Légende',
+                    'label' => 'Légende Image 3',
 
                     'attr' => [
                         

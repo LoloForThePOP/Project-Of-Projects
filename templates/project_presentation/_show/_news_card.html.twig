@@ -1,0 +1,139 @@
+<div class="news-card">
+
+    <div class="upper-box">
+
+        <time datetime="{{news.createdAt | date("d/m/Y") }}">
+
+            Il y a 
+
+            {% if news.updatedAt is not empty %}
+            
+                {{news.updatedAt | formattedElapsedTime }}
+
+            {% else %}
+
+                {{news.createdAt | formattedElapsedTime }}
+                
+            {% endif %}
+
+        </time>     
+    
+    </div>
+
+    <div class="text-content {{ newsTextContent | striptags | length > textShowMoreThreshold ? 'hideContent' }}">
+
+        {% if newsTextContent is not empty %}
+        
+            {{ newsTextContent | sanitize_html ('default') }}
+            
+        {% endif %}
+        
+    </div>
+
+    {% if newsTextContent | length > textShowMoreThreshold %}
+
+        <div class="show-more">
+            <span href="">Afficher Plus</span>
+        </div>
+
+    {% endif %}
+
+
+
+    {# Medias display #}
+
+    {% set hasImage = false %}
+
+    {% set imagesArray = [] %}
+
+    {% if news.image1 is not empty %}
+
+        {% set hasImage = true %}
+
+        {% set img1 %}
+
+            <img id="news-{{news.id}}-img1" src="{{ vich_uploader_asset(news,'image1File') }}" alt="{{ news.captionImage1 ?? 'Image 1 de la news' }}">
+            
+        {% endset %}
+
+        {% set imagesArray = imagesArray | merge([img1]) %}
+                            
+    {% endif %}
+
+    {% if news.image2 is not empty %}
+
+        {% set hasImage = true %}
+
+        {% set img2 %}
+
+            <img id="news-{{news.id}}-img2" src="{{ vich_uploader_asset(news,'image2File') }}" alt="{{ news.captionImage2 ?? 'Image 2 de la news' }}">
+            
+        {% endset %}
+
+        {% set imagesArray = imagesArray | merge([img2]) %}
+                            
+    {% endif %}
+
+    {% if news.image3 is not empty %}
+
+        {% set hasImage = true %}
+
+        {% set img3 %}
+
+            <img id="news-{{news.id}}-img3" src="{{ vich_uploader_asset(news,'image3File') }}" alt="{{ news.captionImage2 ?? 'Image 3 de la news' }}">
+            
+        {% endset %}
+
+        {% set imagesArray = imagesArray | merge([img3]) %}
+                            
+    {% endif %}
+    
+    {% if hasImage %}
+        
+        <div class="other-media-container">
+
+            {# Case we only have one image, we don't insert an image slider #}
+
+            {% if imagesArray | length == 1 %}
+
+                {{imagesArray[0]}}
+
+            {% else %}
+
+                <div id="newsMediaCaroussel-{{news.id}}" class="carousel slide" data-bs-interval="false">
+
+                    <div class="carousel-inner">
+                            
+                        {% for image in imagesArray %}
+                                
+                            <div class="carousel-item {{ loop.first ? 'active' }}">
+                                {{imagesArray[loop.index0]}}
+
+                                <div class="images-count">{{loop.index}}/{{imagesArray | length}}</div>
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <button class="carousel-control-prev" type="button" data-bs-target="#newsMediaCaroussel-{{news.id}}" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+
+                    <button class="carousel-control-next" type="button" data-bs-target="#newsMediaCaroussel-{{news.id}}" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+
+                </div>
+            
+        
+            {% endif %}
+            
+        </div>
+
+    {% endif %}
+    
+</div>

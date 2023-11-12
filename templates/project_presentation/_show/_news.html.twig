@@ -14,201 +14,93 @@
     {% endblock %}
 
     {% block mainContent %}
+
+
+    <script>
+    
+    let slideIndexNews = 1;
+
+showSlidesNews(slideIndexNews);
+
+// Next/previous controls
+function plusSlidesNews(n) {
+  showSlidesNews(slideIndexNews += n);
+}
+
+// Thumbnail image controls
+function currentSlideNews(n) {
+  showSlidesNews(slideIndexNews = n);
+}
+
+function showSlidesNews(n) {
+  let i;
+  let slides = document.getElementsByClassName("news-card");
+  
+  if (n > slides.length) {slideIndexNews = 1}
+  if (n < 1) {slideIndexNews = slides.length}
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  slides[slideIndexNews-1].style.display = "block";
+} 
+    
+    
+    </script>
                 
         <div id="news" class="">
 
             {% set textShowMoreThreshold = 95 %}
 
-            {% for news in presentation.news | reverse %}
+                {% if countNews > 0 %}
 
-                {% set newsTextContent = news.textContent %}
+                    <link href="/css/news_card.css" rel="stylesheet">
+                
+                            {% for news in presentation.news | reverse %}
 
-                <div class="news-card">
+                                {% set newsTextContent = news.textContent %}
 
-                    <div class="upper-box">
+                                    {% include "project_presentation/_show/_news_card.html.twig" %}
 
-                        <time datetime="{{news.createdAt | date("d/m/Y") }}">
+                            {% endfor %}  
 
-                            Il y a 
-
-                            {% if news.updatedAt is not empty %}
+                            <style>
                             
-                                {{news.updatedAt | formattedElapsedTime }}
+                                .news-card{
 
-                            {% else %}
+                                    display:none;
+                                    
+                                }
 
-                                {{news.createdAt | formattedElapsedTime }}
-                                
-                            {% endif %}
+                                .news-card:first-of-type{
 
-                        </time>     
-                    
+                                    display:block;
+
+                                }
+                            
+                            </style>
+                            
+                            
+                            
+<!-- Next and previous buttons -->
+<a class="" onclick="plusSlidesNews(-1)">&#10094;</a>
+<a class="" onclick="plusSlidesNews(1)">&#10095;</a>
+
+
+                        
                     </div>
 
-                    <div class="text-content {{ newsTextContent | length > textShowMoreThreshold ? 'hideContent' }}">
 
-                        {% if newsTextContent is not empty %}
-                        
-                            {{ newsTextContent | sanitize_html ('default') }}
-                            
-                        {% endif %}
-                        
-                 
-                    </div>
+                {% else %} {# Only one news, we do not use a slider #}
 
-                    {% if newsTextContent | length > textShowMoreThreshold %}
+                    {% for news in presentation.news | reverse %}
 
-                        <div class="show-more">
-                            <span href="">Afficher Plus</span>
-                        </div>
-
-                    {% endif %}
-
- 
-
-                    {# Medias display #}
-
-                    {% set hasImage = false %}
-
-                    {% set imagesArray = [] %}
-
-                    {% if news.image1 is not empty %}
-
-                        {% set hasImage = true %}
-
-                        {% set img1 %}
-
-                            <img id="news-{{news.id}}-img1" src="{{ vich_uploader_asset(news,'image1File') }}" alt="{{ news.captionImage1 ?? 'Image 1 de la news' }}">
-                            
-                        {% endset %}
-
-                        {% set imagesArray = imagesArray | merge([img1]) %}
-                                            
-                    {% endif %}
-
-                    {% if news.image2 is not empty %}
-
-                        {% set hasImage = true %}
-
-                        {% set img2 %}
-
-                            <img id="news-{{news.id}}-img2" src="{{ vich_uploader_asset(news,'image2File') }}" alt="{{ news.captionImage2 ?? 'Image 2 de la news' }}">
-                            
-                        {% endset %}
-
-                        {% set imagesArray = imagesArray | merge([img2]) %}
-                                            
-                    {% endif %}
-
-                    {% if news.image3 is not empty %}
-
-                        {% set hasImage = true %}
-
-                        {% set img3 %}
-
-                            <img id="news-{{news.id}}-img3" src="{{ vich_uploader_asset(news,'image3File') }}" alt="{{ news.captionImage2 ?? 'Image 3 de la news' }}">
-                            
-                        {% endset %}
-
-                        {% set imagesArray = imagesArray | merge([img3]) %}
-                                            
-                    {% endif %}
-                    
-                    {% if hasImage %}
-                        
-                        <div class="other-media-container">
-
-                            {# Case we only have one image, we don't insert an image slider #}
-
-                            {% if imagesArray | length == 1 %}
-
-                                {{imagesArray[0]}}
-
-                            {% else %}
-
-                                <div id="newsMediaCaroussel-{{news.id}}" class="carousel slide" data-bs-interval="false">
-
-                                    <div class="carousel-inner">
-                                            
-                                        {% for image in imagesArray %}
-                                                
-                                            <div class="carousel-item {{ loop.first ? 'active' }}">
-                                                {{imagesArray[loop.index0]}}
-
-                                                <div class="images-count">{{loop.index}}/{{imagesArray | length}}</div>
-
-                                            </div>
-
-                                        {% endfor %}
-
-                                    </div>
-
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#newsMediaCaroussel-{{news.id}}" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Previous</span>
-                                    </button>
-
-                                    <button class="carousel-control-next" type="button" data-bs-target="#newsMediaCaroussel-{{news.id}}" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                        <span class="visually-hidden">Next</span>
-                                    </button>
-
-                                </div>
-                            
-                        
-                            {% endif %}
-                            
-                        </div>
-
-                    {% endif %}
-
-                    
-
-                    {% if countNews > 0 %}
-
-                        <div class="navigate-news">
-
-                            <div class="nav-button previous-news">News Précédente</div>
-                            <div class="nav-button next-news">News Suivante</div>
-                        
-                        </div>
-
-                    {% endif %}
-                 
-                </div>
-
-            {% endfor %}
-
-            {% if countNews > 0 %}
-
-                <script>
+                        {% set newsTextContent = news.textContent %}
                 
-                    $(document).ready(function(){
+                        {% include "project_presentation/_show/_news_card.html.twig" %}
 
-                        $('.news-card:not(:first)').hide();
+                    {% endfor %}
 
-                        $(".navigate-news .nav-button").on("click", function(event){ 
-
-                            $(".news-card").hide();
-
-                            if($(this).hasClass("next-news")){
-
-                                $(this).closest(".news-card").next().show();
-                            } else{
-
-                                $(this).closest(".news-card").prev().show();
-
-                            }
-
-                            console.log("clicked");
-                
-                        });
-
-                    });
-                
-                </script>
-
-            {% endif %}
+                {% endif %}
 
 
             {# Show more news text content #}
@@ -230,141 +122,6 @@
                 })
             </script>
 
-            <style>
-
-                .news-card {
-                    position: relative;
-                    max-width: 418px;
-                    min-height: 300px;
-                    padding: 5px 8px;
-                    margin: 0 auto 20px auto;
-                    border: 1px solid #b7babe;
-                    border-radius: 5px;
-                }
-                .news-card .upper-box{
-                    
-                    margin-bottom: 2px;
-                }
-
-                .news-card .text-content{
-
-                    padding: 0 7px 0 7px;
-                    margin-bottom: 10px;
-                }
-
-                .news-card .other-media-container{
-                    height: 220px;
-                    margin-top: 10px;
-                }
-
-                .news-card .other-media-container img{
-                    max-width: 100%;
-                    height: 100%;
-                    border-radius: 5px;
-                    max-height: 210px;
-                }
-
-                .news-card img{
-                    display: block;
-                    margin: auto;
-                }
-
-                .news-card .images-count {
-                    display: inline-block;
-                    position: absolute;
-                    top: 10px;
-                    right: 10px;
-                    color: white;
-                    background-color: #5b5b5b;
-                    border-radius: 10px;
-                    font-size: 11px;
-                    padding: 2px 7px;
-                }
-
-
-                .news-card time{
-                    font-size: 14px;
-                    color: #666;
-                }
-
-                .news-card .hideContent {
-                    overflow: hidden;
-                    line-height: 1em;
-                    height: 2em;
-                }
-
-                .news-card .showContent {
-                    line-height: 1em;
-                    height: auto;
-                    overflow-y: hidden;
-                }
-
-                .news-card .show-more {
-
-                    margin-top: -28px;
-                    text-align: right;
-                    
-                }
-
-                .news-card .show-more span{
-                    
-                    padding-left: 7px;
-                    padding-right: 12px;
-                    background-color: white;
-                    color: #0d6efd;
-                    cursor: pointer;
-                    
-                }
-
-                .news-card .navigate-news {
-                    display: flex;
-                    justify-content: space-around;
-                    color: #575775;
-                    position: absolute;
-                    bottom: 10px;
-                    width: 100%;
-                }
-
-                .news-card .nav-button {
-                    cursor: pointer;
-                }
-
-
-               
-
-
-
-
-
-
-                @media screen and (min-width: 580px) {
-
-                    .news-card .carousel-control-prev, .news-card .carousel-control-next {
-                        background-color: #597182;
-                        height: 50px;
-                        border-radius: 50px;
-                        margin-top: 20%;
-                        width: 50px;
-                    }
-                    
-                    .news-card .carousel-control-next-icon, .news-card .carousel-control-prev-icon {
-                        height: 1em;
-                        width: 1em;
-                    }
-
-                }
-
-
-
-                @media screen and (max-width: 580px) {
-
-                    .carousel-control-prev-icon, .carousel-control-next-icon {
-                        display: none;
-                    }
-
-                }
-            
-            </style>
 
         </div>
 

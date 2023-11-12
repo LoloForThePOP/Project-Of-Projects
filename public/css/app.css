@@ -123,6 +123,11 @@ a{
     .modal-title {
         font-size: 1em;
     }
+
+
+    .sm-display-none{
+        display: none;
+    }
     
 }
 

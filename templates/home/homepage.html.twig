@@ -51,7 +51,7 @@
 
           <div class="sm-border-none border rounded p-3 pb-1 h-100">
               
-            <h5 class="d-flex align-items-center justify-content-center justify-content-md-start ps-md-3 mb-3"><img class="me-1 " src="{{ asset('goal.svg', 'misc')}}" alt="A target" height="19">Mes Projets Présentés</h5>
+            <h5 class="d-flex align-items-center justify-content-center justify-content-md-start ps-md-3 mb-3"><img class="homepage-board-icon" src="{{ asset('goal.svg', 'misc')}}" alt="A target" height="19">Mes Projets Présentés</h5>
 
             <style>
 
@@ -177,13 +177,13 @@
                       
                     </small>
 
-{#                     <div class="d-inline-block">
+                    <div class="d-inline-block">
                     
                       <input class="proxy-news-input me-0" type="text" placeholder="Partager des nouvelles">
 
                       <div class="fake-send-button d-inline-flex ms-1"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
                         
-                    </div> #}
+                    </div>
 
                   </a>
 
@@ -203,7 +203,7 @@
 
             <div class="sm-border-none border rounded p-3 pb-4 h-100">
 
-                <h5 class="d-flex align-items-center justify-content-center justify-content-md-start mb-3 ps-3"><img class="me-1 " src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="22"> Mes articles</h5>
+                <h5 class="d-flex align-items-center justify-content-center justify-content-md-start mb-3 ps-3"><img class="homepage-board-icon" src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="22"> Mes articles</h5>
                 
                 {% set userArticles = app.user.articles %}
 
@@ -264,6 +264,20 @@
         </div>
 
       </div>
+
+
+
+      <style>
+      
+        .homepage-board-icon{
+
+	        filter: invert(68%) sepia(19%) saturate(539%) hue-rotate(120deg) brightness(90%) contrast(91%);
+          margin-right: 0.25rem;
+
+        }
+      
+      
+      </style>
     
     {% endif %}
 

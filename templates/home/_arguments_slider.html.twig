@@ -186,6 +186,36 @@
 
 <style>
 
+  #rationalArgumentsCarousel .carousel-control-prev, #rationalArgumentsCarousel .carousel-control-next {
+
+    display: flex;
+    top: unset;
+    bottom: unset;
+    z-index: 2;
+    background-color: #bedcfa;
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+    opacity: unset;
+  }
+
+  @media screen and (max-width: 580px) {
+
+    #rationalArgumentsCarousel .carousel-control-prev, #rationalArgumentsCarousel .carousel-control-next {
+
+      width: 31px;
+      height: 31px;
+    
+    }
+
+    #rationalArgumentsCarousel .carousel-control-prev-icon, #rationalArgumentsCarousel .carousel-control-next-icon {
+
+      width: 16px;
+        
+    }
+
+  }
+
   .arguments-slider-title{
 
     font-size: 30px;

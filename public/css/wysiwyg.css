@@ -187,7 +187,7 @@
 
 [contenteditable=true]:empty:before{ /* Allow to insert Placeholders in Content Editables thanks to a data-text attributes*/
     content: attr(data-text);
-    color: rgb(177, 177, 177);
+    color: rgb(203, 209, 214);
     cursor: text;
 }
 
@@ -249,7 +249,7 @@ textarea:focus, input:focus{
 
 
 
-/* Media Queries */
+/* Other Media Queries */
 
 @media screen and (max-width: 580px) {
 
@@ -269,12 +269,78 @@ textarea:focus, input:focus{
         
     label, legend {
 
-        font-size: 1.10em !important;
+        font-size: 1.05em !important;
 
     }
 
     .in-edition-mode #text_description {
         padding: 0;
+    }
+
+}
+
+
+/* News Proxy Form & Form */
+
+.in-edition-mode .pp-edition-mode.news-form-struct{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 48px 24px 48px;
+    margin-bottom: 48px;
+    border : 1px solid grey;
+
+}
+
+.news-form-struct-title{
+
+    margin-bottom: 30px;
+    text-align: center;
+    font-weight: bold;
+    color: green;
+
+}
+
+.news-form-struct-title .news-icon{
+
+    margin-bottom: 4px;
+    filter: invert(49%) sepia(40%) saturate(2752%) hue-rotate(353deg) brightness(108%) contrast(103%)
+
+}
+
+@media screen and (max-width: 580px) {
+    
+    .in-edition-mode .pp-edition-mode.news-form-struct{
+
+        display: none;
+        padding:0;
+        border: none;
+
+    }
+
+    .news-form-struct-title{
+
+        margin-top: 16px;
+        margin-bottom: 16px;
+        font-size: 16px;
+
+    }
+
+    .news-form-struct-title img{
+
+        width: 16px;
+        height: 16px;
+        margin-bottom: 0;
+
+    }
+
+
+    .news-form-container .tox-tinymce {
+       
+        height: 217px !important;
+
     }
 
 }

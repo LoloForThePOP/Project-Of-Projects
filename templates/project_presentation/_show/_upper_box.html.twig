@@ -88,7 +88,7 @@
 
 <div class="pp-upper-box pp-struct-container row"> 
 
-    <div class="container d-md-flex align-items-center left-col-md col-lg-9">
+    <div class="left-col-md container col-lg-6 d-md-flex align-items-center">
 
         {# Status & Title Displayed at the top (only for small screens) #}
 
@@ -195,9 +195,15 @@
 
     </div>
 
+    <div class="middle-col-md container col-lg-3">
+    
+        {{newsFormProxy}}
+    
+    </div>
+
     {# Right column (only >= lg screens) #}
 
-    <div class="container right-col-md col-lg-3 d-none d-lg-flex flex-column justify-content-start">
+    <div class="right-col-md container col-lg-3 d-none d-lg-flex flex-column">
         
         {# Project status or progression icon in edition mode #}
 
@@ -219,11 +225,30 @@
 
         {# Project Comments Count and Access #}
 
-        <div class="px-2 pt-2 pb-0 pt-lg-0 pb-lg-3 mb-lg-3" style="border: none; border-bottom: 1px solid #ddddb1;">
+        <div class="edit-third-row px-2 pt-2 pb-0 pt-lg-0 pb-lg-3">
         
             {{ _self.accessComments(countComments) }}
 
         </div>
+
+        <style>
+
+
+            .in-edition-mode .right-col-md .edit-third-row{
+
+                margin-bottom: 0;
+
+            }
+
+            .in-consultation-mode .right-col-md .edit-third-row{
+
+                margin-bottom: 1rem;
+                border: none; 
+                border-bottom: 1px solid #ddddb1;
+
+            }
+        
+        </style>
 
         {# Presentation More Info (creation date, etc.) #}
 
@@ -243,9 +268,17 @@
 
 <style>
 
-    .right-col-md{
+    .middle-col-md{
         display: flex;
         justify-content: center;
+        align-items: center;
+        padding-left: 10px;
+        border-left: 1px solid rgb(204, 204, 161);
+    }
+
+    .right-col-md{
+        display: flex;
+        justify-content: space-evenly;
         padding-left: 10px;
         border-left: 1px solid rgb(204, 204, 161);
     }

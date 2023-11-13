@@ -1,14 +1,13 @@
-.proxy-news-creation-container{
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
-
-
+.proxy-news-creation-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: #f8fff870;
+	border: 1px solid #d1d8fe;
 }
 
 .fake-send-button{
@@ -22,17 +21,17 @@
 
 .fake-send-button img{
     width: 12px;
+    padding-right: 1px;
 }
 
 
-.proxy-news-input{
-
-    min-width: 130px;
-
-    padding: 0px 5px 0px 5px;
-
-    margin-right: 12px;
-    
+.proxy-news-input {
+	min-width: 130px;
+	padding: 4px 13px 4px 12px;
+	margin-right: 12px;
+	background-color: #fffffe;
+	border-radius: 4px;
+	border: 1px solid grey;
 }
 
 @media screen and (max-width: 580px) {

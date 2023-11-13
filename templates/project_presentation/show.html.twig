@@ -192,6 +192,14 @@
 
 <div class="pp-container {{userPresenter ? 'in-edition-mode' : 'in-consultation-mode'}} container">
 
+    {% set newsFormProxy %}
+                    
+        <input class="proxy-news-input" type="text" placeholder="Donner des nouvelles">
+
+        <div class="fake-send-button"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
+
+    {% endset %}
+
     {# Upper box containing Project Title + Goal + Logo #}
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
@@ -267,17 +275,20 @@
 
     {% endif %}
 
-    {# Add a News form #}
+    {# Add a News Form (Tiny Screens) #}
 
     {% if userPresenter %}
-            
-        <div class="proxy-news-creation-container pp-struct-container">
-        
-            <input class="proxy-news-input" type="text" placeholder="Donner des nouvelles">
 
-            <div class="fake-send-button"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
-        
+        <div class="pp-edition-mode d-md-none">
+
+            <div class="proxy-news-creation-container pp-struct-container">
+
+                {{newsFormProxy}}
+
+            </div>  
+                    
         </div>
+
 
         <script>
 
@@ -286,14 +297,20 @@
                 $("#covering-footer").append($(".news-form-struct"));
                 $(".news-form-struct").css("display","block");
 
-                $(".proxy-news-input").on('click', function (){
+                $(".proxy-news-input, .js-footer-news").on('click', function (){
+
+                    populateFooterNews();
+
+                });
+
+
+                function populateFooterNews() {
 
                     $("#covering-footer").addClass("displayFlex");
                     $("#covering-footer").show();
                     tinymce.execCommand('mceFocus',false,'news_textContent');
-                    //$("#news_textContent").focus();
 
-                });
+                }
 
             });
         
@@ -311,81 +328,6 @@
             </div>        
             
         </div>
-
-        <style>
-
-            .in-edition-mode .pp-edition-mode.news-form-struct{
-
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                border : 1px solid grey;
-
-                padding: 16px 48px 24px 48px;
-                
-                margin-bottom: 48px;
-
-            }
-
-            .news-form-struct-title{
-
-
-                margin-bottom: 30px;
-                text-align: center;
-                font-weight: bold;
-                color: green;
-
-
-            }
-
-            .news-form-struct-title .news-icon{
-
-                margin-bottom: 4px;
-                filter: invert(49%) sepia(40%) saturate(2752%) hue-rotate(353deg) brightness(108%) contrast(103%)
-
-            }
-
-            @media screen and (max-width: 580px) {
-                
-                .in-edition-mode .pp-edition-mode.news-form-struct{
-
-                    display: none;
-                    padding:0;
-                    border: none;
-
-                }
-
-                .news-form-struct-title{
-
-
-                    margin-top: 16px;
-                    margin-bottom: 16px;
-                    font-size: 16px;
-
-
-                }
-
-                .news-form-struct-title img{
-
-
-                    width: 16px;
-                    height: 16px;
-                    margin-bottom: 0;
-
-
-                }
-
-
-                .news-form-container .tox-tinymce {
-                   
-                    height: 217px !important;
-                }
-
-            }
-        
-        
-        </style>    
         
     
     {% endif %}
@@ -420,15 +362,20 @@
 
             {# News  #}
 
-            <div class="col-lg-6 pp-struct-container-wrapper {% if countNews == 0 %} pp-edition-mode {% endif %}">
+            {% if countNews > 0 %}
 
-                <div id="news-struct-container" class="pp-struct-container">
-                    
-                    {% include 'project_presentation/_show/_news.html.twig' %}
-
-                </div>
             
-            </div>
+                <div class="col-lg-6 pp-struct-container-wrapper {% if countNews == 0 %} pp-edition-mode {% endif %}">
+
+                    <div id="news-struct-container" class="pp-struct-container">
+                        
+                        {% include 'project_presentation/_show/_news.html.twig' %}
+
+                    </div>
+                
+                </div>
+
+            {% endif %}
 
             {# Miscelaneous Data List #}
 

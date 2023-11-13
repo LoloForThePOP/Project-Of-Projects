@@ -15,15 +15,24 @@
 				{# Add an image button (triggers a modal with a form) #}
 			
 				<button type="button" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal"
-				class="pp-edition-mode btn btn-light btn-sm me-3">+ Image</button>
+				class="pp-edition-mode add-media-btn btn btn-light btn-sm me-3">+ Image</button>
 
 				{# Add a video button (triggers a modal with a form) #}
 
 				<a class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#addVideoSlideFormModal">
 
-					<button class="pp-edition-mode btn btn-light btn-sm me-3">+ Video</button>
+					<button class="pp-edition-mode add-media-btn btn btn-light btn-sm me-3">+ Video</button>
 
 				</a>
+
+				<style>
+				
+					.add-media-btn{
+						border-radius: 100px;
+					}
+				
+				
+				</style>
 
 			{% endif %}
 
@@ -64,7 +73,7 @@
 
 		{% if countSlides == 0 %}
 
-			<div class="text-placeholder" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal">Ce paysage est monotone... Ajouter des images !</div>
+			<div class="text-placeholder" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal">Ajoutez des images pour illustrer votre projet !</div>
 
 			<img id="" class="no-slide" data-bs-toggle="modal" data-bs-target="#addImageSlideFormModal" src="{{ asset('no_slide.png', 'pp_wysiwyg')}}"  alt="Two cute teddy bears from behing looking at a windows.">
 

@@ -1,7 +1,7 @@
 .news-card {
     position: relative;
     max-width: 430px;
-    min-height: 300px;
+    min-height: 320px;
     max-height: 444px;
     padding: 5px 8px;
     margin: 0 auto 20px auto;
@@ -16,7 +16,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2px;
+    margin-bottom: 4px;
     
 }
 
@@ -96,7 +96,7 @@
 @media screen and (min-width: 580px) {
 
     .news-card .carousel-control-prev, .news-card .carousel-control-next {
-        background-color: #597182;
+        background-color: #b9d4e7;
         height: 50px;
         border-radius: 50px;
         margin-top: 20%;

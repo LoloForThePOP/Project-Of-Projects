@@ -111,11 +111,22 @@ class PPController extends AbstractController
 
             $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'/project_presentation/email_webmaster_notif_new_pp.html.twig', $emailParameters);
 
-            return $this->redirectToRoute('presentation_helper', [
+            /* return $this->redirectToRoute('presentation_helper', [
                 "stringId" => $presentation->getStringId(),                
                 "position" => 0,                
-                "repeatInstance" => "false",                
-            ]);
+                "repeatInstance" => "false",
+            ]); */
+
+            return $this->redirectToRoute(
+                'show_presentation',
+
+                [
+
+                    'stringId' => $presentation->getStringId(),
+
+                ]
+
+            );
 
         }
 

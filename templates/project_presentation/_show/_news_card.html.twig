@@ -20,7 +20,7 @@
 
         {% if userPresenter is defined and userPresenter == true %}
         
-            <a href=" {{ path("edit_news", { "id": news.id }) }}" class="text-end">Modifier</a>
+            <a href="{{ path("edit_news", { "id": news.id }) }}" class="text-secondary">Modifier</a>
         
         {% endif %}  
     

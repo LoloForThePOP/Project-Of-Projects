@@ -37,43 +37,47 @@
                             {% include "project_presentation/_show/_news_card.html.twig" %}
 
                     {% endfor %}  
+
+                    {% if countNews > 1 %}
+                                
+                        {# News slider controls #}
+
+                        <div class="newsSliderControls">
+
+                            <a class="item previousNewsSlide" onclick="plusSlidesNews(-1)">&#10094;</a>
+                            <a class="item nextNewsSlide" onclick="plusSlidesNews(1)">&#10095;</a>
+                        
+                        </div>
+
+                        {# News slider script #}
+                        <script>
                             
-                    {# News slider controls #}
+                            let slideIndexNews = 1;
 
-                    <div class="newsSliderControls">
 
-                        <a class="item previousNewsSlide" onclick="plusSlidesNews(-1)">&#10094;</a>
-                        <a class="item nextNewsSlide" onclick="plusSlidesNews(1)">&#10095;</a>
+                            // Next/previous controls
+                            function plusSlidesNews(n) {
+                            showSlidesNews(slideIndexNews += n);
+                            }
+
+                            function showSlidesNews(n) {
+                            let i;
+                            let slides = document.getElementsByClassName("news-card");
+                            
+                            if (n > slides.length) {slideIndexNews = 1}
+                            if (n < 1) {slideIndexNews = slides.length}
+                            for (i = 0; i < slides.length; i++) {
+                                slides[i].style.display = "none";
+                            }
+                            slides[slideIndexNews-1].style.display = "block";
+                            } 
+                            
+                            
+                        </script>
+
+                    {% endif %}
+
                     
-                    </div>
-
-                    
-                    {# News slider script #}
-                    <script>
-                        
-                        let slideIndexNews = 1;
-
-
-                        // Next/previous controls
-                        function plusSlidesNews(n) {
-                        showSlidesNews(slideIndexNews += n);
-                        }
-
-                        function showSlidesNews(n) {
-                        let i;
-                        let slides = document.getElementsByClassName("news-card");
-                        
-                        if (n > slides.length) {slideIndexNews = 1}
-                        if (n < 1) {slideIndexNews = slides.length}
-                        for (i = 0; i < slides.length; i++) {
-                            slides[i].style.display = "none";
-                        }
-                        slides[slideIndexNews-1].style.display = "block";
-                        } 
-                        
-                        
-                    </script>
-
                     <style>
 
                         {# initialize news cards slider #}

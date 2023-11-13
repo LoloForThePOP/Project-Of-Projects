@@ -6,23 +6,23 @@
 
         {# Manage places button #}
 
-        <a class="pp-edition-mode text-decoration-none mx-3" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
-
-            <button class="btn btn-light edit-icon-button">
+        <a class="pp-edition-mode edit-places-btn" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
                 
-                <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
-
-            </button>
+            <img class="edit-icon" src="{{ asset('edit.svg', 'pp_wysiwyg')}}" height="17" width="17" alt="edit icon" >
 
         </a>
 
         <style>
-        
-            .edit-icon-button{
-                
-	            padding: 3px 8px;
-                border-radius: 8px;
 
+           .edit-places-btn {
+                background-color: #e2f6e1;
+                border-radius: 50%;
+                width: 30px;
+                display: inline-flex !important;
+                height: 30px;
+                flex-wrap: inherit;
+                justify-content: center;
+                align-items: center;
             }
 
         </style>

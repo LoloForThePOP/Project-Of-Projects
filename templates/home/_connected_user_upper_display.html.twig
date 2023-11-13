@@ -1,0 +1,290 @@
+<h4 class="text-center fs-4 mb-2 mb-md-4">👋 Bienvenue Parmi Nous</h4>
+
+<div class="row mb-2 mb-md-3 mb-lg-5">
+
+
+  {# Presented projects #}
+
+  <div class="connected-user-struct-container col-md-6 p-0 pe-md-3 ps-md-2 mb-2 mb-md-0">
+
+    <div class="connected-user-struct sm-border-none p-3 pb-1 h-100">
+        
+      <h5 class="title d-flex align-items-center justify-content-center justify-content-md-start ps-md-3 mb-3"><img class="homepage-board-icon" src="{{ asset('goal.svg', 'misc')}}" alt="A target" height="19">Mes Projets Présentés</h5>
+
+      <style>
+
+        .connected-user-struct {
+
+          border: 1px solid #aeaedd;
+          border-radius: 4px;
+
+        }
+
+        .connected-user-struct .title{
+
+          color: #2a2a59;
+
+        }
+
+        .connected-user-struct-container .list-group{
+
+
+          max-height: 230px;
+          overflow-y: auto;
+  
+        }
+
+        @media screen and (max-width: 580px) {
+                
+          .connected-user-struct-container .list-group-item{
+
+            padding-left: 8px;
+
+          }
+            
+        }
+      
+
+      </style>
+
+      {% set userCreatedPresentations = app.user.createdPresentations | reverse %}
+
+      {% if userCreatedPresentations | length  == 0 %}
+
+        <div class="no-project-container">
+
+          <p class="">
+
+            Pour <b>présenter un projet</b>, <b>trouver de l'aide</b>,<br> et <b>donner des nouvelles</b>, <a href="{{path ('create_presentation')}}" aria-label="this links targets to create a project presentation page."> <span class="fw-bold" >c'est ici 👈</span></a>
+            
+          </p>
+
+        </div>
+
+        <style>
+
+          /* When authenticated user has not created any presentation */
+
+          .no-project-container {
+            width: 100%;
+            min-height: 170px;
+            padding: 25px 50px 25px 50px;
+            border-radius: 4px;
+          }
+
+          .no-project-container p {
+            margin-bottom: 0;
+            text-align: center;
+          }
+          
+          @media screen and (max-width: 580px) {
+                  
+            .no-project-container {
+              min-height: unset;
+              padding: 15px;
+              padding-bottom: 20px;
+              margin-bottom: 30px;
+            }
+              
+            .no-project-container p {
+              text-align: left;
+              font-size: 1.05rem;
+            }
+          }
+    
+        </style>
+        
+      {% else %}
+
+
+        {# News Form Integration #}
+
+        <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+
+        <script src="/js/news_creation.js"></script>
+
+
+        <div class="news-form-struct pp-edition-mode"> 
+
+            <h4 class="news-form-struct-title"><img id="" class="news-icon me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="news-icon ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
+
+            <div class="">
+            
+              {% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}
+            
+            </div>
+            
+        </div>
+
+        {# Enf of News Form Integration #}
+
+
+        <div class="list-group ps-md-3 mt-2 mb-3">
+
+          {% for createdPresentation in userCreatedPresentations %}
+
+            <a href="#" class="list-group-item list-group-item-action">
+
+              <div class="d-flex w-100 justify-content-between">
+
+                <h5 class="mb-1">{{createdPresentation.title}}</h5>
+    
+                <small>
+
+                  Il y a 
+
+                  {% if createdPresentation.updatedAt is not empty %}
+                  
+                      {{createdPresentation.updatedAt | formattedElapsedTime }}
+
+                  {% else %}
+
+                      {{createdPresentation.createdAt | formattedElapsedTime }}
+                      
+                  {% endif %}
+      
+                </small>
+
+              </div>
+
+              <p class="mb-1">{{ createdPresentation.goal | length < 81 ? createdPresentation.goal[:1] | upper ~ createdPresentation.goal[1:] : createdPresentation.goal[:1] | upper ~ createdPresentation.goal[1:77] ~ '...' }}</p>
+
+              <small class="d-inline-block me-2">
+              
+                <div class="stats ">
+                
+                    <span class="stat-chunk">
+
+                        <img class="" src="{{ asset('thumb_up_dark.svg', 'misc')}}" alt="a thumb-up icon">
+
+                        {{createdPresentation.likes | length }}
+                    
+                    </span>
+
+                    <span class="stat-chunk">
+
+                        <img class="" src="{{ asset('comment.svg', 'misc')}}" alt="a comment icon">
+
+                        {{createdPresentation.comments | length }}
+                    
+                    </span>
+
+                    <span class="stat-chunk">
+
+                        <img class="" src="{{ asset('eye.svg', 'misc')}}" alt="an eye icon">
+
+                        {{createdPresentation.getDataItem('viewsCount')}}
+                    
+                    </span>
+                    
+                </div>
+                
+              </small>
+
+        
+
+              <div class="proxy-news-creation-container d-md-inline-block">
+              
+                <input class="proxy-news-input" data-pp-id="{{createdPresentation.id}}" type="text" placeholder="Partager des nouvelles">
+
+                <div class="fake-send-button"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
+                  
+              </div>
+
+            </a>
+
+          {% endfor %}
+
+        </div>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+  {# Created articles #}
+
+  <div class="connected-user-struct-container col-md-6 p-0">
+
+      <div class="connected-user-struct sm-border-none p-3 pb-4 h-100">
+
+          <h5 class="title d-flex align-items-center justify-content-center justify-content-md-start mb-3 ps-3">
+          
+            <div class="d-flex align-items-center me-4"><img class="homepage-board-icon" src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="22"> Mes Articles</div>
+
+            <div class="d-none d-md-block"><a href="{{ path ('edit_article') }}"><button type="button" class="btn btn-outline-primary d-flex align-items-center py-0"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un Article sur Propon</div></button></a></div>
+          
+          </h5>
+          
+          {% set userArticles = app.user.articles %}
+
+          {% if userArticles | length == 0 %}
+
+            <div class="d-flex flex-column align-items-center justify-content-center h-75">
+            
+              <div class="text-center mx-3 mt-2 fs-6 mb-3">
+              
+                <div class="mb-2">Vous avez des <b>conseils</b>, une <b>expérience</b>, une <b>actualité</b> à partager ?</div>
+                <div class=""><b>Partagez vos connaissances avec notre super communauté.</b></div>
+              
+              </div>
+
+              <a href="{{ path ('edit_article') }}"><button type="button" class="btn btn-outline-primary d-flex align-items-center"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un Article sur Propon</div></button></a>
+            
+            </div>
+
+          {% else %}
+
+            <div class="list-group ps-md-3 mt-2 mb-3">
+
+              {% for article in userArticles %}
+
+                  <div class="list-group-item list-group-item-action">
+
+                    <a href="{{path('show_article', {"slug": article.slug})}}" class="text-body" aria-current="true">
+
+                      <h5 class="d-inline mb-1 fs-6">{{article.title}}</h5>
+                      
+                    </a>
+
+                  <a href="{{path('edit_article', {"id": article.id})}}" class="ms-3">Modifier</a>
+                    
+                  {# Stats #}
+                                
+                    <span class="stat-chunk ms-3">
+
+                        <img class="" src="{{ asset('eye.svg', 'misc')}}" alt="an eye icon">
+                        {{article.getDataItem('viewsCount')}}
+                        
+                    </span> 
+
+                  </div>
+                  
+                
+
+              {% endfor %}
+          
+            </div> 
+
+          {% endif %}
+
+      </div>
+
+  </div>
+
+</div>
+
+
+
+<style>
+
+  .homepage-board-icon{
+
+    filter: invert(68%) sepia(19%) saturate(539%) hue-rotate(120deg) brightness(90%) contrast(91%);
+    margin-right: 0.25rem;
+
+  }
+
+
+</style>

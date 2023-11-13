@@ -32,7 +32,7 @@ class HomeController extends AbstractController
 
         $presentation = new PPBase();
 
-        $form = $this->createForm(
+        $setGoalForm = $this->createForm(
             CreatePresentationType::class,
             $presentation,
             array(
@@ -44,11 +44,11 @@ class HomeController extends AbstractController
             )
         );
 
-        $form->handleRequest($request);
+        $setGoalForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($setGoalForm->isSubmitted() && $setGoalForm->isValid()) {
 
-            $projectGoal = $form->getData('goal');
+            $projectGoal = $setGoalForm->getData('goal');
             
             /* Email Webmaster that a new presentation has been created (moderation) */
 
@@ -88,15 +88,23 @@ class HomeController extends AbstractController
 
         }
 
+
         if ($this->isGranted('ROLE_USER')) {
 
             $news = new News();
-            $addNewsForm = $this->createForm(NewsType::class);
+            $addNewsForm = $this->createForm(NewsType::class, $news);
             $addNewsForm->handleRequest($request);
 
             if ($addNewsForm->isSubmitted() && $addNewsForm->isValid()) {
-                
-                $news->setProject($presentation);
+
+                //Searching for Targeted Presentation (user can have several presented projects, so we got to know which project is targeted by the news):
+
+                //$targetedPresentationId = $addNewsForm->get('presentationId')->getData();
+                //$targetedPresentation = $this->entityManager->getRepository(News::class)->findOneById($targetedPresentationId);
+                //$news->setProject($targetedPresentation);
+
+
+
                 $news->setAuthor($this->getUser());
                 $manager->persist($news);
                 $manager->flush();
@@ -124,20 +132,6 @@ class HomeController extends AbstractController
         }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $presentations = $manager->createQuery('SELECT p FROM App\Entity\PPBase p WHERE p.isPublished=true AND p.overallQualityAssessment>=2 AND p.isAdminValidated=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->getResult();
      
         // last 20 inserted projects presentations
@@ -152,18 +146,24 @@ class HomeController extends AbstractController
         $highlightedProjects = array_slice($lastInsertedPresentations, 0, 5);
 
 
-
-
         $articles = array_reverse($artRepo->findAll());
 
-        
-        /* UluleAPI $ulule,
-        $ulule->fetchProjectInfo(); just testing Ulule api*/
+        if ($this->isGranted('ROLE_USER')) { // we add news form to connected users
+
+            return $this->render("/home/homepage.html.twig", [
+                'lastInsertedPresentations' => $lastInsertedPresentations,
+                'highlightedProjects' => $highlightedProjects,
+                'setGoalForm' => $setGoalForm->createView(),
+                'addNewsForm' => $addNewsForm->createView(),
+                'articles' => $articles,
+            ]);
+
+        }
 
         return $this->render("/home/homepage.html.twig", [
             'lastInsertedPresentations' => $lastInsertedPresentations,
             'highlightedProjects' => $highlightedProjects,
-            'form' => $form,
+            'setGoalForm' => $setGoalForm->createView(),
             'articles' => $articles,
         ]);
 

@@ -94,38 +94,12 @@ class MiscController extends AbstractController
     {
 
         //$ia = new OpenAIService ($_ENV['OPEN_AI_KEY']);
-
         //$answer = $ia->answer("I'm happy but...");
 
-        $html = '<html><body>
-    <img src="image1.jpg" alt="Image 1">
-    <img src="image2.png" alt="Image 2">
-    <img src="image3.gif" alt="Image 3">
-</body></html>';
+        /* UluleAPI $ulule,
+        $ulule->fetchProjectInfo(); just testing Ulule api*/
 
-$matches = array();
-
-// Utilisez une expression régulière pour extraire les noms de fichiers d'images depuis la balise "img" avec l'attribut "src"
-$pattern = '/<img[^>]*src=["\']([^"\']+)["\'][^>]*>/i';
-
-if (preg_match_all($pattern, $html, $matches)) {
-    // Les noms de fichiers d'images extraits sont dans $matches[1]
-    $imageFileNames = $matches[1];
-
-
-    // Affichez les noms des fichiers d'images
-    $result="";
-    foreach ($imageFileNames as $fileName) {
-        $result .= "Nom du fichier image : $fileName<br>";
-    }
-} else {
-    $result = "Aucun fichier image trouvé dans la chaîne HTML.";
-}
-        
-   
         return $this->render("/test_something.html.twig", [
-
-            "result" => $result,
 
         ]);
 

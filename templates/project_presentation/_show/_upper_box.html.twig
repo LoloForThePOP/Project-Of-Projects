@@ -88,7 +88,7 @@
 
 <div class="pp-upper-box pp-struct-container row"> 
 
-    <div class="left-col-md container col-lg-6 d-md-flex align-items-center">
+    <div class="left-col-md container col-lg-9 d-md-flex align-items-center">
 
         {# Status & Title Displayed at the top (only for small screens) #}
 
@@ -195,7 +195,10 @@
 
     </div>
 
-    <div class="middle-col-md container col-lg-3">
+
+    {# Middle column (only >= lg screens) #}
+
+    <div class="middle-col-md pp-edition-mode container col-lg-3 d-none d-lg-flex">
     
         {{newsFormProxy}}
     
@@ -268,11 +271,16 @@
 
 <style>
 
+    {# In Edition Mode we reduce left col width because their is a news form proxy in the upper box #}
+
+    .in-edition-mode .left-col-md {
+
+        width: 50%;
+    }
+
     .middle-col-md{
-        display: flex;
         justify-content: center;
         align-items: center;
-        padding-left: 10px;
         border-left: 1px solid rgb(204, 204, 161);
     }
 
@@ -359,6 +367,11 @@
             margin-top: 11px;
             margin-bottom: 15px;
             
+        }
+
+        .in-edition-mode .left-col-md {
+
+            width: 100%;
         }
 
         .pp-logo-container{

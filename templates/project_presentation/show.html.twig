@@ -194,7 +194,7 @@
 
     {% set newsFormProxy %}
                     
-        <input class="proxy-news-input" type="text" placeholder="Donner des nouvelles">
+        <input class="proxy-news-input" data-pp-id="{{presentation.id}}" type="text" placeholder="Donner des nouvelles">
 
         <div class="fake-send-button"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
 
@@ -290,32 +290,8 @@
         </div>
 
 
-        <script>
 
-             $(document).ready(function(){
-
-                $("#covering-footer").append($(".news-form-struct"));
-                $(".news-form-struct").css("display","block");
-
-                $(".proxy-news-input, .js-footer-news").on('click', function (){
-
-                    populateFooterNews();
-
-                });
-
-
-                function populateFooterNews() {
-
-                    $("#covering-footer").addClass("displayFlex");
-                    $("#covering-footer").show();
-                    tinymce.execCommand('mceFocus',false,'news_textContent');
-
-                }
-
-            });
-        
-        </script>
-
+        <script src="/js/news_creation.js"></script>
 
         <div class="news-form-struct pp-edition-mode"> 
 
@@ -329,7 +305,6 @@
             
         </div>
         
-    
     {% endif %}
 
     <div class="container px-0">

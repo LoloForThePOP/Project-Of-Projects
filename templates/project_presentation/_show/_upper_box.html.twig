@@ -198,11 +198,17 @@
 
     {# Middle column (only >= lg screens) #}
 
-    <div class="middle-col-md pp-edition-mode container col-lg-3 d-none d-lg-flex">
-    
-        {{newsFormProxy}}
-    
-    </div>
+    {% if userPresenter %}
+
+        <div class="middle-col-md pp-edition-mode container col-lg-3 d-none d-lg-flex">
+        
+            {{newsFormProxy}}
+        
+        </div>
+
+    {% endif %}
+
+ 
 
     {# Right column (only >= lg screens) #}
 

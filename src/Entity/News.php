@@ -57,6 +57,11 @@ class News
     private $project;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="news")
+     */
+    private $author;
+
 
          
     /**
@@ -228,11 +233,6 @@ class News
      * @var File|null
      */
     public $image3File;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="news")
-     */
-    private $author;
 
     
     /**

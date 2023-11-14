@@ -97,24 +97,40 @@
       {% else %}
 
 
-        {# News Form Integration #}
+        {# News Form Assets #}
 
-        <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+          {# Rich Text Editor #}
 
-        <script src="/js/news_creation.js"></script>
+          <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
+          {# News Form HTML #}
 
-        <div class="news-form-struct pp-edition-mode"> 
+          <div class="news-form-struct pp-edition-mode"> 
 
-            <h4 class="news-form-struct-title"><img id="" class="news-icon me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="news-icon ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
+              <h4 class="news-form-struct-title"><img id="" class="news-icon me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="news-icon ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
 
-            <div class="">
-            
-              {% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}
-            
-            </div>
-            
-        </div>
+              <div class="">
+              
+                {% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}
+              
+              </div>
+              
+          </div>
+
+          {# Integrate News Form in Covering Footer #}
+
+          <script src="/js/news_creation.js"></script>
+
+          {# News Form Proxy (this chunk is displayed bellow) #}
+
+          {% macro newsFormProxy (idPresentation) %}
+
+            <input class="proxy-news-input" data-pp-id="{{idPresentation}}" type="text" placeholder="Partager des nouvelles">
+
+            <div class="fake-send-button"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
+                
+          {% endmacro %}
+
 
         {# Enf of News Form Integration #}
 
@@ -125,70 +141,62 @@
 
             <a href="#" class="list-group-item list-group-item-action">
 
-              <div class="d-flex w-100 justify-content-between">
+              <div class="d-flex w-100 justify-content-between mb-1">
 
-                <h5 class="mb-1">{{createdPresentation.title}}</h5>
-    
-                <small>
+                <h5 class="">
 
-                  Il y a 
+                  {% if createdPresentation.title is empty %}
 
-                  {% if createdPresentation.updatedAt is not empty %}
-                  
-                      {{createdPresentation.updatedAt | formattedElapsedTime }}
-
+                    {{ createdPresentation.goal [:20] ~ (createdPresentation.goal | length > 20 ? '…') }}
+                    
                   {% else %}
 
-                      {{createdPresentation.createdAt | formattedElapsedTime }}
-                      
+                    {{ createdPresentation.title [:20] ~ (createdPresentation.title | length > 20 ? '…') }}
+                    
                   {% endif %}
+                
+                </h5>
       
+                <small class="d-inline-block">
+                
+                  <div class="stats ">
+                  
+                      <span class="stat-chunk">
+
+                          <img class="" src="{{ asset('thumb_up_dark.svg', 'misc')}}" alt="a thumb-up icon">
+
+                          {{createdPresentation.likes | length }}
+                      
+                      </span>
+
+                      <span class="stat-chunk">
+
+                          <img class="" src="{{ asset('comment.svg', 'misc')}}" alt="a comment icon">
+
+                          {{createdPresentation.comments | length }}
+                      
+                      </span>
+
+                      <span class="stat-chunk">
+
+                          <img class="" src="{{ asset('eye.svg', 'misc')}}" alt="an eye icon">
+
+                          {{createdPresentation.getDataItem('viewsCount')}}
+                      
+                      </span>
+                      
+                  </div>
+                  
                 </small>
 
               </div>
 
-              <p class="mb-1">{{ createdPresentation.goal | length < 81 ? createdPresentation.goal[:1] | upper ~ createdPresentation.goal[1:] : createdPresentation.goal[:1] | upper ~ createdPresentation.goal[1:77] ~ '...' }}</p>
+              {# News Form Proxy #}
 
-              <small class="d-inline-block me-2">
+              <div class="d-flex justify-content-center mb-2 mb-md-3">
               
-                <div class="stats ">
-                
-                    <span class="stat-chunk">
-
-                        <img class="" src="{{ asset('thumb_up_dark.svg', 'misc')}}" alt="a thumb-up icon">
-
-                        {{createdPresentation.likes | length }}
-                    
-                    </span>
-
-                    <span class="stat-chunk">
-
-                        <img class="" src="{{ asset('comment.svg', 'misc')}}" alt="a comment icon">
-
-                        {{createdPresentation.comments | length }}
-                    
-                    </span>
-
-                    <span class="stat-chunk">
-
-                        <img class="" src="{{ asset('eye.svg', 'misc')}}" alt="an eye icon">
-
-                        {{createdPresentation.getDataItem('viewsCount')}}
-                    
-                    </span>
-                    
-                </div>
-                
-              </small>
-
-        
-
-              <div class="proxy-news-creation-container d-md-inline-block">
+                {{ _self.newsFormProxy ( createdPresentation.id ) }}              
               
-                <input class="proxy-news-input" data-pp-id="{{createdPresentation.id}}" type="text" placeholder="Partager des nouvelles">
-
-                <div class="fake-send-button"><img class="text-success" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon"></div>
-                  
               </div>
 
             </a>

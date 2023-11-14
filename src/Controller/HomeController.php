@@ -97,13 +97,17 @@ class HomeController extends AbstractController
 
             if ($addNewsForm->isSubmitted() && $addNewsForm->isValid()) {
 
-                //Searching for Targeted Presentation (user can have several presented projects, so we got to know which project is targeted by the news):
+                //Searching for appropriate presentation (user can have presented several projects, so we got to know which project is targeted by the news)
 
-                //$targetedPresentationId = $addNewsForm->get('presentationId')->getData();
-                //$targetedPresentation = $this->entityManager->getRepository(News::class)->findOneById($targetedPresentationId);
-                //$news->setProject($targetedPresentation);
+                $targetedPresentationId = $addNewsForm->get('presentationId')->getData();
 
+                $targetedPresentation = $this->getDoctrine()->getManager()->getRepository(PPBase::class)->findOneBy(['id' => $targetedPresentationId]);
 
+                if ($targetedPresentation->getCreator() !=$this->getUser()) {
+                    throw new \Exception("Not Allowed :-)");
+                }
+
+                $news->setProject($targetedPresentation);
 
                 $news->setAuthor($this->getUser());
                 $manager->persist($news);
@@ -119,7 +123,7 @@ class HomeController extends AbstractController
     
                     [
     
-                        'stringId' => $presentation->getStringId(),
+                        'stringId' => $targetedPresentation->getStringId(),
                         '_fragment' => 'news-struct-container'
     
                     ]
@@ -148,7 +152,7 @@ class HomeController extends AbstractController
 
         $articles = array_reverse($artRepo->findAll());
 
-        if ($this->isGranted('ROLE_USER')) { // we add news form to connected users
+        if ($this->isGranted('ROLE_USER')) { // we add the news form for connected users (in fact we should only use it for connected users WITH presented projects).
 
             return $this->render("/home/homepage.html.twig", [
                 'lastInsertedPresentations' => $lastInsertedPresentations,

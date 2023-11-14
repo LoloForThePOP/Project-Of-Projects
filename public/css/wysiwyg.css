@@ -294,21 +294,6 @@ textarea:focus, input:focus{
 
 }
 
-.news-form-struct-title{
-
-    margin-bottom: 30px;
-    text-align: center;
-    font-weight: bold;
-    color: green;
-
-}
-
-.news-form-struct-title .news-icon{
-
-    margin-bottom: 4px;
-    filter: invert(49%) sepia(40%) saturate(2752%) hue-rotate(353deg) brightness(108%) contrast(103%)
-
-}
 
 @media screen and (max-width: 580px) {
     
@@ -317,29 +302,6 @@ textarea:focus, input:focus{
         display: none;
         padding:0;
         border: none;
-
-    }
-
-    .news-form-struct-title{
-
-        margin-top: 16px;
-        margin-bottom: 16px;
-        font-size: 16px;
-
-    }
-
-    .news-form-struct-title img{
-
-        width: 16px;
-        height: 16px;
-        margin-bottom: 0;
-
-    }
-
-
-    .news-form-container .tox-tinymce {
-       
-        height: 217px !important;
 
     }
 

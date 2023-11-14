@@ -1,4 +1,4 @@
-<textarea id="" class="tinymce" placeholder="Décrivez votre projet ici en 2 ou 3 paragraphes. N'hésitez pas à utiliser des listes et des sauts de lignes 🚀">{{textDescription}}</textarea>
+<textarea id="text_descr_textarea" class="" placeholder="Décrivez votre projet ici en 2 ou 3 paragraphes. N'hésitez pas à utiliser des listes et des sauts de lignes 🚀">{{textDescription}}</textarea>
 
 
     <!-- CDN - TinyMCE Rich Text Editor -->
@@ -12,7 +12,7 @@
             tinymce.init({
 
                     mode : "specific_textareas",
-                    selector: 'textarea.tinymce',
+                    selector: 'textarea#text_descr_textarea',
                     plugins: 'charmap emoticons lists',
                     toolbar: 'undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent charmap',
                     browser_spellcheck: true,
@@ -41,7 +41,7 @@
 
                             editorChangeHandlerId = setTimeout(function() {
 
-                                editorContent = tinymce.activeEditor.getContent();
+                                editorContent = tinymce.get("text_descr_textarea").getContent();
 
                                 metadata = '{"entity": "PPBase", "property": "textDescription", "id": {{idPP}} }';
 
@@ -56,11 +56,11 @@
                                     
                                     success: function(data) {
                                         //removing previous feedback symbol
-                                        $( ".edit-text-feedback" ).remove(); 
+                                        $(".edit-text-feedback" ).remove(); 
                                         //refreshing read only content
-                                        $("#collapseTextDescription").html(editorContent); 
+                                         $("#collapseTextDescription").html(editorContent); 
                                         //adding some positive feedback to editor
-                                        $( ".tox-toolbar__group" ).append('<div  class="edit-text-feedback text-success" style="display: flex; align-items: center; padding-left: 10px; font-weight: bold; ">enregistré ✅</div>'); 
+                                         $( ".tox-toolbar__group" ).append('<div  class="edit-text-feedback text-success" style="display: flex; align-items: center; padding-left: 10px; font-weight: bold; ">enregistré ✅</div>'); 
                                         
                                         $( ".edit-text-feedback" ).fadeOut(8000);
                     

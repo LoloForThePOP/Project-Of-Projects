@@ -10,7 +10,7 @@
 
           <div class="diagonal-band-box col-12">
 
-            <div class="diag">{{title}}</div>
+            <div class="diag title">{{title}}</div>
 
           </div>
 
@@ -119,7 +119,7 @@
 
 {% set findResources %}
     
-    <h3 class="d-none d-md-block text-center fw-bold mb-4 h4">🙋‍♀️ Présentez vos Besoins</h3>
+    <h3 class="d-none d-md-block text-center fw-bold mb-4 h4">🙋‍♀️ PRÉSENTEZ VOS BESOINS</h3>
     
     {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
     
@@ -147,7 +147,7 @@
 
 
 
-<h3 class="arguments-slider-title">👉 Pourquoi <span class="d-md-none">Utiliser</span><span class="d-none d-md-inline">Présenter son Projet sur</span> Propon ?</h3>
+<h3 class="arguments-slider-title">Pourquoi <span class="d-md-none">Utiliser</span><span class="d-none d-md-inline">Présenter son Projet sur</span> Propon ?</h3>
 
 <div id="rationalArgumentsCarousel" class="carousel container col-lg-8 d-flex align-items-center" data-bs-interval="false">
 
@@ -199,6 +199,16 @@
     opacity: unset;
   }
 
+
+  #rationalArgumentsCarousel .diag.title {
+
+    text-transform: uppercase;
+  }
+
+
+
+
+
   @media screen and (max-width: 580px) {
 
     #rationalArgumentsCarousel .carousel-control-prev, #rationalArgumentsCarousel .carousel-control-next {
@@ -221,6 +231,7 @@
     font-size: 30px;
     text-align: center;
     font-weight: bold;
+    text-transform: uppercase;
   }
 
   .carousel-control-prev, .carousel-control-next {
@@ -270,27 +281,23 @@
 }
 
 
-.carousel-item .diagonal-band-box
-{
+.carousel-item .diagonal-band-box {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-  height: 56px;
-  background-color: #9ccdfe;
-
-  transform: skewY(-4deg);
-  margin-top: 30px;
-  margin-bottom: 10px;
-
-} 
+	height: 75px;
+	background-color: #9ccdfe;
+	transform: skewY(-5deg);
+	margin-top: 30px;
+	margin-bottom: 10px;
+}
 
 .carousel-item .diag {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	transform: skewY(4deg);
-	font-size: 27px;
+	font-size: 24px;
 	font-weight: bold;
 }
 
@@ -359,12 +366,14 @@
   }
 
   .carousel-item .diagonal-band-box {
-    height: 35px;
+    height: 38px;
     margin-bottom: 5px;
+    transform: skewY(-3deg);
   }
 
   .carousel-item .diag {
-    font-size: 18px;
+    font-size: 17px;
+    transform: skewY(3deg);
   }
 
   .carousel-item .img-container {

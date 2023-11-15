@@ -358,7 +358,15 @@
 
     <div class="container my-5">
 
-      <h4 class="d-flex align-items-center justify-content-center fw-bold mb-4"><img class="me-1 " src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="25">Articles</h4>
+      <h2 class="article-container-title fw-bold">
+      
+        <img class="homepage-icon" src="{{ asset('article.svg', 'misc')}}" alt="Article Icon">
+        
+        <span class="me-md-4">Articles</span><span class="d-md-none ms-1 "> sur les Projets</span>
+
+        <a href="{{ path ('edit_article') }}"><button type="button" class="btn btn-outline-dark"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un Article sur Propon</div></button></a>
+      
+      </h2>
 
       <div class="article-cards-container row row-cols-1 row-cols-md-3 g-4">
 
@@ -370,7 +378,47 @@
 
       <style>
 
+        .article-container-title {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-bottom: 36px;
+          font-weight: bold;
+	        color: #212e3e;
+        }
+
+        .article-container-title .btn{
+          display: flex;
+          align-items: center;
+          padding: 0.2rem 1.15rem;
+          margin-top: 5px;
+          font-size: 0.875rem;
+          border-radius: 50px;
+        }
+
+        .homepage-icon{
+
+          height: 33px;
+
+          filter: invert(68%) sepia(19%) saturate(539%) hue-rotate(120deg) brightness(90%) contrast(91%);
+          margin-right: 0.25rem;
+          
+        }
+
         @media screen and (max-width: 580px) {
+
+          .article-container-title {
+
+            margin-left: -10px;
+            margin-right: -10px;
+
+          }
+
+          .article-container-title .btn{
+
+            display: none;
+
+          }
         
           .article-cards-container {
             display: flex;
@@ -387,9 +435,9 @@
     
 
 
-    {# Highlight a random project #} 
+    {# Highlight a random project
 
-    {{ highlight.highlight (highlightedProjects[0]) }}
+    {{ highlight.highlight (highlightedProjects[0]) }} #} 
 
 
 

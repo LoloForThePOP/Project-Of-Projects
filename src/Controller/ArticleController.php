@@ -34,7 +34,9 @@ class ArticleController extends AbstractController
     public function edit(ArticleRepository $repo, $id = null, Request $request, EntityManagerInterface $manager, SluggerInterface $slugger, Security $security, MailerService $mailer): Response
     {
 
-        if($id != null){
+        $this->denyAccessUnlessGranted('ROLE_USER');
+
+        if($id != null){ //article already exists, so we hydrate the form
 
             $article = $repo->findOneById($id);
 

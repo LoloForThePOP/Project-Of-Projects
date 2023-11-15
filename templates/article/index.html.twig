@@ -1,48 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Liste des Articles{% endblock %}
+{% import "utilities/_macro_articles_cards.html.twig" as artCards %}
+
+{% block title %}Articles{% endblock %}
 
 {% block body %}
 
-    <div class="my-5">
+    <div class="page-container">
 
-        <h1 class="text-center mb-3">Articles</h1>
+        <h1 class="page-title text-center fw-bold">ARTICLES</h1>
     
-        <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="article-cards-container row row-cols-1 row-cols-md-4 g-4 px-md-4">
         
             {% for article in articles %}
 
-                <div class="col">
-
-                    <a href="{{path('show_article', {"slug": article.slug})}}">
-                        
-                        <div class="card h-100">
-
-                            {% if article.thumbnail is not empty %}
-                            
-                                <img class="card-img-top" src="{{ vich_uploader_asset(article)  | imagine_filter('standard_thumbnail_md_test') }}" alt="Article Thumbnail"/>
-
-                            {% endif %}
-
-                            <div class="card-body">
-                                <h5 class="card-title"><a href="{{path('show_article', {"slug": article.slug})}}">{{article.title}}</h5>
-                                {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
-                            </div>
-
-                            <div class="card-footer">
-                                <small class="text-muted">{{ article.createdAt | formattedElapsedTime }}</small>
-                            </div>
-
-                        </div>
-                    
-                    </a>
-
-                </div>
-                
+                {{ artCards.articleCards (article) }}
+  
             {% endfor %}
             
         </div>
 
     </div>
+
+    
+      <style>
+
+        .page-title{
+            margin-bottom: 35px;
+        }
+        
+        .article-card{
+            margin-bottom: 20px;
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .page-title{
+                margin-bottom: 25px;
+            }
+            
+            .article-cards-container {
+                display: flex;
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+
+            .article-card{
+                margin-bottom: 0px;
+            }
+
+        }
+
+      </style>
 
 {% endblock %}

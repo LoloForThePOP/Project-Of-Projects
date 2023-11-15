@@ -1,10 +1,10 @@
 {% macro articleCards (article) %}
 
-<div class="d-md-col col">
+<div class="article-card d-md-col col">
 
     <a href="{{path('show_article', {"slug": article.slug})}}">
         
-        <div class="article-card card h-100">
+        <div class="card h-100">
 
             <div class="img-container">
                 
@@ -49,6 +49,7 @@
 
     .article-card .img-container img{
 
+        max-width: 100%;
         max-height: 175px;
         border-radius: 1px;
     }

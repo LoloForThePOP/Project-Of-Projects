@@ -12,13 +12,43 @@
     
     </a>
     
-{% endmacro %}    
+{% endmacro %}
+
 
 {% macro presentationThumbnail(stringId) %}
     
     <span class="pp-edition-mode ms-2 ms-md-3"><a class="" style="color: rgb(33, 37, 41);" href="{{ path ('edit_pp_thumbnail', {'stringId': stringId}) }}">🖼️ Vignette</a></span>
     
-{% endmacro %}           
+{% endmacro %}
+
+
+{% macro threeDotsMoreInfo(pageInfo) %}
+    
+    <img id="" class="upper-box-page-info-icon cursor-pointer" src="{{ asset('three_dots.svg', 'misc')}}" alt="three dots icon" width="25" height="25" data-bs-toggle="dropdown" aria-expanded="false" type="button">
+
+    {# Dropdown Content #}
+
+    <ul id="page-info-dropdown-content" class="dropdown-menu px-3" aria-labelledby="page-info-dropdown" style="max-width: 360px;">
+
+        {{pageInfo}}
+
+    </ul>
+    
+{% endmacro %}        
+
+
+{% set followStructure %}
+
+    <div class="follow-button">
+
+        <img class="follow-icon" src="{{ asset('follow.svg', 'misc')}}" alt="an arrow towords right symbolising a following" width="22" height="22">
+
+        <span class="">Suivre</span>
+    
+    </div>
+
+{% endset %}          
+
 
 {% set likeStructure %} {# javascript in show.html.twig #}
     
@@ -69,20 +99,7 @@
     </a>
     
 {% endset %}
-
-{% macro threeDotsMoreInfo(pageInfo) %}
-    
-    <img id="" class="upper-box-page-info-icon cursor-pointer" src="{{ asset('three_dots.svg', 'misc')}}" alt="three dots icon" width="25" height="25" data-bs-toggle="dropdown" aria-expanded="false" type="button">
-
-    {# Dropdown Content #}
-
-    <ul id="page-info-dropdown-content" class="dropdown-menu px-3" aria-labelledby="page-info-dropdown" style="max-width: 360px;">
-
-        {{pageInfo}}
-
-    </ul>
-    
-{% endmacro %}           
+   
             
 
 
@@ -183,13 +200,25 @@
 
         {# Project comments, likes, share - only Small Screens #}
 
-        <div class="d-flex justify-content-center align-items-center mt-0 mt-lg-2 d-lg-none">
+        <div class="d-flex justify-content-around mt-0 mt-lg-2 d-lg-none">
         
-            <div class="me-3">{{ _self.accessComments(countComments) }}</div>
+            <div class="d-flex justify-content-center align-items-center ">
+            
+                <div class="me-3">{{ _self.accessComments(countComments) }}</div>
 
-            <div class="me-3">{{ likeStructure }}</div>
-        
-            {{ shareIcon }}
+                <div class="me-3">{{ likeStructure }}</div>
+            
+                {{ shareIcon }}
+            
+            </div>
+
+            <div class="">
+            
+                {{followStructure}}
+
+            </div>
+
+            
         
         </div>
 

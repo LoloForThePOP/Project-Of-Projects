@@ -179,6 +179,15 @@
 
 
 
+.follow-button {
+    display: inline-block;
+    padding: 1px 7px;
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+
+
 
 /* Media queries */
 

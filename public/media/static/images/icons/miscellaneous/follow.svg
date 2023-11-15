@@ -1,0 +1,17 @@
+<svg width="2.22mm" height="1.33mm" fill-rule="evenodd" stroke-linejoin="round" stroke-width="28.2" preserveAspectRatio="xMidYMid" version="1.2" viewBox="265 251 222 133" xmlns="http://www.w3.org/2000/svg">
+ <defs class="EmbeddedBulletChars"></defs>
+ <g class="Page">
+  <g class="com.sun.star.drawing.ClosedBezierShape">
+   <g>
+    <rect class="BoundingBox" x="265" y="251" width="222" height="95" fill="none"/>
+    <path d="m321 345h147c10 0 17-8 17-17 0-10-7-17-17-17h-147c-12 0-21-10-21-21v-21c0-10-8-17-17-17-10 0-17 7-17 17v21c0 31 24 55 55 55z"/>
+   </g>
+  </g>
+  <g class="com.sun.star.drawing.ClosedBezierShape">
+   <g>
+    <rect class="BoundingBox" x="413" y="272" width="74" height="112" fill="none"/>
+    <path d="m432 383c3 0 7-2 11-5l37-38c3-3 5-8 5-12 0-5-2-9-5-12l-37-38c-7-7-18-7-24 0-7 7-6 18 0 25l25 25-25 25c-6 7-6 18 0 25 4 3 8 5 13 5z"/>
+   </g>
+  </g>
+ </g>
+</svg>

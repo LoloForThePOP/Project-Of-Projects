@@ -255,6 +255,11 @@ class PPBase implements \Serializable, NormalizableInterface
      */
     private $news;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Follow::class, mappedBy="projects")
+     */
+    private $follows;
+
 
 
 
@@ -292,6 +297,7 @@ class PPBase implements \Serializable, NormalizableInterface
         $this->comments = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->news = new ArrayCollection();
+        $this->follows = new ArrayCollection();
     }
 
     public function __toString()
@@ -1291,6 +1297,36 @@ class PPBase implements \Serializable, NormalizableInterface
             // set the owning side to null (unless already changed)
             if ($news->getProject() === $this) {
                 $news->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Follow>
+     */
+    public function getFollows(): Collection
+    {
+        return $this->follows;
+    }
+
+    public function addFollow(Follow $follow): self
+    {
+        if (!$this->follows->contains($follow)) {
+            $this->follows[] = $follow;
+            $follow->setProjects($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollow(Follow $follow): self
+    {
+        if ($this->follows->removeElement($follow)) {
+            // set the owning side to null (unless already changed)
+            if ($follow->getProjects() === $this) {
+                $follow->setProjects(null);
             }
         }
 

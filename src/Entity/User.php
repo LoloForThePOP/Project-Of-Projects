@@ -147,6 +147,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $news;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Follow::class, mappedBy="user")
+     */
+    private $follows;
+
 
     public function __construct()
     {
@@ -167,6 +172,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->likes = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->news = new ArrayCollection();
+        $this->follows = new ArrayCollection();
 
     }
 
@@ -629,6 +635,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($news->getAuthor() === $this) {
                 $news->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Follow>
+     */
+    public function getFollows(): Collection
+    {
+        return $this->follows;
+    }
+
+    public function addFollow(Follow $follow): self
+    {
+        if (!$this->follows->contains($follow)) {
+            $this->follows[] = $follow;
+            $follow->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollow(Follow $follow): self
+    {
+        if ($this->follows->removeElement($follow)) {
+            // set the owning side to null (unless already changed)
+            if ($follow->getUser() === $this) {
+                $follow->setUser(null);
             }
         }
 

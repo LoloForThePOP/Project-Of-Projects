@@ -20,6 +20,12 @@
             
         </div>
 
+        <div class="call-to-action-container">
+        
+            <a class="cta-btn" href="{{ path ('edit_article') }}"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un Article sur Propon</div></a>
+        
+        </div>
+
     </div>
 
     
@@ -29,8 +35,28 @@
             margin-bottom: 35px;
         }
         
-        .article-card{
+        .article-card{ /* Overides some macro styles */
             margin-bottom: 20px;
+        }
+
+    
+        .call-to-action-container{
+            display: flex;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .cta-btn{
+
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 1.15rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            border-radius: 50px;
+            border: 1px solid black;
+            margin: auto;
+
         }
 
         @media screen and (max-width: 580px) {
@@ -47,6 +73,13 @@
 
             .article-card{
                 margin-bottom: 0px;
+            }
+
+            
+            .cta-btn{
+
+                font-size: 1.2rem;
+
             }
 
         }

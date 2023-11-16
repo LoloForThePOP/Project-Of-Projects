@@ -18,7 +18,7 @@
 
     height: 100%;
 
-    padding: 15px 12px 10px 12px;
+    padding: 13px 12px 13px 12px;
 
     scroll-margin-top: 85px; /* Prevent anchors to be messed up by fixed horizontal navbar */
     
@@ -177,14 +177,28 @@
 
 }
 
-
-
 .follow-button {
-    display: inline-block;
-    padding: 1px 7px;
-    border: 1px solid black;
-    border-radius: 4px;
+	padding: 1px 8px 3px 7px;
+	border: 1px solid black;
+	border-radius: 50px;
+    color: #373737;
+	cursor: pointer;
 }
+
+.follow-button .not-followed-display{
+    display: flex;
+    align-items: center;
+}
+
+.follow-button.isFollowed .not-followed-display{
+    display: none;
+}
+
+.follow-button:not(.isFollowed) .followed-display{
+    display: none;
+}
+
+
 
 
 

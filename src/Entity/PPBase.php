@@ -256,7 +256,7 @@ class PPBase implements \Serializable, NormalizableInterface
     private $news;
 
     /**
-     * @ORM\OneToMany(targetEntity=Follow::class, mappedBy="projects")
+     * @ORM\OneToMany(targetEntity=Follow::class, mappedBy="project")
      */
     private $follows;
 
@@ -1272,6 +1272,28 @@ class PPBase implements \Serializable, NormalizableInterface
 
         return false;
     }
+
+
+
+    /**
+     * 
+     * @param User $user
+     * @return boolean
+     */
+    public function isFollowedByUser(User $user): bool
+    {
+        
+        foreach($this->follows as $follow){
+
+            if($follow->getUser() === $user){
+                return true;
+            }
+
+        }
+
+        return false;
+    }
+    
 
     /**
      * @return Collection<int, News>

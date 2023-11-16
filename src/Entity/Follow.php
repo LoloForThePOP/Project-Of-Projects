@@ -25,7 +25,7 @@ class Follow
     /**
      * @ORM\ManyToOne(targetEntity=PPBase::class, inversedBy="follows")
      */
-    private $projects;
+    private $project;
 
     public function getId(): ?int
     {
@@ -44,14 +44,14 @@ class Follow
         return $this;
     }
 
-    public function getProjects(): ?PPBase
+    public function getProject(): ?PPBase
     {
-        return $this->projects;
+        return $this->project;
     }
 
-    public function setProjects(?PPBase $projects): self
+    public function setProject(?PPBase $project): self
     {
-        $this->projects = $projects;
+        $this->project = $project;
 
         return $this;
     }

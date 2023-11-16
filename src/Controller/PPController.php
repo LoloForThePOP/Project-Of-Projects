@@ -7,6 +7,7 @@ use App\Entity\News;
 use App\Entity\User;
 use App\Entity\Slide;
 use App\Service\Slug;
+use App\Entity\Follow;
 use App\Entity\PPBase;
 use App\Form\NewsType;
 use App\Entity\Comment;
@@ -36,6 +37,7 @@ use App\Repository\LikeRepository;
 use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
+use App\Repository\FollowRepository;
 use Symfony\Component\Form\FormError;
 use App\Form\ContributorStructureType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -1048,6 +1050,81 @@ class PPController extends AbstractController
 
 
     }
+
+    /**
+     * Allow to follow - unfollow a presentation
+     * 
+     * @Route("/project/{stringId}/follow", name="ajax_follow_pp")
+     *
+     */
+    public function ajaxFollow(PPBase $presentation, EntityManagerInterface $manager, FollowRepository $followRepo)
+    {
+        $user = $this->getUSer();
+
+        if(!$user){
+
+            return new JsonResponse(
+                
+                [],
+                Response::HTTP_FORBIDDEN,
+            );
+
+        }
+
+        if($presentation->isFollowedByUser($user)){
+
+            $follow = $followRepo->findOneBy(
+
+                [
+                    "project" => $presentation,
+                    "user" => $user,
+                ]
+
+            );
+
+            $manager->remove($follow);
+            $manager->flush();
+
+            return new JsonResponse(
+                
+                [
+                    "code" => 200,
+                    "action" => "remove",
+
+                ],
+            );
+        
+        } else {
+
+            $follow = new Follow();
+
+            $follow -> setUser($user)
+                    -> setProject($presentation);
+
+            $manager->persist($follow);
+            $manager->flush();
+
+            return new JsonResponse(
+                
+                [
+                    "code" => 200,
+                    "action" => "create",
+
+                ],
+            );
+                
+        };
+
+        return  new JsonResponse(false);
+
+
+    }
+
+
+
+
+
+
 
     /**
      * Allow to edit pp stringId

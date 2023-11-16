@@ -53,6 +53,52 @@
 
 
 
+{% set followStructure %}
+
+    {% set isFollowed = false %}
+
+    {% if not app.user %}
+
+        <a class="" href="{{path('app_login')}}">
+
+    {% else %}
+
+        {% if presentation.isFollowedByUser(app.user) %}
+
+            {% set isFollowed = true %}
+
+        {% endif %}
+
+        <a class="js-follow">
+    
+            <div class="follow-button {{ isFollowed ? 'isFollowed' }} ">
+
+                <div class="not-followed-display">
+                    
+                    <img class="follow-icon" src="{{ asset('follow.svg', 'misc')}}" alt="an arrow towards right direction symbolising a following" width="22" height="22">
+
+                    <span class="text">Suivre</span>
+                
+                </div>
+
+                <div class="followed-display ">
+                    
+                    <span class="text">Suivi</span>
+
+                    <img class="check-icon mb-1" src="{{ asset('check.svg', 'misc')}}" alt="a check icon symbolising followed" width="14" height="14">
+                
+                </div>
+
+            </div>
+
+    {% endif %}
+
+        </a>
+
+{% endset %}
+
+
+
 {% block body %}
 
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
@@ -483,46 +529,106 @@
  
                     <div class="flex-wrapper d-flex flex-column align-items-center justify-content-center py-md-5">
     
-                        {# Share Presentation Button #}
+                        <div class="d-flex align-items-center">
+                    
+                        
+                            {{ followStructure }}
+                        
+                            <button class="share-presentation-button btn" data-bs-toggle="modal" data-bs-target="#pp-share"  type="button">
 
-                        <div class="sm-text-center">
-
-                            <button class="share-presentation-button btn pb-2 pt-3 pb-md-3 pt-md-4 ps-2 ps-md-4" data-bs-toggle="modal" data-bs-target="#pp-share"  type="button">
-
-                                <img class="mb-1" src="{{ asset('share.svg', 'misc')}}" alt="share icon" width="27" height="27">
+                                <img class="icon" src="{{ asset('share.svg', 'misc')}}" alt="share icon" width="27" height="27">
                                 
-                                <span class="text h5 fw-bold px-0 ps-2 px-md-3">Partager la présentation</span>
+                                <div class="text">Partager</div>
                             
                             </button>
 
-                            <style>
+                        
+                        </div>
+
+                        <style>
+
+                            {# !!! MIN-WIDTH MEDIA QUERY  #}
+
+                            @media (min-width: 576px) {
+
+                                #misc-struct-container .follow-button {
+
+                                    padding: 8px 16px;
+                                    margin-right: 18px;
+                                    border: 2px solid rgb(196, 228, 178);
+                                    border-radius: 33px;
+                                    font-size: 22px;
+                                    font-weight: bold;
+
+                                }
+
+                                #misc-struct-container .follow-button .text{
+
+                                }
+
+                                #misc-struct-container .follow-button img {
+                                    width: 40px;
+                                    height: 27px;
+                                    margin-bottom: 3px;
+                                }
+
+                            }
+
+                        
+                        
+                        
+                        
+                        </style>
+
+
+                        
+
+                        <style>
+
+                            .share-presentation-button{
+
+                                display: flex;
+                                align-items: center;
+                                padding: 8px 16px;
+                                border: 2px solid rgb(196, 228, 178);
+                                border-radius: 33px;
+
+                            }
+
+                            .share-presentation-button .text{
+
+                                display: inline-block;
+                                font-size: 22px;
+                                margin-bottom: 3px;
+                                padding-left: 5px;
+                                color: #373737;
+
+                            }
+
+                            @media screen and (max-width: 580px) {
 
                                 .share-presentation-button{
 
-                                    border: 2px solid rgb(196, 228, 178);
+                                    padding: 6px 13px;
 
                                 }
 
-                                @media screen and (max-width: 580px) {
+                                .share-presentation-button .icon{
 
-                                    .share-presentation-button{
+                                    width: 22px;
 
-                                        padding-left: 13px !important;
-                                        padding-right: 13px;
-
-                                    }
-
-                                    .share-presentation-button .text{
-
-                                        font-size: 15px;
-
-                                    }
-                                    
                                 }
-                            
-                            </style>
 
-                        </div>
+                                .share-presentation-button .text{
+
+                                    font-size: 15px;
+
+                                }
+                                
+                            }
+                        
+                        </style>
+
                         {% include 'project_presentation/_show/_share.html.twig' %}    
                                     
                         {# Misc Buttons Row #}
@@ -902,6 +1008,42 @@
 
                         $(".likesCount").text(data.likesCount);
                         $(".likeIcon").toggle();
+                        
+                    },
+
+                    error : function(xhr, textStatus, errorThrown) {
+
+                        console.log(errorThrown);
+
+                    }  
+
+                });
+
+            });
+
+        });
+    
+    </script>
+
+    {# Follow button js #}
+
+    <script>
+
+        $(document).ready(function(){
+
+            $( ".js-follow" ).on( "click", function(e) {
+
+                e.preventDefault();
+                e.stopPropagation();
+
+                $.ajax({
+
+                    url: "{{ path('ajax_follow_pp', {'stringId': presentation.stringId}) }}",
+                    type: "POST",
+                    
+                    success: function(data) {
+
+                        $(".follow-button").toggleClass("isFollowed");
                         
                     },
 

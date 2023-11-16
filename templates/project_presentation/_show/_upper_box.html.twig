@@ -37,19 +37,6 @@
 {% endmacro %}        
 
 
-{% set followStructure %}
-
-    <div class="follow-button">
-
-        <img class="follow-icon" src="{{ asset('follow.svg', 'misc')}}" alt="an arrow towords right symbolising a following" width="22" height="22">
-
-        <span class="">Suivre</span>
-    
-    </div>
-
-{% endset %}          
-
-
 {% set likeStructure %} {# javascript in show.html.twig #}
     
     <div class="like-struct d-flex align-items-center">
@@ -92,7 +79,7 @@
 
 {% set shareIcon %}
     
-    <a href="#" class="" data-bs-toggle="modal" data-bs-target="#pp-share" >
+    <a href="#" class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#pp-share" >
 
         <img class="shareIcon" src="{{ asset('share_light.svg', 'misc')}}" alt="share icon" width="22" height="22">
     
@@ -200,9 +187,9 @@
 
         {# Project comments, likes, share - only Small Screens #}
 
-        <div class="d-flex justify-content-around mt-0 mt-lg-2 d-lg-none">
+        <div class="d-flex justify-content-center mt-0 mt-lg-2 d-lg-none">
         
-            <div class="d-flex justify-content-center align-items-center ">
+            <div class="d-flex justify-content-center align-items-center">
             
                 <div class="me-3">{{ _self.accessComments(countComments) }}</div>
 
@@ -212,7 +199,7 @@
             
             </div>
 
-            <div class="">
+            <div class="pp-consultation-mode ms-4">
             
                 {{followStructure}}
 
@@ -257,8 +244,10 @@
         
             <span class="me-3">{{ likeStructure }}</span>
 
-            {{ shareIcon }}
+            <div class="">{{ shareIcon }}</div>
 
+            <span class="pp-consultation-mode ms-3">{{ followStructure }}</span>
+            
         </div>
 
         {# Project Comments Count and Access #}
@@ -429,7 +418,6 @@
         .shareIcon {
             width: 17px;
             height: 17px;
-            margin-bottom: 2px;
         }
 
     }

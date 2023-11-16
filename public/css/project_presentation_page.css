@@ -179,9 +179,9 @@
 
 .follow-button {
 	padding: 1px 8px 3px 7px;
-	border: 1px solid black;
+	border: 2px solid rgb(158, 196, 137);
 	border-radius: 50px;
-    color: #373737;
+	color: #373737;
 	cursor: pointer;
 }
 

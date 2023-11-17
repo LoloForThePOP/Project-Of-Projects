@@ -41,6 +41,41 @@
 
         <div class="row mt-5">
 
+        {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_EDIT_PRESENTATION') %}
+
+                <div class="col-md-3 border">
+
+                    <h5 class="fw-bold text-center my-2">Projets</h5>
+
+                    <div class="list-group mt-2 mb-3">
+
+                        {% for pp in pp %}
+
+                            <a href="{{ path('show_presentation', {'stringId': pp.stringId}) }}" class="text-body">
+
+                                <div class="list-group-item list-group-item-action ps-2 pe-1">
+
+                                    <h5 class="d-flex justify-content-between mb-1 fs-6">
+                                    
+                                        <span class="">{{ pp.goal | slice (0,20) }}</span>
+
+                                        <span class="">{{ pp.createdAt | formattedElapsedTime }}</span>
+                                        
+                                    </h5>
+                                        
+                                </div>
+
+                            </a>
+                        
+                        {% endfor %}
+
+                    </div>
+                
+                
+                </div>
+
+            {% endif %}
+
             {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_ARTICLE_EDIT') %}
 
                 <div class="col-md-3 border">
@@ -65,14 +100,69 @@
 
                     </div>
                 
+                </div>
+
+            {% endif %}
+
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_NEWS_MANAGE') %}
+
+                <div class="col-md-3 border">
+
+                    <h5 class="fw-bold text-center my-2">News</h5>
+
+                    <div class="list-group mt-2 mb-3">
+
+                        {% for newsItem in news %}
+
+                            <a href="{{path('edit_news', {"id": newsItem.id})}}" class="text-body">
+
+                                <div class="list-group-item list-group-item-action ps-2 pe-1">
+
+                                    <h5 class="d-inline mb-1 fs-6">{{ newsItem.textContent | striptags | slice (0,20) }}</h5>
+                                        
+                                </div>
+
+                            </a>
+                        
+                        {% endfor %}
+
+                    </div>
+                
                 
                 </div>
 
             {% endif %}
-            
-            <div class="col-md-3"></div>
-            <div class="col-md-3"></div>
-            <div class="col-md-3"></div>
+
+
+            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COMMENT_MANAGE') %}
+
+                <div class="col-md-3 border">
+
+                    <h5 class="fw-bold text-center my-2">Commentaires</h5>
+
+                    <div class="list-group mt-2 mb-3">
+
+                        {% for comment in comments %}
+
+                            <a href="{{path('update_comment', {"id": comment.id})}}" class="text-body">
+
+                                <div class="list-group-item list-group-item-action ps-2 pe-1">
+
+                                    <h5 class="d-inline mb-1 fs-6">{{ comment.content | slice (0,20) }}</h5>
+                                        
+                                </div>
+
+                            </a>
+                        
+                        {% endfor %}
+
+                    </div>
+                
+                
+                </div>
+
+            {% endif %}
 
         </div>
 

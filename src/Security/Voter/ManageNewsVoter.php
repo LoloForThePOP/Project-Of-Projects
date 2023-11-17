@@ -64,7 +64,7 @@ class ManageNewsVoter extends Voter
         }
 
         // if user is an admin, he can edit
-        if(in_array ( 'ROLE_ADMIN', $user->getRoles() ) or in_array ( 'ROLE_NEWS_MANAGE', $user->getRoles() ) ){
+        if( in_array(['ROLE_ADMIN', 'ROLE_NEWS_MANAGE'], $user->getRoles() ) ){
             return true;
         }
 
@@ -90,7 +90,7 @@ class ManageNewsVoter extends Voter
         }
 
         // if user is an admin
-        if( in_array('ROLE_ADMIN', $user->getRoles()) or in_array ( 'ROLE_NEWS_MANAGE', $user->getRoles() ) ){
+        if( in_array(['ROLE_ADMIN', 'ROLE_NEWS_MANAGE'], $user->getRoles() ) ){
             return true;
         }
 

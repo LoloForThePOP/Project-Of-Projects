@@ -2,9 +2,11 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\News;
 use App\Entity\User;
 use App\Entity\PPBase;
 use App\Entity\Article;
+use App\Entity\Comment;
 use App\Repository\ArticleRepository;
 use App\Controller\Admin\PPBaseCrudController;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,9 +31,15 @@ class AdminDashboardController extends AbstractDashboardController
 
 
         $articles = $this->getDoctrine()->getRepository(Article::class)->findAll();
+        $news = $this->getDoctrine()->getRepository(News::class)->findBy(array(),array('id'=>'DESC'),10,0);
+        $comments = $this->getDoctrine()->getRepository(Comment::class)->findBy(array(),array('id'=>'DESC'),20,0);
+        $pp = $this->getDoctrine()->getRepository(PPBase::class)->findBy(array(),array('id'=>'DESC'),10,0);
 
         return $this->render('admin/home.html.twig', [
             'articles' => $articles,
+            'news' => $news,
+            'comments' => $comments,
+            'pp' => $pp,
         ]);
     }
 

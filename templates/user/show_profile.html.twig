@@ -209,9 +209,9 @@
 
     {% if userArticles | length > 0 %}
 
-        <div class="container col-md-8 mb-5">
+        <div class="container col-md-8 px-0 px-md-3 mb-5">
 
-            <h3 class="fw-bold text-center mb-4">Articles Publiés sur Propon</h3>
+            <h3 class="fw-bold text-center mb-4">Articles publiés sur Propon</h3>
             
             {% for article in user.articles %}
 
@@ -241,6 +241,49 @@
         </div>
             
     {% endif %}
+
+    {# User Follows #}
+
+    {% if user is same as(app.user) %}
+    
+            <div class="container col-md-8 px-0 px-md-3 mb-5">
+
+                <h3 class="fw-bold text-center mb-4">Projets suivis</h3>
+
+                {% set userFollows = user.follows %}
+
+                {% if userFollows | length > 0 %} 
+                
+                    {% for followed in userFollows %}
+
+                        <div class="list-group-item list-group-item-action">
+
+                            <a href="{{ path('show_presentation', {'stringId': followed.project.stringId}) }}">
+                            
+                                {% if not followed.project.title is empty %}
+
+                                    <span class="text-body">{{ followed.project.title [:20] ~ (followed.project.title | length > 20 ? '…') }} - </span>
+                                    
+                                {% endif %}
+
+                                {{ followed.project.goal [:30] ~ (followed.project.goal | length > 30 ? '…') }} 
+                            
+                            </a>
+
+                        </div>
+                            
+                    {% endfor %}    
+                    
+                {% else %}
+
+                    <div class="fs-5 text-center">Aucun projet suivis 😮</div>
+                    
+                {% endif %}
+
+                   
+        </div>
+    {% endif %}
+
 
     
 

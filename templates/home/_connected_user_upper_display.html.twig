@@ -213,6 +213,8 @@
 
   {# Created articles #}
 
+  {% set userArticles = app.user.articles %}
+
   <div class="connected-user-struct-container col-md-6 p-0">
 
       <div class="connected-user-struct sm-border-none p-3 pb-4 h-100">
@@ -221,12 +223,14 @@
           
             <div class="d-flex align-items-center me-4"><img class="homepage-board-icon" src="{{ asset('article.svg', 'misc')}}" alt="Article Icon" height="22"> Mes Articles</div>
 
-            <div class="d-none d-md-block"><a href="{{ path ('edit_article') }}"><button type="button" class="btn btn-outline-primary d-flex align-items-center py-0"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un article sur Propon</div></button></a></div>
+            {% if userArticles | length > 0 %}
+
+              <div class="d-none d-md-block"><a href="{{ path ('edit_article') }}"><button type="button" class="btn btn-outline-primary d-flex align-items-center py-0"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un article sur Propon</div></button></a></div>
+
+            {% endif %}
           
           </h5>
           
-          {% set userArticles = app.user.articles %}
-
           {% if userArticles | length == 0 %}
 
             <div class="d-flex flex-column align-items-center justify-content-center h-75">

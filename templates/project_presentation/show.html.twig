@@ -51,72 +51,86 @@
 
 {% endblock %}
 
+{% block body %}
 
 
-{% set followStructure %}
 
-    {% set isFollowed = false %}
+    {% set followStructure %}
 
-    {% if not app.user %}
+        {% set isFollowed = false %}
 
-        <a class="" href="{{path('app_login')}}">
+        {% if not app.user %}
 
-    {% else %}
+            <a class="" href="{{path('app_login')}}">
 
-        {% if presentation.isFollowedByUser(app.user) %}
+        {% else %}
 
-            {% set isFollowed = true %}
+            {% if presentation.isFollowedByUser(app.user) %}
+
+                {% set isFollowed = true %}
+
+            {% endif %}
+
+            <a class="js-follow">
+        
+                <div class="follow-button {{ isFollowed ? 'isFollowed' }} ">
+
+                    <div class="not-followed-display">
+                        
+                        <img class="follow-icon" src="{{ asset('follow.svg', 'misc')}}" alt="an arrow towards right direction symbolising a following" width="22" height="22">
+
+                        <span class="text">Suivre</span>
+                    
+                    </div>
+
+                    <div class="followed-display">
+                        
+                        <span class="text">Suivi</span>
+
+                        <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="a check icon symbolising followed" width="14" height="14">
+                    
+                    </div>
+
+                </div>
 
         {% endif %}
 
-        <a class="js-follow">
-    
-            <div class="follow-button {{ isFollowed ? 'isFollowed' }} ">
+            </a>
 
-                <div class="not-followed-display">
-                    
-                    <img class="follow-icon" src="{{ asset('follow.svg', 'misc')}}" alt="an arrow towards right direction symbolising a following" width="22" height="22">
+    {% endset %}
 
-                    <span class="text">Suivre</span>
-                
-                </div>
+    <style>
 
-                <div class="followed-display">
-                    
-                    <span class="text">Suivi</span>
+        /* These styles are overrided according to button position */
 
-                    <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="a check icon symbolising followed" width="14" height="14">
-                
-                </div>
+        .follow-button {
+            padding: 1px 8px 1px 8px;
+            border: 2px solid rgb(158, 196, 137);
+            border-radius: 50px;
+            color: #373737;
+            cursor: pointer;
+        }
 
-            </div>
-
-    {% endif %}
-
-        </a>
-
-{% endset %}
+        
+        .follow-button > * {
+            display: flex;
+            align-items: center;
+        }
+        
+        .follow-button .not-followed-display .text {
+            margin-right: 2px;
+        }
 
 
-<style>
+        .follow-button.isFollowed .not-followed-display{
+            display: none;
+        }
 
-    .follow-button.isFollowed .not-followed-display{
-        display: none;
-    }
+        .follow-button:not(.isFollowed) .followed-display{
+            display: none;
+        }
 
-    .follow-button:not(.isFollowed) .followed-display{
-        display: none;
-    }
-
-</style>
-
-
-
-
-
-
-
-{% block body %}
+    </style>
 
     {# flag if user presents this project #} {# when user presents this project, he can switch between edition mode and consultation mode #}
     
@@ -564,7 +578,7 @@
 
                         <style>
 
-                            {# !!! MIN-WIDTH MEDIA QUERY  #}
+                            {#  MIN-WIDTH MEDIA QUERY  #}
 
                             @media (min-width: 576px) {
 
@@ -579,16 +593,22 @@
 
                                 }
 
-                                #misc-struct-container .follow-button img.follow-icon {
+                                #misc-struct-container .follow-button .not-followed-display img {
                                     width: 34px;
                                     height: 27px;
                                     margin-bottom: 3px;
+                                    margin-right: 3px;
                                 }
 
                                 #misc-struct-container .follow-button img.check-icon {
                                     width: 28px;
                                     height: 22px;
-                                    margin-bottom: 5px;
+                                }
+
+                                #misc-struct-container .follow-button .followed-display .text {
+
+                                    margin-right: 5px;
+                                    margin-left: 6px;
                                 }
 
                             }
@@ -605,12 +625,19 @@
 
                                 }
 
-                                #misc-struct-container .follow-button .text{
+                                #misc-struct-container .follow-button .followed-display .text{
+
+                                    margin-right: 2px;
 
                                 }
 
-                                .follow-button img.check-icon {
-                                    margin-bottom: 4px;
+                                
+                                #misc-struct-container .follow-button .not-followed-display img {
+
+                                    margin-right: 2px;
+                                }
+
+                                #misc-struct-container .follow-button .followed-display img {
                                     margin-left: 3px;
                                 }
 
@@ -640,6 +667,7 @@
                             .share-presentation-button img{
 
                                 margin-right: 3px;
+                                margin-bottom: 1px;
 
                             }
 

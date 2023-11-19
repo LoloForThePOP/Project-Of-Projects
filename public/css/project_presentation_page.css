@@ -185,23 +185,6 @@
 	cursor: pointer;
 }
 
-.follow-button .not-followed-display{
-    display: flex;
-    align-items: center;
-}
-
-.follow-button.isFollowed .not-followed-display{
-    display: none;
-}
-
-.follow-button:not(.isFollowed) .followed-display{
-    display: none;
-}
-
-
-
-
-
 
 /* Media queries */
 

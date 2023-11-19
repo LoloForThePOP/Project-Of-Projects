@@ -10,13 +10,6 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class NotificationService {
 
-    /*
-    *
-    * Categories of notifications
-    *
-    * Cat 0 : compulsory (highly important)
-    * Cat 1 :
-    */
 
     protected $em;
     protected $twig;
@@ -46,55 +39,146 @@ class NotificationService {
                         $presentation = $notificationParams["presentation"];
                         $comment = $notificationParams["comment"];
 
-                        if ($presentation->getCreator()==$comment->getUser()) {//if project presenter comments its own page, we do not notify him.
-                            return;
-                        }
-
-                        $notificationReceiver = $presentation->getCreator();
-
-                        $notificationTitle = "Propon  - Nouveau commentaire reçu";
-            
-                        $emailContentFilePath = 'email_notifications/project_presentation_commented.html.twig';
-
-                        $emailContentParameters = [
-                            'presentation' => $presentation,
-                            'comment' => $comment,
-                        ];
+                        $this->newCommentProjectPresentation($presentation, $comment);
 
                         break;
 
-                    case 'repliedComment':
+                    case 'projectPresentationRepliedComment':
 
                         $repliedComment = $notificationParams["repliedComment"];
                         $presentation = $notificationParams["presentation"];
+                        $answer = $notificationParams["answer"];
 
-                        if ($repliedComment->getUser() == $presentation->getCreator()) {//when comment replier is project presenter, we do not have to notice him twice (he is noticed by default)
+                        $this->repliedCommentProjectPresentation($presentation, $repliedComment, $answer);
 
-                            return;
-                            
-                        }
-
-                        $emailContentFilePath = 'email_notifications/replied_comment.html.twig';
-
-                        $emailContentParameters = [
-                            'presentation' => $presentation,
-                            'repliedComment' => $repliedComment,
-                            'answer' => $notificationParams["answer"],
-                        ];
-
-                        $notificationReceiver = $repliedComment->getUser();
+                        break;
                     
-                        $notificationTitle = "Propon - Nouveau commentaire en réponse";
+            
+                    default:
+                        throw new \Exception("Unsupported notification type");
+                        break;
+
+                }
+
+                break;
+                
+            case 'news':
+
+                switch ($notificationType) {
+
+                    case 'projectPresentationCreation':
+
+                        $presentation = $notificationParams["presentation"];
+
+                        $this->newProjectNews($presentation);
 
                         break;
                     
                     default:
                         throw new \Exception("Unsupported notification type");
                         break;
-
                 }
-                
-        $lastTimeEmailNotification = $notificationReceiver->getDataItem('lastEmailNotificationDate', time());
+
+                break;
+
+            default:
+                throw new \Exception("Unsupported notification object");
+                break;
+
+        }
+
+    }
+
+    private function newCommentProjectPresentation($presentation, $comment){
+
+        if ($presentation->getCreator()==$comment->getUser()) {//if project presenter comments its own page, we do not notify him.
+            return;
+        }
+
+        $notificationReceiver = $presentation->getCreator();
+
+        $notificationTitle = "Propon  - Nouveau commentaire reçu";
+
+        $emailContentFilePath = 'email_notifications/project_presentation_commented.html.twig';
+
+        $emailContentParameters = [
+
+            'presentation' => $presentation,
+            'comment' => $comment,
+        ];
+
+        $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
+    }
+
+
+
+
+    private function repliedCommentProjectPresentation($presentation, $repliedComment, $answer){
+
+        if ($repliedComment->getUser() == $presentation->getCreator()) {//when comment replier is project presenter, we do not have to notice him twice (he is noticed by default)
+
+            return;
+            
+        }
+
+        $emailContentFilePath = 'email_notifications/replied_comment.html.twig';
+
+        $emailContentParameters = [
+            'presentation' => $presentation,
+            'repliedComment' => $repliedComment,
+            'answer' => $answer,
+        ];
+
+        $notificationReceiver = $repliedComment->getUser();
+    
+        $notificationTitle = "Propon - Nouveau commentaire en réponse";
+
+        $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationRepliedComment", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
+    }
+
+
+
+
+    private function newProjectNews($presentation){
+        
+
+        $notificationTitleEnding ="";
+
+        if (!empty($presentation->getTitle())){
+            $notificationTitleEnding = mb_strimwidth($presentation->getTitle(), 0, 20, "…");
+        }else{
+            $notificationTitleEnding = mb_strimwidth($presentation->getGoal(), 0, 20, "…");
+        }
+
+        
+        $notificationTitle = 'Des nouvelles du Projet «'.$notificationTitleEnding.'»';
+
+        $presentationFollowers = $presentation->getFollowers();
+
+        $emailContentFilePath = 'email_notifications/news_creation.html.twig';
+        
+        $emailContentParameters = [
+
+            'presentation' => $presentation,
+
+        ];
+
+        foreach ($presentationFollowers as $presentationFollower) {
+                       
+            $this->sendOrLogNotification($presentationFollower, "news", "projectPresentationCreation", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
+        }
+
+    }
+
+
+    private function sendOrLogNotification(User $userReceiver, $notificationObject, $notificationType, $notificationTitle, $emailContentFilePath, $emailContentParameters){
+
+
+        $lastTimeEmailNotification = $userReceiver->getDataItem('lastEmailNotificationDate');
+
 
         //The if condition bellow is to finish if notifications are frequent.
         //if we have sent a notification a short time ago, we register this notification in notification journal
@@ -107,10 +191,10 @@ class NotificationService {
                 "summary" =>"To Do",
             ];
 
-            $notificationJournalBufferUpdate = $notificationReceiver->getDataItem('notificationJournalBuffer');
+            $notificationJournalBufferUpdate = $userReceiver->getDataItem('notificationJournalBuffer');
             $notificationJournalBufferUpdate[] = $notificationRow;
 
-            $notificationReceiver->setDataItem('notificationJournalBuffer', $notificationJournalBufferUpdate);
+            $userReceiver->setDataItem('notificationJournalBuffer', $notificationJournalBufferUpdate);
 
             $this->em->flush();
 
@@ -119,20 +203,16 @@ class NotificationService {
             $sender='mailer@propon.org';
             $senderTitle='Propon';
 
-            $this->mailerService->send($sender, $senderTitle, $notificationReceiver->getEmail(), $notificationTitle, $emailContentFilePath, $emailContentParameters);
+            $this->mailerService->send($sender, $senderTitle, $userReceiver->getEmail(), $notificationTitle, $emailContentFilePath, $emailContentParameters);
 
         }
-                
-        break;
-
-        default:
-            throw new \Exception("Unsupported notification object");
-            break;
-
-        }
-
 
     }
+
+
+
+
+    
 
 
 

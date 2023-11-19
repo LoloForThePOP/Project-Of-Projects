@@ -1333,11 +1333,27 @@ class PPBase implements \Serializable, NormalizableInterface
         return $this->follows;
     }
 
+    /**
+     * Return an array of User Objects following a presentation
+     */
+    public function getFollowers()
+    {
+
+        $followingObjects = $this->getFollows();
+        $followers = [];
+
+        foreach ($followingObjects as $followingObject) {
+            $followers[] = $followingObject->getUser();
+        }
+
+        return $followers;
+    }
+
     public function addFollow(Follow $follow): self
     {
         if (!$this->follows->contains($follow)) {
             $this->follows[] = $follow;
-            $follow->setProjects($this);
+            $follow->setProject($this);
         }
 
         return $this;
@@ -1347,8 +1363,8 @@ class PPBase implements \Serializable, NormalizableInterface
     {
         if ($this->follows->removeElement($follow)) {
             // set the owning side to null (unless already changed)
-            if ($follow->getProjects() === $this) {
-                $follow->setProjects(null);
+            if ($follow->getProject() === $this) {
+                $follow->setProject(null);
             }
         }
 

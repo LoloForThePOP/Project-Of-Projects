@@ -7,7 +7,7 @@
     <div>
 
         Message de {{comment.user.username}}. </br>
-        Date : {{comment.createdAt | date("d/m/Y \à h:i:s") }} </br>
+        Envoyé le {{comment.createdAt | date("d/m/Y \à h:i:s") }} </br>
         Message : {{comment.content}}
 
 
@@ -20,6 +20,8 @@
         Pour répondre à ce commentaire, <a href="{{ url ('show_presentation', {"stringId": presentation.stringId}) }}#comments-struct-container">cliquez ici</a>.
 
     </div>
+
+    </br>
     
     <div>
         

@@ -46,6 +46,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Url;
 use App\Form\WithoutUsernameRegistrationFormType;
+use App\Service\NotificationService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -147,7 +148,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, UserPasswordHasherInterface $encoder, MailerService $mailer)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, UserPasswordHasherInterface $encoder, MailerService $mailer, NotificationService $notifService)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
@@ -233,6 +234,10 @@ class PPController extends AbstractController
                 $news->setAuthor($user);
                 $manager->persist($news);
                 $manager->flush();
+
+                $notifService->process("news", "projectPresentationCreation", [
+                    "presentation" => $presentation,
+                ]);
 
                 $this->addFlash(
                     'success fade-out',

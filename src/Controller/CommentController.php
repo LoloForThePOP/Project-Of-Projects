@@ -93,7 +93,7 @@ class CommentController extends AbstractController
                 "answer" => $comment,
             ];
 
-            $notificationService->process('comment', 'repliedComment', $notificationParams);
+            $notificationService->process('comment', 'projectPresentationRepliedComment', $notificationParams);
 
         }
 

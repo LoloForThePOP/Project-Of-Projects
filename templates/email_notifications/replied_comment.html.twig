@@ -1,6 +1,6 @@
 <div>
 
-    <div>Un de vos commentaires a reçu une réponse !</div>
+    <div>Un de vos commentaires a reçu une réponse.</div>
 
     </br>
 
@@ -14,10 +14,7 @@
 
     </br>
 
-    <div>La réponse de {{answer.user.username}} en date du {{answer.createdAt | date("d/m/Y \à h:i:s") }} : {{answer.content}}
-
-
-    </div>
+    <div>La réponse de {{answer.user.username}} envoyée le {{answer.createdAt | date("d/m/Y \à h:i:s") }} : {{answer.content}}</div>
 
     </br>
 
@@ -26,6 +23,8 @@
         Pour répondre à ce commentaire, <a href="{{ url ('show_presentation', {"stringId": presentation.stringId}) }}#comments-struct-container">cliquez ici</a>.
 
     </div>
+
+    </br>
     
     <div>
         

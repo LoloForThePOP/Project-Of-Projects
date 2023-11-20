@@ -41,7 +41,7 @@
     margin-bottom: 30px;
     text-align: center;
     font-weight: bold;
-    color: green;
+    color: #376475;
 
 }
 
@@ -62,12 +62,10 @@
     }
 
 	
-    .news-form-struct-title{
-
-        margin-top: 16px;
-        margin-bottom: 16px;
-        font-size: 16px;
-
+    .news-form-struct-title {
+        margin-top: -10px;
+        margin-bottom: 23px;
+        font-size: 18px;
     }
 
     .news-form-struct-title img{

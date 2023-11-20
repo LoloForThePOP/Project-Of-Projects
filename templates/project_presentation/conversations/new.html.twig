@@ -17,7 +17,7 @@
 
     <div class="page-container container px-0 px-md-3 col-md-7 col-lg-5">
         
-        <h3 class="mt-2 mb-5 text-center text-md-start fw-bold">Envoyer un message privé</h3>
+        <h1 class="fs-3 mt-4 mt-md-2 mb-5 text-center fw-bold">Envoyer un message privé</h1>
             
         {{ form_start(form) }}
 
@@ -29,15 +29,15 @@
 
         <!-- Actions Buttons -->
 
-        <div class="d-flex justify-content-around justify-content-md-start">
+        <div class="d-flex justify-content-around justify-content-md-center">
 
             <div>
                     
-                <button class="btn btn-lg btn-validate me-3">{{ button_label|default('Envoyer') }}</button>
+                <button class="btn btn-lg btn-validate me-3">{{ button_label|default('✔️ Envoyer') }}</button>
             
                 <a href="{{path('show_presentation', {'stringId': stringId})}}">
             
-                    <button type="button" class="btn btn-lg btn-go-back">Annuler</button>
+                    <button type="button" class="btn btn-lg btn-go-back">❌ Annuler</button>
                 </a>
                 
             </div>

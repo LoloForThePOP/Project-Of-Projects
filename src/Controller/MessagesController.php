@@ -41,7 +41,7 @@ class MessagesController extends AbstractController
 
             $this->addFlash(
                 'warning',
-                "⛔ L'envoie d'un message à soi-même n'est pas autorisé."
+                "⛔ L'envoi d'un message à soi-même n'est pas autorisé."
             );
 
             return $this->redirectToRoute('show_presentation', [

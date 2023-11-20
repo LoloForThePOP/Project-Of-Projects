@@ -180,7 +180,7 @@
       
         <img class="homepage-icon" src="{{ asset('article.svg', 'misc')}}" alt="Article Icon">
         
-        <span class="me-md-4">Articles</span><span class="d-md-none ms-1 "> sur les Projets</span>
+        <span class="me-md-4">Articles</span>
 
         <a href="{{ path ('edit_article') }}"><button type="button" class="btn btn-outline-dark"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un article sur Propon</div></button></a>
       
@@ -255,77 +255,39 @@
       
     {{ display.collection("🕑 Derniers projets présentés", lastInsertedPresentations, "", "hide-335") }}
 
+    <div class="last-moto row fs-5 mt-md-2 fw-bold">
 
+      <div class="text-center mb-md-3">Propon est une initiative gratuite dédiée à la promotion des projets pour la réussite de tous.</div>
 
-    {# Quote #}
+    </div>
 
-    <div class="d-flex justify-content-center">
+<style>
 
-      <div class="quote d-flex container col-xxl-10 align-items-center rounded fw-bold text-center p-3 px-2 border mt-0 mt-md-2 mb-4 mb-md-5">
-      
-        <div class="img-col col-3">
+  @media screen and (max-width: 580px) {
 
-          <img class="img-fluid" width="140" src="{{asset ('misc/plant.png', 'larger')}}" loading="lazy">
-        
-        </div>
-
-        <div class="text-col col-9">
-        
-          <span class="" style="color: #a6711e">Les Projets </span> <span class="" style="color: green">de toutes tailles </span><br class="d-md-none"><span style="color: #a6711e">sont les briques pour </span><br class=""> <span class="" style="color: green">réaliser les plus grands projets.</span>
-        
-        </div>
-      
-      </div>
-  </div>
-
-    <style>
-
-      .quote{
-
-        font-size: 24px;
-
-      }
-
-      @media screen and (max-width: 820px){
-
-        .quote{
-
-          font-size: 16px;
-          margin: 0;
-
-        }
-
-      }
-    
-    
-    </style>
-
-
-    {# Last call to action : Add a Project button #}
-
-      {% include "home/_last_cta.html.twig" %}
-
-    
-
-</div> {# closes an unknow div which mess up footer display #}
-
-
-
-  <style>
-
-    .fs-2{
-      font-size: 23px !important;
+    .last-moto {
+      color: #168016;
+      font-size: 15px !important;
+      padding: 15px 0;
+      background-color: #46af461f;
+      border-radius: 5px;
+      width: 99%;
+      margin: auto;
+      margin-bottom: -16px;
+      margin-top: -11px;
     }
 
-    @media screen and (max-width: 820px){
+    .last-moto div {
 
-      .fs-2{
-        font-size: 18px !important;
-      }
+      padding: 5px  8px;
 
     }
   
-  </style>
+  }
 
+
+</style>
+
+</div> {# closes an unknow div which mess up footer display #}
 
 {% endblock %}

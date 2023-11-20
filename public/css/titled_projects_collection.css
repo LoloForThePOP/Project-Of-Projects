@@ -102,7 +102,7 @@
 .collection-container .other-info-container {
 	position: absolute;
 	display: flex;
-	justify-content: space-between;
+	justify-content: end;/* space-between; */
 	width: 100%;
 	bottom: 0;
 	padding-left: 9px;

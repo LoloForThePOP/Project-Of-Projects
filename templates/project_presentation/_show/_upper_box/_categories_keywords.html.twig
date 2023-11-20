@@ -55,7 +55,7 @@
                             
                             <img class="category-icon" src="{{asset ("project_categories/"~ category.uniqueName ~".svg", 'icons')}}" alt="Icône {{ category.uniqueName }}" loading="lazy">
                             
-                            {{category.descriptionFr}}
+                            <span>{{category.descriptionFr}}</span>
                         
                         </li>
 
@@ -80,10 +80,10 @@
                         
                     }
 
-                    #categories-dropdown-content{
+                    #categories-dropdown-content {
                         padding: 11px;
-                        font-weight:bold;
-                        
+                        font-weight: bold;
+                        min-width: 180px;
                     }
 
                     #categories-dropdown-content li {
@@ -100,6 +100,18 @@
                     #categories-dropdown-content .category-icon{
                         width: 24px;
                         margin-right: 4px;
+                    }
+
+
+
+
+                    @media screen and (max-width: 580px) {
+
+
+                        #pp-categories{ 
+                        }
+
+
                     }
 
                 </style>
@@ -191,7 +203,7 @@
 
                 width: 100%;
                 font-size: 14px;
-                padding-left: 0px;
+                padding: 5px 0px 5px 0px;
                 text-align: center;
                 color: rgb(33, 37, 41);
 

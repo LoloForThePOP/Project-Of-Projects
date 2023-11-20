@@ -106,7 +106,7 @@ class MessagesController extends AbstractController
             
             $this->addFlash(
                 'success',
-                "✅ Votre message a été envoyé"
+                "Message envoyé ✅"
             );
 
             return $this->redirectToRoute('show_presentation', [
@@ -199,7 +199,7 @@ class MessagesController extends AbstractController
             
             $this->addFlash(
                 'success',
-                "✅ Votre message a été envoyé"
+                "Message envoyé ✅"
             );
 
             //  to do : email notification to message receiver
@@ -348,7 +348,7 @@ class MessagesController extends AbstractController
             
             $this->addFlash(
                 'success',
-                "✅ Votre message a été envoyé"
+                "Message envoyé ✅"
             );
 
             return $this->redirectToRoute('homepage', []);

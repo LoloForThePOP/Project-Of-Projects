@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 use App\Repository\NewsRepository;
@@ -234,6 +236,11 @@ class News
      */
     public $image3File;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="news")
+     */
+    private $comments;
+
     
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -280,6 +287,7 @@ class News
     {
 
         $this->createdAt = new \DateTimeImmutable();
+        $this->comments = new ArrayCollection();
 
     }
 
@@ -394,6 +402,36 @@ class News
     public function setAuthor(?User $author): self
     {
         $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setNews($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getNews() === $this) {
+                $comment->setNews(null);
+            }
+        }
 
         return $this;
     }

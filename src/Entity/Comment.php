@@ -77,6 +77,11 @@ class Comment
      */
     private $repliedUser;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=News::class, inversedBy="comments")
+     */
+    private $news;
+
 
     public function __construct()    {
 
@@ -246,6 +251,18 @@ class Comment
     public function setRepliedUser(?User $repliedUser): self
     {
         $this->repliedUser = $repliedUser;
+
+        return $this;
+    }
+
+    public function getNews(): ?News
+    {
+        return $this->news;
+    }
+
+    public function setNews(?News $news): self
+    {
+        $this->news = $news;
 
         return $this;
     }

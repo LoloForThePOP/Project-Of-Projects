@@ -64,7 +64,7 @@ class ManageCommentVoter extends Voter
         }
 
         // if user is an admin
-        if(in_array(['ROLE_ADMIN'], $user->getRoles()) || in_array(['ROLE_COMMENT_MANAGE'], $user->getRoles())){
+        if(in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_COMMENT_MANAGE', $user->getRoles())){
             return true;
         }
 
@@ -89,7 +89,7 @@ class ManageCommentVoter extends Voter
         }
 
         // if user is an admin
-        if(in_array(['ROLE_ADMIN'], $user->getRoles()) || in_array(['ROLE_COMMENT_MANAGE'], $user->getRoles())){
+        if(in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_COMMENT_MANAGE', $user->getRoles())){
             return true;
         }
 

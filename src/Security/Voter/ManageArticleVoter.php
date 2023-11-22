@@ -94,7 +94,7 @@ class ManageArticleVoter extends Voter
         }
 
         // if user is an admin, he can edit
-        if(in_array('ROLE_ADMIN', $user->getRoles()) or in_array('ROLE_ARTICLE_EDIT', $user->getRoles())){
+        if(in_array('ROLE_ADMIN', $user->getRoles()) || in_array('ROLE_ARTICLE_EDIT', $user->getRoles())){
             return true;
         }
 

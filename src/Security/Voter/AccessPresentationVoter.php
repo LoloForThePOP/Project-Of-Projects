@@ -84,7 +84,7 @@ class AccessPresentationVoter extends Voter
         }
 
         // otherwise we check if user is an admin
-        if(in_array(['ROLE_ADMIN','ROLE_EDIT_PRESENTATION'], $user->getRoles())){
+        if(in_array(['ROLE_ADMIN'], $user->getRoles())){
             return true;
         }
 

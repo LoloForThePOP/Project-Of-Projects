@@ -3,7 +3,9 @@ $(document).ready(function(){
     $("#covering-footer").append($(".news-form-struct"));
     $(".news-form-struct").css("display","block");
 
-    $(".proxy-news-input, .js-footer-news").on('click', function (){
+    $(".proxy-news-input, .js-footer-news").on('click', function (e){
+
+        e.preventDefault();
 
         populateFooterNews();
         

@@ -1,4 +1,4 @@
-{% macro carouselItem(title, imageName, imgAlt, textContent, isActive) %}
+{% macro carouselItem(title, imageFileName, imgAlt, textContent, isActive) %}
 
     <div class="carousel-item {{ isActive ? 'active' }}">
 
@@ -17,7 +17,7 @@
           <div class="content-container row col-12 pe-0">
             
             <div class="col-lg-5 img-container pe-0">
-                <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageName ~ '.webp', 'larger')}}" alt="{{imgAlt}}" loading="lazy">  
+                <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageFileName, 'larger')}}" alt="{{imgAlt}}" loading="lazy">  
             </div>
 
             <div class="col-lg-7 text-container pe-0">{{textContent}}</div>
@@ -117,6 +117,12 @@
 
 {% endset %}
 
+{% set fast %}
+
+  <div>Présenter un projet peut requérir du temps. <b>Complétez les emplacements prévus.</b></div>
+
+{% endset %}
+
 {% set findResources %}
     
     <h3 class="d-none d-md-block text-center fw-bold mb-4 h4">🙋‍♀️ PRÉSENTEZ VOS BESOINS</h3>
@@ -135,13 +141,13 @@
 
 {% set linkNetworks %}
     
-  <p class="px-3" >Si vous utilisez déjà des réseaux pour votre projet, <b>exposez leur adresse sur votre page Propon pour être suivis</b>.</p>
+  <p class="px-3" >Si vous utilisez des réseaux pour votre projet, <b>exposez leur adresse</b>.</p>
 
 {% endset %}
 
 {% set improveVisibility %}
     
-  <p class="px-3" >Votre page Propon <b>améliore la visibilité de votre projet</b> sur le web.</p>
+  <p class="px-3" >Une page Propon <b>améliore la visibilité de votre projet</b> sur le web.</p>
 
 {% endset %}
 
@@ -155,17 +161,19 @@
 
     <div>
       
-      {{ _self.carouselItem("Rassembler l'Essentiel", "summarize", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, true) }}
+      {{ _self.carouselItem("Rassembler l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, true) }}
 
-      {{ _self.carouselItem("Votre « Carte de Visite »", "business_card", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }}
+      {{ _self.carouselItem("Rapide", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, false) }}
 
-      {{ _self.carouselItem("Trouver de l'Aide", "find_resources", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
+{#       {{ _self.carouselItem("Votre « Carte de Visite »", "business_card.webp", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }} #}
 
-      {{ _self.carouselItem("Simple & Basique", "advices", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
+      {# {{ _self.carouselItem("Trouver de l'Aide", "find_resources.webp", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
+ #}
+      {{ _self.carouselItem("Simple & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
 
-      {{ _self.carouselItem("Relier les Réseaux", "link_networks", "Des icônes de réseaux sociaux qui sont reliée à une page de projet sur propon.", linkNetworks, false) }}
+      {{ _self.carouselItem("Relier les Réseaux", "link_networks.webp", "Des icônes de réseaux sociaux qui sont reliée à une page de projet sur propon.", linkNetworks, false) }}
 
-      {{ _self.carouselItem("👁️ Gagner en Visibilité", "improve_visibility", "Une jeune fille maintient trois ballons colorés qui représentent un joli projet, un homme les montre du doigt.", improveVisibility, false) }}
+     {#  {{ _self.carouselItem("👁️ Gagner en Visibilité", "improve_visibility.webp", "Une jeune fille maintient trois ballons colorés qui représentent un joli projet, un homme les montre du doigt.", improveVisibility, false) }} #}
         
     </div>
 

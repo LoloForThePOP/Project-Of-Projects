@@ -1,172 +1,182 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AIPresentationHelperController!{% endblock %}
+{% block title %}Assistant de Présentation de Projet{% endblock %}
 
 {% block body %}
 
-<h1>Conseils Personnalisés pour Présenter son Projet</h1>
 
+<div class="page-container">
 
-<div class="gdpr">
+    <h1 class="text-center">Conseils Personnalisés pour Présenter son Projet</h1>
 
-    <h3 class="h6">La protection de vos données personnelles est une priorité. <span class="learn-more">Afficher plus</span></h3> 
+    <div class="gdpr text-center">
 
-    <div class="more-content">
+        <h3 class="fs-5">La protection de vos données personnelles est une priorité. <span class="learn-more">Afficher plus</span></h3> 
 
-        <p>Toutes les données que nous collectons sont <b><u>anonymisées</u></b> et <b><u>conservées sur nos serveurs au maximum 7 jours</u></b> à des fins exclusives d'amélioration de notre produit.</p>
+        <div class="more-content">
 
-        <p>En plus de notre apport, ce service utilise ChatGPT, un agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Notre service envoie de manière totalement anonymisée des données à OpenAI pour utiliser ChatGPT. Par conséquent OpenAI est susceptible de collecter des données qui lui sont transmises de manière totalement  anonymisées sur ces serveurs.</p>
+            <p>Toutes les données que nous collectons sont <b><u>anonymisées</u></b> et <b><u>conservées sur nos serveurs au maximum 7 jours</u></b> exclusivement pour améliorer notre produit.</p>
+
+            <p>Ce service utilise ChatGPT, un agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs pour utiliser ChatGPT. Par conséquent OpenAI est susceptible de collecter des données qui lui sont transmises de cette manière sur ces serveurs.</p>
+
+        </div>
+
+        <style>
+
+            /* Initially hide the "Learn More" content */
+            .more-content {
+                display: none;
+            }
+
+            /* Styles for the "Learn More" button */
+            .learn-more {
+                color: #0073e6;
+                cursor: pointer;
+                text-decoration: underline;
+            }
+
+            /* Style on hover for the "Learn More" button */
+            .learn-more:hover {
+                text-decoration: none;
+            }
+
+        </style>
+
+        <script>
+        // Select HTML elements
+        const learnMoreButton = document.querySelector('.learn-more');
+        const moreContent = document.querySelector('.more-content');
+
+        // Add an event listener to show/hide the "Learn More" content
+        learnMoreButton.addEventListener('click', () => {
+            if (moreContent.style.display === 'block') {
+            moreContent.style.display = 'none';
+            } else {
+            moreContent.style.display = 'block';
+            }
+        });
+        </script>
 
     </div>
 
-    <style>
-
-        /* Initially hide the "Learn More" content */
-        .more-content {
-            display: none;
-        }
-
-        /* Styles for the "Learn More" button */
-        .learn-more {
-            color: #0073e6;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-
-        /* Style on hover for the "Learn More" button */
-        .learn-more:hover {
-            text-decoration: none;
-        }
-
-    </style>
-
-    <script>
-    // Select HTML elements
-    const learnMoreButton = document.querySelector('.learn-more');
-    const moreContent = document.querySelector('.more-content');
-
-    // Add an event listener to show/hide the "Learn More" content
-    learnMoreButton.addEventListener('click', () => {
-        if (moreContent.style.display === 'block') {
-        moreContent.style.display = 'none';
-        } else {
-        moreContent.style.display = 'block';
-        }
-    });
-    </script>
-
-</div>
+    <div class="cta container col-md-6 border text-center p-2 mt-4">
+    
+        <div class="">AI Coach est un service gratuit fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
+   
+    </div>
 
 
-<div class="init">
+    <div class="init">
 
-    <div class="container d-flex justify-content-center align-items-center flex-column my-5">
+        <div class="container col-md-5 d-flex justify-content-center align-items-center flex-column my-4">
 
-            {{ form_start(form) }}
-        
-            <div class="form-part part1">
-
-                        
-                <div class="d-flex justify-content-center align-items-center mb-3">
-
-                    <div class="col-2">
-                    
-                        <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/jury.png', 'larger')}}" loading="lazy">
-
-                    </div>
-
-                    <div class="col-4 d-flex justify-content-center align-items-center">
-                    
-                        <div class="">
-
-                            <div>Question 1 / 2</div>
-
-                            <h2 class="fw-bold">À qui je présente mon projet ?</h2>
-
-                            <div class="examples">Exemples : <span class=""> Un(e) des Enseignant(es)</span> ; <span>à tout le monde (grand public)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
-                        
-                        </div>
-
-
-                    </div>
-
-                </div>
-
-                <div class="tiny-form-container d-flex justify-content-center align-items-center">
+                {{ form_start(form) }}
             
-                    {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
+                <div class="form-part part1">
 
-                    <span class="btn btn-validate arrow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                    </svg></span>
+                    <div class="question-progress">Question 1 / 2</div>
 
-                    <style>
-                    
-                        .target-input{
-                            display: inline;
-                            width: 80%
-                        }
-                    
-                    </style>
-
-                    
-
-                </div>
-
-            </div>
-
-            <div class="form-part part2 hidden">
-
+                    <h2 class="question-title">À qui je présente mon projet ?</h2>
                             
-                <div class="d-flex justify-content-center align-items-center mb-3">
+                    <div class="d-flex justify-content-center align-items-center mb-3">
 
-                    <div class="col-2">
-                    
-                        <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
-
-                    </div>
-
-                    <div class="col-4 d-flex justify-content-center align-items-center">
-                    
-                        <div class="">
-
-                            <div>Question 2 / 2</div>
-
-                            <h2>Comment je présente mon projet ?</h2>
-
-                            <div class="examples">Exemples : à l'oral; sur un document papier ou pdf; sur une présentation powerpoint; sur une vidéo; sur un site web; sur un réseau social; sur une plateforme de crowdfunding, à la télévision, à la radio, sur un forum ?</div>
+                        <div class="col-2 me-3">
                         
+                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/jury.png', 'larger')}}" loading="lazy">
+
                         </div>
 
+                        <div class="d-flex justify-content-center align-items-center">
+                        
+                            <div class="">
+
+
+                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span class=""> un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
+                            
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
+                
+                        {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
+
+                        <span class="btn btn-validate arrow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg></span>
+
+                        <style>
+                        
+                            .target-input{
+                                display: inline;
+                                width: 80%
+                            }
+                        
+                        </style>
+
+                        
 
                     </div>
 
                 </div>
 
-                <div class="tiny-form-container d-flex justify-content-center align-items-center">
+                <div class="form-part part2 hidden">
 
-                    <span class="btn btn-validate return-arrow-icon">
+                    
+                    <div class="question-progress">Question 2 / 2</div>
+
+                    <h2 class="question-title">Comment je présente mon projet ?</h2>
+
+                                
+                    <div class="d-flex justify-content-center align-items-center mb-3">
+
+                        <div class="col-2">
+                        
+                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
+
+                        </div>
+
+                        <div class="d-flex justify-content-center align-items-center">
+                        
+                            <div class="">
+
+                                <div class="examples"><span class="fw-bold">Exemples :</span> à l'oral; sur un document papier ou pdf; sur une présentation powerpoint; sur une vidéo; sur un site web; sur un réseau social; sur une plateforme de crowdfunding, à la télévision, à la radio, sur un forum ?</div>
+                            
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
+
+                        <span class="btn btn-validate return-arrow-icon">
+                    
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>       
+                        
+                        </span>
                 
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>       
-                    
-                    </span>
-            
-                    {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
+                        {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
 
-                    <button type="submit" class="btn btn-validate">C'est parti !</button>
-                    
+                        <button type="submit" class="btn btn-validate">Afficher le résultat</button>
+                        
+
+                    </div>
 
                 </div>
 
-            </div>
+                {{ form_end(form) }}
+                
+        </div>
 
-            {{ form_end(form) }}
-            
     </div>
 
 </div>
-
 
 
 <script>
@@ -205,6 +215,23 @@ document.querySelector(".return-arrow-icon").addEventListener("click", function(
   display: none;
 }
 
+.question-progress{
+
+    font-size: 1.25rem;
+    font-weight: bold;
+
+}
+
+
+.question-title{
+    font-weight: bold;
+}
+
+
+button[type="submit"]{
+    width: 250px;
+}
+
 </style>
             <style>
 
@@ -215,34 +242,8 @@ document.querySelector(".return-arrow-icon").addEventListener("click", function(
             
             </style>
 
-    
-<div class="product-presentation">
-
-    <h3>Ce coach combine notre expérience en présentation de projets et une intelligence artificielle puissante</h3>
-
-    <div>L'intelligence artificielle est puissante, elle est capable d'utiliser les détails que vous voulez pour obtenir une meilleure présentation.</div>
-    
-</div>
-
-    <div class="content"></div>
-
-    <div class="subscribe-to-propon"></div>
-
-    <div class="feedback"></div>
-
-    <p>🔧 ChatGPT inside</p>
-
-    <div class="">AI Coach est un service gratuit fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
-
-    
-
 
 </div>
-
-<style>
-
-</style>
-
 
 
 {% endblock %}

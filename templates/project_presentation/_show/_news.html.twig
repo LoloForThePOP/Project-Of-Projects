@@ -34,9 +34,25 @@
 
                         {% set newsTextContent = news.textContent %}
 
-                            {% include "project_presentation/_show/_news_card.html.twig" %}
+                        {% include "project_presentation/_show/_news_card.html.twig" %}
 
                     {% endfor %}  
+
+                    
+                       {#  <div class="">
+                        
+                            <form>
+
+                                <textarea placeholder='Ajouter un commentaire…'></textarea>
+
+                                <div class="actions">
+                                    <input type="submit" value='Comment'>
+                                    <button id='js-cancel-comment'>Annuler</button>
+                                </div>
+
+                            </form>
+
+                        </div> #}
 
                     {% if countNews > 1 %}
                                 
@@ -172,6 +188,8 @@
                         {% set newsTextContent = news.textContent %}
                 
                         {% include "project_presentation/_show/_news_card.html.twig" %}
+
+
 
                     {% endfor %}
 

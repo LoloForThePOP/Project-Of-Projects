@@ -155,29 +155,6 @@ class PPController extends AbstractController
 
         $user = $this->getUser();
 
-        $comment = new Comment;
-
-        $comment->setUser($user)->setApproved(true);
-
-        $commentForm = $this->createForm(CommentType::class, $comment,
-        array(
-
-            // Time protection
-            'antispam_time'     => true,
-            'antispam_time_min' => 4,
-            'antispam_time_max' => 10000000,
-        ));
-
-        $commentForm->handleRequest($request);
-
-        if ($commentForm->isSubmitted() && $commentForm->isValid()) {
-
-            $presentation->addComment($comment);
-            $manager->persist($comment);
-            $manager->flush();
-
-        }
-            
 
         //updating views count only if user is not this presentation's presentor (as registered user or as a guest)
 
@@ -608,7 +585,6 @@ class PPController extends AbstractController
                 'addVideoForm' => $addVideoForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
                 'newUserForm' => $guestPresenterForm->createView(),
-                'commentForm' => $commentForm->createView(),
                 'addNewsForm' => $addNewsForm->createView(),
                 
                 
@@ -664,7 +640,6 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
             'createPresentationFormCTA' => $createPresentationFormCTA->createView(),
-            'commentForm' => $commentForm->createView(),
             
         ]);
 

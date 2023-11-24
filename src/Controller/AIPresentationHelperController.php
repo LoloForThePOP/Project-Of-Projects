@@ -42,14 +42,14 @@ class AIPresentationHelperController extends AbstractController
 
             $messages =  [
 
-                ['role' => 'system', 'content' => "Tu es un coach en présentation de projet. Pour parler tu utilises le vouvoiement en français et pas le tutoiement. Tu donnes à ton élève une liste de 10 conseils sous la forme d'une liste html, chaque item de la liste est illustré à gauche avec une îcone font-awesome appropriée (inclure la librairie font-awesome). Utilise un titre avant la liste de conseils (ce titre rappelle d'une part a qui l'utilisateur présente son projet et ce titre rappelle d'autre part quel est le format de sa présentation, par exemple télévision, powerpoint, en fonction de ce que dit l'utilisateur). Tu utilises une conclusion après la liste de conseils, cette conclusion est une seule phrase qui apporte des conseils généraux, elle est encourageante. Tu n'utilises pas de phrase d'introduction dans ta réponse. L'ensemble de ta réponse est inclus dans une balise div avec la classe generalAdvice."],
+                ['role' => 'system', 'content' => "Tu es un coach en présentation de projet. Pour parler tu utilises le vouvoiement en français et pas le tutoiement. Tu donnes à ton élève une liste de 10 conseils sous la forme d'une liste html, chaque item de la liste est illustré à gauche avec une icône font-awesome appropriée (sinon une icône qui se rapproche du conseil) et tu ajoutes une couleur à cette icône. Tu utilises une conclusion en une seule phrase après la liste de conseils, cette conclusion apporte des conseils généraux, elle est encourageante. Tu n'utilises pas de phrase d'introduction dans ta réponse. L'ensemble de ta réponse est inclus dans une balise div avec la classe generalAdvice. Utilise un titre avant la liste de conseils. Ce titre rappelle d'une part à qui l'utilisateur présente son projet et ce titre rappelle d'autre part quel est le format de sa présentation, par exemple télévision, powerpoint, en fonction de ce que te dira l'utilisateur."],
 
                 ['role' => 'user', 'content' => "Peux-tu me donner des conseils, je présente mon projet à ".$target.", le format de la présentation c'est ".$format."."],
 
             ];
     
             $response = $ia->chat()->create([
-                'model' => 'gpt-3.5-turbo',
+                'model' => 'gpt-4',
                 'messages' => $messages,
             ]);
             

@@ -9,12 +9,13 @@
 {% block headTag %}
 
 
-    <meta name="description" content="Assistant gratuit pour présenter votre projet. Indiquez à qui vous présentez le projet, indiquez comment, obtenez les suggestions.">
+    <meta name="description" content="Assistant gratuit pour présenter votre projet ! Indiquez à qui vous présentez le projet, indiquez comment, obtenez les suggestions en quelques secondes !">
     <meta name="author" content="Laurent G.">
     <meta name="keywords" content="Assistant, IA, Conseils, Présentation, Projet">
     <meta name="date" content="2023-27-11">
 
     {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl, null) }} {# Call from base.html.twig #}
+    
 {% endblock %}
 
 
@@ -234,6 +235,7 @@
 </div>
 
 
+
 {# Display Alerts #}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
@@ -271,7 +273,7 @@
         //timer feedback for user patience
 
         var timerHTML = document.createElement("div");
-        timerHTML.innerHTML = `<div class="mb-3">Veuillez patienter environ une minute, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
+        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle. Veuillez patienter environ une minute, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
 
 /*
     <div class="row">

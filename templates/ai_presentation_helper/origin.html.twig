@@ -1,74 +1,125 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Assistant de Présentation de Projet{% endblock %}
+
+    {% set titleMetadata = 'Assistant de Présentation de Projet' %}
+    {% set metadataDescription %}{% endset %}
+    {% set metadataImageUrl %}{{asset ('project_presentation_advice/adam_technology_touch.jpg', 'larger')}}{% endset %}
+    {% set currentPageUrl = app.request.uri %}
+
+{% block headTag %}
+
+
+    <meta name="description" content="Assistant gratuit pour présenter votre projet. Indiquez à qui vous présentez le projet, indiquez comment, obtenez les suggestions.">
+    <meta name="author" content="Laurent G.">
+    <meta name="keywords" content="Assistant, IA, Conseils, Présentation, Projet">
+    <meta name="date" content="2023-27-11">
+
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl, null) }} {# Call from base.html.twig #}
+{% endblock %}
+
+
+{% block title %}{{titleMetadata}}{% endblock %}
 
 {% block body %}
 
 
 <div class="page-container">
 
-    <h1 class="text-center">Conseils Personnalisés pour Présenter son Projet</h1>
-
-    <div class="gdpr text-center">
-
-        <h3 class="fs-5">La protection de vos données personnelles est une priorité. <span class="learn-more">Afficher plus</span></h3> 
-
-        <div class="more-content">
-
-            <p>Toutes les données que nous collectons sont <b><u>anonymisées</u></b> et <b><u>conservées sur nos serveurs au maximum 7 jours</u></b> exclusivement pour améliorer notre produit.</p>
-
-            <p>Ce service utilise ChatGPT, un agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs pour utiliser ChatGPT. Par conséquent OpenAI est susceptible de collecter des données qui lui sont transmises de cette manière sur ces serveurs.</p>
-
-        </div>
-
-        <style>
-
-            /* Initially hide the "Learn More" content */
-            .more-content {
-                display: none;
-            }
-
-            /* Styles for the "Learn More" button */
-            .learn-more {
-                color: #0073e6;
-                cursor: pointer;
-                text-decoration: underline;
-            }
-
-            /* Style on hover for the "Learn More" button */
-            .learn-more:hover {
-                text-decoration: none;
-            }
-
-        </style>
-
-        <script>
-        // Select HTML elements
-        const learnMoreButton = document.querySelector('.learn-more');
-        const moreContent = document.querySelector('.more-content');
-
-        // Add an event listener to show/hide the "Learn More" content
-        learnMoreButton.addEventListener('click', () => {
-            if (moreContent.style.display === 'block') {
-            moreContent.style.display = 'none';
-            } else {
-            moreContent.style.display = 'block';
-            }
-        });
-        </script>
-
+    <div class="d-none d-md-flex justify-content-center align-items-center">
+    
+        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h3 text-center">Conseils <span class="highlight1">personnalisés</span> pour présenter <span class="highlight2">VOTRE Projet</span></h1>
+      
     </div>
 
-    <div class="cta container col-md-6 border text-center p-2 mt-4">
+    <div class="d-flex d-md-none justify-content-center align-items-center">
     
-        <div class="">AI Coach est un service gratuit fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
-   
+        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h3 text-center"><span class="">Conseils personnalisés</span> pour présenter <u>VOTRE</u> Projet</h1>
+      
+    </div>
+
+
+    <style>
+      
+                
+        .highlight1 {
+            display: inline-block;
+            padding: .25em 10px;
+            background: #f59f00;
+            color: #ffffff;
+            border-radius: 5px;
+        }
+                
+      {#   .highlight2 {
+            display: inline-block;
+            padding: .25em 10px;
+            background: #9FBCA4;
+            color: #ffffff;
+            border-radius: 5px;
+        } #}
+        
+    </style>
+
+
+    <div class="cta container col-md-6 border p-2 mt-4">
+    
+        <div class="text-center"><b>AI Coach</b> est un service <b>gratuit</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
+    
+        <div class="gdpr">
+
+            <h3 class="fs-6 text-center">La protection de vos données personnelles est une priorité. <span class="learn-more">Afficher plus</span></h3> 
+
+            <div class="more-content border m-1 m-md-3 p-3">
+
+                <p>Les données que nous collectons sont <b><u>anonymisées</u></b>; <b><u>conservées au maximum 15 jours</u></b>; <b><u>exclusivement pour améliorer l'outil à votre disposition</u></b>.</p>
+
+                <p>Ce service utilise également ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs pour utiliser ChatGPT. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
+
+            </div>
+
+            <style>
+
+                /* Initially hide the "Learn More" content */
+                .more-content {
+                    display: none;
+
+                }
+
+                /* Styles for the "Learn More" button */
+                .learn-more {
+                    color: #0073e6;
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+
+                /* Style on hover for the "Learn More" button */
+                .learn-more:hover {
+                    text-decoration: none;
+                }
+
+            </style>
+
+            <script>
+            // Select HTML elements
+            const learnMoreButton = document.querySelector('.learn-more');
+            const moreContent = document.querySelector('.more-content');
+
+            // Add an event listener to show/hide the "Learn More" content
+            learnMoreButton.addEventListener('click', () => {
+                if (moreContent.style.display === 'block') {
+                moreContent.style.display = 'none';
+                } else {
+                moreContent.style.display = 'block';
+                }
+            });
+            </script>
+
+        </div>
     </div>
 
 
     <div class="init">
 
-        <div class="container col-md-5 d-flex justify-content-center align-items-center flex-column my-4">
+        <div class="container col-md-5 px-0 px-md-2 d-flex justify-content-center align-items-center flex-column my-4">
 
                 {{ form_start(form) }}
             
@@ -91,7 +142,7 @@
                             <div class="">
 
 
-                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span class=""> un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
+                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span class="">à un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
                             
                             </div>
 
@@ -104,7 +155,7 @@
                 
                         {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
 
-                        <span class="btn btn-validate arrow-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <span class="btn btn-validate btn-next arrow-icon">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                         </svg></span>
 
@@ -163,7 +214,10 @@
                 
                         {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
 
-                        <button type="submit" class="btn btn-validate">Afficher le résultat</button>
+                        <button type="submit" class="js-form-submit btn btn-validate"><span class="d-none d-md-inline">Afficher le résultat</span><span class="d-md-none">Résultat</span></button>
+
+                        
+                        
                         
 
                     </div>
@@ -176,22 +230,101 @@
 
     </div>
 
+
 </div>
 
 
+{# Display Alerts #}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
 <script>
-// Listen for click on the arrow icon to switch from part 1 to part 2
-document.querySelector(".arrow-icon").addEventListener("click", function() {
-  document.querySelector(".part1").classList.add("hidden");
-  document.querySelector(".part2").classList.remove("hidden");
-});
 
-// Listen for click on the return arrow icon to go back
-document.querySelector(".return-arrow-icon").addEventListener("click", function() {
-  document.querySelector(".part2").classList.add("hidden");
-  document.querySelector(".part1").classList.remove("hidden");
-});
+    // Listen for click on the arrow icon to switch from part 1 to part 2
+    document.querySelector(".arrow-icon").addEventListener("click", function() {
+    document.querySelector(".part1").classList.add("hidden");
+    document.querySelector(".part2").classList.remove("hidden");
+    });
 
+    // Listen for click on the return arrow icon to go back
+    document.querySelector(".return-arrow-icon").addEventListener("click", function() {
+    document.querySelector(".part2").classList.add("hidden");
+    document.querySelector(".part1").classList.remove("hidden");
+    });
+
+</script>
+
+ <script>
+
+    $(document).ready(function(){
+
+
+        //prevent user hitting Enter
+
+        $(window).keydown(function(event){
+            if(event.keyCode == 13) {
+            event.preventDefault();
+            return false;
+            }
+        });
+
+        //timer feedback for user patience
+
+        var timerHTML = document.createElement("div");
+        timerHTML.innerHTML = `<div class="mb-3">Veuillez patienter environ une minute, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
+
+/*
+    <div class="row">
+    
+        <div class="col-6 d-flex align-items-center justify-content-center"><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter."></div>
+        <div class="col-6 d-flex align-items-center justify-content-center"><img class="img-fluid" width="120" src="{{asset ('project_presentation_advice/wip.gif', 'larger')}}" loading="lazy" alt="Deux engrenages en mouvement qui symbolisent un travail en cours."></div>
+    
+    </div> */
+        
+
+        $('form[name="aipp_advice"] button[type="submit"]').on('click', function (e){
+
+            e.preventDefault();
+
+            swal({
+                title: "La création de votre réponse personnalisée dure environ 1 minute.",
+                icon: "warning",
+                buttons: ["Annuler", true],
+                })
+                .then((createAnswer) => {
+
+                if (createAnswer) {
+
+                    swal({
+                        title: "Création en cours.",
+                        content: timerHTML,
+                        buttons: [""],
+                        icon: "info",
+                    });
+
+                    $('form[name="aipp_advice"] ').submit();
+
+                    
+                } else {
+
+                    swal(
+
+                        {
+                            title: "La création de la réponse est annulée.",
+                            text: "Cliquez de nouveau sur le bouton Résultat pour créer une réponse personnalisée.",
+                            icon: "warning",
+                        }
+                        
+                    );
+                }
+            });
+           
+
+        });
+
+
+    
+    });
 
 </script>
 
@@ -232,15 +365,34 @@ button[type="submit"]{
     width: 250px;
 }
 
-</style>
-            <style>
 
-                .tiny-form-container form{
-                    width: 460px;
-                }
+.tiny-form-container form{
+    width: 460px;
+}
+
+@media screen and (max-width: 580px) {
+
+
+    .question-title{
+	    font-size: 1.37em;
+    }
+
+    button[type="submit"] {
+        width: 100px;
+    }
+
+    .btn-next {
+        width: 125px;
+    }
+
+
+
+}
+
+
             
             
-            </style>
+</style>
 
 
 </div>

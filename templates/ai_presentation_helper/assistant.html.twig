@@ -2,19 +2,28 @@
 
 {% block title %}Hello AIPresentationHelperController!{% endblock %}
 
+{% block headTag %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
+
+
 {% block body %}
+
+{# Font Awesome CDN inclusion #}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<div class="container my-5">
+<div class="container px-0 px-md-2 my-4 my-md-5">
 
-    {% if generalAdvice is defined %}
+    {% if generalAdvice is defined and generalAdvice is not null %}
     
         {{generalAdvice | raw}}
+
+    {% else %}
+
+        Veuillez utiliser l'assistant de présentation de projet avant de vous rendre sur cette page.
     
     {% endif %}
 
-    <div class="row">
+  {#   <div class="row">
 
         <div class="col-md-6">
 
@@ -34,11 +43,11 @@
 
         </div>
 
-    </div>
+    </div> #}
 
 </div>
 
-<script>
+{# <script>
     $(document).ready(function () {
         $('#send-button').click(function () {
             var userMessage = $('#user-textarea').val();
@@ -52,10 +61,70 @@
             });
         });
     });
-</script>
+</script> #}
+
+
+<style>
+
+    .generalAdvice h2, .generalAdvice h3 {
+
+        margin-bottom: 22px;
+        text-align: center;
+
+    }
+
+    .generalAdvice ul {
+
+        column-count: 2;
+        column-gap: 55px;
+        list-style-type: none;
+        font-size: 1.15em;
+
+    }
+
+    .generalAdvice li {
+
+        margin-bottom: 10px;
+        break-inside: avoid;
+        line-height: 1.25;
+
+    }
+
+    .generalAdvice p {
+
+        font-size: 1.15em;
+	    text-align: center;
+
+    }
+
+    
+    @media screen and (max-width: 580px) {
+
+        .generalAdvice h2 {
+
+            font-weight: bold;
+
+        }
+
+        .generalAdvice ul {
+
+            column-count: unset;
+            padding-left: 15px;
+            font-size: 1.1em;
+
+        }
+
+        .generalAdvice li {
+            margin-bottom: 25px;
+        }
 
 
 
+    }
+
+
+
+</style>
 
 
 

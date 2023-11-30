@@ -273,7 +273,7 @@
         //timer feedback for user patience
 
         var timerHTML = document.createElement("div");
-        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle. Veuillez patienter environ 30 secondes, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
+        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 30 secondes, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
 
 /*
     <div class="row">
@@ -298,7 +298,7 @@
                 if (createAnswer) {
 
                     swal({
-                        title: "Création en cours.",
+                        title: "Les conseils pour votre présentation sont en cours de création.",
                         content: timerHTML,
                         buttons: [""],
                         icon: "info",

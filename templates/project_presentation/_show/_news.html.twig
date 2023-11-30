@@ -24,176 +24,177 @@
 
         <div id="news" class="">
 
-            {% set textShowMoreThreshold = 95 %}
+        
 
-                {% if countNews > 0 %}
+            {% if countNews > 0 %}
 
-                    <link href="/css/news_card.css" rel="stylesheet">
+                <link href="/css/news_card.css" rel="stylesheet">
+            
+                {% for news in presentation.news | reverse %}
+
+                    {% set newsTextContent = news.textContent %}
+
+                    {% include "project_presentation/_show/_news_card.html.twig" %}
+
+                {% endfor %}  
+
                 
-                    {% for news in presentation.news | reverse %}
-
-                        {% set newsTextContent = news.textContent %}
-
-                        {% include "project_presentation/_show/_news_card.html.twig" %}
-
-                    {% endfor %}  
-
+                    {#  <div class="">
                     
-                       {#  <div class="">
-                        
-                            <form>
+                        <form>
 
-                                <textarea placeholder='Ajouter un commentaire…'></textarea>
+                            <textarea placeholder='Ajouter un commentaire…'></textarea>
 
-                                <div class="actions">
-                                    <input type="submit" value='Comment'>
-                                    <button id='js-cancel-comment'>Annuler</button>
-                                </div>
+                            <div class="actions">
+                                <input type="submit" value='Comment'>
+                                <button id='js-cancel-comment'>Annuler</button>
+                            </div>
 
-                            </form>
+                        </form>
 
-                        </div> #}
+                    </div> #}
 
-                    {% if countNews > 1 %}
-                                
-                        {# News slider controls #}
-
-                        <div class="newsSliderControls">
-
-                            <a class="item previousNewsSlide" onclick="plusSlidesNews(-1)">&#10094;</a>
-                            <a class="item nextNewsSlide" onclick="plusSlidesNews(1)">&#10095;</a>
-                        
-                        </div>
-
-                        {# News slider script #}
-                        <script>
+                {% if countNews > 1 %}
                             
-                            let slideIndexNews = 1;
+                    {# News slider controls #}
 
+                    <div class="newsSliderControls">
 
-                            // Next/previous controls
-                            function plusSlidesNews(n) {
-                            showSlidesNews(slideIndexNews += n);
-                            }
-
-                            function showSlidesNews(n) {
-                            let i;
-                            let slides = document.getElementsByClassName("news-card");
-                            
-                            if (n > slides.length) {slideIndexNews = 1}
-                            if (n < 1) {slideIndexNews = slides.length}
-                            for (i = 0; i < slides.length; i++) {
-                                slides[i].style.display = "none";
-                            }
-                            slides[slideIndexNews-1].style.display = "block";
-                            } 
-                            
-                            
-                        </script>
-
-                    {% endif %}
-
+                        <a class="item previousNewsSlide" onclick="plusSlidesNews(-1)">&#10094;</a>
+                        <a class="item nextNewsSlide" onclick="plusSlidesNews(1)">&#10095;</a>
                     
-                    <style>
+                    </div>
 
-                        {# Here we overide some news_card.css default styles #}
+                    {# News slider script #}
+                    <script>
+                        
+                        let slideIndexNews = 1;
 
-                        {# initialize news cards slider #}
 
-                        .news-card{
-                            display: none;
+                        // Next/previous controls
+                        function plusSlidesNews(n) {
+                        showSlidesNews(slideIndexNews += n);
                         }
 
-                        .news-card:first-of-type{
-                            display: block;
+                        function showSlidesNews(n) {
+                        let i;
+                        let slides = document.getElementsByClassName("news-card");
+                        
+                        if (n > slides.length) {slideIndexNews = 1}
+                        if (n < 1) {slideIndexNews = slides.length}
+                        for (i = 0; i < slides.length; i++) {
+                            slides[i].style.display = "none";
                         }
+                        slides[slideIndexNews-1].style.display = "block";
+                        } 
+                        
+                        
+                    </script>
 
-                        {# end of initialize news cards slider #}
+                {% endif %}
 
-                        .news-card{
-                            margin-bottom: 30px;
-                        }
+                
+                <style>
+
+                    {# Here we overide some news_card.css default styles #}
+
+                    {# initialize news cards slider #}
+
+                    .news-card{
+                        display: none;
+                    }
+
+                    .news-card:first-of-type{
+                        display: block;
+                    }
+
+                    {# end of initialize news cards slider #}
+
+                    .news-card{
+                        margin-bottom: 30px;
+                    }
 
 
-                        .newsSliderControls{
-                            display: flex;
-                            justify-content: space-between;
-                            width: 100%;
-                            position: absolute;
-                            top: 45%;
-                        }
+                    .newsSliderControls{
+                        display: flex;
+                        justify-content: space-between;
+                        width: 100%;
+                        position: absolute;
+                        top: 45%;
+                    }
 
+
+                    .newsSliderControls .item{
+
+                        display: inline-block;
+                        width: 50px;
+                        height: 50px;
+                        line-height: 50px;
+                        text-align: center;
+                        font-size: 20px;
+                        border-radius: 50%;
+                        background-color: #a1baba;
+                        color: white;
+                        text-decoration: none;
+                        cursor: pointer;  
+                        font-weight: bold;  
+                        transition: 0.6s ease;
+                        user-select: none;
+                        border: 1px solid orange;
+
+                    }
+
+
+                    .newsSliderControls .item:hover{
+
+                        background-color: rgba(0,0,0,0.8);
+
+                    }
+
+
+                    @media screen and (max-width: 1280px) {
 
                         .newsSliderControls .item{
 
-                            display: inline-block;
-                            width: 50px;
-                            height: 50px;
-                            line-height: 50px;
-                            text-align: center;
-                            font-size: 20px;
-                            border-radius: 50%;
-                            background-color: #a1baba;
-                            color: white;
-                            text-decoration: none;
-                            cursor: pointer;  
-                            font-weight: bold;  
-                            transition: 0.6s ease;
-                            user-select: none;
+                            margin-left: -10px;
+                            margin-right: -10px;
 
                         }
 
 
-                        .newsSliderControls .item:hover{
+                    }
 
-                            background-color: rgba(0,0,0,0.8);
+
+
+                    @media screen and (max-width: 580px) {
+
+                        .news-card{
+                            margin-bottom: 10px;
+                        }
+
+                        .newsSliderControls{
+
+                            display: none;
 
                         }
 
-
-                        @media screen and (max-width: 1280px) {
-
-                            .newsSliderControls .item{
-
-                                margin-left: -10px;
-                                margin-right: -10px;
-
-                            }
-
-
-                        }
-
-
-
-                        @media screen and (max-width: 580px) {
-
-                            .news-card{
-                                margin-bottom: 10px;
-                            }
-
-                            .newsSliderControls{
-
-                                display: none;
-
-                            }
-
-                        }
-                    
-                    </style>
-
-                {% else %} {# Only one news, we do not use a slider #}
-
-                    {% for news in presentation.news | reverse %}
-
-                        {% set newsTextContent = news.textContent %}
+                    }
                 
-                        {% include "project_presentation/_show/_news_card.html.twig" %}
+                </style>
+
+            {% else %} {# Only one news, we do not use a slider #}
+
+                {% for news in presentation.news | reverse %}
+
+                    {% set newsTextContent = news.textContent %}
+            
+                    {% include "project_presentation/_show/_news_card.html.twig" %}
 
 
 
-                    {% endfor %}
+                {% endfor %}
 
-                {% endif %}
+            {% endif %}
 
 
             {# Show more news text content #}

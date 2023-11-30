@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 
-    {% set titleMetadata = 'Assistant de Présentation de Projet' %}
+    {% set titleMetadata = 'Comment présenter son projet ? Votre assistant gratuit.' %}
     {% set metadataDescription %}{% endset %}
     {% set metadataImageUrl %}{{asset ('project_presentation_advice/adam_technology_touch.jpg', 'larger')}}{% endset %}
     {% set currentPageUrl = app.request.uri %}
@@ -9,7 +9,7 @@
 {% block headTag %}
 
 
-    <meta name="description" content="Assistant gratuit pour présenter votre projet ! Indiquez à qui vous présentez le projet, indiquez comment, obtenez les suggestions en quelques secondes !">
+    <meta name="description" content="Indiquez à qui vous présentez votre projet, indiquez comment (pdf, powerpoint, etc), obtenez en quelques secondes des conseils personnalisées pour présenter votre projet, générées par une IA puissante ! Service gratuit sans inscription.">
     <meta name="author" content="Laurent G.">
     <meta name="keywords" content="Assistant, IA, Conseils, Présentation, Projet">
     <meta name="date" content="2023-27-11">
@@ -273,7 +273,7 @@
         //timer feedback for user patience
 
         var timerHTML = document.createElement("div");
-        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle. Veuillez patienter environ une minute, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
+        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle. Veuillez patienter environ 30 secondes, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
 
 /*
     <div class="row">
@@ -289,7 +289,7 @@
             e.preventDefault();
 
             swal({
-                title: "La création de votre réponse personnalisée dure environ 1 minute.",
+                title: "La création de votre réponse personnalisée dure environ 30 secondes.",
                 icon: "warning",
                 buttons: ["Annuler", true],
                 })

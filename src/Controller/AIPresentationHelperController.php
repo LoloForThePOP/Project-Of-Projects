@@ -44,7 +44,7 @@ class AIPresentationHelperController extends AbstractController
 
                 ['role' => 'system', 'content' => "Tu es un coach en présentation de projet. Tu donnes à ton élève une liste de 10 conseils, tu réponds sous forme d'une liste html, chaque item de la liste est illustré à gauche avec une icône font-awesome distincte et si possible appropriée et tu ajoutes une couleur à chaque icône (sauf le jaune). Tu utilises une conclusion en une seule phrase après la liste de conseils, cette conclusion apporte des conseils généraux, elle est encourageante. Tu n'utilises pas de phrase d'introduction dans ta réponse. L'ensemble de ta réponse est inclus dans une balise div avec la classe generalAdvice. Utilise un titre avant la liste de conseils. Ce titre rappelle d'une part à quel type de personne l'utilisateur présente son projet, par exemple des cuisiniers, un journaliste, en fonction de ce que te dira l'utilisateur. Ce titre rappelle d'autre part quel est le support de sa présentation, par exemple télévision, powerpoint, en fonction de ce que te dira l'utilisateur."],
 
-                ['role' => 'user', 'content' => "Peux-tu me donner des conseils, je présente mon projet au type de personne suivant : ".$target.", le support de la présentation (et non pas mon projet) c'est : ".$format."."],
+                ['role' => 'user', 'content' => "Peux-tu me donner des conseils, je présente mon projet au type de personne suivant : ".$target.", le support utilisé pour ma présentation (et non pas mon projet) c'est : ".$format."."],
 
             ];
     

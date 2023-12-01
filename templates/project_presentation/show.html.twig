@@ -64,38 +64,38 @@
             <a class="" href="{{path('app_login')}}">
 
         {% else %}
-
-            {% if presentation.isFollowedByUser(app.user) %}
-
-                {% set isFollowed = true %}
-
-            {% endif %}
-
-            <a class="js-follow">
         
-                <div class="follow-button {{ isFollowed ? 'isFollowed' }} ">
-
-                    <div class="not-followed-display">
-                        
-                        <img class="follow-icon" src="{{ asset('follow.svg', 'misc')}}" alt="an arrow towards right direction symbolising a following" width="22" height="22">
-
-                        <span class="text">Suivre</span>
-                    
-                    </div>
-
-                    <div class="followed-display">
-                        
-                        <span class="text">Suivi</span>
-
-                        <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="a check icon symbolising followed" width="14" height="14">
-                    
-                    </div>
-
-                </div>
+            <a class="js-follow">
 
         {% endif %}
 
-            </a>
+        {% if app.user and presentation.isFollowedByUser(app.user) %}
+
+            {% set isFollowed = true %}
+
+        {% endif %}
+
+        <div class="follow-button {{ isFollowed ? 'isFollowed' }} ">
+
+            <div class="not-followed-display">
+                
+                <img class="follow-icon" src="{{ asset('follow.svg', 'misc')}}" alt="an arrow towards right direction symbolising a following" width="22" height="22">
+
+                <span class="text">Suivre</span>
+            
+            </div>
+
+            <div class="followed-display">
+                
+                <span class="text">Suivi</span>
+
+                <img class="check-icon" src="{{ asset('check.svg', 'misc')}}" alt="a check icon symbolising followed" width="14" height="14">
+            
+            </div>
+
+        </div>
+
+        </a>
 
     {% endset %}
 

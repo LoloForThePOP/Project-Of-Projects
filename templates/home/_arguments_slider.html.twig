@@ -79,7 +79,7 @@
         
     <p class="text-justify px-lg-3 mb-0" >
         
-      Pas toujours facile de présenter son projet. Utilisez nos <b>suggestions simples</b> et notre <b>modèle de page efficace</b>.
+      {# Pas toujours facile de présenter son projet. #} Utilisez nos <b>suggestions simples</b> et notre <b>modèle de page efficace</b>.
 
     </p>
     
@@ -119,7 +119,7 @@
 
 {% set fast %}
 
-  <div>Présenter un projet peut requérir du temps. <b>Complétez les emplacements prévus.</b></div>
+  <div>Présenter un projet peut requérir du temps. <b>Complétez simplement les emplacements prévus.</b></div>
 
 {% endset %}
 
@@ -152,6 +152,19 @@
 {% endset %}
 
 
+{% set news %}
+    
+  <p class="px-3" >Utilisez votre page de projet <b>gratuite</b> pour <b>partager des nouvelles</b>. Vos followers seront <b>notifiés</b>📣</p>
+
+{% endset %}
+
+{% set comments %}
+    
+  <p class="px-3" >Recevez des <b>suggestions</b> et des <b>commentaires</b> pour <b>favoriser votre projet</b>🙂</p>
+
+{% endset %}
+
+
 
 <h3 class="arguments-slider-title">Pourquoi <span class="d-md-none">Utiliser</span><span class="d-none d-md-inline">Présenter son Projet sur</span> Propon ?</h3>
 
@@ -161,17 +174,25 @@
 
     <div>
       
-      {{ _self.carouselItem("Rassembler l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, true) }}
 
-      {{ _self.carouselItem("Rapide", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, false) }}
+      {{ _self.carouselItem("Rapide", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, true) }}
+
+      {{ _self.carouselItem("Rassemblez l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
+
+      {{ _self.carouselItem("Une base pour partager des nouvelles", "news.webp", "Un dessin qui comporte une onde radio synonyme de news, et un bouton follow qui symbolise les notifications.", news, false) }}
+
+      {{ _self.carouselItem("Recevez des avis", "comment.png", "", comments, false) }}
+
+      {{ _self.carouselItem("Simple & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
 
 {#       {{ _self.carouselItem("Votre « Carte de Visite »", "business_card.webp", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }} #}
 
       {# {{ _self.carouselItem("Trouver de l'Aide", "find_resources.webp", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
  #}
-      {{ _self.carouselItem("Simple & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
 
-      {{ _self.carouselItem("Relier les Réseaux", "link_networks.webp", "Des icônes de réseaux sociaux qui sont reliée à une page de projet sur propon.", linkNetworks, false) }}
+
+
+      {# {{ _self.carouselItem("Relier les Réseaux", "link_networks.webp", "Des icônes de réseaux sociaux qui sont reliée à une page de projet sur propon.", linkNetworks, false) }} #}
 
      {#  {{ _self.carouselItem("👁️ Gagner en Visibilité", "improve_visibility.webp", "Une jeune fille maintient trois ballons colorés qui représentent un joli projet, un homme les montre du doigt.", improveVisibility, false) }} #}
         

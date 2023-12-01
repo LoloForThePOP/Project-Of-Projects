@@ -144,7 +144,7 @@ class SelectPresentationsController extends AbstractController
                     'label' => $label,
                     'iconName' => $iconName,
                     'results' => $elements,
-                    'hideTooLong' => "hide-525",
+                    'hideTooLong' => "hide-335",
                 ]);
                 break;
 

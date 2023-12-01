@@ -1,54 +1,3 @@
-
-{% set textShowMoreThreshold = 95 %}
-
-<div id="news-{{news.id}}" class="news-card">
-
-    <div class="upper-box">
-
-        <time datetime="{{news.createdAt | date("d/m/Y") }}">
-
-            Il y a 
-
-            {% if news.updatedAt is not empty %}
-            
-                {{news.updatedAt | formattedElapsedTime }}
-
-            {% else %}
-
-                {{news.createdAt | formattedElapsedTime }}
-                
-            {% endif %}
-
-        </time>
-
-        {% if userPresenter is defined and userPresenter == true %}
-        
-            <a href="{{ path("edit_news", { "id": news.id }) }}" class="text-secondary">Modifier</a>
-        
-        {% endif %}  
-    
-    </div>
-
-    <div class="text-content {{ newsTextContent | striptags | length > textShowMoreThreshold ? 'hideContent' }}">
-
-        {% if newsTextContent is not empty %}
-        
-            {{ newsTextContent | sanitize_html ('default') }}
-            
-        {% endif %}
-        
-    </div>
-
-    {% if newsTextContent | length > textShowMoreThreshold %}
-
-        <div class="show-more">
-            <span href="">Afficher Plus</span>
-        </div>
-
-    {% endif %}
-
-    {# Medias display #}
-
     {% set hasImage = false %}
 
     {% set imagesArray = [] %}
@@ -94,6 +43,66 @@
         {% set imagesArray = imagesArray | merge([img3]) %}
                             
     {% endif %}
+
+
+{% set textShowMoreThreshold = 95 %}
+
+{% if not hasImage %}
+    
+    {% set textShowMoreThreshold = 1000 %}
+
+{% endif %}
+
+
+<div id="news-{{news.id}}" class="news-card">
+
+    <div class="upper-box">
+
+        <time datetime="{{news.createdAt | date("d/m/Y") }}">
+
+            Il y a 
+
+            {% if news.updatedAt is not empty %}
+            
+                {{news.updatedAt | formattedElapsedTime }}
+
+            {% else %}
+
+                {{news.createdAt | formattedElapsedTime }}
+                
+            {% endif %}
+
+        </time>
+
+        {% if userPresenter is defined and userPresenter == true %}
+        
+            <a href="{{ path("edit_news", { "id": news.id }) }}" class="text-secondary">Modifier</a>
+        
+        {% endif %}  
+    
+    </div>
+
+  
+
+    <div class="text-content {{ newsTextContent | striptags | length > textShowMoreThreshold ? 'hideContent' }}">
+
+        {% if newsTextContent is not empty %}
+        
+            {{ newsTextContent | sanitize_html ('default') }}
+            
+        {% endif %}
+        
+    </div>
+
+    {% if newsTextContent | length > textShowMoreThreshold %}
+
+        <div class="show-more">
+            <span href="">Afficher Plus</span>
+        </div>
+
+    {% endif %}
+
+    {# Medias display #}
     
     {% if hasImage %}
         

@@ -120,6 +120,11 @@
         margin: 0 auto 10px auto;
     }
 
+    .news-card .other-media-container img {
+
+        height: unset;
+    }
+
     .carousel-control-prev-icon, .carousel-control-next-icon {
         display: none;
     }

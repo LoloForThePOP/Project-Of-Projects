@@ -67,7 +67,7 @@ class CommentController extends AbstractController
             }
 
         //when new comment is a reply
-           if (!is_null($repliedCommentId)) {
+        if (!is_null($repliedCommentId)) {
 
             // We associate parent to the comment
             $parentComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentCommentId]);
@@ -76,9 +76,9 @@ class CommentController extends AbstractController
             
             $repliedComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $repliedCommentId]);
 
-            // When we reply to a first degree child comment : we associate replied comment user so that we can show to whose child is replied to in frontend.
+            // When we reply to a first degree child comment : we associate this replied comment user author to the reply comment so that we can show to whose child the new comment is replied to in frontend.
 
-            //check if we reply to a first degree child
+            //So we check if we reply to a first degree child
             if ($repliedCommentId !== $parentCommentId) {
 
                 $comment->setRepliedUser($repliedComment->getUser());

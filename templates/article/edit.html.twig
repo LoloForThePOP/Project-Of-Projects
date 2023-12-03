@@ -18,9 +18,8 @@
 
     <div class="page-container container col-md-8">
 
-        <h1 class="text-center mb-5">Édition d'un Article sur Propon</h1>
+        <h1 class="text-center mb-5">Édition d'un article sur Propon</h1>
 
-        {% if not is_granted('admin_edit', article) %}
           {# Alerts #}
           <div class="alerts">
 
@@ -35,15 +34,15 @@
 
                       <li><span class="fw-bold">Les projets en général</span> (par exemple des conseils pour réussir un projet ou un certain type de projet);</li>
                       <li><span class="fw-bold">Les projets en particulier</span> (par exemple une actualité sur un projet);</li>
-                      <li><span class="fw-bold">Les interviews en rapport avec des projets</span> sont aussi publiées.</li>
+                      <li><span class="fw-bold">Les interviews en rapport avec des projets sont aussi publiées</span>.</li>
                   
                   </ul>
 
-                  <b>Merci de respecter ces règles, et merci pour votre participation au site.</b>
+                  <b>Merci de respecter ces règles, et <u>merci pour votre participation au site</u>.</b>
 
                 <hr>
 
-                <p class="fs-6">Propon se réserve le droit d'apporter aux articles toutes les modifications estimées utiles pour la diffusion d'une information de qualité.</p>
+                <p class="fs-6">Propon se réserve le droit d'apporter aux articles toutes les modifications estimées utiles pour favoriser la diffusion d'une information de qualité.</p>
               </div>
 
             </div>
@@ -54,19 +53,16 @@
 
                     <p><svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Info:"><use xlink:href="#info-fill"/><use xlink:href="#info-fill"><symbol id="info-fill" fill="currentColor" viewBox="0 0 16 16" style="--darkreader-inline-fill: currentColor;" data-darkreader-inline-fill="">
                         <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"></path>
-                    </symbol></use></svg><b>Pour publier votre article :</b> </p>
+                    </symbol></use></svg><b>Pour publier votre article, vous pouvez :</b> </p>
                     <ul>
-                        <li class="mb-2"><b>Utilisez directement le formulaire ci-dessous.</b></li>
-                        <li><b>Ou envoyez-le à l'adresse articles[at]propon.org</b> (mesure anti-spam : remplacer [at] par @) (les formats de fichiers acceptés sont word; libre office / open office; et pdf).</li>
+                        <li class="mb-2"><b>Utiliser directement le formulaire ci-dessous.</b></li>
+                        <li><b>Ou créez-le avec un traitement de texte et envoyez-le à l'adresse articles@propon.org</b> (les formats de fichiers acceptés sont word; libre office / open office; et pdf). Dans ce cas nous nous chargerons de le publier sur le site.</li>
                     </ul>
       
                 </div>
             </div>
           
-          </div>
-        
-        {% endif %}
-        
+          </div>        
 
         
         {{ form_start(form) }}
@@ -224,7 +220,7 @@
       toolbar: 'h2 h3 undo redo emoticons bullist image bold italic underline strikethrough alignleft aligncenter alignright alignjustify',
       browser_spellcheck: true,
       width : "100%",
-      height: "500px",
+      height: "600px",
       entity_encoding : "raw",
       
       menubar: 'edit format', menu: {

@@ -115,8 +115,16 @@ class NotificationService {
 
 
     private function repliedCommentProjectPresentation($presentation, $repliedComment, $answer){
+        
+        //when comment replier is project presenter, we do not have to notice him twice (he is noticed by default)
+        if ($repliedComment->getUser() == $presentation->getCreator()) {
 
-        if ($repliedComment->getUser() == $presentation->getCreator()) {//when comment replier is project presenter, we do not have to notice him twice (he is noticed by default)
+            return;
+            
+        }
+
+        //when comment replier author is the same as parent comment author, we don't have to notice him
+        if ($repliedComment->getUser() == $repliedComment->getParent()->getUser()) {
 
             return;
             

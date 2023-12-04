@@ -341,7 +341,7 @@ To use this template, we need access to those variables :
 
         <!-- thread container -->
 
-        <article class="threadContainer mb-3 comment-{{ cycle(['odd', 'even'], loop.index0) }}">
+        <article class="threadContainer comment-{{ cycle(['odd', 'even'], loop.index0) }}">
 
             {{ _self.oneCommentContainer(commentedEntityType, comment, comment.id) }}
 
@@ -413,7 +413,7 @@ To use this template, we need access to those variables :
     }
 
     .oneCommentContainer{
-        max-width: 540px;
+        max-width: 450px;
         padding: 8px 10px 5px 10px;
         margin-bottom: 15px;
         background-color: #fbfdff;
@@ -427,7 +427,7 @@ To use this template, we need access to those variables :
 
     
     .oneCommentContainer.activeUserAuthor {
-        background-color: #ffe4c4ba;
+        background-color: #fef5e9ba;
     }
 
     .oneCommentContainer .commentUserName{
@@ -491,20 +491,31 @@ To use this template, we need access to those variables :
     }
 
     .oneCommentContainer .commentForm{
-        margin-top: 15px;
+        margin-top: 11px;
         margin-bottom: 6px;
     }
 
-    .comment-replies-container{
-        padding-left: 3rem;
-        margin-top: 1rem;
+    .commentRepliesContainer{
+        padding-left: 1.5rem;
+    }
+
+    .commentRepliesContainer .oneCommentContainer{
+        margin-bottom: 10px;
+    }
+
+    .commentRepliesContainer .oneCommentContainer:first-of-type{
+        margin-top: -5px;
     }
 
 
-    @media screen and (max-width: 580px) {   
+    @media screen and (max-width: 580px) { 
+
+        .oneCommentContainer {
+            margin-bottom: 11px;
+        }  
 
         .commentForm{
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
         }
 
         .commentSectionTitle {
@@ -524,7 +535,7 @@ To use this template, we need access to those variables :
             margin-top: 4px;
         }
 
-        .comment-replies-container{
+        .commentRepliesContainer{
             padding-left: 0.75rem;
             margin-top: 0.8rem;
         }

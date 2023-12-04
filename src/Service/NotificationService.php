@@ -124,11 +124,11 @@ class NotificationService {
         }
 
         //when comment replier author is the same as parent comment author, we don't have to notice him
-        if ($repliedComment->getUser() == $repliedComment->getParent()->getUser()) {
+/*         if ($repliedComment->getUser() == $repliedComment->getParent()->getUser()) {
 
             return;
             
-        }
+        } */
 
         $emailContentFilePath = 'email_notifications/replied_comment.html.twig';
 

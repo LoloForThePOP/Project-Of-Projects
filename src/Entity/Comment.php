@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Exception;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -81,6 +82,11 @@ class Comment
      * @ORM\ManyToOne(targetEntity=News::class, inversedBy="comments")
      */
     private $news;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Article::class, inversedBy="comments")
+     */
+    private $article;
 
 
     public function __construct()    {
@@ -224,21 +230,55 @@ class Comment
 
 
     /**
-     * Check if this comment has been created by a presentation editor (to highlight comment's creator's name)
+     * Check if this comment has been created by the commented entity author (so we can highlight its name) (ex: we highlight an article creator's name when he answer to one comment about his article). (note : one day, if we have team that own an entity, we could highligth comments created by a team staff member, so team is used in the method name).
      *
      * @return boolean
     */
-    public function isCreatedByPresentationTeam(): bool
+    public function isCreatedByEntityTeam($entityName): bool
     {
+        switch ($entityName) {
 
-        if ($this->getProjectPresentation()->getCreator() == $this->getUser()) {
+            case 'projectPresentation':
 
-            return true;
+                if ($this->getProjectPresentation()->getCreator() == $this->getUser()) {
 
+                    return true;
+        
+                }
+
+                break;
+            
+            default:
+                # code...
+                break;
         }
 
         return false;
         
+    }
+
+    /**
+     * We can comment an news, an article, etc. This function allows us to know which entity is commented.
+     *
+     * @return string
+    */
+    public function getCommentedEntityType()
+    {
+
+        if ($this->getProjectPresentation() !== null) {
+            return "projectPresentation";
+        }
+
+        if ($this->getArticle() !== null) {
+            return "article";
+        }
+
+        if ($this->getNews() !== null) {
+            return "news";
+        }
+
+        throw new Exception("Unknow commented entity type");
+
     }
 
 
@@ -263,6 +303,18 @@ class Comment
     public function setNews(?News $news): self
     {
         $this->news = $news;
+
+        return $this;
+    }
+
+    public function getArticle(): ?Article
+    {
+        return $this->article;
+    }
+
+    public function setArticle(?Article $article): self
+    {
+        $this->article = $article;
 
         return $this;
     }

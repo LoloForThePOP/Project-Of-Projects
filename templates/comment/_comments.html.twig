@@ -1,4 +1,15 @@
-{% macro oneCommentContainer(comment, parentCommentId, showRepliedUserName) %}
+{#
+
+To use this template, we need access to those variables :
+
+    - the commented entity type (ex: a projectPresentation, an article, etc)
+    - how many comments the entity have
+
+#}
+
+
+{% macro oneCommentContainer(commentedEntityType, comment, parentCommentId, showRepliedUserName) %}
+    
     <div class="oneCommentContainer {% if app.user == comment.user %}activeUserAuthor{% endif %}">
 
         <!-- Comment Header -->
@@ -14,7 +25,7 @@
 
                 <a href="{{ path('show_user_profile', {'userNameSlug' : comment.user.userNameSlug}) }}">
 
-                    <span class="commentUserName {{ comment.isCreatedByPresentationTeam ? 'badge bg-primary text-white' }}">
+                    <span class="commentUserName {{ comment.isCreatedByEntityTeam(commentedEntityType) ? 'badge bg-primary text-white' }}">
                                     
                         {{comment.user.persorg.name}}
                                     
@@ -210,7 +221,7 @@
             var formTimeLoaded = $('.formTimeLoaded', this).text();
             var hnyPt = $('.hnyPt', this).val();
 
-            var presentationId = {{presentation.id}};
+            var commentedEntityId = {{ commentedEntityId }};
 
 
             $("button[type='submit']", $(this)).append('<div class="loader ms-2"></div>');
@@ -223,10 +234,14 @@
               type: 'POST',   
               dataType: 'json',
               data: {
+            
+                    "commentedEntityType": "{{ commentedEntityType }}",
+                    "commentedEntityId": commentedEntityId,        
+                    
                     "commentContent": commentContent,
                     "parentCommentId": parentCommentId,
                     "repliedCommentId": repliedCommentId,
-                    "presentationId": presentationId,
+
 
                     "formTimeLoaded": formTimeLoaded,
                     "hnyPt": hnyPt,
@@ -324,7 +339,7 @@
 
 {# Comments display loop #}
 
-{% for comment in presentation.comments | reverse %}
+{% for comment in commentedEntityComments | reverse %}
 
     {% if comment.getParent is null %} {# we display only parent comments (and then its potential child) #}
 
@@ -332,7 +347,7 @@
 
         <article class="threadContainer mb-3 comment-{{ cycle(['odd', 'even'], loop.index0) }}">
 
-            {{ _self.oneCommentContainer(comment, comment.id) }}
+            {{ _self.oneCommentContainer(commentedEntityType, comment, comment.id) }}
 
             <!-- Maybe Some Comment Childs -->
 
@@ -344,7 +359,7 @@
 
                     {% for subComment in comment.replies %}
 
-                        {{ _self.oneCommentContainer(subComment, comment.id) }}
+                        {{ _self.oneCommentContainer(commentedEntityType, subComment, comment.id) }}
 
                     {% endfor %}
                 

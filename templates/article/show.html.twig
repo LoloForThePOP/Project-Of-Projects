@@ -6,7 +6,7 @@
 {# Page title for search engines, open graph, etc #}
 {% set titleMetadata %}{{ article.title }}{% endset %}
 {# Page description for search engines, open graph, etc #}
-{% set metadataDescription %}{{ article.content | slice (0, 220) | striptags }}{% endset %}
+{% set metadataDescription %}{{ article.content | slice (0, 270) | striptags }}{% endset %}
 {# Article Thumbnail Url for open graph #}
 {% set metadataImageUrl %}{{ article.thumbnail ? app.request.schemeAndHttpHost ~ app.request.baseUrl ~ vich_uploader_asset(article) : null }}{% endset %}
 {# Current page url for open graph #}
@@ -26,7 +26,12 @@
 {% endblock %}
 
 {% block body %}
+
   <div class="article-container container col-md-8 px-1 px-md-5">
+
+    {% set countComments = article.comments | length %}
+
+    {% include "comment/_comments.html.twig" with { "countComments" : countComments, "commentedEntityType": "article", "commentedEntityId": article.id, commentedEntityComments: article.comments} %}
 
         <header>
 
@@ -136,7 +141,7 @@
         }
 
         .article-container li {
-            margin-top: 12px;
+            margin-bottom: 12px;
             font-size: 1.13em;
         }
 

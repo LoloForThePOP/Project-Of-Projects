@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\PPBase;
+use App\Entity\Article;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Service\CommentService;
-use App\Repository\CommentRepository;
 use App\Service\NotificationService;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,9 +32,12 @@ class CommentController extends AbstractController
 
             session_write_close();
 
+            
+            $commentedEntityType = $request->request->get('commentedEntityType');
+            
+            $commentedEntityId = $request->request->get('commentedEntityId');
+            
             $commentContent = $request->request->get('commentContent');
-
-            $presentationId = $request->request->get('presentationId');
 
             $parentCommentId = $request->request->get('parentCommentId');
 
@@ -42,13 +46,28 @@ class CommentController extends AbstractController
             $formTimeLoaded = $request->request->get('formTimeLoaded'); //antispam protection based on time
             $honeyPot = $request->request->get('hnyPt'); //antispam protection based on honey pot
 
-            $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['id' => $presentationId]);
-
             $comment = new Comment;
+
+            switch ($commentedEntityType) {
+
+                case 'projectPresentation':
+                    $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['id' => $commentedEntityId]);
+                    $comment->setProjectPresentation($presentation);
+                    break;
+
+                case 'article':
+                    $article = $this->getDoctrine()->getRepository(Article::class)->findOneBy(['id' => $commentedEntityId]);
+                    $comment->setArticle($article);
+                    break;
+                
+                default:
+                    # code...
+                    break;
+
+            }
 
             $comment
                 ->setUser($this->getUser())
-                ->setProjectPresentation($presentation)
                 ->setApproved(true)
                 ->setContent($commentContent);
 
@@ -85,35 +104,66 @@ class CommentController extends AbstractController
 
             }
 
-            //Notification to replied user if he / she's not presentation creator (because anyway we notify presentation creator)
+            //Notification management concerning comment replies
 
-            $notificationParams=[
-                "presentation" => $presentation,
-                "repliedComment" => $parentComment,
-                "answer" => $comment,
-            ];
+            switch ($commentedEntityType) {
 
-            $notificationService->process('comment', 'projectPresentationRepliedComment', $notificationParams);
+                case 'projectPresentation':
+
+                    $notificationParams = [
+                        "presentation" => $presentation,
+                        "repliedComment" => $parentComment,
+                        "answer" => $comment,
+                    ];
+        
+                    $notificationService->process('comment', 'projectPresentationRepliedComment', $notificationParams);
+                    break;
+
+                case 'article':
+                   
+                    break;
+                
+                default:
+                    # code...
+                    break;
+
+            }
+
+           
 
         }
 
-        //Notification to project presentation creator
+        //Notification management other than replies
 
-        $notificationParams=[
-            "presentation" => $presentation,
-            "comment" => $comment,
-        ];
+        switch ($commentedEntityType) {
 
-        $notificationService->process('comment', 'projectPresentationCommented', $notificationParams);
+            case 'projectPresentation':
 
-        // End of Notification to project presentation creator
+                //Notification to project presentation creator
+
+                $notificationParams=[
+                    "presentation" => $presentation,
+                    "comment" => $comment,
+                ];
+
+                $notificationService->process('comment', 'projectPresentationCommented', $notificationParams);
+                break;
+
+            case 'article':
+               
+                break;
+            
+            default:
+                # code...
+                break;
+
+        }
 
         
         $manager->persist($comment);
 
         $manager->flush();
-
-
+        
         $newCommentEditionUrl = $this->generateUrl('update_comment', array('id' => $comment->getId()));
 
         $responseData = [
@@ -148,10 +198,19 @@ class CommentController extends AbstractController
 
             $manager->flush();
 
-            return $this->redirectToRoute('show_presentation', [
-                'stringId' => $comment->getProjectPresentation()->getStringId(),
-                '_fragment' => 'comments-struct-container',
-            ]);
+            switch ($comment->getCommentedEntityType()) {
+                case 'projectPresentation':
+                    return $this->redirectToRoute('show_presentation', [
+                        'stringId' => $comment->getProjectPresentation()->getStringId(),
+                        '_fragment' => 'comments-struct-container',
+                    ]);
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+
 
         }
 

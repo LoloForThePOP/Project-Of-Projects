@@ -749,7 +749,7 @@
 
                 <div id="comments-struct-container" class="pp-struct-container">
 
-                    {% include "project_presentation/_show/_comments.html.twig" %}
+                    {% include "comment/_comments.html.twig" with {commentedEntityType: "projectPresentation", commentedEntityId: presentation.id, commentedEntityComments: presentation.comments } %}
 
                 </div>
             

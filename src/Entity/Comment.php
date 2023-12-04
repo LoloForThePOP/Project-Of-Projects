@@ -247,9 +247,18 @@ class Comment
                 }
 
                 break;
+
+            case 'article':
+
+                if ($this->getArticle()->getAuthor() == $this->getUser()) {
+
+                    return true;
+        
+                }
+
+                break;
             
             default:
-                # code...
                 break;
         }
 

@@ -18,38 +18,34 @@ To use this template, we need access to those variables :
         <!-- Comment Header -->
 
         <header>
+        
+            <!-- Comment's Author -->
 
-            <p>
-            
-                <!-- Comment's Author -->
+            <a href="{{ path('show_user_profile', {'userNameSlug' : comment.user.userNameSlug}) }}">
 
-                <a href="{{ path('show_user_profile', {'userNameSlug' : comment.user.userNameSlug}) }}">
-
-                    <span class="commentUserName {{ comment.isCreatedByEntityTeam(commentedEntityType) ? 'badge bg-primary text-white' }}">
-                                    
-                        {{comment.user.persorg.name}}
-                                    
-                    </span>
-
-                </a> 
-                                  
-                <!-- Comment's Date -->
-
-                <span class="commentDate">
-
-                    Il y a 
-                
-                    <time>
-                        {{ comment.createdAt | formattedElapsedTime}}                
-                    </time>
-
-                    {% if comment.updatedAt is not null %}
-                        (puis modifié)
-                    {% endif %}
-
+                <span class="commentUserName {{ comment.isCreatedByEntityTeam(commentedEntityType) ? 'badge bg-primary text-white' }}">
+                                
+                    {{comment.user.persorg.name}}
+                                
                 </span>
-                      
-            </p>
+
+            </a> 
+                                
+            <!-- Comment's Date -->
+
+            <span class="commentDate">
+
+                Il y a 
+            
+                <time>
+                    {{ comment.createdAt | formattedElapsedTime}}                
+                </time>
+
+                {% if comment.updatedAt is not null %}
+                    (puis modifié)
+                {% endif %}
+
+            </span>
 
         </header>
 
@@ -64,7 +60,7 @@ To use this template, we need access to those variables :
         </p>
 
         <!-- Comment footer -->
-        <div>
+        <div class="commentFooter">
 
             <!-- Reply to Comment Button -->
 
@@ -124,11 +120,11 @@ To use this template, we need access to those variables :
 
 </script>
 
-<h3 class="commentSectionTitle fw-bold sm-fs-6 mb-3 mt-md-3">{{countComments}} Commentaire{% if countComments > 1 %}s{% endif %} </h3>
+<h3 class="commentSectionTitle">{{countComments}} Commentaire{% if countComments > 1 %}s{% endif %} </h3>
 
-<form id="" class="commentForm position-relative mb-2 mb-md-3" method="post">
+<form id="" class="commentForm position-relative" method="post">
 
-    <textarea id="" class="commentContent" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea>
+    <textarea id="" class="commentContentTextarea" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea>
 
     {# Antispam protection based on time #}
     <span class="formTimeLoaded" style="display:none;">{{ 'now' | date('U') }}</span>
@@ -355,7 +351,7 @@ To use this template, we need access to those variables :
 
                 <!-- Child Comments container with Indentation -->
 
-                <div class="commentRepliesContainer ps-4 ps-md-5 mt-4 mt-md-3">
+                <div class="commentRepliesContainer">
 
                     {% for subComment in comment.replies %}
 
@@ -381,10 +377,14 @@ To use this template, we need access to those variables :
 
     .commentSectionTitle {
 
+        margin-top: 1rem;
+        margin-bottom: 1rem;
         font-size: 21px;
         color: #21212b;
+        font-weight: bold;
 
     }
+
                 
     .commentForm textarea {
       color: black !important;
@@ -413,11 +413,16 @@ To use this template, we need access to those variables :
     }
 
     .oneCommentContainer{
+        max-width: 540px;
+        padding: 8px 10px 5px 10px;
         margin-bottom: 15px;
         background-color: #fbfdff;
-        padding: 5px 10px;
+        border: 1px solid #ced2ef;
         border-radius: 4px;
-        border: 1px solid #efefef;
+    }
+
+    .oneCommentContainer header{
+        margin-bottom: 5px;
     }
 
     
@@ -440,8 +445,11 @@ To use this template, we need access to those variables :
     .commentContent{
 
         font-size: 1.05em;
+        margin-bottom: 5px;
         
     }
+
+
 
     .replyCommentButton{
         padding: 5px;
@@ -459,6 +467,11 @@ To use this template, we need access to those variables :
         
     }
 
+
+    .commentFooter{
+        margin-bottom: 5px;
+    }
+
     .repliedUserBadge {
 	    font-size: 15px;
 	    color: green;
@@ -472,14 +485,50 @@ To use this template, we need access to those variables :
         padding: 7px 12px;
     }
 
+    .commentForm {
+        margin-bottom: 20px;
+        max-width: 540px;
+    }
+
+    .oneCommentContainer .commentForm{
+        margin-top: 15px;
+        margin-bottom: 6px;
+    }
+
+    .comment-replies-container{
+        padding-left: 3rem;
+        margin-top: 1rem;
+    }
+
 
     @media screen and (max-width: 580px) {   
 
+        .commentForm{
+            margin-bottom: 0.5rem;
+        }
+
         .commentSectionTitle {
 
-            font-size: 16px;
+            font-size: 1rem;
 
         }
+
+        .commentContent{
+
+            margin-bottom: 2px;
+            
+        }
+
+        .commentForm button[type="submit"] {
+            
+            margin-top: 4px;
+        }
+
+        .comment-replies-container{
+            padding-left: 0.75rem;
+            margin-top: 0.8rem;
+        }
+
 
     }
 

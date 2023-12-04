@@ -1,0 +1,40 @@
+<div>
+
+    <div>Votre article "{{article.title}}" a reçu un nouveau commentaire !</div>
+
+    </br>
+
+    <div>
+
+        Message de {{comment.user.username}}. </br>
+        Envoyé le {{comment.createdAt | date("d/m/Y \à h:i:s") }} </br>
+        Message : {{comment.content}}
+
+
+    </div>
+
+    </br>
+
+    <div>
+
+        Pour répondre à ce commentaire, <a href="{{ url ('show_article', {"slug": article.slug}) }}#comments-struct-container">cliquez ici</a>.
+
+    </div>
+
+    </br>
+    
+    <div>
+        
+        Pour toute question, remarque ou suggestion, <a href="{{ url ('contact_website') }}">cliquez ici</a>.
+    
+    </div>
+
+    </br>
+
+    <div>
+
+        Merci d'utiliser Propon.
+
+    </div>
+
+</div>

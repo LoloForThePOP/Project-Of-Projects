@@ -52,7 +52,15 @@ class NotificationService {
                         $this->repliedCommentProjectPresentation($presentation, $repliedComment, $answer);
 
                         break;
-                    
+
+                    case 'articleCommented':
+
+                        $article = $notificationParams["article"];
+                        $comment = $notificationParams["comment"];
+
+                        $this->newCommentArticle($article, $comment);
+
+                        break;                    
             
                     default:
                         throw new \Exception("Unsupported notification type");
@@ -108,6 +116,30 @@ class NotificationService {
         ];
 
         $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
+    }
+
+
+
+    private function newCommentArticle($article, $comment){
+
+        if ($article->getAuthor()==$comment->getUser()) {//if article author comments its own article, we do not notify him.
+            return;
+        }
+
+        $notificationReceiver = $article->getAuthor();
+
+        $notificationTitle = "Propon  - Nouveau commentaire reçu";
+
+        $emailContentFilePath = 'email_notifications/article_commented.html.twig';
+
+        $emailContentParameters = [
+
+            'article' => $article,
+            'comment' => $comment,
+        ];
+
+        $this->sendOrLogNotification($notificationReceiver, "comment", "articleCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
 
     }
 

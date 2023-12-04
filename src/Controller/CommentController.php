@@ -150,6 +150,16 @@ class CommentController extends AbstractController
                 break;
 
             case 'article':
+
+                //Notification to project presentation creator
+
+                $notificationParams=[
+                    "article" => $article,
+                    "comment" => $comment,
+                ];
+
+                $notificationService->process('comment', 'articleCommented', $notificationParams);
+                break;
                
                 break;
             

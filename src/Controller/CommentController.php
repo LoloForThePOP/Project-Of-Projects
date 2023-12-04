@@ -188,6 +188,31 @@ class CommentController extends AbstractController
     public function updateComment(Request $request, EntityManagerInterface $manager, Comment $comment):response
     {
 
+        $goBackUrl = null;
+
+        switch ($comment->getCommentedEntityType()) {
+
+            case 'projectPresentation':
+
+                $goBackUrl = $this->generateUrl('show_presentation', [
+                    'stringId' => $comment->getProjectPresentation()->getStringId(),
+                    '_fragment' => 'comments-struct-container',
+                ]);
+                break;
+
+            case 'article':
+                $goBackUrl = $this->generateUrl('show_article', [
+                    'slug' => $comment->getArticle()->getSlug(),
+                    '_fragment' => 'comments-struct-container',
+                ]);
+                break;
+            
+            default:
+                throw new \Exception("Unknown Go Back Button Route");
+                
+        }
+
+
         $form = $this->createForm(CommentType::class, $comment);
 
         $form->handleRequest($request);
@@ -205,6 +230,12 @@ class CommentController extends AbstractController
                         '_fragment' => 'comments-struct-container',
                     ]);
                     break;
+                case 'article':
+                    return $this->redirectToRoute('show_article', [
+                        'slug' => $comment->getArticle()->getSlug(),
+                        '_fragment' => 'comments-struct-container',
+                    ]);
+                    break;
                 
                 default:
                     # code...
@@ -216,7 +247,7 @@ class CommentController extends AbstractController
 
         return $this->render('comment/edit.html.twig', [
             'form' => $form->createView(),
-            'stringId' => $comment->getProjectPresentation()->getStringId(),
+            'goBackUrl' => $goBackUrl,
         ]);
         
     }

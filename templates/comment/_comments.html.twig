@@ -288,7 +288,7 @@ To use this template, we need access to those variables :
 
             var commentId = $(this).attr("data-comment-id");
 
-            if (confirm("Confirmez-vous retirer ce commentaire et ses possibles réponses ?"))
+            if (confirm("Confirmez-vous retirer ce commentaire ainsi que ses réponses possibles ?"))
             { 
 
                 $(this).html('<div class="loader"></div>');
@@ -381,7 +381,8 @@ To use this template, we need access to those variables :
 
     .commentSectionTitle {
 
-        font-size: 20px;
+        font-size: 21px;
+        color: #21212b;
 
     }
                 
@@ -401,6 +402,14 @@ To use this template, we need access to those variables :
         font-size:1em !important;
         font-weight:bold;
         color: #7b8a8b  !important;
+    }
+
+
+    .commentForm button[type="submit"] {
+        
+        padding: 5px 13px;
+        margin-top: 5px;
+        border-radius: 50px;
     }
 
     .oneCommentContainer{

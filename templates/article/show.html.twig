@@ -29,200 +29,201 @@
 
   <div class="article-container container col-md-8 px-1 px-md-5">
 
-    {% set countComments = article.comments | length %}
+    <header>
 
-    {% include "comment/_comments.html.twig" with { "countComments" : countComments, "commentedEntityType": "article", "commentedEntityId": article.id, commentedEntityComments: article.comments} %}
-
-        <header>
-
-            <h1 class="article-title">
-            
-                {{article.title}}
-
-                {% if is_granted('admin_edit', article) %} <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">MODIFIER</span></a>{% endif %}
-            
-            </h1>
-            
-            <div class="metadata"> <span class="me-1">Le</span> {{article.createdAt | date("d / m / Y")}} par {{articleCreator}} {% if article.updatedAt is not empty %} (modifié il y a {{article.createdAt | formattedElapsedTime}}){% endif %}</div>
-
-        </header>
-
+        <h1 class="article-title">
         
+            {{article.title}}
 
-
-        <div class="article-content">
+            {% if is_granted('admin_edit', article) %} <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">MODIFIER</span></a>{% endif %}
         
-            {% if not article.content is empty %} 
-
-                {{ article.content | sanitize_html ('article') }}
-
-            {% endif %}
-            
-        </div>
-
-
-        {# Admins #}
+        </h1>
         
-        {% if is_granted('admin_edit', article) %}
+        <div class="metadata"> <span class="me-1">Le</span> {{article.createdAt | date("d / m / Y")}} par {{articleCreator}} {% if article.updatedAt is not empty %} (modifié il y a {{article.createdAt | formattedElapsedTime}}){% endif %}</div>
 
-            <div class="my-4">
+    </header>
 
-                <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">MODIFIER</span></a>
-            
-            </div>
+    <div class="article-content">
+    
+        {% if not article.content is empty %} 
+
+            {{ article.content | sanitize_html ('article') }}
 
         {% endif %}
+        
+    </div>
 
+    {# Admins #}
+    
+    {% if is_granted('admin_edit', article) %}
 
-        {# CTA #}
+        <div class="my-4">
 
-        <div class="cta mb-5">
-
-            <p class="mb-0 lh-sm">Cet article vous est proposé par Propon, le site de présentation de projets.<br class="d-none d-md-block"> <a href="{{path("create_presentation")}}">Présentez votre projet sur Propon.</a></p>
+            <a href="{{path('edit_article', {"id": article.id})}}" class=""><span class="fs-4">MODIFIER</span></a>
         
         </div>
-                
+
+    {% endif %}
+
+    {# CTA #}
+
+    <div class="cta mb-5">
+
+        <p class="mb-0 lh-sm">Cet article vous est proposé par Propon, le site de présentation de projets.<br class="d-none d-md-block"> <a href="{{path("create_presentation")}}">Présentez votre projet sur Propon.</a></p>
+    
+    </div>
+
+    {# Comments #}
+
+    <div id="comments-struct-container" class="mb-5">
+        
+        {% set countComments = article.comments | length %}
+
+        {% include "comment/_comments.html.twig" with { "countComments" : countComments, "commentedEntityType": "article", "commentedEntityId": article.id, commentedEntityComments: article.comments} %}
+    
     </div>
 
 
-    <style>
+            
+</div>
 
-       .article-container{
 
-            max-width: 800px;
-            margin-top: 90px;
+<style>
 
-        }
+    .article-container{
 
-       .article-content{
+        max-width: 800px;
+        margin-top: 90px;
 
-            margin-bottom: 40px;
+    }
 
+    .article-content{
+
+        margin-bottom: 40px;
+
+    }
+
+    .article-container header {
+        
+        margin-bottom: 42px;
+    }
+
+
+    .article-container header h1{
+        margin-bottom: 0px;
+    }
+
+    header .metadata{
+        color: grey;
+    }
+
+    .article-title{
+        font-weight: bold;
+        color: #1b2e4d;
+        
+    }
+
+    .article-container h2 {
+        color: green;
+        font-weight: bold;
+    }
+
+
+    h2:not(:first-child) {
+        margin-top: 20px;
+    }
+
+    .article-container h3 {
+        margin-top: 21px;
+        color: green; 
+        font-weight: bold;
+    }
+
+    .article-container ol, .article-container ul, .article-container dl {
+        margin-top: 9px;
+    }
+
+    .article-container li {
+        margin-bottom: 12px;
+        font-size: 1.13em;
+    }
+
+    .article-container p {
+        font-size: 1.13em;
+        margin: 10px 0;
+    }
+
+    .article-container img {
+        max-width: 100%;
+        display: block;
+        border-radius: 4px;
+    }
+
+    .article-container figure{
+        
+        text-align: center;
+    }
+
+    .article-container figure, .article-container img{
+
+        
+        margin: 30px auto 30px auto;
+    }
+
+
+    .article-container figcaption{
+        
+        margin-bottom: 10px;
+        color : #272727;
+    }
+
+    .article-container figure img{
+        margin: 0px auto 0px auto;
+    }
+
+    
+    @media screen and (max-width: 580px) {
+
+        .article-container {
+            margin-top: 25px;
         }
 
         .article-container header {
-            
-            margin-bottom: 42px;
+            margin-bottom: 24px;
         }
 
-    
         .article-container header h1{
-            margin-bottom: 0px;
+            margin-bottom: 5px;
         }
 
-        header .metadata{
-            color: grey;
-        }
-
-        .article-title{
-            font-weight: bold;
-            color: #1b2e4d;
+        .article-container header .metadata{
             
+            line-height: 1.25em;
         }
 
-        .article-container h2 {
-            color: green;
-            font-weight: bold;
-        }
-
-
-        h2:not(:first-child) {
-            margin-top: 20px;
-        }
-
-        .article-container h3 {
-            margin-top: 21px;
-            color: green; 
-            font-weight: bold;
-        }
-
-        .article-container ol, .article-container ul, .article-container dl {
-            margin-top: 9px;
-        }
-
-        .article-container li {
-            margin-bottom: 12px;
-            font-size: 1.13em;
-        }
-
-        .article-container p {
-            font-size: 1.13em;
-            margin: 10px 0;
-        }
 
         .article-container img {
-            max-width: 100%;
-            display: block;
-            border-radius: 4px;
-        }
-
-        .article-container figure{
             
-            text-align: center;
-        }
-
-        .article-container figure, .article-container img{
-
-            
-            margin: 30px auto 30px auto;
-        }
-
-
-        .article-container figcaption{
-            
-            margin-bottom: 10px;
-            color : #272727;
-        }
-
-        .article-container figure img{
-            margin: 0px auto 0px auto;
-        }
-
-        
-        @media screen and (max-width: 580px) {
-
-            .article-container {
-                margin-top: 25px;
-            }
-
-            .article-container header {
-                margin-bottom: 24px;
-            }
-
-            .article-container header h1{
-                margin-bottom: 5px;
-            }
-
-            .article-container header .metadata{
-                
-                line-height: 1.25em;
-            }
-
-
-            .article-container img {
-                
-                height: auto;
-
-            }
-
+            height: auto;
 
         }
+
+
+    }
+
+
+</style>
+
+<script>
+
+    // Place figcaption before images.
+    // Thanks at https://stackoverflow.com/questions/11183401/jquery-change-the-element-order
     
-    
-    </style>
+    $('figcaption').each(function() {
+        $(this).insertBefore( $(this).prev('img') );
+    });
 
-
-    
-    <script>
-
-        // Place figcaption before images.
-        // Thanks at https://stackoverflow.com/questions/11183401/jquery-change-the-element-order
-        
-        $('figcaption').each(function() {
-            $(this).insertBefore( $(this).prev('img') );
-        });
-
-    </script>
+</script>
 
 
 {% endblock %}

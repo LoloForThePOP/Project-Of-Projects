@@ -22,9 +22,9 @@
 
     <div>
 
-        Message de {{comment.user.username}}. </br>
-        Envoyé le {{comment.createdAt | date("d/m/Y \à h:i:s") }} </br>
-        Message : {{comment.content}}
+        Message de {{newComment.user.username}}. </br>
+        Envoyé le {{newComment.createdAt | date("d/m/Y \à h:i:s") }} </br>
+        Message : {{newComment.content}}
 
 
     </div>
@@ -33,7 +33,7 @@
 
     <div>
 
-        Pour répondre à ce commentaire, <a href="{{ commentedPageUrl }}#comments-struct-container">cliquez ici</a>.
+        Pour répondre à ce commentaire, <a href="{{ commentedPageUrl }}#comment-{{ newComment.id }}">cliquez ici</a>.
 
     </div>
 

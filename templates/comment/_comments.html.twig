@@ -12,7 +12,7 @@ To use this template, we need access to those variables :
 
 {% macro oneCommentContainer(commentedEntityType, comment, parentCommentId, showRepliedUserName) %}
     
-    <div class="oneCommentContainer {% if app.user == comment.user %}activeUserAuthor{% endif %}">
+    <div id="comment-{{comment.id}}" class="oneCommentContainer {% if app.user == comment.user %}activeUserAuthor{% endif %}">
 
         <!-- Comment Header -->
         <div class="errors"></div>

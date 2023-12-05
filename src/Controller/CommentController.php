@@ -32,7 +32,6 @@ class CommentController extends AbstractController
 
             session_write_close();
 
-            
             $commentedEntityType = $request->request->get('commentedEntityType');
             
             $commentedEntityId = $request->request->get('commentedEntityId');
@@ -110,6 +109,12 @@ class CommentController extends AbstractController
 
             }
 
+            //saving comment in DB
+                   
+            $manager->persist($newComment);
+
+            $manager->flush();
+
             //notification management
 
             $notificationParams = [
@@ -128,6 +133,10 @@ class CommentController extends AbstractController
                     break;
 
                 case 'article':
+
+                    $notificationParams ["article"] = $article;
+        
+                    $notificationService->process('comment', 'article', $notificationParams);
                    
                     break;
                 
@@ -136,10 +145,6 @@ class CommentController extends AbstractController
                     break;
 
             }
-       
-            $manager->persist($newComment);
-
-            $manager->flush();
             
             $newCommentEditionUrl = $this->generateUrl('update_comment', array('id' => $newComment->getId()));
 

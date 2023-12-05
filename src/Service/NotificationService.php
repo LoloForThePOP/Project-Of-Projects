@@ -69,9 +69,8 @@ class NotificationService {
                     case 'article':
 
                         $article = $notificationParams["article"];
-                        $comment = $notificationParams["comment"];
 
-                        $this->newCommentArticle($article, $comment);
+                        $this->commentArticle($article, $parentComment, $repliedSiblingComment, $newComment);
 
                         break;                    
             
@@ -126,7 +125,7 @@ class NotificationService {
 
                 'pageType' => "projectPresentation",
                 'presentation' => $presentation,
-                'comment' => $newComment,
+                'newComment' => $newComment,
                 'commentedPageUrl' => $commentedPageUrl,
             ];
 
@@ -189,6 +188,107 @@ class NotificationService {
         return;
 
     }
+
+    private function commentArticle($article, $parentComment, $repliedSiblingComment, $newComment){
+
+        $commentedPageUrl = $this->router->generate('show_article', array('slug' => $article->getSlug()), UrlGeneratorInterface::ABSOLUTE_URL);
+
+        if ($article->getAuthor() !== $newComment->getUser()) {//if new comment author is different from project presenter, we notify project presenter.
+
+            $notificationReceiver = $article->getAuthor();
+
+            $notificationTitle = "Propon - Nouveau commentaire reçu";
+
+            $emailContentFilePath = 'email_notifications/page_commented.html.twig';
+
+            $emailContentParameters = [
+
+                'pageType' => "article",
+                'article' => $article,
+                'newComment' => $newComment,
+                'commentedPageUrl' => $commentedPageUrl,
+            ];
+
+            $this->sendOrLogNotification($notificationReceiver, "comment", "articleCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
+        }
+
+
+        if($parentComment !== null){ // if new comment is a reply, maybe we additionaly notify parent comment thread author and potential replied siblings comment author.
+
+            if ($parentComment->getUser() !== $article->getAuthor() && $parentComment->getUser() !== $newComment->getUser()) { 
+
+                $notificationReceiver = $parentComment->getUser();
+
+                $notificationTitle = "Propon - Nouveau commentaire reçu sur une discussion";
+    
+                $emailContentFilePath = 'email_notifications/replied_comment_thread.html.twig';
+    
+                $emailContentParameters = [
+    
+                    'pageType' => "article",
+                    'article' => $article,
+                    'initialCommentInThread' => $parentComment,
+                    'newComment' => $newComment,
+                    'commentedPageUrl' => $commentedPageUrl,
+                ];
+    
+                $this->sendOrLogNotification($notificationReceiver, "comment", "articleCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+                
+            }
+
+        }
+
+        if($repliedSiblingComment !== null){ // case when we speciffically reply to a child comment (and not just an initial thread comment)
+
+            if ($repliedSiblingComment->getUser() !== $article->getAuthor() && $parentComment->getUser() !== $repliedSiblingComment->getUser()) {
+
+                $notificationReceiver = $repliedSiblingComment->getUser();
+
+                $notificationTitle = "Propon - Nouveau commentaire reçu";
+    
+                $emailContentFilePath = 'email_notifications/replied_comment.html.twig';
+    
+                $emailContentParameters = [
+    
+                    'pageType' => "article",
+                    'article' => $article,
+                    'repliedSiblingComment' => $repliedSiblingComment,
+                    'newComment' => $newComment,
+                    'commentedPageUrl' => $commentedPageUrl,
+                ];
+    
+                $this->sendOrLogNotification($notificationReceiver, "comment", "articleCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
+            }
+
+
+
+
+        }
+
+        return;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     
     private function newProjectNews($presentation){

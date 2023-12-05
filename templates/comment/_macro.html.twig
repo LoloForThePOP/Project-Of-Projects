@@ -1,0 +1,124 @@
+{% macro oneCommentContainer(commentedEntityType, comment, parentCommentId, showRepliedUserName) %}
+    
+    <div id="comment-{{comment.id}}" class="oneCommentContainer {% if app.user == comment.user %}activeUserAuthor{% endif %}">
+
+        <!-- Comment Header -->
+        <div class="errors"></div>
+                            
+        <!-- Comment Header -->
+
+        <header>
+        
+            <!-- Comment's Author -->
+
+            <a href="{{ path('show_user_profile', {'userNameSlug' : comment.user.userNameSlug}) }}">
+
+                <span class="commentUserName {{ comment.isCreatedByEntityTeam(commentedEntityType) ? 'badge bg-primary text-white' }}">
+                                
+                    {{comment.user.persorg.name}}
+                                
+                </span>
+
+            </a> 
+                                
+            <!-- Comment's Date -->
+
+            <span class="commentDate">
+
+                Il y a 
+            
+                <time>
+                    {{ comment.createdAt | formattedElapsedTime}}                
+                </time>
+
+                {% if comment.updatedAt is not null %}
+                    (puis modifié)
+                {% endif %}
+
+            </span>
+
+        </header>
+
+        <!-- Comment Content -->
+
+        <p class="commentContent">
+
+            {% if comment.repliedUser is not null %}<span class="repliedUserBadge">@{{comment.repliedUser.userNameSlug}}</span>{% endif %}
+
+            {{ comment.content | nl2br  }}
+
+        </p>
+
+        <!-- Comment footer -->
+        <div class="commentFooter">
+
+            <!-- Reply to Comment Button -->
+
+                <span class="replyCommentButton position-relative" data-entity-type="{{commentedEntityType}}" data-comment-id="{{comment.id}}" data-parent-comment-id="{{parentCommentId}}">Répondre{% if not is_granted('ROLE_USER') %}<a class="coverable-link" href="{{path('app_login')}}"></a>{% endif %}</span >
+
+            <!-- End of Reply to Comment Button -->
+
+            <!-- Edit Comment Access -->
+
+            {% if is_granted('update', comment) %}
+
+                <a class="me-2" href="{{ path('update_comment', {'id': comment.id} ) }}">Modifier</a>
+
+            {% endif %}
+
+            <!-- Delete Comment (ajax request) -->
+
+            {% if is_granted('delete', comment) %}
+
+                <sapn class="js-remove-comment text-danger cursor-pointer" data-comment-id="{{comment.id}}" href="#">Supprimer</span>
+
+            {% endif %}
+
+        <!-- End of Comment Footer -->
+        </div>     
+
+    <!-- End of comment container -->               
+    </div>
+
+{% endmacro %}
+
+
+{% macro commentForm(commentedEntityType, commentedEntityId) %}
+
+<form id="" method="post" name="newCommentForm" class="commentForm position-relative" data-commented-entity-type="{{commentedEntityType}} data-commented-entity-id="{{commentedEntityId}}">
+
+    <textarea id="" class="commentContentTextarea" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea>
+
+    {# Antispam protection based on time #}
+    <span class="formTimeLoaded" style="display:none;">{{ 'now' | date('U') }}</span>
+
+    {# Antispam protection based on honey pot #}
+    <input type="text" class="hnyPt" name="hnyPt" autocomplete="off" style="width: 1px; height: 1px; border: none; display: contents;"/>
+
+    <!-- Submit Form -->
+
+    <div class="d-flex justify-content-end">
+
+        <button type="submit" class="btn btn-light btn-sm d-flex align-items-center">
+        
+            Ajouter
+
+            <svg class="ms-1" style="" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+                <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+            </svg>
+            
+        </button>
+    
+    </div>
+
+    {# if visitor is not connected, we cover the form with a coverable link #}
+
+    {% if not is_granted('ROLE_USER') %} 
+
+        <a class="coverable-link" href="{{path('app_login')}}"></a>
+        
+    {% endif %}
+
+</form>
+
+{% endmacro %}

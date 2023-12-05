@@ -1,0 +1,196 @@
+
+
+{# new comment pattern #}
+<script>
+
+    const newCommentPattern = ({ newCommentContent, newCommentUrl }) => `
+
+        <div class="liveNewComment">
+
+            <div>Commentaire ajouté ✅</div>
+
+            <div>
+
+                ${newCommentContent}
+            
+            </div>
+
+            <div>
+
+                <a href="${newCommentUrl}" class="">Modifier</a>
+            
+            </div>
+
+        </div>
+    `;
+    
+    $(document).ready(function(){
+
+        // creating a reply comment form (in addition to the create new comment form)
+        var replyForm = $(".commentForm").clone().addClass("replyCommentForm");
+        $(".commentForm").after(replyForm);
+        replyForm.hide();
+
+        // when user click on reply to a comment, we're placing the reply comment form where appropriate
+        $(".replyCommentButton ").on( "click", function( event ){
+
+            $(this).parent().after( $(".replyCommentForm")); // insert reply comment form after the message to answer
+
+            $(".replyCommentForm").show();
+            
+            $(".replyCommentForm textarea").val('').focus(); 
+
+            $(".replyCommentForm").attr("data-parent-comment-id", $(this).attr("data-parent-comment-id")) // store parent comment id for data base storage.
+
+            $(".replyCommentForm").attr("data-comment-id", $(this).attr("data-comment-id")) // store replied comment id to notify replied comment user.
+
+        });
+
+        // Change send button color when input changed
+
+        $('.commentForm textarea').bind('input propertychange', function() {
+
+            var buttonColor;
+
+            if(this.value.length){
+
+                buttonColor = "#ddf5c4";
+               
+            }
+
+            else{ buttonColor = "#ecf0f1";}
+
+            //$('.commentForm button').css('background-color', buttonColor);
+            $("button", $(this).parent()).css('background-color', buttonColor);
+
+        });
+
+        
+        
+
+        // submitting a comment   
+    
+        $(".commentForm ").on( "submit", function( event ){
+
+            event.preventDefault();
+
+            var commentContent = $('textarea', this).val();
+            var parentCommentId = $(this).attr("data-parent-comment-id"); // or null
+            var repliedCommentId = $(this).attr("data-comment-id"); // or null
+
+            var formTimeLoaded = $('.formTimeLoaded', this).text();
+            var hnyPt = $('.hnyPt', this).val();
+
+            var commentedEntityId = $(this).attr("data-commented-entity-id");
+            var commentedEntityType = $(this).attr("data-commented-entity-type");
+
+
+            $("button[type='submit']", $(this)).append('<div class="loader ms-2"></div>');
+
+            var $t = $(this);
+
+            $.ajax({  
+
+              url: "{{path('ajax_create_comment')}}",
+              type: 'POST',   
+              dataType: 'json',
+              data: {
+            
+                    "commentedEntityType": commentedEntityType,
+                    "commentedEntityId": commentedEntityId,        
+                    
+                    "commentContent": commentContent,
+                    "parentCommentId": parentCommentId,
+                    "repliedCommentId": repliedCommentId,
+
+
+                    "formTimeLoaded": formTimeLoaded,
+                    "hnyPt": hnyPt,
+              },
+  
+              async: true,  
+              
+              success: function(data, status) {
+                
+                $( ".errors", $t.closest(".oneCommentContainer")).text("");
+                $( ".replyCommentButton", $t.closest(".oneCommentContainer")).remove();
+
+                $(".loader").remove();
+                console.log(data);
+
+                $t.hide(); // hidding comment form
+
+                $t.after([
+                    { newCommentContent: commentContent, newCommentUrl: data.newCommentEditionUrl },
+                ].map(newCommentPattern)); // we hydrate javascript new comment pattern
+
+              },  
+  
+                error : function(xhr, textStatus, errorThrown) {
+
+                    $(".loader").remove();
+
+                    console.log(errorThrown);
+                    
+                    $( ".errors", $t.closest(".oneCommentContainer")).addClass("text-danger").text(xhr.responseJSON.error);
+
+                    
+                    //console.log(xhr.responseJSON);
+                }  
+  
+            });
+    
+
+        });
+
+        // Remove a Comment
+
+        $('.js-remove-comment').on('click', function (){
+
+            var commentId = $(this).attr("data-comment-id");
+
+            if (confirm("Confirmez-vous retirer ce commentaire ainsi que ses réponses possibles ?"))
+            { 
+
+                $(this).html('<div class="loader"></div>');
+
+                var $t = $(this);
+                
+                $.ajax({  
+
+                    url: "{{path('ajax_remove_comment') }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    data: {
+                        "commentId": commentId,
+                    },
+
+                    async: true,  
+
+                    success: function(data, status) {
+
+                        //case comment might have child : we delete parent and potential childs
+
+                        if($t.closest('.oneCommentContainer').parent(".threadContainer").length) {
+
+                            $t.closest(".threadContainer").remove();
+
+	                    } else { // we delete only one comment
+	                    $t.closest('.oneCommentContainer').remove();
+	                    }                       
+                    
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                }); 
+                    
+            }
+
+
+        });
+
+    });
+
+</script>

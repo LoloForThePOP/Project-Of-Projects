@@ -6,7 +6,25 @@ use App\Entity\User;
 use Twig\Environment;
 use App\Service\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
+
+/*
+
+Note on comments : comments and replies to comments follow a similar structure as youtube comments structure (as of year 2023).
+
+Vocabulary : 
+
+- cmt 1
+- cmt 2 (has childs, so is called a parent comment)
+    - cmt 2.1 (is called an answered comment, or replied comment, because cmt 2.2 below answers specifically to it)
+    - cmt 2.2 @cmt 2.1
+    - cmt 2.3
+- cmt 2
+
+When a comment is replied, potentially we can send a notification up to three user : commented page author (ex: the commented article author), comment thread initial author (= parent comment author, see above), replied comment author (= someone participate to a thread and someone answers to a comment).
+
+*/
 
 class NotificationService {
 
@@ -14,19 +32,25 @@ class NotificationService {
     protected $em;
     protected $twig;
     protected $mailerService;
+    protected $router; //to generate urls
 
 
 
-    public function __construct(EntityManagerInterface $em, Environment $twig, MailerService $mailerService)
+    public function __construct(EntityManagerInterface $em, Environment $twig, MailerService $mailerService, UrlGeneratorInterface $router)
     {
       
         $this->em = $em;
         $this->twig = $twig;
         $this->mailerService = $mailerService;
+        $this->router = $router;
 
     }
 
     public function process($notificationObject, $notificationType, $notificationParams){
+
+        $parentComment = $notificationParams["parentComment"];
+        $repliedSiblingComment = $notificationParams["repliedSiblingComment"];
+        $newComment = $notificationParams["newComment"];
 
         switch ($notificationObject) {
 
@@ -34,26 +58,15 @@ class NotificationService {
 
                 switch ($notificationType) {
 
-                    case 'projectPresentationCommented':
+                    case 'projectPresentation':
 
                         $presentation = $notificationParams["presentation"];
-                        $comment = $notificationParams["comment"];
 
-                        $this->newCommentProjectPresentation($presentation, $comment);
+                        $this->commentProjectPresentation($presentation, $parentComment, $repliedSiblingComment, $newComment);
 
                         break;
 
-                    case 'projectPresentationRepliedComment':
-
-                        $repliedComment = $notificationParams["repliedComment"];
-                        $presentation = $notificationParams["presentation"];
-                        $answer = $notificationParams["answer"];
-
-                        $this->repliedCommentProjectPresentation($presentation, $repliedComment, $answer);
-
-                        break;
-
-                    case 'articleCommented':
+                    case 'article':
 
                         $article = $notificationParams["article"];
                         $comment = $notificationParams["comment"];
@@ -97,90 +110,87 @@ class NotificationService {
 
     }
 
-    private function newCommentProjectPresentation($presentation, $comment){
+    private function commentProjectPresentation($presentation, $parentComment, $repliedSiblingComment, $newComment){
 
-        if ($presentation->getCreator()==$comment->getUser()) {//if project presenter comments its own page, we do not notify him.
-            return;
+        $commentedPageUrl = $this->router->generate('show_presentation', array('stringId' => $presentation->getStringId()), UrlGeneratorInterface::ABSOLUTE_URL);
+
+        if ($presentation->getCreator() !== $newComment->getUser()) {//if new comment author is different from project presenter, we notify project presenter.
+
+            $notificationReceiver = $presentation->getCreator();
+
+            $notificationTitle = "Propon - Nouveau commentaire reçu";
+
+            $emailContentFilePath = 'email_notifications/page_commented.html.twig';
+
+            $emailContentParameters = [
+
+                'pageType' => "projectPresentation",
+                'presentation' => $presentation,
+                'comment' => $newComment,
+                'commentedPageUrl' => $commentedPageUrl,
+            ];
+
+            $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
         }
 
-        $notificationReceiver = $presentation->getCreator();
 
-        $notificationTitle = "Propon  - Nouveau commentaire reçu";
+        if($parentComment !== null){ // if new comment is a reply, maybe we additionaly notify parent comment thread author and potential replied siblings comment author.
 
-        $emailContentFilePath = 'email_notifications/project_presentation_commented.html.twig';
+            if ($parentComment->getUser() !== $presentation->getCreator() && $parentComment->getUser() !== $newComment->getUser()) { 
 
-        $emailContentParameters = [
+                $notificationReceiver = $parentComment->getUser();
 
-            'presentation' => $presentation,
-            'comment' => $comment,
-        ];
-
-        $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
-
-    }
-
-
-
-    private function newCommentArticle($article, $comment){
-
-        if ($article->getAuthor()==$comment->getUser()) {//if article author comments its own article, we do not notify him.
-            return;
-        }
-
-        $notificationReceiver = $article->getAuthor();
-
-        $notificationTitle = "Propon  - Nouveau commentaire reçu";
-
-        $emailContentFilePath = 'email_notifications/article_commented.html.twig';
-
-        $emailContentParameters = [
-
-            'article' => $article,
-            'comment' => $comment,
-        ];
-
-        $this->sendOrLogNotification($notificationReceiver, "comment", "articleCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
-
-    }
-
-
-
-
-    private function repliedCommentProjectPresentation($presentation, $repliedComment, $answer){
-        
-        //when comment replier is project presenter, we do not have to notice him twice (he is noticed by default)
-        if ($repliedComment->getUser() == $presentation->getCreator()) {
-
-            return;
-            
-        }
-
-        //when comment replier author is the same as parent comment author, we don't have to notice him
-/*         if ($repliedComment->getUser() == $repliedComment->getParent()->getUser()) {
-
-            return;
-            
-        } */
-
-        $emailContentFilePath = 'email_notifications/replied_comment.html.twig';
-
-        $emailContentParameters = [
-            'presentation' => $presentation,
-            'repliedComment' => $repliedComment,
-            'answer' => $answer,
-        ];
-
-        $notificationReceiver = $repliedComment->getUser();
+                $notificationTitle = "Propon - Nouveau commentaire reçu sur une discussion";
     
-        $notificationTitle = "Propon - Nouveau commentaire en réponse";
+                $emailContentFilePath = 'email_notifications/replied_comment_thread.html.twig';
+    
+                $emailContentParameters = [
+    
+                    'pageType' => "projectPresentation",
+                    'presentation' => $presentation,
+                    'initialCommentInThread' => $parentComment,
+                    'newComment' => $newComment,
+                    'commentedPageUrl' => $commentedPageUrl,
+                ];
+    
+                $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+                
+            }
 
-        $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationRepliedComment", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+        }
+
+        if($repliedSiblingComment !== null){ // case when we speciffically reply to a child comment (and not just an initial thread comment)
+
+            if ($repliedSiblingComment->getUser() !== $presentation->getCreator() && $parentComment->getUser() !== $repliedSiblingComment->getUser()) {
+
+                $notificationReceiver = $repliedSiblingComment->getUser();
+
+                $notificationTitle = "Propon - Nouveau commentaire reçu";
+    
+                $emailContentFilePath = 'email_notifications/replied_comment.html.twig';
+    
+                $emailContentParameters = [
+    
+                    'pageType' => "projectPresentation",
+                    'presentation' => $presentation,
+                    'repliedSiblingComment' => $repliedSiblingComment,
+                    'newComment' => $newComment,
+                    'commentedPageUrl' => $commentedPageUrl,
+                ];
+    
+                $this->sendOrLogNotification($notificationReceiver, "comment", "projectPresentationCommented", $notificationTitle, $emailContentFilePath, $emailContentParameters);
+
+
+            }
+
+        }
+
+        return;
 
     }
 
-
-
-
+    
     private function newProjectNews($presentation){
         
 

@@ -41,23 +41,23 @@ class CommentController extends AbstractController
 
             $parentCommentId = $request->request->get('parentCommentId');
 
-            $repliedCommentId = $request->request->get('repliedCommentId');
+            $repliedSiblingCommentId = $request->request->get('repliedCommentId');
 
             $formTimeLoaded = $request->request->get('formTimeLoaded'); //antispam protection based on time
             $honeyPot = $request->request->get('hnyPt'); //antispam protection based on honey pot
 
-            $comment = new Comment;
+            $newComment = new Comment;
 
             switch ($commentedEntityType) {
 
                 case 'projectPresentation':
                     $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['id' => $commentedEntityId]);
-                    $comment->setProjectPresentation($presentation);
+                    $newComment->setProjectPresentation($presentation);
                     break;
 
                 case 'article':
                     $article = $this->getDoctrine()->getRepository(Article::class)->findOneBy(['id' => $commentedEntityId]);
-                    $comment->setArticle($article);
+                    $newComment->setArticle($article);
                     break;
                 
                 default:
@@ -66,12 +66,12 @@ class CommentController extends AbstractController
 
             }
 
-            $comment
+            $newComment
                 ->setUser($this->getUser())
                 ->setApproved(true)
                 ->setContent($commentContent);
 
-            $validation = $commentsService->validateComment($comment, $formTimeLoaded, $honeyPot);
+            $validation = $commentsService->validateComment($newComment, $formTimeLoaded, $honeyPot);
 
             if (is_string($validation)) {
                 return new JsonResponse(
@@ -85,38 +85,46 @@ class CommentController extends AbstractController
 
             }
 
-        //when new comment is a reply
-        if (!is_null($repliedCommentId)) {
+            $parentComment = null;
+            $repliedSiblingComment = null;
 
-            // We associate parent to the comment
-            $parentComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentCommentId]);
+            //when new comment is a reply
+            if (!is_null($repliedSiblingCommentId)) {
 
-            $comment->setParent($parentComment);
-            
-            $repliedComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $repliedCommentId]);
+                // We associate parent to the comment
+                $parentComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $parentCommentId]);
 
-            // When we reply to a first degree child comment : we associate this replied comment user author to the reply comment so that we can show to whose child the new comment is replied to in frontend.
+                $newComment->setParent($parentComment);
+                
+                $repliedSiblingComment = $this->getDoctrine()->getRepository(Comment::class)->findOneBy(['id' => $repliedSiblingCommentId]);
 
-            //So we check if we reply to a first degree child
-            if ($repliedCommentId !== $parentCommentId) {
+                // When we reply to a first degree child comment : we associate this replied comment user author to the reply comment so that we can show to whose child the new comment is replied to in frontend.
 
-                $comment->setRepliedUser($repliedComment->getUser());
+                //We check if we reply to a first degree child
+
+                if ($repliedSiblingCommentId !== $parentCommentId) {
+
+                    $newComment->setRepliedUser($repliedSiblingComment->getUser());
+
+                }
 
             }
 
-            //Notification management concerning comment replies
+            //notification management
+
+            $notificationParams = [
+                "parentComment" => $parentComment,
+                "repliedSiblingComment" => $repliedSiblingComment,
+                "newComment" => $newComment,                
+            ];
 
             switch ($commentedEntityType) {
 
                 case 'projectPresentation':
 
-                    $notificationParams = [
-                        "presentation" => $presentation,
-                        "repliedComment" => $parentComment,
-                        "answer" => $comment,
-                    ];
+                    $notificationParams ["presentation"] = $presentation;
         
-                    $notificationService->process('comment', 'projectPresentationRepliedComment', $notificationParams);
+                    $notificationService->process('comment', 'projectPresentation', $notificationParams);
                     break;
 
                 case 'article':
@@ -128,57 +136,16 @@ class CommentController extends AbstractController
                     break;
 
             }
+       
+            $manager->persist($newComment);
 
-           
-
-        }
-
-        //Notification management other than replies
-
-        switch ($commentedEntityType) {
-
-            case 'projectPresentation':
-
-                //Notification to project presentation creator
-
-                $notificationParams=[
-                    "presentation" => $presentation,
-                    "comment" => $comment,
-                ];
-
-                $notificationService->process('comment', 'projectPresentationCommented', $notificationParams);
-                break;
-
-            case 'article':
-
-                //Notification to project presentation creator
-
-                $notificationParams=[
-                    "article" => $article,
-                    "comment" => $comment,
-                ];
-
-                $notificationService->process('comment', 'articleCommented', $notificationParams);
-                break;
-               
-                break;
+            $manager->flush();
             
-            default:
-                # code...
-                break;
+            $newCommentEditionUrl = $this->generateUrl('update_comment', array('id' => $newComment->getId()));
 
-        }
-
-        
-        $manager->persist($comment);
-
-        $manager->flush();
-        
-        $newCommentEditionUrl = $this->generateUrl('update_comment', array('id' => $comment->getId()));
-
-        $responseData = [
-            'newCommentEditionUrl' =>  $newCommentEditionUrl,
-        ];
+            $responseData = [
+                'newCommentEditionUrl' =>  $newCommentEditionUrl,
+            ];
 
         
         return  new JsonResponse($responseData);

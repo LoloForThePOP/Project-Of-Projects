@@ -40,6 +40,7 @@
 {% block stylesheets %}
 
     <link href="/css/project_presentation_page.css" rel="stylesheet">
+    <link href="/css/comments.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 
     {% if is_granted('edit', presentation) %}
@@ -53,6 +54,11 @@
 
 {% block body %}
 
+    {# comments necessities #}
+
+    {% include "comment/_js.html.twig" %}
+
+    {# End of comments necessities #}
 
 
     {% set followStructure %}

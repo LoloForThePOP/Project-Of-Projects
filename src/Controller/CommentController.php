@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\News;
 use App\Entity\PPBase;
 use App\Entity\Article;
 use App\Entity\Comment;
@@ -58,6 +59,13 @@ class CommentController extends AbstractController
                     $article = $this->getDoctrine()->getRepository(Article::class)->findOneBy(['id' => $commentedEntityId]);
                     $newComment->setArticle($article);
                     break;
+
+                case 'news':
+
+                    $news = $this->getDoctrine()->getRepository(News::class)->findOneBy(['id' => $commentedEntityId]);
+                    
+                    $newComment->setNews($news);
+                    break;
                 
                 default:
                     # code...
@@ -110,7 +118,7 @@ class CommentController extends AbstractController
             }
 
             //saving comment in DB
-                   
+
             $manager->persist($newComment);
 
             $manager->flush();
@@ -127,7 +135,7 @@ class CommentController extends AbstractController
 
                 case 'projectPresentation':
 
-                    $notificationParams ["presentation"] = $presentation;
+                    $notificationParams ["projectPresentation"] = $presentation;
         
                     $notificationService->process('comment', 'projectPresentation', $notificationParams);
                     break;
@@ -137,6 +145,14 @@ class CommentController extends AbstractController
                     $notificationParams ["article"] = $article;
         
                     $notificationService->process('comment', 'article', $notificationParams);
+                   
+                    break;
+
+                case 'news':
+
+                    $notificationParams ["news"] = $news;
+        
+                    $notificationService->process('comment', 'news', $notificationParams);
                    
                     break;
                 
@@ -188,6 +204,13 @@ class CommentController extends AbstractController
                     '_fragment' => 'comments-struct-container',
                 ]);
                 break;
+
+            case 'news':
+                $goBackUrl = $this->generateUrl('show_presentation', [
+                    'stringId' => $comment->getNews()->getProject()->getStringId(),
+                    '_fragment' => 'news-struct-container',
+                ]);
+                break;
             
             default:
                 throw new \Exception("Unknown Go Back Button Route");
@@ -206,16 +229,25 @@ class CommentController extends AbstractController
             $manager->flush();
 
             switch ($comment->getCommentedEntityType()) {
+
                 case 'projectPresentation':
                     return $this->redirectToRoute('show_presentation', [
                         'stringId' => $comment->getProjectPresentation()->getStringId(),
                         '_fragment' => 'comments-struct-container',
                     ]);
                     break;
+
                 case 'article':
                     return $this->redirectToRoute('show_article', [
                         'slug' => $comment->getArticle()->getSlug(),
                         '_fragment' => 'comments-struct-container',
+                    ]);
+                    break;
+
+                case 'news':
+                    return $this->redirectToRoute('show_presentation', [
+                        'stringId' => $comment->getNews()->getProject()->getStringId(),
+                        '_fragment' => 'news-struct-container',
                     ]);
                     break;
                 

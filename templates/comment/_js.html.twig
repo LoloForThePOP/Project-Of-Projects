@@ -26,19 +26,23 @@
     
     $(document).ready(function(){
 
-        // creating a reply comment form (in addition to the create new comment form)
-        var replyForm = $(".commentForm").clone().addClass("replyCommentForm");
+        // creating a reply comment form (in addition to the create new parent comment form)
+        var replyForm = $(".commentForm:first").clone().addClass("replyCommentForm");
         $(".commentForm").after(replyForm);
-        replyForm.hide();
+        $(".replyCommentForm").hide();
 
-        // when user click on reply to a comment, we're placing the reply comment form where appropriate
+        // when user click on reply to a comment button, we're placing the reply comment form where appropriate
         $(".replyCommentButton ").on( "click", function( event ){
 
-            $(this).parent().after( $(".replyCommentForm")); // insert reply comment form after the message to answer
+            $(".replyCommentForm").hide();
 
-            $(".replyCommentForm").show();
+            $(this).parent().after( $(".replyCommentForm:first").show()); // insert reply comment form after the message to answer
             
             $(".replyCommentForm textarea").val('').focus(); 
+
+            $(".replyCommentForm").attr("data-commented-entity-type", $(this).attr("data-commented-entity-type")) //for data base storage.
+
+            $(".replyCommentForm").attr("data-commented-entity-id", $(this).attr("data-commented-entity-id")) // for data base storage.
 
             $(".replyCommentForm").attr("data-parent-comment-id", $(this).attr("data-parent-comment-id")) // store parent comment id for data base storage.
 

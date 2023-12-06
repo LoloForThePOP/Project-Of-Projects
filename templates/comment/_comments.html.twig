@@ -3,19 +3,17 @@
 To use this template, we need access to those variables :
 
     - the commented entity type (ex: a projectPresentation, an article, etc)
-    - how many comments the entity have
+    - the commented entity id
+    - the comments from the commented entity
 
 #}
 
-<link href="/css/comments.css" rel="stylesheet">
-
 {% from 'comment/_macro.html.twig' import oneCommentContainer, commentForm %}
 
-{% include "comment/_js.html.twig" %}
 
+{% set countCommentedEntityComments = commentedEntityComments | length %}
 
-
-<h3 class="commentSectionTitle">{{countComments}} Commentaire{% if countComments > 1 %}s{% endif %} </h3>
+<h3 class="commentSectionTitle">{{countCommentedEntityComments}} Commentaire{% if countCommentedEntityComments > 1 %}s{% endif %} </h3>
 
 {{ commentForm(commentedEntityType, commentedEntityId) }}
 
@@ -27,9 +25,9 @@ To use this template, we need access to those variables :
 
         <!-- thread container -->
 
-        <article class="threadContainer comment-{{ cycle(['odd', 'even'], loop.index0) }}">
+        <article class="threadContainer">
 
-            {{ oneCommentContainer(commentedEntityType, comment, comment.id) }}
+            {{ oneCommentContainer(commentedEntityType, commentedEntityId, comment, comment.id) }}
 
             <!-- Maybe Some Comment Childs -->
 
@@ -41,7 +39,7 @@ To use this template, we need access to those variables :
 
                     {% for subComment in comment.replies %}
 
-                        {{ oneCommentContainer(commentedEntityType, subComment, comment.id) }}
+                        {{ oneCommentContainer(commentedEntityType, commentedEntityId, subComment, comment.id) }}
 
                     {% endfor %}
                 

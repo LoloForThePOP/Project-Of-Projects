@@ -1,4 +1,4 @@
-{% macro oneCommentContainer(commentedEntityType, comment, parentCommentId, showRepliedUserName) %}
+{% macro oneCommentContainer(commentedEntityType, commentedEntityId, comment, parentCommentId, showRepliedUserName) %}
     
     <div id="comment-{{comment.id}}" class="oneCommentContainer {% if app.user == comment.user %}activeUserAuthor{% endif %}">
 
@@ -54,7 +54,7 @@
 
             <!-- Reply to Comment Button -->
 
-                <span class="replyCommentButton position-relative" data-entity-type="{{commentedEntityType}}" data-comment-id="{{comment.id}}" data-parent-comment-id="{{parentCommentId}}">Répondre{% if not is_granted('ROLE_USER') %}<a class="coverable-link" href="{{path('app_login')}}"></a>{% endif %}</span >
+                <span class="replyCommentButton position-relative" data-commented-entity-type="{{commentedEntityType}}" data-commented-entity-id="{{commentedEntityId}}" data-comment-id="{{comment.id}}" data-parent-comment-id="{{parentCommentId}}">Répondre{% if not is_granted('ROLE_USER') %}<a class="coverable-link" href="{{path('app_login')}}"></a>{% endif %}</span >
 
             <!-- End of Reply to Comment Button -->
 
@@ -85,7 +85,7 @@
 
 {% macro commentForm(commentedEntityType, commentedEntityId) %}
 
-<form id="" method="post" name="newCommentForm" class="commentForm position-relative" data-commented-entity-type="{{commentedEntityType}} data-commented-entity-id="{{commentedEntityId}}">
+<form id="" method="post" name="newCommentForm" class="commentForm position-relative" data-commented-entity-type="{{commentedEntityType}}" data-commented-entity-id="{{commentedEntityId}}">
 
     <textarea id="" class="commentContentTextarea" name="commentContent" placeholder="Ajouter un commentaire..." rows="4" cols="50"></textarea>
 

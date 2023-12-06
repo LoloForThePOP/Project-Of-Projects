@@ -6,11 +6,15 @@
 
         {% if pageType == "projectPresentation" %}
 
-            {% set innerMailTitle = presentation.goal %}
+            {% set innerMailTitle = 'Voici le projet commenté : "'~ presentation.goal ~'".' %}
             
         {% elseif pageType == "article" %}
 
-            {% set innerMailTitle = article.title %}
+            {% set innerMailTitle = 'Voici l\'article commenté : "'~ article.title ~'".' %}
+
+        {% elseif pageType == "news" %}
+            
+            {% set innerMailTitle = 'Il concerne une actualité du projet "'~ news.project.goal ~'".' %}
             
         {% endif %}
 
@@ -20,7 +24,7 @@
 
     </br>
 
-    <div>Voici la page commentée : "{{innerMailTitle}}".</div>
+    <div>{{innerMailTitle}}</div>
 
     </br>
 
@@ -30,8 +34,12 @@
 
     </br>
 
-    <div>La réponse de {{newComment.user.username}} envoyée le {{newComment.createdAt | date("d/m/Y \à h:i:s") }} : {{newComment.content}}</div>
+    <div>La réponse de {{newComment.user.username}} envoyée le {{newComment.createdAt | date("d/m/Y \à h:i:s") }} : </div>
 
+    <div>
+        {{newComment.content}}
+    </div>
+    
     </br>
 
     <div>

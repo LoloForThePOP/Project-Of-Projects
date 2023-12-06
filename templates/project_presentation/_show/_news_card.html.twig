@@ -82,8 +82,6 @@
     
     </div>
 
-  
-
     <div class="text-content {{ newsTextContent | striptags | length > textShowMoreThreshold ? 'hideContent' }}">
 
         {% if newsTextContent is not empty %}
@@ -144,7 +142,6 @@
                     </button>
 
                 </div>
-            
         
             {% endif %}
             
@@ -155,5 +152,11 @@
     {# delete place (Red Cross) button #}
 
     <button type="button" data-elements-type="news" class="js-delete-element delete-button pp-edition-mode btn" data-id="{{news.id}}">&times</button>
+
+       {# comments #}
+
+        {% include "comment/_comments.html.twig" with {commentedEntityType: "news", commentedEntityId: news.id, commentedEntityComments: news.comments } %}
+
+        {# End of comments #}
     
 </div>

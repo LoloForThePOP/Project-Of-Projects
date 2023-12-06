@@ -12,6 +12,10 @@
 
             {% set innerMailTitle = 'Votre article "' ~ article.title ~ '"' %}
             
+        {% elseif pageType == "news" %}
+
+            {% set innerMailTitle = 'Une actualité du projet "' ~ news.project.goal ~'"'%}
+            
         {% endif %}
 
     {% endif %}

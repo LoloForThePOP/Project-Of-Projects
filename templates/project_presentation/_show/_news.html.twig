@@ -24,8 +24,6 @@
 
         <div id="news" class="">
 
-        
-
             {% if countNews > 0 %}
 
                 <link href="/css/news_card.css" rel="stylesheet">
@@ -38,7 +36,7 @@
 
                 {% endfor %}  
 
-                {% if countNews > 1 %}
+                {% if countNews > 1 %} {# More than one news, we use a slider #}
                             
                     {# News slider controls #}
 
@@ -53,7 +51,6 @@
                     <script>
                         
                         let slideIndexNews = 1;
-
 
                         // Next/previous controls
                         function plusSlidesNews(n) {
@@ -76,7 +73,6 @@
                     </script>
 
                 {% endif %}
-
                 
                 <style>
 
@@ -166,39 +162,27 @@
                 
                 </style>
 
-            {% else %} {# Only one news, we do not use a slider #}
+                {# Show more news text content #}
 
-                {% for news in presentation.news | reverse %}
+                <script>
 
-                    {% set newsTextContent = news.textContent %}
-            
-                    {% include "project_presentation/_show/_news_card.html.twig" %}
+                    $(document).ready(function(){
 
+                        $('.show-more span').on('click', function(e){
+                            e.preventDefault();
+                            var $this = $(this); 
+                            var $content = $this.closest('.news-card').find('.text-content');
+                            $content.removeClass("hideContent").addClass("showContent");
+                            $(this).parent().hide();
+                            
 
+                        });
 
-                {% endfor %}
+                    })
+                </script>
 
             {% endif %}
 
-
-            {# Show more news text content #}
-
-            <script>
-
-                $(document).ready(function(){
-
-                    $('.show-more span').on('click', function(e){
-                        e.preventDefault();
-                        var $this = $(this); 
-                        var $content = $this.closest('.news-card').find('.text-content');
-                        $content.removeClass("hideContent").addClass("showContent");
-                        $(this).parent().hide();
-                        
-
-                    });
-
-                })
-            </script>
 
         </div>
 

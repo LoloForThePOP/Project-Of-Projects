@@ -120,7 +120,7 @@
 
     <div class="init">
 
-        <div class="container col-md-5 px-0 px-md-2 d-flex justify-content-center align-items-center flex-column my-4">
+        <div class="forms-container container col-md-6 px-0 px-md-2 my-4">
 
                 {{ form_start(form) }}
             
@@ -130,7 +130,7 @@
 
                     <h2 class="question-title">À qui je présente mon projet ?</h2>
                             
-                    <div class="d-flex justify-content-center align-items-center mb-3">
+                    <div class="cols-container">
 
                         <div class="col-2 me-3">
                         
@@ -143,7 +143,7 @@
                             <div class="">
 
 
-                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span class="">à un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc.</div>
+                                <div class="examples">(<span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span class="">à un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc)</div>
                             
                             </div>
 
@@ -183,7 +183,7 @@
                     <h2 class="question-title">Comment je présente mon projet ?</h2>
 
                                 
-                    <div class="d-flex justify-content-center align-items-center mb-3">
+                    <div class="cols-container">
 
                         <div class="col-2">
                         
@@ -195,7 +195,7 @@
                         
                             <div class="">
 
-                                <div class="examples"><span class="fw-bold">Exemples :</span> à l'oral; sur un document papier ou pdf; sur une présentation powerpoint; sur une vidéo; sur un site web; sur un réseau social; sur une plateforme de crowdfunding, à la télévision, à la radio, sur un forum ?</div>
+                                <div class="examples"><span class="fw-bold">Exemples :</span> à l'oral; document écrit ou pdf; présentation powerpoint; vidéo; site web; réseau social; plateforme de crowdfunding, télévision,  radio, sur un forum ?</div>
                             
                             </div>
 
@@ -335,6 +335,25 @@
 
 <style>
 
+.forms-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+    padding: 10px 0;
+	border: 1px solid #c6c6c6;
+	border-radius: 4px;
+}
+
+.cols-container{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+    padding: 10px;
+    margin-bottom: 1rem;    
+}
+
+
 /* Styles for the arrow icon */
 .arrow-icon, .return-arrow-icon {
   cursor: pointer;
@@ -342,8 +361,8 @@
 
 /* Styles for the form parts */
 .form-part {
-  text-align: center;
-  margin: 20px auto;
+	text-align: center;
+	margin: 8px auto 20px auto;
 }
 
 .hidden {
@@ -385,6 +404,16 @@ button[type="submit"]{
 
     .btn-next {
         width: 125px;
+    }
+
+    .examples {
+        margin: 0 -5px;
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .tiny-form-container {
+        margin: 0 10px;
     }
 
 

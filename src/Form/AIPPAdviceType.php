@@ -22,7 +22,7 @@ class AIPPAdviceType extends AbstractType
                     'required'   => true,
                     'attr' => [
 
-                        'placeholder'    => "Écrire ici.",
+                        'placeholder'    => "Écrire votre cas ici",
                     ],
                 ]
             )
@@ -35,7 +35,7 @@ class AIPPAdviceType extends AbstractType
                     'required'   => true,
                     'attr' => [
 
-                        'placeholder'    => "Écrire ici.",
+                        'placeholder'    => "Écrire votre cas ici",
                     ],
                 ]
             )

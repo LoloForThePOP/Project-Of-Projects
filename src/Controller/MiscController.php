@@ -142,6 +142,8 @@ class MiscController extends AbstractController
 
         $staticUrls[]=$this->generateUrl('app_register');
 
+        $staticUrls[]=$this->generateUrl('ai_presentation_helper_origin');
+
         // sitemap attributes for static pages
 
         foreach ($staticUrls as $value){
@@ -170,7 +172,7 @@ class MiscController extends AbstractController
 
         }
 
-        // Articles :
+        // Articles:
 
         $accessibleArticles = $manager->createQuery('SELECT a FROM App\Entity\Article a WHERE a.isValidated=true ORDER BY a.createdAt DESC')->getResult();
 

@@ -2,7 +2,7 @@
 
     <div class="carousel-item {{ isActive ? 'active' }}">
 
-      <div class="container col-lg-9 px-0">
+      <div class="container col-lg-11 px-0">
         
         <div class="row">
           
@@ -20,7 +20,7 @@
                 <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageFileName, 'larger')}}" alt="{{imgAlt}}" loading="lazy">  
             </div>
 
-            <div class="col-lg-7 text-container pe-0">{{textContent}}</div>
+            <div class="col-lg-7 text-container">{{textContent}}</div>
           
           </div>
           
@@ -119,7 +119,7 @@
 
 {% set fast %}
 
-  <div>Présenter un projet peut requérir du temps. <b>Complétez simplement les emplacements prévus.</b></div>
+  <div>Présenter un projet peut requérir du temps. <b>Notre modèle de page vous fait gagner du temps.</b></div>
 
 {% endset %}
 
@@ -154,19 +154,19 @@
 
 {% set news %}
     
-  <p class="px-3" >Utilisez votre page de projet <b>gratuite</b> pour <b>partager des nouvelles</b>. Vos followers seront <b>notifiés</b>📣</p>
+  <p class="px-3" >Vos followers seront <b>notifiés</b>📣</p>
 
 {% endset %}
 
 {% set comments %}
-    
-  <p class="px-3" >Recevez des <b>suggestions</b> et des <b>commentaires</b> pour <b>favoriser votre projet</b>🙂</p>
+  
+  <p class="px-3" >Recevez des <b>suggestions</b> et des <b>commentaires</b> pour <b>favoriser la réussite de votre projet.</b></p>
 
 {% endset %}
 
 
 
-<h3 class="arguments-slider-title">Pourquoi <span class="d-md-none">Utiliser</span><span class="d-none d-md-inline">Présenter son Projet sur</span> Propon ?</h3>
+<div class="d-flex justify-content-center"><h3 class="arguments-slider-title">Pourquoi <span class="d-md-none">Utiliser</span><span class="d-none d-md-inline">Présenter son Projet sur</span> Propon ?</h3></div> 
 
 <div id="rationalArgumentsCarousel" class="carousel container col-lg-8 d-flex align-items-center" data-bs-interval="false">
 
@@ -175,15 +175,15 @@
     <div>
       
 
-      {{ _self.carouselItem("Rapide", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, true) }}
+      {{ _self.carouselItem("Rassemblez l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, true) }}
 
-      {{ _self.carouselItem("Rassemblez l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
+      {{ _self.carouselItem("Rapide", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, false) }}
 
-      {{ _self.carouselItem("Une base pour partager des nouvelles", "news.webp", "Un dessin qui comporte une onde radio synonyme de news, et un bouton follow qui symbolise les notifications.", news, false) }}
+      {{ _self.carouselItem("Partagez des nouvelles", "wifi.svg", "Un dessin qui comporte une onde radio synonyme de news.", news, false) }}
 
       {{ _self.carouselItem("Recevez des avis", "comment.png", "", comments, false) }}
 
-      {{ _self.carouselItem("Simple & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
+      {{ _self.carouselItem("Facile & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
 
 {#       {{ _self.carouselItem("Votre « Carte de Visite »", "business_card.webp", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }} #}
 
@@ -221,7 +221,7 @@
     top: unset;
     bottom: unset;
     z-index: 2;
-    background-color: #bedcfa;
+    background-color: #94caff;
     width: 60px;
     height: 60px;
     border-radius: 50px;
@@ -242,8 +242,8 @@
 
     #rationalArgumentsCarousel .carousel-control-prev, #rationalArgumentsCarousel .carousel-control-next {
 
-      width: 31px;
-      height: 31px;
+      width: 50px;
+      height: 50px;
     
     }
 
@@ -255,12 +255,16 @@
 
   }
 
-  .arguments-slider-title{
+  .arguments-slider-title  {
 
+    margin-bottom: 17px;
     font-size: 30px;
-    text-align: center;
     font-weight: bold;
     text-transform: uppercase;
+    background-color: #ffff5c;
+    padding: 17px 40px;
+    border-radius: 75px;
+    
   }
 
   .carousel-control-prev, .carousel-control-next {
@@ -375,8 +379,8 @@
 
   .arguments-slider-title {
 	  font-size: 18px;
-    margin-left: -6px;
-    margin-right: -6px;
+    padding: 12px 33px;
+    margin-bottom: 15px;
   }
 
   #rationalArgumentsCarousel{
@@ -410,7 +414,7 @@
   }
 
   .carousel-item .img-container img {
-    max-height: 160px;
+    height: 205px;
     max-width: 100%;
   }
 

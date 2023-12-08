@@ -45,7 +45,7 @@
         .highlight1 {
             display: inline-block;
             padding: .25em 10px;
-            background: #f59f00;
+            background: #b8e0ad;
             color: #ffffff;
             border-radius: 5px;
         }
@@ -63,7 +63,7 @@
 
     <div class="cta container col-md-6 border p-2 mt-4">
     
-        <div class="text-center"><b>AI Coach</b> est un service <b>gratuit</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
+        <div class="text-center"><b>Service gratuit</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
     
         <div class="gdpr">
 
@@ -128,7 +128,7 @@
 
                     <div class="question-progress">Question 1 / 2</div>
 
-                    <h2 class="question-title">À qui je présente mon projet ?</h2>
+                    <h2 class="question-title">À qui je présente mon projet <span class="d-md-none"><br></span>(= public cible) ?</h2>
                             
                     <div class="cols-container">
 
@@ -180,7 +180,7 @@
                     
                     <div class="question-progress">Question 2 / 2</div>
 
-                    <h2 class="question-title">Comment je présente mon projet ?</h2>
+                    <h2 class="question-title">Comment je présente mon projet (= le support) ?</h2>
 
                                 
                     <div class="cols-container">
@@ -195,7 +195,7 @@
                         
                             <div class="">
 
-                                <div class="examples"><span class="fw-bold">Exemples :</span> à l'oral; document écrit; pdf; visioconférence; présentation powerpoint; vidéo; site web; réseau social; plateforme de crowdfunding, télévision, radio, forum de discussion ?</div>
+                                <div class="examples"><span class="fw-bold">Exemples :</span> à l'oral; sur un document écrit; pdf; visioconférence; présentation powerpoint; vidéo; site web; réseau social; plateforme de crowdfunding, télévision, radio, forum de discussion ?</div>
                             
                             </div>
 
@@ -273,7 +273,7 @@
         //timer feedback for user patience
 
         var timerHTML = document.createElement("div");
-        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 30 secondes, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
+        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter pendant environ 15 secondes, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
 
 /*
     <div class="row">
@@ -289,7 +289,7 @@
             e.preventDefault();
 
             swal({
-                title: "La création de votre réponse personnalisée dure environ 30 secondes.",
+                title: "La création de votre réponse personnalisée dure environ 15 secondes.",
                 icon: "warning",
                 buttons: ["Annuler", true],
                 })

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use OpenAI;
 use App\Form\AIPPAdviceType;
+use App\Entity\CollectedData;
 use App\Service\OpenAIService;
+use App\Service\DataCollectService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +19,7 @@ class AIPresentationHelperController extends AbstractController
     /**
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet", name="ai_presentation_helper_origin")
      */
-    public function origin(Request $request): Response
+    public function origin(DataCollectService $dataCollect, Request $request): Response
     {
         
 /*         $client = OpenAI::client($_ENV['OPEN_AI_KEY']);
@@ -38,6 +40,15 @@ class AIPresentationHelperController extends AbstractController
             $target = $form->get('ppTarget')->getData();
             $format = $form->get('ppFormat')->getData();
 
+
+            //save data to db
+            $dataCollectArray = [
+                "presentationTarget" => $target,
+                "presentationFormat" => $format,
+            ];
+
+            $dataCollect->save("ai_presentation_helper", [$dataCollectArray]);
+
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
 
             $messages =  [
@@ -55,8 +66,15 @@ class AIPresentationHelperController extends AbstractController
             
             
             $response->toArray();
+
+            $responseContent = $response['choices'][0]['message']['content'];
+
+
+            //save data
+            $dataCollectArray["ai_answer"] = $responseContent;
+            $dataCollect->save("ai_presentation_helper", [$dataCollectArray]);
     
-            $this->get('session')->set('generalAdvice', $response['choices'][0]['message']['content']);
+            $this->get('session')->set('generalAdvice', $responseContent);
 
             return $this->redirectToRoute('ai_presentation_helper_assistant', [
                 

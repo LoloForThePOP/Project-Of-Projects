@@ -5,16 +5,13 @@ namespace App\Service;
 use App\Entity\CollectedData;
 use Doctrine\ORM\EntityManagerInterface;
 
-class DataCollectservice {
+class DataCollectService {
     
-    protected $dataType;
-    protected ?array $dataContent;
     protected $entityManager;
 
-    public function __construct($dataType, $dataContent, EntityManagerInterface $entityManager)
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->dataType = $dataType;
-        $this->dataContent = $dataContent;
+
         $this->entityManager = $entityManager;
         
     }
@@ -23,11 +20,11 @@ class DataCollectservice {
     * Save a data in db 
     */
 
-    public function save(){
+    public function save($dataType, ?array $dataContent, ){
 
         $dataObject = new CollectedData();
-        $dataObject ->setDataType($this->dataType)
-                    ->setData($this->dataContent);
+        $dataObject ->setDataType($dataType)
+                    ->setData($dataContent);
 
         $this->entityManager->persist($dataObject);
         $this->entityManager->flush();

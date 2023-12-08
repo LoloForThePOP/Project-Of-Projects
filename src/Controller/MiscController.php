@@ -104,7 +104,8 @@ class MiscController extends AbstractController
         ]);
 
     }
-
+    
+    
 
      /**
      * @Route("/sitemap.xml", name="sitemap", defaults={"_format"="xml"})

@@ -6,8 +6,10 @@ use OpenAI;
 use App\Form\AIPPAdviceType;
 use App\Entity\CollectedData;
 use App\Service\OpenAIService;
+use Symfony\Component\Mime\Email;
 use App\Service\DataCollectService;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -19,7 +21,7 @@ class AIPresentationHelperController extends AbstractController
     /**
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet", name="ai_presentation_helper_origin")
      */
-    public function origin(DataCollectService $dataCollect, Request $request): Response
+    public function origin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
     {
         
 /*         $client = OpenAI::client($_ENV['OPEN_AI_KEY']);
@@ -49,11 +51,23 @@ class AIPresentationHelperController extends AbstractController
 
             $dataCollect->save("ai_presentation_helper", [$dataCollectArray]);
 
+            //email admin
+            $sender = $this->getParameter('app.general_contact_email');
+            $receiver = $this->getParameter('app.general_contact_email');
+
+            $email = (new Email())
+                ->from($sender)
+                ->to($receiver)
+                ->subject('New AI Coach Usage')
+                ->html('<pre>'.json_encode($dataCollectArray, JSON_PRETTY_PRINT).'</pre>');
+
+            $mailer->send($email);
+
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
 
             $messages =  [
 
-                ['role' => 'system', 'content' => "Tu es un coach en présentation de projet. Tu donnes à ton élève une liste de 10 conseils, tu réponds sous forme d'une liste html, chaque item de la liste est illustré à gauche avec une icône font-awesome distincte et si possible appropriée. Tu ajoutes une couleur à chaque icône (sauf le jaune). Tu utilises une conclusion en une seule phrase après la liste de conseils, cette conclusion apporte des conseils généraux, elle est encourageante. Tu n'utilises pas de phrase d'introduction dans ta réponse. L'ensemble de ta réponse est inclus dans une balise div avec la classe generalAdvice. Utilise un titre avant la liste de conseils. Ce titre rappelle d'une part à quel type de personne l'utilisateur présente son projet, par exemple des cuisiniers, un journaliste, en fonction de ce que te dira l'utilisateur. Ce titre rappelle d'autre part quel est le support de sa présentation, par exemple télévision, powerpoint, en fonction de ce que te dira l'utilisateur. Ne pas utiliser de markdown."],
+                ['role' => 'system', 'content' => "Tu es un coach en présentation de projet. Tu donnes à ton élève une liste de 10 conseils, tu réponds sous forme d'une liste html, chaque item de la liste est illustré à gauche avec une icône font-awesome distincte des autres et si possible appropriée. Tu ajoutes une couleur différente à chaque icône (sauf le jaune). Tu utilises une conclusion en une seule phrase après la liste de conseils, cette conclusion apporte des conseils généraux, elle est encourageante. Tu n'utilises pas de phrase d'introduction dans ta réponse. L'ensemble de ta réponse est inclus dans une balise div avec la classe generalAdvice. Utilise un titre avant la liste de conseils. Ce titre rappelle d'une part à quel type de personne l'utilisateur présente son projet, par exemple des cuisiniers, un journaliste, en fonction de ce que te dira l'utilisateur. Ce titre rappelle d'autre part quel est le support de sa présentation, par exemple télévision, powerpoint, en fonction de ce que te dira l'utilisateur. Ne pas utiliser de markdown."],
 
                 ['role' => 'user', 'content' => "Peux-tu me donner des conseils, je présente mon projet au type de personne suivant : ".$target.", le support utilisé pour ma présentation (et non pas mon projet) c'est : ".$format."."],
 
@@ -73,6 +87,9 @@ class AIPresentationHelperController extends AbstractController
             //save data
             $dataCollectArray["ai_answer"] = $responseContent;
             $dataCollect->save("ai_presentation_helper", [$dataCollectArray]);
+
+
+
     
             $this->get('session')->set('generalAdvice', $responseContent);
 

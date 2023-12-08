@@ -61,6 +61,121 @@
     </style>
 
 
+
+    <div class="init">
+
+        <div class="forms-container container col-md-6 px-0 px-md-2 my-4">
+
+                {{ form_start(form) }}
+            
+                <div class="form-part part1">
+
+                    <div class="question-progress">Question 1 / 2</div>
+
+                    <h2 class="question-title">À <span class="border border-2 border-success rounded px-2 pb-1 me-1">qui</span> je présente mon projet <span class="d-md-none"><br></span>(= public cible) ?</h2>
+                            
+                    <div class="cols-container">
+
+                        <div class="col-2 me-3">
+                        
+                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/audience.png', 'larger')}}" loading="lazy">
+
+                        </div>
+
+                        <div class="d-flex justify-content-center align-items-center">
+                        
+                            <div class="">
+
+
+                                <div class="examples">(<span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span class="">à un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc)</div>
+                            
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
+                
+                        {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
+
+                        <span class="btn btn-validate btn-next arrow-icon">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                        </svg></span>
+
+                        <style>
+                        
+                            .target-input{
+                                display: inline;
+                                width: 80%
+                            }
+                        
+                        </style>
+
+                        
+
+                    </div>
+
+                </div>
+
+                <div class="form-part part2 hidden">
+
+                    
+                    <div class="question-progress">Question 2 / 2</div>
+
+                    <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-1">Comment</span> je présente mon projet (= le support) ?</h2>
+
+                                
+                    <div class="cols-container">
+
+                        <div class="col-2">
+                        
+                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
+
+                        </div>
+
+                        <div class="d-flex justify-content-center align-items-center">
+                        
+                            <div class="">
+
+                                <div class="examples"><span class="fw-bold">Exemples :</span> à l'oral; sur un document écrit; pdf; visioconférence; présentation powerpoint; vidéo; site web; réseau social; plateforme de crowdfunding, télévision, radio, forum de discussion ?</div>
+                            
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
+
+                        <span class="btn btn-validate return-arrow-icon">
+                    
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>       
+                        
+                        </span>
+                
+                        {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
+
+                        <button type="submit" class="js-form-submit d-flex justify-content-center btn btn-validate"><span class="d-none d-md-inline">Afficher le résultat <img class="img-fluid ms-2" style="vertical-align: sub;" width="22" src="{{asset ('project_presentation_advice/star.svg', 'larger')}}" loading="lazy"></span><span class="d-md-none">Résultat !</span></button>
+
+                        
+                        
+                        
+
+                    </div>
+
+                </div>
+
+                {{ form_end(form) }}
+                
+        </div>
+
+    </div>
+
+
     <div class="cta container col-md-6 border p-2 mt-4">
     
         <div class="text-center"><b>Service gratuit</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
@@ -117,121 +232,6 @@
         </div>
     </div>
 
-
-    <div class="init">
-
-        <div class="forms-container container col-md-6 px-0 px-md-2 my-4">
-
-                {{ form_start(form) }}
-            
-                <div class="form-part part1">
-
-                    <div class="question-progress">Question 1 / 2</div>
-
-                    <h2 class="question-title">À qui je présente mon projet <span class="d-md-none"><br></span>(= public cible) ?</h2>
-                            
-                    <div class="cols-container">
-
-                        <div class="col-2 me-3">
-                        
-                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/jury.png', 'larger')}}" loading="lazy">
-
-                        </div>
-
-                        <div class="d-flex justify-content-center align-items-center">
-                        
-                            <div class="">
-
-
-                                <div class="examples">(<span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span class="">à un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; <span>à des investisseurs</span>; <span>à un journaliste</span> ? etc)</div>
-                            
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
-                
-                        {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
-
-                        <span class="btn btn-validate btn-next arrow-icon">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg></span>
-
-                        <style>
-                        
-                            .target-input{
-                                display: inline;
-                                width: 80%
-                            }
-                        
-                        </style>
-
-                        
-
-                    </div>
-
-                </div>
-
-                <div class="form-part part2 hidden">
-
-                    
-                    <div class="question-progress">Question 2 / 2</div>
-
-                    <h2 class="question-title">Comment je présente mon projet (= le support) ?</h2>
-
-                                
-                    <div class="cols-container">
-
-                        <div class="col-2">
-                        
-                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
-
-                        </div>
-
-                        <div class="d-flex justify-content-center align-items-center">
-                        
-                            <div class="">
-
-                                <div class="examples"><span class="fw-bold">Exemples :</span> à l'oral; sur un document écrit; pdf; visioconférence; présentation powerpoint; vidéo; site web; réseau social; plateforme de crowdfunding, télévision, radio, forum de discussion ?</div>
-                            
-                            </div>
-
-
-                        </div>
-
-                    </div>
-
-                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
-
-                        <span class="btn btn-validate return-arrow-icon">
-                    
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>       
-                        
-                        </span>
-                
-                        {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
-
-                        <button type="submit" class="js-form-submit btn btn-validate"><span class="d-none d-md-inline">Afficher le résultat</span><span class="d-md-none">Résultat</span></button>
-
-                        
-                        
-                        
-
-                    </div>
-
-                </div>
-
-                {{ form_end(form) }}
-                
-        </div>
-
-    </div>
-
-
 </div>
 
 
@@ -273,7 +273,7 @@
         //timer feedback for user patience
 
         var timerHTML = document.createElement("div");
-        timerHTML.innerHTML = `<div class="mb-3">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 15 secondes, votre réponse est en train d'être créée.</div><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter.">`;
+        timerHTML.innerHTML = `<img class="img-fluid mb-2" width="90" src="{{asset ('project_presentation_advice/15s-countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 15 secondes pour patienter."><div class="">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 15 secondes, votre réponse est en train d'être créée.</div>`;
 
 /*
     <div class="row">
@@ -289,7 +289,7 @@
             e.preventDefault();
 
             swal({
-                title: "Création de votre réponse en cours. Veuillez patienter anviron 15 secondes.",
+                title: "Création de votre réponse en cours. Veuillez patienter environ 15 secondes.",
                 content: timerHTML,
                 buttons: [""],
                 icon: "info",

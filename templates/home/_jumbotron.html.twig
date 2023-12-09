@@ -12,13 +12,24 @@
 
         <h1 class="jumbotron-title display-5 lh-1 mb-lg-4 text-success text-center">Ici on Présente nos Projets</h1>
 
-        <p class="jbtr-descr text-center text-md-start lead"><strong><span class="green-highlight">On présente nos projets pour agir positivement.</span><span class="display-md-none"> </span> Présentez votre projet et rendez-le plus <b>visible</b> grâce à notre outil simple et rapide. Propon est une initiative <b style="color:green;">ouverte</b> et <b style="color:green;">gratuite</b>.</strong></p>
+        <p class="jbtr-descr text-center text-md-start lead"><strong><span class="green-highlight">On présente nos projets pour agir positivement.</span><span class="display-md-none"> </span> Présentez votre projet et rendez-le <b>plus visible</b> grâce à notre outil simple et rapide. Propon est une initiative <b style="color:green;">ouverte</b> et <b style="color:green;">gratuite</b>.</strong></p>
 
         <div class="d-flex flex-column flex-md-row justify-content-center align-items-center pt-3">
 
+            <a class="" href="{{path('static', {'page_name': "short_manifesto",})}}">
+
+                <button class="jbtr-cta-btn fw-bold btn d-flex justify-content-center align-items-center pt-2 pe-4 me-md-4" style=" height:50px; padding-bottom: 10px;" data-track-click='{"key":"read-the-pop-manifesto"}'>
+
+                <img class="m" src="{{ asset('reading_book.png', 'misc')}}" width="32" alt="a opened book with hands handling it">
+                <span class="ps-1">Lire notre Manifesto</span>
+            
+                </button>
+        
+            </a>
+
             <a href="{{path('create_presentation')}}">
 
-                <button class="jbtr-cta-btn btn d-flex justify-content-center align-items-center px-3 pt-2 me-md-4 mb-3 mb-md-0" data-track-click='{"key":"clicked-jumbotron-create-presentation"}'>
+                <button class="jbtr-cta-btn btn d-flex justify-content-center align-items-center px-3 pt-2 mb-3 mb-md-0" data-track-click='{"key":"clicked-jumbotron-create-presentation"}'>
         
                   <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
                   
@@ -26,19 +37,7 @@
               
                 </button>
         
-              </a>
-
-
-              <a class="" href="{{path('static', {'page_name': "short_manifesto",})}}">
-  
-                  <button class="jbtr-cta-btn fw-bold btn d-flex justify-content-center align-items-center pt-2 pe-4" style=" height:50px; padding-bottom: 10px;" data-track-click='{"key":"read-the-pop-manifesto"}'>
-
-                    <img class="m" src="{{ asset('reading_book.png', 'misc')}}" width="32" alt="a opened book with hands handling it">
-                    <span class="ps-1">Lire notre Manifesto</span>
-                
-                  </button>
-          
-                </a>
+            </a>
 
         </div>
 

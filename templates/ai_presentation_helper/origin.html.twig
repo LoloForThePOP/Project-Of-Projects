@@ -2,19 +2,18 @@
 
 
     {% set titleMetadata = 'Comment présenter son projet ? Votre assistant gratuit.' %}
-    {% set metadataDescription %}{% endset %}
+    {% set metadataDescription = "Indiquez à qui vous présentez votre projet, indiquez comment (pdf, powerpoint, etc) et obtenez en quelques secondes des conseils personnalisées pour présenter votre projet, générées par une IA puissante ! Service gratuit sans inscription." %}
     {% set metadataImageUrl %}{{asset ('project_presentation_advice/adam_technology_touch.jpg', 'larger')}}{% endset %}
     {% set currentPageUrl = app.request.uri %}
 
 {% block headTag %}
 
-
-    <meta name="description" content="Indiquez à qui vous présentez votre projet, indiquez comment (pdf, powerpoint, etc), obtenez en quelques secondes des conseils personnalisées pour présenter votre projet, générées par une IA puissante ! Service gratuit sans inscription.">
+    <meta name="description" content="{{metadataDescription}}">
     <meta name="author" content="Laurent G.">
     <meta name="keywords" content="Assistant, IA, Conseils, Présentation, Projet">
     <meta name="date" content="2023-27-11">
 
-    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'article', metadataImageUrl, null) }} {# Call from base.html.twig #}
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Call from base.html.twig #}
     
 {% endblock %}
 
@@ -87,7 +86,7 @@
                             <div class="">
 
 
-                                <div class="examples">(<span class="fw-bold">Exemples :</span> <span>à tout le monde</span> ; <span>à des investisseurs</span>; <span>à un journaliste</span>; <span class="">à un(e) des enseignant(es)</span> ; <span>à un jury de chefs cuisiniers</span>; au maire de ma commune; etc. ?)</div>
+                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span>; <span>à un journaliste</span>; <span class="">à une enseignante</span> ; <span>à des chercheurs</span>; <span>à des investisseurs</span> ; <span>à un jury de chefs cuisiniers</span>; <span>au maire de ma commune</span>.</div>
                             
                             </div>
 
@@ -139,7 +138,7 @@
                         
                             <div class="">
 
-                                <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; avec un fichier PDF; avec des visuels; présentation powerpoint; sur un tableau blanc; visioconférence; vidéo; site web; réseau social; plateforme de crowdfunding, télévision, radio, forum de discussion ?</div>
+                                <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; avec un fichier PDF; avec des visuels; présentation powerpoint; sur un tableau blanc; visioconférence; vidéo; site web; réseau social; plateforme de crowdfunding, télévision, radio, forum de discussion.</div>
                             
                             </div>
 

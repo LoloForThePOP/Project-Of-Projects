@@ -119,6 +119,41 @@ class AIPresentationHelperController extends AbstractController
         ]);
 
     }
+    
+    
+    /**
+     * @Route("/ia-assistant-gratuit-de-presentation-de-projet-creation-logo/", name="ai_presentation_helper_assistant_logo")
+     */
+    public function logo(): Response
+    {
+
+        $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
+        
+        $response = $ia->images()->create([
+            'model' => 'dall-e-3',
+            'prompt' => 'Four logo suggestions for a project about horses.',
+            'size' => "1024x1024",
+            'n' => 1,
+            'response_format' => 'url',
+        ]);
+        
+        $response->created; // 1589478378
+        
+        foreach ($response->data as $data) {
+            $data->url; // 'https://oaidalleapiprodscus.blob.core.windows.net/private/...'
+            $data->b64_json; // null
+        }
+        
+        $response->toArray(); // ['created' => 1589478378, data => ['url' => 'https://oaidalleapiprodscus...', ...]]
+
+        dd($response);
+
+        return $this->render('ai_presentation_helper/logo.html.twig', [
+            
+        ]);
+
+    }
+
 
     /**
      * @Route("/ajax-ia-assistant-gratuit-de-presentation-de-projet", name="ajax_ai_presentation_helper_assistant")

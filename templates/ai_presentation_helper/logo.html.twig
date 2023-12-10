@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+
+    {% set titleMetadata = 'Création de logo pour votre projet, automatisée par IA' %}
+    {% set metadataDescription = "Service gratuit et sans inscription, laissez-vous guider pour créer le logo parfait pour votre projet. Aucune compétence en graphisme n'est requise." %}
+    {% set metadataImageUrl %}{{asset ('project_presentation_advice/adam_technology_touch.jpg', 'larger')}}{% endset %}
+    {% set currentPageUrl = app.request.uri %}
+
+{% block headTag %}
+
+    <meta name="description" content="{{metadataDescription}}">
+    <meta name="author" content="Laurent G.">
+    <meta name="keywords" content="IA, Création, Logo, Projet">
+    <meta name="date" content="2023-12-12">
+
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Call from base.html.twig #}
+    
+{% endblock %}
+
+
+{% block title %}{{titleMetadata}}{% endblock %}
+
+{% block body %}
+
+<div class="page-container">
+
+skjfh dskjfh dskfj h
+
+
+
+</div>
+
+{% endblock %}

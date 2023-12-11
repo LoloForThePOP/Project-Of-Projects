@@ -5,6 +5,7 @@ namespace App\Controller;
 use OpenAI;
 use App\Form\AIPPAdviceType;
 use App\Entity\CollectedData;
+use App\Service\ImageService;
 use App\Service\OpenAIService;
 use Symfony\Component\Mime\Email;
 use App\Service\DataCollectService;
@@ -124,13 +125,13 @@ class AIPresentationHelperController extends AbstractController
     /**
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet-creation-logo/", name="ai_presentation_helper_assistant_logo")
      */
-    public function logo(): Response
+    public function logo(ImageService $imageService): Response
     {
 
-        /* $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
+        $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
         
         $response = $ia->images()->create([
-            'model' => 'dall-e-3',
+            'model' => 'dall-e-2',
             'prompt' => 'Four logo suggestions for a project about horses.',
             'size' => "1024x1024",
             'n' => 1,
@@ -146,7 +147,13 @@ class AIPresentationHelperController extends AbstractController
         
         $response->toArray(); 
 
-        dd($response); */
+        $imageUrl = $response["data"][0]["url"];
+
+        $imageUrl = "https://propon.org/media/cache/standard_thumbnail_md_test/media/uploads/pp/custom_thumbnails/thumb-635f674badba4913600908.jpg";
+
+        
+
+        $imageService->saveLogoImage($imageUrl);
 
         return $this->render('ai_presentation_helper/logo.html.twig', [
             

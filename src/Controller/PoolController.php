@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PoolController extends AbstractController
@@ -60,7 +61,6 @@ class PoolController extends AbstractController
 
             $mailer->send($email);
 
-
             $this->addFlash(
                 'success',
                 "✅ Merci pour votre participation 👍<br>Vos réponses seront prises en considération pour améliorer le site 👍"
@@ -93,6 +93,58 @@ class PoolController extends AbstractController
             'dataSet' => $dataSet,
         ]);
         
+    }
+
+
+
+
+    /** 
+     * 
+     * Allow to display pool data
+     *  
+     * @Route("/ajax-feedback", name="ajax_feedback_post") 
+     * 
+     */
+    public function ajaxFeedbackPost(Request $request, MailerInterface $mailer){
+
+        if ($request->isXmlHttpRequest()) {
+
+            $result=[];
+
+            $result["feedbackContext"] = $request->request->get('feedbackContext');
+
+            $result["overallRating"] = $request->request->get('overallRating');
+
+            $result["userSuggestions"] = $request->request->get('userSuggestions');
+
+            dump($result);
+
+            $user=$this->getUser();
+
+            if ($user) {
+                $result['email'] = $user->getEmail();
+            }
+
+            file_put_contents($this->storagePath, json_encode($result, JSON_PRETTY_PRINT).PHP_EOL, FILE_APPEND | LOCK_EX);
+
+            //alerting administrator with an email
+            $sender = $this->getParameter('app.general_contact_email');
+            $receiver = $this->getParameter('app.general_contact_email');
+
+            $email = (new Email())
+                ->from($sender)
+                ->to($receiver)
+                ->subject('New User Feedback')
+                ->html('<pre>'.json_encode($result, JSON_PRETTY_PRINT).'</pre>');
+
+            $mailer->send($email);
+
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse(false);
+
     }
 
 

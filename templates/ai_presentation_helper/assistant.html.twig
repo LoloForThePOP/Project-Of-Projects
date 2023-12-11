@@ -17,16 +17,22 @@
     
         {{generalAdvice | raw}}
 
+        {# Try again button #}
+    
+        <div class="mt-5 text-center"><a href="{{path ('ai_presentation_helper_origin')}}"><button class="btn btn-outline-success">Réutiliser l'outil gratuitement</button></a></div>
+
+        <div class="mt-4 mt-md-5">
+
+            {% import "utilities/_macro_feedback_form.html.twig" as feedbackForm %}
+            {{feedbackForm.feedbackForm("AI Coach Presentation Helper")}}
+        
+        </div>
+
     {% else %}
 
         Veuillez utiliser l'assistant de présentation de projet avant de vous rendre sur cette page.
     
     {% endif %}
-
-    {# Try again button #}
-    
-    <div class="mt-4 mt-md-5 text-center"><a href="{{path ('ai_presentation_helper_origin')}}"><button class="btn btn-outline-success">Réessayer l'outil gratuitement</button></a></div>
-
 
   {#   <div class="row">
 
@@ -109,16 +115,15 @@
     
     @media screen and (max-width: 580px) {
 
-        .generalAdvice h2 {
-
+        .generalAdvice h2, .generalAdvice h3, .generalAdvice h4 {
             font-weight: bold;
-
+            padding-top: 9px;
         }
 
         .generalAdvice ul {
 
             column-count: unset;
-            padding-left: 15px;
+            padding-left: 10px;
             font-size: 1.1em;
 
         }

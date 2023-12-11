@@ -127,14 +127,14 @@ class PoolController extends AbstractController
 
             file_put_contents($this->storagePath, json_encode($result, JSON_PRETTY_PRINT).PHP_EOL, FILE_APPEND | LOCK_EX);
 
-            //alerting administrator with an email
+            //email admin
             $sender = $this->getParameter('app.general_contact_email');
             $receiver = $this->getParameter('app.general_contact_email');
 
             $email = (new Email())
                 ->from($sender)
                 ->to($receiver)
-                ->subject('New User Feedback')
+                ->subject('New user Feedback')
                 ->html('<pre>'.json_encode($result, JSON_PRETTY_PRINT).'</pre>');
 
             $mailer->send($email);

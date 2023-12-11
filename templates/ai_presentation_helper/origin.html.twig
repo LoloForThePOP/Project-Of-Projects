@@ -75,9 +75,9 @@
                             
                     <div class="cols-container">
 
-                        <div class="col-2 me-3">
+                        <div class="illustration-container col-2 me-3">
                         
-                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/audience.png', 'larger')}}" loading="lazy">
+                            <img class="question-illustration img-fluid" width="140" src="{{asset ('project_presentation_advice/audience.png', 'larger')}}" loading="lazy">
 
                         </div>
 
@@ -123,14 +123,14 @@
                     
                     <div class="question-progress">Question 2 / 2</div>
 
-                    <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-1">Comment</span> je présente mon projet (= le support) ?</h2>
+                    <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-1">Comment</span> je présente mon projet ?</h2>
 
                                 
                     <div class="cols-container">
 
-                        <div class="col-2">
+                        <div class="illustration-container col-2">
                         
-                            <img class="img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
+                            <img class="question-illustration img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
 
                         </div>
 
@@ -152,7 +152,7 @@
                         <span class="btn btn-validate return-arrow-icon">
                     
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/>       
+                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/> <span class="d-none d-md-inline ps-2">Retour</span>
                         
                         </span>
                 
@@ -229,6 +229,7 @@
             </script>
 
         </div>
+        
     </div>
 
 </div>
@@ -336,7 +337,7 @@
 
 /* Styles for the form parts */
 .form-part {
-	text-align: center;
+
 	margin: 8px auto 20px auto;
 }
 
@@ -344,16 +345,16 @@
   display: none;
 }
 
-.question-progress{
-
-    font-size: 1.25rem;
-    font-weight: bold;
-
+.question-progress {
+	margin-bottom: 11px;
+	padding-left: 5px;
+	font-size: 1.25rem;
+	font-weight: bold;
 }
-
 
 .question-title{
     font-weight: bold;
+    text-align: center;
 }
 
 
@@ -366,11 +367,35 @@ button[type="submit"]{
     width: 460px;
 }
 
+
+.form-part.part2 .question-illustration{
+    max-width: 75px;
+}
+
+.illustration-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn.return-arrow-icon{
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    width: 160px;
+}
+
 @media screen and (max-width: 580px) {
+
+    .question-progress {
+        padding-left: 9px;
+        margin-top: -7px;
+        font-size: 1.1rem;
+    }
 
 
     .question-title{
-	    font-size: 1.37em;
+	    font-size: 1.26em;
     }
 
     button[type="submit"] {
@@ -391,6 +416,18 @@ button[type="submit"]{
         margin: 0 10px;
     }
 
+    .form-part.part2 .question-illustration {
+        max-width: 100%;
+    }
+
+    .form-part.part2 .examples {
+        padding-left: 6px;
+    }
+
+    .btn.return-arrow-icon{
+        display: inline-block;
+        width: unset;
+    }
 
 
 }

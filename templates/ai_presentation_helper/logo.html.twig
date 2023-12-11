@@ -24,7 +24,177 @@
 
 <div class="page-container">
 
-skjfh dskjfh dskfj h
+    <div class="d-none d-md-flex justify-content-center align-items-center">
+    
+        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h3 text-center">Création <span class="highlight1">automatique</span> de logo pour <span class="">VOTRE Projet</span></h1>
+ 
+        <style>
+        
+                    
+            .highlight1 {
+                display: inline-block;
+                padding: .25em 10px;
+                background: #b8e0ad;
+                color: #ffffff;
+                border-radius: 5px;
+            }
+                    
+       
+        </style>
+
+      
+    </div>
+
+
+    <div class="">
+    
+     <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            padding: 10px;
+        }
+        .grid-item {
+            background-color: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            font-size: 14px;
+            text-align: center;
+            margin: 10px;
+        }
+        .grid-item img {
+            width: 100%;
+            height: auto;
+        }
+        .grid-item:hover {
+            background-color: #ddd;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Choisissez un style de logo</h2>
+
+<div class="grid-container">
+  <label class="grid-item"><input type="radio" name="logo_style" value="minimalist">Minimaliste<br><img src="images/minimalist.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="abstract">Abstrait<br><img src="images/abstract.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="mascot">Mascotte<br><img src="images/mascot.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="pictorial">Pictural<br><img src="images/pictorial.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="lettermark">Marque de lettre<br><img src="images/lettermark.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="wordmark">Signe distinctif<br><img src="images/wordmark.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="combination">Combinaison<br><img src="images/combination.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="emblem">Emblème<br><img src="images/emblem.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="3d">3D<br><img src="images/3d.png"></label>
+  <label class="grid-item"><input type="radio" name="logo_style" value="vintage">Vintage<br><img src="images/vintage.png"></label>
+</div>
+    
+    
+    
+    
+    
+    
+    
+    
+    </div>
+
+    <div class="init">
+    
+    <form action="/submit_logo_info" method="post">
+        <label for="company_name">Nom de l'entreprise:</label>
+        <input type="text" id="company_name" name="company_name">
+        
+        <label for="industry">Industrie:</label>
+        <input type="text" id="industry" name="industry">
+        
+        <label for="color_scheme">Schéma de couleur:</label>
+        <input type="text" id="color_scheme" name="color_scheme">
+        
+        <label for="slogan">Slogan:</label>
+        <input type="text" id="slogan" name="slogan">
+        
+        <label for="font_style">Style de police:</label>
+        <input type="text" id="font_style" name="font_style">
+        
+        <label for="target_audience">Audience cible:</label>
+        <input type="text" id="target_audience" name="target_audience">
+        
+        <label for="logo_style">Style de logo (par exemple, minimaliste, complexe):</label>
+        <input type="text" id="logo_style" name="logo_style">
+        
+        <label for="elements_to_include">Éléments à inclure (par exemple, montagnes, arbres, animaux):</label>
+        <input type="text" id="elements_to_include" name="elements_to_include">
+        
+        <label for="prefered_shapes">Formes préférées (par exemple, cercles, carrés, formes organiques):</label>
+        <input type="text" id="prefered_shapes" name="prefered_shapes">
+        
+        <label for="additional_comments">Commentaires supplémentaires:</label>
+        <textarea id="additional_comments" name="additional_comments"></textarea>
+        
+        <input type="submit" value="Créer le logo">
+    </form>
+    
+    
+    
+    </div>
+
+    
+    <div class="cta container col-md-6 border p-2 mt-4">
+    
+        <div class="text-center"><b>Service gratuit sans inscription</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
+    
+        <div class="gdpr">
+
+            <h3 class="fs-6 text-center">La protection de vos données personnelles est une priorité. <span class="learn-more">Afficher plus</span></h3> 
+
+            <div class="more-content border m-1 m-md-3 p-3">
+
+                <p>Les données que nous collectons sont <b><u>anonymisées</u></b>; <b><u>conservées au maximum 15 jours</u></b>; <b><u>exclusivement pour améliorer l'outil à votre disposition</u></b>.</p>
+
+                <p>Ce service utilise un ou plusieurs outils fournis par la société <a href="https://openai.com/">OpenAI</a>. Notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs pour utiliser ces services. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
+
+            </div>
+
+            <style>
+
+                /* Initially hide the "Learn More" content */
+                .more-content {
+                    display: none;
+
+                }
+
+                /* Styles for the "Learn More" button */
+                .learn-more {
+                    color: #0073e6;
+                    cursor: pointer;
+                    text-decoration: underline;
+                }
+
+                /* Style on hover for the "Learn More" button */
+                .learn-more:hover {
+                    text-decoration: none;
+                }
+
+            </style>
+
+            <script>
+            // Select HTML elements
+            const learnMoreButton = document.querySelector('.learn-more');
+            const moreContent = document.querySelector('.more-content');
+
+            // Add an event listener to show/hide the "Learn More" content
+            learnMoreButton.addEventListener('click', () => {
+                if (moreContent.style.display === 'block') {
+                moreContent.style.display = 'none';
+                } else {
+                moreContent.style.display = 'block';
+                }
+            });
+            </script>
+
+        </div>
+        
+    </div>
 
 
 

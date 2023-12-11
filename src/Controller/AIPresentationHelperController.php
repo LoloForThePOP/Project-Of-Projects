@@ -127,7 +127,7 @@ class AIPresentationHelperController extends AbstractController
     public function logo(): Response
     {
 
-        $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
+        /* $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
         
         $response = $ia->images()->create([
             'model' => 'dall-e-3',
@@ -140,13 +140,13 @@ class AIPresentationHelperController extends AbstractController
         $response->created; // 1589478378
         
         foreach ($response->data as $data) {
-            $data->url; // 'https://oaidalleapiprodscus.blob.core.windows.net/private/...'
+            $data->url;
             $data->b64_json; // null
         }
         
-        $response->toArray(); // ['created' => 1589478378, data => ['url' => 'https://oaidalleapiprodscus...', ...]]
+        $response->toArray(); 
 
-        dd($response);
+        dd($response); */
 
         return $this->render('ai_presentation_helper/logo.html.twig', [
             

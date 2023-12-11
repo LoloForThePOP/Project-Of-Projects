@@ -23,7 +23,7 @@
 {% block body %}
 
 
-<div class="page-container">
+<div id="top-origin" class="page-container">
 
     <div class="d-none d-md-flex justify-content-center align-items-center">
     
@@ -33,7 +33,7 @@
 
     <div class="d-flex d-md-none justify-content-center align-items-center">
     
-        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h3 text-center"><span class="">Conseils personnalisés</span> pour présenter <u>VOTRE</u> Projet</h1>
+        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h4 text-center"><span class="">Conseils personnalisés</span> pour présenter <u>VOTRE</u> Projet</h1>
       
     </div>
 
@@ -67,11 +67,11 @@
 
                 {{ form_start(form) }}
             
-                <div class="form-part part1">
+                <div id="form-part1" class="form-part part1">
 
                     <div class="question-progress">Question 1 / 2</div>
 
-                    <h2 class="question-title">À <span class="border border-2 border-success rounded px-2 pb-1 me-1">qui</span> je présente mon projet <span class="d-md-none"><br></span>(votre public cible) ?</h2>
+                    <h2 class="question-title">À <span class="border border-2 border-success rounded px-2 pb-1 me-0 me-md-1">qui</span> je présente mon projet <span class="d-md-none"><br></span>(votre public cible) ?</h2>
                             
                     <div class="cols-container">
 
@@ -99,7 +99,7 @@
                 
                         {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
 
-                        <span class="btn btn-validate btn-next arrow-icon">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <span class="btn btn-validate btn-next arrow-icon px-1 px-md-3">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                         </svg></span>
 
@@ -118,12 +118,12 @@
 
                 </div>
 
-                <div class="form-part part2 hidden">
+                <div id="form-part2" class="form-part part2 hidden">
 
                     
                     <div class="question-progress">Question 2 / 2</div>
 
-                    <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-1">Comment</span> je présente mon projet ?</h2>
+                    <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-0 me-md-1">Comment</span> je présente mon projet ?</h2>
 
                                 
                     <div class="cols-container">
@@ -149,7 +149,7 @@
 
                     <div class="tiny-form-container d-flex justify-content-center align-items-center">
 
-                        <span class="btn btn-validate return-arrow-icon">
+                        <span class="btn btn-validate return-arrow-icon px-1">
                     
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/> <span class="d-none d-md-inline ps-2">Retour</span>
@@ -242,10 +242,19 @@
 
 <script>
 
+    // go to appropriate anchor (useful on tiny screens)
+
+    function jump(h){
+        var url = location.href;               //Save down the URL without hash.
+        location.href = "#"+h;                 //Go to the target element.
+        history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+    }
+
     // Listen for click on the arrow icon to switch from part 1 to part 2
     document.querySelector(".arrow-icon").addEventListener("click", function() {
     document.querySelector(".part1").classList.add("hidden");
     document.querySelector(".part2").classList.remove("hidden");
+    jump("top-origin");
     });
 
     // Listen for click on the return arrow icon to go back
@@ -413,7 +422,7 @@ button[type="submit"]{
     }
 
     .tiny-form-container {
-        margin: 0 10px;
+        margin: 0 5px;
     }
 
     .form-part.part2 .question-illustration {

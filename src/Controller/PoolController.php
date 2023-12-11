@@ -109,6 +109,8 @@ class PoolController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
+            session_write_close();
+
             $result=[];
 
             $result["feedbackContext"] = $request->request->get('feedbackContext');
@@ -116,8 +118,6 @@ class PoolController extends AbstractController
             $result["overallRating"] = $request->request->get('overallRating');
 
             $result["userSuggestions"] = $request->request->get('userSuggestions');
-
-            dump($result);
 
             $user=$this->getUser();
 

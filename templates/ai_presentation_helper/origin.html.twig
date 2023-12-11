@@ -242,12 +242,21 @@
 
 <script>
 
+    // go to appropriate anchor (useful on tiny screens)
+
+    function jump(h){
+        var url = location.href;               //Save down the URL without hash.
+        location.href = "#"+h;                 //Go to the target element.
+        history.replaceState(null,null,url);   //Don't like hashes. Changing it back.
+    }
+
     // Listen for click on the arrow icon to switch from part 1 to part 2
     document.querySelector(".arrow-icon").addEventListener("click", function() {
     document.querySelector(".part1").classList.add("hidden");
     document.querySelector(".part2").classList.remove("hidden");
+    //jump("top-origin");
 
-    window.scrollTo(0, 0);
+    window.location.hash = 'top-origin';
     });
 
     // Listen for click on the return arrow icon to go back

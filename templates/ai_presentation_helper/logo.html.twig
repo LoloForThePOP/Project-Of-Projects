@@ -25,6 +25,160 @@
 
 <div id="test-logos-reception">test logos reception</div>
 
+    
+    <div class="logo-types-container">
+
+        <div class="logo-type" data-logo-type="oneLetter" >
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/one-letter.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="logo-type" data-logo-type="abstraction">
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/abstraction.png', 'larger')}}" loading="lazy">
+        
+        </div>
+    
+
+        <div class="logo-type" data-logo-type="symbol">
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/symbols.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="logo-type" data-logo-type="tangledLetters">
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/tangled-letters.png', 'larger')}}" loading="lazy">
+        
+        </div>
+    
+    </div>
+
+    {# posted logo type #}
+
+    <input type="hidden" id="logo-type" value="">
+
+
+    <script>
+    
+    
+        $(document).ready(function() {
+        // Add click event to all items with class 'logo-type'
+            $('.logo-type').click(function() {
+                
+                // Remove the highlight from other items
+                $('.logo-type').css('background-color', '');
+                
+                // Highlight the clicked item in yellow
+                $(this).css('background-color', 'yellow');
+                
+                // Fill the hidden field with the 'data-logo-type' attribute of the clicked item
+                $('#logo-type').val($(this).data('logo-type'));
+            });
+        });
+    
+    
+    </script>
+
+
+    <style>
+
+        .logo-types-container{
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+        }
+    
+        .logo-type{
+            display: inline-block;
+            border: 1px solid grey;
+            padding: 10px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+            
+        .logo-type:hover {
+            background-color: #eef7ee;
+        }
+    
+    </style>
+
+
+
+
+
+<div class="container col-md-5">
+
+
+
+
+
+    <div class="mb-3">
+        <label for="oneLetter" class="form-label">Quelle est la lettre ?</label>
+        <input type="text" class="form-control" id="oneLetter" placeholder="Ex : M, G, T..." maxlength="1" >
+    </div>
+
+
+    <div class="mb-3">
+        <label for="tangledLetters" class="form-label">S'il y a des formes que vous voulez-inclure dans votre logo, inscrivez-les ici :</label>
+        <input type="text" class="form-control" id="tangledLetters" placeholder="Ex : YSL, LV, CC.">
+    </div>
+
+
+    <div class="mb-3">
+        <label for="forms" class="form-label">S'il y a des formes que vous voulez-inclure dans votre logo, inscrivez-les ici :</label>
+        <input type="text" class="form-control" id="forms" placeholder="Ex : vagues, cercle, triangle, carré, etc.">
+    </div>
+
+    <div class="mb-3">
+        <label for="businessCategory" class="form-label">Ici vous pouvez inscrire le domaine de votre organisation :</label>
+        <input type="text" class="form-control" id="businessCategory" placeholder="Ex : santé, agriculture, cosmétiques, services, etc.">
+    </div>
+
+    <div class="mb-3">
+        <label for="businessName" class="form-label">Quel nom voulez-vous insérer dans votre logo ? Écrire en majuscules ou pas en fonction de votre souhait :</label>
+        <input type="text" class="form-control" id="businessName" placeholder="Ex : Propon, MICHELIN, etc.">
+    </div>
+
+    <div class="mb-3">
+        <label for="otherLogosInspiration" class="form-label">Quel symbole voulez-vous insérer dans votre logo : </label>
+        <input type="text" class="form-control" id="logoSymbol" placeholder="Ex : un dauphin.">
+    </div>
+
+    <div class="mb-3">
+        <label for="otherLogosInspiration" class="form-label">Si vous voulez que votre logo s'inspire d'un logo qui existe déjà, notez-le ici : </label>
+        <input type="text" class="form-control" id="otherLogosInspiration" placeholder="Ex : netflix, uber, etc.">
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+
+        <label for="firstColorInspiration" class="form-label mb-0 me-2">Si vous voulez choisir une couleur principale, faites-le ici : </label>
+        <input type="color" class="form-control form-control-color" id="firstColorInspiration" value="" title="Choose your color">
+    
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+
+        <label for="secondColorInspiration" class="form-label mb-0 me-2">Si vous voulez choisir une couleur secondaire, faites-le ici : </label>
+        <input type="color" class="form-control form-control-color" id="secondColorInspiration" value="" title="Choose your color">
+    
+    </div>
+
+    <div class="mb-3">
+        <label for="userLastConditions" class="form-label">Si vous avez d'autres exigences pour votre logo, ajoutez-les ici, elles auront une forte priorité !</label>
+        <textarea class="form-control" id="userLastConditions" rows="3"></textarea>
+    </div>
+
+
+    
+
+
+
+</div>
+
+
   
     <script>
 

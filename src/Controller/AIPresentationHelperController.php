@@ -125,35 +125,8 @@ class AIPresentationHelperController extends AbstractController
     /**
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet-creation-logo/", name="ai_presentation_helper_assistant_logo")
      */
-    public function logo(ImageService $imageService): Response
+    public function logo(): Response
     {
-
-        $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
-        
-        $response = $ia->images()->create([
-            'model' => 'dall-e-2',
-            'prompt' => 'Four logo suggestions for a project about horses.',
-            'size' => "1024x1024",
-            'n' => 1,
-            'response_format' => 'url',
-        ]);
-        
-        $response->created; // 1589478378
-        
-        foreach ($response->data as $data) {
-            $data->url;
-            $data->b64_json; // null
-        }
-        
-        $response->toArray(); 
-
-        $imageUrl = $response["data"][0]["url"];
-
-        $imageUrl = "https://propon.org/media/cache/standard_thumbnail_md_test/media/uploads/pp/custom_thumbnails/thumb-635f674badba4913600908.jpg";
-
-        
-
-        $imageService->saveLogoImage($imageUrl);
 
         return $this->render('ai_presentation_helper/logo.html.twig', [
             
@@ -166,7 +139,7 @@ class AIPresentationHelperController extends AbstractController
      * @Route("/ajax-ia-assistant-gratuit-de-presentation-de-projet", name="ajax_ai_presentation_helper_assistant")
      */
     public function ajaxOrigin(Request $request) {
-        
+         
         if ($request->isXmlHttpRequest()) {
 
             $userMessage = $request->request->get('message');
@@ -178,6 +151,45 @@ class AIPresentationHelperController extends AbstractController
     
             // Vous pouvez renvoyer la réponse sous forme de JSON
             return new JsonResponse(['data' => $response]);
+          
+        }
+   
+    }
+
+    /**
+     * @Route("/ajax-ia-assistant-gratuit-de-creation-de-logo", name="ajax_ia_logo_creation_helper")
+     */
+    public function ajaxCreateLogo(Request $request, ImageService $imageService) {
+       
+        if ($request->isXmlHttpRequest()) {
+
+            $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
+        
+            $response = $ia->images()->create([
+                'model' => 'dall-e-2',
+                'prompt' => 'Four logo suggestions for a project about horses. Each logo is NOT CROPPED.',
+                'size' => "1024x1024",
+                'n' => 1,
+                'response_format' => 'url',
+            ]);
+        
+            $response->created; // 1589478378
+            
+            foreach ($response->data as $data) {
+                $data->url;
+                $data->b64_json; // null
+            }
+            
+            $response->toArray(); 
+
+            $imageUrl = $response["data"][0]["url"];
+
+
+            $generatedImagePath = $imageService->saveImageFromUrl($imageUrl);
+            $imagesPathsArray = $imageService->splitImage($generatedImagePath);
+    
+            // Vous pouvez renvoyer la réponse sous forme de JSON
+            return new JsonResponse(['imagesPathsArray' => $imagesPathsArray]);
           
         }
 

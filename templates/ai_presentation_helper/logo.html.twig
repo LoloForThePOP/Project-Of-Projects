@@ -22,6 +22,70 @@
 
 {% block body %}
 
+
+<div id="test-logos-reception">test logos reception</div>
+
+  
+    <script>
+
+        $("#test-logos-reception").on('click', function (e){
+
+            var $t = $(this);
+
+            $.ajax({  
+
+                url: "{{path('ajax_ia_logo_creation_helper')}}",
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                    //"jsonElementsPosition": jsonElementsPositions,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    var imagesPathsArray = data.imagesPathsArray;
+
+                    let i = 0;
+
+                    while (i < imagesPathsArray.length) {
+
+                        $t.after([
+                            { imageSrc: data.imagesPathsArray[i] },
+                        ].map(newImagePattern));
+
+                        i++;
+                    }
+
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    // alert('Ajax request failed.');  
+                }  
+            }); 
+
+           
+           
+
+        });
+    
+    </script>
+    
+
+
+
+<script>
+
+    const newImagePattern = ({ imageSrc }) => `
+
+        <img src="/${imageSrc}" alt="ia created logo">
+   
+    `;
+    
+
+</script>
+
 <div class="page-container">
 
     <div class="d-none d-md-flex justify-content-center align-items-center">
@@ -75,7 +139,7 @@
 <body>
 
 <h2>Choisissez un style de logo</h2>
-
+{# 
 <div class="grid-container">
   <label class="grid-item"><input type="radio" name="logo_style" value="minimalist">Minimaliste<br><img src="images/minimalist.png"></label>
   <label class="grid-item"><input type="radio" name="logo_style" value="abstract">Abstrait<br><img src="images/abstract.png"></label>
@@ -87,11 +151,10 @@
   <label class="grid-item"><input type="radio" name="logo_style" value="emblem">Emblème<br><img src="images/emblem.png"></label>
   <label class="grid-item"><input type="radio" name="logo_style" value="3d">3D<br><img src="images/3d.png"></label>
   <label class="grid-item"><input type="radio" name="logo_style" value="vintage">Vintage<br><img src="images/vintage.png"></label>
-</div>
+</div> #}
+
     
-    
-    
-    
+  
     
     
     
@@ -99,7 +162,7 @@
     </div>
 
     <div class="init">
-    
+    {# 
     <form action="/submit_logo_info" method="post">
         <label for="company_name">Nom de l'entreprise:</label>
         <input type="text" id="company_name" name="company_name">
@@ -132,7 +195,7 @@
         <textarea id="additional_comments" name="additional_comments"></textarea>
         
         <input type="submit" value="Créer le logo">
-    </form>
+    </form> #}
     
     
     

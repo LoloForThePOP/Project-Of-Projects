@@ -3,7 +3,7 @@
 
     {% set titleMetadata = 'Création de logo pour votre projet, automatisée par IA' %}
     {% set metadataDescription = "Service gratuit et sans inscription, laissez-vous guider pour créer le logo parfait pour votre projet. Aucune compétence en graphisme n'est requise." %}
-    {% set metadataImageUrl %}{{asset ('project_presentation_advice/adam_technology_touch.jpg', 'larger')}}{% endset %}
+    {% set metadataImageUrl %}{{asset ('logo_creation/two-persons-creating-a-logo.jpeg', 'larger')}}{% endset %}
     {% set currentPageUrl = app.request.uri %}
 
 {% block headTag %}
@@ -23,59 +23,194 @@
 {% block body %}
 
 
-<div id="test-logos-reception">test logos reception</div>
+<div class="container col-md-7 mt-4">
 
-    
-    <div class="logo-types-container">
 
-        <div class="logo-type" data-logo-type="oneLetter" >
 
-            <img class="img-fluid" width="140" src="{{asset ('logo_creation/one-letter.png', 'larger')}}" loading="lazy">
+    <div id="logo-big-cats-struct-container" class="struct-container">
+        
+        <div class="">
+        
+            <label for="logo-big-cats" class="big-title form-label">Choisir votre grande catégorie de logo</label>
         
         </div>
 
-        <div class="logo-type" data-logo-type="abstraction">
+        <div id="logo-big-cats-container" class="selectable-container">
 
-            <img class="img-fluid" width="140" src="{{asset ('logo_creation/abstraction.png', 'larger')}}" loading="lazy">
+
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="letters" >
+
+                <h4 class="title">Lettre(s)</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/letters.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="image" >
+
+                <h4 class="title">Image seule</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/image.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="mixed" >
+
+                <h4 class="title">Lettre(s) et image</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/mixed.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="dont-know" >
+
+                <h4 class="title">Je ne sais pas encore</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/question-mark.png', 'larger')}}" loading="lazy">
+            
+            </div>
         
         </div>
-    
 
-        <div class="logo-type" data-logo-type="symbol">
+        {# posted logo big category type #}
 
-            <img class="img-fluid" width="140" src="{{asset ('logo_creation/symbols.png', 'larger')}}" loading="lazy">
-        
-        </div>
-
-        <div class="logo-type" data-logo-type="tangledLetters">
-
-            <img class="img-fluid" width="140" src="{{asset ('logo_creation/tangled-letters.png', 'larger')}}" loading="lazy">
-        
-        </div>
+        <input type="hidden" id="logo-big-cats" value="">
     
     </div>
 
-    {# posted logo type #}
+    <div id="logo-type-struct-container" class="struct-container">
+        
+        <div class="">
+        
+            <label for="logo-type" class="form-label big-title">Choisir votre type de logo</label>
+        
+        </div>
 
-    <input type="hidden" id="logo-type" value="">
+        <div id="logo-types-container" class="selectable-container">
+
+            <div class="selectable-square logo-type" data-logo-type="oneLetter" >
+
+                <h4 class="title">Une seule lettre</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/one-letter.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-type" data-logo-type="abstraction">
+
+                <h4 class="title">Forme abstraite</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/abstraction.png', 'larger')}}" loading="lazy">
+            
+            </div>
+        
+
+            <div class="selectable-square logo-type" data-logo-type="symbol">
+
+                <h4 class="title">Objet existant</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/symbols.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-type" data-logo-type="tangledLetters">
+
+                <h4 class="title">Lettres enlacées</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/tangled-letters.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-type" data-logo-type="dont-know" >
+
+                <h4 class="title">Je ne sais pas encore</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/question-mark.png', 'larger')}}" loading="lazy">
+            
+            </div>
+        
+        </div>
+
+        {# posted logo type #}
+
+        <input type="hidden" id="logo-type" value="">
+    
+    </div>
+
+
 
 
     <script>
     
     
         $(document).ready(function() {
-        // Add click event to all items with class 'logo-type'
-            $('.logo-type').click(function() {
+
+
+            function selectItem(className){
+      
+                $('.'+className).click(function() {
+                    
+                    // Remove the highlight from other items
+                    $('.'+className).css('background-color', '');
+                    
+                    // Highlight the clicked item in yellow
+                    $(this).css('background-color', 'yellow');
+                    
+                    // Fill the hidden field with the 'data-...' attribute of the clicked item
+                    $('#'+className).val($(this).data(className));
+                });
+
+            }
+
+            selectItem("logo-type");
+
+            
+        $("#test-logos-reception").on('click', function (e){
+
+
+            $(".feedback-loader").show();
+
+            var $t = $(this);
+
+            $.ajax({  
+
+                url: "{{path('ajax_ia_logo_creation_helper')}}",
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                    //"jsonElementsPosition": jsonElementsPositions,
+                },
+
+                async: true,  
                 
-                // Remove the highlight from other items
-                $('.logo-type').css('background-color', '');
-                
-                // Highlight the clicked item in yellow
-                $(this).css('background-color', 'yellow');
-                
-                // Fill the hidden field with the 'data-logo-type' attribute of the clicked item
-                $('#logo-type').val($(this).data('logo-type'));
-            });
+                success: function(data, status) {
+
+                    $(".feedback-loader").hide();
+
+                    var imagesPathsArray = data.imagesPathsArray;
+
+                    let i = 0;
+
+                    while (i < imagesPathsArray.length) {
+
+                        $t.after([
+                            { imageSrc: data.imagesPathsArray[i] },
+                        ].map(newImagePattern));
+
+                        i++;
+                    }
+
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    // alert('Ajax request failed.');  
+                }  
+            }); 
+
+        });
+
+
+
         });
     
     
@@ -84,13 +219,19 @@
 
     <style>
 
-        .logo-types-container{
+        label.big-title{
+            display: block;
+            font-size: 1.3em !important;
+            text-align: center;
+        }
+
+        .selectable-container{
             display: flex;
             justify-content: center;
             margin-bottom: 25px;
         }
     
-        .logo-type{
+        .selectable-square {
             display: inline-block;
             border: 1px solid grey;
             padding: 10px;
@@ -98,18 +239,34 @@
             cursor: pointer;
             border-radius: 4px;
         }
+
+
+        .selectable-square .title {
+            font-size: 1em;
+            font-weight: bold;
+            text-align: center;
+        }
             
-        .logo-type:hover {
+        .selectable-square:hover {
             background-color: #eef7ee;
         }
+
+        .feedback-loader {
+
+
+            display: none;
+
+
+        }
+
+
+
     
     </style>
 
 
 
 
-
-<div class="container col-md-5">
 
 
 
@@ -167,65 +324,27 @@
     </div>
 
     <div class="mb-3">
-        <label for="userLastConditions" class="form-label">Si vous avez d'autres exigences pour votre logo, ajoutez-les ici, elles auront une forte priorité !</label>
+        <label for="userLastConditions" class="form-label">Si vous avez d'autres exigences pour votre logo, ajoutez-les ici, elles seront appliquées en priorité !</label>
         <textarea class="form-control" id="userLastConditions" rows="3"></textarea>
     </div>
 
 
+    <div id="test-logos-reception my-5">test logos reception</div>
     
+    <div class="">
+    
+        Logo parfait gratuit, sans effort, et sans inscription. Un service proposé par Propon, le site de présentation de projet.
 
+        Tous les logos présentés ici sont exposés à titre pédagogique et sont soumis à des copyrights détenus par leurs ayants respectifs.
+    
+    
+    </div>
+
+
+    <div class="feedback-loader-container"><img class="feedback-loader img-fluid" width="140" src="{{asset ('logo_creation/loader.gif', 'larger')}}" loading="lazy"></div>
 
 
 </div>
-
-
-  
-    <script>
-
-        $("#test-logos-reception").on('click', function (e){
-
-            var $t = $(this);
-
-            $.ajax({  
-
-                url: "{{path('ajax_ia_logo_creation_helper')}}",
-                type:       'POST',   
-                dataType:   'json',
-                data: {
-                    //"jsonElementsPosition": jsonElementsPositions,
-                },
-
-                async: true,  
-                
-                success: function(data, status) {
-
-                    var imagesPathsArray = data.imagesPathsArray;
-
-                    let i = 0;
-
-                    while (i < imagesPathsArray.length) {
-
-                        $t.after([
-                            { imageSrc: data.imagesPathsArray[i] },
-                        ].map(newImagePattern));
-
-                        i++;
-                    }
-
-                },  
-
-                error : function(xhr, textStatus, errorThrown) {  
-                    // alert('Ajax request failed.');  
-                }  
-            }); 
-
-           
-           
-
-        });
-    
-    </script>
-    
 
 
 
@@ -264,56 +383,9 @@
     </div>
 
 
-    <div class="">
-    
-     <style>
-        .grid-container {
-            display: grid;
-            grid-template-columns: auto auto auto auto;
-            padding: 10px;
-        }
-        .grid-item {
-            background-color: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            font-size: 14px;
-            text-align: center;
-            margin: 10px;
-        }
-        .grid-item img {
-            width: 100%;
-            height: auto;
-        }
-        .grid-item:hover {
-            background-color: #ddd;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 
-<h2>Choisissez un style de logo</h2>
-{# 
-<div class="grid-container">
-  <label class="grid-item"><input type="radio" name="logo_style" value="minimalist">Minimaliste<br><img src="images/minimalist.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="abstract">Abstrait<br><img src="images/abstract.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="mascot">Mascotte<br><img src="images/mascot.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="pictorial">Pictural<br><img src="images/pictorial.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="lettermark">Marque de lettre<br><img src="images/lettermark.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="wordmark">Signe distinctif<br><img src="images/wordmark.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="combination">Combinaison<br><img src="images/combination.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="emblem">Emblème<br><img src="images/emblem.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="3d">3D<br><img src="images/3d.png"></label>
-  <label class="grid-item"><input type="radio" name="logo_style" value="vintage">Vintage<br><img src="images/vintage.png"></label>
-</div> #}
-
-    
-  
-    
-    
-    
-    
-    </div>
 
     <div class="init">
     {# 

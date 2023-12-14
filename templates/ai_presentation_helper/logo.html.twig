@@ -90,25 +90,25 @@
         <div id="logo-type-image-container" class="selectable-container">
 
 
-            <div class="selectable-square logo-type-image" data-logo-type="abstraction">
+            <div class="selectable-square logo-type-image" data-logo-type-image="abstraction">
 
-                <h4 class="title">Forme abstraite</h4>
+                <h4 class="title">Forme(s) abstraite(s) uniquement</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/abstraction.png', 'larger')}}" loading="lazy">
             
             </div>
         
 
-            <div class="selectable-square logo-type-image" data-logo-type="symbol">
+            <div class="selectable-square logo-type-image" data-logo-type-image="with-figurative-object">
 
-                <h4 class="title">Objet existant</h4>
+                <h4 class="title">Avec un objet existant</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/symbols.png', 'larger')}}" loading="lazy">
             
             </div>
             
 
-            <div class="selectable-square logo-type-image" data-logo-type="unknown" >
+            <div class="selectable-square logo-type-image" data-logo-type-image="unknown" >
 
                 <h4 class="title">Je ne sais pas encore</h4>
 
@@ -128,13 +128,13 @@
         
         <div class="">
         
-            <label for="logo-type-letters-hidden" class="form-label big-title">Choisir votre type de logo</label>
+            <label for="logo-type-letters-hidden" class="form-label big-title">Quel type de logo lettre ?</label>
         
         </div>
 
         <div id="logo-type-letters-container" class="selectable-container">
 
-            <div class="selectable-square logo-type-letters" data-logo-type="oneLetter" >
+            <div class="selectable-square logo-type-letters" data-logo-type-letters="one-letter" >
 
                 <h4 class="title">Une seule lettre</h4>
 
@@ -142,8 +142,16 @@
             
             </div>
 
+            <div class="selectable-square logo-type-letters" data-logo-type-letters="several-letters" >
 
-            <div class="selectable-square logo-type-letters" data-logo-type="tangledLetters">
+                <h4 class="title">Plusieurs lettres</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/several-letters.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+
+            <div class="selectable-square logo-type-letters" data-logo-type-letters="tangled-letters">
 
                 <h4 class="title">Lettres enlacées</h4>
 
@@ -153,7 +161,7 @@
 
 
 
-            <div class="selectable-square logo-type-letters" data-logo-type="unknown" >
+            <div class="selectable-square logo-type-letters" data-logo-type-letters="unknown" >
 
                 <h4 class="title">Je ne sais pas encore</h4>
 
@@ -166,6 +174,96 @@
         {# posted logo type #}
 
         <input type="hidden" id="logo-type-letters-hidden" value="">
+    
+    </div>
+
+    <div id="several-letters" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="several-letters" class="form-label big-title">Quelles lettres voulez-vous intégrer dans votre logo ?</label>
+
+            <h5 class="big-title">Utilisez des majuscules ou pas selon votre préférence.</h5>
+        
+        </div>
+
+        <input type="text" class="form-control" id="several-letters" placeholder="Ex : Propon, WordPress, MICHELIN">
+    
+    </div>
+
+    <div id="one-letter" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="one-letter" class="form-label big-title">Quelle est la lettre que vous souhaitez intégrer dans votre logo ?</label>
+
+            <h5 class="big-title">Utilisez une majuscule ou pas selon votre préférence.</h5>
+        
+        </div>
+
+        <input type="text" class="form-control" id="one-letter" placeholder="Ex : M, g, T" maxlength="1">
+    
+    </div>
+
+    <div id="tangled-letters" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="tangled-letters" class="form-label big-title">Quelles lettres souhaitez-vous enlacer dans votre logo ?</label>
+
+            <h5 class="big-title">Utilisez des majuscules ou pas selon votre préférence.</h5>
+
+        
+        </div>
+
+        <input type="text" class="form-control" id="tangled-letters" placeholder="Ex : YSL, LV, CC" maxlength="15">
+    
+    </div>
+
+    <div id="abstraction-description" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="abstraction-description" class="form-label big-title">Décrivez la ou les formes que vous voulez intégrer dans votre logo.</label>
+
+            <h5 class="big-title">Soyez précis pour un meilleur résultat.</h5>
+
+        
+        </div>
+
+        <textarea name="" id="abstraction-description-textarea" cols="30" rows="7"></textarea>
+    
+    </div>
+
+    <div id="with-figurative-object" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="abstraction-description" class="form-label big-title">Décrivez la ou les formes que vous voulez intégrer dans votre logo.</label>
+
+            <h5 class="big-title">Soyez précis pour un meilleur résultat.</h5>
+
+        
+        </div>
+
+        <textarea name="" id="abstraction-description-textarea" cols="30" rows="7"></textarea>
+    
+    </div>
+
+
+
+
+    <div id="colors" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="colors" class="form-label big-title">Quelle(s) couleurs pour votre logo ?</label>
+
+            <h5 class="big-title">Soyez précis pour obtenir le résultat de vos rêves. Par exemple précisez les couleurs de chaque objet (lettres, formes).</h5>
+
+        </div>
+
+        <textarea id="colors" placeholder="Ex : Je veux ceci en rouge, je veux cela en gris, etc."></textarea>
     
     </div>
 
@@ -189,95 +287,16 @@
 
 
 
-    <button id="previousStep" class="isHidden">Previous Step</button>
-    <button id="nextStep">Next Step</button>
+    <button id="previousStep" class="isHidden">Étape précédente</button>
+    <button id="nextStep">Étape suivante</button>
 
-    <script>
-    
-    
-        $(document).ready(function() {
-
-
-            function selectItem(className){
-      
-                $('.'+className).click(function() {
-                    
-                    // Remove the highlight from other items
-                    $('.'+className).css('background-color', '');
-                    
-                    // Highlight the clicked item in yellow
-                    $(this).css('background-color', 'yellow');
-                    
-                    // Fill the hidden field with the 'data-...' attribute of the clicked item
-                    $('#'+className+'-hidden').val($(this).data(className));
-                });
-
-            }
-
-            //initiate select item
-
-            selectItem("logo-big-cats");
-            selectItem("logo-type");
-
-
-        
-            
-        $("#test-logos-reception").on('click', function (e){
-
-
-            $(".feedback-loader").show();
-
-            var $t = $(this);
-
-            $.ajax({  
-
-                url: "{{path('ajax_ia_logo_creation_helper')}}",
-                type:       'POST',   
-                dataType:   'json',
-                data: {
-                    //"jsonElementsPosition": jsonElementsPositions,
-                },
-
-                async: true,  
-                
-                success: function(data, status) {
-
-                    $(".feedback-loader").hide();
-
-                    var imagesPathsArray = data.imagesPathsArray;
-
-                    let i = 0;
-
-                    while (i < imagesPathsArray.length) {
-
-                        $t.after([
-                            { imageSrc: data.imagesPathsArray[i] },
-                        ].map(newImagePattern));
-
-                        i++;
-                    }
-
-                },  
-
-                error : function(xhr, textStatus, errorThrown) {  
-                    // alert('Ajax request failed.');  
-                }  
-            }); 
-
-        });
-
-
-
-        });
-    
-    
-    </script>
+  
 
 
     <style>
 
 
-        label.big-title{
+        .big-title{
             display: block;
             font-size: 1.3em !important;
             text-align: center;
@@ -329,24 +348,6 @@
 
 
 
-
-
-
-
-
-
-    <div class="mb-3">
-        <label for="oneLetter" class="form-label">Quelle est la lettre ?</label>
-        <input type="text" class="form-control" id="oneLetter" placeholder="Ex : M, G, T..." maxlength="1" >
-    </div>
-
-
-    <div class="mb-3">
-        <label for="tangledLetters" class="form-label">S'il y a des formes que vous voulez-inclure dans votre logo, inscrivez-les ici :</label>
-        <input type="text" class="form-control" id="tangledLetters" placeholder="Ex : YSL, LV, CC.">
-    </div>
-
-
     <div class="mb-3">
         <label for="forms" class="form-label">S'il y a des formes que vous voulez-inclure dans votre logo, inscrivez-les ici :</label>
         <input type="text" class="form-control" id="forms" placeholder="Ex : vagues, cercle, triangle, carré, etc.">
@@ -355,16 +356,6 @@
     <div class="mb-3">
         <label for="businessCategory" class="form-label">Ici vous pouvez inscrire le domaine de votre organisation :</label>
         <input type="text" class="form-control" id="businessCategory" placeholder="Ex : santé, agriculture, cosmétiques, services, etc.">
-    </div>
-
-    <div class="mb-3">
-        <label for="businessName" class="form-label">Quel nom voulez-vous insérer dans votre logo ? Écrire en majuscules ou pas en fonction de votre souhait :</label>
-        <input type="text" class="form-control" id="businessName" placeholder="Ex : Propon, MICHELIN, etc.">
-    </div>
-
-    <div class="mb-3">
-        <label for="otherLogosInspiration" class="form-label">Quel symbole voulez-vous insérer dans votre logo : </label>
-        <input type="text" class="form-control" id="logoSymbol" placeholder="Ex : un dauphin.">
     </div>
 
     <div class="mb-3">
@@ -387,9 +378,24 @@
     </div>
 
     <div class="mb-3">
-        <label for="userLastConditions" class="form-label">Si vous avez d'autres exigences pour votre logo, ajoutez-les ici, elles seront appliquées en priorité !</label>
+        <label for="userLastConditions" class="form-label">Si vous avez d'autres exigences pour votre logo, ajoutez-les ici, elles seront appliquées en priorité</label>
         <textarea class="form-control" id="userLastConditions" rows="3"></textarea>
     </div>
+
+    <div class=""> font style, size, and color.</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     <div id="test-logos-reception my-5">test logos reception</div>

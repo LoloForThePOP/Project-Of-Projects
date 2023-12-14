@@ -3,109 +3,249 @@
 
 $(document).ready(function() {
 
-let formSections = {
 
-    'logo-big-cats': [
-        {
-            'value': 'letters',
-            'nextSection': 'logo-type-letters'
-        },
-        {
-            'value': 'image',
-            'nextSection': 'logo-type-image'
+    let formSections = {
+
+
+
+        'logo-big-cats': [
+            {
+                'value': 'letters',
+                'nextSection': 'logo-type-letters'
+            },
+            {
+                'value': 'image',
+                'nextSection': 'logo-type-image'
+            }
+        ],
+
+        
+
+        'logo-type-letters': [
+            {
+                'value': 'one-letter',
+                'nextSection': 'one-letter'
+            },
+            {
+                'value': 'several-letters',
+                'nextSection': 'several-letters'
+            }
+            ,
+            {
+                'value': 'tangled-letters',
+                'nextSection': 'tangled-letters'
+            }
+
+        ],
+        
+
+        'logo-type-image': [
+            {
+                'value': 'abstraction',
+                'nextSection': 'abstraction-description'
+            },
+            {
+                'value': 'with-figurative-object',
+                'nextSection': 'with-figurative-object'
+            }
+            ,
+
+        ],
+
+        'one-letter': [
+            {
+                'value': 'colors',
+                'nextSection': 'colors'
+            },
+           
+        ],
+
+        'several-letters': [
+            {
+                'value': 'colors',
+                'nextSection': 'colors'
+            },
+           
+        ],
+
+        'tangled-letters': [
+            {
+                'value': 'colors',
+                'nextSection': 'colors'
+            },
+           
+        ],
+
+        'colors': [
+            {
+                'value': 'tofeed',
+                'nextSection': 'tofeed'
+            },
+           
+        ],
+
+       
+
+    };
+
+    let previousSection = null; 
+    let currentSection = 'logo-big-cats';
+
+    //initialize section 1 is visible
+    document.querySelector('#'+currentSection).classList.remove('isHidden');
+
+    $("#nextStep").on('click', function (e){
+
+        //getting user choice
+        nextSection = $('#'+currentSection+'-hidden').val();
+
+        if(nextSection==null){ //user don-t have to make a choice, in this case next step is defined in formSections object.
+
+           nextSection = formSections[currentSection][0].nextSection;
+
+           console.log("case no user choice so default next step: "+nextSection);
+
+        };
+
+        goToNextSection(nextSection);
+
+    });
+
+    $("#previousStep").on('click', function (e){
+
+        goToPreviousSection();
+
+    });
+
+    function goToNextSection(nextSection) {
+
+        // Previous button should be visible since we're moving forward
+        document.querySelector('#previousStep').classList.remove('isHidden');
+
+        let selectedOption = formSections[currentSection].find(option => option.value === nextSection);
+
+        if(!selectedOption) {
+            console.error('Option not found');
+            return;
         }
-    ],
 
-    'logo-type-letters': [
-        {
-            'value': 'option1',
-            'nextSection': 'section4'
-        },
-        {
-            'value': 'option2',
-            'nextSection': 'section5'
+        // Hide current section
+        document.getElementById(currentSection).style.display = "none";
+
+        // Update the last section before going to the next
+        previousSection = currentSection;
+
+        // Show next section
+        currentSection = selectedOption.nextSection;
+
+        console.log(currentSection);
+        document.getElementById(currentSection).style.display = "block";
+
+        // If this is a final section, hide the next button
+        let nextOption = formSections[currentSection];
+        if(!nextOption) {
+            document.querySelector('#nextStep').classList.add('isHidden');
         }
-    ],
-};
+    }
 
-let currentSection = 'logo-big-cats';
-let previousSection = null; 
+    function goToPreviousSection() {
 
-//initialize section 1 is visible
-document.querySelector('#'+currentSection).classList.remove('isHidden');
+        // Since we're moving back, the next button should be visible
+        document.querySelector('#nextStep').classList.remove('isHidden');
+
+        // Hide current section
+        document.getElementById(currentSection).style.display = "none";
+
+        // Swap back to the last section
+        if(previousSection) {
+            let temp = currentSection;
+            currentSection = previousSection;
+            previousSection = temp;
+        }
+
+        // Show previous section
+        document.getElementById(currentSection).style.display = "block";
+
+        console.log(previousSection);
+
+        // If we're at the start of the form, hide the previous button
+        if(previousSection === null) {
+            document.querySelector('#previousStep').classList.add('isHidden');
+        }
+    }
 
 
-$("#nextStep").on('click', function (e){
+    function selectItem(className){
 
-    //getting user choice
-    userChoice = $('#'+currentSection+'-hidden').val();
+        $('.'+className).click(function() {
+            
+            // Remove the highlight from other items
+            $('.'+className).css('background-color', '');
+            
+            // Highlight the clicked item in yellow
+            $(this).css('background-color', 'yellow');
+            
+            // Fill the hidden field with the 'data-...' attribute of the clicked item
+            $('#'+className+'-hidden').val($(this).data(className));
+        });
 
+    }
+
+    //initiate select item
+
+    selectItem("logo-big-cats");
+    selectItem("logo-type-letters");
+    selectItem("logo-type-image");
+
+
+        
+    $("#test-logos-reception").on('click', function (e){
+
+
+        $(".feedback-loader").show();
+
+        var $t = $(this);
+
+        $.ajax({  
+
+            url: "{{path('ajax_ia_logo_creation_helper')}}",
+            type:       'POST',   
+            dataType:   'json',
+            data: {
+                //"jsonElementsPosition": jsonElementsPositions,
+            },
+
+            async: true,  
+            
+            success: function(data, status) {
+
+                $(".feedback-loader").hide();
+
+                var imagesPathsArray = data.imagesPathsArray;
+
+                let i = 0;
+
+                while (i < imagesPathsArray.length) {
+
+                    $t.after([
+                        { imageSrc: data.imagesPathsArray[i] },
+                    ].map(newImagePattern));
+
+                    i++;
+                }
+
+            },  
+
+            error : function(xhr, textStatus, errorThrown) {  
+                // alert('Ajax request failed.');  
+            }  
+        }); 
+
+    });
+
+
+
+});
     
-
-    goToNextSection(userChoice);
-
-});
-
-
-
-
-
-function goToNextSection(userChoice) {
-
-    // Previous button should be visible since we're moving forward
-    document.querySelector('#previousStep').classList.remove('isHidden');
-
-    let selectedOption = formSections[currentSection].find(option => option.value === userChoice);
-
-    if(!selectedOption) {
-        console.error('Option not found');
-        return;
-    }
-
-    // Hide current section
-    document.getElementById(currentSection).style.display = "none";
-
-    // Update the last section before going to the next
-    previousSection = currentSection;
-
-    // Show next section
-    currentSection = selectedOption.nextSection;
-
-    console.log(currentSection);
-    document.getElementById(currentSection).style.display = "block";
-
-    // If this is a final section, hide the next button
-    let nextOption = formSections[currentSection];
-    if(!nextOption) {
-        document.querySelector('#nextStep').classList.add('isHidden');
-    }
-}
-
-function goToPreviousSection() {
-
-    // Since we're moving back, the next button should be visible
-    document.querySelector('#nextStep').classList.remove('isHidden');
-
-    // Hide current section
-    document.getElementById(currentSection).style.display = "none";
-
-    // Swap back to the last section
-    if(previousSection) {
-        let temp = currentSection;
-        currentSection = previousSection;
-        previousSection = temp;
-    }
-
-    // Show previous section
-    document.getElementById(currentSection).style.display = "block";
-
-    // If we're at the start of the form, hide the previous button
-    if(previousSection === null) {
-        document.querySelector('#previousStep').classList.add('isHidden');
-    }
-}
-
-});
-
-
+    
 </script>

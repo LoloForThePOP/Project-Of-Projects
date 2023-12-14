@@ -1,0 +1,111 @@
+
+<script>
+
+$(document).ready(function() {
+
+let formSections = {
+
+    'logo-big-cats': [
+        {
+            'value': 'letters',
+            'nextSection': 'logo-type-letters'
+        },
+        {
+            'value': 'image',
+            'nextSection': 'logo-type-image'
+        }
+    ],
+
+    'logo-type-letters': [
+        {
+            'value': 'option1',
+            'nextSection': 'section4'
+        },
+        {
+            'value': 'option2',
+            'nextSection': 'section5'
+        }
+    ],
+};
+
+let currentSection = 'logo-big-cats';
+let previousSection = null; 
+
+//initialize section 1 is visible
+document.querySelector('#'+currentSection).classList.remove('isHidden');
+
+
+$("#nextStep").on('click', function (e){
+
+    //getting user choice
+    userChoice = $('#'+currentSection+'-hidden').val();
+
+    
+
+    goToNextSection(userChoice);
+
+});
+
+
+
+
+
+function goToNextSection(userChoice) {
+
+    // Previous button should be visible since we're moving forward
+    document.querySelector('#previousStep').classList.remove('isHidden');
+
+    let selectedOption = formSections[currentSection].find(option => option.value === userChoice);
+
+    if(!selectedOption) {
+        console.error('Option not found');
+        return;
+    }
+
+    // Hide current section
+    document.getElementById(currentSection).style.display = "none";
+
+    // Update the last section before going to the next
+    previousSection = currentSection;
+
+    // Show next section
+    currentSection = selectedOption.nextSection;
+
+    console.log(currentSection);
+    document.getElementById(currentSection).style.display = "block";
+
+    // If this is a final section, hide the next button
+    let nextOption = formSections[currentSection];
+    if(!nextOption) {
+        document.querySelector('#nextStep').classList.add('isHidden');
+    }
+}
+
+function goToPreviousSection() {
+
+    // Since we're moving back, the next button should be visible
+    document.querySelector('#nextStep').classList.remove('isHidden');
+
+    // Hide current section
+    document.getElementById(currentSection).style.display = "none";
+
+    // Swap back to the last section
+    if(previousSection) {
+        let temp = currentSection;
+        currentSection = previousSection;
+        previousSection = temp;
+    }
+
+    // Show previous section
+    document.getElementById(currentSection).style.display = "block";
+
+    // If we're at the start of the form, hide the previous button
+    if(previousSection === null) {
+        document.querySelector('#previousStep').classList.add('isHidden');
+    }
+}
+
+});
+
+
+</script>

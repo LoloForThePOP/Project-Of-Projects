@@ -22,16 +22,17 @@
 
 {% block body %}
 
+{% include "ai_presentation_helper/_js_logo.html.twig" %}
 
 <div class="container col-md-7 mt-4">
 
 
 
-    <div id="logo-big-cats-struct-container" class="struct-container">
+    <div id="logo-big-cats" class="struct-container isHidden">
         
         <div class="">
         
-            <label for="logo-big-cats" class="big-title form-label">Choisir votre grande catégorie de logo</label>
+            <label for="logo-big-cats-hidden" class="big-title form-label">Choisir votre grande catégorie de logo</label>
         
         </div>
 
@@ -62,7 +63,7 @@
             
             </div>
 
-            <div class="selectable-square logo-big-cats" data-logo-big-cats="dont-know" >
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="unknown" >
 
                 <h4 class="title">Je ne sais pas encore</h4>
 
@@ -74,29 +75,22 @@
 
         {# posted logo big category type #}
 
-        <input type="hidden" id="logo-big-cats" value="">
+        <input type="hidden" id="logo-big-cats-hidden" value="">
     
     </div>
 
-    <div id="logo-type-struct-container" class="struct-container">
+    <div id="logo-type-image" class="struct-container isHidden">
         
         <div class="">
         
-            <label for="logo-type" class="form-label big-title">Choisir votre type de logo</label>
+            <label for="logo-type-image-hidden" class="form-label big-title">Choisir votre type de logo</label>
         
         </div>
 
-        <div id="logo-types-container" class="selectable-container">
+        <div id="logo-type-image-container" class="selectable-container">
 
-            <div class="selectable-square logo-type" data-logo-type="oneLetter" >
 
-                <h4 class="title">Une seule lettre</h4>
-
-                <img class="img-fluid" width="140" src="{{asset ('logo_creation/one-letter.png', 'larger')}}" loading="lazy">
-            
-            </div>
-
-            <div class="selectable-square logo-type" data-logo-type="abstraction">
+            <div class="selectable-square logo-type-image" data-logo-type="abstraction">
 
                 <h4 class="title">Forme abstraite</h4>
 
@@ -105,23 +99,16 @@
             </div>
         
 
-            <div class="selectable-square logo-type" data-logo-type="symbol">
+            <div class="selectable-square logo-type-image" data-logo-type="symbol">
 
                 <h4 class="title">Objet existant</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/symbols.png', 'larger')}}" loading="lazy">
             
             </div>
-
-            <div class="selectable-square logo-type" data-logo-type="tangledLetters">
-
-                <h4 class="title">Lettres enlacées</h4>
-
-                <img class="img-fluid" width="140" src="{{asset ('logo_creation/tangled-letters.png', 'larger')}}" loading="lazy">
             
-            </div>
 
-            <div class="selectable-square logo-type" data-logo-type="dont-know" >
+            <div class="selectable-square logo-type-image" data-logo-type="unknown" >
 
                 <h4 class="title">Je ne sais pas encore</h4>
 
@@ -133,12 +120,77 @@
 
         {# posted logo type #}
 
-        <input type="hidden" id="logo-type" value="">
+        <input type="hidden" id="logo-type-image-hidden" value="">
     
     </div>
 
+    <div id="logo-type-letters" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="logo-type-letters-hidden" class="form-label big-title">Choisir votre type de logo</label>
+        
+        </div>
+
+        <div id="logo-type-letters-container" class="selectable-container">
+
+            <div class="selectable-square logo-type-letters" data-logo-type="oneLetter" >
+
+                <h4 class="title">Une seule lettre</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/one-letter.png', 'larger')}}" loading="lazy">
+            
+            </div>
 
 
+            <div class="selectable-square logo-type-letters" data-logo-type="tangledLetters">
+
+                <h4 class="title">Lettres enlacées</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/tangled-letters.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+
+
+            <div class="selectable-square logo-type-letters" data-logo-type="unknown" >
+
+                <h4 class="title">Je ne sais pas encore</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/question-mark.png', 'larger')}}" loading="lazy">
+            
+            </div>
+        
+        </div>
+
+        {# posted logo type #}
+
+        <input type="hidden" id="logo-type-letters-hidden" value="">
+    
+    </div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <button id="previousStep" class="isHidden">Previous Step</button>
+    <button id="nextStep">Next Step</button>
 
     <script>
     
@@ -157,13 +209,18 @@
                     $(this).css('background-color', 'yellow');
                     
                     // Fill the hidden field with the 'data-...' attribute of the clicked item
-                    $('#'+className).val($(this).data(className));
+                    $('#'+className+'-hidden').val($(this).data(className));
                 });
 
             }
 
+            //initiate select item
+
+            selectItem("logo-big-cats");
             selectItem("logo-type");
 
+
+        
             
         $("#test-logos-reception").on('click', function (e){
 
@@ -219,6 +276,7 @@
 
     <style>
 
+
         label.big-title{
             display: block;
             font-size: 1.3em !important;
@@ -258,6 +316,11 @@
 
 
         }
+
+        .isHidden {
+            display: none;
+        }
+
 
 
 

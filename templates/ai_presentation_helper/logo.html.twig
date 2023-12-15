@@ -26,13 +26,23 @@
 
 <div class="container col-md-7 mt-4">
 
+{#
+
+! 
+! 
+Gérer la balise head qui traîne en bas et la balise div qui dépasse la balise body qui par ailleurs n'a rien à faire ici elle est dans le base !!!!!
+! 
+! 
+#}
+
+
 
 
     <div id="logo-big-cats" class="struct-container isHidden">
         
         <div class="">
         
-            <label for="logo-big-cats-hidden" class="big-title form-label">Choisir votre grande catégorie de logo</label>
+            <label for="logo-big-cats-hidden" class="big-title form-label">Choisis une catégorie de Logo</label>
         
         </div>
 
@@ -41,7 +51,7 @@
 
             <div class="selectable-square logo-big-cats" data-logo-big-cats="letters" >
 
-                <h4 class="title">Lettre(s)</h4>
+                <h4 class="title">Lettres</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/letters.png', 'larger')}}" loading="lazy">
             
@@ -49,25 +59,17 @@
 
             <div class="selectable-square logo-big-cats" data-logo-big-cats="image" >
 
-                <h4 class="title">Image seule</h4>
+                <h4 class="title">Images</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/image.png', 'larger')}}" loading="lazy">
             
             </div>
 
-            <div class="selectable-square logo-big-cats" data-logo-big-cats="mixed" >
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="letters-images" >
 
-                <h4 class="title">Lettre(s) et image</h4>
+                <h4 class="title">Lettres et images</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/mixed.png', 'larger')}}" loading="lazy">
-            
-            </div>
-
-            <div class="selectable-square logo-big-cats" data-logo-big-cats="unknown" >
-
-                <h4 class="title">Je ne sais pas encore</h4>
-
-                <img class="img-fluid" width="140" src="{{asset ('logo_creation/question-mark.png', 'larger')}}" loading="lazy">
             
             </div>
         
@@ -83,7 +85,7 @@
         
         <div class="">
         
-            <label for="logo-type-image-hidden" class="form-label big-title">Choisir votre type de logo</label>
+            <label for="logo-type-image-hidden" class="form-label big-title">Choisis ton type d'image</label>
         
         </div>
 
@@ -92,16 +94,16 @@
 
             <div class="selectable-square logo-type-image" data-logo-type-image="abstraction">
 
-                <h4 class="title">Forme(s) abstraite(s) uniquement</h4>
+                <h4 class="title">Formes abstraites</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/abstraction.png', 'larger')}}" loading="lazy">
             
             </div>
         
 
-            <div class="selectable-square logo-type-image" data-logo-type-image="with-figurative-object">
+            <div class="selectable-square logo-type-image" data-logo-type-image="figurative-objects">
 
-                <h4 class="title">Avec un objet existant</h4>
+                <h4 class="title">Objets ou vivants</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/symbols.png', 'larger')}}" loading="lazy">
             
@@ -128,7 +130,7 @@
         
         <div class="">
         
-            <label for="logo-type-letters-hidden" class="form-label big-title">Quel type de logo lettre ?</label>
+            <label for="logo-type-letters-hidden" class="form-label big-title">Tu aimerais ?</label>
         
         </div>
 
@@ -153,7 +155,7 @@
 
             <div class="selectable-square logo-type-letters" data-logo-type-letters="tangled-letters">
 
-                <h4 class="title">Lettres enlacées</h4>
+                <h4 class="title">Des lettres enlacées</h4>
 
                 <img class="img-fluid" width="140" src="{{asset ('logo_creation/tangled-letters.png', 'larger')}}" loading="lazy">
             
@@ -181,9 +183,9 @@
         
         <div class="">
         
-            <label for="several-letters" class="form-label big-title">Quelles lettres voulez-vous intégrer dans votre logo ?</label>
+            <label for="several-letters" class="form-label big-title">Écris les lettres de ton Logo</label>
 
-            <h5 class="big-title">Utilisez des majuscules ou pas selon votre préférence.</h5>
+            <h5 class="big-title">Utilise des majuscules ou pas selon ta préférence.</h5>
         
         </div>
 
@@ -195,9 +197,9 @@
         
         <div class="">
         
-            <label for="one-letter" class="form-label big-title">Quelle est la lettre que vous souhaitez intégrer dans votre logo ?</label>
+            <label for="one-letter" class="form-label big-title">Écris la lettre à intégrer dans ton Logo</label>
 
-            <h5 class="big-title">Utilisez une majuscule ou pas selon votre préférence.</h5>
+            <h5 class="big-title">Utilise une majuscule ou pas selon ta préférence.</h5>
         
         </div>
 
@@ -209,9 +211,9 @@
         
         <div class="">
         
-            <label for="tangled-letters" class="form-label big-title">Quelles lettres souhaitez-vous enlacer dans votre logo ?</label>
+            <label for="tangled-letters" class="form-label big-title">Écris les lettres à enlacer dans ton Logo</label>
 
-            <h5 class="big-title">Utilisez des majuscules ou pas selon votre préférence.</h5>
+            <h5 class="big-title">Utilise des majuscules ou pas selon ta préférence.</h5>
 
         
         </div>
@@ -224,29 +226,42 @@
         
         <div class="">
         
-            <label for="abstraction-description" class="form-label big-title">Décrivez la ou les formes que vous voulez intégrer dans votre logo.</label>
+            <label for="abstraction-description" class="form-label big-title">Décris la forme ou les formes que tu aimerais intégrer dans ton Logo</label>
 
-            <h5 class="big-title">Soyez précis pour un meilleur résultat.</h5>
+            <h5 class="big-title">Conseil : ajoute des détails pour obtenir un meilleur résultat.</h5>
 
-        
         </div>
 
-        <textarea name="" id="abstraction-description-textarea" cols="30" rows="7"></textarea>
+        <textarea id="abstraction-description-textarea" class="form-control" cols="30" rows="7" Placeholder="Ex : vagues, cercle, triangle, carré, etc"></textarea>
     
     </div>
 
-    <div id="with-figurative-object" class="struct-container isHidden">
+    <div id="figurative-objects" class="struct-container isHidden">
         
         <div class="">
         
-            <label for="abstraction-description" class="form-label big-title">Décrivez la ou les formes que vous voulez intégrer dans votre logo.</label>
+            <label for="figurative-objects-description-textarea" class="form-label big-title">Décris l'objet ou l'être vivant (animal, personne) que tu aimerais intégrer dans ton Logo</label>
 
-            <h5 class="big-title">Soyez précis pour un meilleur résultat.</h5>
-
-        
+            <h5 class="big-title">Conseil : ajoute des détails pour obtenir un meilleur résultat.</h5>
+      
         </div>
 
-        <textarea name="" id="abstraction-description-textarea" cols="30" rows="7"></textarea>
+        <textarea id="figurative-objects-description-textarea" class="form-control" name="" cols="30" rows="7" placeholder="to do"></textarea>
+    
+    </div>
+
+
+    <div id="user-last-wishes" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="user-last-wishes-textarea" class="form-label big-title">Si tu as d'autres exigences pour ton logo, ajoute-les ici, elles seront appliquées <u>en priorité</u>.</label>
+
+            <h5 class="big-title">Conseil : ajoute des détails pour obtenir un meilleur résultat.</h5>
+      
+        </div>
+
+        <textarea id="user-last-wishes-textarea" class="form-control" name="" cols="30" rows="7" placeholder="to do"></textarea>
     
     </div>
 
@@ -263,7 +278,7 @@
 
         </div>
 
-        <textarea id="colors" placeholder="Ex : Je veux ceci en rouge, je veux cela en gris, etc."></textarea>
+        <textarea id="colors" class="form-control" placeholder="Ex : Je veux ceci en rouge, je veux cela en gris, etc."></textarea>
     
     </div>
 
@@ -339,19 +354,10 @@
         .isHidden {
             display: none;
         }
-
-
-
-
     
     </style>
 
 
-
-    <div class="mb-3">
-        <label for="forms" class="form-label">S'il y a des formes que vous voulez-inclure dans votre logo, inscrivez-les ici :</label>
-        <input type="text" class="form-control" id="forms" placeholder="Ex : vagues, cercle, triangle, carré, etc.">
-    </div>
 
     <div class="mb-3">
         <label for="businessCategory" class="form-label">Ici vous pouvez inscrire le domaine de votre organisation :</label>
@@ -363,6 +369,12 @@
         <input type="text" class="form-control" id="otherLogosInspiration" placeholder="Ex : netflix, uber, etc.">
     </div>
 
+
+    <div class=""> font style, size, and color.</div>
+
+
+
+{# 
     <div class="d-flex align-items-center mb-3">
 
         <label for="firstColorInspiration" class="form-label mb-0 me-2">Si vous voulez choisir une couleur principale, faites-le ici : </label>
@@ -376,17 +388,7 @@
         <input type="color" class="form-control form-control-color" id="secondColorInspiration" value="" title="Choose your color">
     
     </div>
-
-    <div class="mb-3">
-        <label for="userLastConditions" class="form-label">Si vous avez d'autres exigences pour votre logo, ajoutez-les ici, elles seront appliquées en priorité</label>
-        <textarea class="form-control" id="userLastConditions" rows="3"></textarea>
-    </div>
-
-    <div class=""> font style, size, and color.</div>
-
-
-
-
+ #}
 
 
 
@@ -557,5 +559,101 @@
 
 
 </div>
+
+
+<style>
+  .pushable {
+    position: relative;
+    border: none;
+    background: transparent;
+    padding: 0;
+    cursor: pointer;
+    outline-offset: 4px;
+    transition: filter 250ms;
+  }
+  .shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: hsl(0deg 0% 0% / 0.25);
+    will-change: transform;
+    transform: translateY(2px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+  .edge {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    background: linear-gradient(
+      to left,
+      hsl(340deg 100% 16%) 0%,
+      hsl(340deg 100% 32%) 8%,
+      hsl(340deg 100% 32%) 92%,
+      hsl(340deg 100% 16%) 100%
+    );
+  }
+  .front {
+    display: block;
+    position: relative;
+    padding: 12px 42px;
+    border-radius: 12px;
+    font-size: 1.25rem;
+    color: white;
+    background: hsl(345deg 100% 47%);
+    will-change: transform;
+    transform: translateY(-4px);
+    transition:
+      transform
+      600ms
+      cubic-bezier(.3, .7, .4, 1);
+  }
+  .pushable:hover {
+    filter: brightness(110%);
+  }
+  .pushable:hover .front {
+    transform: translateY(-6px);
+    transition:
+      transform
+      250ms
+      cubic-bezier(.3, .7, .4, 1.5);
+  }
+  .pushable:active .front {
+    transform: translateY(-2px);
+    transition: transform 34ms;
+  }
+  .pushable:hover .shadow {
+    transform: translateY(4px);
+    transition:
+      transform
+      250ms
+      cubic-bezier(.3, .7, .4, 1.5);
+  }
+  .pushable:active .shadow {
+    transform: translateY(1px);
+    transition: transform 34ms;
+  }
+  .pushable:focus:not(:focus-visible) {
+    outline: none;
+  }
+</style>
+<button class="pushable">
+  <span class="shadow"></span>
+  <span class="edge"></span>
+  <span class="front">
+    <img class="img-fluid mb-1 me-1" width="30" src="{{asset ('logo_creation/play-button.svg', 'larger')}}" loading="lazy" alt="an cercled triangle icon representing a play icon"> Démarrer
+  </span>
+</button>
+
+
+{# Thanks at https://www.joshwcomeau.com/animation/3d-button/ #}
 
 {% endblock %}

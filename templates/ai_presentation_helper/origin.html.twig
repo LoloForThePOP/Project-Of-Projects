@@ -33,7 +33,7 @@
 
     <div class="d-flex d-md-none justify-content-center align-items-center">
     
-        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h4 text-center"><span class="">Conseils personnalisés</span> pour présenter <u>VOTRE</u> Projet</h1>
+        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h5 text-center"><span class="">Conseils personnalisés</span> pour présenter <u>VOTRE</u> Projet</h1>
       
     </div>
 
@@ -86,7 +86,7 @@
                             <div class="">
 
 
-                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span>; <span>à un journaliste</span>; <span class="">à une enseignante</span> ; <span>à des chercheurs</span>; <span>à des investisseurs</span> ; <span>à un jury de chefs cuisiniers</span>; <span>au maire de ma commune</span>.</div>
+                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span>; <span>à un journaliste</span>; <span class="">à une enseignante</span>; <span class="d-none d-md-block">à des chercheurs; à des investisseurs; à un jury de chefs cuisiniers; </span><span>au maire de ma commune</span>.</div>
                             
                             </div>
 
@@ -99,7 +99,7 @@
                 
                         {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
 
-                        <span class="btn btn-validate btn-next arrow-icon px-1 px-md-3">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                        <span class="d-none d-md-inline btn btn-validate btn-next arrow-icon px-1 px-md-3">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                         </svg></span>
 
@@ -138,9 +138,11 @@
                         
                             <div class="">
 
-                                <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; avec un fichier PDF; avec des visuels; présentation powerpoint; sur un tableau blanc; visioconférence; vidéo; site web; réseau social; plateforme de crowdfunding, télévision, radio, forum de discussion.</div>
+                                <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; diaporama (powerpoint); PDF; vidéo; site web; radio.</div>
                             
                             </div>
+
+                            {# avec un fichier PDF; avec des visuels; présentation powerpoint; sur un tableau blanc; visioconférence; , forum de discussion; ; réseau social; plateforme de crowdfunding, télévision #}
 
 
                         </div>
@@ -149,7 +151,7 @@
 
                     <div class="tiny-form-container d-flex justify-content-center align-items-center">
 
-                        <span class="btn btn-validate return-arrow-icon px-1">
+                        <span class="d-none d-md-inline btn btn-validate return-arrow-icon px-1">
                     
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/> <span class="d-none d-md-inline ps-2">Retour</span>
@@ -158,15 +160,13 @@
                 
                         {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
 
-                        <button type="submit" class="js-form-submit d-flex justify-content-center btn btn-validate px-1"><span class="d-none d-md-inline">Afficher le résultat <img class="img-fluid ms-2" style="vertical-align: sub;" width="22" src="{{asset ('project_presentation_advice/star.svg', 'larger')}}" loading="lazy"></span><span class="d-md-none">Résultat !</span></button>
-
-                        
-                        
-                        
+                        <button type="submit" class="js-form-submit d-none d-md-flex justify-content-center btn btn-validate px-1">Afficher le résultat <img class="img-fluid ms-2" style="vertical-align: sub;" width="22" src="{{asset ('project_presentation_advice/star.svg', 'larger')}}" loading="lazy"></button>
 
                     </div>
 
                 </div>
+
+                <div class="d-flex justify-content-center"><button type="submit" class="js-form-submit d-flex d-md-none justify-content-center btn btn-validate px-1">Afficher le résultat <img class="img-fluid ms-2" style="vertical-align: sub;" width="22" src="{{asset ('project_presentation_advice/star.svg', 'larger')}}" loading="lazy"></button></div>
 
                 {{ form_end(form) }}
                 
@@ -181,13 +181,13 @@
     
         <div class="gdpr">
 
-            <h3 class="fs-6 text-center">La protection de vos données personnelles est une priorité. <span class="learn-more">Afficher plus</span></h3> 
+            <div class="text-center">La protection de vos données personnelles est une priorité. <span class="learn-more">Afficher plus</span></div> 
 
             <div class="more-content border m-1 m-md-3 p-3">
 
                 <p>Les données que nous collectons sont <b><u>anonymisées</u></b>; <b><u>conservées au maximum 15 jours</u></b>; <b><u>exclusivement pour améliorer l'outil à votre disposition</u></b>.</p>
 
-                <p>Ce service utilise également ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs pour utiliser ChatGPT. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
+                <p>Ce service utilise ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Pour utiliser ChatGPT, notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
 
             </div>
 
@@ -393,21 +393,15 @@ button[type="submit"]{
     .question-progress {
         padding-left: 9px;
         margin-top: -7px;
-        font-size: 1.1rem;
+        font-size: 0.9rem;
     }
 
 
     .question-title{
-	    font-size: 1.26em;
+	    font-size: 1.17em;
     }
 
-    button[type="submit"] {
-        width: 100px;
-    }
 
-    .btn-next {
-        width: 125px;
-    }
 
     .examples {
         margin: 0 -5px;
@@ -431,6 +425,37 @@ button[type="submit"]{
         display: inline-block;
         width: unset;
     }
+
+    .hidden {
+        display: block;
+    }
+
+        
+    .forms-container {
+
+        border: none;
+        
+    }
+
+    #form-part1, #form-part2 {
+
+        margin-left: -4px;
+        margin-right: -4px;
+        padding: 12px 0;
+        border: 1px solid #c6c6c6;
+        border-radius: 4px;
+    }
+
+    #form-part1 {
+
+        margin-bottom: 16px;
+    }
+
+    .cta{
+        font-size: 13px !important;
+    }
+    
+
 
 
 }

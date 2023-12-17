@@ -1,0 +1,42 @@
+    <div id="logo-big-cats" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="logo-big-cats-hidden" class="big-title form-label">Choisis une catégorie de Logo</label>
+        
+        </div>
+
+        <div id="logo-big-cats-container" class="selectable-container">
+
+
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="letters" >
+
+                <h4 class="title">Lettres</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/letters.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="image" >
+
+                <h4 class="title">Images</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/image.png', 'larger')}}" loading="lazy">
+            
+            </div>
+
+            <div class="selectable-square logo-big-cats" data-logo-big-cats="letters-images" >
+
+                <h4 class="title">Lettres et images</h4>
+
+                <img class="img-fluid" width="140" src="{{asset ('logo_creation/mixed.png', 'larger')}}" loading="lazy">
+            
+            </div>
+        
+        </div>
+
+        {# posted logo big category type #}
+
+        <input type="hidden" id="logo-big-cats-hidden" value="">
+    
+    </div>

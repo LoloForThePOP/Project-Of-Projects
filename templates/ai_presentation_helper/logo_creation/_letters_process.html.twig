@@ -1,0 +1,96 @@
+
+<div id="logo-type-letters" class="struct-container isHidden">
+    
+    <div class="">
+    
+        <label for="logo-type-letters-hidden" class="form-label big-title">Tu aimerais ?</label>
+    
+    </div>
+
+    <div id="logo-type-letters-container" class="selectable-container">
+
+        <div class="selectable-square logo-type-letters" data-logo-type-letters="one-letter" >
+
+            <h4 class="title">Une seule lettre</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/one-letter.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="selectable-square logo-type-letters" data-logo-type-letters="several-letters" >
+
+            <h4 class="title">Plusieurs lettres</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/several-letters.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+
+        <div class="selectable-square logo-type-letters" data-logo-type-letters="tangled-letters">
+
+            <h4 class="title">Des lettres enlacées</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/tangled-letters.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+
+
+        <div class="selectable-square logo-type-letters" data-logo-type-letters="unknown" >
+
+            <h4 class="title">Je ne sais pas encore</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/question-mark.png', 'larger')}}" loading="lazy">
+        
+        </div>
+    
+    </div>
+
+    {# posted logo type #}
+
+    <input type="hidden" id="logo-type-letters-hidden" value="">
+
+</div>
+
+<div id="several-letters" class="struct-container isHidden">
+    
+    <div class="">
+    
+        <label for="several-letters" class="form-label big-title">Écris les lettres de ton Logo</label>
+
+        <h5 class="big-title">Utilise des majuscules ou pas selon ta préférence.</h5>
+    
+    </div>
+
+    <input type="text" class="form-control" id="several-letters" placeholder="Ex : Propon, WordPress, MICHELIN">
+
+</div>
+
+<div id="one-letter" class="struct-container isHidden">
+    
+    <div class="">
+    
+        <label for="one-letter" class="form-label big-title">Écris la lettre à intégrer dans ton Logo</label>
+
+        <h5 class="big-title">Utilise une majuscule ou pas selon ta préférence.</h5>
+    
+    </div>
+
+    <input type="text" class="form-control" id="one-letter" placeholder="Ex : M, g, T" maxlength="1">
+
+</div>
+
+<div id="tangled-letters" class="struct-container isHidden">
+    
+    <div class="">
+    
+        <label for="tangled-letters" class="form-label big-title">Écris les lettres à enlacer dans ton Logo</label>
+
+        <h5 class="big-title">Utilise des majuscules ou pas selon ta préférence.</h5>
+
+    
+    </div>
+
+    <input type="text" class="form-control" id="tangled-letters" placeholder="Ex : YSL, LV, CC" maxlength="15">
+
+</div>

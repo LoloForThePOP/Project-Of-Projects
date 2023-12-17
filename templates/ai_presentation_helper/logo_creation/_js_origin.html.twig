@@ -6,8 +6,6 @@ $(document).ready(function() {
 
     let formSections = {
 
-
-
         'logo-big-cats': [
             {
                 'value': 'letters',
@@ -23,8 +21,6 @@ $(document).ready(function() {
                 'nextSection': 'logo-type-letters'
             }
         ],
-
-        
 
         'logo-type-letters': [
             {
@@ -201,6 +197,14 @@ $(document).ready(function() {
     selectItem("logo-big-cats");
     selectItem("logo-type-letters");
     selectItem("logo-type-image");
+
+
+    const newImagePattern = ({ imageSrc }) => `
+
+        <img src="/${imageSrc}" alt="ia created logo">
+   
+    `;
+    
 
 
         

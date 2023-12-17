@@ -1,0 +1,76 @@
+
+<div id="logo-type-image" class="struct-container isHidden">
+    
+    <div class="">
+    
+        <label for="logo-type-image-hidden" class="form-label big-title">Choisis ton type d'image</label>
+    
+    </div>
+
+    <div id="logo-type-image-container" class="selectable-container">
+
+
+        <div class="selectable-square logo-type-image" data-logo-type-image="abstraction">
+
+            <h4 class="title">Formes abstraites</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/abstraction.png', 'larger')}}" loading="lazy">
+        
+        </div>
+    
+
+        <div class="selectable-square logo-type-image" data-logo-type-image="figurative-objects">
+
+            <h4 class="title">Objets ou vivants</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/symbols.png', 'larger')}}" loading="lazy">
+        
+        </div>
+        
+
+        <div class="selectable-square logo-type-image" data-logo-type-image="unknown" >
+
+            <h4 class="title">Je ne sais pas encore</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/question-mark.png', 'larger')}}" loading="lazy">
+        
+        </div>
+    
+    </div>
+
+    {# posted logo type #}
+
+    <input type="hidden" id="logo-type-image-hidden" value="">
+
+</div>
+
+
+
+
+    <div id="abstraction-description" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="abstraction-description" class="form-label big-title">Décris la forme ou les formes que tu aimerais intégrer dans ton Logo</label>
+
+            <h5 class="big-title">Conseil : ajoute des détails pour obtenir un meilleur résultat.</h5>
+
+        </div>
+
+        <textarea id="abstraction-description-textarea" class="form-control" cols="30" rows="7" Placeholder="Ex : vagues, cercle, triangle, carré, etc"></textarea>
+    
+    </div>
+
+    <div id="figurative-objects" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="figurative-objects-description-textarea" class="form-label big-title">Décris l'objet ou l'être vivant (animal, personne) que tu aimerais intégrer dans ton Logo</label>
+
+            <h5 class="big-title">Conseil : ajoute des détails pour obtenir un meilleur résultat.</h5>
+      
+        </div>
+
+        <textarea id="figurative-objects-description-textarea" class="form-control" name="" cols="30" rows="7" placeholder="to do"></textarea>
+    
+    </div>

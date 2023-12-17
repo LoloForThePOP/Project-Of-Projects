@@ -1,0 +1,166 @@
+{% extends 'base.html.twig' %}
+
+
+    {% set titleMetadata = 'Création de logo pour votre projet, automatisée par IA' %}
+    {% set metadataDescription = "Service gratuit et sans inscription, laissez-vous guider pour créer le logo parfait pour votre projet. Aucune compétence en graphisme n'est requise." %}
+    {% set metadataImageUrl %}{{asset ('logo_creation/two-persons-creating-a-logo.jpeg', 'larger')}}{% endset %}
+    {% set currentPageUrl = app.request.uri %}
+
+{% block headTag %}
+
+    <meta name="description" content="{{metadataDescription}}">
+    <meta name="author" content="Laurent G.">
+    <meta name="keywords" content="IA, Création, Logo, Projet">
+    <meta name="date" content="2023-12-12">
+
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Call from base.html.twig #}
+    
+{% endblock %}
+
+
+{% block title %}{{titleMetadata}}{% endblock %}
+
+{% block body %}
+
+
+<link href="/css/ia_logo_creation_helper.css" rel="stylesheet">
+
+
+{% include "ai_presentation_helper/logo_creation/_js_origin.html.twig" %}
+
+<div class="container col-md-7 mt-4">
+
+    {% include "ai_presentation_helper/logo_creation/_big_cats_process.html.twig" %}
+    {% include "ai_presentation_helper/logo_creation/_image_process.html.twig" %}
+    {% include "ai_presentation_helper/logo_creation/_letters_process.html.twig" %}
+
+
+
+    {% include "ai_presentation_helper/logo_creation/_blabla.html.twig" %}
+
+
+    
+
+    <div id="user-last-wishes" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="user-last-wishes-textarea" class="form-label big-title">Si tu as d'autres exigences pour ton logo, ajoute-les ici, elles seront appliquées <u>en priorité</u>.</label>
+
+            <h5 class="big-title">Conseil : ajoute des détails pour obtenir un meilleur résultat.</h5>
+      
+        </div>
+
+        <textarea id="user-last-wishes-textarea" class="form-control" name="" cols="30" rows="7" placeholder="to do"></textarea>
+    
+    </div>
+
+
+
+
+    <div id="colors" class="struct-container isHidden">
+        
+        <div class="">
+        
+            <label for="colors" class="form-label big-title">Quelle(s) couleurs pour votre logo ?</label>
+
+            <h5 class="big-title">Soyez précis pour obtenir le résultat de vos rêves. Par exemple précisez les couleurs de chaque objet (lettres, formes).</h5>
+
+        </div>
+
+        <textarea id="colors" class="form-control" placeholder="Ex : Je veux ceci en rouge, je veux cela en gris, etc."></textarea>
+    
+    </div>
+
+
+    <button id="previousStep" class="isHidden">Étape précédente</button>
+    <button id="nextStep">Étape suivante</button>
+
+  
+
+
+
+
+
+    <div class="mb-3">
+        <label for="businessCategory" class="form-label">Ici vous pouvez inscrire le domaine de votre organisation :</label>
+        <input type="text" class="form-control" id="businessCategory" placeholder="Ex : santé, agriculture, cosmétiques, services, etc.">
+    </div>
+
+    <div class="mb-3">
+        <label for="otherLogosInspiration" class="form-label">Si vous voulez que votre logo s'inspire d'un logo qui existe déjà, notez-le ici : </label>
+        <input type="text" class="form-control" id="otherLogosInspiration" placeholder="Ex : netflix, uber, etc.">
+    </div>
+
+
+    <div class=""> font style, size, and color.</div>
+
+
+
+{# 
+    <div class="d-flex align-items-center mb-3">
+
+        <label for="firstColorInspiration" class="form-label mb-0 me-2">Si vous voulez choisir une couleur principale, faites-le ici : </label>
+        <input type="color" class="form-control form-control-color" id="firstColorInspiration" value="" title="Choose your color">
+    
+    </div>
+
+    <div class="d-flex align-items-center mb-3">
+
+        <label for="secondColorInspiration" class="form-label mb-0 me-2">Si vous voulez choisir une couleur secondaire, faites-le ici : </label>
+        <input type="color" class="form-control form-control-color" id="secondColorInspiration" value="" title="Choose your color">
+    
+    </div>
+ #}
+
+
+
+
+
+
+
+
+
+
+
+    <div id="test-logos-reception my-5">test logos reception</div>
+    
+    <div class="">
+    
+        Logo parfait gratuit, sans effort, et sans inscription. Un service proposé par Propon, le site de présentation de projet.
+
+        Tous les logos présentés ici sont exposés à titre pédagogique et sont soumis à des copyrights détenus par leurs ayants respectifs.
+    
+    
+    </div>
+
+
+    <div class="feedback-loader-container"><img class="feedback-loader img-fluid" width="140" src="{{asset ('logo_creation/loader.gif', 'larger')}}" loading="lazy"></div>
+
+
+</div>
+
+
+<div class="page-container">
+
+    
+
+    <button class="pushable">
+    <span class="shadow"></span>
+    <span class="edge"></span>
+    <span class="front">
+        <img class="img-fluid mb-1 me-1" width="30" src="{{asset ('logo_creation/play-button.svg', 'larger')}}" loading="lazy" alt="an cercled triangle icon representing a play icon"> Démarrer
+    </span>
+    </button>
+    
+
+
+
+</div>
+
+
+
+
+{# Thanks at https://www.joshwcomeau.com/animation/3d-button/ #}
+
+{% endblock %}

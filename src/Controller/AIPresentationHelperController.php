@@ -128,7 +128,7 @@ class AIPresentationHelperController extends AbstractController
     public function logo(): Response
     {
 
-        return $this->render('ai_presentation_helper/logo.html.twig', [
+        return $this->render('ai_presentation_helper/logo_creation/origin.html.twig', [
             
         ]);
 

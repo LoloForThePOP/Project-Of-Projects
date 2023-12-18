@@ -3,91 +3,15 @@
 
 $(document).ready(function() {
 
-
     let formSections = {
 
-        'logo-big-cats': [
-            {
-                'value': 'letters',
-                'nextSection': 'logo-type-letters'
-            },
-            {
-                'value': 'image',
-                'nextSection': 'logo-type-image'
-            }
-            ,
-            {
-                'value': 'letters-images',
-                'nextSection': 'logo-type-letters'
-            }
-        ],
-
-        'logo-type-letters': [
-            {
-                'value': 'one-letter',
-                'nextSection': 'one-letter'
-            },
-            {
-                'value': 'several-letters',
-                'nextSection': 'several-letters'
-            }
-            ,
-            {
-                'value': 'tangled-letters',
-                'nextSection': 'tangled-letters'
-            }
-
-        ],
-        
-
-        'logo-type-image': [
-            {
-                'value': 'abstraction',
-                'nextSection': 'abstraction-description'
-            },
-            {
-                'value': 'figurative-objects',
-                'nextSection': 'figurative-objects'
-            }
-            ,
-
-        ],
-
-        'one-letter': [
-            {
-                'value': 'colors',
-                'nextSection': 'colors'
-            },
-           
-        ],
-
-        'several-letters': [
-            {
-                'value': 'colors',
-                'nextSection': 'colors'
-            },
-           
-        ],
-
-        'tangled-letters': [
-            {
-                'value': 'colors',
-                'nextSection': 'colors'
-            },
-           
-        ],
-
-        'colors': [
-            {
-                'value': 'tofeed',
-                'nextSection': 'tofeed'
-            },
-           
-        ],
-
-       
+        {% include "ai_presentation_helper/logo_creation/_js_big_cats_chunks.html.twig" %}
+        {% include "ai_presentation_helper/logo_creation/_js_letters_chunks.html.twig" %}
+        {% include "ai_presentation_helper/logo_creation/_js_ubiquitary_chunks.html.twig" %}
 
     };
+
+    let userChoices = [];
 
     let previousSection = null; 
     let currentSection = 'logo-big-cats';
@@ -118,12 +42,12 @@ $(document).ready(function() {
 
     });
 
-    function goToNextSection(nextSection) {
+    function goToNextSection(nextObjectSection) {
 
         // Previous button should be visible since we're moving forward
         document.querySelector('#previousStep').classList.remove('isHidden');
 
-        let selectedOption = formSections[currentSection].find(option => option.value === nextSection);
+        let selectedOption = formSections[currentSection].find(option => option.value === nextObjectSection);
 
         if(!selectedOption) {
             console.error('Option not found');
@@ -135,10 +59,16 @@ $(document).ready(function() {
 
         // Update the last section before going to the next
         previousSection = currentSection;
+        
+        let nextSection = getNextValidSection(nextObjectSection);
+
+        userChoices.push(currentSection + "_" + nextSection);
+
+        console.log("user choices "+userChoices);
 
         // Show next section
         currentSection = selectedOption.nextSection;
-
+            
         console.log(currentSection);
         document.getElementById(currentSection).style.display = "block";
 
@@ -147,7 +77,37 @@ $(document).ready(function() {
         if(!nextOption) {
             document.querySelector('#nextStep').classList.add('isHidden');
         }
+
     }
+
+
+
+    function getNextValidSection(userChoice) {
+
+        console.log("user choice");
+        console.log(userChoice);
+
+        let selectedOption = formSections[currentSection].find(option => option.value === userChoice);
+
+        console.log("selected Options");
+        console.log(selectedOption);
+
+        // If this section should be skipped, recursively find the next section
+        if(selectedOption.skipIf && userChoices.some(choice => selectedOption.skipIf.includes(choice))) {
+
+            //console.log(formSections[userChoice][0].nextSection);
+
+            //console.log("llllllll"+userChoice);
+            //return false;
+
+            nextCandidate = formSections[userChoice][0].nextSection;
+            return getNextValidSection(nextCandidate);
+        } else {
+            return selectedOption.nextSection;
+        }
+        
+    }
+
 
     function goToPreviousSection() {
 

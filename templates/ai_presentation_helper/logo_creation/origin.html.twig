@@ -28,16 +28,13 @@
 
 {% include "ai_presentation_helper/logo_creation/_js_origin.html.twig" %}
 
-{# <div class="container col-md-7 mt-4">
+<div class="container col-md-7 mt-4">
 
     {% include "ai_presentation_helper/logo_creation/_big_cats_process.html.twig" %}
     {% include "ai_presentation_helper/logo_creation/_image_process.html.twig" %}
     {% include "ai_presentation_helper/logo_creation/_letters_process.html.twig" %}
-
-
-
-    {% include "ai_presentation_helper/logo_creation/_blabla.html.twig" %}
-
+    {% include "ai_presentation_helper/logo_creation/_ubiquitary_process.html.twig" %}
+    {% include "ai_presentation_helper/logo_creation/_letters_image_process.html.twig" %}
 
     
 
@@ -45,15 +42,18 @@
     <button id="nextStep">Étape suivante</button>
 
     <div id="test-logos-reception my-5">test logos reception</div>
+
+
+    
+{#     <div class="feedback-loader-container"><img class="feedback-loader img-fluid" width="140" src="{{asset ('logo_creation/loader.gif', 'larger')}}" loading="lazy"></div> #}
     
   
 
 
-</div> #}
+</div>
 
 
-<div id="logo-ui-container">
-
+{# <div id="logo-ui-container">
 
     <div id="first-display-box">
 
@@ -61,12 +61,19 @@
 
             <h1 id="main-title">Créez un logo unique avec notre assistant en ligne</h1>
 
-            <h2>Plongez dans un voyage créatif ouvert à tous</h2>
+            <h2>Un voyage créatif en mode pas à pas ouvert à tous</h2>
 
 
-            <p class="">Créez LE logo qui reflète vos attentes et vos valeurs. </p>
+            <p class="fs-4">Créez LE logo qui reflète vos attentes et vos valeurs. </p>
 
-            <p>Simple, intuitif et efficace, commencez votre voyage vers le logo parfait de vos rêves.</p>
+            <p>Simple, intuitif et efficace pour tous niveaux.</p>
+
+            <p>Vous avez besoin d'un logo mais vous ne savez pas par où commencer ? Pas à pas, définissez les formes, les couleurs, et les polices qui vous plaisent pour obtenir un résultat unique magnifié par une intelligence artificielle puissante.</p>
+
+
+            <p>Obtenez votre logo idéal sans effort et sans inscription. Un service gratuit proposé par Propon, le site de présentation de projet.</p>
+
+            <p>Obtenez un logo unique et personnalisé grâce à une intelligence artificielle puissante.</p>
             
 
             <div id="start-button-container">
@@ -76,81 +83,80 @@
                     <span class="shadow"></span>
                     <span class="edge"></span>
                     <span class="front">
-                        <img class="img-fluid mb-1 me-1" width="30" src="{{asset ('logo_creation/play-button.svg', 'larger')}}" loading="lazy" alt="an cercled triangle icon representing a play icon"> Démarrer
+                        <img class="img-fluid mb-1 me-1" width="30" src="{{asset ('logo_creation/play-button.svg', 'larger')}}" loading="lazy" alt="an cercled triangle icon representing a play icon"> Démarrer maintenant
                     </span>
 
                 </button>
             
             </div>
 
-            <p class="">Service gratuit et sans inscription.</p>
+            <p class="fs-5 fw-bold">Service gratuit et sans inscription.</p>
+
+            <p>
+            
+                Les logos présentés à titre d'exemples sont soumis à des copyrights détenus par leurs ayants droits respectifs.
+
+            
+            </p>
 
 
-<div class="gdpr">
+            <div class="gdpr container col-md-6">
 
-            <div class="text-center">Propon respecte votre vie privée. <span class="learn-more">En savoir plus</span>.</div> 
+                <div class="text-center">Propon respecte votre vie privée. <span class="learn-more">En savoir plus</span>.</div> 
 
-            <div class="more-content border m-1 m-md-3 p-3">
+                <div class="more-content border m-1 m-md-3 p-3">
 
-                <p>Les données que nous collectons sont <b><u>anonymisées</u></b>; <b><u>conservées au maximum 15 jours</u></b>; <b><u>exclusivement pour améliorer l'outil à votre disposition</u></b>.</p>
+                    <p>Les données que nous collectons sont <b><u>anonymisées</u></b>; <b><u>conservées au maximum 15 jours</u></b>; <b><u>exclusivement pour améliorer l'outil à votre disposition</u></b>.</p>
 
-                <p>Ce service utilise ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Pour utiliser ChatGPT, notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
+                    <p>Ce service utilise ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Pour utiliser ChatGPT, notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
+
+                </div>
+
+                <style>
+
+                    /* Initially hide the "Learn More" content */
+                    .more-content {
+                        display: none;
+
+                    }
+
+                    /* Styles for the "Learn More" button */
+                    .learn-more {
+                        color: #0073e6;
+                        cursor: pointer;
+                        text-decoration: underline;
+                    }
+
+                    /* Style on hover for the "Learn More" button */
+                    .learn-more:hover {
+                        text-decoration: none;
+                    }
+
+                </style>
+
+                <script>
+                // Select HTML elements
+                const learnMoreButton = document.querySelector('.learn-more');
+                const moreContent = document.querySelector('.more-content');
+
+                // Add an event listener to show/hide the "Learn More" content
+                learnMoreButton.addEventListener('click', () => {
+                    if (moreContent.style.display === 'block') {
+                    moreContent.style.display = 'none';
+                    } else {
+                    moreContent.style.display = 'block';
+                    }
+                });
+                </script>
 
             </div>
-
-            <style>
-
-                /* Initially hide the "Learn More" content */
-                .more-content {
-                    display: none;
-
-                }
-
-                /* Styles for the "Learn More" button */
-                .learn-more {
-                    color: #0073e6;
-                    cursor: pointer;
-                    text-decoration: underline;
-                }
-
-                /* Style on hover for the "Learn More" button */
-                .learn-more:hover {
-                    text-decoration: none;
-                }
-
-            </style>
-
-            <script>
-            // Select HTML elements
-            const learnMoreButton = document.querySelector('.learn-more');
-            const moreContent = document.querySelector('.more-content');
-
-            // Add an event listener to show/hide the "Learn More" content
-            learnMoreButton.addEventListener('click', () => {
-                if (moreContent.style.display === 'block') {
-                moreContent.style.display = 'none';
-                } else {
-                moreContent.style.display = 'block';
-                }
-            });
-            </script>
-
+                
         </div>
-            
-        
-        </div>
-
-
 
 
     </div>
 
-    
-        
-
-
-
-</div>
+</div> #}
 
 
 <style>

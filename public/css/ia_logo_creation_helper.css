@@ -28,19 +28,36 @@
 }
     
 .selectable-square:hover {
-    background-color: #eef7ee;
+  background-color: #eef7ee;
 }
 
-.feedback-loader {
 
 
-    display: none;
+.feedback-loader-container {
 
-
+  display: none;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
 .isHidden {
-    display: none;
+  display: none;
+}
+
+
+#created-logos-display-container{
+  display: flex;
+  justify-content: center;
+}
+
+.logo-container{
+  display: inline-block;
+  padding: 15px;
+}
+
+img.created-logo{
+  width: 300px;
+  height: 300px;
 }
 
 

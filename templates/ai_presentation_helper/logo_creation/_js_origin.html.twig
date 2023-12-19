@@ -178,19 +178,18 @@ $(document).ready(function() {
 
     const newImagePattern = ({ imageSrc }) => `
 
-        <img src="/${imageSrc}" alt="ia created logo">
+        <div class="logo-container"><img src="/${imageSrc}" class="created-logo" alt="ia created logo"></div>
    
     `;
     
 
 
         
-    $("#test-logos-reception").on('click', function (e){
+    $("#get-logos-reception").on('click', function (e){
 
 
-        $(".feedback-loader").show();
+        $(".feedback-loader-container").show();
 
-        var $t = $(this);
 
         $.ajax({  
 
@@ -205,7 +204,7 @@ $(document).ready(function() {
             
             success: function(data, status) {
 
-                $(".feedback-loader").hide();
+                $(".feedback-loader-container").hide();
 
                 var imagesPathsArray = data.imagesPathsArray;
 
@@ -213,7 +212,7 @@ $(document).ready(function() {
 
                 while (i < imagesPathsArray.length) {
 
-                    $t.after([
+                    $("#created-logos-display-container").append([
                         { imageSrc: data.imagesPathsArray[i] },
                     ].map(newImagePattern));
 

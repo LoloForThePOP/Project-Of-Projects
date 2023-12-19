@@ -6,6 +6,7 @@ use OpenAI;
 use App\Form\AIPPAdviceType;
 use App\Entity\CollectedData;
 use App\Service\ImageService;
+use App\Service\IALogoService;
 use App\Service\OpenAIService;
 use Symfony\Component\Mime\Email;
 use App\Service\DataCollectService;
@@ -159,7 +160,7 @@ class AIPresentationHelperController extends AbstractController
     /**
      * @Route("/ajax-ia-assistant-gratuit-de-creation-de-logo", name="ajax_ia_logo_creation_helper")
      */
-    public function ajaxCreateLogo(Request $request, ImageService $imageService) {
+    public function ajaxCreateLogo(Request $request, ImageService $imageService, IALogoService $iaLogoService) {
        
         if ($request->isXmlHttpRequest()) {
 

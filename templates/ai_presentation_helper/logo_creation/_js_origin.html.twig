@@ -7,6 +7,8 @@ $(document).ready(function() {
 
         {% include "ai_presentation_helper/logo_creation/_js_big_cats_chunks.html.twig" %}
         {% include "ai_presentation_helper/logo_creation/_js_letters_chunks.html.twig" %}
+        {% include "ai_presentation_helper/logo_creation/_js_image_chunks.html.twig" %}
+        {% include "ai_presentation_helper/logo_creation/_js_letters_image_chunks.html.twig" %}
         {% include "ai_presentation_helper/logo_creation/_js_ubiquitary_chunks.html.twig" %}
 
     };
@@ -21,7 +23,19 @@ $(document).ready(function() {
 
     $("#nextStep").on('click', function (e){
 
-        //getting user choice
+        if(formSections[currentSection].length == 1){  //just one next possibility
+
+           nextSection = formSections[currentSection][0].nextSection;
+
+           console.log("case one possible next step: "+nextSection);
+
+           goToNextSection(nextSection);
+
+           return;
+
+        };
+
+        //else getting user choice
         nextSection = $('#'+currentSection+'-hidden').val();
 
         if(nextSection==null){ //user don-t have to make a choice, in this case next step is defined in formSections object.
@@ -46,6 +60,8 @@ $(document).ready(function() {
 
         // Previous button should be visible since we're moving forward
         document.querySelector('#previousStep').classList.remove('isHidden');
+
+        console.log("current section is:"+currentSection);
 
         let selectedOption = formSections[currentSection].find(option => option.value === nextObjectSection);
 
@@ -157,6 +173,7 @@ $(document).ready(function() {
     selectItem("logo-big-cats");
     selectItem("logo-type-letters");
     selectItem("logo-type-image");
+    selectItem("logo-relative-positions");
 
 
     const newImagePattern = ({ imageSrc }) => `

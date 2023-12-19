@@ -1,5 +1,110 @@
-
+<div id="logo-relative-positions" class="struct-container isHidden">
     
+    <div class="">
+    
+        <label for="logo-relative-positions-hidden" class="form-label big-title">Choisis la position du texte</label>
+    
+    </div>
+
+    <div id="logo-relative-positions-container" class="selectable-container row">
+
+
+        <div class="selectable-square logo-relative-positions" data-logo-relative-positions="text-bottom">
+
+            <h4 class="title">En dessous</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/text-bottom.png', 'larger')}}" loading="lazy">
+        
+        </div>
+    
+
+        <div class="selectable-square logo-relative-positions" data-logo-relative-positions="text-left">
+
+            <h4 class="title">À gauche</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/text-left.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="selectable-square logo-relative-positions" data-logo-relative-positions="text-right">
+
+            <h4 class="title">À droite</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/text-right.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="selectable-square logo-relative-positions" data-logo-relative-positions="text-through">
+
+            <h4 class="title">Au travers</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/text-through.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="selectable-square logo-relative-positions" data-logo-relative-positions="text-circle">
+
+            <h4 class="title">Autour</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/text-circle.png', 'larger')}}" loading="lazy">
+        
+        </div>
+
+        <div class="selectable-square logo-relative-positions" data-logo-relative-positions="text-top">
+
+            <h4 class="title">Au dessus</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/text-top.png', 'larger')}}" loading="lazy">
+        
+        </div>
+        
+
+        <div class="selectable-square logo-relative-positions" data-logo-relative-positions="unknown" >
+
+            <h4 class="title">Je ne sais pas encore</h4>
+
+            <img class="img-fluid" width="140" src="{{asset ('logo_creation/question-mark.png', 'larger')}}" loading="lazy">
+        
+        </div>
+    
+    </div>
+
+    {# posted logo type #}
+
+    <input type="hidden" id="logo-relative-positions-hidden" value="">
+
+</div>
+
+<div id="logo-relative-heights" class="struct-container isHidden">
+
+
+    <h2>Font Size:</h2>
+
+    <input id="fontSizeSlider" type="range" min="10" max="50" value="24"/>
+
+    <h2>Preview:</h2>
+    <p id="previewArea">Your Text Here</p>
+
+    <script>
+    
+        fontSizeSlider.addEventListener("input", function(e) {
+            previewArea.style.fontSize = e.target.value + "px";
+        });
+            
+    </script>
+
+    <style>
+    
+        #previewArea {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background: #f9f9f9;
+        }
+    
+    </style>
+
+</div>
 
 
 {# 

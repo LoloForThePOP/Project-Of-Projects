@@ -187,6 +187,9 @@ $(document).ready(function() {
         
     $("#get-logos-reception").on('click', function (e){
 
+        var data = {};
+        data.big_cats = $("#logo-big-cats-hidden").val();
+
 
         $(".feedback-loader-container").show();
 
@@ -197,7 +200,7 @@ $(document).ready(function() {
             type:       'POST',   
             dataType:   'json',
             data: {
-                //"jsonElementsPosition": jsonElementsPositions,
+                "data": data,
             },
 
             async: true,  

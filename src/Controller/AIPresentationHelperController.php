@@ -17,6 +17,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+use function PHPUnit\Framework\throwException;
+
 class AIPresentationHelperController extends AbstractController
 {
     
@@ -163,6 +165,18 @@ class AIPresentationHelperController extends AbstractController
     public function ajaxCreateLogo(Request $request, ImageService $imageService, IALogoService $iaLogoService) {
        
         if ($request->isXmlHttpRequest()) {
+
+            session_write_close();
+
+            $dataArray = $request->request->get('data');
+
+            dump($iaLogoService->createPrompt($dataArray));
+
+            //dump($data);
+
+            throwException("lol");
+
+
 
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
         

@@ -30,7 +30,7 @@ class IALogoService {
 
         foreach ($dataArray as $step => $value) {
 
-            dump("treating step $step");
+            dump("treating step $step with value $value");
 
             if($value !== null || $value !== ""){
 
@@ -52,7 +52,7 @@ class IALogoService {
 
     protected function createPromptChunk($step, $value){
 
-        $Fr_Prompt = null;
+        $Fr_Prompt = "";
         
         switch ($step) {
 
@@ -75,7 +75,7 @@ class IALogoService {
             case 'logo_type_letters':
                 
                 if ($value == "one-letter") {
-                    $Fr_Prompt = "Ce logo devra contenir UNE SEULE lettre.";
+                    $Fr_Prompt = "Ce logo devra contenir UNE SEULE lettre. ";
                 }
                 
                 elseif ($value == "several-letters") {
@@ -83,7 +83,35 @@ class IALogoService {
                 }
                 
                 elseif ($value == "tangled-letters") {
-                    $Fr_Prompt = "Les lettres devront être enlacées (par exemple comme avec le logo de la marque Yves Saint Laurent, ou le logo de la marque Louis Vuitton";
+                    $Fr_Prompt = "Les lettres devront être enlacées (par exemple comme avec le logo de la marque Yves Saint Laurent, ou le logo de la marque Louis Vuitton. ";
+                }
+
+                break;
+
+            case 'logo_relative_positions':
+                
+                if ($value == "text-left") {
+                    $Fr_Prompt = "Le texte est positionné à gauche de l'image. ";
+                }
+                
+                elseif ($value == "text-right") {
+                    $Fr_Prompt = "Le texte est positionné à droite de l'image. ";
+                }
+                
+                elseif ($value == "text-bottom") {
+                    $Fr_Prompt = "Le texte est positionné sous l'image. ";
+                }
+                
+                elseif ($value == "text-top") {
+                    $Fr_Prompt = "Le texte est positionné au dessus de l'image. ";
+                }
+                
+                elseif ($value == "text-through") {
+                    $Fr_Prompt = "Le texte est positionné à l'intérieur de l'image. ";
+                }
+                
+                elseif ($value == "text-circle") {
+                    $Fr_Prompt = "Le texte est positionné circulairement autour de l'image (text circle). ";
                 }
 
                 break;

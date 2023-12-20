@@ -78,12 +78,24 @@
 <div id="logo-relative-heights" class="struct-container isHidden">
 
 
-    <h2>Font Size:</h2>
+    <h2>Taille des lettres par rapport à l'image</h2>
+
+    <h4>Faites glisser la barre pour ajuster la taille.</h4>
 
     <input id="fontSizeSlider" type="range" min="10" max="50" value="24"/>
 
-    <h2>Preview:</h2>
-    <p id="previewArea">Your Text Here</p>
+    <h2>Aperçu :</h2>
+
+
+    <div id="preview-container">
+    
+        <img class="" width="" src="{{asset ('logo_creation/apple.png', 'larger')}}" loading="lazy">
+
+        <p id="previewArea">Mon Texte</p>
+    
+    </div>
+
+
 
     <script>
     
@@ -95,8 +107,19 @@
 
     <style>
     
+        #preview-container {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+        }
+    
+        #preview-container img{
+            width: 50px;
+            margin-bottom: 10px;
+        }
+    
         #previewArea {
-            padding: 15px;
+            display: inline-block;
             border: 1px solid #ddd;
             border-radius: 5px;
             background: #f9f9f9;

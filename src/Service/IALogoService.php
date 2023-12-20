@@ -24,11 +24,23 @@ class IALogoService {
 
     public function createPrompt($dataArray){
                 
-       $prompt = "";
+        $prompt = "";
 
-       foreach ($dataArray as $step => $value) {
-        $prompt += $this->createPromptChunk($step, $value);
-       }
+        dump($dataArray);
+
+        foreach ($dataArray as $step => $value) {
+
+            dump("treating step $step");
+
+            if($value !== null || $value !== ""){
+
+                $prompt = $prompt.$this->createPromptChunk($step, $value);
+
+            }
+
+            dump("prompt is $prompt");
+
+        }
 
         return $prompt;
 
@@ -39,18 +51,49 @@ class IALogoService {
     */
 
     protected function createPromptChunk($step, $value){
-                
-       switch ($step) {
 
-        case 'big_cat':
-            
-            return "I want a logo with $value";
-            break;
+        $Fr_Prompt = null;
         
-        default:
-            # code...
-            break;
+        switch ($step) {
+
+            case 'big_cats':
+
+                if ($value == "letters") {
+                    $Fr_Prompt = "Créer un logo de type une ou plusieurs lettres. ";
+                }
+
+                elseif ($value == "image") {
+                    $Fr_Prompt = "Créer un logo sans aucune lettre. ";
+                }
+
+                else {
+                    $Fr_Prompt = "Créer un logo de type lettres et images. ";
+                }
+                
+                break;
+
+            case 'logo_type_letters':
+                
+                if ($value == "one-letter") {
+                    $Fr_Prompt = "Ce logo devra contenir UNE SEULE lettre.";
+                }
+                
+                elseif ($value == "several-letters") {
+                    $Fr_Prompt = "";
+                }
+                
+                elseif ($value == "tangled-letters") {
+                    $Fr_Prompt = "Les lettres devront être enlacées (par exemple comme avec le logo de la marque Yves Saint Laurent, ou le logo de la marque Louis Vuitton";
+                }
+
+                break;
+            
+            default:
+                throw new \Exception("Unsupported step type");
+                break;
        }
+
+       return $Fr_Prompt;
 
     }
 

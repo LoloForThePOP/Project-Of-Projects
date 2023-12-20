@@ -170,7 +170,7 @@ class AIPresentationHelperController extends AbstractController
 
             $dataArray = $request->request->get('data');
 
-            dump($iaLogoService->createPrompt($dataArray));
+            $iaLogoService->createPrompt($dataArray);
 
             //dump($data);
 

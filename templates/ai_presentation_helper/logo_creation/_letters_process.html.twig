@@ -59,7 +59,7 @@
     
     </div>
 
-    <input type="text" class="form-control" id="several-letters" placeholder="Ex : Propon, WordPress, MICHELIN">
+    <input id="several-letters-user-choice" type="text" class="form-control" placeholder="Ex : Propon, WordPress, MICHELIN">
 
 </div>
 
@@ -67,13 +67,13 @@
     
     <div class="">
     
-        <label for="one-letter" class="form-label big-title">Écris la lettre à intégrer dans ton Logo</label>
+        <label for="one-letter-user-choice" class="form-label big-title">Écris la lettre à intégrer dans ton Logo</label>
 
         <h5 class="big-title">Utilise une majuscule ou pas selon ta préférence.</h5>
     
     </div>
 
-    <input type="text" class="form-control" id="one-letter" placeholder="Ex : M, g, T" maxlength="1">
+    <input id="one-letter-user-choice" type="text" class="form-control" placeholder="Ex : M, g, T" maxlength="1">
 
 </div>
 
@@ -88,7 +88,7 @@
     
     </div>
 
-    <input type="text" class="form-control" id="tangled-letters" placeholder="Ex : YSL, LV, CC" maxlength="15">
+    <input id="tangled-letters-user-choice" type="text" class="form-control" placeholder="Ex : YSL, LV, CC" maxlength="15">
 
 </div>
 
@@ -103,7 +103,7 @@
     
         <label for="font-type-hidden" class="form-label big-title">On passe aux formes de lettres</label>
 
-            <h2 class = "font-heading">Ton logo, ton style</h2>
+            <h2 class="font-heading">Ton logo, ton style</h2>
         
         <!-- Font buttons -->
         <div class="font-container" id="font-container"> </div>
@@ -113,12 +113,11 @@
 
     </div>
 
-    <input type="hidden" id="font-type-hidden" value="">
+    <input type="hidden" id="logo-font-type-hidden" value="">
 
 
     <script>
 
-        $(document).ready(function() {
 
             const fontsArray = ["Roboto","Montserrat","Oswald","Lato","Open Sans","PT Sans","Raleway","Ubuntu"];
             const logoText = document.getElementById("logo-text-preview");
@@ -128,11 +127,11 @@
                 const fontButton = document.createElement("button");
                 fontButton.className = "font-button selectable-square logo-font-type";
                 fontButton.innerText = font;
+                fontButton.setAttribute('data-logo-font-type', font);
                 fontButton.style.fontFamily = font;
-                fontButton.addEventListener("click", () => { logoText.style.fontFamily = font; });
+                //fontButton.addEventListener("click", () => { logoText.style.fontFamily = font; });
                 fontContainer.appendChild(fontButton);
             });
-        });
     
     </script>
   

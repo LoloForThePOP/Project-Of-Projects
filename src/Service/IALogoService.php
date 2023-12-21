@@ -145,10 +145,15 @@ class IALogoService {
 
                 break;
 
+            case 'image_text_relative_height':
+            
+                $Fr_prompt_chunk = "Voici la taille hauteur relative du texte par rapport à l'image : le texte du logo doit avoir une hauteur qui correspond à environ $value % de la hauteur de l'image. ";
+
+                break;
         
             case 'image_type':
 
-                if ($value == "figurative-objects") {
+                if ($value == "figurative-objects-description") {
                     $Fr_prompt_chunk = "L'image représente un objet de la réalité. ";
                 }
                 
@@ -164,17 +169,28 @@ class IALogoService {
         
             case 'abstraction_object_description':
                 
-                $Fr_prompt_chunk = "Voici la description de l'objet abstrait à insérer dans le logo : $value ";
+                $Fr_prompt_chunk = "Voici la description de l'objet abstrait à insérer dans le logo : $value. ";
 
                 break;
     
         
             case 'figurative_object_description':
                 
-                $Fr_prompt_chunk = "Voici la description de l'objet de la réalité à insérer dans le logo : $value ";
+                $Fr_prompt_chunk = "Voici la description de l'objet de la réalité à insérer dans le logo : $value. ";
 
                 break;
-    
+
+            case 'image_colors':
+            
+                $Fr_prompt_chunk = "Voici les instructions pour les couleurs de l'image : $value. ";
+
+                break;    
+
+            case 'user_last_requirements':
+            
+                $Fr_prompt_chunk = "Voici les dernières instructions pour la création du logo, elles ont une priorité haute par rapport aux instructions précédentes : $value. ";
+
+                break;    
             
             default:
                 throw new \Exception("Unsupported step type");

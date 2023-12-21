@@ -82,7 +82,7 @@
 
     <h4>Faites glisser la barre pour ajuster la taille.</h4>
 
-    <input id="fontSizeSlider" type="range" min="10" max="50" value="24"/>
+    <input id="fontSizeSlider" type="range" min="10" max="60" value="20"/>
 
     <h2>Aperçu :</h2>
 
@@ -92,15 +92,21 @@
         <img class="" width="" src="{{asset ('logo_creation/apple.png', 'larger')}}" loading="lazy">
 
         <p id="previewArea">Mon Texte</p>
+
+        <p id="inputValue"></p>
     
     </div>
 
 
 
     <script>
+
+        previewArea.style.fontSize = fontSizeSlider.value + "px";
+        inputValue.textContent = fontSizeSlider.value;
     
         fontSizeSlider.addEventListener("input", function(e) {
             previewArea.style.fontSize = e.target.value + "px";
+            inputValue.textContent = fontSizeSlider.value;
         });
             
     </script>
@@ -114,7 +120,7 @@
         }
     
         #preview-container img{
-            width: 50px;
+            width: 60px;
             margin-bottom: 10px;
         }
     

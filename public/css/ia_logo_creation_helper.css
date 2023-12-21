@@ -62,6 +62,49 @@ img.created-logo{
 
 
 
+/* Font-type selection */
+
+body {
+  font-family: Montserrat, sans-serif;
+  text-align: center;
+}
+
+
+.font-heading {
+  font-size: 2.5rem;
+}
+
+.font-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: 2rem 0;
+}
+
+.font-button {
+  font-size: 1.5rem;
+  border: 1px solid #000;
+  margin: 1rem;
+  padding: 1rem;
+  transition: all .2s ease-out;
+}
+
+.font-button:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}
+
+#logo-text-preview {
+  font-size: 3rem;
+  margin-top: 3rem;
+}
+
+
+
+
+/* End of font-type selection */
+
+
 /* Origin Button */
 
 

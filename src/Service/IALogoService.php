@@ -24,13 +24,13 @@ class IALogoService {
 
     public function createPrompt($dataArray){
                 
-        $prompt = "";
+        $prompt = "Quatre suggestions de logo. Chaque logo est exactement centré dans chaque cadran qui occupe un quart de l'image et n'est pas découpé. Chaque logo est une forme simple reconnaissable, un logo moderne et minimaliste. Le fond de l'image doit être blanc. ";
 
-        dump($dataArray);
+        //dump($dataArray);
 
         foreach ($dataArray as $step => $value) {
 
-            dump("treating step $step with value $value");
+            //dump("treating step $step with value $value");
 
             if($value !== null && $value !== ""){
 
@@ -38,7 +38,7 @@ class IALogoService {
 
             }
 
-            dump("prompt is $prompt");
+            //dump("prompt is $prompt");
 
         }
 
@@ -62,7 +62,7 @@ class IALogoService {
                 }
 
                 elseif ($value == "image") {
-                    $Fr_prompt_chunk = "Créer un logo sans aucune lettre. ";
+                    $Fr_prompt_chunk = "Créer un logo avec une image et AUCUNE LETTRE. ";
                 }
 
                 else {
@@ -78,11 +78,11 @@ class IALogoService {
                 }
                 
                 elseif ($value == "several-letters") {
-                    $Fr_prompt_chunk = "";
+                    $Fr_prompt_chunk = "Ce logo contiendra plusieurs lettres et SEULEMENT LES LETTRES SUIVANTES. Aucun autre tete ne doit être inséré !!!";
                 }
                 
                 elseif ($value == "tangled-letters") {
-                    $Fr_prompt_chunk = "Les lettres devront être enlacées (par exemple comme avec le logo de la marque Yves Saint Laurent, ou le logo de la marque Louis Vuitton. ";
+                    $Fr_prompt_chunk = "Les lettres devront être enlacées (= emmêlées) (par exemple comme avec le logo de la marque Yves Saint Laurent, ou le logo de la marque Louis Vuitton. ";
                 }
 
                 break;
@@ -95,13 +95,13 @@ class IALogoService {
 
             case 'several_letters_user_choice':
                 
-                $Fr_prompt_chunk = "Les lettres à insérer dans le logo, en respectant l'ordre, les majuscules, et les éventuels espaces, sont les suivantes : $value. ";
+            $Fr_prompt_chunk = "Le texte à insérer dans le logo, en respectant l'ordre, les majuscules, et les éventuels espaces, est le suivant : $value.. ";
 
                 break;
 
             case 'tangled_letters_user_choice':
                 
-                $Fr_prompt_chunk = "Les lettres à insérer et enlacer entre elles dans le logo, en respectant l'ordre, les majuscules, et les éventuels espaces, sont les suivantes : $value. ";
+                $Fr_prompt_chunk = "Les lettres à insérer et enlacer (= emmêler) entre elles dans le logo, en respectant l'ordre, les majuscules, et les éventuels espaces, sont les suivantes : $value. Elles DOIVENT être bien reconnaissables. ";
 
                 break;
 
@@ -120,27 +120,27 @@ class IALogoService {
             case 'logo_relative_positions':
                 
                 if ($value == "text-left") {
-                    $Fr_prompt_chunk = "Le texte est positionné à gauche de l'image. ";
+                    $Fr_prompt_chunk = "Le texte DOIT ETRE positionné à gauche de l'image. ";
                 }
                 
                 elseif ($value == "text-right") {
-                    $Fr_prompt_chunk = "Le texte est positionné à droite de l'image. ";
+                    $Fr_prompt_chunk = "Le texte DOIT ETRE positionné à droite de l'image. ";
                 }
                 
                 elseif ($value == "text-bottom") {
-                    $Fr_prompt_chunk = "Le texte est positionné sous l'image. ";
+                    $Fr_prompt_chunk = "Le texte DOIT ETRE positionné sous l'image. ";
                 }
                 
                 elseif ($value == "text-top") {
-                    $Fr_prompt_chunk = "Le texte est positionné au dessus de l'image. ";
+                    $Fr_prompt_chunk = "Le texte DOIT ETRE positionné au dessus de l'image. ";
                 }
                 
                 elseif ($value == "text-through") {
-                    $Fr_prompt_chunk = "Le texte est positionné à l'intérieur de l'image. ";
+                    $Fr_prompt_chunk = "Le texte DOIT ETRE positionné à l'intérieur de l'image. ";
                 }
                 
                 elseif ($value == "text-circle") {
-                    $Fr_prompt_chunk = "Le texte est positionné circulairement autour de l'image (text circle). ";
+                    $Fr_prompt_chunk = "Le texte DOIT ETRE positionné circulairement autour de l'image (text circle). ";
                 }
 
                 break;

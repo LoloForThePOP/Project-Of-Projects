@@ -169,20 +169,13 @@ class AIPresentationHelperController extends AbstractController
             session_write_close();
 
             $dataArray = $request->request->get('data');
-
-            $iaLogoService->createPrompt($dataArray);
-
-            //dump($data);
-
-            throwException("lol");
-
-
+            $prompt = $iaLogoService->createPrompt($dataArray);
 
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
         
             $response = $ia->images()->create([
-                'model' => 'dall-e-2',
-                'prompt' => 'Four logo suggestions for a project about horses. Each logo is NOT CROPPED.',
+                'model' => 'dall-e-3',
+                'prompt' => $prompt,
                 'size' => "1024x1024",
                 'n' => 1,
                 'response_format' => 'url',
@@ -204,7 +197,10 @@ class AIPresentationHelperController extends AbstractController
             $imagesPathsArray = $imageService->splitImage($generatedImagePath);
     
             // Vous pouvez renvoyer la réponse sous forme de JSON
-            return new JsonResponse(['imagesPathsArray' => $imagesPathsArray]);
+            return new JsonResponse([
+                'prompt' => $prompt,
+                'imagesPathsArray' => $imagesPathsArray,
+            ]);
           
         }
 

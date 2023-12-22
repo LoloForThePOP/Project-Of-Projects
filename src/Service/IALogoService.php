@@ -146,8 +146,30 @@ class IALogoService {
                 break;
 
             case 'image_text_relative_height':
+
+                $relative_height = null;
+
+                if (10 < $value && $value <= 15) {
+                    $relative_height = "un quart de";
+                }
+
+                elseif (15 < $value && $value <= 25) {
+                    $relative_height = "la moitiée de";
+                }
+
+                elseif (25 < $value && $value <= 35) {
+                    $relative_height = "les trois quart de";
+                }
+
+                elseif (35 < $value && $value <= 45) {
+                    $relative_height = "la même hauteur que";
+                }
+
+                elseif (45 < $value && $value <= 60) {
+                    $relative_height = "une fois et demi";
+                }
             
-                $Fr_prompt_chunk = "Voici la taille hauteur relative du texte par rapport à l'image : le texte du logo doit avoir une hauteur qui correspond à environ $value % de la hauteur de l'image. ";
+                $Fr_prompt_chunk = "Voici la hauteur relative de la totalité du texte par rapport à l'image : le texte du logo doit avoir une hauteur qui correspond à environ $relative_height la hauteur de l'image. ";
 
                 break;
         

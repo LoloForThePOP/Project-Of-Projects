@@ -3,7 +3,7 @@
     {
         'value': 'one-letter',
         'nextSection': 'one-letter',
-        //'skipIf': ['logo-big-cats_logo-type-letters'],
+        
     },
     {
         'value': 'several-letters',
@@ -52,9 +52,12 @@
 
     'logo-font-type': [
         {
-            'value': 'user-last-requirements',
-            'nextSection': 'user-last-requirements'
+            'value': 'logo-type-image',
+            'nextSection': 'logo-type-image',
+            'skipIf': ['logo-big-cats_logo-type-letters'], /*if user wants a logo with letters, we skip image design process and go straight to user last requirements */
+            'default': 'user-last-requirements',
         },
+        
         
     ],
 

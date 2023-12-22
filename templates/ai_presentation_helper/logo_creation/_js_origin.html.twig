@@ -78,15 +78,17 @@ $(document).ready(function() {
         
         let nextSection = getNextValidSection(nextObjectSection);
 
+        console.log("Next valid section is "+nextSection);
+
         userChoices.push(currentSection + "_" + nextSection);
 
-        console.log("user choices "+userChoices);
+        console.log("user history is : "+userChoices);
 
         // Show next section
         currentSection = selectedOption.nextSection;
             
-        console.log(currentSection);
-        document.getElementById(currentSection).style.display = "block";
+        console.log("current section is : "+currentSection);
+        document.getElementById(nextSection).style.display = "block";
 
         // If this is a final section, hide the next button
         let nextOption = formSections[currentSection];
@@ -100,8 +102,7 @@ $(document).ready(function() {
 
     function getNextValidSection(userChoice) {
 
-        console.log("user choice");
-        console.log(userChoice);
+        console.log("user choice is "+userChoice);
 
         let selectedOption = formSections[currentSection].find(option => option.value === userChoice);
 
@@ -113,11 +114,11 @@ $(document).ready(function() {
 
             //console.log(formSections[userChoice][0].nextSection);
 
-            //console.log("llllllll"+userChoice);
+            console.log("llllllll"+selectedOption.default);
             //return false;
 
-            nextCandidate = formSections[userChoice][0].nextSection;
-            return getNextValidSection(nextCandidate);
+            //nextCandidate = return selectedOption.default;
+            return selectedOption.default;
         } else {
             return selectedOption.nextSection;
         }

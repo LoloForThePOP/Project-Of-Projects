@@ -24,7 +24,7 @@ class IALogoService {
 
     public function createPrompt($dataArray){
                 
-        $prompt = "Quatre suggestions de logo. Chaque logo est exactement centré dans chaque cadran qui occupe un quart de l'image et n'est pas découpé. Chaque logo est une forme simple reconnaissable, un logo moderne et minimaliste. Le fond de l'image doit être blanc. ";
+        $prompt = "Quatre suggestions de logo. Chaque logo est exactement centré dans chaque cadran qui occupe un quart de l'image et n'est pas découpé. Chaque logo est une forme simple reconnaissable, un logo moderne et minimaliste. Le fond de l'image doit être blanc. Pas d'effet de granularité. ";
 
         //dump($dataArray);
 

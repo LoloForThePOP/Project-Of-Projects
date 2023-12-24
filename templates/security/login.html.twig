@@ -66,6 +66,7 @@
                         .connect-btn{
 
                             width: 190px;
+                            border-color: #c0c0c4;
 
                         }
 
@@ -159,17 +160,18 @@
 
                     <div class="form-group">
 
-                        <!-- Login button -->
-
-                        <input type="submit" value="✔️ Connexion" class="btn btn-validate fw-bold me-2" style="border: none !important;">
-
                         <!-- Go back button -->
 
                         <a href="{{path('homepage')}}">
-                            <button type="button" value="" class="btn btn-go-back">
+                            <button type="button" value="" class="btn btn-go-back me-2">
                                 <span class="fw-bold">Retour</span>
                             </button>
                         </a>
+
+                        <!-- Login button -->
+
+                        <input type="submit" value="Connexion ✔️" class="btn btn-validate fw-bold" style="border: none !important;">
+
 
                     </div>
 
@@ -203,7 +205,6 @@
 
 
 <style>
-
         
     @media screen and (max-width: 580px) {
 
@@ -214,8 +215,6 @@
 
 
     }
-
-
 
 </style>
 

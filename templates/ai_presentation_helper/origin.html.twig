@@ -18,102 +18,77 @@
 {% endblock %}
 
 
-{% block title %}{{titleMetadata}}{% endblock %}
+{% block title %}Coach Présentation de Projet{% endblock %}
 
 {% block body %}
 
 
 <div id="" class="page-container">
 
-    <div class="d-none d-md-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-center align-items-center">
     
-        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h3 text-center">Conseils <span class="highlight1">personnalisés</span> pour présenter <span class="highlight2">VOTRE Projet</span></h1>
-      
+        <h1 class="h3 text-center">Conseils <span class="fw-bold">personnalisés</span> pour présenter <span class="fw-bold">votre</span> Projet</h1>
+
     </div>
-
-    <div class="d-flex d-md-none justify-content-center align-items-center">
-    
-        <img class="img-fluid me-2" width="80" src="{{asset ('project_presentation_advice/advice.svg', 'larger')}}" loading="lazy" alt="Une icône qui représente deux bulles de BD, dans la première un point d'interrogation représentatant une question, dans la seconde le symbole i qui réprésente une information, un conseil."><h1 class="h5 text-center"><span class="">Conseils personnalisés</span> pour présenter <u>VOTRE</u> Projet</h1>
-      
-    </div>
-
-
-    <style>
-      
-                
-        .highlight1 {
-            display: inline-block;
-            padding: .25em 10px;
-            background: #b8e0ad;
-            color: #ffffff;
-            border-radius: 5px;
-        }
-                
-      {#   .highlight2 {
-            display: inline-block;
-            padding: .25em 10px;
-            background: #9FBCA4;
-            color: #ffffff;
-            border-radius: 5px;
-        } #}
-        
-    </style>
-
-
 
     <div class="init">
 
-        <div class="forms-container container col-md-10 col-lg-10 col-xl-7 px-0 px-md-2 my-4">
+        <div class="forms-container container col-md-10 col-lg-10 col-xl-7 px-0 px-md-2 mt-2 mt-md-4">
 
                 {{ form_start(form) }}
             
                 <div id="form-part1" class="form-part part1">
 
-                    <div class="question-progress">Question 1 / 2</div>
+                    <div class="h-100">
+                    
+                        <div class="question-progress">Question 1 / 2</div>
 
-                    <h2 class="question-title">À <span class="border border-2 border-success rounded px-2 pb-1 me-0 me-md-1">qui</span> je présente mon projet <span class="d-md-none"><br></span>(votre public cible) ?</h2>
+                        <h2 class="question-title">À <span class="border border-2 border-success rounded px-2 pb-1 me-0 me-md-1">qui</span> je présente mon projet <span class="d-md-none"><br></span>(= votre public cible) ?</h2>
+                                
+                        <div class="cols-container">
+
+                            <div class="illustration-container col-2 me-3">
                             
-                    <div class="cols-container">
+                                <img class="question-illustration img-fluid" width="140" src="{{asset ('project_presentation_advice/audience.png', 'larger')}}" loading="lazy">
 
-                        <div class="illustration-container col-2 me-3">
-                        
-                            <img class="question-illustration img-fluid" width="140" src="{{asset ('project_presentation_advice/audience.png', 'larger')}}" loading="lazy">
-
-                        </div>
-
-                        <div class="d-flex justify-content-center align-items-center">
-                        
-                            <div class="">
-
-
-                                <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span>; <span>à un journaliste</span>; <span class="">à une enseignante</span>; <span class="d-none d-md-block">à des chercheurs; à des investisseurs; à un jury de chefs cuisiniers; </span><span>au maire de ma commune</span>; etc.</div>
-                            
                             </div>
 
+                            <div class="d-flex justify-content-center align-items-center">
+                            
+                                <div class="">
+
+
+                                    <div class="examples"><span class="fw-bold">Exemples :</span> <span>à tout le monde</span>; <span>à un journaliste</span>; <span class="">à une enseignante</span>; <span class="d-none d-md-block">à des chercheurs; à des investisseurs; à un jury de chefs cuisiniers; </span><span>au maire de ma commune</span>; etc.</div>
+                                
+                                </div>
+
+
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="tiny-form-container d-flex justify-content-center align-items-center">
+                    
+                            {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
 
-                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
-                
-                        {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
+                            <span class="d-none d-md-inline btn btn-validate btn-next arrow-icon px-1 px-md-3">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                            </svg></span>
 
-                        <span class="d-none d-md-inline btn btn-validate btn-next arrow-icon px-1 px-md-3">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
-                        </svg></span>
+                            <style>
+                            
+                                .target-input{
+                                    display: inline;
+                                    width: 80%
+                                }
+                            
+                            </style>
 
-                        <style>
-                        
-                            .target-input{
-                                display: inline;
-                                width: 80%
-                            }
-                        
-                        </style>
+                            
 
-                        
+                        </div>
 
+                    
                     </div>
 
                 </div>
@@ -121,52 +96,56 @@
                 <div id="form-part2" class="form-part part2 hidden">
 
                     
-                    <div class="question-progress">Question 2 / 2</div>
+                    <div class="d-flex flex-column justify-content-evenly h-100">
+                    
+                        <div class="question-progress">Question 2 / 2</div>
 
-                    <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-0 me-md-1">Comment</span> je présente mon projet ?</h2>
+                        <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-0 me-md-1">Comment</span> je présente mon projet ?</h2>
 
-                                
-                    <div class="cols-container">
+                                    
+                        <div class="cols-container px-md-5">
 
-                        <div class="illustration-container col-2">
-                        
-                            <img class="question-illustration img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
-
-                        </div>
-
-                        <div class="d-flex justify-content-center align-items-center ps-2 ps-md-0">
-                        
-                            <div class="">
-
-                                <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; diaporama (powerpoint); PDF; vidéo; site web; radio; etc.</div>
+                            <div class="illustration-container col-2">
                             
+                                <img class="question-illustration img-fluid" width="140" src="{{asset ('project_presentation_advice/multimedia.png', 'larger')}}" loading="lazy">
+
                             </div>
 
-                            {# avec un fichier PDF; avec des visuels; présentation powerpoint; sur un tableau blanc; visioconférence; , forum de discussion; ; réseau social; plateforme de crowdfunding, télévision #}
+                            <div class="d-flex justify-content-center align-items-center ps-2 ps-md-0">
+                            
+                                <div class="">
 
+                                    <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; avec un diaporama (powerpoint); PDF; vidéo; site web; radio; etc.</div>
+                                
+                                </div>
+
+                                {# avec un fichier PDF; avec des visuels; présentation powerpoint; sur un tableau blanc; visioconférence; , forum de discussion; ; réseau social; plateforme de crowdfunding, télévision #}
+
+
+                            </div>
 
                         </div>
 
-                    </div>
+                        <div class="tiny-form-container d-flex justify-content-center align-items-center px-md-5">
 
-                    <div class="tiny-form-container d-flex justify-content-center align-items-center">
-
-                        <span class="d-none d-md-inline btn btn-validate return-arrow-icon px-1">
-                    
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/> <span class="d-none d-md-inline ps-2">Retour</span>
+                            <span class="d-none d-md-inline btn btn-validate return-arrow-icon px-1">
                         
-                        </span>
-                
-                        {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/> <span class="d-none d-md-inline ps-2">Retour</span>
+                            
+                            </span>
+                    
+                            {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
 
-                        <button type="submit" class="js-form-submit d-none d-md-flex justify-content-center btn btn-validate px-1">Afficher le résultat <img class="img-fluid ms-2" style="vertical-align: sub;" width="22" src="{{asset ('project_presentation_advice/star.svg', 'larger')}}" loading="lazy"></button>
+                            <button type="submit" class="js-form-submit d-none d-md-flex justify-content-center btn btn-validate px-1">Afficher le résultat</button>
 
+                        </div>
+                    
                     </div>
 
                 </div>
 
-                <div class="d-flex justify-content-center"><button type="submit" class="js-form-submit d-flex d-md-none justify-content-center btn btn-validate px-1">Afficher le résultat <img class="img-fluid ms-2" style="vertical-align: sub;" width="22" src="{{asset ('project_presentation_advice/star.svg', 'larger')}}" loading="lazy"></button></div>
+                <div class="d-flex justify-content-center"><button type="submit" class="js-form-submit d-flex d-md-none justify-content-center btn btn-validate px-1">Afficher le résultat</button></div>
 
                 {{ form_end(form) }}
                 
@@ -324,6 +303,11 @@
 	border-radius: 4px;
 }
 
+
+.forms-container form{
+    width: 100%;
+}
+
 .cols-container{
 	display: flex;
 	justify-content: center;
@@ -390,6 +374,14 @@ button[type="submit"]{
 
 @media screen and (max-width: 580px) {
 
+    .page-container {
+        padding-top: 34px;
+    }
+
+    .forms-container {
+        height: auto;
+    }
+
     .question-progress {
         padding-left: 9px;
         margin-top: -7px;
@@ -441,18 +433,18 @@ button[type="submit"]{
 
         margin-left: -4px;
         margin-right: -4px;
-        padding: 12px 0;
+        padding: 20px 0;
         border: 1px solid #c6c6c6;
         border-radius: 4px;
     }
 
     #form-part1 {
 
-        margin-bottom: 16px;
+        margin-bottom: 25px;
     }
 
     .cta{
-        font-size: 13px !important;
+        font-size: 14px !important;
     }
     
 

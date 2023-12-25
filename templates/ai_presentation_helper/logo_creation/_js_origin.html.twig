@@ -18,8 +18,22 @@ $(document).ready(function() {
     let previousSection = null; 
     let currentSection = 'logo-big-cats';
 
-    //initialize section 1 is visible
-    document.querySelector('#'+currentSection).classList.remove('isHidden');
+
+
+
+    // Initialize section 1 is visible
+    $("button.pushable").on('click', function (e){
+
+        $("#first-display-box").hide();
+
+        //initialize section 1 is visible
+        document.querySelector('#'+currentSection).classList.remove('isHidden');
+
+    });
+
+    
+    
+
 
     $("#nextStep").on('click', function (e){
 

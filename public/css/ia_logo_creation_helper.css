@@ -1,3 +1,4 @@
+
 /* Generalities */
 
 body {
@@ -12,6 +13,17 @@ body {
   padding: 40px;
   margin-top: 12px;
 
+}
+
+
+@media screen and (max-width: 580px) {
+
+  #ai-logo-ui-container{
+
+    height: 86vh;
+    padding: 0px;
+  
+  }
 }
 
 /* End of Generalities */
@@ -49,6 +61,46 @@ body {
   justify-content: center;
   margin-top: 0px;
   font-weight: bold;
+
+}
+
+.sub-subtitle{
+
+  font-size: 25px;
+
+}
+
+@media screen and (max-width: 580px) {
+
+
+  #main-title{
+
+    font-size: 25px;
+    
+  }
+
+  .subtitle{
+
+    font-size: 16px;
+
+  }
+
+  .sub-subtitle{
+
+    font-size: 15px;
+  }
+
+  p.under-button{
+
+    font-size: 15px;
+
+  }
+
+  .more-content {
+    background-color: #f7fff0;
+    position: sticky;
+  }
+
 
 }
 
@@ -223,7 +275,18 @@ img.created-logo{
     cubic-bezier(.3, .7, .4, 1);
 }
 
+
 .edge {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 12px;
+	background: linear-gradient( to left, hsl(115.4, 35.4%, 56.3%) 0%, hsl(126.3, 65.5%, 17.1%) 8%, hsl(317.7, 33.3%, 58.2%) 92%, hsl(101, 64.1%, 49.2%) 100% );
+}
+
+/* .edge {
   position: absolute;
   top: 0;
   left: 0;
@@ -237,9 +300,35 @@ img.created-logo{
     hsl(340deg 100% 32%) 92%,
     hsl(340deg 100% 16%) 100%
   );
-}
+} */
+
 
 .front {
+	display: block;
+	position: relative;
+	padding: 12px 42px;
+	border-radius: 12px;
+	font-size: 1.25rem;
+	color: #22264a;
+	background: hsl(112.2, 19.7%, 77.1%);
+	will-change: transform;
+	transform: translateY(-4px);
+	transition: transform 600ms cubic-bezier(.3, .7, .4, 1);
+	font-weight: bold;
+}
+
+
+@media screen and (max-width: 580px) {
+
+  .front {
+
+    padding: 9px 17px;
+
+  }
+
+}
+
+/* .front {
   display: block;
   position: relative;
   padding: 12px 42px;
@@ -254,7 +343,7 @@ img.created-logo{
     600ms
     cubic-bezier(.3, .7, .4, 1);
 }
-
+ */
 .pushable:hover {
   filter: brightness(110%);
 }

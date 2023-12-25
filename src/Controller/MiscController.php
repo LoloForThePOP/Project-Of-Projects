@@ -145,6 +145,8 @@ class MiscController extends AbstractController
 
         $staticUrls[]=$this->generateUrl('ai_presentation_helper_origin');
 
+        $staticUrls[]=$this->generateUrl('ai_presentation_helper_assistant_logo');
+
         // sitemap attributes for static pages
 
         foreach ($staticUrls as $value){

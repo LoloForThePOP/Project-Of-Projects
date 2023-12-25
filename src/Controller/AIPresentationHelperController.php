@@ -103,7 +103,7 @@ class AIPresentationHelperController extends AbstractController
 
         }
 
-        return $this->render('ai_presentation_helper/origin.html.twig', [
+        return $this->render('ai_presentation_helper/presentation_advice/origin.html.twig', [
             'form' => $form->createView(),
         ]);
 
@@ -118,7 +118,7 @@ class AIPresentationHelperController extends AbstractController
         
         $generalAdvice = $this->get('session')->get('generalAdvice');
 
-        return $this->render('ai_presentation_helper/assistant.html.twig', [
+        return $this->render('ai_presentation_helper/presentation_advice/assistant.html.twig', [
             'generalAdvice' => $generalAdvice,
         ]);
 

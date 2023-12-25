@@ -1,37 +1,131 @@
+/* Generalities */
+
+body {
+  font-family: Montserrat, sans-serif;
+  text-align: center;
+}
+
+
+#ai-logo-ui-container{
+
+  height: 88vh;
+  padding: 40px;
+  margin-top: 12px;
+
+}
+
+/* End of Generalities */
+
+
+
+
+/* Introduction Container (CTA) */
+
+#first-display-box{
+
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid green;
+  padding: 15px;
+
+}
+
+#start-page-content{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  border: 1px solid green;
+  border-radius: 5px;
+
+}
+
+#main-title{
+
+  display: flex;
+  justify-content: center;
+  margin-top: 0px;
+  font-weight: bold;
+
+}
+
+#first-display-box{
+
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid green;
+  padding: 15px;
+
+}
+
+#start-page-content{
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  height: 100%;
+  border: 1px solid green;
+  border-radius: 5px;
+
+}
+
+#start-button-container{
+
+  display: flex;
+  justify-content: center;
+
+}
+
+/* End of Introduction Container (CTA) */
+
+
+
+
+/* Process Steps */
+
 .big-title{
-    display: block;
-    font-size: 1.3em !important;
-    text-align: center;
+  display: block;
+  font-size: 1.3em !important;
+  text-align: center;
 }
 
 .selectable-container{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 25px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 25px;
 }
 
 .selectable-square {
-    display: inline-block;
-    width: 155px;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid grey;
-    border-radius: 4px;
-    cursor: pointer;
+  display: inline-block;
+  width: 155px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid grey;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
-
 .selectable-square .title {
-    font-size: 1em;
-    font-weight: bold;
-    text-align: center;
+  font-size: 1em;
+  font-weight: bold;
+  text-align: center;
 }
     
 .selectable-square:hover {
   background-color: #eef7ee;
 }
 
+/* End of Process Steps */
 
+
+
+
+
+/* Created Logo Revelation */
 
 .feedback-loader-container {
 
@@ -60,15 +154,13 @@ img.created-logo{
   height: 300px;
 }
 
+/* End of Created Logo Revelation */
+
+
+
 
 
 /* Font-type selection */
-
-body {
-  font-family: Montserrat, sans-serif;
-  text-align: center;
-}
-
 
 .font-heading {
   font-size: 2.5rem;
@@ -99,112 +191,108 @@ body {
   margin-top: 3rem;
 }
 
-
-
-
 /* End of font-type selection */
 
 
-/* Origin Button */
-
+/* Start Process Button */
+/* Thanks to https://www.joshwcomeau.com/animation/3d-button/ */
 
 .pushable {
-    position: relative;
-    border: none;
-    background: transparent;
-    padding: 0;
-    cursor: pointer;
-    outline-offset: 4px;
-    transition: filter 250ms;
-  }
+  position: relative;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+  outline-offset: 4px;
+  transition: filter 250ms;
+}
+
+.shadow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: hsl(0deg 0% 0% / 0.25);
+  will-change: transform;
+  transform: translateY(2px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+.edge {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    to left,
+    hsl(340deg 100% 16%) 0%,
+    hsl(340deg 100% 32%) 8%,
+    hsl(340deg 100% 32%) 92%,
+    hsl(340deg 100% 16%) 100%
+  );
+}
+
+.front {
+  display: block;
+  position: relative;
+  padding: 12px 42px;
+  border-radius: 12px;
+  font-size: 1.25rem;
+  color: white;
+  background: hsl(345deg 100% 47%);
+  will-change: transform;
+  transform: translateY(-4px);
+  transition:
+    transform
+    600ms
+    cubic-bezier(.3, .7, .4, 1);
+}
+
+.pushable:hover {
+  filter: brightness(110%);
+}
+
+.pushable:hover .front {
+  transform: translateY(-6px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:active .front {
+  transform: translateY(-2px);
+  transition: transform 34ms;
+}
+
+.pushable:hover .shadow {
+  transform: translateY(4px);
+  transition:
+    transform
+    250ms
+    cubic-bezier(.3, .7, .4, 1.5);
+}
+
+.pushable:active .shadow {
+  transform: translateY(1px);
+  transition: transform 34ms;
+}
+
+.pushable:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* End of Start Process Button */
 
 
-  .shadow {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: hsl(0deg 0% 0% / 0.25);
-    will-change: transform;
-    transform: translateY(2px);
-    transition:
-      transform
-      600ms
-      cubic-bezier(.3, .7, .4, 1);
-  }
 
+@media screen and (max-width: 580px) {
 
-  .edge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: 12px;
-    background: linear-gradient(
-      to left,
-      hsl(340deg 100% 16%) 0%,
-      hsl(340deg 100% 32%) 8%,
-      hsl(340deg 100% 32%) 92%,
-      hsl(340deg 100% 16%) 100%
-    );
-  }
-
-
-  .front {
-    display: block;
-    position: relative;
-    padding: 12px 42px;
-    border-radius: 12px;
-    font-size: 1.25rem;
-    color: white;
-    background: hsl(345deg 100% 47%);
-    will-change: transform;
-    transform: translateY(-4px);
-    transition:
-      transform
-      600ms
-      cubic-bezier(.3, .7, .4, 1);
-  }
-
-
-  .pushable:hover {
-    filter: brightness(110%);
-  }
-
-
-  .pushable:hover .front {
-    transform: translateY(-6px);
-    transition:
-      transform
-      250ms
-      cubic-bezier(.3, .7, .4, 1.5);
-  }
-
-
-  .pushable:active .front {
-    transform: translateY(-2px);
-    transition: transform 34ms;
-  }
-
-
-  .pushable:hover .shadow {
-    transform: translateY(4px);
-    transition:
-      transform
-      250ms
-      cubic-bezier(.3, .7, .4, 1.5);
-  }
-
-  .pushable:active .shadow {
-    transform: translateY(1px);
-    transition: transform 34ms;
-  }
-
-  .pushable:focus:not(:focus-visible) {
-    outline: none;
-  }
-
-/* End of Origin Button */
+}

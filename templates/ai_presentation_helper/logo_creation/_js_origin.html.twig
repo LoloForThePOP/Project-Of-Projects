@@ -3,6 +3,8 @@
 
 $(document).ready(function() {
 
+    //form Sections is a big object containing logo creation process branches
+
     let formSections = {
 
         {% include "ai_presentation_helper/logo_creation/_js_big_cats_chunks.html.twig" %}
@@ -13,13 +15,13 @@ $(document).ready(function() {
 
     };
 
-    let userChoices = [];
+    let userChoices = []; //history of user choices (allow go back button)
 
     let previousSection = null; 
-    let currentSection = 'logo-big-cats';
+    let currentSection = 'logo-big-cats'; //first step of logo creation
 
 
-
+    $("#controls-container").hide();
 
     // Initialize section 1 is visible
     $("button.pushable").on('click', function (e){
@@ -29,6 +31,8 @@ $(document).ready(function() {
         //initialize section 1 is visible
         document.querySelector('#'+currentSection).classList.remove('isHidden');
 
+        $("#controls-container").show();
+
     });
 
     
@@ -37,7 +41,7 @@ $(document).ready(function() {
 
     $("#nextStep").on('click', function (e){
 
-        if(formSections[currentSection].length == 1){  //just one next possibility
+        if(formSections[currentSection].length == 1){  // case whereby we got only one next step possibility
 
            nextSection = formSections[currentSection][0].nextSection;
 

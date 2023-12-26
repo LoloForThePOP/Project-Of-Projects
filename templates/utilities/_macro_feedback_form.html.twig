@@ -64,14 +64,16 @@ A reusable feedback form
     <div class="text-center">
 
       <button id="submit-feedback-form" class="btn btn-outline-success" type="submit">Envoyer ( merci )</button>
-
-      <button id="success-submit-feedback-form" class="btn btn-outline-success" type="button">Merci 😃 ✔️</button>
     
     </div>
 
-    
-    
   </form>
+
+</div>
+
+<div class="text-center">
+
+  <button id="success-submit-feedback-form" class="btn btn-outline-success" type="button">Merci pour votre avis 😃 ✔️</button>
 
 </div>
 
@@ -104,6 +106,10 @@ A reusable feedback form
 
           $(this).html('Envoi en cours <div class="loader"></div>');
 
+          $(this).closest(".feedback-form-container").hide();
+          $('#submit-feedback-form').hide();
+          $('#success-submit-feedback-form').show();
+
           $.ajax({  
 
               url: "{{path('ajax_feedback_post') }}",
@@ -119,9 +125,6 @@ A reusable feedback form
               },
 
               success: function(data, status) {
-
-                $('#submit-feedback-form').hide();
-                $('#success-submit-feedback-form').show();
 
               },  
 

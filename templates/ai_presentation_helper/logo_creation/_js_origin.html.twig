@@ -3,6 +3,10 @@
 
 $(document).ready(function() {
 
+    //reinitializing forms on refresh
+    $("input").val("");
+    $("textarea").val("");
+
     //form Sections is a big object containing logo creation process branches
 
     let formSections = {
@@ -144,31 +148,36 @@ $(document).ready(function() {
     }
 
 
-    function goToPreviousSection() {
 
-        // Since we're moving back, the next button should be visible
-        document.querySelector('#nextStep').classList.remove('isHidden');
+function goToPreviousSection() {
+    // Since we're moving back, the next button should be visible
+    document.querySelector('#nextStep').classList.remove('isHidden');
 
-        // Hide current section
-        document.getElementById(currentSection).style.display = "none";
+    // Hide current section
+    document.getElementById(currentSection).style.display = "none";
 
+    // Get previous section from user choices history
+    let previousChoice = userChoices.pop();
+
+    if(previousChoice) {
+        // Split the choice string into section and option
+        let [section, option] = previousChoice.split("_");
+        previousSection = section;
+        
         // Swap back to the last section
-        if(previousSection) {
-            let temp = currentSection;
-            currentSection = previousSection;
-            previousSection = temp;
-        }
-
-        // Show previous section
-        document.getElementById(currentSection).style.display = "block";
-
-        console.log(previousSection);
-
-        // If we're at the start of the form, hide the previous button
-        if(previousSection === null) {
-            document.querySelector('#previousStep').classList.add('isHidden');
-        }
+        let temp = currentSection;
+        currentSection = previousSection;
+        previousSection = temp;
     }
+
+    // Show previous section
+    document.getElementById(currentSection).style.display = "block";
+
+    // If we're at the start of the form, hide the previous button
+    if(userChoices.length === 0) {
+        document.querySelector('#previousStep').classList.add('isHidden');
+    }
+}
 
 
     function selectItem(className){
@@ -201,8 +210,6 @@ $(document).ready(function() {
         <div class="logo-container"><img src="/${imageSrc}" class="created-logo" alt="ia created logo"></div>
    
     `;
-    
-
 
         
     $("#get-logos-reception").on('click', function (e){

@@ -15,6 +15,19 @@ body {
 
 }
 
+#ai-logo-ui-container input, #ai-logo-ui-container textarea{
+
+  margin-top: 33px;
+  margin-bottom: 33px;
+
+}
+
+#ai-logo-ui-container button{
+
+  outline: none;
+
+}
+
 #controls-container{
   display: flex;
   align-items: center;
@@ -66,6 +79,7 @@ body {
   display: flex;
   justify-content: center;
   margin-top: 0px;
+  margin-bottom: 20px;
   font-weight: bold;
 
 }
@@ -135,6 +149,7 @@ body {
 
   display: flex;
   justify-content: center;
+  margin: 2rem auto;
 
 }
 
@@ -162,7 +177,7 @@ body {
   width: 155px;
   padding: 10px;
   margin: 10px;
-  border: 1px solid grey;
+  border: 1px solid #cfcfcf;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -181,43 +196,6 @@ body {
 
 
 
-
-
-/* Created Logo Revelation */
-
-.feedback-loader-container {
-
-  display: none;
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.isHidden {
-  display: none;
-}
-
-
-#created-logos-display-container{
-  display: flex;
-  justify-content: center;
-}
-
-.logo-container{
-  display: inline-block;
-  padding: 15px;
-}
-
-img.created-logo{
-  width: 300px;
-  height: 300px;
-}
-
-/* End of Created Logo Revelation */
-
-
-
-
-
 /* Font-type selection */
 
 .font-heading {
@@ -228,7 +206,7 @@ img.created-logo{
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  margin: 2rem 0;
+  margin: 0;
 }
 
 .font-button {
@@ -244,9 +222,10 @@ img.created-logo{
   cursor: pointer;
 }
 
+
 #logo-text-preview {
   font-size: 3rem;
-  margin-top: 3rem;
+  margin-top: 0rem;
 }
 
 /* End of font-type selection */
@@ -387,7 +366,61 @@ img.created-logo{
 /* End of Start Process Button */
 
 
+/* Created Logo Revelation */
+
+.feedback-loader-container {
+
+  display: none;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.isHidden {
+  display: none;
+}
+
+
+#created-logos-display-container{
+  display: flex;
+  justify-content: center;
+}
+
+.logo-container{
+  display: inline-block;
+  padding: 15px;
+}
+
+img.created-logo{
+  width: 300px;
+  height: 300px;
+}
+
+/* End of Created Logo Revelation */
 
 @media screen and (max-width: 580px) {
+
+
+  #start-page-content {
+    display: contents;
+  }
+
+  #main-title{
+
+    margin-top: 39px;
+    margin-bottom: 5px;
+  
+  }
+
+  .selectable-container {
+    flex-wrap: wrap;
+  }
+
+  #first-display-box {
+    padding: 10px;
+  }
+
+  .front {
+    padding: 8px 14px;
+  }
 
 }

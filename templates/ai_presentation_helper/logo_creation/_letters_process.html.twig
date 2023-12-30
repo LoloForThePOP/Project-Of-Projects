@@ -101,17 +101,16 @@
     
     <div class="">
     
-        <label for="font-type-hidden" class="form-label big-title">On passe aux formes de lettres</label>
-
-            <h2 class="font-heading">Ton logo, ton style</h2>
+        <label for="font-type-hidden" class="form-label big-title">Choisis la forme des lettres</label>
         
         <!-- Font buttons -->
         <div class="font-container" id="font-container"> </div>
         
         <!-- Text showcase -->
-        <p id="logo-text-preview">Logo Text</p>
+        <p id="logo-text-preview">Aperçu</p>
 
     </div>
+
 
     <input type="hidden" id="logo-font-type-hidden" value="">
 
@@ -129,7 +128,7 @@
                 fontButton.innerText = font;
                 fontButton.setAttribute('data-logo-font-type', font);
                 fontButton.style.fontFamily = font;
-                //fontButton.addEventListener("click", () => { logoText.style.fontFamily = font; });
+                fontButton.addEventListener("click", () => { logoText.style.fontFamily = font; });
                 fontContainer.appendChild(fontButton);
             });
     

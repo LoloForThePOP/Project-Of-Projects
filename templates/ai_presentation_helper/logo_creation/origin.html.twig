@@ -28,43 +28,83 @@
 
 {% include "ai_presentation_helper/logo_creation/_js_origin.html.twig" %}
 
+
+<style>
+
+    #ai-logo-ui-container #intermediate-structurer-container{
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 67vw;
+        height: 77vh;
+        padding: 34px 0;
+        border: 1px solid #d2d2ec;
+        border-radius: 22px;
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+
+        #ai-logo-ui-container #intermediate-structurer-container{
+
+            display: unset;
+            width: unset;
+            height: unset;
+            padding: 0;
+            border: none;
+
+        }
+
+        #ai-logo-ui-container #wrapper-container{
+
+            margin-top: 20px;
+        }
+
+    }
+
+</style>
+
 <div id="ai-logo-ui-container">
 
     {% include "ai_presentation_helper/logo_creation/_introduction.html.twig" %}
 
-  <div class="container col-md-7 px-0 mt-4">
+    <div id="intermediate-structurer-container" class="container col-md-7">
 
-        {% include "ai_presentation_helper/logo_creation/_image_process.html.twig" %}
-        {% include "ai_presentation_helper/logo_creation/_letters_process.html.twig" %}
-        {% include "ai_presentation_helper/logo_creation/_ubiquitary_process.html.twig" %}
-        {% include "ai_presentation_helper/logo_creation/_letters_image_process.html.twig" %}
+        <div id="wrapper-container">
+            
+            {% include "ai_presentation_helper/logo_creation/_image_process.html.twig" %}
+            {% include "ai_presentation_helper/logo_creation/_letters_process.html.twig" %}
+            {% include "ai_presentation_helper/logo_creation/_ubiquitary_process.html.twig" %}
+            {% include "ai_presentation_helper/logo_creation/_letters_image_process.html.twig" %}
 
-        <div id="controls-container">
+            <div id="controls-container">
+                
+                <div class="flex-center">
+                
+                    <button id="previousStep" class="step-btn btn isHidden me-2"><span class="d-md-none">Précédent</span><span class="d-none d-md-inline">Étape précédente</span></button>
+                    <button id="nextStep" class="step-btn btn ms-2"><span class="d-md-none">Suivant</span><span class="d-none d-md-inline">Étape suivante</span></button>
+                
+                </div>
             
-            <div class="flex-center">
+            </div>
+
+           {#  <div class="d-flex justify-content-center my-5">
             
-                <button id="previousStep" class="btn btn-go-back isHidden me-2"><span class="d-md-none">Précédent</span><span class="d-none d-md-inline">Étape précédente</span></button>
-                <button id="nextStep" class="btn btn-validate ms-2"><span class="d-md-none">Suivant</span><span class="d-none d-md-inline">Étape suivante</span></button>
+                <button id="get-logos-reception" class="btn btn-success rounded">test logos reception</button>
             
+            </div> #}
+                
+            <div class="feedback-loader-container">
+
+                <h4 class="fw-bold mb-3">Création des logos en cours, veuillez patienter quelques instants</h4>
+
+                <img class="feedback-loader img-fluid" width="140" src="{{asset ('logo_creation/loader.gif', 'larger')}}" loading="lazy">
+
             </div>
         
         </div>
-
-        <div class="d-flex justify-content-center my-5">
-        
-            <button id="get-logos-reception" class="btn btn-success rounded">test logos reception</button>
-        
-        </div>
-
-            
-        <div class="feedback-loader-container">
-
-            <h4 class="fw-bold mb-3">Création des logos en cours, veuillez patienter quelques instants</h4>
-
-            <img class="feedback-loader img-fluid" width="140" src="{{asset ('logo_creation/loader.gif', 'larger')}}" loading="lazy">
-
-        </div>
-            
 
     </div>
 

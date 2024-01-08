@@ -110,8 +110,9 @@
 }
 
 .commentForm {
-    margin-bottom: 20px;
-    max-width: 540px;
+	margin-bottom: 20px;
+	max-width: 540px;
+	z-index: 1;
 }
 
 .oneCommentContainer .commentForm{

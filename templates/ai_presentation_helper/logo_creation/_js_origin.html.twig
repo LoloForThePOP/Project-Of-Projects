@@ -7,8 +7,7 @@ $(document).ready(function() {
     $("input").val("");
     $("textarea").val("");
 
-    //form Sections is a big object containing logo creation process branches
-
+    //form Sections is a big object containing logo creation branches so they are splitted in several files
     let formSections = {
 
         {% include "ai_presentation_helper/logo_creation/_js_big_cats_chunks.html.twig" %}
@@ -21,18 +20,19 @@ $(document).ready(function() {
 
     let userChoices = []; //history of user choices (allow go back button)
 
-    let previousSection = null; 
-    let currentSection = 'logo-big-cats'; //first step of logo creation
+    let previousSection = null; //user do not have visited a previous section at first
+    let currentSection = 'logo-big-cats'; //this is the first step of logo creation
 
 
-    $("#controls-container").hide();
+    $("#intermediate-structurer-container").hide(); // newt and previous buttons are hidden at first
 
     // Initialize section 1 is visible
     $("button.pushable").on('click', function (e){
 
         $("#first-display-box").hide();
+        $("#intermediate-structurer-container").show();
 
-        //initialize section 1 is visible
+        //initialize form section 1 is visible
         document.querySelector('#'+currentSection).classList.remove('isHidden');
 
         $("#controls-container").show();

@@ -31,6 +31,7 @@
 
     </div>
 
+
     <div class="init">
 
         <div class="forms-container container col-md-10 col-lg-10 col-xl-7 px-0 px-md-2 mt-2 mt-md-4">
@@ -254,7 +255,20 @@
         //timer feedback for user patience
 
         var timerHTML = document.createElement("div");
-        timerHTML.innerHTML = `<img class="img-fluid mb-2" width="90" src="{{asset ('project_presentation_advice/15s-countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 15 secondes pour patienter."><div class="">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 15 secondes, votre réponse est en train d'être créée.</div>`;
+        timerHTML.innerHTML = `<img class="img-fluid mb-2" width="90" src="{{asset ('project_presentation_advice/15s-countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 15 secondes pour patienter."><div class="">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 15 secondes, votre réponse est en cours de création.</div>    
+        
+        <div class="mt-3 mb-5">
+    
+            <blockquote>
+                <p class="mb-0">“Oeil pour oeil et l'humanité deviendra aveugle.”</p>
+                <div>—Louis Fischer, Biographe de Gandhi.</div>
+                <div>Dans son livre <cite>La vie du Mahatma Gandhi.</cite></div>
+            </blockquote>
+
+        </div>
+        `;
+
+        
 
 /*
     <div class="row">

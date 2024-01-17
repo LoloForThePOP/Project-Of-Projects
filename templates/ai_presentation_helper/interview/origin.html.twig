@@ -1,0 +1,110 @@
+{% extends 'base.html.twig' %}
+
+
+    {% set titleMetadata = "Comment répondre aux questions importantes sur votre projet ? Votre assistant automatique gratuit." %}
+    {% set metadataDescription = "Préparez-vous à répondre aux questions importantes sur votre projet. Notre coach automatique vous pose des questions pertinentes et vous aide à trouver les bons mots pour y répondre." %}
+    {% set metadataImageUrl %}{{asset ('interview/tool_illustration.png', 'larger')}}{% endset %}
+    {% set currentPageUrl = app.request.uri %}
+
+{% block headTag %}
+
+    <meta name="description" content="{{metadataDescription}}">
+    <meta name="author" content="Laurent G.">
+    <meta name="keywords" content="Assistant, IA, Entretien, Présentation, Projet">
+    <meta name="date" content="2023-27-11">
+
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Call from base.html.twig #}
+    
+{% endblock %}
+
+
+{% block title %}Coach Entretien Présentation Projet{% endblock %}
+
+{% block body %}
+
+
+<div id="" class="page-container">
+
+    <h1 class="h3 text-center"><b>Préparer</b> un <b>entretien</b> pour son <b>Projet</b></h1>
+    
+    <h3 class="h4 text-center">Savoir répondre à des questions importantes</h3>
+
+    <div class="d-flex justify-content-center align-items-center">
+    
+        
+
+    </div>
+
+
+    <div class="cta container col-md-6 border p-2 mt-4">
+    
+        <div class="text-center"><b>Service gratuit</b> et <b>sans inscription</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
+    
+        <div class="gdpr">
+
+            <div class="text-center">La protection de vos données personnelles est une priorité, <span class="learn-more">afficher plus</span>.</div> 
+
+            <div class="more-content border m-1 m-md-3 p-3">
+
+                <p>Pour améliorer cet outil à votre disposition, Propon est susceptible de sauvegarder de manière anonymisée des données fournies par ses utilisateurs.</p>
+
+                <p>Ce service utilise ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Pour utiliser ChatGPT, notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
+
+            </div>
+
+            <style>
+
+                /* Initially hide the "Learn More" content */
+                .more-content {
+                    display: none;
+
+                }
+
+                /* Styles for the "Learn More" button */
+                .learn-more {
+                    color: #0073e6;
+                    cursor: pointer;
+                }
+
+                /* Style on hover for the "Learn More" button */
+                .learn-more:hover {
+                    text-decoration: none;
+                }
+
+            </style>
+
+            <script>
+            // Select HTML elements
+            const learnMoreButton = document.querySelector('.learn-more');
+            const moreContent = document.querySelector('.more-content');
+
+            // Add an event listener to show/hide the "Learn More" content
+            learnMoreButton.addEventListener('click', () => {
+                if (moreContent.style.display === 'block') {
+                moreContent.style.display = 'none';
+                } else {
+                moreContent.style.display = 'block';
+                }
+            });
+            </script>
+
+        </div>
+        
+    </div>
+
+</div>
+
+<script>
+
+</script>
+
+<style>
+
+body {
+  font-family: Montserrat, sans-serif;
+}
+
+</style>
+
+
+{% endblock %}

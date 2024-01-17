@@ -212,4 +212,31 @@ class AIPresentationHelperController extends AbstractController
 
 
 
+
+     /**
+     * @Route("/ia-assistant-gratuit-entretien-projet", name="ai_interview_helper_origin")
+     */
+    public function interviewOrigin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
+    {
+
+        return $this->render('ai_presentation_helper/interview/origin.html.twig', [
+            'test' => "test",
+        ]);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

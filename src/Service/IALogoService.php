@@ -24,7 +24,7 @@ class IALogoService {
 
     public function createPrompt($dataArray){
                 
-        $prompt = "Quatre suggestions de logo. Chaque logo est exactement centré dans chaque cadran qui occupe un quart de l'image et n'est pas découpé. Chaque logo est une forme simple reconnaissable, un logo moderne et minimaliste. Le fond de l'image doit être blanc. Pas d'effet de granularité. ";
+        $prompt = "Quatre suggestions de logo. Chaque logo est exactement centré dans chaque cadran qui occupe un quart de l'image et n'est pas découpé. L'image totale n'a pas de bordure. Chaque logo est une forme simple reconnaissable, un logo moderne et minimaliste. Le fond de l'image doit être blanc. Pas d'effet de granularité. ";
 
         //dump($dataArray);
 
@@ -62,7 +62,7 @@ class IALogoService {
                 }
 
                 elseif ($value == "image") {
-                    $Fr_prompt_chunk = "Créer un logo avec une image et AUCUNE LETTRE. ";
+                    $Fr_prompt_chunk = "Créer un logo sans texte. ";
                 }
 
                 else {
@@ -180,7 +180,7 @@ class IALogoService {
                 }
                 
                 elseif ($value == "abstraction") {
-                    $Fr_prompt_chunk = "L'image ne représente pas un objet de la réalité, c'est un objet abstrait'. ";
+                    $Fr_prompt_chunk = "L'image ne représente pas un objet de la réalité, c'est un objet abstrait. ";
                 }
                 
                 else {

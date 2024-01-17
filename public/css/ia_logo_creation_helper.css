@@ -86,6 +86,24 @@ body {
 
 }
 
+
+/* Display results instance */
+
+#ai-logo-ui-container.resultInstance #intermediate-structurer-container {
+
+	height: unset;
+	border: unset;
+	
+}
+
+#ai-logo-ui-container.resultInstance {
+	height: unset;
+}
+
+/* Display results instance */
+
+
+
 @media screen and (max-width: 580px) {
   
   #ai-logo-ui-container {
@@ -140,8 +158,9 @@ body {
 #start-page-content{
 
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   height: 100%;
   border: 1px solid green;
@@ -392,6 +411,7 @@ body {
 #created-logos-display-container{
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
 }
 
 .logo-container{
@@ -399,9 +419,10 @@ body {
   padding: 15px;
 }
 
-img.created-logo{
-  width: 300px;
-  height: 300px;
+img.created-logo {
+	width: 240px;
+	height: auto;
+	border-radius: 15px;
 }
 
 /* End of Created Logo Revelation */
@@ -441,6 +462,16 @@ img.created-logo{
 
   .selectable-square {
     width: 145px;
+  }
+
+  #created-logos-display-container {
+    display: inline-block;
+  }
+
+  
+  img.created-logo{
+    width: 100%;
+    height: auto;
   }
 
 }

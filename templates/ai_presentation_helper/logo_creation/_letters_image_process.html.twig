@@ -83,6 +83,7 @@
     <h4>Faites glisser la barre pour ajuster la taille.</h4>
 
     <input id="fontSizeSlider" type="range" min="10" max="60" value="20"/>
+    <input id="font-size-slider-hidden" type="hidden" value=""/>
 
     <h2>Aperçu :</h2>
 
@@ -107,6 +108,10 @@
         fontSizeSlider.addEventListener("input", function(e) {
             previewArea.style.fontSize = e.target.value + "px";
             inputValue.textContent = fontSizeSlider.value;
+            
+            const hiddenValue = document.getElementById("font-size-slider-hidden");
+            hiddenValue.value = e.target.value;
+
         });
             
     </script>
@@ -134,47 +139,3 @@
     </style>
 
 </div>
-
-
-{# 
-    <div class="d-flex align-items-center mb-3">
-
-        <label for="firstColorInspiration" class="form-label mb-0 me-2">Si vous voulez choisir une couleur principale, faites-le ici : </label>
-        <input type="color" class="form-control form-control-color" id="firstColorInspiration" value="" title="Choose your color">
-    
-    </div>
-
-    <div class="d-flex align-items-center mb-3">
-
-        <label for="secondColorInspiration" class="form-label mb-0 me-2">Si vous voulez choisir une couleur secondaire, faites-le ici : </label>
-        <input type="color" class="form-control form-control-color" id="secondColorInspiration" value="" title="Choose your color">
-    
-    </div>
- #}
-
-{# 
-    <div class=""> font style, size, and color.</div>
-
-
-
-
-
-
-    <div class="mb-3">
-        <label for="businessCategory" class="form-label">Ici vous pouvez inscrire le domaine de votre organisation :</label>
-        <input type="text" class="form-control" id="businessCategory" placeholder="Ex : santé, agriculture, cosmétiques, services, etc.">
-    </div>
-
-    <div class="mb-3">
-        <label for="otherLogosInspiration" class="form-label">Si vous voulez que votre logo s'inspire d'un logo qui existe déjà, notez-le ici : </label>
-        <input type="text" class="form-control" id="otherLogosInspiration" placeholder="Ex : netflix, uber, etc.">
-    </div> #}
-
-   {#  <div class="">
-    
-        Logo parfait gratuit, sans effort, et sans inscription. Un service proposé par Propon, le site de présentation de projet.
-
-        Tous les logos présentés ici sont exposés à titre pédagogique et sont soumis à des copyrights détenus par leurs ayants respectifs.
-    
-    
-    </div> #}

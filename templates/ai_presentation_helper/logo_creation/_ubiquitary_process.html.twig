@@ -61,6 +61,22 @@
 
 <div id="result" class="struct-container isHidden">
     
-    Résultat !!!
-    
+    {# <div class="d-flex justify-content-center my-5">
+                
+        <button id="get-logos-reception" class="btn btn-success rounded">test logos reception</button>
+
+    </div> #}
+                    
+    <div class="feedback-loader-container">
+
+        <h4 class="fw-bold mb-3">Création de vos logos en cours, veuillez patienter quelques instants.</h4>
+
+        <img class="feedback-loader img-fluid" width="140" src="{{asset ('logo_creation/loader.gif', 'larger')}}" loading="lazy">
+
+    </div>
+
+    <div id="prompt"></div>
+
+    <div id="created-logos-display-container"class="container col-md-11"></div>
+
 </div>

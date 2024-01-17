@@ -1,4 +1,3 @@
-
 <script>
 
 $(document).ready(function() {
@@ -114,8 +113,11 @@ $(document).ready(function() {
 
         // If this is a final section, hide the next button
         let nextOption = formSections[currentSection];
+        console.log("Hep next option is"+nextOption);
         if(!nextOption) {
             document.querySelector('#nextStep').classList.add('isHidden');
+            document.querySelector('#previousStep').classList.add('isHidden');
+            getLogos(); // get and display logos
         }
 
     }
@@ -211,8 +213,7 @@ function goToPreviousSection() {
    
     `;
 
-        
-    $("#get-logos-reception").on('click', function (e){
+    function getLogos(){
 
         var data = {};
         data.big_cats = $("#logo-big-cats-hidden").val();
@@ -228,13 +229,11 @@ function goToPreviousSection() {
         data.abstraction_object_description = $("#abstraction-description-textarea").val();
         data.image_colors = $("#image-colors-textarea").val();
         data.user_last_requirements = $("#user-last-requirements-textarea").val();
-        data.image_text_relative_height = $("#fontSizeSlider").val();
+        data.image_text_relative_height = $("#font-size-slider-hidden").val();
 
         console.log(data);
 
-
         $(".feedback-loader-container").show();
-
 
         $.ajax({  
 
@@ -252,6 +251,8 @@ function goToPreviousSection() {
                 $(".feedback-loader-container").hide();
 
                 $("#prompt").append(data.prompt);
+                
+                $("#ai-logo-ui-container").addClass("resultInstance");
 
                 var imagesPathsArray = data.imagesPathsArray;
 
@@ -266,12 +267,21 @@ function goToPreviousSection() {
                     i++;
                 }
 
+                
+
             },  
 
             error : function(xhr, textStatus, errorThrown) {  
                 // alert('Ajax request failed.');  
             }  
         }); 
+
+    }
+
+        
+    $("#get-logos-reception").on('click', function (e){
+
+        getLogos();
 
     });
 

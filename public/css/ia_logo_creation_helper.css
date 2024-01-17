@@ -23,6 +23,20 @@ body {
 }
 
 
+#ai-logo-ui-container #intermediate-structurer-container{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 67vw;
+  height: 77vh;
+  padding: 34px 0;
+  border: 1px solid #d2d2ec;
+  border-radius: 22px;
+
+}
+
+
 #ai-logo-ui-container button{
 
   outline: none;
@@ -40,17 +54,6 @@ body {
   background-color: white;
 }
 
-
-@media screen and (max-width: 580px) {
-
-  #ai-logo-ui-container{
-
-    height: 86vh;
-    padding: 0px;
-  
-  }
-}
-
 /* End of Generalities */
 
 
@@ -64,19 +67,6 @@ body {
   border-radius: 5px;
   border: 1px solid green;
   padding: 15px;
-
-}
-
-#start-page-content{
-
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  height: 100%;
-  border: 1px solid green;
-  border-radius: 5px;
 
 }
 
@@ -97,12 +87,22 @@ body {
 }
 
 @media screen and (max-width: 580px) {
+  
+  #ai-logo-ui-container {
+    height: auto;
+    margin: 0 -5px;
+    padding: 0px;
+  }
+  
+  #ai-logo-ui-container #intermediate-structurer-container {
+    width: unset;
+    height: auto;
+    border: none;
+  }
 
+  #ai-logo-ui-container #wrapper-container{
 
-  #main-title{
-
-    font-size: 25px;
-    
+    margin-top: 20px;
   }
 
   .subtitle{
@@ -128,16 +128,14 @@ body {
   }
 
 
-}
+  #ai-logo-ui-container input, #ai-logo-ui-container textarea {
+    max-width: 308px;
+  }
 
-#first-display-box{
-
-  height: 100%;
-  border-radius: 5px;
-  border: 1px solid green;
-  padding: 15px;
 
 }
+
+
 
 #start-page-content{
 
@@ -415,15 +413,19 @@ img.created-logo{
 
     margin-top: 39px;
     margin-bottom: 5px;
+    font-size: 25px;
   
   }
 
   .selectable-container {
     flex-wrap: wrap;
+    margin-bottom: 15px;
+    
   }
 
   #first-display-box {
     padding: 10px;
+    margin-top: 20px;
   }
 
   .front {
@@ -435,6 +437,10 @@ img.created-logo{
 
     margin-bottom: 10px !important;
 
+  }
+
+  .selectable-square {
+    width: 145px;
   }
 
 }

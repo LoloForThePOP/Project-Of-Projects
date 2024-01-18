@@ -3,7 +3,7 @@
 
     {% set titleMetadata = "Comment répondre aux questions importantes sur votre projet ? Votre assistant automatique gratuit." %}
     {% set metadataDescription = "Préparez-vous à répondre aux questions importantes sur votre projet. Notre coach automatique vous pose des questions pertinentes et vous aide à trouver les bons mots pour y répondre." %}
-    {% set metadataImageUrl %}{{asset ('interview/tool_illustration.png', 'larger')}}{% endset %}
+    {% set metadataImageUrl %}{{asset ('interview/tool_illustration.jpeg', 'larger')}}{% endset %}
     {% set currentPageUrl = app.request.uri %}
 
 {% block headTag %}
@@ -24,156 +24,15 @@
 
 {% block body %}
 
+{% include "ai_presentation_helper/interview/_js_origin.html.twig" %}
+
 <div id="" class="page-container">
 
-    <h1 class="h3 text-center"><b>Préparer</b> un <b>entretien</b> pour son <b>Projet</b></h1>
-    
-    <h3 class="h4 text-center">Savoir répondre à des questions importantes</h3>
+    <div id="introduction-container">{% include "ai_presentation_helper/interview/_introduction.html.twig" %}</div>
 
-    <div class="d-md-flex justify-content-center align-items-center">
-    
-        <div id="main-ui">
-        
-            <form>
-
-                <div>
-                    <h4 id="assistant-question" class="h5 text-center fw-bold mb-3">Quel est l'objectif de votre Projet ?</h4>
-                </div>
-
-                <div class="form-group">
-                    <textarea id="userInputs" name="userInputs" placeholder="Écrire votre réponse ici."></textarea>
-                </div>
-
-                <div class="d-flex align-items-center justify-content-center">
-
-                    <button id="send-button" type="button" class="">Afficher les conseils du coach <span id="answer-loader"></span></button>
-                
-                </div>
-                
-
-                <div id="assistant-advice-container" class="form-group">
-
-                    <h4 class="h5 text-center fw-bold mb-3">La réponse du coach</h4>
-
-                    <div id="assistant-advice" class="border">
-
-                    </div>
-
-                </div>
-
-                
-
-            </form>
-                    
-        
-        </div>
-
-    </div>
-
-
-    <div class="cta container col-md-6 border p-2 mt-4">
-    
-        <div class="text-center"><b>Service gratuit</b> et <b>sans inscription</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
-    
-        <div class="gdpr">
-
-            <div class="text-center">La protection de vos données personnelles est une priorité, <span class="learn-more">afficher plus</span>.</div> 
-
-            <div class="more-content border m-1 m-md-3 p-3">
-
-                <p>Pour améliorer cet outil à votre disposition, Propon est susceptible de sauvegarder de manière anonymisée des données fournies par ses utilisateurs, pour une durée maximale de 3 mois.</p>
-
-                <p>Ce service utilise ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Pour utiliser ChatGPT, notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
-
-            </div>
-
-            <script>
-            // Select HTML elements
-            const learnMoreButton = document.querySelector('.learn-more');
-            const moreContent = document.querySelector('.more-content');
-
-            // Add an event listener to show/hide the "Learn More" content
-            learnMoreButton.addEventListener('click', () => {
-                if (moreContent.style.display === 'block') {
-                moreContent.style.display = 'none';
-                } else {
-                moreContent.style.display = 'block';
-                }
-            });
-            </script>
-
-        </div>
-        
-    </div>
+    <div id="process-container">{% include "ai_presentation_helper/interview/_process.html.twig" %}</div>
 
 </div>
-
-<script>
-
-    $(document).ready(function () {
-
-        $("#answer-loader").hide();
-        $("#assistant-advice-container").hide();
-
-        $('#send-button').click(function () {
-
-            var userMessage = $('#userInputs').val();
-
-            $("#answer-loader").show();
-
-            $.ajax({
-
-                type: "POST",
-
-                url: "{{path('ajax_ai_interview_helper_origin')}}",
-
-                data: { userMessage: userMessage },
-
-                success: function (response) {
-
-                    console.log(response.data);
-
-                    $("#answer-loader").hide();
-                    $("#send-button").hide();
-                    $("#assistant-advice-container").show();
-
-                    $('#assistant-advice').text(response.data);
-                }
-
-            });
-
-        });
-
-
-
-        // Make send user input button appear when user fill textarea
-
-        $('#userInputs').bind('input propertychange', function() {
-
-            if ($("#userInputs").val().length > 1 ) {
-                $('#send-button').show();
-            } else {
-                $('#send-button').hide();
-            }
-
-            
-
-            
-
-        });
-
-
-
-
-
-
-
-
-
-        
-    });
-
-</script>
 
 
 {% endblock %}

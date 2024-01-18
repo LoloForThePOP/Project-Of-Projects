@@ -1,0 +1,86 @@
+
+<h1 class="h3 text-center"><b>Préparer</b> un <b>entretien</b> pour son <b>Projet</b></h1>
+    
+<h3 class="h4 text-center">Se préparer à des questions importantes</h3>
+<h3 class="h4 text-center">Savoir répondre à ces questions</h3>
+
+<div class="d-flex justify-content-center">
+        
+    <button id="js-start-interview-coach">
+        Démarrer
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+        </svg>
+    </button>
+
+</div>
+
+
+<style>
+
+
+#js-start-interview-coach {
+    display: flex;
+    align-items: center;
+    background-color: #20b900;
+    color: #ffffff;
+    padding: 14px 26px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background-color .3s;
+}
+
+#js-start-interview-coach svg {
+    width: 30px;
+    height: 24px;
+    fill: #ffffff;
+    margin-left: 10px;
+}
+
+#js-start-interview-coach:hover {
+    background-color: #37cf00;
+}
+</style>
+
+
+
+
+
+<div class="cta container col-md-6 border p-2 mt-4">
+
+    <div class="text-center"><b>Service gratuit</b> et <b>sans inscription</b> fournit par <span class="text-success"><a href="http://www.propon.org" target="_blank" rel="noopener noreferrer">propon.org</a></span>, le site de présentation de projets.</div>
+
+    <div class="gdpr">
+
+        <div class="text-center">La protection de vos données personnelles est une priorité, <span class="learn-more">afficher plus</span>.</div> 
+
+        <div class="more-content border m-1 m-md-3 p-3">
+
+            <p>Pour améliorer cet outil à votre disposition, Propon est susceptible de sauvegarder de manière anonymisée des données fournies par ses utilisateurs, pour une durée maximale de 3 mois.</p>
+
+            <p>Ce service utilise ChatGPT, agent de conversation fournit par la société <a href="https://openai.com/">OpenAI</a>. Pour utiliser ChatGPT, notre service envoie à OpenAI de manière anonymisée des données transmises par nos utilisateurs. Ces données anonymes sont susceptibles d'être collectées par OpenAI.</p>
+
+        </div>
+
+        <script>
+        // Select HTML elements
+        const learnMoreButton = document.querySelector('.learn-more');
+        const moreContent = document.querySelector('.more-content');
+
+        // Add an event listener to show/hide the "Learn More" content
+        learnMoreButton.addEventListener('click', () => {
+            if (moreContent.style.display === 'block') {
+            moreContent.style.display = 'none';
+            } else {
+            moreContent.style.display = 'block';
+            }
+        });
+        </script>
+
+    </div>
+    
+</div>

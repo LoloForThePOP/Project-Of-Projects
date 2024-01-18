@@ -1,0 +1,70 @@
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#process-container").hide();
+        $(".assistant-advice-container").hide();
+
+        $("#send-button-container").hide();
+        $("#answer-loader").hide();
+
+        //when user click on start button, show main ui
+
+        $('#js-start-interview-coach').on('click', function (){
+
+            $("#introduction-container").hide();
+            $("#process-container").show();
+
+        });
+
+        //conversation flow
+        $('#send-button').click(function () {
+
+            var userMessage = $('.userInput:last-of-type').val();
+
+            $("#answer-loader").show();
+
+            $.ajax({
+
+                type: "POST",
+
+                url: "{{path('ajax_ai_interview_helper_origin')}}",
+
+                data: { userMessage: userMessage },
+
+                success: function (response) {
+
+                    console.log(response.aiAnswer);
+
+                    $("#answer-loader").hide();
+                    $("#send-button-container").hide();
+
+                    $(".assistant-advice-container").show();
+                    $('.assistant-advice-container:first').clone().appendTo('#main-ui form');
+                    $('.assistant-advice:last').text(response.aiAnswer);
+
+                    $('.userInput:first').clone(true,true).val("").appendTo('#main-ui form'); //deep cloning with events
+                    $('.userInput:last-of-type').focus();
+                    $('#send-button-container').appendTo('#main-ui form');
+                }
+
+            });
+
+        });
+
+        // Make send user input button appear when user fill textarea
+        $('.userInput').bind('input propertychange', function() {
+
+            if ($(".userInput:last-of-type").val().length > 1 ) {
+                $('#send-button-container').show();
+            } else {
+                $('#send-button-container').hide();
+            }
+
+        });
+
+        
+    });
+
+</script>

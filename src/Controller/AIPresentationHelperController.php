@@ -213,6 +213,8 @@ class AIPresentationHelperController extends AbstractController
     public function interviewOrigin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
     {
 
+        $this->get('session')->set('ai_interview_helper_conversation', null);
+
         return $this->render('ai_presentation_helper/interview/origin.html.twig', [
             'test' => "test",
         ]);
@@ -231,14 +233,28 @@ class AIPresentationHelperController extends AbstractController
 
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
 
-            $messages =  [
+            //case new conversation, we initiate it
+            if ($this->get('session')->get('ai_interview_helper_conversation') == null) {
 
-                ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions en fonction des éléments qu'il vous fournit. Tu peux utiliser une balise html bold lorsque tu souhaites ajouter de l'emphase sur des éléments de réponse."],
+                dump("new session");
+                
+                $messages =  [
 
-                ['role' => 'user', 'content' => "Voici l'objectif de mon projet : ".$userMessage."."],
+                    ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement des conseils pour PRESENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier l'objectif si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule question à la fois."],
 
-            ];
-    
+                    ['role' => 'user', 'content' => "Voici l'objectif de mon projet : ".$userMessage."."],
+
+                ];
+                
+            } else {
+
+                dump("prolongated conversation");
+
+                $userAnswerAIRow = ['role' => 'user', 'content' => $userMessage];
+                $messages[] = $userAnswerAIRow;
+
+            }
+
             $response = $ia->chat()->create([
                 'model' => 'gpt-3.5-turbo-1106',
                 'messages' => $messages,
@@ -246,24 +262,22 @@ class AIPresentationHelperController extends AbstractController
             
             
             $response->toArray();
-
             $responseContent = $response['choices'][0]['message']['content'];
+
+            dump($responseContent);
 
 
             //collect data
-            $dataCollectArray["ai_answer"] = $responseContent;
-            $dataCollect->save("ai_presentation__interviewhelper", [$dataCollectArray]);
+            /* $dataCollectArray["ai_answer"] = $responseContent;
+            $dataCollect->save("ai_presentation__interviewhelper", [$dataCollectArray]); */
 
             //Conversation is stored in a session in order to continue it
 
             $this->get('session')->set('ai_interview_helper_conversation', $messages);
-            $this->get('session')->set('ai_interview_helper_conversation', $responseContent);
-
-          
     
-            $response = $responseContent;
+            $aiAnswer = $responseContent;
     
-            return new JsonResponse(['data' => $response]);
+            return new JsonResponse(['aiAnswer' => $aiAnswer]);
           
         }
    

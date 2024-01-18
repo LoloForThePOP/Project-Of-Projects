@@ -251,6 +251,10 @@ class AIPresentationHelperController extends AbstractController
                 dump("prolongated conversation");
 
                 $userAnswerAIRow = ['role' => 'user', 'content' => $userMessage];
+
+                //Prolongating previous conversation messages
+
+                $messages = $this->get('session')->get('ai_interview_helper_conversation');
                 $messages[] = $userAnswerAIRow;
 
             }
@@ -266,14 +270,19 @@ class AIPresentationHelperController extends AbstractController
 
             dump($responseContent);
 
+            $assistantAnswerAIRow = ['role' => 'assistant', 'content' => $responseContent];
+
+            $messages[] = $assistantAnswerAIRow;
+
+            //Storing conversation as it is now
+            $this->get('session')->set('ai_interview_helper_conversation', $messages);
+
+            dump($messages);
 
             //collect data
             /* $dataCollectArray["ai_answer"] = $responseContent;
             $dataCollect->save("ai_presentation__interviewhelper", [$dataCollectArray]); */
 
-            //Conversation is stored in a session in order to continue it
-
-            $this->get('session')->set('ai_interview_helper_conversation', $messages);
     
             $aiAnswer = $responseContent;
     

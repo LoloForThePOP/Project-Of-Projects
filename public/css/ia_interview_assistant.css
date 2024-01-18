@@ -10,15 +10,11 @@ body {
 }
 
 
-#main-ui #send-button-container {
+#main-ui .send-button-container {
 	display: flex;
   justify-content: center;
 }
 
-
-#main-ui .userInput {
-	margin-bottom: 15px;
-}
 
 
 #main-ui form {
@@ -66,7 +62,7 @@ body {
   transition: background-color 0.3s;
 }
 
-#main-ui #send-button {
+#main-ui .send-button {
 
   display: flex;
   align-items: center;
@@ -106,7 +102,7 @@ body {
 
 /* CSS Loader */
 
-#answer-loader {
+.answer-loader {
 	width: 60px;
 	height: 40px;
 	position: relative;
@@ -115,7 +111,7 @@ body {
 	margin-left: 10px;
 }
 
-#answer-loader::before {
+.answer-loader::before {
   content: '';  
   left: 0;
   top: 0;
@@ -129,7 +125,7 @@ body {
   box-sizing: border-box;
   animation: rotationBack 3s linear infinite;
 }
-#answer-loader::after {
+.answer-loader::after {
   content: '';  
   left: 35px;
   top: 15px;
@@ -167,6 +163,11 @@ body {
   #assistant-question{
     margin: -5px;
     font-size: 1.05em;
+  }
+
+
+  #main-ui textarea {
+    height: 92px;
   }
   
 

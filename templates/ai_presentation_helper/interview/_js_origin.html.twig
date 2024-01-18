@@ -6,8 +6,23 @@
         $("#process-container").hide();
         $(".assistant-advice-container").hide();
 
-        $("#send-button-container").hide();
-        $("#answer-loader").hide();
+        const newAIAnswerPattern = ({ answer }) => `
+
+            <div class="assistant-advice-container form-group">
+
+                <h4 class="h5 text-center fw-bold mb-3">La réponse du coach</h4>
+
+                <div class="assistant-advice border">${answer}</div>
+
+            </div>
+    
+        `;
+
+        $(".send-button-container").hide();
+        $(".answer-loader").hide();
+
+        $(".userInput").focus();
+
 
         //when user click on start button, show main ui
 
@@ -19,11 +34,13 @@
         });
 
         //conversation flow
-        $('#send-button').click(function () {
+        $('.send-button').on( "click", function() {
 
-            var userMessage = $('.userInput:last-of-type').val();
+            var userMessage = $('.userInput:last').val();
 
-            $("#answer-loader").show();
+            console.log("Le message qui va être envoyé est"+userMessage);
+
+            $(".answer-loader").show();
 
             $.ajax({
 
@@ -37,16 +54,20 @@
 
                     console.log(response.aiAnswer);
 
-                    $("#answer-loader").hide();
-                    $("#send-button-container").hide();
+                    $("#main-ui form").append([
+                        { answer: response.aiAnswer },
+                    ].map(newAIAnswerPattern));
 
-                    $(".assistant-advice-container").show();
-                    $('.assistant-advice-container:first').clone().appendTo('#main-ui form');
-                    $('.assistant-advice:last').text(response.aiAnswer);
+                    $('.user-input-container:first').clone(true,true).appendTo('#main-ui form'); //deep cloning with events
+                    $('.userInput:last').val("");
 
-                    $('.userInput:first').clone(true,true).val("").appendTo('#main-ui form'); //deep cloning with events
-                    $('.userInput:last-of-type').focus();
-                    $('#send-button-container').appendTo('#main-ui form');
+                    $('.send-button-container').appendTo('#main-ui form');
+                    $(".send-button-container").hide();
+                    $(".answer-loader").hide();
+
+                   
+
+
                 }
 
             });
@@ -54,12 +75,12 @@
         });
 
         // Make send user input button appear when user fill textarea
-        $('.userInput').bind('input propertychange', function() {
+        $('.userInput').on('input propertychange', function() {
 
             if ($(".userInput:last-of-type").val().length > 1 ) {
-                $('#send-button-container').show();
+                $('.send-button-container').show();
             } else {
-                $('#send-button-container').hide();
+                $('.send-button-container').hide();
             }
 
         });

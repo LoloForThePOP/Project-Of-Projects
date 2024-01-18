@@ -1,0 +1,157 @@
+body {
+  font-family: Montserrat, sans-serif;
+}
+
+
+
+#main-ui #assistant-advice {
+	padding: 8px 8px 10px 8px;
+	border-radius: 8px;
+}
+
+
+#main-ui form {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 600px;
+}
+
+#main-ui .form-group {
+  margin-bottom: 1rem;
+}
+
+#main-ui label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+  font-weight: bold;
+}
+
+#main-ui input[type='text'],
+#main-ui textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+#main-ui textarea {
+  height: 70px;
+  resize: none;
+}
+
+#main-ui button {
+  background-color: #5c6bc0;
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+#main-ui #send-button {
+ display: none;
+}
+
+#main-ui button:hover {
+  background-color: #3f51b5;
+}
+
+
+
+/* RGPD Show more */
+
+/* Initially hide the "Learn More" content */
+.more-content {
+  display: none;
+
+}
+
+/* Styles for the "Learn More" button */
+.learn-more {
+  color: #0073e6;
+  cursor: pointer;
+}
+
+/* Style on hover for the "Learn More" button */
+.learn-more:hover {
+  text-decoration: none;
+}
+
+/* End of RGPD Show more */
+
+
+
+
+
+/* CSS Loader */
+
+#answer-loader {
+  width: 60px;
+  height: 40px;
+  position: relative;
+  display: inline-block;
+  --base-color: #263238; /*use your base color*/
+}
+#answer-loader::before {
+  content: '';  
+  left: 0;
+  top: 0;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #FFF;
+  background-image: radial-gradient(circle 8px at 18px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 18px 0px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 0px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 36px 18px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 18px 36px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 5px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 30px 30px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 5px 30px, var(--base-color) 100%, transparent 0), radial-gradient(circle 4px at 5px 5px, var(--base-color) 100%, transparent 0);
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 3s linear infinite;
+}
+#answer-loader::after {
+  content: '';  
+  left: 35px;
+  top: 15px;
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #FFF;
+  background-image: radial-gradient(circle 5px at 12px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 12px 0px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 0px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 24px 12px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 12px 24px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 3px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 20px 20px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 3px 20px, var(--base-color) 100%, transparent 0), radial-gradient(circle 2.5px at 3px 3px, var(--base-color) 100%, transparent 0);
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  animation: rotationBack 4s linear infinite reverse;
+}
+@keyframes rotationBack {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}  
+
+/* End of CSS Loader */
+
+
+
+@media screen and (max-width: 580px) {
+
+
+  #main-ui form {
+    padding: 2rem 0.8rem ;
+    width: 100%;
+  }
+
+  #assistant-question{
+    margin: -5px;
+    font-size: 1.05em;
+  }
+  
+
+}

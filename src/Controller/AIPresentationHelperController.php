@@ -207,12 +207,6 @@ class AIPresentationHelperController extends AbstractController
     }
 
 
-
-
-
-
-
-
      /**
      * @Route("/ia-assistant-gratuit-entretien-projet", name="ai_interview_helper_origin")
      */
@@ -223,6 +217,56 @@ class AIPresentationHelperController extends AbstractController
             'test' => "test",
         ]);
 
+    }
+
+
+     /**
+     * @Route("/ajax-ia-assistant-gratuit-entretien-projet", name="ajax_ai_interview_helper_origin")
+     */
+    public function ajaxInterviewOrigin(Request $request, DataCollectService $dataCollect) {
+         
+        if ($request->isXmlHttpRequest()) {
+
+            $userMessage = $request->request->get('userMessage');
+
+            $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
+
+            $messages =  [
+
+                ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions en fonction des éléments qu'il vous fournit. Tu peux utiliser une balise html bold lorsque tu souhaites ajouter de l'emphase sur des éléments de réponse."],
+
+                ['role' => 'user', 'content' => "Voici l'objectif de mon projet : ".$userMessage."."],
+
+            ];
+    
+            $response = $ia->chat()->create([
+                'model' => 'gpt-3.5-turbo-1106',
+                'messages' => $messages,
+            ]);
+            
+            
+            $response->toArray();
+
+            $responseContent = $response['choices'][0]['message']['content'];
+
+
+            //collect data
+            $dataCollectArray["ai_answer"] = $responseContent;
+            $dataCollect->save("ai_presentation__interviewhelper", [$dataCollectArray]);
+
+            //Conversation is stored in a session in order to continue it
+
+            $this->get('session')->set('ai_interview_helper_conversation', $messages);
+            $this->get('session')->set('ai_interview_helper_conversation', $responseContent);
+
+          
+    
+            $response = $responseContent;
+    
+            return new JsonResponse(['data' => $response]);
+          
+        }
+   
     }
 
 

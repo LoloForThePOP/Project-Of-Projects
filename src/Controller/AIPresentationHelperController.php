@@ -213,7 +213,7 @@ class AIPresentationHelperController extends AbstractController
     public function interviewOrigin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
     {
 
-        $this->get('session')->set('ai_interview_helper_conversation', "starting_session");
+        $this->get('session')->set('ai_interview_helper_conversation', null);
 
         return $this->render('ai_presentation_helper/interview/origin.html.twig', [
             'test' => "test",
@@ -234,7 +234,7 @@ class AIPresentationHelperController extends AbstractController
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
 
             //case new conversation, we initiate it
-            if ($this->get('session')->get('ai_interview_helper_conversation') == "starting_session") {
+            if ($this->get('session')->get('ai_interview_helper_conversation') == null) {
 
                 dump("new session");
                 

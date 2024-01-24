@@ -236,7 +236,7 @@ class AIPresentationHelperController extends AbstractController
             //case new conversation, we initiate it
             if ($this->get('session')->get('ai_interview_helper_conversation') == null) {
 
-                dump("new session");
+                //dump("new session");
                 
                 $messages =  [
 
@@ -248,7 +248,7 @@ class AIPresentationHelperController extends AbstractController
                 
             } else {
 
-                dump("prolongated conversation");
+                //dump("prolongated conversation");
 
                 $userAnswerAIRow = ['role' => 'user', 'content' => $userMessage];
 
@@ -268,7 +268,7 @@ class AIPresentationHelperController extends AbstractController
             $response->toArray();
             $responseContent = $response['choices'][0]['message']['content'];
 
-            dump($responseContent);
+            //dump($responseContent);
 
             $assistantAnswerAIRow = ['role' => 'assistant', 'content' => $responseContent];
 
@@ -277,7 +277,7 @@ class AIPresentationHelperController extends AbstractController
             //Storing conversation as it is now
             $this->get('session')->set('ai_interview_helper_conversation', $messages);
 
-            dump($messages);
+            //dump($messages);
 
             //collect data
             /* $dataCollectArray["ai_answer"] = $responseContent;

@@ -3,7 +3,7 @@
 namespace App\Service;
 
 
-class IALogoService {
+class AILogoService {
 
 
 

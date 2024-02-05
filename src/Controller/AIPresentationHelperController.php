@@ -6,7 +6,7 @@ use OpenAI;
 use App\Form\AIPPAdviceType;
 use App\Entity\CollectedData;
 use App\Service\ImageService;
-use App\Service\IALogoService;
+use App\Service\AILogoService;
 use App\Service\OpenAIService;
 use Symfony\Component\Mime\Email;
 use App\Service\DataCollectService;
@@ -162,14 +162,14 @@ class AIPresentationHelperController extends AbstractController
     /**
      * @Route("/ajax-ia-assistant-gratuit-de-creation-de-logo", name="ajax_ia_logo_creation_helper")
      */
-    public function ajaxCreateLogo(Request $request, ImageService $imageService, IALogoService $iaLogoService) {
+    public function ajaxCreateLogo(Request $request, ImageService $imageService, AILogoService $aiLogoService) {
        
         if ($request->isXmlHttpRequest()) {
 
             session_write_close();
 
             $dataArray = $request->request->get('data');
-            $prompt = $iaLogoService->createPrompt($dataArray);
+            $prompt = $aiLogoService->createPrompt($dataArray);
 
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
         
@@ -268,8 +268,8 @@ class AIPresentationHelperController extends AbstractController
             $response->toArray();
             $responseContent = $response['choices'][0]['message']['content'];
 
-            //dump($responseContent);
 
+            //Storing ai answer
             $assistantAnswerAIRow = ['role' => 'assistant', 'content' => $responseContent];
 
             $messages[] = $assistantAnswerAIRow;

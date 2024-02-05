@@ -1,9 +1,16 @@
 
 {# 
 
-Use navigator native share capabilities and a custom fallback otherwise.
+Allow to share a propon resource (by email, url string, and some social networks)
+
+Uses navigator native share capabilities and a custom fallback otherwise.
 Thanks at : https://css-tricks.com/how-to-use-the-web-share-api/
 & https://css-tricks.com/simple-social-sharing-links/ (fallback)
+
+
+Parameters:
+
+  - shareButtonLabel
 
 #}
 
@@ -93,7 +100,7 @@ Thanks at : https://css-tricks.com/how-to-use-the-web-share-api/
     <svg>
       <use href="#share-icon"></use>
     </svg>
-    <span>Partager</span>
+    <span>{{shareButtonLabel}}</span>
   </button>
 
   <svg class="hidden">
@@ -142,7 +149,6 @@ Thanks at : https://css-tricks.com/how-to-use-the-web-share-api/
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: 2px;
-  text-transform: capitalize;
   text-decoration: none;
   white-space: nowrap;
   border-radius: 4px;
@@ -159,7 +165,7 @@ Thanks at : https://css-tricks.com/how-to-use-the-web-share-api/
   padding-right: 30px;
 }
 
-.share-zone .share-button, .share-zone .share-dialog {
+.share-zone .share-dialog {
   position: absolute;
   top: 50%;
   left: 50%;

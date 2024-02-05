@@ -1,0 +1,97 @@
+
+{# Displays a list of propon tools to user 
+
+Parameters :
+
+    - (optional) (string) skip : a tool name id to avoid in the list (because user is already using this tool)
+
+#}
+
+{% set tools = [ 
+    
+    {'id': "logoCreator", 'name': 'Créateur de LOGO', 'description': 'Créer un logo percutant facilement, rapidement, et en mode pas à pas.', 'imageURL': asset ('project_presentation_advice/adam_technology_touch.jpg', 'larger')},
+    {'id': "ooo",'name': 'OOOOOOOOOOOO', 'description': 'Créer un magnifique logo facilement, rapidement, en mode pas à pas.', 'imageURL': asset ('project_presentation_advice/adam_technology_touch.jpg', 'larger')},
+    
+] %}
+
+
+<div class="tools-list">
+
+    {% for tool in tools %}
+
+        {% if tool.id != skip %}
+
+            <div class="tool-item">
+            
+                <div class="image-container">
+
+                    <img src="{{tool.imageURL}}" alt="">
+                
+                </div>
+
+                <div class="text-container">
+
+                    <div class="tool-name"><h4>{{tool.name}}</h4></div>
+
+                    <div class="tool-description"><p>{{tool.description}}</p></div>
+
+                </div>
+            
+            </div>
+        
+        {% endif %}
+        
+    {% endfor %}
+
+</div>
+
+<style>
+
+    .tool-item{
+        display: flex;
+    }
+
+    .tool-item .image-container{
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        max-width: 30%;
+    
+    }
+    
+    .tool-item img{
+        max-width: 100%;
+        height: auto;
+    }   
+    
+    .tool-item .text-container{
+
+        padding-left: 10px;
+    
+    }
+    
+    .tool-item .tool-name{
+
+        font-size: 15px;
+    
+    }
+    
+    .tool-item .tool-description{
+
+        color: #565656;
+    
+    }
+
+
+
+    
+    @media screen and (max-width: 580px) {
+
+
+
+
+    }
+
+
+</style>

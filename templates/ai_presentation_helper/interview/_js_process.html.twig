@@ -18,6 +18,36 @@
     
         `;
 
+        const summaryChunk = ({ title, content }) => `
+
+            <div class="summary-chunk">
+
+                <h4 class="title">${title}</h4>
+
+                <div class="content">${content}</div>
+
+            </div>
+    
+        `;
+
+        // Sumamry question and answer pattern
+
+        const qaPattern = ({ question, answer }) => `
+
+            <div class="qa-chunk">
+
+                <h4 class="question">${question}</h4>
+
+                <div class="answer">${answer}</div>
+
+            </div>
+    
+        `;
+
+
+
+
+
         $(".send-button-container").hide();
         $(".answer-loader").hide();
 
@@ -46,7 +76,7 @@
 
             var userMessage = $('.userInput:last').val();
 
-            console.log("Le message qui va être envoyé est "+userMessage);
+            //console.log("Le message qui va être envoyé est "+userMessage);
 
             $(".answer-loader").show();
 
@@ -66,7 +96,7 @@
                         { answer: response.aiAnswer },
                     ].map(newAIAnswerPattern));
 
-                    $('.user-input-container:first').clone(true,true).appendTo('#main-ui form'); //deep cloning with events
+                    $('.user-input-container:first').clone(true, true).appendTo('#main-ui form'); //deep cloning with events
                     $('.userInput:last').val("");
 
                     $('.send-button-container').appendTo('#main-ui form');
@@ -130,22 +160,57 @@
 
                         console.log('Key : ' + key + ', Value : ' + summary[key])
 
-                        summaryChunkTitle="";
-
+                        summaryChunkTitle = "";
+                        summaryChunkContent = summary[key];
 
                         switch(key)
                         {
                             case 'goal':
 
                                 summaryChunkTitle="Objectif du projet";
-                                console.log("hit !!");
+                                break;
+
+                            case 'keywords':
+
+                                summaryChunkTitle="Mots clés";
+                                break;
+
+                            case 'description':
+
+                                summaryChunkTitle="Description générale";
+                                break;
+
+                            case 'qas':
+
+                                summaryChunkTitle="Questions & Réponses";
+
+                                qasChunk = "";
+
+                                console.log(summaryChunkContent);
+
+                                Object.entries(summaryChunkContent).forEach((qaObject) => {
+
+                                    qasChunk += [
+                                        { question: qaObject[1].question, answer: qaObject[1].answer },
+                                    ].map(qaPattern);
+
+                                });
+
+                                summaryChunkContent = qasChunk;
+
                                 break;
 
                             default:
                                 console.log("Unknown presentation summary key");
                         }
 
-                        $('.presentation-summary').append(summaryChunkTitle+" : "+summary[key]);
+                        
+
+                        $(".presentation-summary").append([
+                            { title: summaryChunkTitle, content: summaryChunkContent },
+                        ].map(summaryChunk));
+
+
 
 
                     })

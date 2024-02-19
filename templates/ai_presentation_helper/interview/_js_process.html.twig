@@ -1,0 +1,169 @@
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#process-container").hide();
+        $(".assistant-advice-container").hide();
+
+        const newAIAnswerPattern = ({ answer }) => `
+
+            <div class="assistant-advice-container form-group">
+
+                <h4 class="h5 text-center fw-bold mb-3">La réponse du coach</h4>
+
+                <div class="assistant-advice border">${answer}</div>
+
+            </div>
+    
+        `;
+
+        $(".send-button-container").hide();
+        $(".answer-loader").hide();
+
+        $(".userInput").focus();
+
+
+        //when user click on start button, show main ui
+
+        $('#js-start-interview-coach').on('click', function (){
+
+            $("#introduction-container").hide();
+            $("#process-container").show();
+
+        });
+
+        $(".js-summary-process").hide();
+
+        $('#js-start-interview-coach').click();
+        $(".send-button-container").show();
+
+        //store user messages count in order to show "Make a summary button" when relevant.
+        var userMessagesCount = 0;
+
+        //conversation flow
+        $('.send-button').on( "click", function() {
+
+            var userMessage = $('.userInput:last').val();
+
+            console.log("Le message qui va être envoyé est "+userMessage);
+
+            $(".answer-loader").show();
+
+            $.ajax({
+
+                type: "POST",
+
+                url: "{{path('ajax_ai_interview_helper_origin')}}",
+
+                data: { userMessage: userMessage },
+
+                success: function (response) {
+
+                    //console.log(response.aiAnswer);
+
+                    $("#main-ui form").append([
+                        { answer: response.aiAnswer },
+                    ].map(newAIAnswerPattern));
+
+                    $('.user-input-container:first').clone(true,true).appendTo('#main-ui form'); //deep cloning with events
+                    $('.userInput:last').val("");
+
+                    $('.send-button-container').appendTo('#main-ui form');
+                    $(".send-button-container").hide();
+                    $(".answer-loader").hide();
+
+                    userMessagesCount++;
+
+                    if(userMessagesCount >= 1){
+
+                        $(".js-summary-process").show();
+
+                    }
+
+                    /*document.querySelector('.assistant-advice-container').scrollIntoView({
+                        behavior: 'smooth',
+                    });*/
+
+                }
+
+            });
+
+        });
+
+        // Make send user input button appear when user fill textarea
+        $('.userInput').on('input propertychange', function() {
+
+            if ($(".userInput:last-of-type").val().length > 1 ) {
+                $('.send-button-container').show();
+            } else {
+                $('.send-button-container').hide();
+            }
+
+        });
+
+        // Make send user input button appear when user fill textarea
+        $('.userInput').on('input propertychange', function() {
+
+            if ($(".userInput:last-of-type").val().length > 1 ) {
+                $('.send-button-container').show();
+            } else {
+                $('.send-button-container').hide();
+            }
+
+        });
+
+
+        $('.js-summary-process').on('click', function() {
+
+            $.ajax({
+
+                type: "POST",
+
+                url: "{{path('ajax_ai_interview_create_summary')}}",
+
+                success: function (response) {
+
+                    summary = response.summary;
+
+                    Object.keys(summary).forEach(function(key) {
+
+                        console.log('Key : ' + key + ', Value : ' + summary[key])
+
+                        summaryChunkTitle="";
+
+
+                        switch(key)
+                        {
+                            case 'goal':
+
+                                summaryChunkTitle="Objectif du projet";
+                                console.log("hit !!");
+                                break;
+
+                            default:
+                                console.log("Unknown presentation summary key");
+                        }
+
+                        $('.presentation-summary').append(summaryChunkTitle+" : "+summary[key]);
+
+
+                    })
+
+
+
+                    //$('.presentation-summary').html(response.summary.goal);
+
+                    //console.log(response);
+
+                }
+
+            });
+
+        });
+
+
+        
+    });
+
+</script>

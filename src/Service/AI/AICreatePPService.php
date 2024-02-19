@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Service\AI;
 
 use Assert\Blank;
 use Assert\Email;
@@ -38,22 +38,57 @@ class AICreatePPService {
 
     }
 
-    /**
-     * $discussionMaterial is an array of chatGPT conversation.
-     */
 
+    /**
+    * PP summary components ai prompt
+    */
+    protected function summaryComponentsAIPrompt(){
+
+        $aiPrompt = "With the previous conversation material, create a json output. ";
+
+        // Project Goal
+
+        $aiPrompt .= "a json key is named 'goal' : it contains one sentence summarizing the goal of the project. ";
+
+        // Project Keywords
+
+        $aiPrompt .= "a json key is named 'keywords' : it contains some keywords separeted by commas. ";
+
+        // Project Description
+
+        $aiPrompt .= "a json key is named 'description' : it contains a 3 paragraphs text describing the project. "; 
+
+        // Project Questions & Answers (FAQ)
+
+        $aiPrompt .= "a json key is named 'qas': it contains an aray of questions and answers people could ask about the project. "; 
+
+        // Prompt Ending
+
+        $aiPrompt .= "Respond with your analysis directly in JSON format (without using Markdown code blocks or any other formatting)."; 
+
+        return $aiPrompt;
+
+    }
+
+
+    /**
+    * $discussionMaterial is an array of chatGPT conversation.
+    */
     public function createJSON($openAIAPIKey, $discussionMaterial){
 
         $ai = new OpenAIService;
 
-        $instructionsRow = ['role' => 'system', 'content' => "With the previous conversation material, create a json output. First json key is named 'description' : it contains a 3 paragraphs text describing the project. Second json key is named 'qas': it contains an arary of questions and answers people could ask about the project. Please respond with your analysis directly in JSON format
-        (without using Markdown code blocks or any other formatting)."];
+        $instructionsRow = ['role' => 'system', 'content' => $this->summaryComponentsAIPrompt()];
 
         $discussionMaterial[] = $instructionsRow;
 
-        return dd($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial));
+        $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial));
+
+        return $projectPresentationElements;
 
     }
+
+
 
     /*
     / Turn a PP json representation into a propon pp presentation db object and save it.
@@ -69,123 +104,5 @@ class AICreatePPService {
 
 
 
-
-
-
-
-
-
-
-    public function validateComment(Comment $comment, $formTimeLoaded, $honeyPot){
-
-        $errors = null;
-
-        // check if comment creation time is not too short (spaming)
-
-        $commentCreationApproximateTimespan = time() - $formTimeLoaded;
-
-        $constraints = [
-
-            new Assert\GreaterThan(['value'=> 5, 'message' => 'Veuillez patienter quelques secondes avant d\'ajouter un commentaire']),
-            
-        ];
-
-        
-        // use the validator to validate the value
-        $errors = $this->validator->validate(
-            $commentCreationApproximateTimespan,
-            $constraints
-        ); 
-
-       
-        if ($errors->count() > 0) {
-
-            return  $errors[0]->getMessage();
-                    
-        }
-
-
-        // check if honey pot is filled
-
-        $constraints = [
-
-            new Assert\Blank(['message' => 'Ce champ devrait être nul']),
-            
-        ];
-
-        // use the validator to validate the value
-        $errors = $this->validator->validate(
-            $honeyPot,
-            $constraints
-        ); 
-
-       
-        if ($errors->count() > 0) {
-
-            return  $errors[0]->getMessage();
-                    
-        }
-        
-
-
-        // check if comment is not empty
-
-        $constraints = [
-
-            new Assert\NotBlank(['message' => 'Veuillez remplir ce champ']),
-            new NotContainsUrlOrEmail(),
-            new Assert\Length([
-                'min' => 1,
-                'max' => 2000,
-                'minMessage' => 'Votre message doit faire minimum {{ limit }} caractère',
-                'maxMessage' => 'Votre message doit faire maximum {{ limit }} caractères',
-            ]),
-        ];
-
-        $trimmedcommentContent = trim($comment->getContent());
-
-        
-        // use the validator to validate the value
-        $errors = $this->validator->validate(
-            $trimmedcommentContent,
-            $constraints
-        ); 
-
-       
-        if ($errors->count() > 0) {
-
-            return  $errors[0]->getMessage();
-                    
-        }
-
-        //check if user doesn't comment too much in a short timeframe (spamming)
-
-        $userComments = $comment->getUser()->getComments();
-
-        if(!$userComments->isEmpty()){
-
-            $userLastCommentTimespan = time() - $userComments->first()->getCreatedAt()->getTimestamp();
-
-            $constraints = [
-
-                new Assert\GreaterThan(['value'=> 20, 'message' => 'Veuillez patienter quelques secondes avant d\'ajouter un nouveau commentaire !']),
-                
-            ];
-
-            // use the validator to validate the value
-            $errors = $this->validator->validate(
-                $userLastCommentTimespan,
-                $constraints
-            );
-        
-            if ($errors->count()) {
-                return  $errors[0]->getMessage();
-            } 
-
-        }
-
-        return true;
-
-    }
 
 }

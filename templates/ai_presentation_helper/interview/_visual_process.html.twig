@@ -17,6 +17,11 @@
 
             </div>
 
+            <div class="presentation-summary">
+
+
+            </div>
+
             <div class="send-button-container">
 
                 <button type="button" class="send-button">Afficher les conseils du coach <span class="answer-loader"></span></button>
@@ -24,7 +29,12 @@
             </div>  
 
         </form>
-                
+
+        <div class="d-flex justify-content-center mt-4">
+        
+            <button class="js-summary-process btn btn-info">Enregistrer un récapitulatif des conseils</button>
+        
+        </div>
     
     </div>
 
@@ -34,7 +44,7 @@
 <div class="other-actions">
 
     {# Share Button #}
-    <div class="">{% include "utilities/_share.html.twig" with {"shareButtonLabel" : "Partager cet outil"} %}</div>  
+    <div class="d-flex justify-content-center mt-4">{% include "utilities/_share.html.twig" with {"shareButtonLabel" : "Partager cet outil"} %}</div>  
      
 
 </div>

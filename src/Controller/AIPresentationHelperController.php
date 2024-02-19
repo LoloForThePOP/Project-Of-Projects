@@ -9,18 +9,20 @@ use App\Service\ImageService;
 use App\Service\AILogoService;
 use App\Service\OpenAIService;
 use Symfony\Component\Mime\Email;
+use App\Service\AI\AICreatePPService;
 use App\Service\DataCollectService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
+use function PHPUnit\Framework\throwException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-use function PHPUnit\Framework\throwException;
-
 class AIPresentationHelperController extends AbstractController
 {
+
     
     /**
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet", name="ai_presentation_helper_origin")
@@ -28,7 +30,7 @@ class AIPresentationHelperController extends AbstractController
     public function origin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
     {
         
-/*         $client = OpenAI::client($_ENV['OPEN_AI_KEY']);
+        /* $client = OpenAI::client($_ENV['OPEN_AI_KEY']);
         
         $result = $client->completions()->create([
             'model' => 'gpt-3.5-turbo-instruct',
@@ -240,7 +242,7 @@ class AIPresentationHelperController extends AbstractController
                 
                 $messages =  [
 
-                    ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement des conseils pour PRESENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier l'objectif si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule question à la fois."],
+                    ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement des conseils pour PRESENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier l'objectif si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule et seulement une seule question à la fois."],
 
                     ['role' => 'user', 'content' => "Voici l'objectif de mon projet : ".$userMessage."."],
 
@@ -290,6 +292,19 @@ class AIPresentationHelperController extends AbstractController
           
         }
    
+    }
+
+
+    /**
+    * @Route("/interview-ai-presentation-interview-helper/ajax-create-summary", name="ajax_ai_interview_create_summary")
+    */
+    public function ajaxInterviewCreateSummary(Request $request, DataCollectService $dataCollect, AICreatePPService $createSummaryService) {
+
+        $summary = $createSummaryService->createJSON($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));
+        
+
+        return new JsonResponse(['summary' => $summary]);
+
     }
 
 

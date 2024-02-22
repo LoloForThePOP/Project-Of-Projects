@@ -9,13 +9,10 @@ use Assert\NotBlank;
 use App\Entity\Comment;
 use Assert\GreaterThan;
 use App\AI\Service\OpenAIService;
-
-
-
+use App\Service\CreatePPService;
 use App\Validator\NotContainsUrlOrEmail;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 
@@ -30,11 +27,28 @@ class AICreatePPService {
     protected $validator;
 
 
-    public function __construct(EntityManagerInterface $em, ValidatorInterface $validator)
+    public function __construct(EntityManagerInterface $em)
     {
       
         $this->em = $em;
-        $this->validator = $validator;
+
+    }
+
+
+    /**
+    * $discussionMaterial is a chatGPT conversation structured as an array.
+    */
+    public function createPPDataArray($openAIAPIKey, $discussionMaterial){
+
+        $ai = new OpenAIService;
+
+        $instructionsRow = ['role' => 'system', 'content' => $this->summaryComponentsAIPrompt()];
+
+        $discussionMaterial[] = $instructionsRow;
+
+        $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial));
+
+        return $projectPresentationElements;
 
     }
 
@@ -67,37 +81,6 @@ class AICreatePPService {
         $aiPrompt .= "Respond with your analysis directly in JSON format (without using Markdown code blocks or any other formatting)."; 
 
         return $aiPrompt;
-
-    }
-
-
-    /**
-    * $discussionMaterial is an array of chatGPT conversation.
-    */
-    public function createJSON($openAIAPIKey, $discussionMaterial){
-
-        $ai = new OpenAIService;
-
-        $instructionsRow = ['role' => 'system', 'content' => $this->summaryComponentsAIPrompt()];
-
-        $discussionMaterial[] = $instructionsRow;
-
-        $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial));
-
-        return $projectPresentationElements;
-
-    }
-
-
-
-    /*
-    / Turn a PP json representation into a propon pp presentation db object and save it.
-    */
-    public function createPP($openAIAPIKey, $discussionMaterial){
-
-        $jsonPP = $this->createJSON($openAIAPIKey, $discussionMaterial);
-
-        //treat jsibPP into an actual db PP
 
     }
 

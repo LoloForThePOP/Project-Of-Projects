@@ -204,13 +204,10 @@
                                 console.log("Unknown presentation summary key");
                         }
 
-                        
 
                         $(".presentation-summary").append([
                             { title: summaryChunkTitle, content: summaryChunkContent },
                         ].map(summaryChunk));
-
-
 
 
                     })
@@ -226,6 +223,39 @@
             });
 
         });
+
+
+
+        // Manage user patience when ai request 
+        
+        //timer feedback for user patience
+        var timerHTML = document.createElement("div");
+        timerHTML.innerHTML = `<img class="img-fluid mb-2" width="90" src="{{asset ('project_presentation_advice/15s-countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 15 secondes pour patienter."><div class="">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 15 secondes, votre réponse est en cours de création.</div>    
+        
+        <div class="mt-3 mb-5">
+    
+            <blockquote>
+                <p class="mb-0">“Oeil pour oeil et l'humanité deviendra aveugle.”</p>
+                <div>—Louis Fischer, Biographe de Gandhi.</div>
+                <div>Dans son livre <cite>La vie du Mahatma Gandhi.</cite></div>
+            </blockquote>
+
+        </div>
+        `;
+
+
+         $('.js-ai-create-ppp').on('click', function (e){
+
+            swal({
+                title: "Création du résumé en cours. Veuillez patienter environ 15 secondes.",
+                content: timerHTML,
+                buttons: [""],
+                icon: "info",
+            });           
+
+        });
+
+        
 
 
         

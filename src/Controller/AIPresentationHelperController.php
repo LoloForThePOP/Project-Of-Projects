@@ -10,6 +10,7 @@ use App\Service\AILogoService;
 use App\Service\OpenAIService;
 use Symfony\Component\Mime\Email;
 use App\Service\AI\AICreatePPService;
+use App\Service\CreatePPService;
 use App\Service\DataCollectService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
@@ -300,10 +301,29 @@ class AIPresentationHelperController extends AbstractController
     */
     public function ajaxInterviewCreateSummary(Request $request, DataCollectService $dataCollect, AICreatePPService $createSummaryService) {
 
-        $summary = $createSummaryService->createJSON($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));
-        
+        $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));        
 
-        return new JsonResponse(['summary' => $summary]);
+        return new JsonResponse(['summary' => $structuredPPData]);
+
+    }
+
+    /**
+    * @Route("/interview-ai-presentation-interview-helper/create-ppp", name="ai_create_ppp")
+    */
+    public function aiCreatePPP(AICreatePPService $createSummaryService) {
+
+        $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));
+
+        $newPPStringId = new CreatePPService($structuredPPData);
+
+        return $this->redirectToRoute('show_presentation', [
+
+            'stringId'=> $newPPStringId,
+                
+        ]);
+
+
+
 
     }
 

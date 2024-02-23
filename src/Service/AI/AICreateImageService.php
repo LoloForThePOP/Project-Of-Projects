@@ -42,13 +42,32 @@ class AICreateImageService {
     
     }
 
-    public function ttt(){
+    
 
-        $imageService = new ImageService();
+    /**
+    * Allow to store an image to a specific folder
+    * Return image path with image name
+    */
 
-        $generatedImagePath = $imageService->saveImageFromUrl($imageUrl);
-        $imagesPathsArray = $imageService->splitImage($generatedImagePath);
+    public function saveImageFromUrlToPath($imageUrl, $targetPath, $imageName = null){
+                
+        if (!file_exists($targetPath)) 
+        {
+            mkdir($targetPath, 0777, true);
+        }
+
+        if ($imageName === null) {
+            $imageName = uniqid();
+        }
+
+        $imagePathWithName = $targetPath."/".$imageName.".png";
+
+        copy($imageUrl , $imagePathWithName);
+
+        return $imagePathWithName;
+
     }
+
 
 
 

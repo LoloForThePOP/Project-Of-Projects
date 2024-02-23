@@ -2,7 +2,8 @@
 
 namespace App\Service;
 
-use \Gumlet\ImageResize;
+
+
 
 
 class ImageService {
@@ -22,28 +23,32 @@ class ImageService {
 
     /**
     * Allow to store an image to a specific folder
-    * Return image name
+    * Return image path with image name
     */
 
-    public function saveImageFromUrl($imageUrl){
+    public function saveImageFromUrlToPath($imageUrl, $targetPath, $imageName = null){
                 
-        if (!file_exists('public/ia-generated-logos')) 
+        if (!file_exists($targetPath)) 
         {
-            mkdir('public/ia-generated-logos', 0777, true);
+            mkdir($targetPath, 0777, true);
         }
 
-        $imagePath="public/ia-generated-logos/newImage.png";
+        if ($imageName === null) {
+            $imageName = uniqid();
+        }
 
-        copy($imageUrl , $imagePath);
+        $imagePathWithName = $targetPath."/".$imageName.".png";
 
-        return $imagePath;
+        copy($imageUrl , $imagePathWithName);
+
+        return $imagePathWithName;
 
     }
 
 
     /**
     * Allow to split an image into 4 images
-    * Creates these images and return arrray of image path
+    * Creates these images and return arrray of image path with names
     */
 
 

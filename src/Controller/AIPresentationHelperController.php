@@ -196,7 +196,7 @@ class AIPresentationHelperController extends AbstractController
             $imageUrl = $response["data"][0]["url"];
 
 
-            $generatedImagePath = $imageService->saveImageFromUrl($imageUrl);
+            $generatedImagePath = $imageService->saveImageFromUrlToPath($imageUrl, 'public/ia-generated-logos');
             $imagesPathsArray = $imageService->splitImage($generatedImagePath);
     
             // Vous pouvez renvoyer la réponse sous forme de JSON
@@ -296,6 +296,7 @@ class AIPresentationHelperController extends AbstractController
     }
 
 
+
     /**
     * @Route("/interview-ai-presentation-interview-helper/ajax-create-summary", name="ajax_ai_interview_create_summary")
     */
@@ -307,23 +308,22 @@ class AIPresentationHelperController extends AbstractController
 
     }
 
+
+
     /**
     * @Route("/interview-ai-presentation-interview-helper/create-ppp", name="ai_create_ppp")
     */
-    public function aiCreatePPP(AICreatePPService $createSummaryService) {
+    public function aiCreatePPP(AICreatePPService $createSummaryService, CreatePPService $createPPService) {
 
         $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));
 
-        $newPPStringId = new CreatePPService($structuredPPData);
+        $newPPStringId = $createPPService->create($structuredPPData);
 
         return $this->redirectToRoute('show_presentation', [
 
             'stringId'=> $newPPStringId,
                 
         ]);
-
-
-
 
     }
 

@@ -353,3 +353,83 @@
 
 
 
+	<script>
+
+	// Generate AI images if relevant
+	
+	$(document).ready(function(){ //otherwise first slide caption doesn't show in webpage load
+
+		var generateAIImages = false;
+
+		$( ".mySlides .image-slide-wrapper img" ).each(function() {
+			
+			var src = $(this).attr('src'); // "static/images/banner/blue.jpg"
+			var tarr = src.split('/');      // ["static","images","banner","blue.jpg"]
+			var file = tarr[tarr.length-1]; // "blue.jpg"
+			var imageName = file.split('.')[0];  // "blue"
+			
+			if(imageName=="ai_generable"){
+
+				generateAIImages = true;
+
+			}
+
+		});
+
+		if(generateAIImages){
+
+			$.ajax({
+
+				url: "{{ path('ajax_ai_generate_images', {'stringId': presentation.stringId}) }}",
+				type:       'POST',   
+				dataType:   'json',
+				
+				data: {
+					
+				},
+
+				async: true,  
+				
+				success: function(data, status) {
+
+					var generatedImagesSources = data.imagesPaths;
+
+					//replacing slides sources
+					Object.keys(generatedImagesSources).forEach(function(key) {
+
+                        console.log('Key : ' + key + ', Value : ' + generatedImagesSources[key]);
+
+						console.log(generatedImagesSources[key]["id"]);
+						console.log(generatedImagesSources[key]["path"]);
+
+						var imageId = generatedImagesSources[key]["id"];
+						var imagePath = generatedImagesSources[key]["path"];
+
+						console.log("img#"+imageId);
+
+						$("img").attr("src", imagePath)
+
+						$(".myslides img#"+imageId).attr('src', imagePath);
+						
+
+					});
+
+
+
+				},  
+
+				error : function(xhr, textStatus, errorThrown) {  
+					console.log('Ajax request failed.');  
+				}  
+
+			});
+
+		}
+
+
+	});
+	
+	</script>
+
+
+

@@ -46,7 +46,7 @@ class AICreatePPService {
 
         $discussionMaterial[] = $instructionsRow;
 
-        $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial));
+        $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial), true);
 
         return $projectPresentationElements;
 
@@ -66,7 +66,7 @@ class AICreatePPService {
 
         // Project Keywords
 
-        $aiPrompt .= "a json key is named 'keywords' : it contains some keywords separeted by commas. ";
+        $aiPrompt .= "a json key is named 'keywords' : it contains some keywords separated by commas. ";
 
         // Project Description
 
@@ -74,7 +74,9 @@ class AICreatePPService {
 
         // Project Questions & Answers (FAQ)
 
-        $aiPrompt .= "a json key is named 'qas': it contains an aray of questions and answers people could ask about the project. "; 
+        $aiPrompt .= "a json key is named 'qas': it contains an aray of questions and answers people could ask about the project. Don't forget full stop at the end of each element of this array."; 
+
+        $aiPrompt .= "a json key is named 'imagePrompts': it contains an aray of two prompts representing the project you would give to create images with an ai image generator."; 
 
         // Prompt Ending
 

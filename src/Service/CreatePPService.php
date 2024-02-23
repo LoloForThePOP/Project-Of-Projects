@@ -3,7 +3,9 @@
 namespace App\Service;
 
 use App\Entity\User;
+use App\Entity\Slide;
 use App\Entity\PPBase;
+use App\Service\AI\AICreateImageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -42,6 +44,44 @@ class CreatePPService {
 
                 case 'description':
                     $this->pp->setTextDescription($value);
+                    break;
+
+                case 'keywords':
+                    $this->pp->setKeywords($value);
+                    break;
+
+                case 'qas':
+
+                    foreach ($value as $qa => $qaContent){
+                        //dd($qaContent);                             
+                        $this->pp->addOtherComponentItem("questionsAnswers", $qaContent);
+                    }
+                    
+                    break;
+
+                case 'imagePrompts':
+
+                    // We generate presentation slides with caption but without an actual image file
+
+                    foreach ($value as $imagesPrompts => $imagePrompt){
+
+                        $imageSlide = new Slide();
+                        $imageSlide
+                            ->setType('image')
+                            ->setCaption($imagePrompt)
+                            ->setAddress("ai_generable")
+                            ->setPresentation($this->pp);
+
+                        $this->em->persist($imageSlide);
+
+                        //$this->pp->addSlide($imageSlide);
+
+                        
+                        //dd($imgURL);
+                        //dd($qaContent);                             
+                        //$this->pp->addOtherComponentItem("questionsAnswers", $qaContent);
+                    }
+                    
                     break;
                 
                 default:

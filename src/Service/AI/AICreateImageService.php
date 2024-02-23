@@ -17,7 +17,10 @@ class AICreateImageService {
 
     }
 
-    protected function createImage($prompt){
+    /**
+     * Return image url
+     */
+    public function createImage($prompt){
 
         $ia = OpenAI::client($this->apiKey);
         
@@ -38,17 +41,16 @@ class AICreateImageService {
             
         $response->toArray(); 
 
-        return $imageUrl = $response["data"][0]["url"];
+        return $response["data"][0]["url"];
     
     }
 
-    
+
 
     /**
-    * Allow to store an image to a specific folder
-    * Return image path with image name
+    * Allow to store an image to a specific folder (ex : public/ia-generated-logos)
+    * Return image name with extension
     */
-
     public function saveImageFromUrlToPath($imageUrl, $targetPath, $imageName = null){
                 
         if (!file_exists($targetPath)) 
@@ -60,11 +62,13 @@ class AICreateImageService {
             $imageName = uniqid();
         }
 
-        $imagePathWithName = $targetPath."/".$imageName.".png";
+        $imageNameWithExtension = $imageName.".png";
+
+        $imagePathWithName = $targetPath."/".$imageNameWithExtension;
 
         copy($imageUrl , $imagePathWithName);
 
-        return $imagePathWithName;
+        return $imageNameWithExtension;
 
     }
 

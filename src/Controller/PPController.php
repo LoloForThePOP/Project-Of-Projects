@@ -38,19 +38,21 @@ use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use App\Repository\FollowRepository;
+use App\Service\NotificationService;
 use Symfony\Component\Form\FormError;
 use App\Form\ContributorStructureType;
+use App\Service\AI\AICreateImageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Url;
 use App\Form\WithoutUsernameRegistrationFormType;
-use App\Service\NotificationService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Symfony\Component\PasswordHasher\PasswordHasherInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
@@ -1347,6 +1349,53 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             
         ]);
+
+    }
+
+
+    /** 
+     * Create AI images when presentation has images slides with adress = "ai_generable"
+     * 
+     * @Route("/projects/{stringId}/ajax-ai-generate-images", name="ajax_ai_generate_images") 
+     * 
+    */ 
+    public function ajaxAIGenerateImages(Request $request, PPBase $presentation, EntityManagerInterface $manager, UploaderHelper $urlHelper) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+        if ($request->isXmlHttpRequest()) {
+
+            session_write_close();
+
+            $slides = $presentation->getSlides();
+
+            $imagesPaths = [];
+
+            foreach ($slides as $slide) {
+                
+                if ($slide->getAddress() == "ai_generable") {
+
+                    $aiService = new AICreateImageService($_ENV['OPEN_AI_KEY']);
+
+                    $imageUrl = $aiService->createImage($slide->getCaption());
+
+                    $slide->setAddress($aiService->saveImageFromUrlToPath($imageUrl, "media/uploads/pp/slides")); //would probably be cleaner with https://github.com/dustin10/VichUploaderBundle/blob/master/docs/other_usages/replacing_file.md
+
+                    $imageSource = [];
+                    $imageSource["id"] = $slide->getId();
+                    $imageSource["path"] = $urlHelper->asset($slide);
+
+                    $imagesPaths[] = $imageSource;
+
+                }
+
+            }
+          
+            return  new JsonResponse(['imagesPaths' => $imagesPaths]);
+
+        }
+
+        return  new JsonResponse(false);
 
     }
 

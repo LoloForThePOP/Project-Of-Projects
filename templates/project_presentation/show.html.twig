@@ -972,7 +972,7 @@
 
     {% set odd2 = [0, 0, 0, 1] %}
     
-    {% if not app.user and random (odd2) == 1 %}
+    {% if not app.user and not userPresenter and random (odd2) == 1 %}
 
         <div class="container col border p-2 p-md-4 py-3 py-md-4 text-center mt-4 mb-4">
 

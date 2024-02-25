@@ -73,6 +73,17 @@ class AccessPresentationVoter extends Voter
 
         }
 
+        //If user is invited he can edit the presentation
+
+        if (array_key_exists('guest-presenter-activated', $presentation->getData())) {
+
+            if ($presentation->getDataItem('guest-presenter-activated') == false){
+                return true;
+            }
+
+        }
+
+
         // otherwise if user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {
             return false;

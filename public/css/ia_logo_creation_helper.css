@@ -478,7 +478,10 @@ img.created-logo {
 
 
 
-/* Colors Selection : Color Shades Squares */
+/* Colors Selection : Color Shades Squares 
+  Thanks to https://codepen.io/Zaku/pen/vzBKWe
+
+*/
 
 .gradient--0 {
   --gradient-start: #6DE195;

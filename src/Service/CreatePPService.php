@@ -120,6 +120,9 @@ class CreatePPService {
                     ->setPassword('test'.$anonymousUserNameId)
                     ->setParameter('isVerified', true);
 
+            $this->pp->setCreator($newUser)
+                    ->setDataItem("guest-presenter-activated", false);
+
             $this->em->persist($newUser);
             $this->em->flush();
         }

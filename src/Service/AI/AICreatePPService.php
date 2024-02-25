@@ -74,7 +74,7 @@ class AICreatePPService {
 
         // Project Questions & Answers (FAQ)
 
-        $aiPrompt .= "a json key is named 'qas': it contains an aray of questions and answers people could ask about the project. Don't forget full stop at the end of each element of this array."; 
+        $aiPrompt .= "a json key is named 'qas': it contains an aray of questions and answers people could ask about the project. Each question is named 'question', each answer is named 'answer'. Don't forget full stop at the end of each element of this array."; 
 
         $aiPrompt .= "a json key is named 'imagePrompts': it contains an aray of two prompts representing the project you would give to create images with an ai image generator."; 
 

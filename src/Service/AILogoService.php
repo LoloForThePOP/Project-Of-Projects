@@ -202,9 +202,15 @@ class AILogoService {
 
                 break;
 
-            case 'image_colors':
+            case 'image_main_colors':
             
-                $Fr_prompt_chunk = "Voici les instructions pour les couleurs de l'image : $value. ";
+                $Fr_prompt_chunk = "Les couleurs principales de l'image sont : $value. ";
+
+                break;    
+
+            case 'image_color_details':
+            
+                $Fr_prompt_chunk = "Respecter aussi cela pour les couleurs de l'image : $value. ";
 
                 break;    
 

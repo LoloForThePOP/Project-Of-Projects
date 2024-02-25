@@ -198,8 +198,7 @@ function goToPreviousSection() {
 
     }
 
-    //initiate select item
-
+    // initiate selectable elements
     selectItem("logo-big-cats");
     selectItem("logo-type-letters");
     selectItem("logo-type-image");
@@ -227,7 +226,8 @@ function goToPreviousSection() {
         data.image_type = $("#logo-type-image-hidden").val();
         data.figurative_object_description = $("#figurative-object-description-textarea").val();
         data.abstraction_object_description = $("#abstraction-description-textarea").val();
-        data.image_colors = $("#image-colors-textarea").val();
+        data.image_main_colors = $("#logo-image-main-colors-hidden").val();
+        data.image_color_details = $("#image-colors-textarea").val();
         data.user_last_requirements = $("#user-last-requirements-textarea").val();
         data.image_text_relative_height = $("#font-size-slider-hidden").val();
 
@@ -284,15 +284,6 @@ function goToPreviousSection() {
         getLogos();
 
     });
-
-
-    //change background-color of a "color shades square" when user select it   
-    $(".color-shades li").on('click', function (e){
-
-        $(this).toggleClass("activated");
-
-    });
-
 
 
 });

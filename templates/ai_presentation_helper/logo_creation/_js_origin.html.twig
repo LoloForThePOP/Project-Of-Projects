@@ -278,10 +278,18 @@ function goToPreviousSection() {
 
     }
 
-        
+    //trigger logo reception when user clicks on appropriate button
     $("#get-logos-reception").on('click', function (e){
 
         getLogos();
+
+    });
+
+
+    //change background-color of a "color shades square" when user select it   
+    $(".color-shades li").on('click', function (e){
+
+        $(this).toggleClass("activated");
 
     });
 

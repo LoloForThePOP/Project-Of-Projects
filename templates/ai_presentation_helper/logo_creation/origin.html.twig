@@ -1,6 +1,5 @@
 {% extends 'base.html.twig' %}
 
-
     {% set titleMetadata = 'Création de logo pour votre projet, automatisée par IA' %}
     {% set metadataDescription = "Service gratuit et sans inscription, laissez-vous guider pour créer le logo parfait pour votre projet. Aucune compétence en graphisme n'est requise." %}
     {% set metadataImageUrl %}{{asset ('logo_creation/two-persons-creating-a-logo.jpeg', 'larger')}}{% endset %}
@@ -15,15 +14,14 @@
 
     {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Call from base.html.twig #}
     
+    <link href="/css/ia_logo_creation_helper.css" rel="stylesheet">
+    
 {% endblock %}
 
 
 {% block title %}{{titleMetadata}}{% endblock %}
 
 {% block body %}
-
-
-<link href="/css/ia_logo_creation_helper.css" rel="stylesheet">
 
 
 {% include "ai_presentation_helper/logo_creation/_js_origin.html.twig" %}

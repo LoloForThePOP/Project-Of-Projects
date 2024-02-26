@@ -1,62 +1,121 @@
 <div class="pp-edition-mode">
     
-    <div class="notif-save-presentation notification d-flex flex-column align-items-center alert alert-dismissible fade border show fw-bold p-2 py-4" role="alert">
+    <div class="notif-save-presentation notification d-flex flex-column align-items-center alert alert-dismissible fade border border-warning show fw-bold p-2 py-4" role="alert">
 
-        <h5 class="text-center">
-            
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-exclamation-triangle-fill text-primary me-2" viewBox="0 0 16 16">
-                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-            
-            </svg>
+        <h5 class="d-flex align-items-center justify-content-center text-center mb-1">
+         
+            <img class="me-1 me-md-2" src="{{ asset('info.svg', 'misc')}}" alt="Info Icon" width="32" height="32"   >
         
-            <span class="h5 fw-bold align-bottom me-2">
-                Ne perdez pas votre travail. Enregistrez la présentation résumé de votre projet sur Propon. 
+            <span class="fw-bold align-bottom">
+                Ne perdez pas votre travail, connectez-vous pour enregistrer gratuitement la présentation de votre projet sur Propon.
             </span>
 
-            <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-exclamation-triangle-fill text-primary me-2" viewBox="0 0 16 16">
+           {#  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-exclamation-triangle-fill text-primary me-2" viewBox="0 0 16 16">
                 <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
             
-            </svg>
+            </svg> #}
 
         </h5>
 
-        <hr>
+        <h5 class="text-center mb-3">Et découvrez nos autres outils gratuits pour développer vos projets.</h5>
+        {# <h6 class="mb-4">(présentez vos besoins, recevez des donations, créez une communauté)</h6> #}
+
+        <div class="text-center">
+            
+            <div class="px-md-3 text-center">
+
+                <h3 class="fw-bold mb-2 mb-md-4">Connexion</h3>
+
+                <div class="container mb-0 mb-md-4 pb-3 px-0">
+
+                    <a href="{{ path('connect_google_start') }}">
+
+                        <button class="connect-btn btn btn-outline-dark me-0 me-md-3 mb-3 mb-md-0">
+
+                            <img src="{{asset ('connect/google.svg', 'misc')}}" class="" alt="Google Logo" loading="lazy" width="50" height="50">
+
+                            <span class="">Avec Google</span>
+
+                        </button>
+
+                    </a>
+
+                    <a href="{{ path('connect_facebook_start') }}">
+
+                        <button class="connect-btn btn btn-outline-dark">
+
+                            <img src="{{asset ('connect/facebook.svg', 'misc')}}" class="" alt="Facebook Logo" loading="lazy" width="50" height="50">
+
+                            <span class="">Avec Facebook</span>
+
+                        </button>
+
+                    </a>
+
+                    <style>
+
+                        .connect-btn{
+
+                            width: 190px;
+                            border-color: #c0c0c4;
+
+                        }
+
+                        .connect-btn img{
+
+                            width: 30px;
+                            margin-right: 5px;
+
+                        }
 
 
-        <div class="indent-container col-md-6 text-center">
+                    </style>
 
-            {{form_start(newUserForm)}}
 
-                <div class="mb-3">
-                    {{ form_label(newUserForm.email) }}
-                    {{form_errors(newUserForm.email)}}
-                    {{ form_widget(newUserForm.email) }}
                 </div>
 
-                <div class="mb-4">
-                    {{ form_label(newUserForm.plainPassword) }}
-                    {{ form_errors(newUserForm.plainPassword) }}
-                    {{ form_widget(newUserForm.plainPassword) }}
-                </div>
+            <div class="">
 
-                {#   <div>
-                    {{ form_label(newUserForm.agreeTerms) }}
-                    {{ form_widget(newUserForm.agreeTerms) }}
-                </div> #}
+                <h5 class="email-connect-title fw-bold mb-3">Ou utilisez votre adresse e-mail</h5>
+
+                {{form_start(newUserForm)}}
+
+                    <div class="d-flex flex-column justify-content-center text-center">
+
+                        <div class="mb-4">
+                            {{form_errors(newUserForm.email)}}
+                            {{ form_widget(newUserForm.email) }}
+                        </div>
+
+                        <div class="mb-2">
+                            {{ form_errors(newUserForm.plainPassword) }}
+                            {{ form_widget(newUserForm.plainPassword) }}
+                        </div>     
+                    
+                    </div>
+
+                    {#   <div>
+                        {{ form_label(newUserForm.agreeTerms) }}
+                        {{ form_widget(newUserForm.agreeTerms) }}
+                    </div> #}
 
 
 
-                <!-- ui Actions Buttons -->
+                    <!-- ui Actions Buttons -->
 
-                <div class="mt-5">
+                    <div class="d-flex justify-content-center mt-3">
 
-                    <button type="submit" value="" class="btn btn-validate border rounded-3 me-3 mb-2">
-                        <span class="h5 fw-bold">Créer mon compte Propon gratuit et<br> Enregistrer le résumé de mon projet ✔️</span>
-                    </button>
+                        <button type="submit" value="" class="btn btn-validate border rounded-3 mb-2">
+                            <span class="h5 fw-bold">Valider ✔️</span>
+                        </button>
 
-                </div>
+                    </div>
 
-            {{form_end(newUserForm)}}
+                {{form_end(newUserForm)}}
+            
+            </div>
+
+              
 
         </div>
 
@@ -71,7 +130,6 @@
 
     .notif-save-presentation{
 
-        background-color: #fffcf3;
 
     }
 
@@ -83,9 +141,6 @@
         display: inline;
     }
 
-    .indent-container{
-       
-    }
 
     .inline-text-trigger-action{
 
@@ -106,17 +161,14 @@
 
     @media screen and (max-width: 810px) {
 
-        .indent-container{
-            padding-left: 15px;
-        }
 
     }
 
 
     @media screen and (max-width: 580px) {
 
-        .indent-container{
-            padding-left: 0;
+        .notif-save-presentation h5{
+            font-size: 16px;
         }
 
     }

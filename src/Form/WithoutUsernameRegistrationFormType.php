@@ -26,7 +26,7 @@ class WithoutUsernameRegistrationFormType extends AbstractType
 
             ->add('email', EmailType::class, [
                 'label' => "Votre adresse e-mail",
-                'attr' => ['placeholder' => 'Écrire ici'],
+                'attr' => ['placeholder' => 'Votre adresse e-mail'],
 
                 'constraints' => array(
                     new Email(['message' => 'Veuillez écrire une adresse -mail valide']),
@@ -38,7 +38,7 @@ class WithoutUsernameRegistrationFormType extends AbstractType
                 // this is read and encoded in the controller
                 'mapped' => false,
                 'label' => "Créer votre mot de passe",
-                'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Écrire ici'],
+                'attr' => ['autocomplete' => 'new-password', 'placeholder' => 'Créer ici votre mot de passe'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Écrire un mot de passe',

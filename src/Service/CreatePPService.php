@@ -2,24 +2,29 @@
 
 namespace App\Service;
 
-use App\Entity\User;
 use App\Entity\Slide;
 use App\Entity\PPBase;
-use App\Service\AI\AICreateImageService;
+use App\Service\UserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class CreatePPService {
 
     protected $em;
+    protected $session;
     protected $security;
+    protected $slugger;
     protected $pp;
 
-    public function __construct(EntityManagerInterface $em, Security $security)
+    public function __construct(EntityManagerInterface $em, Security $security, SessionInterface $session, SluggerInterface $slugger)
     {
 
+        $this->session = $session;
         $this->em = $em;
         $this->security = $security;
+        $this->slugger = $slugger;
         
     }
 
@@ -59,6 +64,12 @@ class CreatePPService {
                     
                     break;
 
+                case 'isAdminValidated':
+
+                    $this->pp->setIsAdminValidated($value);
+                    
+                    break;
+
                 case 'imagePrompts':
 
                     // We generate presentation slides with caption but without an actual image file
@@ -74,12 +85,6 @@ class CreatePPService {
 
                         $this->em->persist($imageSlide);
 
-                        //$this->pp->addSlide($imageSlide);
-
-                        
-                        //dd($imgURL);
-                        //dd($qaContent);                             
-                        //$this->pp->addOtherComponentItem("questionsAnswers", $qaContent);
                     }
                     
                     break;
@@ -102,7 +107,7 @@ class CreatePPService {
 
     /**
     * PP needs a creator to be valid
-    * If user is not logged in, we create a virtual/shadow/temp (!) user so that user can subscribe & connect after he sees the result
+    * If user is not logged in, we create a virtual/shadow user so that user can subscribe & connect after he sees the result
     */
     protected function ppUserCreatorManagement(){
 
@@ -112,19 +117,14 @@ class CreatePPService {
             $this->pp->setCreator($user);
         }else{
             
-            $newUser= new User(); 
-            $anonymousUserNameId = substr(str_shuffle(MD5(microtime())), 0, 6); // creating a random username for temp user
-            $newUser->setUserName('temp-'.$anonymousUserNameId)
-                    ->setEmail('temp-'.$anonymousUserNameId.'@test.com')
-                    ->setUserNameSlug(strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $newUser->getUserName()))))
-                    ->setPassword('test'.$anonymousUserNameId)
-                    ->setParameter('isVerified', true);
+            $newUserService = new UserService($this->em, $this->slugger, $this->session); 
+            $newGuestUser = $newUserService->createSaveFakeUser();
 
-            $this->pp->setCreator($newUser)
-                    ->setDataItem("guest-presenter-activated", false);
+            $this->pp->setCreator($newGuestUser)
+                     ->setDataItem("guest-presenter-activated", false);
 
-            $this->em->persist($newUser);
             $this->em->flush();
+
         }
 
         return true;

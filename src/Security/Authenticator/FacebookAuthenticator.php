@@ -3,7 +3,9 @@
 namespace App\Security\Authenticator;
 
 use App\Entity\Persorg;
+use App\Service\UserService;
 use App\Entity\User; // your user entity
+use App\Service\SessionVariablesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,6 +13,7 @@ use Symfony\Component\Routing\RouterInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -25,14 +28,16 @@ class FacebookAuthenticator extends OAuth2Authenticator
     private $router;
 
     protected $slugger;
+    protected $session;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, SluggerInterface $slugger)
+    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, SluggerInterface $slugger, SessionInterface $session)
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
 
         $this->slugger = $slugger;
+        $this->session = $session;
     }
 
     public function supports(Request $request): ?bool
@@ -62,25 +67,17 @@ class FacebookAuthenticator extends OAuth2Authenticator
                 if (!$user) { //creating a new user
 
                     $user = new User();
-
-                    $userName = $facebookUser->getName();
-
+                    
                     $user
-                        ->setUserName($userName)
-                        ->setUserNameSlug(strtolower($this->slugger->slug($userName)))
+                        ->setUserName($facebookUser->getName())
                         ->setEmail($email)
-                        ->setPassword(substr(md5(rand()), 0, 12)) //creating a mock password hash
-                        ->setParameter('isVerified', true);
+                        ->setParameter("isVerified", true);
 
-                    $userPersorg = new Persorg(); // creating a user profile
-                    $userPersorg->setName($user->getUserName());
-                    $user->setPersorg($userPersorg);
+                    $userService = new UserService($this->entityManager, $this->slugger, $this->session, $user);
+                    $userService->saveSolidUser(true);
 
-                    $this->entityManager->persist($userPersorg);
-                    $this->entityManager->persist($user);
-                    $this->entityManager->flush();
                 }
-
+                
                 return $user;
 
             })
@@ -89,6 +86,15 @@ class FacebookAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+
+        $session = $request->getSession();
+
+        if ($session->has("guest-user-id")) {
+            //plutôt conserver dans la session le guest-user id, aller chercher ce guest user id dans le repo si je peux (normalement oui au pire si dessus fonction authenticate), cette présentation que l'on transfère à l'utilisateur actuel, et on supprime le guest-presenter. 
+            //rechercher la présentation avec le guest-user token
+            //dd($token);
+        }
+        
         // change "app_homepage" to some route in your app
         $targetUrl = $this->router->generate('homepage');
 

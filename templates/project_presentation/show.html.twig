@@ -288,7 +288,7 @@
     
     {% include 'project_presentation/_show/_upper_box.html.twig' %}
 
-    {# Notification invitation to use a automatic form for presenting project #}
+    {# Notification invitation to use a automatic form for presenting project
 
     {% if userPresenter and validatedStringId and not presentation.getDataItem('remove-helper-invite') %}
 
@@ -298,20 +298,8 @@
 
         </div>
 
-    {% endif %}
+    {% endif %} #}
 
-    
-    {# Guest Presenter Sign Up Invitation #}
-
-    {% if userPresenter and presentation.data['guest-presenter-activated'] is defined and presentation.data['guest-presenter-activated'] == false %}
-
-        <div class="my-5">
-
-            {% include 'project_presentation/_show/_notifications/save_your_presentation.html.twig' %}
-
-        </div>
-
-    {% endif %}
  
     
     {# Guest Presenter Sign Up Invitation
@@ -873,6 +861,19 @@
                 <button type="button" class="btn btn-light">Transférer la présentation</button>
 
             </a>
+
+        {% endif %}
+
+        
+        {# Guest Presenter Sign Up Invitation #}
+
+        {% if userPresenter and presentation.data['guest-presenter-activated'] is defined and presentation.data['guest-presenter-activated'] == false %}
+
+            <div class="my-5">
+
+                {% include 'project_presentation/_show/_notifications/save_your_presentation.html.twig' %}
+
+            </div>
 
         {% endif %}
 

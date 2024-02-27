@@ -48,6 +48,9 @@ class AICreatePPService {
 
         $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial), true);
 
+        //we consider that an AI presentation is admin validated
+        $projectPresentationElements["isAdminValidated"] = true;
+
         return $projectPresentationElements;
 
     }

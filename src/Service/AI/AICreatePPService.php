@@ -46,7 +46,7 @@ class AICreatePPService {
 
         $discussionMaterial[] = $instructionsRow;
 
-        $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-4", $discussionMaterial), true);
+        $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-3.5-turbo-0125", $discussionMaterial), true);
 
         //we consider that an AI presentation is admin validated
         $projectPresentationElements["isAdminValidated"] = true;
@@ -61,7 +61,7 @@ class AICreatePPService {
     */
     protected function summaryComponentsAIPrompt(){
 
-        $aiPrompt = "With the previous conversation material, create a json output. ";
+        $aiPrompt = "With the previous conversation material, create a json output with values language same as language used for the conversation. ";
 
         // Project Goal
 

@@ -31,15 +31,6 @@ class AIPresentationHelperController extends AbstractController
     public function origin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
     {
         
-        /* $client = OpenAI::client($_ENV['OPEN_AI_KEY']);
-        
-        $result = $client->completions()->create([
-            'model' => 'gpt-3.5-turbo-instruct',
-            'prompt' => 'PHP is',
-        ]);
-        
-        dd($result['choices'][0]['text']);  */
-
         $form = $this->createForm(AIPPAdviceType::class);
 
         $form->handleRequest($request);
@@ -81,7 +72,7 @@ class AIPresentationHelperController extends AbstractController
             ];
     
             $response = $ia->chat()->create([
-                'model' => 'gpt-3.5-turbo-1106',
+                'model' => 'gpt-3.5-turbo-0125',
                 'messages' => $messages,
             ]);
             
@@ -263,7 +254,7 @@ class AIPresentationHelperController extends AbstractController
             }
 
             $response = $ia->chat()->create([
-                'model' => 'gpt-3.5-turbo-1106',
+                'model' => 'gpt-3.5-turbo-0125',
                 'messages' => $messages,
             ]);
             

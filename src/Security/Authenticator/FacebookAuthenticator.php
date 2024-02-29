@@ -5,7 +5,6 @@ namespace App\Security\Authenticator;
 use App\Entity\Persorg;
 use App\Service\UserService;
 use App\Entity\User; // your user entity
-use App\Service\SessionVariablesService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,16 +86,8 @@ class FacebookAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
 
-        $session = $request->getSession();
-
-        if ($session->has("guest-user-id")) {
-            //plutôt conserver dans la session le guest-user id, aller chercher ce guest user id dans le repo si je peux (normalement oui au pire si dessus fonction authenticate), cette présentation que l'on transfère à l'utilisateur actuel, et on supprime le guest-presenter. 
-            //rechercher la présentation avec le guest-user token
-            //dd($token);
-        }
-        
-        // change "app_homepage" to some route in your app
-        $targetUrl = $this->router->generate('homepage');
+        // redirect to the route whereby we manage post auth
+        $targetUrl = $this->router->generate('auth_redirections');
 
         return new RedirectResponse($targetUrl);
     

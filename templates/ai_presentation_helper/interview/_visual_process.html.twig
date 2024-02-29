@@ -7,7 +7,7 @@
 
             <div>
 
-                <h4 id="assistant-question" class="h5 text-center fw-bold mb-3">Quel est l'objectif de votre Projet ?</h4>
+                <h4 id="assistant-question" class="h5 text-center fw-bold mb-3"><img class="me-2" width="24" src="{{ asset('chatbot.svg', 'misc')}}" alt="an chatbot icon"> Quel est l'objectif de votre Projet ?</h4>
 
             </div>
 
@@ -20,7 +20,7 @@
 
             <div class="send-button-container">
 
-                <button type="button" class="send-button">Afficher les conseils du coach {# <img class="ms-2" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon" width="22"><span class="answer-loader"></span> #}</button>
+                <button type="button" class="send-button">Afficher les conseils du coach <div class="answer-loader loader ms-2"></div>{# <img class="ms-2" src="{{ asset('send_message.svg', 'misc')}}" alt="paper plane icon" width="22"><span class="answer-loader"></span> #}</button>
             
             </div>  
 
@@ -28,9 +28,7 @@
 
         <div class="d-flex justify-content-center mt-4">
         
-  {#           <button class="js-summary-process btn btn-info">Enregistrer un récapitulatif des conseils <img class="ms-3" src="{{ asset('save.svg', 'misc')}}" alt="save icon" width="40"></button> #}
-
-            <a href="{{path('ai_create_ppp')}}"><button class="js-ai-create-ppp btn btn-info" data-bs-toggle="modal" data-bs-target="#waitLoadingModal">Enregistrer un récapitulatif des conseils <img class="ms-3" src="{{ asset('save.svg', 'misc')}}" alt="save icon" width="40"></button></a>
+            <a href="{{path('ai_create_ppp')}}"><button class="js-ai-create-ppp btn btn-info" data-bs-toggle="modal" data-bs-target="#waitLoadingModal">Afficher un récapitulatif des conseils <img class="ms-2" src="{{ asset('save.svg', 'misc')}}" alt="save icon" width="24"></button></a>
         
         </div>
 

@@ -29,7 +29,9 @@ class SessionVariablesService {
         }
 
         if ($this->session->has("guest-user-id")) {
+
             return $this->session->get("guest-user-id");
+            
         }
         
         return null;

@@ -3,9 +3,6 @@
 
     $(document).ready(function () {
 
-        $("#process-container").hide();
-        $(".assistant-advice-container").hide();
-
         const newAIAnswerPattern = ({ answer }) => `
 
             <div class="assistant-advice-container form-group">
@@ -18,40 +15,18 @@
     
         `;
 
-        const summaryChunk = ({ title, content }) => `
+        //visual ui innitialisation
 
-            <div class="summary-chunk">
-
-                <h4 class="title">${title}</h4>
-
-                <div class="content">${content}</div>
-
-            </div>
-    
-        `;
-
-        // Sumamry question and answer pattern
-
-        const qaPattern = ({ question, answer }) => `
-
-            <div class="qa-chunk">
-
-                <h4 class="question">${question}</h4>
-
-                <div class="answer">${answer}</div>
-
-            </div>
-    
-        `;
-
-
-
-
-
-        $(".send-button-container").hide();
         $(".answer-loader").hide();
+        $(".send-button-container").hide();
 
         $(".userInput").focus();
+        
+        $(".js-ai-create-ppp").hide();
+
+        $("#process-container").hide();
+
+        $(".assistant-advice-container").hide();
 
 
         //when user click on start button, show main ui
@@ -63,10 +38,9 @@
 
         });
 
-        $(".js-summary-process").hide();
+        
 
         $('#js-start-interview-coach').click();
-        $(".send-button-container").show();
 
         //store user messages count in order to show "Make a summary button" when relevant.
         var userMessagesCount = 0;
@@ -105,9 +79,9 @@
 
                     userMessagesCount++;
 
-                    if(userMessagesCount >= 1){
+                    if(userMessagesCount >= 4){
 
-                        $(".js-summary-process").show();
+                        $(".js-ai-create-ppp").show();
 
                     }
 
@@ -142,94 +116,6 @@
             }
 
         });
-
-
-        $('.js-summary-process').on('click', function() {
-
-            $.ajax({
-
-                type: "POST",
-
-                url: "{{path('ajax_ai_interview_create_summary')}}",
-
-                success: function (response) {
-
-                    summary = response.summary;
-
-                    Object.keys(summary).forEach(function(key) {
-
-                        console.log('Key : ' + key + ', Value : ' + summary[key])
-
-                        summaryChunkTitle = "";
-                        summaryChunkContent = summary[key];
-
-                        switch(key)
-                        {
-                            case 'goal':
-
-                                summaryChunkTitle="Objectif du projet";
-                                break;
-
-                            case 'keywords':
-
-                                summaryChunkTitle="Mots clés";
-                                break;
-
-                            case 'description':
-
-                                summaryChunkTitle="Description générale";
-                                break;
-
-                            case 'qas':
-
-                                summaryChunkTitle="Questions & Réponses";
-
-                                qasChunk = "";
-
-                                console.log(summaryChunkContent);
-
-                                Object.entries(summaryChunkContent).forEach((qaObject) => {
-
-                                    qasChunk += [
-                                        { question: qaObject[1].question, answer: qaObject[1].answer },
-                                    ].map(qaPattern);
-
-                                });
-
-                                summaryChunkContent = qasChunk;
-
-                                break;
-
-                            default:
-                                console.log("Unknown presentation summary key");
-                        }
-
-
-                        $(".presentation-summary").append([
-                            { title: summaryChunkTitle, content: summaryChunkContent },
-                        ].map(summaryChunk));
-
-
-                    })
-
-
-
-                    //$('.presentation-summary').html(response.summary.goal);
-
-                    //console.log(response);
-
-                }
-
-            });
-
-        });
-
-
-
-    
-
-        
-
 
         
     });

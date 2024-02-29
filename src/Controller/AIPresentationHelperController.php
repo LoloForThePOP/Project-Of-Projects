@@ -7,14 +7,12 @@ use App\Form\AIPPAdviceType;
 use App\Entity\CollectedData;
 use App\Service\ImageService;
 use App\Service\AILogoService;
-use App\Service\OpenAIService;
 use Symfony\Component\Mime\Email;
 use App\Service\AI\AICreatePPService;
 use App\Service\CreatePPService;
 use App\Service\DataCollectService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
-use function PHPUnit\Framework\throwException;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 

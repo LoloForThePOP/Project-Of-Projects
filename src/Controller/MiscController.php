@@ -7,7 +7,6 @@ use App\Entity\User;
 use App\Entity\PPBase;
 use App\Entity\Category;
 use App\Service\OpenAIAPI;
-use App\Service\OpenAIService;
 use App\Repository\UserRepository;
 use App\Service\SessionVariablesService;
 use Doctrine\ORM\EntityManagerInterface;

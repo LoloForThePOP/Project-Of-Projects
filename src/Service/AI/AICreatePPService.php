@@ -8,7 +8,7 @@ use Assert\Length;
 use Assert\NotBlank;
 use App\Entity\Comment;
 use Assert\GreaterThan;
-use App\AI\Service\OpenAIService;
+use App\Service\AI\OpenAIService;
 use App\Service\CreatePPService;
 use App\Validator\NotContainsUrlOrEmail;
 use Doctrine\ORM\EntityManagerInterface;
@@ -61,7 +61,7 @@ class AICreatePPService {
     */
     protected function summaryComponentsAIPrompt(){
 
-        $aiPrompt = "With the previous conversation material, create a json output with values language same as language used for the conversation. ";
+        $aiPrompt = "With the previous conversation material, create a json output with values language same as language used for the conversation. The content should not emphasis over project presentation modalities, instead it should focus over project goal.";
 
         // Project Goal
 

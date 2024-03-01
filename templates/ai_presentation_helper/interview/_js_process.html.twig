@@ -7,7 +7,7 @@
 
             <div class="assistant-advice-container form-group">
 
-                <h4 class="h5 text-center fw-bold mb-3">La réponse du coach</h4>
+                <h4 class="assistant-advice-label h5 mb-3">La réponse du coach</h4>
 
                 <div class="assistant-advice border">${answer}</div>
 
@@ -18,6 +18,7 @@
         //visual ui innitialisation
 
         $(".answer-loader").hide();
+
         $(".send-button-container").hide();
 
         $(".userInput").focus();
@@ -37,10 +38,6 @@
             $("#process-container").show();
 
         });
-
-        
-
-        $('#js-start-interview-coach').click();
 
         //store user messages count in order to show "Make a summary button" when relevant.
         var userMessagesCount = 0;
@@ -76,10 +73,11 @@
                     $('.send-button-container').appendTo('#main-ui form');
                     $(".send-button-container").hide();
                     $(".answer-loader").hide();
+                    //$(".userInput:last-of-type").focus();
 
                     userMessagesCount++;
 
-                    if(userMessagesCount >= 4){
+                    if(userMessagesCount >= 3){
 
                         $(".js-ai-create-ppp").show();
 
@@ -116,6 +114,19 @@
             }
 
         });
+
+        // Send message when user hit enter
+        $('.userInput').on('keypress', function(event) {
+
+            if (event.keyCode == 13) {
+                // Trigger the button element with a click
+                $('.send-button').click();
+                $(".userInput").blur();
+            }
+
+        });
+
+       
 
         
     });

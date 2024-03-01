@@ -79,7 +79,7 @@ class ImageService {
                 );
     
                 // You can choose a path to save splitted images
-                $output_path = 'public/ia-generated-logos/splitted_' . $i . $j . '.png';
+                $output_path = 'media/uploads/ai-generated-logos/splitted_' . $i . $j . '.png';
                 imagepng($img, $output_path);
                 imagedestroy($img);
     

@@ -6,6 +6,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  color: #227422;
 }
 
 #main-ui .assistant-advice {
@@ -102,7 +103,11 @@ body {
 
 /* End of RGPD Show more */
 
-
+.assistant-advice-label{
+  text-align: center;
+  color: #5c5cae;
+  font-weight: bold;
+}
 
 @media screen and (max-width: 580px) {
 

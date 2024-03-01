@@ -61,7 +61,7 @@ class AICreatePPService {
     */
     protected function summaryComponentsAIPrompt(){
 
-        $aiPrompt = "With the previous conversation material, create a json output with values language same as language used for the conversation. The content should not emphasis over project presentation modalities, instead it should focus over project goal.";
+        $aiPrompt = "With the previous conversation material, create a json output. For json values, you use french language. The content should not emphasis over project presentation modalities, instead it should focus over project goal.";
 
         // Project Goal
 

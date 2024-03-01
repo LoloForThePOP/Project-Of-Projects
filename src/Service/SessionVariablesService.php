@@ -24,17 +24,22 @@ class SessionVariablesService {
     public function fakeUserId(User $fakeUser = null){
 
         if ($fakeUser !== null) {
-            $this->session->set("guest-user-id", $fakeUser->getId());
-            return $this;
+            $this->session->set("fake-user-id", $fakeUser->getId());
+            
+            return;
         }
 
-        if ($this->session->has("guest-user-id")) {
+        if ($this->session->has("fake-user-id")) {
 
-            return $this->session->get("guest-user-id");
+            //dd($this->session->get("fake-user-id"));
+
+            return $this->session->get("fake-user-id");
             
         }
         
         return null;
+
+        
 
     }
 

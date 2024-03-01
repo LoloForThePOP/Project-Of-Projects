@@ -9,6 +9,7 @@ use App\Entity\Category;
 use App\Service\OpenAIAPI;
 use App\Repository\UserRepository;
 use App\Service\SessionVariablesService;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -309,21 +310,25 @@ class MiscController extends AbstractController
      /**
      * @Route("/auth-redirections", name="auth_redirections")
     */
-    public function authRedirections(SessionVariablesService $sessionVariables)
+    public function authRedirections(SessionVariablesService $sessionVariables, EntityManagerInterface $em)
     {
         //Did user just create a presentation while not being logged in
         $fakeUserId = $sessionVariables->fakeUserId();
+
         if ($fakeUserId !== null) {
 
             $fakeUser = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $fakeUserId]);
             $fakeUserPresentation = $fakeUser->getCreatedPresentations()[0];
+            $fakeUserPresentation->setDataItem("guest-presenter-activated", true);
 
             $this->getUser()->addCreatedPresentation($fakeUserPresentation);
             $fakeUser->removeCreatedPresentation($fakeUserPresentation);
-            
+
+            //dd($this->getUser());
+
+            $em->flush();
 
             //supprimer la session;
-
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $fakeUserPresentation->getStringId(),

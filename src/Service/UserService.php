@@ -86,6 +86,7 @@ class UserService {
         $this->em->flush();
 
         $sessionVariablesService = new SessionVariablesService($this->session);
+
         $sessionVariablesService->fakeUserId($this->user); //storing fake user id in a session so that we can transfert its content to an actual logged in user.
 
         return $this->user;

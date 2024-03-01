@@ -3,6 +3,7 @@
 namespace App\Security\Authenticator;
 
 use App\Entity\Persorg;
+use App\Service\UserService;
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,6 +12,7 @@ use Symfony\Component\Routing\RouterInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -25,14 +27,16 @@ class GoogleAuthenticator extends OAuth2Authenticator
     private $router;
 
     protected $slugger;
+    protected $session;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, SluggerInterface $slugger)
+    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, SluggerInterface $slugger, SessionInterface $session)
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
 
         $this->slugger = $slugger;
+        $this->session = $session;
     }
 
     public function supports(Request $request): ?bool
@@ -66,18 +70,21 @@ class GoogleAuthenticator extends OAuth2Authenticator
 
                     $user
                         ->setUserName($userName)
-                        ->setUserNameSlug(strtolower($this->slugger->slug($userName)))
                         ->setEmail($email)
-                        ->setPassword(substr(md5(rand()), 0, 12)) //creating a mock password hash
                         ->setParameter('isVerified', true);
 
                     $userPersorg = new Persorg(); // creating a user profile
                     $userPersorg->setName($user->getUserName());
                     $user->setPersorg($userPersorg);
 
+                    $userService = new UserService($this->entityManager, $this->slugger, $this->session, $user);
+                    $userService->saveSolidUser(true);
+
                     $this->entityManager->persist($userPersorg);
                     $this->entityManager->persist($user);
                     $this->entityManager->flush();
+
+
                 }
 
                 return $user;
@@ -89,7 +96,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // change "app_homepage" to some route in your app
-        $targetUrl = $this->router->generate('homepage');
+        $targetUrl = $this->router->generate('auth_redirections');
 
         return new RedirectResponse($targetUrl);
     

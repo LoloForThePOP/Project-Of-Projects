@@ -540,8 +540,7 @@ class PPController extends AbstractController
 
             if ($guestPresenterForm->isSubmitted() && $guestPresenterForm->isValid()){
 
-
-                $shadowUser = $presentation->getCreator(); // The fake user we created when we created an empty guest user presentation. We update this user.
+                $shadowUser = $presentation->getCreator(); // The fake user we created when we created an empty guest user presentation. We want to update this user with real information.
 
                 $guestPresenterEmail= $guestPresenterForm->get('email')->getData();
 
@@ -551,7 +550,6 @@ class PPController extends AbstractController
                     $shadowUser,
                     $guestPresenterForm->get('plainPassword')->getData()
                 );
-
 
                 $shadowUser ->setEmail($guestPresenterEmail)
                             ->setPassword($guestPresenterPassword);

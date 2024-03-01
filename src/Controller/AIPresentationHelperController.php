@@ -7,15 +7,16 @@ use App\Form\AIPPAdviceType;
 use App\Entity\CollectedData;
 use App\Service\ImageService;
 use App\Service\AILogoService;
-use Symfony\Component\Mime\Email;
-use App\Service\AI\AICreatePPService;
+use App\Service\MailerService;
 use App\Service\CreatePPService;
+use Symfony\Component\Mime\Email;
 use App\Service\DataCollectService;
+use App\Service\AI\AICreatePPService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -202,10 +203,11 @@ class AIPresentationHelperController extends AbstractController
      /**
      * @Route("/ia-assistant-gratuit-entretien-projet", name="ai_interview_helper_origin")
      */
-    public function interviewOrigin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
+    public function interviewOrigin(Request $request): Response
     {
 
         $this->get('session')->set('ai_interview_helper_conversation', null);
+        $this->get('session')->set('ai_interview_helper_conversation_count_user_interactions', 0);
 
         return $this->render('ai_presentation_helper/interview/origin.html.twig', [
             'test' => "test",
@@ -217,7 +219,7 @@ class AIPresentationHelperController extends AbstractController
      /**
      * @Route("/ajax-ia-assistant-gratuit-entretien-projet", name="ajax_ai_interview_helper_origin")
      */
-    public function ajaxInterviewOrigin(Request $request, DataCollectService $dataCollect) {
+    public function ajaxInterviewOrigin(Request $request, DataCollectService $dataCollect, MailerInterface $mailer) {
          
         if ($request->isXmlHttpRequest()) {
 
@@ -232,7 +234,7 @@ class AIPresentationHelperController extends AbstractController
                 
                 $messages =  [
 
-                    ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement des conseils pour PRESENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier l'objectif si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule et seulement une seule question à la fois."],
+                    ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement des conseils pour PRESENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier son objectif si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule et seulement une seule question à la fois."],
 
                     ['role' => 'user', 'content' => "Voici l'objectif de mon projet : ".$userMessage."."],
 
@@ -269,13 +271,32 @@ class AIPresentationHelperController extends AbstractController
             //Storing conversation as it is now
             $this->get('session')->set('ai_interview_helper_conversation', $messages);
 
-            //dump($messages);
+            
+            // if user interactions are long enough : collecting conversation data and signaling that to webmaster
+            $abr="ai_interview_helper_conversation_count_user_interactions";
+            $gabr=$this->get('session')->get($abr);
 
-            //collect data
-            /* $dataCollectArray["ai_answer"] = $responseContent;
-            $dataCollect->save("ai_presentation__interviewhelper", [$dataCollectArray]); */
+            $this->get('session')->set($abr, $gabr + 1);
 
-    
+            if ($gabr == 3) {
+                $dataCollectArray=[];
+                $dataCollectArray["conversation"] = $messages;
+                $dataCollect->save("ai_presentation_interview_helper", $dataCollectArray);
+
+                //email admin
+                $sender = $this->getParameter('app.general_contact_email');
+                $receiver = $this->getParameter('app.general_contact_email');
+
+                $email = (new Email())
+                    ->from($sender)
+                    ->to($receiver)
+                    ->subject('New AI Presentation Interview Coach Usage')
+                    ->html('<pre>'.json_encode($dataCollectArray, JSON_PRETTY_PRINT).'</pre>');
+
+                $mailer->send($email);
+
+            }
+
             $aiAnswer = $responseContent;
     
             return new JsonResponse(['aiAnswer' => $aiAnswer]);

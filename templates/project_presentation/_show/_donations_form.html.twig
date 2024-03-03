@@ -1,0 +1,63 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "donationSetupFormModal", 'modal_title': "Activer les donations"} %}
+    
+{% block modalBody %}
+
+
+
+        <div class="mb-3">
+
+            <h5>Conditions d'utilisation</h5>
+            
+            <div class="">Propon permet de recevoir des donations pour votre projet. Pour activer les donations, vous devez résider en France. Après vérification de vos informations bancaires, les donations sont activées au bout de 3 jours environ. 
+            Propon prend 4% de commission sur les donations et vous reverse chaque semaine les donations collectées pour votre projet.</div>
+        
+        </div>
+
+        {{ form_start(form) }}
+
+
+
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+
+        <div class="form-control">
+
+            <div class="h5 my-3">Informations bancaires</div>
+
+            {{ form_widget(form) }}
+        
+        </div>
+
+        
+
+    {% endblock %}
+
+    {% block footerButtons %}
+
+        <button type="submit" class="btn btn-validate">✔️ Valider</button>
+
+        {{ form_end(form) }}
+
+    {% endblock %}
+
+
+    {% block formErrors %}
+        
+        {% if not form.vars.valid %}
+
+            <script>
+            
+                $(document).ready(function(){
+            
+                    $('#{{modal_id}}').modal('show');
+            
+                });
+            
+            </script>
+
+        {% endif %}
+    
+    {% endblock %}
+
+{% endembed %}

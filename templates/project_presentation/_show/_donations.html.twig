@@ -1,0 +1,139 @@
+
+
+
+{% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "donations", 'title': "Donations",} %}
+
+    {% block editButtons %}{% endblock %}
+
+    {% block deleteElementsButtons %}{% endblock %}
+
+    {% block mainContent %}
+
+        <div id="donations" class="js-elements-list pp-struct-content row m-0">
+
+                <div class="cta container" data-bs-toggle="modal" data-bs-target="#donationSetupFormModal">
+                    
+                    <div class="row disabled">
+                        
+                        <div class="col-2 present-donations-img-cta">
+
+                            <img id="" class="no-donations" src="{{ asset('no_donation.png', 'pp_wysiwyg')}}"  alt="A face where on eye is represented with an hearth and the other with a coin.">
+
+                        
+                        </div>
+
+                        <div class="col-10 present-donations-text-cta">
+
+                            <div class="text-container">Activez les donations pour recevoir des financements.</div>
+                        
+                        </div>
+                    
+                    </div>
+                
+                </div>          
+                
+                <style>
+
+                    #donations{
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                    }
+
+                    #donations .cta{
+
+                        cursor: pointer;
+                        margin-bottom: 25px;
+
+                    }
+
+                    .present-donations-text-cta{
+                        display: flex;
+                        align-items: center;
+                        font-weight: bold;
+                    }
+
+                    .present-donations-text-cta .text-container {
+                        padding: 5px 10px;
+                        border-radius: 5px;
+                        color: #7d464e;
+                        background-color: #fff8fd;
+                        border: 1px solid #f9c1cb;
+                    }
+
+                    .present-donations-img-cta{
+
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        padding: 0;
+                        padding-left: 5px;
+                    }
+                                    
+                    img.no-donations {
+                        max-width: 94px;
+                        border-radius: 4px;
+                    }
+
+                    @media screen and (max-width: 580px) {
+
+                        #donations .cta{
+
+                           padding: 15px 10px;
+                           margin-bottom: 10px;
+                           background-color: #f1f3ff;
+                           border-radius: 6px;
+                           
+                        }
+
+                        .present-donations-text-cta{
+                            padding-right: 0;
+                        }
+
+                        .present-donations-text-cta .text-container {
+                            padding: unset;
+                            border-radius: unset;
+                            color: #296429;
+                            background-color: unset;
+                            line-height: 1.2;
+                            font-size: 14px;
+                        }
+
+                        .present-donations-img-cta{
+
+                            padding: 0;
+                            padding-left: 5px;
+                        }
+
+                        img.no-donations {
+                            max-width: 100%;
+                            padding: 0;
+                        }
+
+                    }
+                
+                </style>
+                
+
+        </div>
+
+
+        <style>
+
+            #donations{
+
+                display: flex;
+                justify-content: center;
+                padding-left: 0;
+
+            }
+
+
+        </style>
+
+    {% endblock %}
+    
+{% endembed %}

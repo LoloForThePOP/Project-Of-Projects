@@ -487,12 +487,24 @@
             
             {# Websites #}
 
-
             <div class="col-lg-6 pp-struct-container-wrapper {% if countWebsites == 0 %} pp-edition-mode {% endif %}">
         
                 <div id="websites-struct-container" class="pp-struct-container col-12">
                 
                     {% include 'project_presentation/_show/_websites.html.twig' %}
+                        
+                </div>   
+            
+            </div>
+
+            
+            {# Donations #}
+
+            <div class="col-lg-6 pp-struct-container-wrapper">
+        
+                <div id="donations-struct-container" class="pp-struct-container col-12">
+                
+                    {% include 'project_presentation/_show/_donations.html.twig' %}
                         
                 </div>   
             

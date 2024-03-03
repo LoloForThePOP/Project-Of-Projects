@@ -31,9 +31,11 @@ use App\Service\AssessQuality;
 use App\Service\MailerService;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
+use App\Form\BankAccountInfoType;
 use App\Form\CustomThumbnailType;
 use App\Form\RegistrationFormType;
 use App\Repository\LikeRepository;
+use App\Repository\SlideRepository;
 use App\Service\RemovePresentation;
 use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
@@ -48,7 +50,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Url;
 use App\Form\WithoutUsernameRegistrationFormType;
-use App\Repository\SlideRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -157,7 +158,6 @@ class PPController extends AbstractController
         $this->denyAccessUnlessGranted('view', $presentation);
 
         $user = $this->getUser();
-
 
         //updating views count only if user is not this presentation's presentor (as registered user or as a guest)
 
@@ -367,6 +367,7 @@ class PPController extends AbstractController
 
             }
 
+
             $imageSlide = new Slide();
             $imageSlide->setType('image');
             $addImageForm = $this->createForm(ImageSlideType::class, $imageSlide);
@@ -571,6 +572,39 @@ class PPController extends AbstractController
             
             }
 
+
+            
+            $bankAccountInfoForm = $this->createForm(BankAccountInfoType::class);
+            $bankAccountInfoForm->handleRequest($request);
+            
+            if ($bankAccountInfoForm->isSubmitted() && $bankAccountInfoForm->isValid()) {
+
+                dd($bankAccountInfoForm);
+                //$document->setPresentation($presentation);
+                //$manager->persist($document);
+    
+                $manager->flush();
+    
+                $this->addFlash(
+                    'success',
+                    "✅ Ajout effectué"
+                );
+
+                return $this->redirectToRoute(
+                    'show_presentation',
+    
+                    [
+    
+                        'stringId' => $presentation->getStringId(),
+                        '_fragment' => 'donations-struct-container',
+    
+                    ]
+
+                );
+
+            }
+
+            
             return $this->render('/project_presentation/show.html.twig', [
                 'presentation' => $presentation,
                 'stringId' => $presentation->getStringId(),
@@ -587,6 +621,7 @@ class PPController extends AbstractController
                 'addLogoForm' => $addLogoForm->createView(),
                 'newUserForm' => $guestPresenterForm->createView(),
                 'addNewsForm' => $addNewsForm->createView(),
+                'bankAccountInfoForm' => $bankAccountInfoForm->createView(),
                 
                 
             ]);

@@ -13,47 +13,6 @@ Parameters:
   - shareButtonLabel
 
 #}
-
-
-<script>
-
-  $(document).ready(function () {
-
-      const title = document.title;
-      const url = document.querySelector('link[rel=canonical]') ? document.querySelector('link[rel=canonical]').href : document.location.href;
-
-      const shareButton = document.querySelector('.share-button');
-      const shareDialog = document.querySelector('.share-dialog');
-      const closeButton = document.querySelector('.close-button');
-
-      shareButton.addEventListener('click', event => {
-      if (navigator.share) { 
-      navigator.share({
-          title: title,
-          url: url,
-          }).then(() => {
-          console.log("Merci d'avoir partagé !");
-          })
-          .catch(console.error);
-          } else {
-              shareDialog.classList.add('is-open');
-          }
-      });
-
-      closeButton.addEventListener('click', event => {
-      shareDialog.classList.remove('is-open');
-      });
-
-
-      // feeding fallback
-
-      $(".ressource-url").text(url);
-
-
-  });
-
-</script>
-
 <div class="share-zone">
 
   <div class="share-dialog">
@@ -92,7 +51,7 @@ Parameters:
     </div>
     <div class="link">
       <div class="ressource-url"></div>
-      <button class="copy-link">Copier le lien</button>
+      <button class="copy-url">Copier le lien</button>
     </div>
   </div>
 
@@ -120,6 +79,52 @@ Parameters:
   </svg>
 
 </div>
+
+
+
+
+
+<script>
+
+  $(document).ready(function () {
+
+      const title = document.title;
+      const url = document.querySelector('link[rel=canonical]') ? document.querySelector('link[rel=canonical]').href : document.location.href;
+
+      const shareButton = document.querySelector('.share-button');
+      const shareDialog = document.querySelector('.share-dialog');
+      const closeButton = document.querySelector('.close-button');
+
+      shareButton.addEventListener('click', event => {
+      if (navigator.share) { 
+      navigator.share({
+          title: title,
+          url: url,
+          }).then(() => {
+            console.log("Merci d'avoir partagé !");
+          })
+          .catch(console.error);
+          } else {
+            shareDialog.classList.add('is-open');
+          }
+      });
+
+      closeButton.addEventListener('click', event => {
+        shareDialog.classList.remove('is-open');
+      });
+
+
+      // feeding fallback
+      $(".ressource-url").text(url);
+
+
+
+
+
+  });
+
+</script>
+
 
 
 
@@ -160,7 +165,7 @@ Parameters:
   border-color: #cdd;
 }
 
-.share-zone .share-button, .share-zone .copy-link {
+.share-zone .share-button, .share-zone .copy-url {
   padding-left: 30px;
   padding-right: 30px;
 }

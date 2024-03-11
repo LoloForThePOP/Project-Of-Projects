@@ -21,9 +21,11 @@ use App\Form\DocumentType;
 use App\Form\MiscDataType;
 use App\Form\StringIdType;
 use App\Service\TreatItem;
+use App\Entity\BankAccount;
 use App\Service\LiveSavePP;
 use App\Form\ImageSlideType;
 use App\Form\VideoSlideType;
+use App\Form\BankAccountType;
 use App\Service\ImageResizer;
 use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
@@ -31,7 +33,6 @@ use App\Service\AssessQuality;
 use App\Service\MailerService;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
-use App\Form\BankAccountInfoType;
 use App\Form\CustomThumbnailType;
 use App\Form\RegistrationFormType;
 use App\Repository\LikeRepository;
@@ -573,22 +574,32 @@ class PPController extends AbstractController
             }
 
 
-            
-            $bankAccountInfoForm = $this->createForm(BankAccountInfoType::class);
+            $bankAccount = new BankAccount;            
+            $bankAccountInfoForm = $this->createForm(BankAccountType::class, $bankAccount);
             $bankAccountInfoForm->handleRequest($request);
             
             if ($bankAccountInfoForm->isSubmitted() && $bankAccountInfoForm->isValid()) {
 
-                dd($bankAccountInfoForm);
-                //$document->setPresentation($presentation);
-                //$manager->persist($document);
-    
+
+                $bankAccount->setStatus("TO_CHECK");
+
+                $presentation->setBankAccount($bankAccount);
+                $manager->persist($bankAccount);    
                 $manager->flush();
     
                 $this->addFlash(
                     'success',
                     "✅ Ajout effectué"
                 );
+
+                /* Email Webmaster that someone wants to receive donations */
+    
+                $sender = $this->getParameter('app.mailer_email');
+                $receiver = $this->getParameter('app.general_contact_email');
+    
+                
+                $mailer->send($sender, 'Propon', $receiver, "Someone wants to receive donations for his / her project",'Project Goal : '.$presentation->getGoal().'. Project StringId: '.$presentation->getStringId());
+
 
                 return $this->redirectToRoute(
                     'show_presentation',

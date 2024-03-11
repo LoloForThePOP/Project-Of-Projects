@@ -260,6 +260,11 @@ class PPBase implements \Serializable, NormalizableInterface
      */
     private $follows;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=BankAccount::class, inversedBy="presentation")
+     */
+    private $bankAccount;
+
 
 
 
@@ -1367,6 +1372,18 @@ class PPBase implements \Serializable, NormalizableInterface
                 $follow->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getBankAccount(): ?BankAccount
+    {
+        return $this->bankAccount;
+    }
+
+    public function setBankAccount(?BankAccount $bankAccount): self
+    {
+        $this->bankAccount = $bankAccount;
 
         return $this;
     }

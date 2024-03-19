@@ -596,9 +596,13 @@ class PPController extends AbstractController
     
                 $sender = $this->getParameter('app.mailer_email');
                 $receiver = $this->getParameter('app.general_contact_email');
+
+                $presentation_url = $this->generateUrl('show_presentation', ["stringId"=>$presentation->getStringId()], UrlGeneratorInterface::ABSOLUTE_URL);
     
                 
-                $mailer->send($sender, 'Propon', $receiver, "Someone wants to receive donations for his / her project",'Project Goal : '.$presentation->getGoal().'. Project StringId: '.$presentation->getStringId());
+                $mailer->send($sender, 'Propon', $receiver, "Someone wants to receive donations for his / her project",'Project Goal : '.$presentation->getGoal().' url: <a href="'.$presentation_url.'">'.$presentation_url.'</a>');
+
+            
 
 
                 return $this->redirectToRoute(
@@ -870,6 +874,42 @@ class PPController extends AbstractController
 
                             $mailer->send($sender, 'Propon', $receiver, "Votre présentation de projet est validée sur Propon.",'/project_presentation/email_presenter_validated_pp.html.twig', $emailParameters);
 
+                        }
+    
+                    }
+
+                    break;
+
+                case 'admin-validation-donations-switch':
+
+                    if ($this->isGranted('ROLE_ADMIN')) {
+
+                        $bankAccount = $presentation->getBankAccount();
+
+                        if ($switchState=="true") {  
+                            
+                            $bankAccount->setStatus("VALIDATED");
+                            $presentation->setBankAccount($bankAccount);  
+                            $manager->flush();
+                            
+                            /* Email user presenter that donations are activated */
+
+                            $sender = $this->getParameter('app.general_contact_email');
+                            
+                            $receiver = $presentation->getCreator()->getEmail();
+
+                            $emailParameters=[
+
+                                "address" => $this->generateUrl('show_presentation', ["stringId"=>$presentation->getStringId()], UrlGeneratorInterface::ABSOLUTE_URL),
+                                
+                            ];
+
+                            $mailer->send($sender, 'Propon', $receiver, "Les donations sont activées sur votre page Propon.",'/project_presentation/email_presenter_validated_donations.html.twig', $emailParameters);
+
+                        } elseif ($switchState == false) {
+                            $bankAccount->setStatus("TO_CHECK");
+                            $presentation->setBankAccount($bankAccount);  
+                            $manager->flush();
                         }
     
                     }

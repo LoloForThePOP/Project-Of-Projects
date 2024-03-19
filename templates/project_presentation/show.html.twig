@@ -497,10 +497,11 @@
             
             </div>
 
-            
-            {# Donations
+            {% set bankAccount = presentation.bankAccount %}
 
-            <div class="col-lg-6 pp-struct-container-wrapper">
+            {# Donations #}
+
+            <div class="col-lg-6 pp-struct-container-wrapper {% if bankAccount | length == 0 %}pp-edition-mode{% endif %}">
         
                 <div id="donations-struct-container" class="pp-struct-container col-12">
                 
@@ -508,7 +509,7 @@
                         
                 </div>   
             
-            </div> #}
+            </div>
 
 
             

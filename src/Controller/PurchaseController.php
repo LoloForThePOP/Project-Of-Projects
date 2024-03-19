@@ -92,14 +92,14 @@ class PurchaseController extends AbstractController
     /**
     * @Route("/purchase/success/", name="purchase_payment_success")
     */
-    /* public function paymentSuccess(): Response
+    public function paymentSuccess(): Response
     {
 
         return $this->render('purchase/success.html.twig', [
             
         ]);
 
-    } */
+    } /* */
 
 
 

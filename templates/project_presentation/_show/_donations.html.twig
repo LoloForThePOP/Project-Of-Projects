@@ -11,6 +11,8 @@
 
         <div id="donations" class="js-elements-list pp-struct-content row m-0">
 
+            {% if bankAccount | length == 0 %}
+
                 <div class="cta container" data-bs-toggle="modal" data-bs-target="#donationSetupFormModal">
                     
                     <div class="row disabled">
@@ -116,7 +118,92 @@
                     }
                 
                 </style>
+
+            {% else %} {# one bank account #}
+
+                {% if bankAccount.status == "TO_CHECK" %}
+
+                    <div class="pp-edition-mode container border text-center rounded p-3">Votre demande d'activation des donations a été envoyée. Notre équipe procède à sa validation dans les plus brefs délais, vous serez averti par e-mail.</div>
+
+                    <div class="pp-consultation-mode container border text-center rounded p-3">L'auteur de cette page a demandé l'activation des donations, revenez dans quelques jours pour effectuer une donation.</div>
+
+                {% elseif bankAccount.status == "VALIDATED" %}
+
+                    <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées, pour modifier le compte bancaire des donations, cliquez <a href="">ici</a>.</div>
+
+                    <link href="/css/stripe_checkout.css" rel="stylesheet">
+                    <script src="https://js.stripe.com/v3/"></script>
+
+
+                      <script>
+
+                        const clientSecret = '{{ clientSecret }}';
+                        const stripePublicKey = '{{ stripePublicKey }}';
+                        const redirectAfterSuccessURL = '{{ url("purchase_payment_success") }}'
+
+                    </script>
+
+
+                    <script src="/js/stripe_checkout.js"></script>
+
+                    <div class="pp-consultation-mode container"><button>Soutenir</button>.</div>
+
+                                    
+                    <!-- Display a payment form -->
+
+                    <form id="payment-form">
+
+                    <div id="payment-element">
+
+                        <!--Stripe.js injects here the Payment Element-->
+
+                    </div>
+
+                    <button id="submit" class="">
+
+                        <div class="spinner hidden" id="spinner"></div>
+
+                        <span id="button-text">Soutenir</span>
+
+                    </button>
+
+                    <div id="payment-message" class="hidden"></div>
+
+                    </form>
+
                 
+                {% endif %}
+
+                {% if is_granted('ROLE_ADMIN') %}
+
+                    <div class="alert ps-0 mt-4">
+
+                        <div class="menu-button py-3 fw-bold">
+
+                            <h6 class="text-primary text-center fw-bold" style="font-size: normal;">Valider les donations</h6>
+
+                            <div class="d-flex justify-content-center">
+
+                                <div>
+
+                                    <span class="">Non</span>
+                            
+                                    <input type="checkbox" id="admin-validation-donations-switch" class="toggle-switch" {% if bankAccount.status == "VALIDATED" %} checked {% endif %} /><label class="toggle-switch-label" for="admin-validation-donations-switch">Admin validate donations</label>
+                                
+                                    <span class="ps-2">Oui</span>
+
+                                </div>
+                                
+                            </div>
+
+                        </div> 
+                        
+                    </div>
+
+                {% endif %}
+
+                
+            {% endif %}
 
         </div>
 

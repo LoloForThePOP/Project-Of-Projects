@@ -55,6 +55,10 @@ class MiscController extends AbstractController
                     $chunkTemplateDirFileName = '/plans/_details';
                     break;
 
+                case 'donation':
+                    $chunkTemplateDirFileName = '/utilities/donation_form';
+                    break;
+
                 default:
                 
                     throw new \Exception('Invalid chunk name, passed '.$chunkName);

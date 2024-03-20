@@ -5,7 +5,7 @@ namespace App\Service;
 use App\Entity\Purchase;
 
 
-class StripePayment {
+class StripeService {
 
 
     protected $publicKey;

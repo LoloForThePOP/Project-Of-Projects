@@ -68,6 +68,28 @@ class PurchaseController extends AbstractController
   
   
     /**
+     * @Route("/purchase/ajax-payment-form/", name="ajax_purchase_payment_form")
+     */
+    public function showCardform(StripePayment $stripeService): Response
+    {
+
+        $purchase = new Purchase();
+        $purchase->setBuyerEmail('joe@doe.com');
+        $purchase->setContentItem('objectsToPay', 'lol');
+        $purchase->setContentItem('total_amount', 2000);
+
+        $paymentIntent = $stripeService->getPaymentIntent($purchase);
+
+        return $this->render('purchase/payment.html.twig', [
+            'clientSecret' => $paymentIntent->client_secret,
+            'stripePublicKey' => $stripeService->getPublicKey(),
+            'purchase' => $purchase,
+        ]);
+
+    }
+  
+  
+    /**
      * @Route("/purchase/form/", name="purchase_payment_form")
      */
 /*     public function showCardform(StripePayment $stripeService): Response
@@ -89,6 +111,9 @@ class PurchaseController extends AbstractController
     } */
 
 
+
+
+
     /**
     * @Route("/purchase/success/", name="purchase_payment_success")
     */
@@ -99,7 +124,7 @@ class PurchaseController extends AbstractController
             
         ]);
 
-    } /* */
+    }
 
 
 

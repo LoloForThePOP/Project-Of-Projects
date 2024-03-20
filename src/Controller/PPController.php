@@ -31,6 +31,7 @@ use App\Form\BusinessCardType;
 use App\Form\DeleteEntityType;
 use App\Service\AssessQuality;
 use App\Service\MailerService;
+use App\Service\StripeService;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
 use App\Form\CustomThumbnailType;
@@ -153,12 +154,13 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, UserPasswordHasherInterface $encoder, MailerService $mailer, NotificationService $notifService)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, UserPasswordHasherInterface $encoder, MailerService $mailer, NotificationService $notifService, StripeService $stripeService)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
 
         $user = $this->getUser();
+
 
         //updating views count only if user is not this presentation's presentor (as registered user or as a guest)
 
@@ -691,6 +693,8 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
             'createPresentationFormCTA' => $createPresentationFormCTA->createView(),
+            'clientSecret' => $paymentIntent->client_secret,
+            'stripePublicKey' => $stripeService->getPublicKey(),
             
         ]);
 

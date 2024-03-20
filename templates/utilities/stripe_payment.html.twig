@@ -1,0 +1,44 @@
+<!-- CSS & js inclusions -->
+
+<link href="/css/stripe_checkout.css" rel="stylesheet">
+
+<script src="https://js.stripe.com/v3/"></script>
+
+
+<script>
+
+    const clientSecret = '{{ clientSecret }}';
+    const stripePublicKey = '{{ stripePublicKey }}';
+    const redirectAfterSuccessURL = '{{ url("purchase_payment_success") }}'
+
+</script>
+
+<script src="/js/stripe_checkout.js"></script>
+
+<!-- End of CSS & js inclusions -->
+
+
+                        
+<!-- Stripe payment form -->
+
+<form id="payment-form">
+
+    <div id="payment-element">
+
+        <!--Stripe.js injects here the Payment Element-->
+
+    </div>
+
+    <button id="submit" class="">
+
+        <div class="spinner hidden" id="spinner"></div>
+
+        <span id="button-text">Valider</span>
+
+    </button>
+
+    <div id="payment-message" class="hidden"></div>
+
+</form>
+
+<!-- End of Stripe payment form -->

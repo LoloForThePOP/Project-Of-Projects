@@ -131,52 +131,15 @@
 
                     <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées, pour modifier le compte bancaire des donations, cliquez <a href="">ici</a>.</div>
 
-                    <link href="/css/stripe_checkout.css" rel="stylesheet">
-                    <script src="https://js.stripe.com/v3/"></script>
+                    <div class="pp-consultation-mode container"><button class="btn btn-success" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>Soutenir</button></div>
 
-
-                      <script>
-
-                        const clientSecret = '{{ clientSecret }}';
-                        const stripePublicKey = '{{ stripePublicKey }}';
-                        const redirectAfterSuccessURL = '{{ url("purchase_payment_success") }}'
-
-                    </script>
-
-
-                    <script src="/js/stripe_checkout.js"></script>
-
-                    <div class="pp-consultation-mode container"><button>Soutenir</button>.</div>
-
-                                    
-                    <!-- Display a payment form -->
-
-                    <form id="payment-form">
-
-                    <div id="payment-element">
-
-                        <!--Stripe.js injects here the Payment Element-->
-
-                    </div>
-
-                    <button id="submit" class="">
-
-                        <div class="spinner hidden" id="spinner"></div>
-
-                        <span id="button-text">Soutenir</span>
-
-                    </button>
-
-                    <div id="payment-message" class="hidden"></div>
-
-                    </form>
-
+                    <div id="donation-form-container"></div>
                 
                 {% endif %}
 
                 {% if is_granted('ROLE_ADMIN') %}
 
-                    <div class="alert ps-0 mt-4">
+                    <div class="alert d-flex justify-content-center ps-0 mt-4">
 
                         <div class="menu-button py-3 fw-bold">
 

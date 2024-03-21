@@ -129,11 +129,14 @@
 
                 {% elseif bankAccount.status == "VALIDATED" %}
 
-                    <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées, pour modifier le compte bancaire des donations, cliquez <a href="">ici</a>.</div>
+                    <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées, pour modifier votre compte bancaire de donations, cliquez <a href="">ici</a>.</div>
 
-                    <div class="pp-consultation-mode container"><button class="btn btn-success" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>Soutenir</button></div>
+                    <div class="{# pp-consultation-mode  #}container"><button class="btn btn-success" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>Soutenir</button></div>
 
                     <div id="donation-form-container"></div>
+
+
+                    {% include "/utilities/make_donation_form.html.twig" %}
                 
                 {% endif %}
 

@@ -1,0 +1,219 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "makeDonationFormModal", 'modal_title': "Faire un don ❤️", 'modal_size': "modal-lg"} %}
+    
+    {% block modalBody %}
+
+    <form id="donation-form" class="donation-form">
+
+        <!-- Donation amount -->
+        <fieldset class="first-panel">
+
+            <h2>Mon don</h2>
+
+            <div class="amount-butonns">
+
+                <button type="button" class="amount-btn" data-amount="5">5 €</button>
+                <button type="button" class="amount-btn" data-amount="5">10 €</button>
+                <button type="button" class="amount-btn" data-amount="20">20 €</button>
+                <button type="button" class="amount-btn" data-amount="40">40 €</button>
+                <button type="button" class="amount-btn" data-amount="80">80 €</button>
+                <button type="button" class="amount-btn" data-amount="80">160 €</button>            
+            
+            </div>
+
+            <!-- Custom Amount -->
+            
+            <div class="my-3">
+
+                <label for="donation-custom-amount" class="form-label me-1">Montant libre</label>
+                <input id="donation-custom-amount" class="customAmount" type="text" inputmode="numeric" size="8" placeholder=""> <span>  &#160; €</span>
+
+
+                <style>
+
+                    #donation-custom-amount {
+
+                        border: 1px solid #c5c5c5;
+                        height: 40px;
+                        border-radius: 4px;
+
+                    }
+                
+                </style>
+            
+            </div>
+
+            <div class="">
+
+            
+
+                <h5>Ici vous pouvez laisser un message d'encouragement (facultatif)</h5>
+
+                <textarea name="" id="donation-message" cols="30" rows="2"></textarea>
+
+                 <style>
+
+                    #donation-message {
+
+                        border: 1px solid #c5c5c5;
+                        border-radius: 4px;
+                        resize: none;
+
+                    }
+                
+                </style>
+            
+            
+            
+            
+            
+            </div>
+
+            <!-- Next panel button -->
+            <button type="button" id="next-panel-1">Next</button>
+
+        </fieldset>
+
+        <!-- Donor info -->
+        <fieldset class="second-panel">
+            <h2>Your Info</h2>
+            <input type="text" id="name" placeholder="Name">
+            <!-- ... -->
+            <button type="button" id="next-panel-2">Next</button>
+        </fieldset>
+
+        <!-- Payment info -->
+        <fieldset class="third-panel">
+            <h2>Payment Info</h2>
+            <!-- Payment form goes here -->
+            <button id="submit">Submit</button>
+        </fieldset>
+
+    </form>
+
+
+
+    {% endblock %}
+
+    {% block footerButtons %}
+
+        <button type="submit" class="btn btn-validate">✔️ Valider</button>
+
+    {% endblock %}
+
+
+{% endembed %}
+
+
+<script>
+
+
+$(document).ready(function(){
+
+    $('#makeDonationFormModal').modal('show');
+    $('#makeDonationFormModal').removeClass('disabled');
+
+
+    $('#donation-form #next-panel-1').on('click', function (){
+        
+        if(validateAmount()){
+            $('#donation-form .first-panel').hide();
+            $('#donation-form .second-panel').show();
+        }else{
+            alert('Veuillez sélectionner un montant de donation.');
+        }
+      
+    });
+
+    function validateAmount() {
+        
+        if ($('.donation-btn-selected').length === 0 && $('#donation-custom-amount').val() == "") {
+            
+            return false;
+        }
+        return true;
+    }
+
+    $('#donation-form #next-panel-2').on('click', function (){
+        //to do validate donor info
+        $('#donation-form .second-panel').hide();
+        $('#donation-form .third-panel').show();
+
+    });
+
+    $('#donation-form .amount-btn').on('click', function (){
+
+        $('#donation-form .amount-btn').removeClass("donation-btn-selected");
+
+        $(this).addClass('donation-btn-selected');
+
+    });
+
+    $('#donation-custom-amount').on('input', function() {
+        
+        $('#donation-form .amount-btn').removeClass("donation-btn-selected");
+        
+    });
+
+
+
+
+            
+    
+
+});
+
+
+</script>
+
+
+<style>
+
+    fieldset:not(:first-of-type) {
+    display: none;
+    }
+
+    fieldset {
+    transition: all 0.5s ease;
+    }
+
+    .donation-btn-selected {
+        background-color: blue;
+        color: white;
+    }
+
+
+    .donation-form button{
+    border: none;
+    padding: 12px 24px;
+    margin: 5px;
+    border-radius: 3px;
+    background-color: #f8f8f8;
+    color: #333;
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.2);
+    transition: 0.3s ease;
+    }
+
+
+    .donation-form button:hover {
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    transform: scale(1.05);
+    }
+
+    .donation-form button:active {
+    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
+    transform: scale(0.95);
+    }
+
+    .donation-form button:focus {
+    outline: none;
+    }
+
+    /* Style for the selected amount button */
+    .donation-form .donation-btn-selected {
+    background-color: #4CAF50; /* Any color you want */
+    color: white;
+    }
+
+
+
+</style>

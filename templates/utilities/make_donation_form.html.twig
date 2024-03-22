@@ -1,4 +1,4 @@
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "makeDonationFormModal", 'modal_title': "Faire un don ❤️", 'modal_size': "modal-lg"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "makeDonationFormModal", 'modal_title': "Faire un don", 'modal_size': "modal-lg"} %}
     
     {% block modalBody %}
 
@@ -8,6 +8,8 @@
         <fieldset class="first-panel">
 
             <h2>Mon don</h2>
+
+            <div class=""><p class="lead fs-5">Paiement sécurisé avec <span style="color: black;">Stripe</span> ©.</p></div>
 
             <div class="amount-butonns">
 
@@ -69,22 +71,62 @@
             </div>
 
             <!-- Next panel button -->
-            <button type="button" id="next-panel-1">Next</button>
+            <button type="button" id="next-panel-1">Suivant</button>
 
         </fieldset>
 
         <!-- Donor info -->
         <fieldset class="second-panel">
-            <h2>Your Info</h2>
-            <input type="text" id="name" placeholder="Name">
-            <!-- ... -->
-            <button type="button" id="next-panel-2">Next</button>
+
+            <h2>Mes coordonnées</h2>
+
+            <div class="input-group my-3">
+
+                <div class="input-group-text">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
+
+                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
+                        </svg>
+
+                    </div>
+                
+                <input type="text" class="form-control" id="donorEmail" placeholder="E-mail">
+
+            </div>
+
+            <div class="input-group my-3">
+
+                <div class="input-group-text">
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
+                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                    </svg>
+                </div>
+
+                <input type="text" class="form-control" id="donorPseudo" placeholder="Nom ou pseudonyme (facultatif)">
+
+            </div>
+
+
+            <style>
+            
+                .second-panel input{
+                    max-width: 400px;
+                }
+            
+            </style>
+
+            <button type="button" id="previous-panel-2">Précédent</button>
+            <button type="button" id="next-panel-2">Suivant</button>
+
         </fieldset>
 
         <!-- Payment info -->
         <fieldset class="third-panel">
             <h2>Payment Info</h2>
             <!-- Payment form goes here -->
+            <button type="button" id="previous-panel-3">Précédent</button>
             <button id="submit">Submit</button>
         </fieldset>
 
@@ -114,12 +156,14 @@ $(document).ready(function(){
 
 
     $('#donation-form #next-panel-1').on('click', function (){
+
+        const validation = validateAmount();
         
-        if(validateAmount()){
+        if(validation === true){
             $('#donation-form .first-panel').hide();
             $('#donation-form .second-panel').show();
         }else{
-            alert('Veuillez sélectionner un montant de donation.');
+            alert(validation);
         }
       
     });
@@ -128,21 +172,113 @@ $(document).ready(function(){
         
         if ($('.donation-btn-selected').length === 0 && $('#donation-custom-amount').val() == "") {
             
-            return false;
+            return 'Veuillez sélectionner un montant de donation.';
         }
+        
+        if (!$('#donation-custom-amount').val() == "" && !$.isNumeric($('#donation-custom-amount').val())) {
+            
+            return 'Veuillez utiliser un nombre.';
+        }
+
         return true;
+
     }
 
+
+    function getDonationAmount(){
+
+        if ($('.donation-btn-selected').length !== 0) {
+
+            return $('.donation-btn-selected:first').attr("data-amount");
+
+        }
+
+        return $('#donation-custom-amount').val();
+
+    };
+
     $('#donation-form #next-panel-2').on('click', function (){
-        //to do validate donor info
-        $('#donation-form .second-panel').hide();
-        $('#donation-form .third-panel').show();
+
+        const validationSecondPanel = validateSecondPanel();
+
+        if(validationSecondPanel === true){
+
+            $('#donation-form .second-panel').hide();
+
+            var donorEmail = $('#donorEmail').val();
+            var totalAmount = getDonationAmount();
+
+            $.ajax({  
+
+                url: '{{path("ajax_purchase_payment_form")}}',
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                    "proponPaymentType": 'donation',
+                    "totalAmount": totalAmount,
+                    "userEmail": donorEmail,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+                        
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                  console.log('Une erreur est survenue.');  
+                }  
+
+            }); 
+
+          
+
+            $('#donation-form .third-panel').show();
+        } else{
+            alert(validationSecondPanel);
+        }
 
     });
+
+
+
+    function validateSecondPanel() {
+
+        emailInput = $('#donorEmail').val();
+        
+        var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+        if(regex.test(emailInput)){
+            return true;
+        }else{
+            return "Veuillez utiliser une adresse e-mail valide";
+        }
+
+        
+        
+    }
+
+
+
+    $('#donation-form #previous-panel-2').on('click', function (){
+        //to do validate donor info
+        $('#donation-form .second-panel').hide();
+        $('#donation-form .first-panel').show();
+
+    });
+
+    $('#donation-form #previous-panel-3').on('click', function (){
+        //to do validate donor info
+        $('#donation-form .third-panel').hide();
+        $('#donation-form .second-panel').show();
+
+    });
+
 
     $('#donation-form .amount-btn').on('click', function (){
 
         $('#donation-form .amount-btn').removeClass("donation-btn-selected");
+        $('#donation-custom-amount').val("");
 
         $(this).addClass('donation-btn-selected');
 

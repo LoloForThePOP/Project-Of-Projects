@@ -23,21 +23,41 @@ class Purchase
     private $id;
     
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    private $type;
+
+    const STATUS = ["PENDING", "PAID"];
+
+    
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $buyerEmail;
 
+
     /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="purchases")
+     */
+    private $registredUser;
+
+    /**
+     * 
+     * Potential other user info like telephone, country, adress
+     * 
      * @ORM\Column(type="json", nullable=true)
      */
     private $buyerInfo = [];
 
     /**
+     * 
+     * Other purchase info. For example, total purchase amount. If we consider a donation, witch project (id) received the donation.
+     * 
      * @ORM\Column(type="json")
      */
     private $content = [];
 
-    const STATUS = ["PENDING", "PAID"];
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -47,14 +67,15 @@ class Purchase
 
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="purchases")
-     */
-    private $registredUser;
-
-    /**
      * @ORM\Column(type="datetime_immutable")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $amount;
+
 
        
 
@@ -150,6 +171,30 @@ class Purchase
     public function setBuyerEmail(string $buyerEmail): self
     {
         $this->buyerEmail = $buyerEmail;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getAmount(): ?int
+    {
+        return $this->amount;
+    }
+
+    public function setAmount(int $amount): self
+    {
+        $this->amount = $amount;
 
         return $this;
     }

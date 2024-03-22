@@ -6,7 +6,7 @@ use App\Entity\Purchase;
 use Stripe\PaymentIntent;
 use App\Form\BuyerInfoType;
 use App\Service\MailerService;
-use App\Service\StripePayment;
+use App\Service\StripeService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -71,7 +71,7 @@ class PurchaseController extends AbstractController
     /**
      * @Route("/purchase/ajax-payment-form/", name="ajax_purchase_payment_form")
      */
-    public function showCardform(Request $request, StripePayment $stripeService): Response
+    public function showCardform(Request $request, StripeService $stripeService): Response
     {
 
         if ($request->isXmlHttpRequest()) {
@@ -80,18 +80,17 @@ class PurchaseController extends AbstractController
             $userEmail = $request->request->get('userEmail');
             $totalAmount = $request->request->get('totalAmount');
 
-            $jsonAdditionalInfo = $request->request->get('additionalInfo');
-            $additionalInfo = json_decode($jsonAdditionalInfo,true);
+            $additionalInfo = $request->request->get('additionalInfo');
             
             $purchase = new Purchase();
-            
-            $purchase->setBuyerEmail('joe@doe.com');
-            $purchase->setContentItem('objectsToPay', 'lol');
-            $purchase->setContentItem('total_amount', 2000);
+
+            $purchase->setBuyerEmail($userEmail);
+            $purchase->setAmount($totalAmount);
+            $purchase->setContent($additionalInfo);
             
             $paymentIntent = $stripeService->getPaymentIntent($purchase);
 
-            $html = $this->renderView(
+            $stripePaymentForm = $this->renderView(
                 
                 "utilities/stripe_payment.html.twig", 
                 
@@ -103,7 +102,7 @@ class PurchaseController extends AbstractController
 
             );
 
-            return  new JsonResponse(true);
+            return  new JsonResponse($stripePaymentForm);
 
         }
 

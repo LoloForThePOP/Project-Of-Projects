@@ -22,7 +22,7 @@
 
                 <div class="modal-header">
 
-                    <h3 class="h5 modal-title w-100 fw-bold {{title_classes ?? ""}}" id="">{{modal_title}}</h3>
+                    <h3 class="h5 modal-title w-100 fw-bold {{title_classes ?? ""}}" id="">{{modal_title | raw}}</h3>
 
                     {% block closingCross %}
 

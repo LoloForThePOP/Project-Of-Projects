@@ -32,7 +32,7 @@ class StripeService {
                 
          return \Stripe\PaymentIntent::create([
  
-             'amount' => $purchase->getContentItem("total_amount"),
+             'amount' => $purchase->getAmount(),
      
              'currency' => 'eur',
      

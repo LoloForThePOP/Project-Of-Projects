@@ -1,4 +1,4 @@
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "makeDonationFormModal", 'modal_title': "Faire un don", 'modal_size': "modal-lg"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "makeDonationFormModal", 'modal_title': "Faire un don <div class='lead fs-5'>Paiement sécurisé avec Stripe ©</div>", 'modal_size': "modal-lg"} %}
     
     {% block modalBody %}
 
@@ -7,27 +7,45 @@
         <!-- Donation amount -->
         <fieldset class="first-panel">
 
-            <h2>Mon don</h2>
+            <div class="amount-buttons">
 
-            <div class=""><p class="lead fs-5">Paiement sécurisé avec <span style="color: black;">Stripe</span> ©.</p></div>
-
-            <div class="amount-butonns">
-
-                <button type="button" class="amount-btn" data-amount="5">5 €</button>
-                <button type="button" class="amount-btn" data-amount="5">10 €</button>
-                <button type="button" class="amount-btn" data-amount="20">20 €</button>
-                <button type="button" class="amount-btn" data-amount="40">40 €</button>
-                <button type="button" class="amount-btn" data-amount="80">80 €</button>
-                <button type="button" class="amount-btn" data-amount="80">160 €</button>            
+                <button type="button" class="amount-btn" data-amount="500">5 €</button>
+                <button type="button" class="amount-btn" data-amount="1000">10 €</button>
+                <button type="button" class="amount-btn" data-amount="2000">20 €</button>
+                <button type="button" class="amount-btn" data-amount="4000">40 €</button>
+                <button type="button" class="amount-btn" data-amount="8000">80 €</button>
+                <button type="button" class="amount-btn" data-amount="16000">160 €</button>            
             
             </div>
+
+
+            <style>
+
+                .amount-buttons{
+                    
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                    grid-template-rows: repeat(2, 1fr);
+                    grid-column-gap: 0px;
+                    grid-row-gap: 0px;
+
+                }
+
+                @media screen and (max-width: 580px) {
+
+
+
+                }
+            
+            
+            </style>
 
             <!-- Custom Amount -->
             
             <div class="my-3">
 
-                <label for="donation-custom-amount" class="form-label me-1">Montant libre</label>
-                <input id="donation-custom-amount" class="customAmount" type="text" inputmode="numeric" size="8" placeholder=""> <span>  &#160; €</span>
+                <label for="donation-custom-amount" class="form-label fw-normal mx-1">Montant libre</label>
+                <input id="donation-custom-amount" type="text" size="4" placeholder=""> <span>  &#160; €</span>
 
 
                 <style>
@@ -48,17 +66,15 @@
 
             
 
-                <h5>Ici vous pouvez laisser un message d'encouragement (facultatif)</h5>
+                <h6 class="fs-5 fw-normal">Ici vous pouvez laisser un message d'encouragement (facultatif)</h6>
 
-                <textarea name="" id="donation-message" cols="30" rows="2"></textarea>
+                <input class="form-control" type="text" id="donorMessage">
 
                  <style>
 
-                    #donation-message {
+                    #donorMessage {
 
-                        border: 1px solid #c5c5c5;
-                        border-radius: 4px;
-                        resize: none;
+                        max-width: 650px;
 
                     }
                 
@@ -69,6 +85,8 @@
             
             
             </div>
+
+            <hr class="my-2">
 
             <!-- Next panel button -->
             <button type="button" id="next-panel-1">Suivant</button>
@@ -91,7 +109,7 @@
 
                     </div>
                 
-                <input type="text" class="form-control" id="donorEmail" placeholder="E-mail">
+                <input type="text" class="form-control" id="donorEmail" placeholder="E-mail (non communiqué)">
 
             </div>
 
@@ -126,19 +144,25 @@
         <fieldset class="third-panel">
             <h2>Payment Info</h2>
             <!-- Payment form goes here -->
+
+            <div id="paymentFormContainer"></div>
+
+            <style>
+            
+                #paymentFormContainer{
+                    display: flex;
+                    justify-content: center;
+                }
+            
+            </style>
+
             <button type="button" id="previous-panel-3">Précédent</button>
             <button id="submit">Submit</button>
         </fieldset>
 
     </form>
 
-
-
-    {% endblock %}
-
-    {% block footerButtons %}
-
-        <button type="submit" class="btn btn-validate">✔️ Valider</button>
+    
 
     {% endblock %}
 
@@ -174,7 +198,7 @@ $(document).ready(function(){
             
             return 'Veuillez sélectionner un montant de donation.';
         }
-        
+
         if (!$('#donation-custom-amount').val() == "" && !$.isNumeric($('#donation-custom-amount').val())) {
             
             return 'Veuillez utiliser un nombre.';
@@ -193,7 +217,7 @@ $(document).ready(function(){
 
         }
 
-        return $('#donation-custom-amount').val();
+        return $('#donation-custom-amount').val()*100;
 
     };
 
@@ -205,8 +229,14 @@ $(document).ready(function(){
 
             $('#donation-form .second-panel').hide();
 
+            var proponPaymentType = 'donation';
             var donorEmail = $('#donorEmail').val();
             var totalAmount = getDonationAmount();
+
+            var additionalInfo = {
+                "projectId": 128,
+                "donorMessage": $('#donorMessage').val(),
+            };
 
             $.ajax({  
 
@@ -214,15 +244,19 @@ $(document).ready(function(){
                 type:       'POST',   
                 dataType:   'json',
                 data: {
-                    "proponPaymentType": 'donation',
-                    "totalAmount": totalAmount,
+                    "proponPaymentType": proponPaymentType,
                     "userEmail": donorEmail,
+                    "totalAmount": totalAmount,
+                    "additionalInfo": additionalInfo,
                 },
 
                 async: true,  
                 
                 success: function(data, status) {
-                        
+
+                    console.log(data);
+                    $('#donation-form .third-panel').show();
+                    $('#donation-form #paymentFormContainer').html(data);
                 },  
 
                 error : function(xhr, textStatus, errorThrown) {  
@@ -233,8 +267,8 @@ $(document).ready(function(){
 
           
 
-            $('#donation-form .third-panel').show();
         } else{
+
             alert(validationSecondPanel);
         }
 

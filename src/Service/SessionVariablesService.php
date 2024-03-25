@@ -5,6 +5,7 @@ namespace App\Service;
 
 use App\Entity\User;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
 
 /**
  * Allows to centralize and manage Propon session variables
@@ -38,6 +39,7 @@ class SessionVariablesService {
         return null;
 
     }
+
 
 
 }

@@ -72,7 +72,7 @@ class PurchaseController extends AbstractController
     /**
      * @Route("/purchase/ajax-payment-form/", name="ajax_purchase_payment_form")
      */
-    public function ajaxPaymentForm(Request $request, StripeService $stripeService, EntityManagerInterface $manager): Response
+    public function ajaxPaymentForm(Request $request, StripeService $stripeService, EntityManagerInterface $manager, MailerService $mailer): Response
     {
 
         if ($request->isXmlHttpRequest()) {
@@ -80,7 +80,6 @@ class PurchaseController extends AbstractController
             $proponPurchaseType = $request->request->get('proponPurchaseType');
             $userEmail = $request->request->get('userEmail');
             $totalAmount = $request->request->get('totalAmount');
-
 
             /** @var array $additionalInfo */
             $additionalInfo = $request->request->get('additionalInfo');
@@ -92,10 +91,23 @@ class PurchaseController extends AbstractController
             $purchase->setContent($additionalInfo);
             $purchase->setType($proponPurchaseType);
 
+            $paymentIntent = $stripeService->getPaymentIntent($purchase);
+
+            $purchase->setToken($paymentIntent["id"]); //so that we can retrieve a purchase and update its status
+
             $manager->persist($purchase);
             $manager->flush();
-            
-            $paymentIntent = $stripeService->getPaymentIntent($purchase);
+
+            $sender = $this->getParameter('app.general_contact_email');
+
+
+            //notify propon administration
+
+            $sender = $this->getParameter('app.general_contact_email');             
+            $receiver = $sender;
+
+            $mailer->send($sender, 'Propon', $receiver, "To admin : payment intent.", 'Intention type: '.$proponPurchaseType.'. Additional info: '.json_encode($additionalInfo));
+
 
             $stripePaymentForm = $this->renderView(
                 

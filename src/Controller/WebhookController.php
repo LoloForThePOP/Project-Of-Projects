@@ -5,6 +5,7 @@ namespace App\Controller;
 use Stripe\Event;
 use Stripe\Stripe;
 use Stripe\Webhook;
+use App\Entity\Purchase;
 use Stripe\StripeClient;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -48,8 +49,15 @@ class WebhookController extends AbstractController
       case 'payment_intent.succeeded':
         //$paymentIntent = $event->data->object;
 
+
+        $purchase = $this->getDoctrine()->getRepository(Purchase::class)->findOneBy(['token' => $event->data->object->id]);
+        $purchase->setStatus("PAID");
+        
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->persist($purchase);
+        $entityManager->flush();
+       
         return new Response(200);
-        $paymentIntent = $event->data->object;        
 
       // ... handle other event types
       default:

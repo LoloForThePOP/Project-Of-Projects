@@ -25,8 +25,9 @@ $(document).ready(function(){
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: redirectAfterSuccessURL
+        //return_url: redirectAfterSuccessURL
       },
+      redirect: 'if_required',
     })
 
     if (error.type === "card_error" || error.type === "validation_error") {
@@ -61,7 +62,7 @@ $(document).ready(function(){
     switch (paymentIntent.status) {
 
       case "succeeded":
-        console.log("Paiement réussi !");
+        alert("Paiement réussi !");
         break;
       case "processing":
         console.log("Votre paiement est en cours de traitement.");

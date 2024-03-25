@@ -693,8 +693,6 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
             'createPresentationFormCTA' => $createPresentationFormCTA->createView(),
-            'clientSecret' => $paymentIntent->client_secret,
-            'stripePublicKey' => $stripeService->getPublicKey(),
             
         ]);
 
@@ -1474,8 +1472,6 @@ class PPController extends AbstractController
 
             }
           
-            
-
         }
 
         return  new JsonResponse(false);

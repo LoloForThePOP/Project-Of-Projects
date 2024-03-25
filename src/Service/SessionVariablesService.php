@@ -31,15 +31,11 @@ class SessionVariablesService {
 
         if ($this->session->has("fake-user-id")) {
 
-            //dd($this->session->get("fake-user-id"));
-
             return $this->session->get("fake-user-id");
             
         }
         
         return null;
-
-        
 
     }
 

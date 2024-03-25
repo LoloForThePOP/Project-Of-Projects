@@ -62,7 +62,7 @@
                         border-radius: 5px;
                         color: #7d464e;
                         background-color: #fff8fd;
-                        border: 1px solid #f9c1cb;
+                        border: 1px solid #b16674;
                     }
 
                     .present-donations-img-cta{
@@ -129,13 +129,27 @@
 
                 {% elseif bankAccount.status == "VALIDATED" %}
 
-                    <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées, pour modifier votre compte bancaire de donations, cliquez <a href="">ici</a>.</div>
+                    <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées, pour modifier ou supprimer votre compte bancaire de donations, veuillez utiliser notre formulaire de contact.</div>
 
-                    <div class="{# pp-consultation-mode  #}container"><button class="btn btn-success" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>Soutenir</button></div>
+                    <div class="pp-consultation-mode container text-center"><button class="donate-button" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>Soutenir ce projet</button></div>
+
+                    <style>
+
+                        .donate-button {
+                            padding: 4px 14px;
+                            border: 1px solid #b4cab4;
+                            border-radius: 40px;
+                            background-color: white;
+                        }
+
+
+                        .donate-button:hover {
+                            background-color: #f2fff1;
+                        }
+                    
+                    </style>
 
                     <div id="donation-form-container"></div>
-
-                    {% include "/utilities/make_donation_form.html.twig" %}
                 
                 {% endif %}
 

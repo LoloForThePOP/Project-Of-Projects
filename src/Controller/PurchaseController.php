@@ -72,12 +72,12 @@ class PurchaseController extends AbstractController
     /**
      * @Route("/purchase/ajax-payment-form/", name="ajax_purchase_payment_form")
      */
-    public function showCardform(Request $request, StripeService $stripeService, EntityManagerInterface $manager): Response
+    public function ajaxPaymentForm(Request $request, StripeService $stripeService, EntityManagerInterface $manager): Response
     {
 
         if ($request->isXmlHttpRequest()) {
 
-            $proponPaymentType = $request->request->get('proponPaymentType');
+            $proponPurchaseType = $request->request->get('proponPurchaseType');
             $userEmail = $request->request->get('userEmail');
             $totalAmount = $request->request->get('totalAmount');
 
@@ -90,6 +90,7 @@ class PurchaseController extends AbstractController
             $purchase->setBuyerEmail($userEmail);
             $purchase->setAmount($totalAmount);
             $purchase->setContent($additionalInfo);
+            $purchase->setType($proponPurchaseType);
 
             $manager->persist($purchase);
             $manager->flush();

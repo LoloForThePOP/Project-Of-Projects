@@ -49,6 +49,7 @@
 
             //console.log("Le message qui va être envoyé est "+userMessage);
 
+            $(".pursue-conversation").hide();
             $(".answer-loader").show();
 
             $.ajax({
@@ -73,9 +74,18 @@
                     $('.send-button-container').appendTo('#main-ui form');
                     $(".send-button-container").hide();
                     $(".answer-loader").hide();
+                    $(".pursue-conversation").show();
                     //$(".userInput:last-of-type").focus();
 
                     userMessagesCount++;
+
+                    if(userMessagesCount == 3){
+
+                        var note = "Note : à tout moment vous pouvez obtenir un résumé de notre conversation en appuyant sur le bouton \"Afficher un résumé\". Ce résumé créé automatiquement une page de présentation que vous pouvez partager.<br><br>" 
+
+                        $('.assistant-advice:last').html(note+response.aiAnswer);
+
+                    }
 
                     if(userMessagesCount >= 3){
 
@@ -83,9 +93,21 @@
 
                     }
 
-                    /*document.querySelector('.assistant-advice-container').scrollIntoView({
-                        behavior: 'smooth',
-                    });*/
+                    var adviceElements = document.getElementsByClassName('assistant-advice');
+
+                    // Scroll to the last element
+                    if (adviceElements.length > 0) {
+
+                        var lastAdviceElement = adviceElements[adviceElements.length - 1];
+
+                        var topOffset = lastAdviceElement.offsetTop - 120/* Adjust for fixed bar height */; // Add the height of your fixed bar here
+
+                        window.scrollTo({
+                            top: topOffset,
+                            behavior: 'smooth'
+                        });
+
+                    }
 
                 }
 

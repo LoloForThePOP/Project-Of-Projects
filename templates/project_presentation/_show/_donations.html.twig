@@ -1,6 +1,3 @@
-
-
-
 {% embed "/project_presentation/_show/structure_content_skeleton.html.twig" with {'iconName': "donations", 'title': "Donations",} %}
 
     {% block editButtons %}{% endblock %}
@@ -20,7 +17,6 @@
                         <div class="col-2 present-donations-img-cta">
 
                             <img id="" class="no-donations" src="{{ asset('no_donation.png', 'pp_wysiwyg')}}"  alt="A face where on eye is represented with an hearth and the other with a coin.">
-
                         
                         </div>
 
@@ -123,33 +119,52 @@
 
                 {% if bankAccount.status == "TO_CHECK" %}
 
-                    <div class="pp-edition-mode container border text-center rounded p-3">Votre demande d'activation des donations a été envoyée. Notre équipe procède à sa validation dans les plus brefs délais, vous serez averti par e-mail.</div>
+                    <div class="pp-edition-mode container border text-center rounded p-3" style="background-color: orange;">Votre demande d'activation des donations a été envoyée ✅ Notre équipe procède à sa validation dans les plus brefs délais. Lorsque les donations sont activées, nous vous avertissons par e-mail.</div>
 
                     <div class="pp-consultation-mode container border text-center rounded p-3">L'auteur de cette page a demandé l'activation des donations, revenez dans quelques jours pour effectuer une donation.</div>
 
                 {% elseif bankAccount.status == "VALIDATED" %}
 
-                    <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées, pour modifier ou supprimer votre compte bancaire de donations, veuillez utiliser notre formulaire de contact.</div>
+                    <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées ✅ Pour modifier ou supprimer votre compte bancaire de donations, veuillez utiliser notre formulaire de contact.</div>
 
-                    <div class="pp-consultation-mode container text-center"><button class="donate-button" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>Soutenir ce projet</button></div>
+                    <div class="pp-consultation-mode donate-button-container container text-center"><button class="donate-button" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>{# <img class="" src="{{ asset('euro_symbol.svg', 'misc')}}" alt="euro symbol"> #}Soutenir ce projet</button></div>
 
                     <style>
 
                         .donate-button {
                             padding: 4px 14px;
-                            border: 1px solid #b4cab4;
+                            border: 1px solid #98c198;
                             border-radius: 40px;
                             background-color: white;
+                            font-weight: bold;
+                            font-size: 18px;
                         }
 
 
                         .donate-button:hover {
                             background-color: #f2fff1;
                         }
-                    
+
+
+                        @media screen and (max-width: 580px) {
+
+                            .donate-button-container {
+                                margin-top: -10px;
+                                margin-bottom: 5px;
+                            }
+
+                            .donate-button{
+                                font-size: 14px;
+                                font-weight: normal;
+                            }
+
+                        }
+
                     </style>
 
                     <div id="donation-form-container"></div>
+
+                    
                 
                 {% endif %}
 

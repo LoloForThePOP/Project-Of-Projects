@@ -1,1 +1,0 @@
-console.log("from local js file");

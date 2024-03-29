@@ -44,6 +44,12 @@
                         {{ textDescription | sanitize_html ('default') }}
 
                     {% endif %}
+
+                    {# Maybe to do : when userPresenter see its pages, it might be useful if he sees that no text description of its project is available, even in consultation mode {% if textDescription | length == 0 %}
+                    
+                        <div class="text-center mx-0">Décrivez ici votre projet en quelques lignes.</div>
+
+                    {% endif %} #}
                    
                 </div>
 

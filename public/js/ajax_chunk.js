@@ -13,6 +13,8 @@ $(document).ready(function(){
 
         e.preventDefault();
 
+
+        $(".loader-target").show();
         $(this).find(".loader-target").addClass("loader");
 
         dataChunk = $(this).data("get-chunk");
@@ -56,7 +58,7 @@ $(document).ready(function(){
             
             success: function(data, status) {
 
-                $("#ajax-loader").remove();
+                $(".loader-target").hide();
                 $(target).html(data.html);
 
             },  

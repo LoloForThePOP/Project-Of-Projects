@@ -3,6 +3,33 @@
 
 $(document).ready(function(){
 
+    // Bid some events to display a template chunk when appropriate (currently, only when clicking some elements, see bellow) (using above ajax function to request for the template chunk)
+    
+    /* Get html chunk when clicking on a button with data-get-chunk attribute (this attribute contains chunk name and target container)
+
+    ex : <button data-get-chunk='{"name": "plans", "target": "#displayPlans" }>Show Pricing Plans</button>' --> this button will triger an ajax call to get pricing plan details display */
+
+    $("[data-get-chunk]").on('click', function (e){
+
+        e.preventDefault();
+
+        $(this).find(".loader-target").addClass("loader");
+
+        dataChunk = $(this).data("get-chunk");
+        dataParams = $(this).data("chunkParams");
+
+        console.log("dataChunk"+dataChunk);
+        console.log("dataParams"+dataParams);
+
+        if(typeof(dataParams) == 'undefined' && dataParams == null){
+
+            dataParams = null;
+
+        }
+
+        getChunk(dataChunk.name, dataChunk.target, dataParams);
+        
+    }); 
 
     // render a named template into a targeted html container (target : a jquery selector) (ex : render "pricing plans" into "#plans-container" div).
 
@@ -14,7 +41,7 @@ $(document).ready(function(){
 
         $(target).html("");
 
-        $(target).append('<div id="ajax-loader" class="my-3 text-center loader"></div>');
+        //$(target).append('<div id="ajax-loader" class="my-3 text-center loader"></div>');
 
         $.ajax({  
 
@@ -44,31 +71,6 @@ $(document).ready(function(){
 
     }
 
-    // Bid some events to display a template chunk when appropriate (currently, only when clicking some elements, see bellow) (using above ajax function to request for the template chunk)
-    
-    /* Get html chunk when clicking on a button with data-get-chunk attribute (this attribute contains chunk name and target container)
-
-    ex : <button data-get-chunk='{"name": "plans", "target": "#displayPlans" }>Show Pricing Plans</button>' --> this button will triger an ajax call to get pricing plan details display */
-
-    $("[data-get-chunk]").on('click', function (e){
-
-        e.preventDefault();
-
-        dataChunk = $(this).data("get-chunk");
-        dataParams = $(this).data("chunkParams");
-
-        console.log("dataChunk"+dataChunk);
-        console.log("dataParams"+dataParams);
-
-        if(typeof(dataParams) == 'undefined' && dataParams == null){
-
-            dataParams = null;
-
-        }
-
-        getChunk(dataChunk.name, dataChunk.target, dataParams);
-        
-    }); 
 
 
 }); 

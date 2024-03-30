@@ -174,9 +174,9 @@ class MiscController extends AbstractController
 
             'loc' => $this->generateUrl('show_presentation', [
 
-                                'stringId' => $accessiblePresentation->getStringId(),
+                    'stringId' => $accessiblePresentation->getStringId(),
 
-                            ]),
+                ]),
 
 
             ];

@@ -127,12 +127,16 @@
 
                     <div class="pp-edition-mode container border text-center rounded p-3">Les donations sont activées ✅ Pour modifier ou supprimer votre compte bancaire de donations, veuillez utiliser notre formulaire de contact.</div>
 
-                    <div class="pp-consultation-mode donate-button-container container text-center"><button class="donate-button" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>{# <img class="" src="{{ asset('euro_symbol.svg', 'misc')}}" alt="euro symbol"> #}Soutenir ce projet</button></div>
+                    <div class="pp-consultation-mode donate-button-container container text-center"><button class="donate-button" data-get-chunk='{"name": "donation", "target": "#donation-form-container" }'>{# <img class="" src="{{ asset('euro_symbol.svg', 'misc')}}" alt="euro symbol"> #}Soutenir ce projet <span class="loader-target ms-2"></span></button></div>
 
                     <style>
 
                         .donate-button {
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;                            
                             padding: 4px 14px;
+                            margin: auto;
                             border: 1px solid #98c198;
                             border-radius: 40px;
                             background-color: white;

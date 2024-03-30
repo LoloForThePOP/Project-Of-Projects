@@ -7,13 +7,41 @@
 
             <div>
 
-                <h4 id="assistant-question" class="h5 text-center fw-bold mb-3"><img class="me-2" width="28" src="{{ asset('chatbot.svg', 'misc')}}" alt="an chatbot icon"> Quel est l'objectif de votre Projet ?</h4>
+              <h5 class="assistant-greeting"><img class="me-2 mb-2" width="28" src="{{ asset('chatbot.svg', 'misc')}}" alt="an chatbot icon">Bonjour! Je vous aide à présenter votre projet.</h5>
+             
+
+              <style>
+              
+                .assistant-greeting{
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  margin-bottom: 0.25rem;
+                  font-weight: bold;
+                  text-align: center;
+                  color: #141f24;
+                }
+
+
+                @media screen and (max-width: 820px) {
+
+                  .assistant-greeting{
+                    font-size: 14px;
+                    color: #214455;
+                  } 
+                    
+                }
+              
+              
+              </style>
+
+              <h4 id="assistant-question" class="h5 text-center fw-bold mb-4"> Quel est l'objectif de votre Projet ?</h4>
 
             </div>
 
             <div class="user-input-container form-group">
 
-                <textarea class="userInput" name="userInputs" placeholder="Écrire votre réponse ici."></textarea>
+                <textarea class="userInput" name="userInputs" placeholder="Écrire votre réponse ici"></textarea>
 
             </div>
 

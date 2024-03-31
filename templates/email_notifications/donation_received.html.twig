@@ -1,0 +1,33 @@
+<div>
+
+    <div>Votre projet <b>« {{presentation.goal}} »</b> a reçu une donation d'un montant de <b>{{donationAmount}} €</b>.</div>
+
+    </br>
+
+    {% if donorMessage is not empty %}
+        
+        <div class="">Le donateur a laissé le message suivant : <b>« {{donorMessage}} »</b>.</div>
+        
+    {% else %}
+
+        <div class="">Le donateur n'a pas laissé de message.</div>
+
+    {% endif %}
+
+    <br>
+    
+    <div>
+        
+        Pour toute question, remarque, ou suggestion vous pouvez répondre à cet e-mail. 
+    
+    </div>
+
+    </br>
+
+    <div>
+
+        Merci d'utiliser Propon.
+
+    </div>
+
+</div>

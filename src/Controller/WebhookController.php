@@ -5,8 +5,10 @@ namespace App\Controller;
 use Stripe\Event;
 use Stripe\Stripe;
 use Stripe\Webhook;
+use App\Entity\PPBase;
 use App\Entity\Purchase;
 use Stripe\StripeClient;
+use App\Service\MailerService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +20,7 @@ class WebhookController extends AbstractController
   /**
   * @Route("/webhooks/stripe", name="webhook_stripe")
   */
-  public function stripeWebhookAction()
+  public function stripeWebhookAction(MailerService $mailerService)
   {
 
     $stripe = new StripeClient($_ENV[strtoupper($_ENV['APP_ENV']).'_STRIPE_SECRET_KEY']);
@@ -50,9 +52,30 @@ class WebhookController extends AbstractController
         
         $purchase = $this->getDoctrine()->getRepository(Purchase::class)->findOneBy(['token' => $event->data->object->id]);
         $purchase->setStatus("PAID");
-        
+
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->flush();
+
+        //sending an email to donation receiver
+
+        $concernedPresentationId = $purchase->getContentItem("projectId");
+        $concernedPresentation =  $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['id' => $concernedPresentationId]);
+
+        $receiverEmail = $concernedPresentation->getCreator()->getEmail();
+
+        $sender = $this->getParameter('app.mailer_email');
+
+        $subject = "Vous avez reçu un don pour votre projet";
+
+        $content = "email_notifications/donation_received.html.twig";
+
+        $contentParameters = [
+          "presentation" => $concernedPresentation,
+          "donationAmount" => number_format(($purchase->getAmount() /100), 2, ',', ' '),
+          "donorMessage" => $purchase->getContentItem("donorMessage"),
+        ];
+
+        $mailerService->send($sender, "Propon", $receiverEmail, $subject, $content, $contentParameters);
 
         return new Response(200);
        

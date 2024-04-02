@@ -18,7 +18,7 @@ $(document).ready(function(){
         $(this).find(".loader-target").addClass("loader");
 
         dataChunk = $(this).data("get-chunk");
-        dataParams = $(this).data("chunkParams");
+        dataParams = $(this).data("chunk-params");
 
         console.log("dataChunk"+dataChunk);
         console.log("dataParams"+dataParams);
@@ -52,7 +52,7 @@ $(document).ready(function(){
             
             data: {
                 "chunkName": name,
-                "params": params,
+                "params": JSON.stringify(params),
             },
             async: true,  
             

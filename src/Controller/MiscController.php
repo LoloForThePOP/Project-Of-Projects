@@ -17,6 +17,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Encoder\JsonDecode;
 
 class MiscController extends AbstractController
 {
@@ -42,10 +43,8 @@ class MiscController extends AbstractController
 
             if ($request->request->get('params')) {
 
-                $additionalParameters = $request->request->get('params');
+                $additionalParameters = json_decode($request->request->get('params'), true);
             }
-
-            //dump($additionalParameters);
 
             $chunkTemplateDirFileName = '';
 

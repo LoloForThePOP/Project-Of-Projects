@@ -119,7 +119,7 @@
 
 {% set fast %}
 
-  <div>Présenter un projet requiert toujours du temps. <b>Notre modèle de page est conçu pour être rapide à utiliser.</b></div>
+  <div><b>Répondez simplement à quelques questions basiques</b> : la présentation de votre projet est<b> créée automatiquement</b>.</div>
 
 {% endset %}
 
@@ -129,7 +129,7 @@
     
     {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
     
-    <p class="text-center px-3" >Vous recherchez <b>des compétences, du matériel, des conseils</b> ? Faites-le savoir en seulement quelques minutes.</p>
+    <p class="text-center px-3" >Vous recherchez <b>des compétences, du matériel, des conseils</b> ? Faites-le savoir dans la partie prévue pour cela.</p>
 
     {# <div class="col text-center mt-md-3">
       
@@ -154,13 +154,19 @@
 
 {% set news %}
     
-  <p class="px-3" >Les personnes qui <b>suivent votre projet</b> sont notifiées <b>automatiquement</b> et « <b>en temps réel</b> ».</p>
+  <p class="px-3" >Les personnes qui <b>suivent votre projet</b> sont <b>automatiquement notifiées</b> des nouvelles que vous publiez.</p>
 
 {% endset %}
 
 {% set comments %}
   
   <p class="px-3" >Recevez des <b>suggestions</b> et des <b>commentaires</b> pour <b>favoriser la réussite de votre projet.</b></p>
+
+{% endset %}
+
+{% set donations %}
+  
+  <p class="px-3">Propon permet de <b>récolter des donations</b> pour votre projet.</p>
 
 {% endset %}
 
@@ -175,6 +181,8 @@
     <div>
 
       {{ _self.carouselItem("Gagnez du temps", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, true) }}
+
+      {{ _self.carouselItem("Activez les donations", "euro_donation.webp", "Deux mains différentes avec une pièce en euros entre ces mains.", donations, false) }}
 
       {{ _self.carouselItem("Partagez des nouvelles", "wifi.svg", "Un dessin qui comporte une onde radio synonyme de news.", news, false) }}
 

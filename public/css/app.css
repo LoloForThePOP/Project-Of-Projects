@@ -333,8 +333,7 @@ a{
 
 
     ::placeholder {
-        font-size: 1.15em !important;
-        font-weight: bold;
+        font-size: 1.1em !important;
         color: #7b8a8b  !important;
     }
 

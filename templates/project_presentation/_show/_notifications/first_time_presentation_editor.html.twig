@@ -1,0 +1,56 @@
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "firstTimeEditPresentationModal", 'modal_title': "Votre page de projet Propon est créée !", 'modal_size': "modal-dialog-centered"} %}
+
+
+    {% block closingCross %}{% endblock %}
+  
+
+    {% block modalBody %}
+
+        <script>
+
+            //Automatically trigger this modal when it appears in template        
+
+            var firstTimeEditPresentationModal = new bootstrap.Modal(document.getElementById("firstTimeEditPresentationModal"), {});
+
+            document.onreadystatechange = function () {
+                
+                firstTimeEditPresentationModal.show();
+
+            };
+
+            $(document).ready(function(){
+
+                document.getElementById("pp-switch-edit-consult-mode").click(); //get into pp-consultation mode in order to reduce user cognitive overload.
+
+            });
+        
+        </script>
+
+        <div class="">
+
+            <p class="fs-5">✂ <b>Modifiez les éléments de votre page</b> en cliquant sur l'<b>icône crayon à droite de l'écran</b>.</p>
+
+            {% if not app.user %}<p class="fs-5">📌 <b>Enregistrez gratuitement votre page</b> avec le formulaire en bas de page.</p>{% endif %}
+
+            <p class="fs-5 mb-1">✨ Profitez des avantages apportés par votre page :</p>
+
+            <ul class="fs-5">
+                <li>Présentez vos besoins;</li>
+                <li>Donnez des nouvelles;</li>
+                <li>Et découvrez toutes les autres possibilités.</li>
+            </ul>
+
+        </div>
+
+    {% endblock %}
+
+    {% block footerButtons %}
+
+        {% block footerCloseButton %}{% endblock %}
+
+        <button type="button" class="btn btn-validate" data-bs-dismiss="modal">Ok</button>
+
+    {% endblock %}
+
+
+{% endembed %}

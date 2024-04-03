@@ -148,19 +148,18 @@ class PPController extends AbstractController
     /**
      * Allow to Display or Edit a Project Presentation Page
      * 
-     * @Route("/{stringId}/", name="show_presentation", priority=-1)
-     * @Route("/project-presentation/show-by-id/{id}/", name="show_presentation_by_id", priority=-2)
-     * @Route("/projects/{stringId}/", name="long_path_show_presentation")
+     * @Route("/{stringId}/{firstTime}", name="show_presentation", priority=-1)
+     * @Route("/project-presentation/show-by-id/{id}/{firstTime}", name="show_presentation_by_id", priority=-2)
+     * @Route("/projects/{stringId}/{firstTime}", name="long_path_show_presentation")
      * 
      * @return Response
      */
-    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, UserPasswordHasherInterface $encoder, MailerService $mailer, NotificationService $notifService, StripeService $stripeService)
+    public function show(PPBase $presentation, Request $request, TreatItem $specificTreatments, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality, UserPasswordHasherInterface $encoder, MailerService $mailer, NotificationService $notifService, StripeService $stripeService, $firstTime=false)
     {
 
         $this->denyAccessUnlessGranted('view', $presentation);
 
         $user = $this->getUser();
-
 
         //updating views count only if user is not this presentation's presentor (as registered user or as a guest)
 
@@ -639,6 +638,7 @@ class PPController extends AbstractController
                 'newUserForm' => $guestPresenterForm->createView(),
                 'addNewsForm' => $addNewsForm->createView(),
                 'bankAccountInfoForm' => $bankAccountInfoForm->createView(),
+                'firstTime' => $firstTime,
                 
                 
             ]);
@@ -693,6 +693,7 @@ class PPController extends AbstractController
             'stringId' => $presentation->getStringId(),
             'contactUsPhone' => $this->getParameter('app.contact_phone'),
             'createPresentationFormCTA' => $createPresentationFormCTA->createView(),
+            'firstTime' => $firstTime,
             
         ]);
 

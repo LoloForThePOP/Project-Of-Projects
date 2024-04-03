@@ -57,6 +57,11 @@
 
 {% block body %}
 
+
+    {# Display a short tutorial & marketing during user first time 3p displaying #}
+
+    {% if firstTime =="true" %}{% include "project_presentation/_show/_notifications/first_time_presentation_editor.html.twig" %}{% endif %}
+
     {# comments necessities #}
 
     {% include "comment/_js.html.twig" %}

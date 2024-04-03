@@ -108,7 +108,19 @@
 <div class="other-actions">
 
     {# Share Button #}
-    <div class="d-flex justify-content-center mt-4">{% include "utilities/_share.html.twig" with {"shareButtonLabel" : "Partager cet outil"} %}</div>  
+    <div class="d-flex justify-content-center mt-4">
+
+      {% include "utilities/_share.html.twig" with {"shareButtonLabel" : "Partager cet outil"} %}
+    
+    </div>  
+
+    {# Join Propon Team #}
+
+    <div class="d-flex justify-content-center mt-3">
+    
+      {% include "utilities/_join_propon_team_button.html.twig" %}
+    
+    </div>
      
 
 </div>

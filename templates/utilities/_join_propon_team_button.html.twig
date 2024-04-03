@@ -1,0 +1,36 @@
+
+
+
+
+<a href="{{ path ('contact_website') }}" class="text-decoration-none"><button class="join-propon-team"><img class="me-2" src="{{ asset('handshake.svg', 'misc')}}" width="40" height="40" alt="Handshake icon">Rejoindre l'équipe Propon</button></a>
+
+<style>
+
+  button.join-propon-team {
+    background-color: #04AA6D; /* Green */
+    border: none;
+    color: white;
+    padding: 4px 17px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 17px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: #7e7e7e; 
+    border: 2px solid #C1E0D4;
+    border-radius: 5px;
+  }
+
+  button.join-propon-team:hover {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  button.join-propon-team:hover img {
+    filter: invert(100%);
+  }
+
+</style>

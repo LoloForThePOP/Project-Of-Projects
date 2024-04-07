@@ -51,44 +51,50 @@ class WebhookController extends AbstractController
       case 'payment_intent.succeeded':
         
         $purchase = $this->getDoctrine()->getRepository(Purchase::class)->findOneBy(['token' => $event->data->object->id]);
-        $purchase->setStatus("PAID");
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->flush();
+        if ($purchase !== null) {
 
-        //sending an email to donation receiver
+          $purchase->setStatus("PAID");
 
-        $concernedPresentationId = $purchase->getContentItem("projectId");
-        $concernedPresentation =  $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['id' => $concernedPresentationId]);
+          $entityManager = $this->getDoctrine()->getManager();
+          $entityManager->flush();
 
-        $receiverEmail = $concernedPresentation->getCreator()->getEmail();
+          //sending an email to donation receiver
 
-        $sender = $this->getParameter('app.mailer_email');
+          $concernedPresentationId = $purchase->getContentItem("projectId");
+          $concernedPresentation =  $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['id' => $concernedPresentationId]);
 
-        $subject = "Vous avez reçu un don pour votre projet";
+          $receiverEmail = $concernedPresentation->getCreator()->getEmail();
 
-        $content = "email_notifications/donation_received.html.twig";
+          $sender = $this->getParameter('app.mailer_email');
 
-        $contentParameters = [
-          "presentation" => $concernedPresentation,
-          "donationAmount" => number_format(($purchase->getAmount() /100), 2, ',', ' '),
-          "donorMessage" => $purchase->getContentItem("donorMessage"),
-        ];
+          $subject = "Vous avez reçu un don pour votre projet";
 
-        $mailerService->send($sender, "Propon", $receiverEmail, $subject, $content, $contentParameters);
+          $content = "email_notifications/donation_received.html.twig";
 
-        return new Response(200);
-       
+          $contentParameters = [
+            "presentation" => $concernedPresentation,
+            "donationAmount" => number_format(($purchase->getAmount() /100), 2, ',', ' '),
+            "donorMessage" => $purchase->getContentItem("donorMessage"),
+          ];
 
+          $mailerService->send($sender, "Propon", $receiverEmail, $subject, $content, $contentParameters);
 
+          return new Response(200);
+
+        }else {
+
+          echo 'Can\'t find relevant purchase resource in db.';
+
+        }
+        
       // ... handle other event types
       default:
         echo 'Received unknown event type ' . $event->type;
+
     }
 
-
     return new Response(200);
-
 
   }
 

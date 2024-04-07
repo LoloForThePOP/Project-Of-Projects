@@ -1,4 +1,4 @@
-{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "firstTimeEditPresentationModal", 'modal_title': "Votre page de projet Propon est créée !", 'modal_size': "modal-dialog-centered"} %}
+{% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "firstTimeEditPresentationModal", 'modal_title': "Votre page de projet est créée !", 'modal_size': "modal-dialog-centered"} %}
 
 
     {% block closingCross %}{% endblock %}
@@ -28,15 +28,15 @@
 
         <div class="">
 
-            <p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">✏️</span> <span style=""><b>Modifiez les éléments de votre page</b> en cliquant sur l'<b>icône crayon à droite de l'écran</b>.</span></p>
+            <p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">✏️</span> <span style=""><b>Modifiez-la</b> en cliquant sur l'<b>icône crayon à droite de l'écran</b>.</span></p>
 
-            {% if not app.user %}<p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">📌</span> <b>Enregistrez gratuitement votre page</b> avec le formulaire en bas de page.</p>{% endif %}
+            {% if not app.user %}<p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">📌</span> <b>Enregistrez-la gratuitement</b> avec le formulaire en bas de page. <b>Vous pouvez partager son adresse.</b></p>{% endif %}
 
-            <p class="fs-5 mb-1">✨ Profitez des avantages apportés par votre page :</p>
+            <p class="fs-5 mb-1">✨ <b>Profitez des avantages</b> apportés par votre page :</p>
 
             <ul class="fs-5">
-                <li>Présentez vos <b>besoins</b> & <b>demandez des donations</b>;</li>
-                <li>Donnez des <b>nouvelles</b>;</li>
+                <li><b>Présentez vos besoins</b> & <b>demandez des donations</b>;</li>
+                <li><b>Donnez des nouvelles</b>;</li>
                 <li><b>Découvrez toutes les autres possibilités</b>.</li>
             </ul>
 

@@ -78,7 +78,7 @@ class PPController extends AbstractController
     public function create(Request $request, EntityManagerInterface $manager, MailerService $mailer)
     {
 
-        $this->denyAccessUnlessGranted('ROLE_USER');
+       /*  $this->denyAccessUnlessGranted('ROLE_USER');
 
         $presentation = new PPBase();
 
@@ -106,7 +106,7 @@ class PPController extends AbstractController
             $askForGuidance = $form->get('acceptGuidance')->getData();
 
 
-            /* Email Webmaster that a new presentation has been created (moderation) */
+            // Email Webmaster that a new presentation has been created (moderation)
 
             $sender = $this->getParameter('app.general_contact_email');
             $receiver = $sender;
@@ -120,28 +120,21 @@ class PPController extends AbstractController
 
             $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'/project_presentation/email_webmaster_notif_new_pp.html.twig', $emailParameters);
 
-            /* return $this->redirectToRoute('presentation_helper', [
-                "stringId" => $presentation->getStringId(),                
-                "position" => 0,                
-                "repeatInstance" => "false",
-            ]); */
+          
+            
 
-            return $this->redirectToRoute(
-                'show_presentation',
+        } */
 
-                [
+        return $this->redirectToRoute(
+            'ai_interview_helper_origin',
 
-                    'stringId' => $presentation->getStringId(),
+            [
 
-                ]
+                'context' => "create-presentation",
 
-            );
+            ]
 
-        }
-
-        return $this->render('project_presentation/create.html.twig', [
-            'form' => $form->createView(),
-        ]);
+        );
     }
 
 

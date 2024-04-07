@@ -55,48 +55,57 @@
         </form>
 
         <div class="d-flex justify-content-center mt-4">
-        
-            <a href="{{path('ai_create_ppp')}}"><button class="js-ai-create-ppp glow-button btn btn-info" data-bs-toggle="modal" data-bs-target="#waitLoadingModal">Afficher un résumé du projet <img class="ms-2" src="{{ asset('save.svg', 'misc')}}" alt="save icon" width="24"></button></a>
 
+
+          {% set createPresentationButtonLabel = "Créer la page Propon" %}
+
+          {% if context == "coach" %}
+          
+            {% set createPresentationButtonLabel = "Afficher un résumé du projet" %}
+          
+          {% endif %}
+        
+          <a href="{{path('ai_create_ppp')}}"><button class="js-ai-create-ppp glow-button btn btn-info" data-bs-toggle="modal" data-bs-target="#waitLoadingModal">{{createPresentationButtonLabel}} <img class="ms-2" src="{{ asset('save.svg', 'misc')}}" alt="save icon" width="24"></button></a>
+
+        </div>
 
             
     <style>
-
 
       .glow-button {
         display: inline-block; 
         outline: none; /* Remove outline */
         position: relative; /* Position relative for pseudo-element */
       }
-    
-    /* Glow animation */
-    @keyframes glow {
-      0% { box-shadow: 0 0 10px #4CAF50; }
-      50% { box-shadow: 0 0 20px #4CAF50; }
-      100% { box-shadow: 0 0 10px #4CAF50; }
-    }
+      
+      /* Glow animation */
+      @keyframes glow {
+        0% { box-shadow: 0 0 10px #4CAF50; }
+        50% { box-shadow: 0 0 20px #4CAF50; }
+        100% { box-shadow: 0 0 10px #4CAF50; }
+      }
 
-    /* Apply the glow animation */
-    .glow-button::after {
-      content: ''; /* Empty content */
-      position: absolute; /* Position absolute */
-      top: 0; /* Align to top */
-      left: 0; /* Align to left */
-      width: 100%; /* Full width */
-      height: 100%; /* Full height */
-      border-radius: 8px; /* Same border radius as button */
-      animation: glow 4s 2s; /* Apply glow animation */
-    }
+      /* Apply the glow animation */
+      .glow-button::after {
+        content: ''; /* Empty content */
+        position: absolute; /* Position absolute */
+        top: 0; /* Align to top */
+        left: 0; /* Align to left */
+        width: 100%; /* Full width */
+        height: 100%; /* Full height */
+        border-radius: 8px; /* Same border radius as button */
+        animation: glow 4s 2s; /* Apply glow animation */
+      }
 
-    /* Apply the glow animation */
-    .glow-button:hover {
-      animation: glow 4s 0s; /* Apply glow animation */
-      background-color: white;
-    }
+      /* Apply the glow animation */
+      .glow-button:hover {
+        animation: glow 4s 0s; /* Apply glow animation */
+        background-color: white;
+      }
 
-</style>
+    </style>
         
-        </div>
+        
 
         <div class="presentation-summary"></div>
     

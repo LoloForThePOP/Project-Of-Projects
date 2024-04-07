@@ -25,11 +25,11 @@ class WithoutUsernameRegistrationFormType extends AbstractType
         $builder
 
             ->add('email', EmailType::class, [
-                'label' => "Votre adresse e-mail",
+                'label' => "Écrire ici votre adresse e-mail",
                 'attr' => ['placeholder' => 'Votre adresse e-mail'],
 
                 'constraints' => array(
-                    new Email(['message' => 'Veuillez écrire une adresse -mail valide']),
+                    new Email(['message' => 'Veuillez écrire une adresse e-mail valide']),
                 )
             ])
 

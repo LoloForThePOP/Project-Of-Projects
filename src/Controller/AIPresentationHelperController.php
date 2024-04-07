@@ -332,6 +332,7 @@ class AIPresentationHelperController extends AbstractController
         return $this->redirectToRoute('show_presentation', [
 
             'stringId'=> $newPPStringId,
+            'first-time-editor' => "true",
                 
         ]);
 

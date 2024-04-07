@@ -46,7 +46,7 @@
 
             {% if countPlaces == 0 %}
 
-                <a class="text-decoration-none" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
+                <a class="pp-edition-mode" href="{{ path('manage_places', {'stringId': presentation.stringId}) }}">
 
                     <div class="cta container">
                         
@@ -133,7 +133,7 @@
 
                         .present-places-text-cta .text-container {
                             padding: unset;
-                            border-radius: unset;
+                            border: none;
                             color: #296429;
                             background-color: unset;
                             line-height: 1.2;

@@ -20,15 +20,14 @@
 {% endblock %}
 
 
-{% block title %}Coach Entretien Présentation Projet{% endblock %}
+{% block title %}Coach Présentation de Projet{% endblock %}
 
 {% block body %}
 
-{% include "ai_presentation_helper/interview/_js_process.html.twig" %}
+
+{% include "ai_presentation_helper/interview/_js_process.html.twig" %} {# uses a context variable to determine display #}
 
 <div id="" class="page-container">
-
-    {# <div class="col-md-4 border">{% include "ai_presentation_helper/_tools_list.html.twig" with {"skip" : "none"} %}</div>  #}
 
     <div id="introduction-container">{% include "ai_presentation_helper/interview/_introduction.html.twig" %}</div>
 

@@ -201,16 +201,18 @@ class AIPresentationHelperController extends AbstractController
 
 
      /**
-     * @Route("/ia-assistant-gratuit-entretien-projet", name="ai_interview_helper_origin")
+     * @Route("/ia-assistant-gratuit-entretien-projet/", name="ai_interview_helper_origin")
      */
     public function interviewOrigin(Request $request): Response
     {
+
+        $context = $request->query->get('context'); //interview origin display can vary depending on context (sse twig template)
 
         $this->get('session')->set('ai_interview_helper_conversation', null);
         $this->get('session')->set('ai_interview_helper_conversation_count_user_interactions', 0);
 
         return $this->render('ai_presentation_helper/interview/origin.html.twig', [
-            'test' => "test",
+            'context' => $context,
         ]);
 
     }
@@ -234,7 +236,7 @@ class AIPresentationHelperController extends AbstractController
                 
                 $messages =  [
 
-                    ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement des conseils pour PRESENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier son objectif si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule et seulement une seule question à la fois."],
+                    ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement de l'aide pour PRÉSENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier l'objectif de son projet si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule et seulement une seule question à la fois."],
 
                     ['role' => 'user', 'content' => "Voici l'objectif de mon projet : ".$userMessage."."],
 

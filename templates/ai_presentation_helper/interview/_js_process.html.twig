@@ -22,13 +22,25 @@
         $(".send-button-container").hide();
 
         $(".userInput").focus();
-        
+
         $(".js-ai-create-ppp").hide();
 
         $("#process-container").hide();
 
         $(".assistant-advice-container").hide();
 
+
+
+        const context = "{{context}}"; // when context is coach, user wants to use the tool without initially wanting to create a propon project presentation page.
+
+        if(context !== "coach"){ // when context is not coach, user knows he wants to create a propon project presentation page, we avoid some initial messages.
+
+            $("#introduction-container").hide();
+            $("#process-container").show();
+
+        }else{
+            
+        }
 
         //when user click on start button, show main ui
 
@@ -81,8 +93,18 @@
 
                     if(userMessagesCount == 3){
 
-                        var note = "Note : à tout moment vous pouvez obtenir un résumé de notre conversation en appuyant sur le bouton \"Afficher un résumé\". Ce résumé créé automatiquement une page Propon que vous pouvez partager ou garder privée.<br><br>" 
+                        var note = null;
 
+                        if(context == "coach"){
+
+                            note = "Note : à tout moment vous pouvez obtenir un résumé de notre conversation en appuyant sur le bouton \"Afficher un résumé\". Ce résumé créé automatiquement une page que vous pouvez partager ou garder privée.<br><br>";
+
+                        }else{
+
+                            note = "Note : à tout moment vous pouvez lancer la création automatique de votre page Propon en appuyant sur le bouton \"Afficher un résumé\".<br><br>";
+
+                        }
+                        
                         $('.assistant-advice:last').html(note+response.aiAnswer);
 
                     }

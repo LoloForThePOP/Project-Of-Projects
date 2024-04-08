@@ -73,4 +73,37 @@ class MailerService {
     }
 
 
+    /**
+     * Shortcut to send an email to a website admin in order to inform him that a specific action has been done on website
+     *
+     * @param string $subject
+     * @param string $content
+     * @return void
+     */
+    public function mailAdmin($subject, $content){
+
+        $this->send("mailer@propon.org", "Propon", "contact@propon.org", $subject, $content);
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

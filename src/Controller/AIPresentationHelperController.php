@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AIPresentationHelperController extends AbstractController
@@ -221,7 +222,7 @@ class AIPresentationHelperController extends AbstractController
      /**
      * @Route("/ajax-ia-assistant-gratuit-entretien-projet", name="ajax_ai_interview_helper_origin")
      */
-    public function ajaxInterviewOrigin(Request $request, DataCollectService $dataCollect, MailerInterface $mailer) {
+    public function ajaxInterviewOrigin(Request $request, DataCollectService $dataCollect, MailerService $mailerService) {
          
         if ($request->isXmlHttpRequest()) {
 
@@ -286,16 +287,8 @@ class AIPresentationHelperController extends AbstractController
                 $dataCollect->save("ai_presentation_interview_helper", $dataCollectArray);
 
                 //email admin
-                $sender = $this->getParameter('app.general_contact_email');
-                $receiver = $this->getParameter('app.general_contact_email');
 
-                $email = (new Email())
-                    ->from($sender)
-                    ->to($receiver)
-                    ->subject('New AI Presentation Interview Coach Usage')
-                    ->html('<pre>'.json_encode($dataCollectArray, JSON_PRETTY_PRINT).'</pre>');
-
-                $mailer->send($email);
+                $mailerService->mailAdmin("New AI Presentation Interview Coach Usage", '<pre>'.json_encode($dataCollectArray, JSON_PRETTY_PRINT).'</pre>');
 
             }
 
@@ -309,27 +302,24 @@ class AIPresentationHelperController extends AbstractController
 
 
 
-    /**
-    * @Route("/interview-ai-presentation-interview-helper/ajax-create-summary", name="ajax_ai_interview_create_summary")
-    */
-    public function ajaxInterviewCreateSummary(Request $request, DataCollectService $dataCollect, AICreatePPService $createSummaryService) {
-
-        $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));        
-
-        return new JsonResponse(['summary' => $structuredPPData]);
-
-    }
-
 
 
     /**
     * @Route("/interview-ai-presentation-interview-helper/create-ppp", name="ai_create_ppp")
     */
-    public function aiCreatePPP(AICreatePPService $createSummaryService, CreatePPService $createPPService) {
+    public function aiCreatePPP(AICreatePPService $createSummaryService, CreatePPService $createPPService, MailerService $mailerService) {
 
         $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));
 
         $newPPStringId = $createPPService->create($structuredPPData);
+
+        $presentationURL = $this->generateUrl('show_presentation', [
+
+            'stringId'=> $newPPStringId,
+                
+        ], UrlGeneratorInterface::ABSOLUTE_URL);
+
+        $mailerService->mailAdmin("New presentation created from ai helper", "See <a href=".$presentationURL.">".$presentationURL."</a>");
 
         return $this->redirectToRoute('show_presentation', [
 
@@ -337,6 +327,24 @@ class AIPresentationHelperController extends AbstractController
             'first-time-editor' => "true",
                 
         ]);
+
+    }
+
+
+
+    
+
+    /**
+     * 
+     * Deprecated : now summaries are done with an usal 4p (propon project presentation page)
+     * 
+    * @Route("/interview-ai-presentation-interview-helper/ajax-create-summary", name="ajax_ai_interview_create_summary")
+    */
+    public function ajaxInterviewCreateSummary(Request $request, DataCollectService $dataCollect, AICreatePPService $createSummaryService) {
+
+        $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));        
+
+        return new JsonResponse(['summary' => $structuredPPData]);
 
     }
 

@@ -12,7 +12,7 @@
 
                         <div>
 
-                            <h4 class="content-header">Pour faire connaître ce Projet</h4>
+                            <h4 class="content-header">Pour faire connaître ce projet <br>utilisez un lien de partage direct</h4>
 
                             <!-- AddToAny BEGIN -->
 
@@ -36,9 +36,7 @@
                             
                             <!-- AddToAny END -->
 
-                            <p><span class="text-success"><u>Ou copiez son adresse et partagez-là.</u></span></p>
-
-                            <div class="mb-4">Voici son adresse 👇</div>
+                            <p class="pt-2"><span class="text-success">Ou copiez son adresse et partagez-là 👇</span></p>
 
                             {# "Copy link" do not work on mobile so we hide copyable textarea on mobile and we use a simple div instead #}
 
@@ -46,7 +44,7 @@
 
                             {# Filled copyable textarea displayed for > medium screens #}
 
-                            <textarea id="presentationAbsoluteURL" class="d-none d-md-block" resize="none">{{ url ('show_presentation', {"stringId": presentation.stringId}) }}</textarea>
+                            <textarea id="presentationAbsoluteURL" class="d-none d-md-block" resize="none" rows="1">{{ url ('show_presentation', {"stringId": presentation.stringId}) }}</textarea>
 
                             <div class="">
                                     
@@ -98,6 +96,9 @@
         </div>
 
     {% endblock %}
+
+    {% block modalFooter %}{% endblock %}
+
 
 {% endembed %}
 

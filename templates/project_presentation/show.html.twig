@@ -980,13 +980,17 @@
 
     {% endif %} #}
 
-    {% set odd = [1] %}
+    {% if not userPresenter %}
 
-	{% if random (odd) == 1 and not app.user  %}
+        {% set odd = [1] %}
 
-		<p class="text-center">Pour rendre votre projet plus visible, <br class="d-md-none">présentez-le gratuitement ( 👉 <a href="{{path('create_presentation')}}">c'est ici</a> ).</p>
-	
-	{% endif %}
+        {% if random (odd) == 1 and not app.user  %}
+
+            <p class="text-center">Pour rendre votre projet plus visible, <br class="d-md-none">présentez-le gratuitement ( 👉 <a href="{{path('create_presentation')}}">c'est ici</a> ).</p>
+        
+        {% endif %}
+
+    {% endif %}
 
 
     {# Create a Project Form CTA #}

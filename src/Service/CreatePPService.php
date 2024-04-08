@@ -79,7 +79,7 @@ class CreatePPService {
                         $imageSlide = new Slide();
                         $imageSlide
                             ->setType('image')
-                            ->setCaption($imagePrompt)
+                            ->setCaption($imagePrompt." (Image d'illustration virtuelle).")
                             ->setAddress("ai_generable")
                             ->setPresentation($this->pp);
 

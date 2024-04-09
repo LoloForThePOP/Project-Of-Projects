@@ -36,6 +36,12 @@
 
             <div class="row justify-content-around">
 
+                {% if countQA == 0 %}
+                    
+                    {{ _self.menuButton("add_qa_form_modal", "qa.svg", "Ajouter une FAQ") }}
+
+                {% endif %}
+
                 {% if countDocuments == 0 %}
                     
                     {{ _self.menuButton("addDocumentFormModal", "documents.svg", "Ajouter des documents") }}

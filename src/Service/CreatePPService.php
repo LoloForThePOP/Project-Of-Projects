@@ -58,7 +58,6 @@ class CreatePPService {
                 case 'qas':
 
                     foreach ($value as $qa => $qaContent){
-                        //dd($qaContent);                             
                         $this->pp->addOtherComponentItem("questionsAnswers", $qaContent);
                     }
                     
@@ -79,7 +78,7 @@ class CreatePPService {
                         $imageSlide = new Slide();
                         $imageSlide
                             ->setType('image')
-                            ->setCaption($imagePrompt." (Illustration imaginaire).")
+                            ->setCaption($imagePrompt." (illustration imaginaire).")
                             ->setAddress("ai_generable")
                             ->setPresentation($this->pp);
 

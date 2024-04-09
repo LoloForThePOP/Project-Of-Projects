@@ -48,7 +48,7 @@ class AICreateImageService {
 
 
     /**
-    * Allow to store an image to a specific folder (ex : public/ia-generated-logos)
+    * Allow to store an image to a specific folder (ex : public/ai-generated-logos)
     * Return image name with extension
     */
     public function saveImageFromUrlToPath($imageUrl, $targetPath, $imageName = null){

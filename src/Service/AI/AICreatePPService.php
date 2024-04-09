@@ -65,7 +65,7 @@ class AICreatePPService {
 
         // Project Goal
 
-        $aiPrompt .= "a json key is named 'goal' : it contains one sentence summarizing the goal of the project. ";
+        $aiPrompt .= "a json key is named \"goal\" : it contains one sentence summarizing the goal of the project and begins with a verb (not something like \"Le but du projet est\"). ";
 
         // Project Keywords
 
@@ -73,11 +73,13 @@ class AICreatePPService {
 
         // Project Description
 
-        $aiPrompt .= "a json key is named 'description' : it contains a 3 paragraphs text describing the project. "; 
+        $aiPrompt .= "a json key is named 'description' : it contains 2 or 3 paragraphs of text describing the project. Use html <p> tag to separate these paragraphs."; 
 
         // Project Questions & Answers (FAQ)
 
-        $aiPrompt .= "a json key is named 'qas': it contains an aray of questions and answers people could ask about the project. Each question is named 'question', each answer is named 'answer'. Don't forget full stop at the end of each element of this array."; 
+        /* $aiPrompt .= "a json key is named 'qas': it contains an aray of questions and answers people could ask about the project. Each question is named 'question', each answer is named 'answer'. Don't forget full stop at the end of each element of this array."; */
+
+        // Project Images (imaginary representations further created by an ai image creation tool)
 
         $aiPrompt .= "a json key is named 'imagePrompts': it contains an aray of two prompts representing the project you would give to create images with an ai image generator."; 
 

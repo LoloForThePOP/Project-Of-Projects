@@ -10,7 +10,7 @@
 
     {% block moreInfoButtonLabel %}Aide{% endblock %}
 
-    {% block moreInfoContent %}La vignette (= thumbnail) est l'image qui donne accès à la présentation de votre projet. Elle apparaît sur la page d'accueil du site, dans le moteur de recherche, et dans les suggestions. Choisissez une vignette qui donne envie de découvrir votre projet !{% endblock %}    
+    {% block moreInfoContent %}La vignette (= thumbnail) est l'image qui donne accès à la présentation de votre projet. Elle apparaît sur la page d'accueil du site, dans le moteur de recherche, et dans les suggestions. Choisissez une vignette représentative qui donne envie de découvrir votre projet.{% endblock %}    
 
     {% block mainContent %}
         
@@ -25,6 +25,9 @@
                     <img class="thumbnail" src="{{ presentation.cache.thumbnailAddress }}" alt="Presentation Thumbnail">
             
                 {% else %} {# no cached thumbnail : default avatar #}
+
+
+                    {% set defaultThumbnailBG = ['#884394', '#3f51b5', '#009688', '#42a346', '#ff9800', '#2d66ba', '#a58f4f', '#129d90', '#428392', '#263b78', '#878273', '#705c20', '#d24040', '#c1944e'] %}
 
                     <div class="avatar-square-rounded avatar-80 mx-auto" style="background-color: {{ random (defaultThumbnailBG) }} !important;" >
                         

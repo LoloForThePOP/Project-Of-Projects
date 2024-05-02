@@ -69,6 +69,12 @@ class CreatePPService {
                     
                     break;
 
+                case 'privateMessagesActivation':
+
+                    $this->pp->setParameter('arePrivateMessagesActivated', $value);
+                    
+                    break;
+
                 case 'imagePrompts':
 
                     // We generate presentation slides with caption but without an actual image file

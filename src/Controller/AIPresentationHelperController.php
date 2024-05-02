@@ -319,7 +319,7 @@ class AIPresentationHelperController extends AbstractController
                 
         ], UrlGeneratorInterface::ABSOLUTE_URL);
 
-        $mailerService->mailAdmin("New presentation created from ai helper", "See <a href=".$presentationURL.">".$presentationURL."</a>");
+        $mailerService->mailAdmin("New presentation created from ai helper", "See <a href=".$presentationURL.">".$presentationURL."</a><br><p>Here is ai interview helper conversation :</p><pre>".json_encode($this->get('session')->get('ai_interview_helper_conversation'))."</pre>");
 
         return $this->redirectToRoute('show_presentation', [
 

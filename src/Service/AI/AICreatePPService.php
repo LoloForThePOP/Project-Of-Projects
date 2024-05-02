@@ -51,6 +51,9 @@ class AICreatePPService {
         //we consider that an AI presentation is admin validated
         $projectPresentationElements["isAdminValidated"] = true;
 
+        //we disable private messages by default
+        $projectPresentationElements["privateMessagesActivation"] = false;
+
         return $projectPresentationElements;
 
     }

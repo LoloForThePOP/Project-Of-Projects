@@ -309,25 +309,40 @@ class AIPresentationHelperController extends AbstractController
     */
     public function aiCreatePPP(AICreatePPService $createSummaryService, CreatePPService $createPPService, MailerService $mailerService) {
 
-        $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));
+        $conversationRawData = $this->get('session')->get('ai_interview_helper_conversation');
 
-        $newPPStringId = $createPPService->create($structuredPPData);
+        if ($conversationRawData == null) {
 
-        $presentationURL = $this->generateUrl('show_presentation', [
+            return $this->redirectToRoute('homepage', [
+                    
+            ]);
 
-            'stringId'=> $newPPStringId,
-                
-        ], UrlGeneratorInterface::ABSOLUTE_URL);
+        } else {
 
-        $mailerService->mailAdmin("New presentation created from ai helper", "See <a href=".$presentationURL.">".$presentationURL."</a><br><p>Here is ai interview helper conversation :</p><pre>".json_encode($this->get('session')->get('ai_interview_helper_conversation'))."</pre>");
+            $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $conversationRawData);
 
-        return $this->redirectToRoute('show_presentation', [
+            $newPPStringId = $createPPService->create($structuredPPData);
 
-            'stringId'=> $newPPStringId,
-            'first-time-editor' => "true",
-                
-        ]);
+            $presentationURL = $this->generateUrl('show_presentation', [
 
+                'stringId'=> $newPPStringId,
+                    
+            ], UrlGeneratorInterface::ABSOLUTE_URL);
+
+            $mailerService->mailAdmin("New presentation created from ai helper", "See <a href=".$presentationURL.">".$presentationURL."</a><br><p>Here is ai interview helper conversation :</p><pre>".json_encode($this->get('session')->get('ai_interview_helper_conversation'))."</pre>");
+
+            return $this->redirectToRoute('show_presentation', [
+
+                'stringId'=> $newPPStringId,
+                'first-time-editor' => "true",
+                    
+            ]);
+
+        }
+
+        
+
+       
     }
 
 

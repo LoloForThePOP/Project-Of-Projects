@@ -38,9 +38,10 @@
             $("#introduction-container").hide();
             $("#process-container").show();
 
-        }else{
-            
-        }
+        };
+
+       
+
 
         //when user click on start button, show main ui
 
@@ -169,6 +170,17 @@
             }
 
         });
+
+
+        const goal = "{{projectGoal}}";
+
+        if (goal != ""){
+
+            $(".userInput:last-of-type").val(goal);
+            $(".send-button").click();
+            
+        }
+
 
        
 

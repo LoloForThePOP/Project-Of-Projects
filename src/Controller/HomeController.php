@@ -47,10 +47,8 @@ class HomeController extends AbstractController
         $setGoalForm->handleRequest($request);
 
         if ($setGoalForm->isSubmitted() && $setGoalForm->isValid()) {
-
-            $projectGoal = $setGoalForm->getData('goal');
             
-            /* Email Webmaster that a new presentation has been created (moderation) */
+            /* Email Webmaster that a new presentation has been created (moderation)
 
             $sender = $this->getParameter('app.mailer_email');
             $receiver = $this->getParameter('app.general_contact_email');
@@ -61,10 +59,19 @@ class HomeController extends AbstractController
                 
             ];
 
-            $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'Project Goal : '.$projectGoal);
+            $mailer->send($sender, 'Propon', $receiver, "Homepage direct 3P form used",'Project Goal : '.$projectGoal); */
+
+            $projectGoal = $setGoalForm->getData()->getGoal();
+
+            $this->get('session')->set('project_goal', $projectGoal);
+
+            return $this->redirectToRoute('ai_interview_helper_origin', [
+                
+            ]);
 
 
-            if ($this->isGranted('ROLE_USER')) {
+
+/*             if ($this->isGranted('ROLE_USER')) {
 
                 $presentation->setCreator($this->getUser());
 
@@ -84,7 +91,7 @@ class HomeController extends AbstractController
                 return $this->redirectToRoute('edit_presentation_as_guest_user', [
                     'goal' => $projectGoal,
                 ]);
-            }
+            } */
 
         }
 

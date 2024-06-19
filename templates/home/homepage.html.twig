@@ -103,6 +103,81 @@
 
 
 
+  {# create a presentation form #}
+
+  
+    <div class="projects-change-the-world border mb-5 text-center fw-bold container col-lg-9">
+    
+      <p class="mt-2 mb-3">✨ Tester Propon maintenant<br>Gratuitement & sans inscription ☄️</p>
+
+      {% set createPresentationForm4 = setGoalForm %}
+    
+        {{form_start(createPresentationForm4)}}
+      <div class="d-flex align-items-center d-md-block mb-4">
+          <div class="d-none">{{form_label(createPresentationForm4.goal)}}</div>
+                            
+          {{ form_errors(createPresentationForm4.goal) }}
+              
+           {{form_widget(createPresentationForm4.goal, {'attr': {'placeholder': 'Quel est l\'objectif de votre projet ? (écrire ici)'}})}}
+
+            <button id="" type="submit" class="create-presentation-button btn btn-validate rounded btn-lg p-2 fw-normal">Ok</button>
+      </div>
+          {{ form_end(createPresentationForm4) }}
+
+
+    
+    </div>
+
+    
+    <style>
+
+      #create_presentation_goal {
+        display: inline;
+        width: 70%;
+        height: 47px;
+        margin-right: 20px;
+      }
+      
+      .projects-change-the-world{
+          padding: 14px;
+          text-align: center;
+          font-size: 21px;
+
+          margin-top: 90px;
+      } 
+  
+      @media screen and (max-width: 580px) {
+
+        #create_presentation_goal {
+          width: 84%;
+          margin-right: 5px;
+        }
+
+        .projects-change-the-world{
+            padding: 10px 5px;
+            text-align: left;
+            font-size: 15px;
+            margin-top: 24px;
+        } 
+
+          
+      }
+    
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     {# How it works + FAQ 
     

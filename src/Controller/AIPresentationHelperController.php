@@ -207,13 +207,16 @@ class AIPresentationHelperController extends AbstractController
     public function interviewOrigin(Request $request): Response
     {
 
-        $context = $request->query->get('context'); //interview origin display can vary depending on context (sse twig template)
+        $context = $request->query->get('context'); //interview origin display can vary depending on context (see twig template)
+
+        $projectGoal = $this->get('session')->get('project_goal'); //maybe we already know project goal (ex: random user filled homepage form)       
 
         $this->get('session')->set('ai_interview_helper_conversation', null);
         $this->get('session')->set('ai_interview_helper_conversation_count_user_interactions', 0);
 
         return $this->render('ai_presentation_helper/interview/origin.html.twig', [
             'context' => $context,
+            "projectGoal" => $projectGoal,
         ]);
 
     }

@@ -1,16 +1,69 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="220" height="220" data-name="Layer 1" version="1.1" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
- <title>wifi10</title>
- <g transform="matrix(0 1.8374 -1.8374 0 201.87 18.093)" fill="#aade87" fill-opacity=".73264" stroke="#000" stroke-width="1.6328">
-  <path d="m48.52 14.18c18.58 0.4 33.57 6.09 46.48 17.12a35.64 35.64 0 0 1 2.85 2.7c2.49 2.63 3.08 5.6 0.38 8.27s-5.34 1.65-7.76-0.68c-7.85-7.58-17-12.93-27.71-15.16-19.76-4.18-37.12 0.71-52.24 14.07-1.74 1.5-4.52 3.12-6.52 2.83-4.69-0.68-5.34-5.92-1.27-9.83a67.14 67.14 0 0 1 36.37-18.25c3.62-0.59 7.3-0.84 9.42-1.07z"/>
-  <path d="m53.57 40.26c7.95 0.12 17.27 3.93 25.34 10.93 2.87 2.49 5.15 5.47 2.2 8.94s-6 1.82-9-0.81c-13-11.43-30.38-11.55-43.76-0.48-0.42 0.35-0.85 0.71-1.24 1.09-2.67 2.6-5.62 3-8.18 0.2s-1.17-5.68 1.28-8.13c7.22-7.3 19.52-12.09 33.36-11.74z"/>
-  <path d="m59.76 75.74a9.9 9.9 0 0 1-9.62 10.08c-5.14 0.18-10.03-4.59-10.14-9.77a10 10 0 0 1 9.8-9.95 9.65 9.65 0 0 1 9.96 9.64z"/>
- </g>
- <metadata>
-  <rdf:RDF>
-   <cc:Work rdf:about="">
-    <dc:title>wifi10</dc:title>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="220"
+   height="220"
+   data-name="Layer 1"
+   version="1.1"
+   viewBox="0 0 220 220"
+   id="svg14"
+   sodipodi:docname="wifi.svg"
+   inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     id="namedview16"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     showgrid="false"
+     inkscape:zoom="3.6909091"
+     inkscape:cx="110"
+     inkscape:cy="110.13547"
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g10" />
+  <title
+     id="title2">wifi10</title>
+  <g
+     transform="matrix(0 1.8374 -1.8374 0 201.87 18.093)"
+     fill="#aade87"
+     fill-opacity=".73264"
+     stroke="#000"
+     stroke-width="1.6328"
+     id="g10">
+    <path
+       d="m48.52 14.18c18.58 0.4 33.57 6.09 46.48 17.12a35.64 35.64 0 0 1 2.85 2.7c2.49 2.63 3.08 5.6 0.38 8.27s-5.34 1.65-7.76-0.68c-7.85-7.58-17-12.93-27.71-15.16-19.76-4.18-37.12 0.71-52.24 14.07-1.74 1.5-4.52 3.12-6.52 2.83-4.69-0.68-5.34-5.92-1.27-9.83a67.14 67.14 0 0 1 36.37-18.25c3.62-0.59 7.3-0.84 9.42-1.07z"
+       id="path4"
+       style="stroke-width:0.92522042;stroke-miterlimit:4;stroke-dasharray:none;stroke:#8b9000;stroke-opacity:0.2795139" />
+    <path
+       d="m53.57 40.26c7.95 0.12 17.27 3.93 25.34 10.93 2.87 2.49 5.15 5.47 2.2 8.94s-6 1.82-9-0.81c-13-11.43-30.38-11.55-43.76-0.48-0.42 0.35-0.85 0.71-1.24 1.09-2.67 2.6-5.62 3-8.18 0.2s-1.17-5.68 1.28-8.13c7.22-7.3 19.52-12.09 33.36-11.74z"
+       id="path6"
+       style="stroke-width:0.92522042;stroke-miterlimit:4;stroke-dasharray:none;stroke:#74a500;stroke-opacity:0.33680552" />
+    <path
+       d="m59.76 75.74a9.9 9.9 0 0 1-9.62 10.08c-5.14 0.18-10.03-4.59-10.14-9.77a10 10 0 0 1 9.8-9.95 9.65 9.65 0 0 1 9.96 9.64z"
+       id="path8"
+       style="stroke:#8b9000;stroke-opacity:0.27843139;stroke-width:0.92522042;stroke-miterlimit:4;stroke-dasharray:none" />
+  </g>
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>wifi10</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
 </svg>

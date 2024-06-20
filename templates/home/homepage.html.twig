@@ -106,22 +106,49 @@
   {# create a presentation form #}
 
   
-    <div class="projects-change-the-world border mb-5 text-center fw-bold container col-lg-9">
+    <div class="projects-change-the-world container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5">
     
-      <p class="mt-2 mb-3">✨ Tester Propon maintenant<br>Gratuitement & sans inscription ☄️</p>
+      <h2>Tester Propon <b>MAINTENANT</b></h2>
+      <p><span class="">Gratuitement</span> & <span class="highlight">SANS INSCRIPTION</span></p>
+      <p>Quel est l'objectif de votre projet ?</p>
+
+      <style>
+
+       .highlight {
+            position: relative;
+            display: inline-block;
+            font-weight: bold;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 3px;
+            background-color: #32a032;
+            bottom: -3px;
+            left: 0;
+            border-radius: 2px;
+        }
+
+      </style>
+
 
       {% set createPresentationForm4 = setGoalForm %}
     
-        {{form_start(createPresentationForm4)}}
+      {{form_start(createPresentationForm4)}}
+
       <div class="d-flex align-items-center d-md-block mb-4">
+
           <div class="d-none">{{form_label(createPresentationForm4.goal)}}</div>
                             
           {{ form_errors(createPresentationForm4.goal) }}
               
-           {{form_widget(createPresentationForm4.goal, {'attr': {'placeholder': 'Quel est l\'objectif de votre projet ? (écrire ici)'}})}}
+           {{form_widget(createPresentationForm4.goal)}}
 
-            <button id="" type="submit" class="create-presentation-button btn btn-validate rounded btn-lg p-2 fw-normal">Ok</button>
+            <button id="" type="submit" class="create-presentation-button btn btn-validate border rounded btn-lg p-2 px-md-3 fw-normal">Ok</button>
       </div>
+
           {{ form_end(createPresentationForm4) }}
 
 
@@ -130,35 +157,37 @@
 
     
     <style>
-
-      #create_presentation_goal {
-        display: inline;
-        width: 70%;
-        height: 47px;
-        margin-right: 20px;
-      }
       
       .projects-change-the-world{
           padding: 14px;
+          margin-top: 90px;
           text-align: center;
           font-size: 21px;
-
-          margin-top: 90px;
+          font-weight: bold;
+          border: 1px solid green;
+          border-radius: 8px;
       } 
   
-      @media screen and (max-width: 580px) {
+      #create_presentation_goal {
+        display: inline;
+        max-width: 453px;
+        height: 47px;
+        margin-right: -4px;
+      }
 
-        #create_presentation_goal {
-          width: 84%;
-          margin-right: 5px;
-        }
+      @media screen and (max-width: 580px) {
 
         .projects-change-the-world{
             padding: 10px 5px;
-            text-align: left;
             font-size: 15px;
             margin-top: 24px;
+            border: 1px solid #d5ecd5;
         } 
+
+        
+        #create_presentation_goal {
+          
+        }
 
           
       }

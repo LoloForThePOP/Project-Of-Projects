@@ -94,7 +94,7 @@
     
       <p class="d-none d-md-block text-justify px-3 mb-3" >
         
-        ✔️ <b>Obtenez une présentation claire et résumée</b> de votre projet. <br><br> Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser.</b>
+        <b>Obtenez une présentation claire et résumée</b> de votre projet. <br><br> Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b> ✔️ 
         
         {# <br><br>
 
@@ -119,17 +119,17 @@
 
 {% set fast %}
 
-  <div><b>Répondez simplement à quelques questions basiques</b> : la présentation de votre projet est<b> créée automatiquement</b>.</div>
+  <div><b>Répondez simplement à quelques questions BASIQUES</b> : la présentation de votre projet est<b> créée <u>automatiquement</u></b>. Partagez-là.</div>
 
 {% endset %}
 
 {% set findResources %}
     
-    <h3 class="d-none d-md-block text-center fw-bold mb-4 h4">🙋‍♀️ PRÉSENTEZ VOS BESOINS</h3>
+    {# <h3 class="d-none d-md-block text-center fw-bold mb-4 h4">🙋‍♀️ PRÉSENTEZ VOS BESOINS</h3> #}
     
     {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
     
-    <p class="text-center px-3" >Vous recherchez <b>des compétences, du matériel, des conseils</b> ? Faites-le savoir dans la partie prévue pour cela.</p>
+    <p class="d-relative text-center px-3" >Vous recherchez <b> des conseils, du matériel, des compétences</b>? <span class="highlight">Utilisez l'espace prévu</span> dans votre page gratuite.</p>
 
     {# <div class="col text-center mt-md-3">
       
@@ -152,9 +152,12 @@
 {% endset %}
 
 
+
 {% set news %}
     
-  <p class="px-3" >Les personnes qui <b>suivent votre projet</b> sont <b>automatiquement notifiées</b> des nouvelles que vous publiez.</p>
+  <p class="px-3" ><b>Partagez des nouvelles si vous le souhaitez</b> : les visiteurs peuvent <b>suivre votre projet</b>.</p>
+
+{#   <p class="px-3" >Partagez des nouvelles si vous le souhaitez : les personnes qui <b>suivent votre projet</b> sont <b>automatiquement notifiées</b> des nouvelles que vous publiez.</p> #}
 
 {% endset %}
 
@@ -172,7 +175,7 @@
 
 
 
-<div class="d-flex justify-content-center"><h3 class="arguments-slider-title">Pourquoi <span class="d-md-none">Utiliser</span><span class="d-none d-md-inline">Présenter son Projet sur</span> Propon ?</h3></div> 
+{# <div class="d-flex justify-content-center"><h3 class="arguments-slider-title">Pourquoi <span class="d-md-none">Utiliser</span><span class="d-none d-md-inline">Présenter son Projet sur</span> Propon ?</h3></div>  #}
 
 <div id="rationalArgumentsCarousel" class="carousel container col-lg-8 d-flex align-items-center" data-bs-interval="false">
 
@@ -182,22 +185,21 @@
 
       {{ _self.carouselItem("Gagnez du temps", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, true) }}
 
-      {{ _self.carouselItem("Activez les donations", "euro_donation.webp", "Deux mains différentes avec une pièce en euros entre ces mains.", donations, false) }}
-
-      {{ _self.carouselItem("Partagez des nouvelles", "wifi.svg", "Un dessin qui comporte une onde radio synonyme de news.", news, false) }}
-
-      {{ _self.carouselItem("Recevez des avis", "comment.png", "", comments, false) }}
-
-      {{ _self.carouselItem("Facile & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }}
-
       {{ _self.carouselItem("Rassemblez l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
 
+{#       {{ _self.carouselItem("Activez les donations", "euro_donation.webp", "Deux mains différentes avec une pièce en euros entre ces mains.", donations, false) }} #}
+
+      {{ _self.carouselItem("Trouvez de l'Aide", "find_resources.webp", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
+
+
+      {{ _self.carouselItem("Suivre votre projet ?", "wifi.svg", "Un dessin qui comporte une onde radio synonyme de news.", news, false) }}
+
+      {# {{ _self.carouselItem("Recevez des avis", "comment.png", "", comments, false) }} #}
+
+{#       {{ _self.carouselItem("Facile & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }} #}
+
+
 {#       {{ _self.carouselItem("Votre « Carte de Visite »", "business_card.webp", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }} #}
-
-      {# {{ _self.carouselItem("Trouver de l'Aide", "find_resources.webp", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
- #}
-
-
 
       {# {{ _self.carouselItem("Relier les Réseaux", "link_networks.webp", "Des icônes de réseaux sociaux qui sont reliée à une page de projet sur propon.", linkNetworks, false) }} #}
 
@@ -268,9 +270,9 @@
     font-size: 30px;
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #ffffa4;
+    background-color: #efefff;
     padding: 17px 40px;
-    border-radius: 75px;
+    border-radius: 0px;
     
   }
 
@@ -386,7 +388,7 @@
 
   .arguments-slider-title {
 	  font-size: 18px;
-    padding: 12px 33px;
+    padding: 12px 40px;
     margin-bottom: 15px;
   }
 

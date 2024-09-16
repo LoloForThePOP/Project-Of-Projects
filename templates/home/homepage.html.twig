@@ -106,10 +106,10 @@
   {# create a presentation form #}
 
   
-    <div class="projects-change-the-world container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5">
+    <div class="projects-change-the-world try-website-cta container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5">
     
-      <h2>Tester Propon <b>MAINTENANT</b></h2>
-      <p><span class="">Gratuitement</span> & <span class="highlight">SANS INSCRIPTION</span></p>
+      <h3 class="d-flex align-items-center justify-content-center"><img class="verified-icon me-2" src="{{ asset('verified.svg', 'misc')}}" alt="verified icon" width="40" height="40"> Tester Propon <b class="ms-2"> MAINTENANT</b></h3>
+      <p><span class="">Gratuit</span> & <span class="">sans inscription</span></p>
       <p>Quel est l'objectif de votre projet ?</p>
 
       <style>
@@ -130,6 +130,20 @@
             left: 0;
             border-radius: 2px;
         }
+
+
+        
+          @media (max-width: 580px) {
+
+            .verified-icon{
+
+              width: 22px;
+
+
+            }
+
+
+          }
 
       </style>
 
@@ -284,7 +298,7 @@
 
     {# Propon Articles #}
 
-    <div class="container my-5">
+    <div class="articles-container container my-5">
 
       <h2 class="article-container-title fw-bold">
       
@@ -292,8 +306,31 @@
         
         <span class="me-md-4">Articles</span>
 
-        <a href="{{ path ('edit_article') }}"><button type="button" class="btn btn-outline-dark"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un article sur Propon</div></button></a>
-      
+        <a href="{{ path ('edit_article') }}"><button type="button" class="write-article btn"><div class="flip-horiz me-2 mb-2">✍️</div><div class=""> Écrire un article sur Propon</div></button></a>
+
+        <style>
+
+          .write-article{
+
+            color: #678eb5;
+            border-color: #798da2;
+          
+          }
+
+          @media (max-width: 580px) {
+
+            .articles-container{
+
+              padding-left: 10px;
+
+
+            }
+
+
+          }
+
+        </style>
+
       </h2>
 
       <div class="article-cards-container row row-cols-1 row-cols-md-3 g-4">

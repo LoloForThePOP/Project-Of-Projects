@@ -2,239 +2,232 @@
 
 <html>
 
-<html lang="fr">
+    <head>
 
-<head>
+        {# Open Graph enables any web page to become a rich object in a social graph (see https://ogp.me/) #}
 
+        {% macro openGraph (title, siteName, pageUrl, description, type, imageUrl = null, updatedAt = null) %}
 
-    {% macro openGraph (title, siteName, pageUrl, description, type, imageUrl = null, updatedAt = null) %}
+            <meta property="og:title" content="{{title}}">
+            <meta property="og:site_name" content="{{siteName}}">
+            <meta property="og:url" content="{{pageUrl}}">
+            <meta property="og:description" content="{{description}}">
+            <meta property="og:type" content="{{type}}">
 
-        <meta property="og:title" content="{{title}}">
-        <meta property="og:site_name" content="{{siteName}}">
-        <meta property="og:url" content="{{pageUrl}}">
-        <meta property="og:description" content="{{description}}">
-        <meta property="og:type" content="{{type}}">
+            {% if imageUrl is not empty %}
+            
+                <meta property="og:image" content="{{imageUrl}}">
+            
+            {% endif %}
 
-        {% if imageUrl is not empty %}
+            {% if updatedAt is not empty %}
+            
+                <meta property="og:updated_time" content="{{updatedAt}}">
+            
+            {% endif %}
+
+        {% endmacro %}
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        {% block headTag %}{% endblock %} {# Allow each specific webpage to add more Head tags in  #}
         
-            <meta property="og:image" content="{{imageUrl}}">
+
+        {# Basic Favicon #}
         
+        <link rel="icon" type="image/png" href="{{ asset('website_brand/favicon16.png', 'icons')}}">
+
+
+        {# Google Fonts #}
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+
+        <title>{% block title %}Bienvenue sur Propon{% endblock %}</title>
+
+        {# CSS #}
+
+        <link href="/css/bootstrap.css" rel="stylesheet">
+        <link href="/css/app.css" rel="stylesheet"> {# General stylesheet #}
+
+        {% block stylesheets %}{% endblock %}
+
+        {% block priorJavascipts %}{% endblock %}
+
+        
+        <script src="/js/bootstrap.js"></script>
+
+        <script src="/js/jquery-3.6.0.js"></script>
+
+
+        {% if app.environment != 'dev' %}
+
+            <script src="/js/tracking.js"></script> {# Manages some user tracking #}
+
+            <!-- Google tag (gtag.js) - Google Analytics -->
+
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-245896945-1"></script>
+
+            <script>
+
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', 'UA-245896945-1');
+            
+            </script>
+
         {% endif %}
 
-        {% if updatedAt is not empty %}
+                
+        {# Google Map inclusion by default for projects geosearch and google places usage (Google places autocompletes form fields for locations) #}
+            
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&libraries=places&language=fr"></script>
+
         
-            <meta property="og:updated_time" content="{{updatedAt}}">
+        <script>
+
+            /* Allow to add event listeners and dispatch custom events in vanilla js */
+            var customEvents = document.createElement("forCustomEvents"); 
+            /*Ex: customEvents.dispatchEvent(new Event("greeting", {'name': Fabien}));
+            * customEvents.addEventListener("greeting", function(e) { console.log("hello"+e.name); });*/
+
+
+            // check if user device is a tiny screen
+            var tinyScreen = false;
+
+            function checkTinyScreen(){
+
+            if ($(window).width() < 590) {
+                tinyScreen = true;
+                }else {
+                tinyScreen = false;
+                } 
+
+            }
+
+            checkTinyScreen(); //check on page load
+            
+
+            $(window).on('resize', function() { //check if resized page
+
+                checkTinyScreen();
+
+            });
+            //end of check if tiny screen snippets
+
+        </script>
         
-        {% endif %}
 
-    {% endmacro %}
+        {# Display some html chunks when user clicks on some buttons instead of reloading entire webpage #}
 
-    <meta charset="UTF-8">
+        <script> var getChunkRouteName = '{{url("ajax_render_chunk")}}'; </script> {# stores in a js variable the url of the route that manages getting the appropriate html chunk #}
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+        {# Manage chunks demand and display #}
+        <script src="/js/ajax_chunk.js"></script>
 
-    {% block headTag %}{% endblock %}
+        {# End of js chunks management #}
+
+        {% block javascripts %}{% endblock %}
+
+    </head>
+
+    <body>
+
+        {% include "_partials/GDPR.html.twig" %}
+
+        {# Header Navbar #}
+
+        {% include "_partials/header_navbar.html.twig" %}
+
+        <!--Main Content Container -->
+
+        <div class="main-container container-fluid"> 
+
+            <div class="row" style="min-height:500px;">
+
+                <!-- A Sidebar can be used if needed -->
+                
+                {% block sidebar %}{% endblock %}
+                
+                <!-- Main Body Content -->
+
+                <div class="col">
+
+                    {# Search experience #}
+
+                    {% include "_partials/search_experience.html.twig" %}
+
+                    <!-- Flash Messages Display (see app.css for appearance and cosmetic) -->
+
+                    <div id="flash-messages" class="">
+
+                        {% for label, messages in app.flashes %}
+                        
+                            <div class="flash-message alert alert-{{label}}">
+                        
+                                {% for message in messages %}
+                        
+                                <p class="p-0 m-0 text-center">{{message | raw}}</p>
+                        
+                                {% endfor %}
+                        
+                            </div>
+                    
+                        {% endfor %}
+
+                    </div>
+                    <!-- End of Flash Messages Display -->
+
+                    <div id="main-body-container">
+                        
+                        {% block body %}{% endblock %}
+                                    
+                    </div>
+                    
+                </div>
+
+            </div>
+
+        </div>  
+
+
+        {# Footer #}
+
+        {% block footer %}
+        
+            {% include "_partials/footer.html.twig" %}
+        
+        {% endblock %}
+
+
+        {# A screen covering footer is used on tiny screens, for example to send messages; comments; etc #}
+        <div id="covering-footer">
+
+            <div class="close-button">&times;</div>
     
-    <link rel="icon" 
-      type="image/png" 
-      href="{{ asset('website_brand/favicon16.png', 'icons')}}">
-
-
-    {# Google Fonts #}
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
-
-
-    <title>{% block title %}Bienvenue sur Propon{% endblock %}</title>
-
-    {# CSS #}
-
-    <link href="/css/bootstrap.css" rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet">
-
-    {% block stylesheets %}
-
-    {% endblock %}
-
-
-    {% block priorJavascipts %}{% endblock %}
-
-    
-    <script src="/js/bootstrap.js"></script>
-
-    <script src="/js/jquery-3.6.0.js"></script>
-
-
-    {% if app.environment != 'dev' %}
-
-        <script src="/js/tracking.js"></script>
-
-        <!-- Google tag (gtag.js) - Google Analytics -->
-        
-
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-245896945-1"></script>
+        </div>
 
         <script>
 
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', 'UA-245896945-1');
-        
+            const footerCloseButton = document.querySelector('#covering-footer .close-button');
+            const closeButtonContainer = document.querySelector('#covering-footer');
+
+            footerCloseButton.addEventListener('click', function() {
+
+                closeButtonContainer.style.display = 'none';
+
+            });
+
         </script>
+        {# And of screen covering footer snippet #}
 
-    {% endif %}
+        {% block bottomjavascripts %}{% endblock %}
 
-            
-    {# Google Map Inclusion for Geosearch and google Places usage #}
-        
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&libraries=places&language=fr"></script>
-
-    
-    <script>
-
-        /* Add event listeners and dispatch custom events.*/
-        var customEvents = document.createElement("forCustomEvents"); 
-        /*Ex: customEvents.dispatchEvent(new Event("greeting", {'name': Fabien}));
-        * customEvents.addEventListener("greeting", function(e) { console.log("hello"+e.name); });*/
-
-
-        // check if user device is a tiny screen
-        var tinyScreen = false;
-
-        function checkTinyScreen(){
-
-           if ($(window).width() < 590) {
-            tinyScreen = true;
-            }else {
-            tinyScreen = false;
-            } 
-
-        }
-
-        checkTinyScreen(); //check on page load
-
-        $(window).on('resize', function() {
-
-            checkTinyScreen();
-
-        });
-
-    </script>
-    
-
-    {# Display some html chunks on user demand, to reduce page load #}
-
-    <script> var getChunkRouteName = '{{url("ajax_render_chunk")}}'; </script>{# Access to the appropriate route to call #}
-
-    {# Manage chunk demand and display #}
-    <script src="/js/ajax_chunk.js"></script>
-
-
-
-    {# Discriminate admins or app environment (dev or prod) #}
-    {# {% if not is_granted('ROLE_ADMIN') and app.request.server.get("APP_ENV") == 'prod' %}{% endif %} #}
-
-    {% block javascripts %}
-
-    {% endblock %}
-
-</head>
-
-<body>
-
-    {% include "_partials/GDPR.html.twig" %}
-
-    {# Header Navbar #}
-
-    {% include "_partials/header_navbar.html.twig" %}
-
-    <!--Sidebar & Main Content Container -->
-
-    <div class="main-container container-fluid"> 
-
-        <div class="row" style="min-height:500px;">
-
-            <!-- Sidebar -->
-            
-            {% block sidebar %}{% endblock %}
-            
-            <!-- Main Body Content -->
-
-            <div class="col">
-
-                {# search experience #}
-
-                {% include "_partials/search_experience.html.twig" %}
-
-                <!-- Flash Messages Display (see app.css) -->
-
-                <div id="flash-messages" class="">
-
-                    {% for label, messages in app.flashes %}
-                    
-                        <div class="flash-message alert alert-{{label}}">
-                    
-                            {% for message in messages %}
-                    
-                            <p class="p-0 m-0 text-center">{{message | raw}}</p>
-                    
-                            {% endfor %}
-                    
-                        </div>
-                
-                    {% endfor %}
-
-                </div>
-            
-                <!-- End of Flash Messages Display -->
-
-                <div id="main-body-container">
-                    
-                    {% block body %}{% endblock %}
-                                
-                </div>
-                
-            </div>
-
-        </div>
-
-    </div>  
-
-
-    {# Footer #}
-
-    {% block footer %}
-    
-        {% include "_partials/footer.html.twig" %}
-    
-    {% endblock %}
-
-
-    {# Used on tiny screens, for example to send messages, comments, etc #}
-    <div id="covering-footer">
-
-        <div class="close-button">&times;</div>
-   
-    </div>
-
-    <script>
-
-        const footerCloseButton = document.querySelector('#covering-footer .close-button');
-        const closeButtonContainer = document.querySelector('#covering-footer');
-
-        footerCloseButton.addEventListener('click', function() {
-
-            closeButtonContainer.style.display = 'none';
-
-        });
-
-    </script>
-
-    {% block bottomjavascripts %}{% endblock %}
-
-</body>
+    </body>
 
 </html>

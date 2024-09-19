@@ -7,20 +7,20 @@
   <meta name="keywords" content="présentation de projets, entraide">
 
   {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des contributeurs.', 'website', app.request.uri ~'public/media/static/images/propon_logo.svg') }}
-
   
   <link rel="canonical" href="https://www.propon.org/" />
-
 
 {% endblock %}
 
 {% block title %}Présenter nos Projets{% endblock %}
 
 {% block stylesheets %}
+
   <link href="/css/titled_projects_collection.css" rel="stylesheet">
+
   <link href="/css/show_more_less_button.css" rel="stylesheet">
 
-  {% if is_granted('ROLE_USER') %}
+  {% if is_granted('ROLE_USER') %} {# connected user can send news about its projects #}
 
     <link href="/css/create_news.css" rel="stylesheet">
 
@@ -28,10 +28,15 @@
 
 {% endblock %}
 
-{% block javascripts %}<script src="/js/show_more_less_button.js"></script>
+{% block javascripts %}
+
+  <script src="/js/show_more_less_button.js"></script>
+
 {% endblock %}
 
+
 {% import "utilities/_macro_titled_collection.html.twig" as display %}
+
 {% import "utilities/_macro_articles_cards.html.twig" as artCards %}
 
 {% block body %}
@@ -40,12 +45,10 @@
 
     {# Case user logged in : displaying personalized content #}
 
-
     {% if app.user %}
 
       {% include "home/_connected_user_upper_display.html.twig" %}
 
-    
     {% endif %}
 
     {# Case user not logged in : displaying homepage jumbotron #}
@@ -109,7 +112,7 @@
     <div class="projects-change-the-world try-website-cta container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5">
     
       <h3 class="d-flex align-items-center justify-content-center"><img class="verified-icon me-2" src="{{ asset('verified.svg', 'misc')}}" alt="verified icon" width="40" height="40"> Tester Propon <b class="ms-2"> MAINTENANT</b></h3>
-      <p><span class="">Gratuit</span> & <span class="">sans inscription</span></p>
+      <p><span class="">Sans inscription</span></p>
       <p>Quel est l'objectif de votre projet ?</p>
 
       <style>

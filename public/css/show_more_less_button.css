@@ -1,3 +1,6 @@
+/* When there are too much vertical space used by a project collection display or else, we hide some content with a show more or less button. This sheet handle display rendering (for logic handling see show_more_less_button.js). */
+
+
 .hide-too-long {
     height: 100%;
     overflow: hidden;

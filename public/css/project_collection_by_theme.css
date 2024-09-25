@@ -1,17 +1,10 @@
+/* An icon next to a title and some project cards related beneath */
+
+
 .titled-projects-container{
     margin-top: 86px;
     margin-bottom: 80px;
 }
-
-
-.collection-container{
-
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-
-}
-
 
 .collection-title {
 
@@ -26,8 +19,12 @@
 
 }
 
-.collection-icon{
-    margin-right: 6px;
+.collection-container{
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
 }
 
 
@@ -126,15 +123,6 @@
 }
 
 
-/* Sometimes we want to change display according to specific added classes (ex : when results are showed in a tab navigation) */
-
-.tab-result .collection-title{
-    display: none;
-}
-
-.titled-projects-container.tab-result {
-    margin-top: 40px;
-}
 
 
 
@@ -210,12 +198,6 @@
 
     .collection-container .other-info-container {
         font-size: 12px;
-    }
-
-    /* Sometimes we want to change display according to specific added classes (ex : when results are showed in a tab navigation) */
-
-    .titled-projects-container.tab-result {
-        margin-top: 20px;
     }
 
 }

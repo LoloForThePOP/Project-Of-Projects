@@ -1,3 +1,8 @@
+
+//Allow to add a show more button when vertical content is too long.
+//Give the class hide-too-long to the container you want to partially hide.
+
+
 // Thanks to Trevor Nestman; https://stackoverflow.com/questions/5270227/
 
 // Create Variables

@@ -1,0 +1,143 @@
+/* Title Decoration */
+    
+.project-by-categories h3 {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 35px;
+    white-space: nowrap;
+}
+
+.project-by-categories h3:before {
+	display: inline-block;
+	margin: 0 20px 0 0;
+	height: 6px;
+	content: " ";
+	text-shadow: none;
+	background-color: #26a421;
+	width: 38%;
+}
+
+.project-by-categories h3:after {
+    display: inline-block;
+    margin: 0 0 0 20px;
+    height: 6px;
+    content: " ";
+    text-shadow: none;
+    background-color: #26a421;
+    width: 38%;
+}
+
+/* End of Title Decoration */
+
+
+/* Navigation links */
+
+.project-by-categories .nav{
+    display: flex;
+    justify-content: center;
+}
+
+.project-by-categories .nav-link {
+    display: flex;
+    font-size: 18px;
+    color: #1d77d7;
+    border : 1px solid #acbbf5;
+    margin-right: 7px;
+    border-radius: 40px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.project-by-categories .nav-link.selected {
+	background-color: #eeeef4;
+	color: #392d72;
+}
+
+.project-by-categories .nav-link:hover {
+    background-color: #f3fcff;
+}
+
+  
+.project-by-categories .nav-link img{
+
+    width: 24px;
+
+}
+
+.collection-icon{
+    margin-right: 6px;
+}
+
+
+/* End of Navigation links */
+
+
+
+/* Overiding some project_collection_by_theme.css  */
+
+.tab-result .collection-title{
+    display: none;
+}
+
+.titled-projects-container.tab-result {
+    margin-top: 40px;
+}
+
+/* End of overiding project_collection_by_theme.css */
+
+
+
+
+@media screen and (max-width: 580px) {
+
+    .project-by-categories h3{
+        font-size: 14px;
+        margin-bottom: 25px;
+    }
+
+
+    .project-by-categories h3:before {
+        margin: 0 20px 2px 0;
+        height: 4px;
+        width: 20%;
+    }
+
+    .project-by-categories h3:after {
+        margin: 0 0 2px 20px;
+        height: 4px;
+        width: 20%;
+    }
+
+    .project-by-categories h3 img{
+        width: 22px;
+        height: 22px;
+    }
+                
+    .project-by-categories .nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        justify-content : start;
+    }
+
+    .nav-link {
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .project-by-categories .nav-link{
+        border : 1px solid #acbbf5;
+        margin-right: 5px;
+        margin-bottom: 5px;
+        font-size: 14px;
+        font-weight: normal;
+        border-radius: 40px;
+    }
+
+    .titled-projects-container.tab-result {
+        margin-top: 20px;
+    }
+
+
+}

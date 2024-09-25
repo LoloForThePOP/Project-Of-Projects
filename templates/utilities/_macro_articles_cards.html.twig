@@ -1,3 +1,15 @@
+{# 
+
+    Reusable pattern to display some article cards.
+
+    Parameters:
+
+    article (symfony collection of items): a symfony collection of article objects
+
+#}
+
+
+
 {% macro articleCards (article) %}
 
 <div class="article-card d-md-col col">
@@ -10,7 +22,9 @@
                 
                 {% if article.thumbnail is not empty %}
                 
-                    <img class="" src="{{ vich_uploader_asset(article)   }}" alt="Article Thumbnail"/>{# | imagine_filter('standard_thumbnail_md_test') #}
+                    <img class="" src="{{ vich_uploader_asset(article)   }}" alt="Article Thumbnail"/>
+                    
+                    {# | imagine_filter('standard_thumbnail_md_test') #} {# Thumbnail creation and caching doesn't work with thumbnails in GIF file format so I commented it #}
 
                 {% endif %}
             
@@ -18,7 +32,7 @@
 
             <div class="card-body">
                 <h5 class="card-title"><a href="{{path('show_article', {"slug": article.slug})}}">{{article.title}}</h5>
-                {# <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p> #}
+                {# <p class="card-text">natural lead-in to additional content. This content is a little bit longer.</p> #} {# If you want to add an article subtitle or catch phrase #}
             </div>
 
             <div class="card-footer">
@@ -60,19 +74,19 @@
     }
 
 
+
+    @media (max-width: 580px) {
+
     
-          @media (max-width: 580px) {
+    .article-card{
 
-            
-            .article-card{
+        width: 272px; /* Defined width allows to see the begining of the next card so that user knows he can scroll. */
+        padding: 0 8px;
 
-                width: 272px; /* Defined width allows to see the begining of the next card so that user knows he can scroll. */
-                padding: 0 8px;
-
-            }
+    }
 
 
-          }
+    }
 
 </style>
 

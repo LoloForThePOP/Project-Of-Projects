@@ -1,3 +1,7 @@
+
+/* Script to integrate News Form in the Covering Footer Layer (for "covering footer layer container" see base.html.twig */
+
+
 $(document).ready(function(){
 
     $("#covering-footer").append($(".news-form-struct"));

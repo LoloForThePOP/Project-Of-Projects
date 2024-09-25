@@ -1,15 +1,18 @@
+
+
+{# A container (board) of contents presented by user (projects, articles) so that she can quickly access them #}
+
 <h4 class="text-center fs-4 mb-2 mb-md-4">👋 Bienvenue parmi nous</h4>
 
 <div class="row mb-2 mb-md-3 mb-lg-5">
 
-
-  {# Presented projects #}
+  {# User presented projects list with matching rapid news creation forms #}
 
   <div class="connected-user-struct-container col-md-6 p-0 pe-md-3 ps-md-2 mb-2 mb-md-0">
 
     <div class="connected-user-struct sm-border-none p-3 pb-1 h-100">
         
-      <h5 class="title d-flex align-items-center justify-content-center justify-content-md-start ps-md-3 mb-3"><img class="homepage-board-icon" src="{{ asset('goal.svg', 'misc')}}" alt="A target" height="19">Mes Projets Présentés</h5>
+      <h5 class="title d-flex align-items-center justify-content-center justify-content-md-start ps-md-3 mb-3"><img class="homepage-board-icon" src="{{ asset('goal.svg', 'misc')}}" alt="A target icon" height="19">Mes Projets Présentés</h5>
 
       <style>
 
@@ -94,34 +97,37 @@
     
         </style>
         
-      {% else %}
+      {% else %} {# User has presented some projects, we display the list with news creation forms #}
 
+        {# News Form #}
 
-        {# News Form Assets #}
-
-          {# Rich Text Editor #}
+          {# Rich Text Editor script #}
 
           <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 
-          {# News Form HTML #}
+          {# HTML News Form #}
 
-          <div class="news-form-struct pp-edition-mode"> 
+          <div class="news-form-struct pp-edition-mode">
 
-              <h4 class="news-form-struct-title"><img id="" class="news-icon me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="news-icon ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
+            {# Form title with icon #} 
 
-              <div class="">
-              
-                {% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}
-              
-              </div>
+            <h4 class="news-form-struct-title"><img id="" class="news-icon me-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22" style=" transform: scaleX(-1);">Partager des Nouvelles<img id="" class="news-icon ms-1" src="{{ asset('news.svg', 'misc')}}" alt="news icon (a radio wave)" width="22" height="22"></h4>
+
+            {# Actual form #}
+
+            <div class="">
+            
+              {% include "project_presentation/edit/news/_form.html.twig" with {'form': addNewsForm} %}
+            
+            </div>
               
           </div>
 
-          {# Integrate News Form in Covering Footer #}
+          {# Here we use a javascript to integrate the news form in the Covering Footer Layer (for "covering footer layer container" see base.html.twig #}
 
           <script src="/js/news_creation.js"></script>
 
-          {# News Form Proxy (this chunk is displayed bellow) #}
+          {# Reusable (macro) "Create a News Form Proxy": it's a fake tiny input, when user clicks on it it triggers the actual rich news creation form display #}
 
           {% macro newsFormProxy (idPresentation) %}
 
@@ -132,8 +138,10 @@
           {% endmacro %}
 
 
-        {# Enf of News Form Integration #}
+        {# Enf create news section #}
 
+
+        {# Displaying user presented projects #}
 
         <div class="list-group ps-md-3 mt-2 mb-3">
 
@@ -191,7 +199,7 @@
 
               </div>
 
-              {# News Form Proxy #}
+              {# News Form Proxy matching each presented project #}
 
               <div class="d-flex justify-content-center mb-2 mb-md-3">
               
@@ -211,7 +219,7 @@
 
   </div>
 
-  {# Created articles #}
+  {# User created articles #}
 
   {% set userArticles = app.user.articles %}
 
@@ -274,7 +282,6 @@
                   </div>
                   
                 
-
               {% endfor %}
           
             </div> 
@@ -291,12 +298,11 @@
 
 <style>
 
-  .homepage-board-icon{
+  .homepage-board-icon{ /* Styles for icons displayed in user's board */
 
     filter: invert(68%) sepia(19%) saturate(539%) hue-rotate(120deg) brightness(90%) contrast(91%);
     margin-right: 0.25rem;
 
   }
-
 
 </style>

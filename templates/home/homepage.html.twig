@@ -56,8 +56,6 @@
 
     {% endif %}
 
-    {# Propon code cleanup stopped here #}
-
     {# Case user not logged in : displaying homepage jumbotron #}
 
     {% if not app.user %}
@@ -85,7 +83,7 @@
     {% endif %}
 
     
-    {# They trust us presentations #}
+    {# Some project cards : "They trust us" #}
 
     <div>
 
@@ -93,7 +91,7 @@
 
     </div>
 
-    {# Picked Cool Project of the Day #}
+    {# "Cool Project of the Day" #}
 
     <div>
 
@@ -101,20 +99,24 @@
 
     </div>
 
+    {# Explore Propon - Display some projects by categories (tabs navigation) #}
+
     <div>
     
       {% include "home/_projects_by_categories_tabs.html.twig" %}
       
     </div>
 
-    {# Rational Argument Slider #}
+
+    {# Propon code cleanup stopped here #}
+
+    {# Rational Argument Slider: a slider of text and images about why user should use Propon #}
 
     <div class="pb-3 pb-lg-4 mb-4 mb-lg-5">{% include "home/_arguments_slider.html.twig" %}</div>
 
 
 
   {# create a presentation form #}
-
   
     <div class="projects-change-the-world try-website-cta container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5">
     

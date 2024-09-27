@@ -1,18 +1,34 @@
+
+{#
+
+  User inteface to drag and drop some search results.
+
+  Use case example: an admin search for some presentations to highlight on homepage, he can pick up some search results and drag and drop them into another container (the picked up elements are then automatically stored in backend to be displayed on homepage)
+
+#}
+
+
 {% extends 'base.html.twig' %}
 
 {% block title %}Sélection de Présentations{% endblock %}
 
 {% block body %}
 
+{# A box containing selected / to select items (we can drop items from another box to this box AND reorder items in this box) #}
+
 <div id="" class="selected-items-panel">
 
   <h5 class="fw-bold mb-3 disabled">Votre sélection</h5>
 
+  {# If we already have a selection of items retrieved from a backend list: we display it an user might want to update it #}
+
   {% if currentSelection is not empty %}
 
-    {% for item in currentSelection %}
+    {% for item in currentSelection %} {# Displaying each item in a list #}
 
-      <div class="selected-item">
+      {# Item template #}
+
+      <div class="selected-item"> {# Selected from a previous session #}
 
         <a data-id="{{item.id}}">
 
@@ -29,6 +45,8 @@
           </div>
 
         </a>
+
+        {# Remove item button #}
         
         <button type"button" class="js-remove-elem">&times</button>
         
@@ -42,229 +60,222 @@
 
 
 
-
-
 {% block javascripts %}
 
-    <!-- sortable plugin to reorder elements (exemple : reorder editor's presentations selection ) -->
+<!-- sortable plugin to reorder elements (exemple : reorder editor's presentations selection ) -->
 
-    <script src="/js/sortable/sortable.min.js"></script>
+<script src="/js/sortable/sortable.min.js"></script>
 
-    <!-- jQuerySupport for above sortable plugin -->
+<!-- jQuerySupport for above sortable plugin -->
 
-    <script src="/js/sortable/jquery-sortable.js"></script>
+<script src="/js/sortable/jquery-sortable.js"></script>
 
-    <script>
+<script>
 
-        var selection_instance = '{{is_granted("ROLE_ADMIN")}}';
-        var pick_up_elements_route = '{{ path("manage_pick_up_elements", {"pickType": pickType }) }}';
+  var selection_instance = '{{is_granted("ROLE_ADMIN")}}'; // a flag denoting if user is an admin
+  var pick_up_elements_route = '{{ path("manage_pick_up_elements", {"pickType": pickType }) }}'; // a route handling the backend storage of the picked elements list (ajax calls to this route when picked elements list is updated)
 
-        $(document).ready(function(){
+  $(document).ready(function(){
 
-          $('.ais-InstantSearch').append($('.selected-items-panel'));
-          $(".ais-InstantSearch").show();
+    //We append to the user interface the panel containing selected / to select items.
 
-        $('.selected-items-panel').sortable({
+    $('.ais-InstantSearch').append($('.selected-items-panel')); //it appears as a right column next to search results panel
+    $(".ais-InstantSearch").show(); //is initially hidden so we show it
 
-            animation: 150,
+    //adding sortable capability to the {selected / to select} items panel (to summarize we can drag and drop items from search results and store selection (handled in algolia_search_default.js) AND we can sort these picked elements (or remove some of them if we want) in the picked elements panel (sortable capability and ajax call to store list in backend is handled here))
+
+    $('.selected-items-panel').sortable({
+
+        animation: 150,
+        
+        group: {
+
+          name:'results-to-selection',
+          pull: 'clone',
+
+        },
+
+        ghostClass: 'blue-background-class',
+
+        filter: ".disabled",
+
+        onMove: function (evt) { //during the drap
+        
+          return evt.related.className.indexOf('disabled') === -1;
+
+        },
+
+        //end of dragging : sorting right panel items implies elements positions updates (so we do an ajax call to store updated positions in backend)
+
+        onEnd: function (evt) {
+        
+          var elementsPositions = [];
             
-            group: {
+          $('.selected-items-panel a').each(function(index){
+                          
+            elementsPositions.push($(this).data('id'));
+        
+          });
 
-              name:'results-to-selection',
-              pull: 'clone',
+          $.ajax({  
 
+            url: pick_up_elements_route, //the route managing picked elements storage.
+            type:       'POST',   
+            dataType:   'json',
+            data: {
+                "selectionType": 'headlines',
+                "jsonElementsPosition": elementsPositions,
             },
-    
-            ghostClass: 'blue-background-class',
-    
-            filter: ".disabled",
-    
-            onMove: function (evt) {
-            
-              return evt.related.className.indexOf('disabled') === -1;
-    
-            },
-    
-            // drag and drop implies elements positions updates (ajax call)
-    
-            onEnd: function (evt) {
-            
-              var elementsPositions = [];
-                
-              $('.selected-items-panel a').each(function(index){
-                              
-                elementsPositions.push($(this).data('id'));
-            
-              });
 
-              $.ajax({  
+            async: true,  
+            
+            success: function(data, status) {
+                    
+            },  
 
-                url: pick_up_elements_route,
-                type:       'POST',   
-                dataType:   'json',
-                data: {
-                    "selectionType": 'headlines',
-                    "jsonElementsPosition": elementsPositions,
-                },
+            error : function(xhr, textStatus, errorThrown) {  
+              alert('Une erreur est survenue.');  
+            }  
 
-                async: true,  
-                
-                success: function(data, status) {
+          }); 
+        },
+    });
+
+    // When user removes an items from the picked items list, the set of items changes (and item positions might change too) so we backend store the new ordered set list (ajax call to the dedicated route instanciated above) 
+
+    $('.selected-items-panel').on('click', '.js-remove-elem', function (){
+
+        $(this).parent().remove();
+
+        var elementsPositions = [];
+            
+        $('.selected-items-panel a').each(function(index){
                         
-                },  
-
-                error : function(xhr, textStatus, errorThrown) {  
-                  alert('Une erreur est survenue.');  
-                }  
-
-              }); 
-            },
-        });
-
-        // Remove an Element
-
-        $('.selected-items-panel').on('click', '.js-remove-elem', function (){
-
-            $(this).parent().remove();
-
-            var elementsPositions = [];
-                
-            $('.selected-items-panel a').each(function(index){
-                            
-              elementsPositions.push($(this).data('id'));
-          
-            });
-
-            $.ajax({  
-
-              url: pick_up_elements_route,
-              type:       'POST',   
-              dataType:   'json',
-              data: {
-                  "selectionType": 'headlines',
-                  "jsonElementsPosition": elementsPositions,
-              },
-  
-              async: true,  
-              
-              success: function(data, status) {
-                       
-              },  
-  
-              error : function(xhr, textStatus, errorThrown) {  
-                alert('Une erreur est survenue.');  
-              }  
-  
-            }); 
+          elementsPositions.push($(this).data('id')); // getteing picked items ordered ids list
       
-
         });
 
-        
+        $.ajax({ //sending this list to backend
 
-        
+          url: pick_up_elements_route,
+          type:       'POST',   
+          dataType:   'json',
+          data: {
+              "selectionType": 'headlines',
+              "jsonElementsPosition": elementsPositions,
+          },
 
+          async: true,  
+          
+          success: function(data, status) {
+                    
+          },  
 
-        
+          error : function(xhr, textStatus, errorThrown) {  
+            alert('Une erreur est survenue.');  
+          }  
 
-      });
+        }); 
+  
 
-    </script>
+    });
 
+  });
+
+</script>
 
 {% endblock %}
 
 
-{# Overide some default styles #}
+{# Overiding some default user interface search instance styles (for example we want to have a picked element columns on the right side for drag and drop convenience) so we squeeze the search result panel #}
 
 <style>
 
-    .ais-InstantSearch{
-  
-      margin: unset; /* decenter original content to let place for a right panel*/
-      max-width:100%;
-      
-    }
-  
-    .right-panel{
-  
-      float: left;
-      width: 700px;
-      margin-left: unset;
-  
-    }
-  
-    .selected-items-panel{
-  
-      float: right;
-      width: 350px;
-      min-height: 600px;
-      border: 1px solid black;
-      margin: 1em 0;
-      padding: 10px 10px;
-      border: 1px solid #c4c8d8;
-      border-radius: 5px;
-  
-    }
-  
-    .selected-items-panel .selected-item {
+  .ais-InstantSearch{
 
-      position:relative;
-      width: 100%;
-      padding: 1rem;
-      margin-left: 0;
-      margin-bottom: 10px;
-      cursor: move;
-      list-style-type: none;
-      border: 1px solid #c4c8d8;
-      box-shadow: 0 2px 5px 0 #e3e5ec;
+    margin: unset; /* decenter original content to let place for a right panel*/
+    max-width:100%;
+    
+  }
 
-    }
-   
+  .right-panel{
+
+    float: left;
+    width: 700px;
+    margin-left: unset;
+
+  }
+
+  .selected-items-panel{
+
+    float: right;
+    width: 350px;
+    min-height: 600px;
+    border: 1px solid black;
+    margin: 1em 0;
+    padding: 10px 10px;
+    border: 1px solid #c4c8d8;
+    border-radius: 5px;
+
+  }
+
+  .selected-items-panel .selected-item {
+
+    position:relative;
+    width: 100%;
+    padding: 1rem;
+    margin-left: 0;
+    margin-bottom: 10px;
+    cursor: move;
+    list-style-type: none;
+    border: 1px solid #c4c8d8;
+    box-shadow: 0 2px 5px 0 #e3e5ec;
+
+  }
   
-    .selected-items-panel .selected-item a {
-  
-      pointer-events: none;
+  .selected-items-panel .selected-item a {
 
-    }
-  
-    .selected-items-panel .selected-item .hit-img-ctn{
-  
-      display: none;
+    pointer-events: none;
 
-    }
-  
-    .selected-items-panel .selected-item .hit-keywords{
-  
-      display: none;
+  }
 
-    }
+  .selected-items-panel .selected-item .hit-img-ctn{
 
-    button.js-remove-elem {
+    display: none;
 
-      top: 0;
-      position: absolute;
-      right: 0;
-      border: none;
-      background: #f45252;
-      color: white;
-      padding-top: 0;
-      
-    }
+  }
 
-    .selected-items-panel .ais-Hits-item { /* removes a display  flaw */
+  .selected-items-panel .selected-item .hit-keywords{
 
-      width: 100%;
-      list-style-type: none;
+    display: none;
 
-    }
+  }
 
-    .selected-items-panel .ais-Hits-item .hit-img-ctn{
-  
-      display: none;
+  button.js-remove-elem {
 
-    }
-  
-  </style>
+    top: 0;
+    position: absolute;
+    right: 0;
+    border: none;
+    background: #f45252;
+    color: white;
+    padding-top: 0;
+    
+  }
+
+  .selected-items-panel .ais-Hits-item { /* removes a display  flaw */
+
+    width: 100%;
+    list-style-type: none;
+
+  }
+
+  .selected-items-panel .ais-Hits-item .hit-img-ctn{
+
+    display: none;
+
+  }
+
+</style>
 
 {% endblock %}

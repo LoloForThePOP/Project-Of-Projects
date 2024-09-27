@@ -6,7 +6,7 @@
 
   <meta name="keywords" content="présentation de projets, entraide">
 
-  {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement, rendez-le plus visible, trouvez des contributeurs.', 'website', app.request.uri ~'public/media/static/images/propon_logo.svg') }}
+  {{ _self.openGraph('Ici on Présente nos Projets', 'Propon', app.request.uri, 'Présentez votre projet simplement; rendez-le plus visible; trouvez des contributeurs.', 'website', app.request.uri ~'public/media/static/images/propon_logo.svg') }}
   
   <link rel="canonical" href="https://www.propon.org/" />
 
@@ -82,8 +82,7 @@
 
     {% endif %}
 
-    
-    {# Some project cards : "They trust us" #}
+    {# Some project cards : "They trust us" (social approuval) #}
 
     <div>
 
@@ -108,13 +107,11 @@
     </div>
 
 
-    {# Propon code cleanup stopped here #}
-
-    {# Rational Argument Slider: a slider of text and images about why user should use Propon #}
+    {# Rational Argument Slider: a slider of text and images to convice user to use Propon #}
 
     <div class="pb-3 pb-lg-4 mb-4 mb-lg-5">{% include "home/_arguments_slider.html.twig" %}</div>
 
-
+{# Propon code comment and cleanup stopped here #}
 
   {# create a presentation form #}
   
@@ -241,71 +238,7 @@
     #}
 
 
-    {# 
-    
-    <div class="projects-change-the-world border mb-5 text-center fw-bold container col-lg-9">
-    
-      <p class="mb-0 mt-2">✨ Les projets changent le monde<br>Faites connaître le vôtre ☄️</p>
-
-      {% set createPresentationForm4 = setGoalForm %}
-    
-      <div class="mb-4">
-
-        {{form_start(createPresentationForm4)}}
-
-          <div class="mb-1 mb-lg-3">{{form_label(createPresentationForm4.goal)}}</div>
-                            
-          {{ form_errors(createPresentationForm4.goal) }}
-              
-            {{form_widget(createPresentationForm4.goal)}}
-
-            <button id="" type="submit" class="create-presentation-button btn btn-validate btn-lg">Go 🚀</button>
-
-          {{ form_end(createPresentationForm4) }}
-
-      </div>
-    
-    </div>
-
-    
-    <style>
-
-      #create_presentation_goal {
-        display: inline;
-        width: 70%;
-        height: 47px;
-        margin-right: 20px;
-      }
-      
-      .projects-change-the-world{
-          padding: 14px;
-          text-align: center;
-          font-size: 21px;
-
-          margin-top: 90px;
-      } 
-  
-      @media screen and (max-width: 580px) {
-
-        #create_presentation_goal {
-          width: 68%;
-          margin-right: 5px;
-        }
-
-        .projects-change-the-world{
-            padding: 10px 5px;
-            text-align: left;
-            font-size: 15px;
-            margin-top: 24px;
-        } 
-
-          
-      }
-    
-    </style>
-
-     #}
-
+ 
 
 
     {# Propon Articles #}

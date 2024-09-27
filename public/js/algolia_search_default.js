@@ -1,10 +1,22 @@
 
+/*
+
+  Propon uses Algolia to index and search Propon searchable contents.
+  This script handles some frontend search functionnalities. 
+
+  Warning:   
+  
+    I used some amateur bad quality tricks in order to get the search experience I wanted
+    Sorry for the resulting poor code comprehension, logic and clarity: my bad they could be improved
+
+  Help for improvments is welcome.
+
+*/
 
 $(document).ready(function(){
 
-
-  /* Closing search experience container */
-  /* Warning : order of events matters (to do : factorize) */
+  /* Close search experience container */
+  /* Warning: order of events matters */
 
   //when closing a search experience, we clear search proxies and clear geosearch map display
   $(".js-close-search-experience, .sm-search-back-icon-container").click(function() {
@@ -18,24 +30,23 @@ $(document).ready(function(){
 
   });
 
-  //setting search panel close button (except from homepage, and only on large screens from header navbar searchbar)
+  //Hide search panel layer when user clicks on close button
+
   $(".js-close-search-experience").click(function() {
 
+    //When search is not done from homepage body (this concerns header navbar searchbar on large screens)
     $(".search-experience-container").hide();
     $("#main-body-container").show();
-
-  });
-
-  //same but from homepage body searchbar (main body container is now not hidden but 1px * 1px, so treatment is different)
-  $(".js-close-search-experience").click(function() {
-
+    
+    //When search is done from homepage body proxy search bar, we "hide homepage body" with 1px * 1px dimensions (display: hidden mess things up), so treatment is different to show it again
     $("#main-body-container").removeClass("visually-hidden");
     document.getElementById('homepage-search-container').scrollIntoView();
 
   });
 
 
-  //create a random background color for default thumbnails
+
+  //Search results management: create a random background color for default thumbnails (ex: project presentation has no image to show has a thumbnail)
   function randomColor(){
 
     var colors = (['#884394', '#3f51b5', '#009688', '#42a346', '#ff9800', '#2d66ba', '#a58f4f', '#129d90', '#428392', '#263b78', '#878273', '#705c20', '#d24040', '#c1944e']);
@@ -44,8 +55,7 @@ $(document).ready(function(){
 
   }
 
-
-  //Format keywords (separate and add #)
+  //Search results management: format keywords to human readable keywords (separate and add some # before)
   function formatKeywords(keywordsString){
 
     if(keywordsString != ''){
@@ -56,16 +66,16 @@ $(document).ready(function(){
 
   }
 
-  //Initialize InfoBox for Google Map info box displays on marker click
-  var o = new InfoBox({/*options*/}); //new
+  //Search results on a Google Map: Info box displays on marker click: Initialize InfoBox "script"
+  var o = new InfoBox({/*options*/});
 
 
-  //Initialize Algolia instant search with credentials
+
+  //Initialize Algolia instant search app with credentials
 
   const search = instantsearch({
 
-    //indexName: app_env+'_presentation_bases',
-    indexName: 'prod_presentation_bases', //new
+    indexName: 'prod_presentation_bases',
 
     searchClient: algoliasearch(
 
@@ -77,21 +87,22 @@ $(document).ready(function(){
   });
 
 
-  //#searchbox div is the only search input recipient (.ais-SearchBox-input)
+  // "setting" an input that will trigger algolia searchs
+  
   search.addWidgets([
 
     instantsearch.widgets.searchBox({
 
-      container: '#searchbox',
+      container: '#searchbox', //#searchbox div is the only search input recipient we use for Propon (algolia search script then gives it the following classname : ais-SearchBox-input)
 
     }),
 
   ]);
 
-  search.on('render', function () {//render fires when all widgets are rendered. This happens after every search request.
+  //render fires when all widgets are rendered. This happens after every search request.
+  search.on('render', function () {
 
-    
-    //reset search input on mobile when clicking on black cross
+    //reset search input on mobile when user clicks on black cross icon
     $(".js-reset-search-icon").click(function() {
 
       $('#navbar_sm_search_input').val('').focus();
@@ -100,34 +111,31 @@ $(document).ready(function(){
 
     });
 
-    //Below are some search input proxies. $('').on("input") event means : "each time a proxy has changed" 
-    $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").on("input", function() {
+    //When a search input proxy value changes, we show the search result panel.
+    $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").on("input", function() { //means "each time a proxy value has changed" 
 
-      $(".ais-InstantSearch").show(); //display search results panel
+      $(".ais-InstantSearch").show(); //display the search results panel (still empty of results)
 
-      //small screens : "reset search" button  (black cross icon) : appearance only if input is feeded
+      //small screens : "reset search" button  (black cross icon): we display this icon only if input is feeded
       if (!this.value) {
         $(".js-reset-search-icon-container").hide();
       } else {$(".js-reset-search-icon-container").show();}
 
-      
-      window.scrollTo(0, 0); //view goes to correct location
+      window.scrollTo(0, 0); //view goes to the top.
 
-
-      //put the proxy input value into "the only one true search input" (i.e. #searchbox .ais-SearchBox-input input)
+      //put the proxy input value into "the only one true search bar" (i.e. a div with id="searchbox")
       document.querySelector('#searchbox .ais-SearchBox-input').value = $(this).val();
       
-      //then refresh algolia search
+      //then refresh algolia search (putting the value above is not enough, we must actually execute the search)
       search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
 
-
-
-      // note : $("#homepage-search-input").on triggers scroll to top (see home/_search_container.html.twig) 
-
+      //note : $("#homepage-search-input").on triggers scroll to top (see home/_search_container.html.twig) 
 
     });
 
   });
+
+  //Handling search results appearence on a Google Map
 
 
   search.addWidgets([
@@ -167,11 +175,9 @@ $(document).ready(function(){
 
         },
 
-        events: {
+        events: { //here we create an html structure with its content that appears when user clicks on a Google Map search result marker so that user get basic informations about the project represented by this marker (i.e. we create an infobox)
 
           click: function(e) {
-
-            //console.log(e.item);
 
             content = '<a class="link-wrapper" href="https://www.propon.org/'+e.item.stringId+'" data-id="'+e.item.id+'" target="_blank"><div>';
 
@@ -195,7 +201,7 @@ $(document).ready(function(){
             content += imgContent;
 
 
-            //text container
+            //begining of text content wrapping (project goal + title)
             var textContent='<div class="text-container">';
 
             //presentation goal
@@ -207,6 +213,7 @@ $(document).ready(function(){
             }
 
             textContent+='</div>'
+            //end of text content wrapping
           
             
             content += textContent+'</div></a>'; 
@@ -222,7 +229,7 @@ $(document).ready(function(){
 
     }),
 
-    //instantiate a search result filters panel (left panel)
+    //instantiating an Algolia search result filter results panel (left panel)
     instantsearch.widgets.refinementList({
 
       container: '#filters-list',
@@ -233,7 +240,7 @@ $(document).ready(function(){
     }),
 
 
-    //instantiate a search results panel (right panel)
+    //instantiating an algolia search results panel ("just" a right panel showing results, we got to instanciate it)
     instantsearch.widgets.hits({
 
       container: '#hits',
@@ -284,7 +291,6 @@ $(document).ready(function(){
           
           return output
 
-
         },
 
         empty: '<div>Désolé, aucun résultat n\'a été trouvé pour la recherche "{{ query }}".</div>'
@@ -293,11 +299,13 @@ $(document).ready(function(){
       
     }),
 
-    //instantiate a search results pagination
+    //instantiating a search results pagination container
     instantsearch.widgets.pagination({
       container: '#pagination',
     }),
 
+
+    //configuring some properties about search results
     instantsearch.widgets.configure({
       hitsPerPage: 8
     }),
@@ -305,13 +313,15 @@ $(document).ready(function(){
 
   ]);
 
-  // Sometimes we drag and drop some search results (example : admin search for presentation to highlight, see manage_select_presentations.html)
+  // Sometimes it's usefull to drag and drop some search results (ex: an admin search for some presentations to highlight, he can pick up some and drag and drop them from search results (see select_presentations\manage.html.twig for the html template))
 
-  if(typeof selection_instance !== 'undefined'){ //add a drag and drop capability to search results (see selection_manage.html).
+  //NOTE: we can drag and drop items from search results to add new items (this capability is handled here and the ajax call to store resulting picked elements content / positions evolution is handled here too). We can also sort the already picked elements with drag and drop or delete some of them (this capability and the ajax call for backend storage is handled select_presentations\manage.html.twig)
+
+  if(typeof selection_instance !== 'undefined'){ //when we are in a user interface whereby we can drag and drop elements (i.e. a selection instance) we add a drag and drop capability to search results so that we can pick them and drop them (selection_instance is a variable declared in select_presentations\manage.html.twig)
 
     search.on('render', function () {// Whenever instant search is refreshed
       
-      $('.ais-Hits-list').sortable({
+      $('.ais-Hits-list').sortable({ //Adds sortable capability (= a javascript that simplifies drag and drop (sortable.js))
 
         animation: 150,
 
@@ -336,10 +346,10 @@ $(document).ready(function(){
 
         onRemove: function (evt) {//each time a presentation is picked from search results.
 
-          //changing dragged item wrapping tag (otherwise item disappear each time I click on an algolia pagination number)
+          //changing dragged item wrapping tag (otherwise the item disappear each time I click on an algolia pagination number)
           $(evt.item).replaceWith($('<div class="selected-item">').append($(evt.item).contents()).append('<button type"button" class="js-remove-elem">&times</button>'));
 
-          // preparing an array to store "picked elements positions" by id
+          // preparing an array to store "picked elements positions" by id (so that we can store on backend the selection in a db or a json file)
           var elementsPositions = [];
 
           //getting elements positions              
@@ -349,9 +359,11 @@ $(document).ready(function(){
         
           });
 
+          //picking and dropping an item from search results implies picked elements content / positions is updated (so we do an ajax call to store updated positions in backend)
+
           $.ajax({  
 
-            url: pick_up_elements_route, // see manage_select_presentations.html
+            url: pick_up_elements_route, // backend route to store selected items positions (ajax call) (this variable is declared in select_presentations\manage.html.twig)
             type:       'POST',   
             dataType:   'json',
             data: {

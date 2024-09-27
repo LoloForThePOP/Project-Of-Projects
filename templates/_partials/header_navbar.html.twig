@@ -6,12 +6,6 @@
 
     <div class="container-fluid ps-3 ps-md-5">
 
-      {# Left Navbar Toggler Button (only displayed on mobile)
-
-      <button class="d-md-none" data-bs-toggle="collapse" data-bs-target="#sidebar" aria-expanded="false" aria-controls="collapseExample">
-        Outils
-      </button> #}
-
       {# Website Logo #}
 
       <a class="navbar-brand py-0 me-0 me-lg-4" href="/">
@@ -40,7 +34,6 @@
 
         </li>
 
-
         {# Add a Project Button #}
           
           <li class="nav-item fs-5 me-4 d-none d-md-inline">
@@ -57,7 +50,7 @@
 
           </li>
 
-        {# User New Messages Count #}
+        {# User's new messages count #}
 
         {% if app.user %}
 
@@ -65,7 +58,7 @@
 
           {% if unreadMessagesCount > 0 %}
 
-            {# large screens display #}
+            {# large screen display #}
 
             <li class="nav-item fs-5 me-3 d-none d-md-inline">
 
@@ -79,50 +72,39 @@
 
             </li>
 
-            {% endif %}
+          {% endif %}
 
-            {# mobile display #}
+          {# tiny screen display #}
 
-            <li class="nav-item d-md-none">
-
-              {% if unreadMessagesCount > 0 %}
-
-                <a href="{{path ('user_manage_messages')}}">
-
-                  <button type="button" class="btn btn-sm btn-success rounded me-2">
-                    Messages <span class="badge bg-warning text-body">{{unreadMessagesCount}}</span>
-                  </button>
-
-                </a>
-
-              {% endif %}
-
-            </li>
-
-      {# 
-            
           <li class="nav-item d-md-none">
 
-            <a href="{{path ('app_login')}}">
+            {% if unreadMessagesCount > 0 %}
 
-              <button type="button" class="btn btn-sm btn-success rounded">
-                Connexion
-              </button>
+              <a href="{{path ('user_manage_messages')}}">
 
-            </a>
+                <button type="button" class="btn btn-sm btn-success rounded me-2">
+                  Messages <span class="badge bg-warning text-body">{{unreadMessagesCount}}</span>
+                </button>
 
-          </li> #}
+              </a>
+
+            {% endif %}
+
+          </li>
 
         {% endif %}
 
+
+
+        {# tiny screens display #}
         
         <li class="nav-item d-md-none">
 
-          {# search icon on mobile, trigger a search bar  #}
+          {# search icon on mobile, triggers a search bar appearance on click #}
 
           <img id="search_icon_small_screens" class="" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
 
-          {# search bar container on mobile #}
+          {# search bar container + styles + js handling on tiny screens #}
 
           {% include "_partials/search_bar_sm.html.twig" %}
 

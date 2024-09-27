@@ -1,155 +1,175 @@
-<div id="" class="search-container-bar-sm unseen"> {# the upper search bar is unseen by default. It appears by clicking the navbar search icon. #}
+{# search bar container + styles + js for tiny screens #}
 
-    <div class="sm-search-back-icon-container">
+{# This upper search bar is unseen by default. It appears on tiny screens by clicking on the navbar search icon (this icon appears in header_navbar.html.twig). #}
 
-      <img id="" class="back_from_search_sm_icon" src="{{ asset('back.svg', 'misc')}}" alt="Back to homepage left arrow icon" style="width: 26px;">
-      
-    </div>
+<div id="" class="search-container-bar-sm unseen">
 
-    <form id="search_sm_proxy"> 
-      
-      {# Proxy for #searchbar search input #}
-      <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
+  {# Go back icon (hide search back on click) #}
 
-      <button class="d-none" type="submit">ok</button>
+  <div class="sm-search-back-icon-container">
 
-      <script>
-
-        function hideKeyboard(element) { //Thanks to https://stackoverflow.com/questions/8335834
-          element.attr('readonly', 'readonly'); // Force keyboard to hide on input field.
-          element.attr('disabled', 'true'); // Force keyboard to hide on textarea field.
-          setTimeout(function() {
-              element.blur();  //actually close the keyboard
-              // Remove readonly attribute after keyboard is hidden.
-              element.removeAttr('readonly');
-              element.removeAttr('disabled');
-          }, 100);
-        }
-
-        // Gets a reference to the form element
-        var form = document.getElementById('search_sm_proxy');
-        
-        // Adds a listener for the "submit" event.
-        form.addEventListener('submit', function(e) {
-          
-          e.preventDefault();
-          hideKeyboard($("#navbar_sm_search_input"));
-
-        });
-
-      </script>
-
-    </form>
+    <img id="" class="back_from_search_sm_icon" src="{{ asset('back.svg', 'misc')}}" alt="Back to homepage left arrow icon" style="width: 26px;">
     
+  </div>
 
-    <div class="js-reset-search-icon-container unseen">{# reset input (cross icon) #}
+ {#
 
-      <img id="" class="js-reset-search-icon" src="{{ asset('close.svg', 'misc')}}" alt="clear search input" style="height:19px;">
+    Following search input: The way it works:
 
-    </div>
+    There is only one "true search input" in this app (a div with id #searchbox (and class .ais-SearchBox-input added afterwards by algolia search engine script)
 
-    <div class="search-filters-icon-container">
+    But there are some other input fields that can be used to do a search (they act as proxies: behind the scene their value is provided to the only true search input.) 
 
-      <img id="" class="js-filter-search-panel panel-hidden" src="{{ asset('filters.svg', 'misc')}}" alt="open filters" style="height:21px; padding-right: 9px;">
+  #}
 
-    </div>
+  {# Proxy for #searchbar search input #}
+
+  <form id="search_sm_proxy"> 
+    
+    <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
+
+    <button class="d-none" type="submit">ok</button>
+
+    <script>
+
+      //When search query is submitted, we hide onscreen keyboard so that it doesn't hide results
+
+      function hideKeyboard(element) { //Thanks to https://stackoverflow.com/questions/8335834
+
+        element.attr('readonly', 'readonly'); // Force keyboard to hide on input field.
+        element.attr('disabled', 'true'); // Force keyboard to hide on textarea field.
+        setTimeout(function() {
+            element.blur();  //actually close the keyboard
+            // Remove readonly attribute after keyboard is hidden.
+            element.removeAttr('readonly');
+            element.removeAttr('disabled');
+        }, 100);
+
+      }
+
+      // Gets a reference to the form element
+      var form = document.getElementById('search_sm_proxy');
+      
+      // Adds a listener for the "submit" event: we hide keyboard.
+      form.addEventListener('submit', function(e) {
+        
+        e.preventDefault();
+        hideKeyboard($("#navbar_sm_search_input"));
+
+      });
+
+    </script>
+
+  </form>
+  
+
+  <div class="js-reset-search-icon-container unseen">{# reset input (cross icon) #}
+
+    <img id="" class="js-reset-search-icon" src="{{ asset('close.svg', 'misc')}}" alt="clear search input" style="height:19px;">
+
+  </div>
+
+  <div class="search-filters-icon-container">
+
+    <img id="" class="js-filter-search-panel panel-hidden" src="{{ asset('filters.svg', 'misc')}}" alt="open filters" style="height:21px; padding-right: 9px;">
+
+  </div>
     
 </div>
 
 
-  <script>
+<script>
 
-    // note : reset search input on mobile when clicking on black cross is treated in algolia_search_default.js (because it has to use search.on('render') event).
-    //reset search input on mobile when clicking on black cross
+  //trigger mobile search bar appearance when clicking on magnifying glass icon
+  $("#search_icon_small_screens").click(function() {
 
+      $(".search-container-bar-sm").removeClass("unseen");
+      $("#navbar_sm_search_input").focus();
+      $(".search-experience-container").show();
+      $("#main-body-container").hide();
+      $("#searchbox").css('display','none');
 
-    //trigger mobile search bar appearance when clicking on search icon
-    $("#search_icon_small_screens").click(function() {
+  });
 
-        $(".search-container-bar-sm").removeClass("unseen");
-        $("#navbar_sm_search_input").focus();
-        $(".search-experience-container").show();
-        $("#main-body-container").hide();
-        $("#searchbox").css('display','none');
+  //trigger go back from search bar (hide search bar)
+  $(".back_from_search_sm_icon").click(function() {
 
-    });
+    $(".search-container-bar-sm").addClass("unseen");
+    $(".search-experience-container").hide();
+    $("#main-body-container").show();
+    window.scrollTo(0, 0);
 
-    //trigger go back from search bar
-    $(".back_from_search_sm_icon").click(function() {
+  });
 
-      $(".search-container-bar-sm").addClass("unseen");
-      $(".search-experience-container").hide();
-      $("#main-body-container").show();
-      window.scrollTo(0, 0);
+  //trigger search filters appearance / disappearance on mobile
+  $(".js-filter-search-panel").click(function() {
 
-    });
-
-    //trigger search filters appearance / disappearance on mobile
-    $(".js-filter-search-panel").click(function() {
-
-      if($(this).hasClass('panel-hidden')){
-        $('.search-experience-container .left-panel').show();
-        $(this).removeClass('panel-hidden');
-      } 
-      
-      else {
-        $('.search-experience-container .left-panel').hide();
-        $(this).addClass('panel-hidden')
-      }
-
-    });
-
+    if($(this).hasClass('panel-hidden')){
+      $('.search-experience-container .left-panel').show();
+      $(this).removeClass('panel-hidden');
+    } 
     
-    // + see algolia_search_default.js
+    else {
+      $('.search-experience-container .left-panel').hide();
+      $(this).addClass('panel-hidden')
+    }
 
-  </script>
+  });
+
+  // Reset (clean) the tiny screens search input when clicking on black cross icon
+  // It is managed in algolia_search_default.js (because it has to use an event search.on('render') declared in this file).
 
   
+  // + see algolia_search_default.js
 
-  <style>
+</script>
 
-    .search-container-bar-sm{
 
-      position: fixed; 
-      top:0; 
-      left:0; 
 
-      width: 100%; 
-      height: 59px;
-      z-index:100; 
+<style>
 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-                       
-      background-color: black; 
-      
-    }
+  .search-container-bar-sm{
 
-    .unseen{
-      display: none;
-    }
+    position: fixed; 
+    top:0; 
+    left:0; 
 
-    .sm-search-back-icon-container{
-      padding-left: 12px;
-    }
+    width: 100%; 
+    height: 59px;
+    z-index:100; 
 
-    .search-icon-container{
-      padding-right: 10px;
-    }
- 
-    #navbar_sm_search_input {
-      background-color: transparent;
-      padding-bottom: 4px;
-      outline: none;
-      box-sizing: border-box;
-      border: none;
-      border-radius: 0;
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+                      
+    background-color: black; 
+    
+  }
 
-      color: #e9e2e2;
+  .unseen{
+    display: none;
+  }
 
-      border-bottom: 2px solid #e9e2e2;
-      text-overflow: ellipsis;
-    }
+  .sm-search-back-icon-container{
+    padding-left: 12px;
+  }
 
-  </style>
+  .search-icon-container{
+    padding-right: 10px;
+  }
+
+  #navbar_sm_search_input {
+    background-color: transparent;
+    padding-bottom: 4px;
+    outline: none;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 0;
+
+    color: #e9e2e2;
+
+    border-bottom: 2px solid #e9e2e2;
+    text-overflow: ellipsis;
+  }
+
+</style>

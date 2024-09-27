@@ -205,13 +205,14 @@
         {% endblock %}
 
 
-        {# A screen covering footer is used on tiny screens, for example to send messages; comments; etc #}
+        {# A footer layer covering the bottom of user's screen (used to accelerate some user experiences, think of Youtube comments on mobiles) #}
         <div id="covering-footer">
 
             <div class="close-button">&times;</div>
     
         </div>
 
+        {# Covering footer close button snippet #}
         <script>
 
             const footerCloseButton = document.querySelector('#covering-footer .close-button');
@@ -224,7 +225,7 @@
             });
 
         </script>
-        {# And of screen covering footer snippet #}
+        {# End of screen covering footer snippet #}
 
         {% block bottomjavascripts %}{% endblock %}
 

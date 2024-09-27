@@ -1,119 +1,113 @@
+
+{# a slider of text and images to convice user to use Propon #}
+
+{# Reusable caroussel slide template #}
+
 {% macro carouselItem(title, imageFileName, imgAlt, textContent, isActive) %}
 
-    <div class="carousel-item {{ isActive ? 'active' }}">
+  <div class="carousel-item {{ isActive ? 'active' }}">
 
-      <div class="container col-lg-11 px-0">
+    <div class="container col-lg-11 px-0">
+      
+      <div class="row">
         
-        <div class="row">
+        {# Upper decoration : a coloured diagonal box #}
+
+        <div class="diagonal-band-box col-12">
+
+          <div class="diag title">{{title}}</div>
+
+        </div>
+
+        {# Image & Text content #}
+
+        <div class="content-container row col-12 pe-0">
+
+          {# Image content (left column for large screens) #}
           
-          {# Upper decoration : diagonal box #}
+          <div class="col-lg-5 img-container pe-0">
 
-          <div class="diagonal-band-box col-12">
-
-            <div class="diag title">{{title}}</div>
+            <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageFileName, 'larger')}}" alt="{{imgAlt}}" loading="lazy"> 
 
           </div>
 
-          <div class="content-container row col-12 pe-0">
-            
-            <div class="col-lg-5 img-container pe-0">
-                <img class="" src="{{asset('homepage/rational_arguments_slider/' ~ imageFileName, 'larger')}}" alt="{{imgAlt}}" loading="lazy">  
-            </div>
+          {# Text content (right column for large screens) #}
 
-            <div class="col-lg-7 text-container">{{textContent}}</div>
-          
-          </div>
-          
-            {# Bottom decoration : waved box #}   
+          <div class="col-lg-7 text-container">{{textContent}}</div>
+        
+        </div>
+      
+        {# Bottom decoration : a coloured waved box #}   
 
-            <div class="wave-container">
+        <div class="wave-container">
 
-              <div class="wave"></div>
-
-            </div>
+          <div class="wave"></div>
 
         </div>
 
       </div>
 
-    </div>    
+    </div>
+
+  </div>    
 
 {% endmacro %}
 
+
+
+{# Setting each slide Text content #}
+
 {% set businessCard %}
 
-    <div class="px-0">
-    
-      <p class="d-none d-md-block text-justify px-3" >
+  <div class="px-0">
 
-        ✔️ Obtenez <b>une adresse courte, gratuite, et personnalisée</b>. Elle est idéale à partager sur les forums et réseaux sociaux.
+    {# Large screens #}
+  
+    <p class="d-none d-md-block text-justify px-3" >
 
-      </p>
-    
-      {# <p class="d-none d-md-block text-justify px-3" >
-        
-        ❌ <b>Ne soyez plus gênés</b> lorsqu'on vous demande une présentation simple et rapide de votre projet.
+      ✔️ Obtenez <b>une adresse courte, gratuite, et personnalisée</b>. Elle est idéale à partager sur les forums et réseaux sociaux.
 
-      </p> #}
-    
-      <p class="d-md-none text-center mb-0" >
+    </p>
 
-        <b>Obtenez une adresse courte, personnalisée, et 100 % gratuite. Elle est idéale à partager sur les réseaux sociaux.</b>
+    {# Tiny screens #}
+  
+    <p class="d-md-none text-center mb-0" >
 
-      </p>
+      <b>Obtenez une adresse courte, personnalisée, et 100 % gratuite. Elle est idéale à partager sur les réseaux sociaux.</b>
 
-      {# <div class="col text-center">
-      
-        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" type="button">+ Présenter mon Projet</button></a>
-      
-      </div> #}
+    </p>
 
-    </div>
-
+  </div>
 
 {% endset %}
 
 {% set advices %}
-
-    {# <h4 class="text-center fw-bold mb-4">🤔 En panne d'inspiration ?</h4> #}
         
-    <p class="text-justify px-lg-3 mb-0" >
-        
-      {# Pas toujours facile de présenter son projet. #} Utilisez nos <b>suggestions simples</b> et notre <b>modèle de page efficace</b>.
+  <p class="text-justify px-lg-3 mb-0" >
+      
+    Utilisez nos <b>suggestions simples</b> et notre <b>modèle de page efficace</b>.
 
-    </p>
+  </p>
     
 {% endset %}
 
 {% set summarize %}
 
+  {# Large screens #}
     
-      {# <h4 class="d-none d-md-block text-center fw-bold mb-3"><u>On Aime tous les résumés</u></h4>
-
-      <h4 class="d-md-none text-center fw-bold mb-2 fs-5"><u>On Aime tous les résumés</u></h4> #}
+  <p class="d-none d-md-block text-justify px-3 mb-3" >
     
-      <p class="d-none d-md-block text-justify px-3 mb-3" >
-        
-        <b>Obtenez une présentation claire et résumée</b> de votre projet. <br><br> Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b> ✔️ 
-        
-        {# <br><br>
-
-        ❌ Trop d'informations présentées ou éparpillées, c'est le risque d'<b>abandonner la lecture</b> ou <b>ne pas comprendre votre projet</b>. #}
-        
-      </p>
+    <b>Obtenez une présentation claire et résumée</b> de votre projet. <br><br> Elle <b>concentre toutes les informations utiles pour le comprendre et s'y intéresser</b> ✔️ 
     
-      <p class="d-md-none text-center mb-0" >
-        
-        <b>Obtenez LA présentation claire et résumée</b> de votre projet. Elle <b>concentre des informations essentielles pour le comprendre et s'y intéresser</b>.
-        
-      </p>
+  </p>
 
-      {# <div class="col text-center">
-      
-        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" type="button">+ Présenter mon Projet</button></a>
-      
-      </div> #}
+  {# Tiny screens #}
 
+  <p class="d-md-none text-center mb-0" >
+    
+    <b>Obtenez LA présentation claire et résumée</b> de votre projet. Elle <b>concentre des informations essentielles pour le comprendre et s'y intéresser</b>.
+    
+  </p>
 
 {% endset %}
 
@@ -124,19 +118,10 @@
 {% endset %}
 
 {% set findResources %}
-    
-    {# <h3 class="d-none d-md-block text-center fw-bold mb-4 h4">🙋‍♀️ PRÉSENTEZ VOS BESOINS</h3> #}
-    
-    {#  <p class="d-none d-md-block text-justify px-3 mb-4 mb-md-2" >Faites la liste de vos besoins et <b>trouvez de l'aide pour faire progresser votre projet</b>. Les visiteurs intéressés peuvent vous contacter par messages privés. Service gratuit ;-)</p> #}
-    
-    <p class="d-relative text-center px-3" >Vous recherchez <b> des conseils, du matériel, des compétences</b> ?</p>
-    <p class="d-relative text-center px-3" ><span class="highlight">Faites-le savoir, utilisez l'espace prévu</span>.</p>
+ 
+  <p class="d-relative text-center px-3" >Vous recherchez <b> des conseils, du matériel, des compétences</b> ?</p>
 
-    {# <div class="col text-center mt-md-3">
-      
-        <a href="{{ path ('create_presentation') }}"><button class="btn btn-outline-success" type="button">+ Présenter mon Projet</button></a>
-      
-    </div> #}
+  <p class="d-relative text-center px-3" ><span class="highlight">Faites-le savoir, utilisez l'espace prévu</span>.</p>
 
 {% endset %}
 
@@ -152,13 +137,9 @@
 
 {% endset %}
 
-
-
 {% set news %}
     
   <p class="px-3" ><b>Partagez des nouvelles si vous le souhaitez</b> : les visiteurs peuvent <b>suivre votre projet</b>.</p>
-
-{#   <p class="px-3" >Partagez des nouvelles si vous le souhaitez : les personnes qui <b>suivent votre projet</b> sont <b>automatiquement notifiées</b> des nouvelles que vous publiez.</p> #}
 
 {% endset %}
 
@@ -175,8 +156,11 @@
 {% endset %}
 
 
+{# Overall title #}
+<div class="d-flex justify-content-center"><h3 class="arguments-slider-title">Pourquoi <span class="">Utiliser</span> Propon ?</h3></div> 
 
-<div class="d-flex justify-content-center"><h3 class="arguments-slider-title">Pourquoi <span class="">Utiliser</span>{# <span class="d-none d-md-inline">Présenter son Projet sur</span> #} Propon ?</h3></div>  
+
+{# Actual Bootstrap slider template #}
 
 <div id="rationalArgumentsCarousel" class="carousel container col-lg-8 d-flex align-items-center" data-bs-interval="false">
 
@@ -184,44 +168,41 @@
 
     <div>
 
+      {# Calling and hydrating slide template with values #}
+
       {{ _self.carouselItem("Gagnez du temps", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, true) }}
 
       {{ _self.carouselItem("Rassemblez l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
 
-{#       {{ _self.carouselItem("Activez les donations", "euro_donation.webp", "Deux mains différentes avec une pièce en euros entre ces mains.", donations, false) }} #}
-
       {{ _self.carouselItem("Trouvez de l'Aide", "find_resources.webp", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
 
-
       {{ _self.carouselItem("Suivre votre projet ?", "wifi.svg", "Un dessin qui comporte une onde radio synonyme de news.", news, false) }}
-
-      {# {{ _self.carouselItem("Recevez des avis", "comment.png", "", comments, false) }} #}
-
-{#       {{ _self.carouselItem("Facile & Basique", "advices.webp", "Une jeune femme debout qui plie son coude et tend son doigt vers le haut.", advices, false) }} #}
-
-
-{#       {{ _self.carouselItem("Votre « Carte de Visite »", "business_card.webp", "Une main qui tend une carte de visite. En bas à droite de l'image on a une adresse web propon de page de projet, cette adresse prend peu d'espace en terme de caractères.", businessCard, false) }} #}
-
-      {# {{ _self.carouselItem("Relier les Réseaux", "link_networks.webp", "Des icônes de réseaux sociaux qui sont reliée à une page de projet sur propon.", linkNetworks, false) }} #}
-
-     {#  {{ _self.carouselItem("👁️ Gagner en Visibilité", "improve_visibility.webp", "Une jeune fille maintient trois ballons colorés qui représentent un joli projet, un homme les montre du doigt.", improveVisibility, false) }} #}
         
     </div>
 
   </div>
 
+  {# Slider controls #}
+
   <button class="carousel-control-prev" type="button" data-bs-target="#rationalArgumentsCarousel" data-bs-slide="prev">
+
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+
     <span class="visually-hidden">Previous</span>
+
   </button>
   
   <button class="carousel-control-next" type="button" data-bs-target="#rationalArgumentsCarousel" data-bs-slide="next">
+
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+
     <span class="visually-hidden">Next</span>
+
   </button>
 
 </div>
 
+{# Styles for this slider #}
 
 <style>
 
@@ -238,15 +219,10 @@
     opacity: unset;
   }
 
-
   #rationalArgumentsCarousel .diag.title {
 
     text-transform: uppercase;
   }
-
-
-
-
 
   @media screen and (max-width: 580px) {
 
@@ -283,7 +259,6 @@
 
   }
 
-
   .carousel-item{
     min-height: 420px;
   }
@@ -293,26 +268,25 @@
     margin-bottom: 12px;
   }
 
+  .img-container{
 
-.img-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    height: inherit;
+    z-index: 2;
 
-  height: inherit;
-  z-index: 2;
+  }
 
-}
+  .img-container img {
 
-.img-container img {
+    max-height: 100%;
+    max-width: 100%;
 
-  max-height: 100%;
-  max-width: 100%;
+  }
 
-}
-
-.text-container{
+  .text-container{
 
     display: flex;
     flex-direction: column;
@@ -321,29 +295,27 @@
     font-size: 20px;
     line-height: 1.25;
 
-}
+  }
 
+  .carousel-item .diagonal-band-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 75px;
+    background-color: #9ccdfe;
+    transform: skewY(-5deg);
+    margin-top: 30px;
+    margin-bottom: 10px;
+  }
 
-.carousel-item .diagonal-band-box {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height: 75px;
-	background-color: #9ccdfe;
-	transform: skewY(-5deg);
-	margin-top: 30px;
-	margin-bottom: 10px;
-}
-
-.carousel-item .diag {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	transform: skewY(4deg);
-	font-size: 24px;
-	font-weight: bold;
-}
-
+  .carousel-item .diag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: skewY(4deg);
+    font-size: 24px;
+    font-weight: bold;
+  }
 
   .wave-container {
     position: relative;
@@ -373,17 +345,14 @@
     right: -1.5%;
     top: 60%;
   }
-  
-.wave-container .wave::after {
-	width: 55%;
-	height: 100%;
-	background-color: #9ccdfe;
-	top: 31%;
-	left: 0;
-}
-
-
-
+    
+  .wave-container .wave::after {
+    width: 55%;
+    height: 100%;
+    background-color: #9ccdfe;
+    top: 31%;
+    left: 0;
+  }
 
 @media screen and (max-width: 580px) {
 
@@ -442,7 +411,6 @@
   .wave-container .wave {
     height: 23px;
   }
-
 
   .carousel-item .diagonal-band-box {
 

@@ -6,10 +6,10 @@
 
   Warning:   
   
-    I used some amateur bad quality tricks in order to get the search experience I wanted
-    Sorry for the resulting poor code comprehension, logic and clarity: my bad they could be improved
+    I used some amateur bad quality tricks in order to get the search experience I wanted.
+    I apologies for the resulting poor code comprehension; logic; and clarity: my bad they can be improved
+    Help for improvments is welcome.
 
-  Help for improvments is welcome.
 
 */
 
@@ -23,7 +23,7 @@ $(document).ready(function(){
 
     $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").val('');
     
-    //to do : factorize
+    //to do : factorize code
     $('.ais-GeoSearch').hide(); 
     $('.js-hide-geosearch-map').hide();
     $('.js-show-geosearch-map').show();
@@ -43,8 +43,7 @@ $(document).ready(function(){
     document.getElementById('homepage-search-container').scrollIntoView();
 
   });
-
-
+  
 
   //Search results management: create a random background color for default thumbnails (ex: project presentation has no image to show has a thumbnail)
   function randomColor(){
@@ -70,7 +69,6 @@ $(document).ready(function(){
   var o = new InfoBox({/*options*/});
 
 
-
   //Initialize Algolia instant search app with credentials
 
   const search = instantsearch({
@@ -87,7 +85,7 @@ $(document).ready(function(){
   });
 
 
-  // "setting" an input that will trigger algolia searchs
+  // Setting an input that will trigger algolia searchs
   
   search.addWidgets([
 
@@ -363,7 +361,7 @@ $(document).ready(function(){
 
           $.ajax({  
 
-            url: pick_up_elements_route, // backend route to store selected items positions (ajax call) (this variable is declared in select_presentations\manage.html.twig)
+            url: pick_up_elements_route, // backend route to store selected items positions (specific route to handle ajax call) (note: this variable is declared in select_presentations\manage.html.twig)
             type:       'POST',   
             dataType:   'json',
             data: {

@@ -104,19 +104,21 @@
 
           <img id="search_icon_small_screens" class="" src="{{ asset('search.svg', 'misc')}}" alt="search icon" style="height:26px;">
 
-          {# search bar container + styles + js handling on tiny screens #}
+          {# search bar html structure + js + styles handling on tiny screens #}
 
           {% include "_partials/search_bar_sm.html.twig" %}
 
         </li>
 
-        {# search bar large screens #}
+        {# search bar for large screens #}
 
         <form class="d-none d-md-block">
 
           <input id="navbar_md_search_input" class="form-control d-inline me-2" type="search" placeholder="Rechercher" aria-label="Search">
 
         </form>
+
+        {# styles for search bar for large screens #}
 
         <style>
 
@@ -138,25 +140,31 @@
 
       </ul>
 
-     
+      {# User Account Menu #}
 
-        {% set userAccountMenu %}
+      {% set userAccountMenu %} {# The html structure is stored in a variable so that we reuse it according to tiny screens or large screens #}
 
-           {% if app.user %}
+        {% if app.user %}
 
-           <div class="bg-white">
+          <div class="bg-white">
+
+            {# Displaying user pseudo #}
 
             <div class="container d-flex align-items-center justify-content-center text-center my-3">
               {{app.user.userName}}
             </div>
-  
-           <ul class="ps-0" style="list-style:none;">
+
+            <ul class="ps-0" style="list-style:none;">
+
+              {# Access add a project presentation button #}
 
               <li>
     
                 <a class="dropdown-item" href="{{path ('create_presentation')}}">Ajouter un Projet</a>
     
               </li>
+
+              {# Access user presented projects list button #}
     
               <li>
     
@@ -166,7 +174,6 @@
     
               </li>
     
-    
               {# Dropdown Divider #}
     
               <li>
@@ -174,6 +181,8 @@
                 <hr class="dropdown-divider">
     
               </li>
+
+              {# Access user account button #}
     
               <li>
     
@@ -205,14 +214,14 @@
             
             </ul>
 
-           </div>
-        
-          {% endif %}
-        {% endset %}
+          </div>
+      
+        {% endif %}
+
+      {% endset %}
       
       
-      {# This button and bellow collapsible is only seen on mobile #}
-      {# hide / show menu  - trigger button #}
+      {# Tiny screens only: button to trigger hide menu / show menu #}
 
       <button class="btn text-body navbar-toggler" data-bs-target="#navbarSMToggle" aria-controls="navbarSMToggle" type="button" data-bs-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
 
@@ -220,42 +229,37 @@
 
       </button>
 
-
-      {# These elements are collapsed and displayed only on small screens #}
+      {# Some navbar elements #}
       
-      <div id="navbarSMToggle" class="collapse navbar-collapse text-center">
+      <div id="navbarSMToggle" class="collapse navbar-collapse text-center">{# Note : tiny screens elements are collapsed in this #navbarSMToggle div panel (toggle button just above), but >= md screens elements appearsnormally in the navbar without toggling a button #}
+      
+        {# This div is collapsed and displayed only on small screens #}
 
         <div class="d-md-none">
 
-          {{ userAccountMenu }}
+          {{ userAccountMenu }} {# Setted above #}
 
         </div>
 
         <ul class="navbar-nav ms-md-auto gap-2">
 
+          {# Access admin panel icon (admins only) #}
+
           {% if is_granted("ROLE_ADMIN") or is_granted("ROLE_ARTICLE_EDIT") %}
           
-          <li class="nav-item d-none d-md-inline">
+            <li class="nav-item d-none d-md-inline">
 
-            <a href="{{path ('admin')}}">
+              <a href="{{path ('admin')}}">
 
-              <img class="bg-white px-1 py-1 mt-1 rounded" src="{{ asset('key.svg', 'misc')}}" alt="key icon" style="height:32px;">
+                <img class="bg-white px-1 py-1 mt-1 rounded" src="{{ asset('key.svg', 'misc')}}" alt="key icon" style="height:32px;">
 
-            </a>
+              </a>
 
-          </li>
+            </li>
         
-        {% endif %}
+          {% endif %}
 
           {% if not app.user %}
-
-            {# register button 
-
-            <a href="{{path('app_register')}}">
-
-              <button type="button" class="btn btn-warning fw-bold me-2">Inscription</button>
-
-            </a>  #}
 
             {# login access button (>= md screens) #}
 
@@ -265,12 +269,13 @@
 
             </a>
 
-
-            {# login access button (for sm screens) #}
+            {# login access button (sm screens) #}
 
             <div class="d-md-none text-center">
 
               <h4 class="fw-bold text-center mt-4 mb-3">Connexion 👇</h4>
+
+              {# login with Google button #}
                 
               <a href="{{ path('connect_google_start') }}">
 
@@ -284,6 +289,8 @@
 
               </a>
 
+              {# login with Facebook button #}
+
               <a href="{{ path('connect_facebook_start') }}">
 
                   <button class="sm-connect-btn btn">
@@ -295,6 +302,8 @@
                   </button>
 
               </a>
+
+              {# login with Email button #}
               
               <a href="{{path('app_login')}}">
 
@@ -308,6 +317,7 @@
 
               </a>
 
+              {# Styles for tiny screens login button #}
 
               <style>
 
@@ -317,21 +327,21 @@
 
                 }
               
-              
               </style>
 
             </div>
 
           {% endif %}
 
-          {# This dropdown is only seen on medium to large screens #}
-          {# User Account Dropdown #}
+          {# This dropdown menu is displayed only >= md screens #}
+
+          {# User Account Dropdown Menu #}
 
           {% if app.user %}
 
-            {# Trigger Button #}
-
             <li class="d-none d-md-block nav-item dropdown rounded">
+            
+            {# Trigger wrap dropdown / unwrap dropdown button #}
 
               <a id="userAccountDropdown" class="dropdown-toggle btn btn-outline-primary fw-bold" href="#"
                 role="button" data-bs-toggle="dropdown" aria-expanded="false"
@@ -341,11 +351,11 @@
 
               </a>
 
-              {# User Account Dropdown Content #}
+              {# User Account Dropdown Menu Content #}
 
               <ul aria-labelledby="userAccountDropdown" class="dropdown-menu dropdown-menu-end" style="width: 260px;">
 
-                {{ userAccountMenu }}
+                {{ userAccountMenu }} {# Setted above #}
 
               </ul>
 
@@ -355,8 +365,6 @@
           {% endif %}
 
         </ul>
-
-        {# End of Toggled elements on small screens #}
 
       </div>
 

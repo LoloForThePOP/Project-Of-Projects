@@ -1,10 +1,10 @@
-{# search bar container + styles + js for tiny screens #}
+{# For tiny screens: search bar html structure + js + styles #}
 
-{# This upper search bar is unseen by default. It appears on tiny screens by clicking on the navbar search icon (this icon appears in header_navbar.html.twig). #}
+{# This upper search bar is unseen by default, it appears on tiny screens by clicking on the navbar search icon (a magnifying glass icon declared in header_navbar.html.twig). #}
 
 <div id="" class="search-container-bar-sm unseen">
 
-  {# Go back icon (hide search back on click) #}
+  {# Go back icon (hide search bar on click) #}
 
   <div class="sm-search-back-icon-container">
 
@@ -12,13 +12,13 @@
     
   </div>
 
- {#
+  {#
 
-    Following search input: The way it works:
+    Tiny screens search input: the way it works:
 
-    There is only one "true search input" in this app (a div with id #searchbox (and class .ais-SearchBox-input added afterwards by algolia search engine script)
+    There is only one "true search input" in this app (a div with id #searchbox (and class .ais-SearchBox-input added afterwards by algolia search engine script)).
 
-    But there are some other input fields that can be used to do a search (they act as proxies: behind the scene their value is provided to the only true search input.) 
+    But in this app we use several other input fields that can be used to perform a search, they act as proxies: behind the scene their value is provided to the only true search input mentioned above.
 
   #}
 
@@ -28,11 +28,13 @@
     
     <input id="navbar_sm_search_input" class="searchbox-input" name="search" placeholder="Rechercher" autocomplete="off" autocorrect="off" spellcheck="false" type="text"  dir="ltr" style="outline: currentcolor none medium;">
 
+    {# Submit search button #}
+
     <button class="d-none" type="submit">ok</button>
 
     <script>
 
-      //When search query is submitted, we hide onscreen keyboard so that it doesn't hide results
+      //When search query is submitted on tiny screens, we hide the onscreen keyboard so that it doesn't hide search results
 
       function hideKeyboard(element) { //Thanks to https://stackoverflow.com/questions/8335834
 
@@ -61,13 +63,17 @@
     </script>
 
   </form>
-  
 
-  <div class="js-reset-search-icon-container unseen">{# reset input (cross icon) #}
+
+  {# reset search input (cross icon) #}
+
+  <div class="js-reset-search-icon-container unseen">
 
     <img id="" class="js-reset-search-icon" src="{{ asset('close.svg', 'misc')}}" alt="clear search input" style="height:19px;">
 
   </div>
+
+  {# filter search results icon #}
 
   <div class="search-filters-icon-container">
 
@@ -80,7 +86,7 @@
 
 <script>
 
-  //trigger mobile search bar appearance when clicking on magnifying glass icon
+  //trigger mobile search bar appearance when user clicks on magnifying glass icon
   $("#search_icon_small_screens").click(function() {
 
       $(".search-container-bar-sm").removeClass("unseen");
@@ -91,8 +97,8 @@
 
   });
 
-  //trigger go back from search bar (hide search bar)
-  $(".back_from_search_sm_icon").click(function() {
+  //trigger hide search bar on mobile when user clicks on go back icon from search bar
+  $(".back_from_search_sm_icon").clic k(function() {
 
     $(".search-container-bar-sm").addClass("unseen");
     $(".search-experience-container").hide();
@@ -101,7 +107,7 @@
 
   });
 
-  //trigger search filters appearance / disappearance on mobile
+  //trigger search filters appearance / disappearance panel on mobile when user clicks on search filters icon
   $(".js-filter-search-panel").click(function() {
 
     if($(this).hasClass('panel-hidden')){
@@ -116,8 +122,13 @@
 
   });
 
-  // Reset (clean) the tiny screens search input when clicking on black cross icon
-  // It is managed in algolia_search_default.js (because it has to use an event search.on('render') declared in this file).
+  /*
+  
+    Reset (clean) the tiny screens search input when user clicks on black cross icon
+    
+      This function is managed in algolia_search_default.js because it has to use an event search.on('render') declared in this file.
+  
+  */
 
   
   // + see algolia_search_default.js
@@ -125,6 +136,7 @@
 </script>
 
 
+{# Styles for tiny screens scearch bar #}
 
 <style>
 

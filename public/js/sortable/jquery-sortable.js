@@ -1,3 +1,6 @@
+
+// Allows to use the sortable.js plugin with jQuery 
+
 (function (factory) {
 	"use strict";
 	var sortable,

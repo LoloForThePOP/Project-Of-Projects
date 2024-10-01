@@ -10,25 +10,47 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
 /**
- * Context: sometimes admins want to select and store a specific projects list in order to highlight these projects (ex: highlight some projects on homepage).
- * This controller allows that: select; store; manage some specific project lists + render (display) these lists in html format.
+ * Context: sometimes admins want to manually select and store a specific projects list in order to highlight these projects (ex: highlight some projects on homepage).
+ * This controller allows that: select; store and manage some specific project lists + render (display) these lists in html format.
  */
 class SelectPresentationsController extends AbstractController
 {
-    // Project lists are stored in json format
     
-    protected $genericStoragePath = '../templates/select_presentations/editor_selection.json'; // path + filename of the list containing some projects we want to highlight on homepage
-    
-    protected $projectOfTheDay = '../templates/select_presentations/project_of_the_day.json'; // path + filename of the list containing one project we want to highlight on homepage (project of the day)
+    /**
+     * Getting the path + filename + extension of the project list we want to manage knowing its file name.
+     * 
+     * Params : (string) fileName: file name of the project list we want to handle
+     */
+    protected function getListFilePath ($fileName){ 
 
-    // End of controller variable declarations
+        $basePath = '../templates/select_presentations/'; // Path where projects lists are stored
+        $fileExtension = ".json"; // Project lists are stored in json format (ids of project presentations)
+
+        switch ($fileName) {
+
+            case 'editor_selection': // a list of projects selected by a propon admin
+                $fileName = "editor_selection";
+                break;
+
+            case 'project_of_the_day': // a list of one project we want to highlight on homepage
+                $fileName = "project_of_the_day";
+                break;
+            
+            default:
+                throw new \Exception("Manually selected presentations list: unknow filename");
+                break;
+        }
+
+        return $basePath.$fileName.$fileExtension;
+
+    }
 
 
     
     /**
      * Allow an admin to pick up some project presentations; store a list of these projects; and manage this list (reorder the list, remove some elements).
      * 
-     * (route parameter) pickType: (string) the name of the list we want to change (ex: projectOfTheDay) (which type of projects we pick) 
+     * (route parameter) pickType: (string) the name of the list we want to change (ex: project_of_the_day) (which type of projects we pick) 
      * 
      * @Route("/admin/manage-pick-elements/{pickType}", name="manage_pick_elements")
      *
@@ -36,30 +58,13 @@ class SelectPresentationsController extends AbstractController
     public function managePickElements(PPBaseRepository $ppRepo, string $pickType)
     {
 
-        $storagePath = null;
-
-        // Getting the path + filename of the project list we want to manage according to the pickType.
-
-        switch ($pickType) {
-
-            case 'trustUs': // "They trust us" (social aprouval on homepage) = editor's selection projects
-                $storagePath = $this->genericStoragePath;
-                break;
-
-            case 'projectOfTheDay': // We pick up one project we want to highlight on homepage
-                $storagePath = $this->projectOfTheDay;
-                break;
-            
-            default:
-                throw new \Exception("Unknow manage presentation selections storage path");
-                break;
-        }
+        $storageFilePath = $this->getListFilePath($pickType);  // Getting the appropriate project list path + filename of the project list we want to manage
 
         // Getting in database current project list content so that admin can see it and update it
         
         $currentSelectionItems = [];
 
-        if ($currentSelectionIds = json_decode(file_get_contents($storagePath))) { // if file content is not empty
+        if ($currentSelectionIds = json_decode(file_get_contents($storageFilePath))) {// array of selected project ids
 
             //getting in database selected projects one by one in order to maintin ordering
 
@@ -84,7 +89,7 @@ class SelectPresentationsController extends AbstractController
      * 
      * Ajax request for managePickElements function above so that admin can conveniently update a specific project list
      * 
-     * (route parameter) pickType: (string) the name of the list we want to change (ex: projectOfTheDay) (which type of projects we pick) 
+     * (route parameter) pickType: (string) the name of the list we want to change (ex: project_of_the_day) (which type of projects we pick) 
      *  
      * @Route("/admin/ajax-pick-up-elements/{pickType}", name="manage_pick_up_elements") 
      * 
@@ -94,31 +99,14 @@ class SelectPresentationsController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $storagePath = null;
-
-            // Getting the appropriate project list path + filename of the project list we wants to ajax update
-
-            switch ($pickType) {
-
-                case 'trustUs':
-                    $storagePath = $this->genericStoragePath;
-                    break;
-
-                case 'projectOfTheDay':
-                    $storagePath = $this->projectOfTheDay;
-                    break;
-                
-                default:
-                    throw new \Exception("Unknow manage presentation selections storage path");
-                    break;
-            }
+            $storageFilePath = $this->getListFilePath($pickType); // Getting the appropriate project list path + filename of the project list we wants to ajax update
             
             // Getting the updated project list from the ajax call
             $jsonSelection = $request->request->get('jsonElementsPosition');
 
             // Updating the json file representing the project list
 
-            file_put_contents($storagePath, json_encode($jsonSelection));
+            file_put_contents($storageFilePath, json_encode($jsonSelection));
 
             return  new JsonResponse(true);
 
@@ -143,25 +131,9 @@ class SelectPresentationsController extends AbstractController
     public function getPickedElements(PPBaseRepository $ppRepo, string $pickType, $label='none', $iconName = '')
     {
               
-        // getting the path + filename of the list you want to display
+        $storagePath = $this->getListFilePath($pickType); // getting the path + filename of the list you want to display
 
-        $storagePath = null;
-
-        switch ($pickType) {
-
-            case 'trustUs':
-                $storagePath = $this->genericStoragePath;
-                break;
-
-            case 'projectOfTheDay':
-                $storagePath = $this->projectOfTheDay;
-                break;
-            
-            default:
-                throw new \Exception("Unknow manage presentation selections storage path");
-                break;
-        }
-
+    
         // Getting specific project list in database
 
         $elements = []; // symfony collection of project list
@@ -180,7 +152,7 @@ class SelectPresentationsController extends AbstractController
 
         switch ($pickType) {
 
-            case 'trustUs':
+            case 'editor_selection':
 
                 return $this->render('utilities/_display_collection_wrapper_template.html.twig', [
                     'label' => $label,
@@ -190,7 +162,7 @@ class SelectPresentationsController extends AbstractController
                 ]);
                 break;
 
-            case 'projectOfTheDay':
+            case 'project_of_the_day':
 
                 return $this->render('utilities/_display_cool_project_of_the_day.html.twig', [
                     'results' => $elements,

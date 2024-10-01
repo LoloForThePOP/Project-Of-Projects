@@ -365,7 +365,6 @@ $(document).ready(function(){
             type:       'POST',   
             dataType:   'json',
             data: {
-                "selectionType": 'headlines',
                 "jsonElementsPosition": elementsPositions,
             },
 

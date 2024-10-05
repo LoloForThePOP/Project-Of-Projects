@@ -1,22 +1,29 @@
-   
-/* global variables */
 
-var showCookiesInvite;
-var acceptCookies; // "accept" or "dismiss"
+/**
+ * Handles user tracking (cookies; mixpanel; etc)
+ */
 
-// checking if user once made a decision
+
+// global variables
+
+var showCookiesInvite; // Boolean that tells if we display the select cookies panel (when he has already visited the website the answer is no)
+var acceptCookies; // user choice: "accept" or "dismiss" cookies
+
+// checking in user browser local storage if user once made a decision...
 const cookiesPreferences = localStorage.getItem('cookiesPreferences') ? localStorage.getItem('cookiesPreferences') : null;
 
-// routing accordingly to cookies invite or cookies resolution
-if (cookiesPreferences == "accept" || cookiesPreferences == "reject") {
+// ...and routing accordingly to cookies invite or cookies resolution
+if (cookiesPreferences == "accept" || cookiesPreferences == "reject") { //case user once made a decision
     showCookiesInvite = false;
     cookiesResolution(cookiesPreferences);
 }
-else{
+else{ //case no trace of user previous website visit: we display cookies panel
     showCookiesInvite = true;
 }
 
 
+
+// activating / desactivating third parties cookies according to user choice
 function cookiesResolution(cookiesPreferences) {
 
     if(cookiesPreferences == "accept"){
@@ -33,11 +40,11 @@ function cookiesResolution(cookiesPreferences) {
 
     }
 
-    else{ //
+    else{ //user reject cookies
 
-        mixpanel.opt_out_tracking();
+        mixpanel.opt_out_tracking(); //opt out from mixpanel
 
-        gtag('consent', 'default', {
+        gtag('consent', 'default', { // opt out from google analytics
             'ad_storage': 'denied',
             'analytics_storage': 'denied'
         });
@@ -47,11 +54,13 @@ function cookiesResolution(cookiesPreferences) {
 
 };
 
-/* Mixpanel Tracked Events on Website
+/* Mixpanel tracked Events on Website
 
-When we want to track a click or a view, we simply add data-track-click or data-track-view to appropriate tags, along with some details.
+Mixpanel is a third party service that easyly allows to track users behaviour on website and make statistics about gthese behaviours.
 
-Example: setup track a click on a button
+Tutorial : when we want to track a click or a view, we simply add data-track-click or data-track-view to appropriate html tags, along with some details (see example just bellow).
+
+Example: setup track a reject cookies click on a cookie button
 
     <button data-track-click='{"key": "cookies-user-decision", "attributes": {"value": "reject"} }'>reject</button>
 
@@ -61,7 +70,7 @@ Example: setup track a click on a button
 
 $(document).ready(function(){
 
-    $("[data-track-click]").on("click", function(event){ 
+    $("[data-track-click]").on("click", function(event){  //
 
         track = $(this).data("track-click");
 

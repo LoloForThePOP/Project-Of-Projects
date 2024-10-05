@@ -1,35 +1,38 @@
+
+{# Search Experience Template: a panel that is covering user's screen lively displaying search results #}
+
 {% block stylesheets %}
 
     {# Algolia Rendering Default Stylesheet #}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7/themes/algolia-min.css"
     />
 
-    {# Overiding Some Default Algolia Rendering #}
+    {# Overiding Some Default Algolia Rendering + other styles about our own choices and structuration #}
     <link href="/css/search_page.css" rel="stylesheet">
 
 {% endblock %}
 
 {% block javascripts %}
 
-  {# Algolia Search Engine Default Scripts #}
+  {# Algolia search engine default scripts #}
 
   <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.5.1/dist/algoliasearch-lite.umd.js" integrity="sha256-EXPXz4W6pQgfYY3yTpnDa3OH8/EPn16ciVsPQ/ypsjk=" crossorigin="anonymous"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4.8.3/dist/instantsearch.production.min.js" integrity="sha256-LAGhRRdtVoD6RLo2qDQsU2mp+XVSciKRC8XPOBWmofM=" crossorigin="anonymous"></script>
   
 
-  {# Note : Google Map js Inclusion for Geosearch and Google Places Usage is done in base.html.twig template #}
+  {# Note : Google Map javascript inclusion for geographic search and Google places ssage is done in base.html.twig template because search can be done on most of Propon page#}
 
-  {# Allow to create infobox on a google map - configured in algolia_search_default.js #}
+  {# this javascript allows to create some infobox on a google map (an infobox is a little box containing some information about one project) - this javascript is used and configured in algolia_search_default.js #}
 
   <script src="/js/infobox.js"></script>
 
   {# App Custom Default Algolia Search Experience #}
 
-  <script> // Call appropriate urls and index and according to environment
+  <script> 
 
-      var domain = '{{url("homepage")}}';
-      var app_env = '{{ app.request.server.get("APP_ENV") }}';
+      var domain = '{{url("homepage")}}'; // Propon base url
+      var app_env = '{{ app.request.server.get("APP_ENV") }}'; {# We can have a search index specific to dev environment to make local tests, and of course a serach index in production environment, here we automatically set in which environment we are. #}
 
   </script>
 
@@ -37,14 +40,17 @@
 
   <script src="/js/algolia_search_default.js"></script>
 
-
 {% endblock %}
 
   {# Algolia Search Experience Template #}
 
   <div class="search-experience-container ais-InstantSearch mt-3 mt-md-4 mb-5" >
 
+    {# Left panel does not contain serach results, it contains some search experience functionalities #}
+
     <div class="left-panel">
+
+      {# Close search panel button #}
 
       <div class="">
       
@@ -77,13 +83,12 @@
 
         </style>
 
-
-
       </div>
 
 
-
       <script>
+
+        {# Close left panel when user clicks on the close panel icon #}
             
         $(".js-hide-left-panel").click(function() {
 
@@ -95,7 +100,7 @@
 
       </script>
 
-      {# Toggle Map Display - Button (>= medium screens) #}
+      {# Toggle Map Display Button (>= medium screens) #}
 
       <div class="d-none d-md-block">
           
@@ -105,58 +110,63 @@
 
       </div>
 
+      {# Sort projects by categories area #}
 
       <h2 class="filters-categories-title">Trier par catégories</h2>
 
-      <div id="filters-list"></div>
+      <div id="filters-list"></div> {# Placeholder used by Algolia to display filters #}
 
     </div>
 
+    {# Right panel actually contains search results #}
+
     <div class="right-panel">
 
-      <div id="searchbox" class="ais-SearchBox"></div>
+      <div id="searchbox" class="ais-SearchBox"></div> {# The one and only "true search input" in this app, some other input are proxies transfering user queries in that one #}
 
-      {# Toggle Map Display - Button (small screens) #}
+      {# Toggle Map Display Button (small screens only) #}
 
       <div class="d-inline-block d-md-none mb-3">
 
         <span id="" class="js-toggle-geosearch-map js-hide-geosearch-map text-primary fs-6 me-3">❌ Masquer la carte</span>
 
-        <span id="" class="js-toggle-geosearch-map js-show-geosearch-map text-primary me-3">🌍 Afficher sur la carte</span>     
+        <span id="" class="js-toggle-geosearch-map js-show-geosearch-map text-primary me-3">🌍 Afficher sur la carte</span>
+
+        {# Filter map search results by categories #}
 
         <span id=""  class="js-filter-geosearch-map text-primary">✨ Filtrer</span>     
 
       </div>
 
-      {# Search with a Google Map #}
+      {# Search with a Google Map panel #}
 
-        <div class="ais-GeoSearch">
-          
-            <!-- Additional Info about map results -->
+      <div class="ais-GeoSearch">
+        
+          <!-- Some warning about map search results -->
 
-            <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
-                
-              Attention ! Certains projets n'apparaissent pas sur la carte (par exemple les projets informatiques).
+          <div class="app-maps-info alert alert-success alert-dismissible fade show" role="alert">
               
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            Attention ! Certains projets n'apparaissent pas sur la carte (par exemple les projets informatiques).
             
-            </div>
-
-          <div class="ais-GeoSearch-map">
-
-            <!-- Map element here -->
-
-            <div id="maps">
-
-
-            </div>
-            
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          
           </div>
 
-        </div>  
+        <div class="ais-GeoSearch-map">
 
+          <!-- Map element here -->
+
+          <div id="maps"></div>
+          
+        </div>
+
+      </div>
+
+      {# Container for search results #}
 
       <div id="hits"></div>
+
+      {# Placeholder for search results pagination #}
 
       <div id="pagination"></div>         
 
@@ -167,7 +177,7 @@
 
   <script>
 
-    // Manage Map Appearance - Disappearance according to clicked button status
+    // Manage map panel appearance / disappearance when user clicks on show map / hide map button 
     
     $(".js-toggle-geosearch-map").click(function() {
 
@@ -188,8 +198,7 @@
 
     });
 
-
-    // when we display projects geo-map, we register this event
+    // When user display search results on a map, we register this event
     $(".js-show-geosearch-map").click(function() {
 
       customEvents.dispatchEvent(
@@ -200,7 +209,7 @@
     
     });
 
-    // Display a warning : some projects are not listed on the geo-map.
+    // Display a warning message when projects are shown on a map
     customEvents.addEventListener(
         
       "showProjectsGeoMap", 
@@ -213,7 +222,8 @@
 
     );
 
-    //when a map is displayed, a filter results button is displayed above this map, here we attach action to this button.
+    //when a map is displayed, a filter results button is displayed above this map on tiny screens
+    //When user clicks on this filter results button make the filter result panel appears
 
     $(".js-filter-geosearch-map").click(function() {
 

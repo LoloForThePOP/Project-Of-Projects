@@ -1,9 +1,17 @@
 
+{# This file handles GDPR related frontend #}
+
+
+{# A modal box appears when user go to the website for the first time  #}
+
+{# Using a modal box template #}
 {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "gdpr-selection", 'modal_title': "", 'modal_size': "modal-fullscreen-md-down modal-lg modal-dialog-centered"} %}
 
     {% block modalHeader %}{% endblock %}
 
     {% block modalBody %}
+
+        {# Modal text content #}
 
         <h3 class="h4 mt-5 mt-md-0"><b>On ne vend pas vos données</b></h3>
 
@@ -13,24 +21,33 @@
 
         <div id="cookies-consent-container" class="row mb-5">
 
+            {# Ambiance image #}
+
             <div class="col-6 d-flex align-items-center justify-content-center ">
 
                 <img id="cookies-help-build" class="img-fluid" src="{{ asset('misc/gdpr_building.png', 'larger')}}" alt="building with a crane">
 
             </div>
 
+            {# User choices buttons #}
+
             <div class="col-6 d-flex align-items-center justify-content-center">
 
                 <div class="">
 
-                    <div class="d-flex justify-content-center">
-                        <button data-cookies-choice="accept" data-track-click='{"key":"cookies-overall-choice", "attributes":{"type": "accept"} }'  data-bs-dismiss="modal" type="button" class="cookies-choice btn btn-validate sharp mb-4">Ok pour moi</button>
-                    </div>
+                    {# accept all cookies button #}
 
                     <div class="d-flex justify-content-center">
-                        {# Currently cookies are rejected by default within this mode (cause : MVP) #}
+                        <button data-cookies-choice="accept" data-track-click='{"key":"cookies-overall-choice", "attributes": {"type": "accept"} }'  data-bs-dismiss="modal" type="button" class="cookies-choice btn btn-validate sharp mb-4">Ok pour moi</button>
+                    </div>
+
+                    {# manually select some cookies button #}
+
+                    <div class="d-flex justify-content-center">
                         <button data-track-click='{"key": "cookies-overall-choice", "attributes": {"type": "select"} }' data-cookies-choice="choose" type="button" class="cookies-choice btn btn-warning sharp mb-4">Je sélectionne</button>
                     </div>
+
+                    {# refuse all cookies button  #}
 
                     <div class="d-flex justify-content-center">
                         <button data-track-click='{"key":"cookies-overall-choice", "attributes":{"type": "dismiss"} }' data-cookies-choice="reject" data-bs-dismiss="modal" type="button" class="cookies-choice btn btn-danger sharp">Refuser</button>
@@ -40,59 +57,72 @@
 
             </div>
 
+        </div>
+
+        {# Manually select cookies container #}
+
+        <div id="cookies-selection-container" class="">
+
+            {# Functionnal cookies are always selected #}
+
+            <div class="cookies-family-box row">
+
+                <div class="fw-bold">
+
+                    Cookies de fonctionnement ✅
+
+                </div>
+                
+            </div>
+
+            {# Statistical cookies (like Google Analytics) #}
+        
+            <div class="cookies-family-box row">
+
+                {# Explaining texts #}
+
+                <div class="fw-bold">
+
+                    Cookies de statistiques
+
+                </div>
+
+                <div class="mb-2">
+
+                    <div class="w-75">Ils nous aident à comprendre comment vous utilisez le site pour l'améliorer.</div>
+
+                    <div class="">
+                        Fournisseurs : Hotjar; Mixpanel.
+                    </div>
+
+                </div>
+
+                {# Switch button for analytical cookies (accept or refuse states) #}
+
+                <div>
+
+                    <span class="">😢 Refuser</span>
+            
+                    <input id="stat-cookies-activation-switch" type="checkbox" class="toggle-switch"/><label class="toggle-switch-label" for="stat-cookies-activation-switch">Activer les cookies statistiques</label>
+                
+                    <span class="ps-2">Accepter (merci 👍)</span>
+
+                </div>
+
+
+            </div>
+
+            {# Quit manual cookies selection button #}
+
+            <div class="d-flex mt-4">
+
+                <button id="cookies-user-selection-save" data-bs-dismiss="modal" type="button" class="btn btn-validate sharp">Quitter</button>
+
+            </div>
 
         </div>
 
-            <div id="cookies-selection-container" class="">
-    
-                <div class="cookies-family-box row">
-
-                    <div class="fw-bold">
-
-                        Cookies de fonctionnement ✅
-
-                    </div>
-                    
-                </div>
-            
-                <div class="cookies-family-box row">
-
-                    <div class="fw-bold">
-
-                        Cookies de statistiques
-
-                    </div>
-
-                    <div class="mb-2">
-
-                        <div class="w-75">Ils nous aident à comprendre comment vous utilisez le site pour l'améliorer.</div>
-
-                        <div class="">
-                            Fournisseurs : Hotjar; Mixpanel.
-                        </div>
-
-                    </div>
-
-                    <div>
-    
-                        <span class="">😢 Refuser</span>
-                
-                        <input id="stat-cookies-activation-switch" type="checkbox" class="toggle-switch"/><label class="toggle-switch-label" for="stat-cookies-activation-switch">Activer les cookies statistiques</label>
-                    
-                        <span class="ps-2">Accepter (merci 👍)</span>
-
-                    </div>
-    
-
-                </div>
-
-                <div class="d-flex mt-4">
-
-                    <button id="cookies-user-selection-save" data-bs-dismiss="modal" type="button" class="btn btn-validate sharp">Quitter</button>
-
-                </div>
-
-            </div>
+        {# Styles for cookies selection container #}
 
         <style>
 
@@ -132,51 +162,57 @@
 
 {% endembed %}
 
+
+{# Handling frontend cookies modal box logic #}
+
 <script>
 
     var gdprSelectionModal = new bootstrap.Modal(document.getElementById("gdpr-selection"), {
-    });
+    }); //getting the cookies modal box object
 
-    if(showCookiesInvite){ // is defined in tracking.js
+    if(showCookiesInvite){ // is defined in tracking.js, this variable tells if user has done cookies selection previously, we display modal box only if showCookiesInvite is true.
     
         gdprSelectionModal.show();
 
     }
 
-    $("#cookies-selection-container").hide();
+    $("#cookies-selection-container").hide(); // By default user doesn't manually choose cookies he/she allows
 
     $(document).ready(function(){
 
-        $("[data-cookies-choice]").on("click", function(event){ 
+        $("[data-cookies-choice]").on("click", function(event){ // when user clicks on a button related to cookies selection (accept all or manually choose or reject all)
 
-            var userChoice = $(this).attr("data-cookies-choice");
+            var userChoice = $(this).attr("data-cookies-choice"); //getting user cookies overall preference
 
-            if(userChoice=="accept"){
+            if(userChoice=="accept"){ // if user accept cookies, we set cookies preference as "accept" in user's device local storage
 
                 localStorage.setItem('cookiesPreferences', "accept"); // is used in tracking.js
 
             }
 
-            else if (userChoice=="reject") {
+            else if (userChoice=="reject") { //same method
 
                 localStorage.setItem('cookiesPreferences', "reject");
 
             }
 
-            else if (userChoice=="choose") {
+            else if (userChoice=="choose") { //case user wants to manually select cookies
 
-                $("#cookies-consent-container").hide();
-                $("#cookies-selection-container").show();
+                $("#cookies-consent-container").hide(); // we hide the overall choices
+                $("#cookies-selection-container").show(); // we display the manually selecte cookies panel
 
             }
             
         });
 
+        // js for manually select cookies panel
+        // For now user can only manually accept or reject analytical cookies (for now it is equivalent to accept all or reject all cookies)
+
         $('.cookies-family-box input[type=checkbox].toggle-switch').change(function(event){
 
-            var switchState = this.checked ? true : false;
+            var switchState = this.checked ? true : false; // getting switch button state
 
-            if(switchState == true){
+            if(switchState == true){ //for now accepting analytical cookies means accepting all cookies
 
                 localStorage.setItem('cookiesPreferences', "accept");
 
@@ -184,7 +220,7 @@
 
             else{
 
-                localStorage.setItem('cookiesPreferences', "reject");
+                localStorage.setItem('cookiesPreferences', "reject"); //for now refusing analytical cookies means refusing all cookies
 
             }
 

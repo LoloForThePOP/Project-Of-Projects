@@ -271,18 +271,18 @@ $(document).ready(function(){
 
           //preparing card's text content
 
-            var textContent;
+          var textContent;
 
-            //presentation goal
-            textContent = '<div class="hit-goal">'+data._highlightResult.goal.value+'</div>';
+          //presentation goal
+          textContent = '<div class="hit-goal">'+data._highlightResult.goal.value+'</div>';
 
-            var titleContent = '';
-            if (data.title){titleContent = data._highlightResult.title.value;}
-            textContent += '<div class="hit-title">'+titleContent+'</div>';
+          var titleContent = '';
+          if (data.title){titleContent = data._highlightResult.title.value;}
+          textContent += '<div class="hit-title">'+titleContent+'</div>';
 
-            var keywordsContent = '';
-            if (data.keywords){keywordsContent = data._highlightResult.keywords.value;}
-            textContent += '<div class="hit-keywords">'+formatKeywords(keywordsContent)+'</div>';
+          var keywordsContent = '';
+          if (data.keywords){keywordsContent = data._highlightResult.keywords.value;}
+          textContent += '<div class="hit-keywords">'+formatKeywords(keywordsContent)+'</div>';
 
           //card's text container + feeding it with text content + end of link wrapper
           output += '<div class="hit-txt-ctn"><div class="hit-flex-ctn">'+textContent+'</div></div></a>'; 
@@ -311,7 +311,7 @@ $(document).ready(function(){
 
   ]);
 
-  // Sometimes it's usefull to drag and drop some search results (ex: an admin search for some presentations to highlight, he can pick up some and drag and drop them from search results (see select_presentations\manage.html.twig for the html template))
+  // Sometimes it's usefull to drag and drop some search results (ex: an admin searches for some presentations to highlight, he can pick up some presentation thumbnails and drag and drop them from search results (see select_presentations\manage.html.twig for the html template))
 
   //NOTE: we can drag and drop items from search results to add new items (this capability is handled here and the ajax call to store resulting picked elements content / positions evolution is handled here too). We can also sort the already picked elements with drag and drop or delete some of them (this capability and the ajax call for backend storage is handled select_presentations\manage.html.twig)
 

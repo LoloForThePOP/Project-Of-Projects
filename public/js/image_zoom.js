@@ -1,4 +1,7 @@
-	// thanks at https://www.w3schools.com/howto/howto_js_image_zoom.asp
+	
+  // Allows to zoom on a image when user place the mouse pointer over this image
+  
+  // Thanks to https://www.w3schools.com/howto/howto_js_image_zoom.asp
   function imageZoom(imgParentWrapperId, resultID) {
 
     var img, lens, result, cx, cy, timeout, imgWrapper,

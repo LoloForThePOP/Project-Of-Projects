@@ -60,16 +60,19 @@ Mixpanel is a third party service that easyly allows to track users behaviour on
 
 Tutorial : when we want to track a click or a view, we simply add data-track-click or data-track-view to appropriate html tags, along with some details (see example just bellow).
 
-Example: setup track a reject cookies click on a cookie button
+Example: setup track when user clicks on reject cookies:
 
     <button data-track-click='{"key": "cookies-user-decision", "attributes": {"value": "reject"} }'>reject</button>
 
-    Such a button will be tracked thanks to code bellow
+We also track when some elements are viewed by user (same as example above except we use tag attribute data-track-view).
 
 */
 
+//Mixpanel tracking code API - initialisation
+
 $(document).ready(function(){
 
+    //Tracking of some clicks (initialisation & sending data to mixpanel)
     $("[data-track-click]").on("click", function(event){  //
 
         track = $(this).data("track-click");
@@ -78,6 +81,7 @@ $(document).ready(function(){
 
     });
 
+    //Tracking of some views (initialisation & sending data to mixpanel)
     $("[data-track-view]").each(function( index ) {
 
         track = $(this).data("track-view");
@@ -99,10 +103,10 @@ mixpanel.init('04e019910114a2706779d88fba4c1044', {'debug':'true'});
 
 
 
-//counting page viewed by user
+//counting pages viewed by user
 
-var pageViews = localStorage.getItem('pageViews');
+var pageViews = localStorage.getItem('pageViews'); //getting cureent page views value
 
-pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 1);
+pageViews ? localStorage.setItem('pageViews', parseInt(pageViews)+1) : localStorage.setItem('pageViews', 1);//if page views is not defined we set it to 1.
 
 pageViews = localStorage.getItem('pageViews'); // refreshing value

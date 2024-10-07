@@ -3,53 +3,70 @@
 namespace App\Controller;
 
 use OpenAI;
+
 use App\Form\AIPPAdviceType;
-use App\Entity\CollectedData;
+
 use App\Service\ImageService;
 use App\Service\AILogoService;
 use App\Service\MailerService;
 use App\Service\CreatePPService;
-use Symfony\Component\Mime\Email;
 use App\Service\DataCollectService;
 use App\Service\AI\AICreatePPService;
-use Symfony\Component\HttpFoundation\Request;
+
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
+
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+/**
+ * Ai is used to help user present its project
+ */
 class AIPresentationHelperController extends AbstractController
 {
 
-    
     /**
+     * 
+     * Allow to give user a list of 10 project presentation advices (user connected or not).
+     * Using two controller methods:
+     *  - Here (ai_presentation_helper_origin) we provide user a form and ai treat submitted data.
+     *  - AI response display is done using another route bellow (ai_presentation_helper_assistant)
+     * 
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet", name="ai_presentation_helper_origin")
      */
     public function origin(DataCollectService $dataCollect, MailerInterface $mailer, Request $request): Response
     {
-        
+        //This form asks user some basic questions (see it)
         $form = $this->createForm(AIPPAdviceType::class);
 
         $form->handleRequest($request);
 
+        //If form is submitted & valid
+
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $target = $form->get('ppTarget')->getData();
-            $format = $form->get('ppFormat')->getData();
+            $target = $form->get('ppTarget')->getData(); //getting project presentation targeted audience
+            $format = $form->get('ppFormat')->getData(); //getting project presentation format
 
+            /* Saving user's provided data to DB (see DataCollectService) */
 
-            //save data to db
+            //Data collection
             $dataCollectArray = [
                 "presentationTarget" => $target,
                 "presentationFormat" => $format,
             ];
 
+            //Data storage
             $dataCollect->save("ai_presentation_helper", [$dataCollectArray]);
 
-            //email admin
+            /* Email an admin that someone used the product (october 2024 it's still so rare!) */
             $sender = $this->getParameter('app.general_contact_email');
             $receiver = $this->getParameter('app.general_contact_email');
 
@@ -61,7 +78,12 @@ class AIPresentationHelperController extends AbstractController
 
             $mailer->send($email);
 
+            /* AI usage */
+
+            //Open AI client
             $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
+
+            //Prompt "create a list of ten advices with user provided data"
 
             $messages =  [
 
@@ -70,34 +92,32 @@ class AIPresentationHelperController extends AbstractController
                 ['role' => 'user', 'content' => "Peux-tu me donner des conseils, je présente mon projet au type de personne suivant : ".$target.", le support utilisé pour ma présentation (et non pas mon projet) c'est : ".$format."."],
 
             ];
-    
+            
+            //Getting AI response and selecting usefull content
             $response = $ia->chat()->create([
                 'model' => 'gpt-3.5-turbo-0125',
                 'messages' => $messages,
             ]);
-            
             
             $response->toArray();
 
             $responseContent = $response['choices'][0]['message']['content'];
 
 
-            //save data
+            /* Saving AI provided data to DB for product improvement */
             $dataCollectArray["ai_answer"] = $responseContent;
             $dataCollect->save("ai_presentation_helper", [$dataCollectArray]);
 
-
-
-    
+            /* Saving AI response in a session because we display it with another route */
             $this->get('session')->set('generalAdvice', $responseContent);
 
-            return $this->redirectToRoute('ai_presentation_helper_assistant', [
+            return $this->redirectToRoute('ai_presentation_helper_assistant', [//The route whereby we display AI response to user
                 
             ]);
 
         }
 
-        return $this->render('ai_presentation_helper/presentation_advice/origin.html.twig', [
+        return $this->render('ai_presentation_helper/presentation_advice/origin.html.twig', [//the route whereby the initial form is displayed to user
             'form' => $form->createView(),
         ]);
 

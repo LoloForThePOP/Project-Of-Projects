@@ -6,6 +6,9 @@ use App\Repository\CollectedDataRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
+ * 
+ * 
+ * 
  * @ORM\Entity(repositoryClass=CollectedDataRepository::class)
  */
 class CollectedData

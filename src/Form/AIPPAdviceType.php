@@ -7,11 +7,25 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
+
+
+/**
+ * Form to ask user for its:
+ * 
+ *  - project presentation targeted audience (ex: investors; general public; etc) 
+ *  - project presentation format (ex: powerpoint presentation; youtube presentation)
+ * 
+ * So that we give her/him project presentation advices.
+ *
+ */
+
 class AIPPAdviceType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+
+            //project presentation targeted audience
 
             ->add(
                 'ppTarget', 
@@ -26,6 +40,9 @@ class AIPPAdviceType extends AbstractType
                     ],
                 ]
             )
+
+            //Project presentation format
+
             ->add(
                 'ppFormat', 
                 TextType::class,

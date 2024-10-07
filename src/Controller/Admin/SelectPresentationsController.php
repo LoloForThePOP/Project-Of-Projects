@@ -119,7 +119,7 @@ class SelectPresentationsController extends AbstractController
 
 
     /** 
-     * Allow to display a selected project list in html format. This route can be directly called from an twig template to directly get and display the list of projects we want from a twig template.
+     * Allow to display a previously selected project list in html format. This route can be directly called from a twig template to directly get and display the list of projects we want from a twig template.
      * 
      * picktype: (string) the name of list you want to render
      * label: (string) a title you want to give to the project list (this title will appear in frontend above the list)

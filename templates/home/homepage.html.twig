@@ -82,44 +82,38 @@
 
     {% endif %}
 
-    {# Some project cards : "They trust us" (social approuval) #}
+    {# "They trust us" section (social approuval): some project cards #}
 
-    <div>
-
-      {{ render(path('get_picked_elements', {pickType: "editor_selection", label: 'Ils nous font confiance', iconName: 'heart'} )) }}
-
-    </div>
+    <div>{{ render(path('get_picked_elements', {pickType: "editor_selection", label: 'Ils nous font confiance', iconName: 'heart'} )) }}</div>
 
     {# "Cool Project of the Day" #}
 
-    <div>
-
-      {{render(path('get_picked_elements', {pickType: "project_of_the_day"} )) }}
-
-    </div>
+    <div>{{render(path('get_picked_elements', {pickType: "project_of_the_day"} )) }}</div>
 
     {# Explore Propon - Display some projects by categories (tabs navigation) #}
 
-    <div>
-    
-      {% include "home/_projects_by_categories_tabs.html.twig" %}
-      
-    </div>
+    <div>{% include "home/_projects_by_categories_tabs.html.twig" %}</div>
 
 
     {# Rational Argument Slider: a slider of text and images to convice user to use Propon #}
 
     <div class="pb-3 pb-lg-4 mb-4 mb-lg-5">{% include "home/_arguments_slider.html.twig" %}</div>
 
-{# Propon code comment and cleanup stopped here #}
 
-  {# create a presentation form #}
+
+
+    {# create a presentation form (what is your goal?) #}
   
     <div class="projects-change-the-world try-website-cta container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5">
     
+      {# Form title & call to action text #}
       <h3 class="d-flex align-items-center justify-content-center"><img class="verified-icon me-2" src="{{ asset('verified.svg', 'misc')}}" alt="verified icon" width="40" height="40"> Tester Propon <b class="ms-2"> MAINTENANT</b></h3>
+
       <p><span class="">Sans inscription</span></p>
+
       <p>Quel est l'objectif de votre projet ?</p>
+
+      {# Styles for text cta #}
 
       <style>
 
@@ -139,45 +133,42 @@
             left: 0;
             border-radius: 2px;
         }
+      
+        @media (max-width: 580px) {
 
+          .verified-icon{
 
-        
-          @media (max-width: 580px) {
-
-            .verified-icon{
-
-              width: 22px;
-
-
-            }
-
+            width: 22px;
 
           }
 
+        }
+
       </style>
 
-
-      {% set createPresentationForm4 = setGoalForm %}
+      {% set createPresentationForm4 = setGoalForm %} {# Form 4 because this one was part of some duplications #}
     
       {{form_start(createPresentationForm4)}}
 
       <div class="d-flex align-items-center d-md-block mb-4">
 
-          <div class="d-none">{{form_label(createPresentationForm4.goal)}}</div>
-                            
-          {{ form_errors(createPresentationForm4.goal) }}
-              
-           {{form_widget(createPresentationForm4.goal)}}
+        <div class="d-none">{{form_label(createPresentationForm4.goal)}}</div>
+                          
+        {{ form_errors(createPresentationForm4.goal) }}
+            
+        {{form_widget(createPresentationForm4.goal)}}
 
-            <button id="" type="submit" class="create-presentation-button btn btn-validate border rounded btn-lg p-2 px-md-3 fw-normal">Ok</button>
+        {# Submit button #}
+
+        <button id="" type="submit" class="create-presentation-button btn btn-validate border rounded btn-lg p-2 px-md-3 fw-normal">Ok</button>
+
       </div>
 
-          {{ form_end(createPresentationForm4) }}
+      {{ form_end(createPresentationForm4) }}
 
-
-    
     </div>
 
+    {# Styles for form container & actual input #}
     
     <style>
       
@@ -189,7 +180,9 @@
           font-weight: bold;
           border: 1px solid green;
           border-radius: 8px;
-      } 
+      }
+
+      {# Styles for input (see Symfony form definition in backend) #}
   
       #create_presentation_goal {
         display: inline;
@@ -205,40 +198,14 @@
             font-size: 15px;
             margin-top: 24px;
             border: 1px solid #d5ecd5;
-        } 
-
-        
-        #create_presentation_goal {
-          
         }
 
-          
       }
     
     </style>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {# How it works + FAQ 
-    
-    {% include "home/_hiw_faq.html.twig" %}
-
-    #}
-
-
- 
+    {# Propon code comment and cleanup stopped here #}
 
 
     {# Propon Articles #}

@@ -14,6 +14,9 @@ class CreatePresentationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
+
+            //Text input for project goal (required)
+
             ->add(
 
                 'goal',
@@ -31,18 +34,7 @@ class CreatePresentationType extends AbstractType
                     'required'   => true,
                 ]
             )
-            ->add(
-                
-                'acceptGuidance', 
 
-                HiddenType::class,
-                
-                [
-
-                    'empty_data' => 'yes',
-                    'required'   => false,
-                    "mapped" => false,
-                ])
             ;
 
     }

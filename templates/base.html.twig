@@ -51,17 +51,17 @@
 
         {# CSS #}
 
-        <link href="/css/bootstrap.css" rel="stylesheet">
-        <link href="/css/app.css" rel="stylesheet"> {# General stylesheet #}
+        <link href="/css/bootstrap.css" rel="stylesheet"> {# Bootstrap is currently used #}
+        <link href="/css/app.css" rel="stylesheet"> {# General stylesheet for Propon #}
 
         {% block stylesheets %}{% endblock %}
 
         {% block priorJavascipts %}{% endblock %}
 
         
-        <script src="/js/bootstrap.js"></script>
+        <script src="/js/bootstrap.js"></script>{# Some Bootstrap components use a specific Bootstrap javascript #}
 
-        <script src="/js/jquery-3.6.0.js"></script>
+        <script src="/js/jquery-3.6.0.js"></script>{# I know it's outdated... but it's easy to use #}
 
 
         {% if app.environment != 'dev' %}
@@ -72,7 +72,7 @@
 
             <script async src="https://www.googletagmanager.com/gtag/js?id=UA-245896945-1"></script>
 
-            <script>
+            <script>{# Init Google tag #}
 
                     window.dataLayer = window.dataLayer || [];
                     function gtag(){dataLayer.push(arguments);}
@@ -118,7 +118,7 @@
                 checkTinyScreen();
 
             });
-            //end of check if tiny screen snippets
+            //end of check if tiny screen
 
         </script>
         
@@ -137,6 +137,8 @@
     </head>
 
     <body>
+
+        {# GDPR Frontend (modal box cookies user selection) #}
 
         {% include "_partials/GDPR.html.twig" %}
 
@@ -166,6 +168,8 @@
 
                     <div id="flash-messages" class="">
 
+                        {# If some flash messages are provided by backend, we display them successively #}
+
                         {% for label, messages in app.flashes %}
                         
                             <div class="flash-message alert alert-{{label}}">
@@ -182,6 +186,8 @@
 
                     </div>
                     <!-- End of Flash Messages Display -->
+
+                    {# Main body container #}
 
                     <div id="main-body-container">
                         
@@ -205,7 +211,7 @@
         {% endblock %}
 
 
-        {# A footer layer covering the bottom of user's screen (used to accelerate some user experiences, think of Youtube comments on mobiles) #}
+        {# A footer layer covering the bottom of user's screen (user interface, think of Youtube comments section appearing above other layers on mobiles) #}
         <div id="covering-footer">
 
             <div class="close-button">&times;</div>
@@ -225,7 +231,7 @@
             });
 
         </script>
-        {# End of screen covering footer snippet #}
+        {# End of covering footer snippet #}
 
         {% block bottomjavascripts %}{% endblock %}
 

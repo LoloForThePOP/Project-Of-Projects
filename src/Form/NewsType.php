@@ -17,6 +17,8 @@ class NewsType extends AbstractType
     {
         $builder
 
+            //News text content textarea
+
             ->add('textContent', TextareaType::class, 
                 [
                     'label' => 'Texte de la News',
@@ -30,6 +32,8 @@ class NewsType extends AbstractType
 
                 ]
             )
+
+            //News potential image 1
 
             ->add('image1File', VichImageType::class, 
 
@@ -48,6 +52,8 @@ class NewsType extends AbstractType
 
             )
 
+            //News potential caption for image 1
+
             ->add('captionImage1', TextType::class, 
                 [
                     'label' => 'Légende Image 1',
@@ -60,6 +66,8 @@ class NewsType extends AbstractType
                     'required'   => false,
                 ]
             )
+
+            //News potential image 2
 
             ->add('image2File', VichImageType::class, 
 
@@ -78,6 +86,8 @@ class NewsType extends AbstractType
 
             )
 
+            //News potential caption for image 2
+
             ->add('captionImage2', TextType::class, 
                 [
                     'label' => 'Légende Image 2',
@@ -90,6 +100,8 @@ class NewsType extends AbstractType
                     'required'   => false,
                 ]
             )
+
+            //News potential image 3
 
             ->add('image3File', VichImageType::class, 
 
@@ -108,6 +120,8 @@ class NewsType extends AbstractType
 
             )
 
+            //News potential caption for image 3
+
             ->add('captionImage3', TextType::class, 
                 [
                     'label' => 'Légende Image 3',
@@ -120,6 +134,9 @@ class NewsType extends AbstractType
                     'required'   => false,
                 ]
             )
+
+            //Which presentation is concerned by this news?
+            //We store this presentation id in an hidden field
 
             ->add(
                 

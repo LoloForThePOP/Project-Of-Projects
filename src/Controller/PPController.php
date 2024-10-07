@@ -103,9 +103,6 @@ class PPController extends AbstractController
             $manager->persist($presentation);
             $manager->flush();
 
-            $askForGuidance = $form->get('acceptGuidance')->getData();
-
-
             // Email Webmaster that a new presentation has been created (moderation)
 
             $sender = $this->getParameter('app.general_contact_email');

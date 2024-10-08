@@ -111,7 +111,7 @@
     
     </div>
 
-    {# if visitor is not connected, we cover the form with a coverable link #}
+    {# if visitor is not logged in, we cover the form with a coverable link #}
 
     {% if not is_granted('ROLE_USER') %} 
 

@@ -7,7 +7,6 @@ use OpenAI;
 use App\Form\AIPPAdviceType;
 
 use App\Service\ImageService;
-use App\Service\AILogoService;
 use App\Service\MailerService;
 use App\Service\CreatePPService;
 use App\Service\DataCollectService;
@@ -34,7 +33,7 @@ class AIPresentationHelperController extends AbstractController
 
     /**
      * 
-     * Allow to give user a list of 10 project presentation advices (user connected or not).
+     * Allow to give user a list of 10 project presentation advices (logged in user or not).
      * Using two controller methods:
      *  - Here (ai_presentation_helper_origin) we provide user a form and ai treat submitted data.
      *  - AI response display is done using another route bellow (ai_presentation_helper_assistant)
@@ -125,7 +124,7 @@ class AIPresentationHelperController extends AbstractController
     
     
     /**
-     * This method get the AI answer (advice to present a project) in session and display it in a twig template.
+     * This method get the AI advice to present a project in session and display them in a twig template.
      * 
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet-reponse/", name="ai_presentation_helper_assistant")
      */
@@ -140,18 +139,6 @@ class AIPresentationHelperController extends AbstractController
 
     }
     
-    
-    /**
-     * @Route("/ia-assistant-gratuit-de-presentation-de-projet-creation-logo/", name="ai_presentation_helper_assistant_logo")
-     */
-    public function logo(): Response
-    {
-
-        return $this->render('ai_presentation_helper/logo_creation/origin.html.twig', [
-            
-        ]);
-
-    }
 
 
     /**
@@ -175,52 +162,6 @@ class AIPresentationHelperController extends AbstractController
    
     }
 
-    /**
-     * @Route("/ajax-ia-assistant-gratuit-de-creation-de-logo", name="ajax_ia_logo_creation_helper")
-     */
-    public function ajaxCreateLogo(Request $request, ImageService $imageService, AILogoService $aiLogoService) {
-       
-        if ($request->isXmlHttpRequest()) {
-
-            session_write_close();
-
-            $dataArray = $request->request->get('data');
-            $prompt = $aiLogoService->createPrompt($dataArray);
-
-            $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
-        
-            $response = $ia->images()->create([
-                'model' => 'dall-e-3',
-                'prompt' => $prompt,
-                'size' => "1024x1024",
-                'n' => 1,
-                'response_format' => 'url',
-            ]);
-        
-            $response->created; // 1589478378
-            
-            foreach ($response->data as $data) {
-                $data->url;
-                $data->b64_json; // null
-            }
-            
-            $response->toArray(); 
-
-            $imageUrl = $response["data"][0]["url"];
-
-
-            $generatedImagePath = $imageService->saveImageFromUrlToPath($imageUrl, 'public/ia-generated-logos');
-            $imagesPathsArray = $imageService->splitImage($generatedImagePath);
-    
-            // Vous pouvez renvoyer la réponse sous forme de JSON
-            return new JsonResponse([
-                'prompt' => $prompt,
-                'imagesPathsArray' => $imagesPathsArray,
-            ]);
-          
-        }
-
-    }
 
 
      /**

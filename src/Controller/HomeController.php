@@ -58,7 +58,7 @@ class HomeController extends AbstractController
 
         }
 
-        //If user is connected 
+        //If user is logged in 
 
         if ($this->isGranted('ROLE_USER')) {
 
@@ -127,7 +127,7 @@ class HomeController extends AbstractController
 
         $articles = array_reverse($artRepo->findAll());
 
-        //returning a view for connected users (we add the create a news form)
+        //returning a view for logged in users (we add the create a news form)
 
         if ($this->isGranted('ROLE_USER')) { 
 
@@ -140,7 +140,7 @@ class HomeController extends AbstractController
 
         }
 
-        //returning a view for not connected users
+        //returning a view for not logged in users
 
         return $this->render("/home/homepage.html.twig", [
             'lastInsertedPresentations' => $lastInsertedPresentations,

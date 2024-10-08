@@ -27,7 +27,7 @@ class CommentController extends AbstractController
      */
     public function ajaxCreateComment(Request $request, EntityManagerInterface $manager, CommentService $commentsService, NotificationService $notificationService): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_USER'); //only connected users can comment
+        $this->denyAccessUnlessGranted('ROLE_USER'); //only logged in users can comment
 
         if ($request->isXmlHttpRequest()) {
 

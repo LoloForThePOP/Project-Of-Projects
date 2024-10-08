@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+    {# Setting some metadata for SEO and Open Graph #}
 
     {% set titleMetadata = 'Comment présenter son projet ? Votre assistant gratuit.' %}
     {% set metadataDescription = "Indiquez à qui vous présentez votre projet, indiquez comment (pdf, powerpoint, etc) et obtenez en quelques secondes des conseils personnalisées pour présenter votre projet, générées par une IA puissante ! Service gratuit sans inscription." %}
@@ -8,22 +9,26 @@
 
 {% block headTag %}
 
+    {# Meta Tags #}
     <meta name="description" content="{{metadataDescription}}">
     <meta name="author" content="Laurent G.">
     <meta name="keywords" content="Assistant, IA, Conseils, Présentation, Projet">
     <meta name="date" content="2023-27-11">
 
-    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Call from base.html.twig #}
+    {# Open Graph declaration #}
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Called from base.html.twig #}
     
 {% endblock %}
 
 
 {% block title %}Coach Présentation de Projet{% endblock %}
 
+
 {% block body %}
 
-
 <div id="" class="page-container">
+
+    {# UI page title container #}
 
     <div class="d-flex justify-content-center align-items-center">
     
@@ -31,16 +36,24 @@
 
     </div>
 
+    {# Main page container #}
 
     <div class="init">
 
         <div class="forms-container container col-md-10 col-lg-10 col-xl-7 px-0 px-md-2 mt-2 mt-md-4">
 
                 {{ form_start(form) }}
+
+                {# Two panels: form part 1 & form part 2 #}
+                {# large screens only: panel 2 display when user clicks on next icon #}
+
+                {# Form part 1: first question we ask to user #}
             
                 <div id="form-part1" class="form-part part1">
 
                     <div class="h-100">
+
+                        {# First question title and precisions #}
                     
                         <div class="question-progress">Question 1 / 2</div>
 
@@ -48,11 +61,15 @@
                                 
                         <div class="cols-container">
 
+                            {# Illustration image container #}
+
                             <div class="illustration-container col-2 me-3">
                             
                                 <img class="question-illustration img-fluid" width="140" src="{{asset ('project_presentation_advice/audience.png', 'larger')}}" loading="lazy">
 
                             </div>
+
+                            {# Examples illustrating first question #}
 
                             <div class="d-flex justify-content-center align-items-center">
                             
@@ -69,14 +86,20 @@
                         </div>
 
                         <div class="tiny-form-container d-flex justify-content-center align-items-center">
+
+                            {# Form input for first question #}
                     
                             {{ form_widget(form.ppTarget, {'attr': {'class': 'target-input'}}) }}
+
+                            {# Next question button with svg icon #}
 
                             <span class="d-none d-md-inline btn btn-validate btn-next arrow-icon px-1 px-md-3">Suivant <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
                             </svg></span>
 
                             <style>
+
+                                {# Styles for inputs #}
                             
                                 .target-input{
                                     display: inline;
@@ -85,26 +108,27 @@
                             
                             </style>
 
-                            
-
                         </div>
-
                     
                     </div>
 
                 </div>
 
-                <div id="form-part2" class="form-part part2 hidden">
+                {# Form part 2: second question we ask to user #}
 
+                <div id="form-part2" class="form-part part2 hidden">
                     
                     <div class="d-flex flex-column justify-content-evenly h-100">
+
+                        {# Second question title and precisions #}
                     
                         <div class="question-progress">Question 2 / 2</div>
 
                         <h2 class="question-title"><span class="border border-2 border-success rounded px-2 pb-1 me-0 me-md-1">Comment</span> je présente mon projet ?</h2>
-
                                     
                         <div class="cols-container px-md-5">
+
+                            {# Illustration image container #}
 
                             <div class="illustration-container col-2">
                             
@@ -112,16 +136,15 @@
 
                             </div>
 
+                            {# Examples illustrating second question container #}
+
                             <div class="d-flex justify-content-center align-items-center ps-2 ps-md-0">
                             
                                 <div class="">
 
-                                    <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; avec un diaporama (powerpoint); PDF; vidéo; site web; radio; etc.</div>
+                                    <div class="examples"><span class="fw-bold">Exemples : </span>à l'oral; sur un document écrit; en powerpoint; PDF; vidéo; site web; radio; etc.</div>
                                 
                                 </div>
-
-                                {# avec un fichier PDF; avec des visuels; présentation powerpoint; sur un tableau blanc; visioconférence; , forum de discussion; ; réseau social; plateforme de crowdfunding, télévision #}
-
 
                             </div>
 
@@ -129,14 +152,20 @@
 
                         <div class="tiny-form-container d-flex justify-content-center align-items-center px-md-5">
 
+                            {# Previous question button with svg icon #}
+
                             <span class="d-none d-md-inline btn btn-validate return-arrow-icon px-1">
                         
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z"/> <span class="d-none d-md-inline ps-2">Retour</span>
                             
                             </span>
+
+                            {# Form input for second question #}
                     
                             {{ form_widget(form.ppFormat, {'attr': {'class': 'target-input'}}) }}
+
+                            {# Display result access button (large screens) #}
 
                             <button type="submit" class="js-form-submit d-none d-md-flex justify-content-center btn btn-validate px-1">Afficher le résultat</button>
 
@@ -146,6 +175,8 @@
 
                 </div>
 
+                {# Display result access button (tiny screens) #}
+
                 <div class="d-flex justify-content-center"><button type="submit" class="js-form-submit d-flex d-md-none justify-content-center btn btn-validate px-1">Afficher le résultat</button></div>
 
                 {{ form_end(form) }}
@@ -154,6 +185,7 @@
 
     </div>
 
+    {# Other info container (GDPR info) #}
 
     <div class="cta container col-md-6 border p-2 mt-4">
     
@@ -161,7 +193,9 @@
     
         <div class="gdpr">
 
-            <div class="text-center">La protection de vos données personnelles est une priorité, <span class="learn-more">afficher plus</span>.</div> 
+            <div class="text-center">La protection de vos données personnelles est une priorité, {# Show more / less button #}<span class="learn-more">afficher plus</span>.</div>
+
+            {# Initialy hidden #}
 
             <div class="more-content border m-1 m-md-3 p-3">
 
@@ -192,7 +226,11 @@
 
             </style>
 
+
+            {# Hide / Display GDPR more info container #}
+
             <script>
+
             // Select HTML elements
             const learnMoreButton = document.querySelector('.learn-more');
             const moreContent = document.querySelector('.more-content');
@@ -214,26 +252,23 @@
 </div>
 
 
-
-{# Display Alerts #}
+{# Javascript to display good looking alert boxes (ex: "alert! Wait a few second for AI to do the job...") #}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
+{# Javascript to manage {show / hide} {form part 1 / form part 2} (large screens only) #}
 <script>
-
-
 
     // Listen for click on the arrow icon to switch from part 1 to part 2
     document.querySelector(".arrow-icon").addEventListener("click", function() {
-    document.querySelector(".part1").classList.add("hidden");
-    document.querySelector(".part2").classList.remove("hidden");
-    window.scrollTo(0, 0);
+        document.querySelector(".part1").classList.add("hidden");
+        document.querySelector(".part2").classList.remove("hidden");
+        window.scrollTo(0, 0);
     });
 
     // Listen for click on the return arrow icon to go back
     document.querySelector(".return-arrow-icon").addEventListener("click", function() {
-    document.querySelector(".part2").classList.add("hidden");
-    document.querySelector(".part1").classList.remove("hidden");
+        document.querySelector(".part2").classList.add("hidden");
+        document.querySelector(".part1").classList.remove("hidden");
     });
 
 </script>
@@ -241,7 +276,6 @@
  <script>
 
     $(document).ready(function(){
-
 
         //prevent user hitting Enter
 
@@ -252,7 +286,8 @@
             }
         });
 
-        //timer feedback for user patience
+        //Timer feedback (countdown) for user patience
+        //We set a div with a countdown and some text (used within an alert box bellow)
         var timerHTML = document.createElement("div");
         timerHTML.innerHTML = `<img class="img-fluid mb-2" width="90" src="{{asset ('project_presentation_advice/15s-countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 15 secondes pour patienter."><div class="">Créer une réponse <u>personnalisée</u> demande du temps, même avec une intelligence artificielle moderne. Veuillez patienter environ 15 secondes, votre réponse est en cours de création.</div>    
         
@@ -266,22 +301,13 @@
 
         </div>
         `;
-
         
-
-/*
-    <div class="row">
-    
-        <div class="col-6 d-flex align-items-center justify-content-center"><img class="img-fluid" width="80" src="{{asset ('project_presentation_advice/60s_countdown.gif', 'larger')}}" loading="lazy" alt="Un décompte de 60 secondes pour patienter."></div>
-        <div class="col-6 d-flex align-items-center justify-content-center"><img class="img-fluid" width="120" src="{{asset ('project_presentation_advice/wip.gif', 'larger')}}" loading="lazy" alt="Deux engrenages en mouvement qui symbolisent un travail en cours."></div>
-    
-    </div> */
-        
-
+        //When user hit submit button, we display a good looking alert to tell her be patient
         $('form[name="aipp_advice"] button[type="submit"]').on('click', function (e){
 
             e.preventDefault();
 
+            //Good looking alert box instantiation and launch
             swal({
                 title: "Création de votre réponse en cours. Veuillez patienter environ 15 secondes.",
                 content: timerHTML,
@@ -289,8 +315,9 @@
                 icon: "info",
             });
 
+            //Actually submiting form to backend
+
             $('form[name="aipp_advice"] ').submit();
-           
 
         });
 
@@ -301,176 +328,170 @@
 </script>
 
           
-
+{# Styles for form container & and its content #}
 
 <style>
 
-.forms-container {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-    padding: 10px 0;
-	border: 1px solid #c6c6c6;
-	border-radius: 4px;
-}
-
-
-.forms-container form{
-    width: 100%;
-}
-
-.cols-container{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-    padding: 10px;
-    margin-bottom: 1rem;    
-}
-
-
-/* Styles for the arrow icon */
-.arrow-icon, .return-arrow-icon {
-  cursor: pointer;
-}
-
-/* Styles for the form parts */
-.form-part {
-
-	margin: 8px auto 20px auto;
-}
-
-.hidden {
-  display: none;
-}
-
-.question-progress {
-	margin-bottom: 11px;
-	padding-left: 5px;
-	font-size: 1.25rem;
-	font-weight: bold;
-}
-
-.question-title{
-    font-weight: bold;
-    text-align: center;
-}
-
-
-button[type="submit"]{
-    width: 250px;
-}
-
-
-.tiny-form-container form{
-    width: 460px;
-}
-
-
-.form-part.part2 .question-illustration{
-    max-width: 75px;
-}
-
-.illustration-container{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn.return-arrow-icon{
-    display: flex;
-    align-items:center;
-    justify-content: center;
-    width: 160px;
-}
-
-@media screen and (max-width: 580px) {
-
-    .page-container {
-        padding-top: 34px;
-    }
-
     .forms-container {
-        height: auto;
-    }
-
-    .question-progress {
-        padding-left: 9px;
-        margin-top: -7px;
-        font-size: 0.9rem;
-    }
-
-
-    .question-title{
-	    font-size: 1.17em;
-    }
-
-
-
-    .examples {
-        margin: 0 -5px;
-        font-size: 14px;
-        line-height: 1.4;
-    }
-
-    .tiny-form-container {
-        margin: 0 5px;
-    }
-
-    .form-part.part2 .question-illustration {
-        max-width: 100%;
-    }
-
-    .form-part.part2 .examples {
-        padding-left: 6px;
-    }
-
-    .btn.return-arrow-icon{
-        display: inline-block;
-        width: unset;
-    }
-
-    .hidden {
-        display: block;
-    }
-
-        
-    .forms-container {
-
-        border: none;
-        
-    }
-
-    #form-part1, #form-part2 {
-
-        margin-left: -4px;
-        margin-right: -4px;
-        padding: 20px 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
         border: 1px solid #c6c6c6;
         border-radius: 4px;
     }
 
-    #form-part1 {
 
-        margin-bottom: 25px;
+    .forms-container form{
+        width: 100%;
     }
 
-    .cta{
-        font-size: 14px !important;
+    .cols-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px;
+        margin-bottom: 1rem;    
     }
-    
+
+
+    /* Styles for the arrow icon */
+    .arrow-icon, .return-arrow-icon {
+    cursor: pointer;
+    }
+
+    /* Styles for the form parts */
+    .form-part {
+
+        margin: 8px auto 20px auto;
+    }
+
+    .hidden {
+    display: none;
+    }
+
+    .question-progress {
+        margin-bottom: 11px;
+        padding-left: 5px;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .question-title{
+        font-weight: bold;
+        text-align: center;
+    }
+
+
+    button[type="submit"]{
+        width: 250px;
+    }
+
+
+    .tiny-form-container form{
+        width: 460px;
+    }
+
+
+    .form-part.part2 .question-illustration{
+        max-width: 75px;
+    }
+
+    .illustration-container{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btn.return-arrow-icon{
+        display: flex;
+        align-items:center;
+        justify-content: center;
+        width: 160px;
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .page-container {
+            padding-top: 34px;
+        }
+
+        .forms-container {
+            height: auto;
+        }
+
+        .question-progress {
+            padding-left: 9px;
+            margin-top: -7px;
+            font-size: 0.9rem;
+        }
+
+
+        .question-title{
+            font-size: 1.17em;
+        }
 
 
 
-}
+        .examples {
+            margin: 0 -5px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
 
+        .tiny-form-container {
+            margin: 0 5px;
+        }
+
+        .form-part.part2 .question-illustration {
+            max-width: 100%;
+        }
+
+        .form-part.part2 .examples {
+            padding-left: 6px;
+        }
+
+        .btn.return-arrow-icon{
+            display: inline-block;
+            width: unset;
+        }
+
+        .hidden {
+            display: block;
+        }
 
             
+        .forms-container {
+
+            border: none;
             
+        }
+
+        #form-part1, #form-part2 {
+
+            margin-left: -4px;
+            margin-right: -4px;
+            padding: 20px 0;
+            border: 1px solid #c6c6c6;
+            border-radius: 4px;
+        }
+
+        #form-part1 {
+
+            margin-bottom: 25px;
+        }
+
+        .cta{
+            font-size: 14px !important;
+        }
+        
+
+
+
+    }
+
 </style>
-
-
-</div>
 
 
 {% endblock %}

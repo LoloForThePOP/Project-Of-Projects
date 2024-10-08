@@ -1,10 +1,10 @@
 {# 
 
-A reusable feedback form
+A reusable feedback form & this macro handles the ajax request to submit the form (so without reloading the parent webpage) (feedback results ajax posted to "ajax_feedback_post" route).
 
-  arguments : 
+  Arguments : 
   
-    - context : a string describing the feedback situation (ex : after logo creation helper usage)
+    - context : a string describing the feedback situation (ex : feedback after "logo creation helper usage")
 
 #}
 
@@ -13,6 +13,7 @@ A reusable feedback form
 <div class="feedback-form-container container col-md-5 border px-3 px-md-3 py-3">
 
   <div class="h5 fw-bold text-center mb-1">Comment notez-vous cet outil ?</div>
+
   <div class="fw-bold text-center mb-3">Merci de prendre ce temps</div>
 
   <form id="feedback-form">
@@ -25,41 +26,51 @@ A reusable feedback form
 
         <div class='rating-stars'>
 
-        <div class="stars-label">Votre note globale :</div>
+          <div class="stars-label">Votre note globale :</div>
 
-        <ul id='stars' class="">
+          <ul id='stars' class="">
 
-            <!-- Star icon : Creative Commons Attribution 4.0 International license. https://fontawesome.com/license -->
+              <!-- star icon thanks to https://fontawesome.com/license - Creative Commons Attribution 4.0 International license. -->
 
-            {% for i in 1..5 %}
-            
-                <li class='star {% if loop.index <= 1 %}selected{% endif %}' data-value='{{loop.index}}'>
-                    <i class='fa'><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg></i>
+              {% for i in 1..5 %}
+              
+                  <li class='star {% if loop.index <= 1 %}selected{% endif %}' data-value='{{loop.index}}'>
 
-                </li>
-                
-            {% endfor %}
+                      <i class='fa'><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="star" class="svg-inline--fa fa-star fa-w-18" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.3 23.2 46 46.4 33.7L288 439.6l130.7 68.7c23.2 12.2 50.9-7.4 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6L382 150.2 316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z"></path></svg></i>
 
-        </ul>
+                  </li>
+                  
+              {% endfor %}
+
+          </ul>
 
         </div>
         
-    </section>
+      </section>
 
-    <div class="mb-3">
-      <label for="user-suggestions" class="form-label">Vos suggestions d'améliorations :</label>
-      <textarea class="form-control" id="user-suggestions" rows="3" placeholder="Ex: J'aurais aimé... Je n'ai pas aimé... Je vous conseille..."></textarea>
+
+      <!-- Textarea section for user comments -->
+      <section class="user-comments-widget">
+
+        <div class="mb-3">
+
+          <label for="user-suggestions" class="form-label">Vos suggestions d'améliorations :</label>
+
+          <textarea class="form-control" id="user-suggestions" rows="3" placeholder="Ex: J'aurais aimé... Je n'ai pas aimé... Je vous conseille..."></textarea>
+
+        </div>
+
+      </section>
+
+      {# Star ranking is stored in an Hidden Field (an integer between 0 and 5) #}
+      <input id="overall-rating" type="hidden" name="">
+
+      {# Feedback context is also stored in an Hidden Field #}
+      <input id="feedback-context" type="hidden" value="{{context}}">
+    
     </div>
 
-    {# Get stars ranking integer #}
-    <input id="overall-rating" type="hidden" name="">
-
-    {# Get feedback context #}
-    <input id="feedback-context" type="hidden" value="{{context}}">
-    
-    
-    
-    </div>
+    {# Submit form button container #}
 
     <div class="text-center">
 
@@ -70,6 +81,8 @@ A reusable feedback form
   </form>
 
 </div>
+
+{# Thankful message displayed to user when he/she hits submit button #}
 
 <div class="text-center">
 
@@ -97,100 +110,100 @@ A reusable feedback form
 
 <script>
 
-    $(document).ready(function(){
+  $(document).ready(function(){
 
-        //sending feedback ajax request
-        $('#submit-feedback-form').on('click', function(e){
+    // Sending feedback form via an ajax request
+    $('#submit-feedback-form').on('click', function(e){
 
-          e.preventDefault();
+      e.preventDefault();
 
-          $(this).html('Envoi en cours <div class="loader"></div>');
+      $(this).html('Envoi en cours <div class="loader"></div>');//waiting loader
 
-          $(this).closest(".feedback-form-container").hide();
-          $('#submit-feedback-form').hide();
-          $('#success-submit-feedback-form').show();
+      $(this).closest(".feedback-form-container").hide();//we hide feedback form container
+      $('#submit-feedback-form').hide();//we hide the submit button
+      $('#success-submit-feedback-form').show();//displaying a thankful message
 
-          $.ajax({  
+      //Actually do the ajax call
+      $.ajax({  
 
-              url: "{{path('ajax_feedback_post') }}",
-              type:       'POST',   
-              dataType:   'json',
-              async: true,
-              data: {
+          url: "{{path('ajax_feedback_post') }}",
+          type:       'POST',   
+          dataType:   'json',
+          async: true,
+          data: {
+            
+            //these variables are defined above
+            "feedbackContext": $("#feedback-context").val(),
+            "overallRating": $("#overall-rating").val(),
+            "userSuggestions": $("#user-suggestions").val(),
 
-                "feedbackContext": $("#feedback-context").val(),
-                "overallRating": $("#overall-rating").val(),
-                "userSuggestions": $("#user-suggestions").val(),
+          },
 
-              },
+          success: function(data, status) {
 
-              success: function(data, status) {
+          },  
 
-              },  
+          error : function(xhr, textStatus, errorThrown) {  
+            console.log('Ajax request failed.');  
+          }  
 
-              error : function(xhr, textStatus, errorThrown) {  
-                console.log('Ajax request failed.');  
-              }  
+      }); 
 
-          }); 
+    });
 
-        });
+    /* Javascript for stars management */
 
-        /* stars management (yeah !) */
+    // Hidden field set stars rank
+    $('#overall-rating').val(1);//default is 1
 
-        // Hidden field set stars rank
-        $('#overall-rating').val(1);
-  
-        /* 1. Visualizing things on Hover - See next part for action on click */
-        $('#stars li').on('mouseover', function(){
-          var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
-         
-          // Now highlight all the stars that's not after the current hovered star
-          $(this).parent().children('li.star').each(function(e){
-            if (e < onStar) {
-              $(this).addClass('hover');
-            }
-            else {
-              $(this).removeClass('hover');
-            }
-          });
-          
-        }).on('mouseout', function(){
-          $(this).parent().children('li.star').each(function(e){
-            $(this).removeClass('hover');
-          });
-        });
-        
-        
-        /* 2. Action to perform on click */
-        $('#stars li').on('click', function(){
-
-          var onStar = parseInt($(this).data('value'), 10); // The star currently selected
-
-          var stars = $(this).parent().children('li.star');
-          
-          for (i = 0; i < stars.length; i++) {
-            $(stars[i]).removeClass('selected');
-          }
-          
-          for (i = 0; i < onStar; i++) {
-            $(stars[i]).addClass('selected');
-          }
-          
-          // pass rating value to hidden field
-          var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
-
-          $('#overall-rating').val(ratingValue);
-          
-        });
-        
+    /* 1. Visualizing stars on Hover (mousehover event) */
+    $('#stars li').on('mouseover', function(){
+      var onStar = parseInt($(this).data('value'), 10); // The star currently mouse on
+      
+      // Now highlight all the stars that's not after the current hovered star
+      $(this).parent().children('li.star').each(function(e){
+        if (e < onStar) {
+          $(this).addClass('hover');
+        }
+        else {
+          $(this).removeClass('hover');
+        }
       });
       
+    }).on('mouseout', function(){
+      $(this).parent().children('li.star').each(function(e){
+        $(this).removeClass('hover');
+      });
+    });
+      
+    
+    /* 2. Highlighting the selected star (on click event) */
+    $('#stars li').on('click', function(){
 
+      var onStar = parseInt($(this).data('value'), 10); // The star currently selected
+
+      var stars = $(this).parent().children('li.star');
+      
+      for (i = 0; i < stars.length; i++) {
+        $(stars[i]).removeClass('selected');
+      }
+      
+      for (i = 0; i < onStar; i++) {
+        $(stars[i]).addClass('selected');
+      }
+      
+      //Passing star rank to hidden field
+      var ratingValue = parseInt($('#stars li.selected').last().data('value'), 10);
+
+      $('#overall-rating').val(ratingValue);
+      
+    });
+    
+  });
+      
 </script>
 
-
-
+{# Styles for ranking stars #}
 <style>
 
     .rating-stars{
@@ -265,12 +278,6 @@ A reusable feedback form
   
 
 </style>
-
-
-
-
-
-
 
 
 {% endmacro %}

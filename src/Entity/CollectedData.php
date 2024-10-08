@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * 
- * 
+ * We collect some use data in order to analyse user behaviours and try to improve the product
  * 
  * @ORM\Entity(repositoryClass=CollectedDataRepository::class)
  */
@@ -26,11 +26,17 @@ class CollectedData
     private $createdAt;
 
     /**
+     * 
+     * A string telling us what kind of data is stored in this row (ex: "AI conversation")
+     * 
      * @ORM\Column(type="string", length=255)
      */
-    private $DataType;
+    private $dataType;
 
     /**
+     * 
+     * Actual raw data stored
+     * 
      * @ORM\Column(type="json", nullable=true)
      */
     private $data = [];
@@ -63,12 +69,12 @@ class CollectedData
 
     public function getDataType(): ?string
     {
-        return $this->DataType;
+        return $this->dataType;
     }
 
-    public function setDataType(string $DataType): self
+    public function setDataType(string $dataType): self
     {
-        $this->DataType = $DataType;
+        $this->dataType = $dataType;
 
         return $this;
     }

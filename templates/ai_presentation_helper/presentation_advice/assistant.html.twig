@@ -7,19 +7,21 @@
 
 {% block body %}
 
-{# Font Awesome CDN inclusion #}
+{# Font Awesome CDN inclusion (we list advice to user, we use FA icons to illustrate bullet points#}
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="container px-0 px-md-2 my-4 my-md-5">
 
-    {% if generalAdvice is defined and generalAdvice is not null %}
+    {% if generalAdvice is defined and generalAdvice is not null %}{# If we have an AI answer we display it raw (it should be approprietly formatted thanks to the precise prompt we provided to AI) #}
     
         {{generalAdvice | raw}}
 
         {# Try again button #}
     
         <div class="mt-5 text-center"><a href="{{path ('ai_presentation_helper_origin')}}"><button class="btn btn-outline-success">Réutiliser l'outil gratuitement</button></a></div>
+
+        {# Feedback form #}
 
         <div class="mt-4 mt-md-5">
 
@@ -28,52 +30,16 @@
         
         </div>
 
-    {% else %}
+    {% else %}{# Case user arrives on this page without having filled the form #}
 
         Veuillez utiliser l'assistant de présentation de projet avant de vous rendre sur cette page.
     
     {% endif %}
 
-  {#   <div class="row">
 
-        <div class="col-md-6">
+{# Styles for AI answer #}
 
-            <h2>Your Conditions</h2>
-
-            <textarea id="user-textarea" class="form-control" rows="4"></textarea>
-
-            <button id="send-button" class="btn btn-primary mt-2">Send</button>
-
-        </div>
-
-        <div class="col-md-6">
-
-            <h2>Coach's Response</h2>
-
-            <textarea id="ai-assistant" class="form-control" rows="4" readonly></textarea>
-
-        </div>
-
-    </div> #}
-
-</div>
-
-{# <script>
-    $(document).ready(function () {
-        $('#send-button').click(function () {
-            var userMessage = $('#user-textarea').val();
-            $.ajax({
-                type: "POST",
-                url: "{{path('ajax_ai_presentation_helper_assistant')}}",
-                data: { message: userMessage },
-                success: function (response) {
-                    $('#ai-assistant').val(response.data);
-                }
-            });
-        });
-    });
-</script> #}
-
+{# Classes are defined in the prompt we use#}
 
 <style>
 
@@ -133,11 +99,7 @@
             margin-bottom: 25px;
         }
 
-
-
     }
-
-
 
 </style>
 

@@ -125,6 +125,8 @@ class AIPresentationHelperController extends AbstractController
     
     
     /**
+     * This method get the AI answer (advice to present a project) in session and display it in a twig template.
+     * 
      * @Route("/ia-assistant-gratuit-de-presentation-de-projet-reponse/", name="ai_presentation_helper_assistant")
      */
     public function content(): Response
@@ -133,7 +135,7 @@ class AIPresentationHelperController extends AbstractController
         $generalAdvice = $this->get('session')->get('generalAdvice');
 
         return $this->render('ai_presentation_helper/presentation_advice/assistant.html.twig', [
-            'generalAdvice' => $generalAdvice,
+            'generalAdvice' => $generalAdvice, //the AI answer
         ]);
 
     }

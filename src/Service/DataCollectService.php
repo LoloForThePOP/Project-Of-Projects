@@ -6,8 +6,9 @@ use App\Entity\CollectedData;
 use Doctrine\ORM\EntityManagerInterface;
 
 /**
- * Propon collect some data in order to analyse product usage and try to improve it
- * Here is a simple method to do so
+ * Context: we'd like to analyse Propon product usage in order to improve the product
+ * We collect data to do so
+ * Here is a simple service with one method to manage that
  */
 class DataCollectService {
 

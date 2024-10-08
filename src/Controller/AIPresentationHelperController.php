@@ -6,11 +6,10 @@ use OpenAI;
 
 use App\Form\AIPPAdviceType;
 
-use App\Service\ImageService;
 use App\Service\MailerService;
 use App\Service\CreatePPService;
 use App\Service\DataCollectService;
-use App\Service\AI\AICreatePPService;
+use App\Service\AI\AICreatePPMaterialService;
 
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
@@ -123,6 +122,7 @@ class AIPresentationHelperController extends AbstractController
     }
     
     
+
     /**
      * This method get the AI advice to present a project in session and display them in a twig template.
      * 
@@ -165,17 +165,21 @@ class AIPresentationHelperController extends AbstractController
 
 
      /**
+     * AI Propon project presentation assistant: asks some questions to user to finally automatically generate a structured Propon project presentation.
+     * 
+     * Here is the landing page frontend controller method (tasks are fractionned between some other controller methods see bellow)
+     *
      * @Route("/ia-assistant-gratuit-entretien-projet/", name="ai_interview_helper_origin")
      */
     public function interviewOrigin(Request $request): Response
     {
 
-        $context = $request->query->get('context'); //interview origin display can vary depending on context (see twig template)
+        $context = $request->query->get('context'); //interview origin landing page can vary depending on context (ex: we already know user project goal (no need to ask him again) or we don't (need to ask him)) so we provide context to frontend twig template.
 
-        $projectGoal = $this->get('session')->get('project_goal'); //maybe we already know project goal (ex: random user filled homepage form)       
+        $projectGoal = $this->get('session')->get('project_goal'); //If we already know project goal (ex: random unregistered user filled "what is your project goal?" homepage form)       
 
-        $this->get('session')->set('ai_interview_helper_conversation', null);
-        $this->get('session')->set('ai_interview_helper_conversation_count_user_interactions', 0);
+        $this->get('session')->set('ai_interview_helper_conversation', null); //Inits a session variable which stores user / AI conversation
+        $this->get('session')->set('ai_interview_helper_count_interactions', 0); //Inits a session variable which stores user / AI conversation interactions count (when we have enough interaction we suggest user to make AI automatically present its project on Propon)
 
         return $this->render('ai_presentation_helper/interview/origin.html.twig', [
             'context' => $context,
@@ -185,23 +189,25 @@ class AIPresentationHelperController extends AbstractController
     }
 
 
+
      /**
+     * 
+     * AI Propon project presentation assistant: ajax treatments (getting user message and sending AI message)
+     * 
      * @Route("/ajax-ia-assistant-gratuit-entretien-projet", name="ajax_ai_interview_helper_origin")
      */
     public function ajaxInterviewOrigin(Request $request, DataCollectService $dataCollect, MailerService $mailerService) {
          
         if ($request->isXmlHttpRequest()) {
 
-            $userMessage = $request->request->get('userMessage');
+            $userMessage = $request->request->get('userMessage'); //Getting user message from frontend
 
-            $ia = OpenAI::client($_ENV['OPEN_AI_KEY']);
+            $ia = OpenAI::client($_ENV['OPEN_AI_KEY']); //Inits Open AI API
 
-            //case new conversation, we initiate it
+            //Case new conversation (start a conversation): we initiate the conversation
             if ($this->get('session')->get('ai_interview_helper_conversation') == null) {
-
-                //dump("new session");
                 
-                $messages =  [
+                $messages =  [ //Prompt
 
                     ['role' => 'system', 'content' => "Vous êtes un coach expert en présentation de projet. Vous ne donnez aucun conseil pour réaliser le projet, vous donnez seulement de l'aide pour PRÉSENTER le projet à une ou plusieurs personnes (exemple: un maire, un jury d'investisseurs...). Vous demandez à l'utilisateur de clarifier l'objectif de son projet si besoin. Si besoin vous demandez des précisions à l'utilisateur. Vous savez poser les bonnes questions et vous aidez l'utilisateur à répondre à ces questions. Vous posez une seule et seulement une seule question à la fois."],
 
@@ -209,58 +215,52 @@ class AIPresentationHelperController extends AbstractController
 
                 ];
                 
-            } else {
+            } else {//Case conversation has already started before: we complete the array storing the conversation             
 
-                //dump("prolongated conversation");
+                $userAnswerAIRow = ['role' => 'user', 'content' => $userMessage]; //formatting user message in a array complying with Open AI conversation array format
 
-                $userAnswerAIRow = ['role' => 'user', 'content' => $userMessage];
-
-                //Prolongating previous conversation messages
-
-                $messages = $this->get('session')->get('ai_interview_helper_conversation');
-                $messages[] = $userAnswerAIRow;
+                //Completing the formatted array storing the conversation
+                $messages = $this->get('session')->get('ai_interview_helper_conversation');// Array containing the previously stored conversation (stored in a session variable)
+                $messages[] = $userAnswerAIRow;// Adding user message to the stored conversation
 
             }
+
+            /* Getting AI message as a result of user message */
 
             $response = $ia->chat()->create([
                 'model' => 'gpt-3.5-turbo-0125',
                 'messages' => $messages,
             ]);
             
-            
             $response->toArray();
-            $responseContent = $response['choices'][0]['message']['content'];
+            $responseContent = $response['choices'][0]['message']['content'];//Actual AI answer text string
 
 
-            //Storing ai answer
+            //Storing AI message in an appropriately formatted array (as we've done above with user message)
             $assistantAnswerAIRow = ['role' => 'assistant', 'content' => $responseContent];
 
-            $messages[] = $assistantAnswerAIRow;
+            $messages[] = $assistantAnswerAIRow;//Adding AI message to the array storing the entire conversation
 
-            //Storing conversation as it is now
-            $this->get('session')->set('ai_interview_helper_conversation', $messages);
-
+            $this->get('session')->set('ai_interview_helper_conversation', $messages);//Storing this appropriately formatted array into the session variable so that we can reuse it when we continue conversation
             
-            // if user interactions are long enough : collecting conversation data and signaling that to webmaster
-            $abr="ai_interview_helper_conversation_count_user_interactions";
-            $gabr=$this->get('session')->get($abr);
+            /* Counting & storing AI / user interactions during conversation */
+            $abr="ai_interview_helper_count_interactions";//this long variable name is abreviated $abr
+            $gabr=$this->get('session')->get($abr);//abreviation too
 
-            $this->get('session')->set($abr, $gabr + 1);
+            $this->get('session')->set($abr, $gabr + 1);//updating AI / user interactions count
 
-            if ($gabr == 3) {
+            if ($gabr == 3) {// if AI / user interactions are long enough: we collect conversation data to analyse it (product usage feedback)
                 $dataCollectArray=[];
                 $dataCollectArray["conversation"] = $messages;
                 $dataCollect->save("ai_presentation_interview_helper", $dataCollectArray);
 
-                //email admin
+                //Email admin
 
                 $mailerService->mailAdmin("New AI Presentation Interview Coach Usage", '<pre>'.json_encode($dataCollectArray, JSON_PRETTY_PRINT).'</pre>');
 
             }
-
-            $aiAnswer = $responseContent;
     
-            return new JsonResponse(['aiAnswer' => $aiAnswer]);
+            return new JsonResponse(['aiAnswer' => $responseContent]); //returns AI message to frontend
           
         }
    
@@ -268,23 +268,26 @@ class AIPresentationHelperController extends AbstractController
 
 
 
-
-
     /**
+     * Creates an actual Propon Project Presantation Page given an AI / user conversation about user project 
+     * 
+     * 
     * @Route("/interview-ai-presentation-interview-helper/create-ppp", name="ai_create_ppp")
     */
-    public function aiCreatePPP(AICreatePPService $createSummaryService, CreatePPService $createPPService, MailerService $mailerService) {
+    public function aiCreatePPP(AICreatePPMaterialService $createSummaryService, CreatePPService $createPPService, MailerService $mailerService) {
 
+        // First we need the ai / user conversation stored in a session
         $conversationRawData = $this->get('session')->get('ai_interview_helper_conversation');
 
-        if ($conversationRawData == null) {
+        if ($conversationRawData == null) {//if conversation is null user is redirected to homepage
 
             return $this->redirectToRoute('homepage', [
                     
             ]);
 
-        } else {
+        } else {// process of creating a Propon Project Presentation Page
 
+            //This service 
             $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $conversationRawData);
 
             $newPPStringId = $createPPService->create($structuredPPData);
@@ -310,37 +313,6 @@ class AIPresentationHelperController extends AbstractController
 
        
     }
-
-
-
-    
-
-    /**
-     * 
-     * Deprecated : now summaries are done with an usal 4p (propon project presentation page)
-     * 
-    * @Route("/interview-ai-presentation-interview-helper/ajax-create-summary", name="ajax_ai_interview_create_summary")
-    */
-    public function ajaxInterviewCreateSummary(Request $request, DataCollectService $dataCollect, AICreatePPService $createSummaryService) {
-
-        $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $this->get('session')->get('ai_interview_helper_conversation'));        
-
-        return new JsonResponse(['summary' => $structuredPPData]);
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }

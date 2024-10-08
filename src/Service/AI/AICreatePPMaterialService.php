@@ -2,56 +2,47 @@
 
 namespace App\Service\AI;
 
-use Assert\Blank;
-use Assert\Email;
-use Assert\Length;
-use Assert\NotBlank;
-use App\Entity\Comment;
-use Assert\GreaterThan;
 use App\Service\AI\OpenAIService;
-use App\Service\CreatePPService;
-use App\Validator\NotContainsUrlOrEmail;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 
 /**
- * User provides data about her project while conversing with an AI assistant.
- * This service creates a Propon Project Presentation Page with these data.
- */
+ * Context: user has provided data about his project while conversing with an AI assistant.
+ * 
+ * This service creates a Structured Project Presentation Elements Array given this AI - user conversation.
+ * 
+ * 2 methods are used here:
+ * 
+ *  - summaryComponentsAIPrompt: returns a text instruction asking AI to summarise the conversation in a json format
+ *  - createPPDataArray: returns a structured array of project presentation elements (ex: project goal; project description). This array is easily exploitable to create an actual Propon Project Presentation Page stored in DB (done with createPPService).
+ * 
+*/
 
-class AICreatePPService {
-
-    protected $em;
-    protected $validator;
-
-
-    public function __construct(EntityManagerInterface $em)
-    {
-      
-        $this->em = $em;
-
-    }
-
+class AICreatePPMaterialService {
 
     /**
-    * $discussionMaterial is a chatGPT conversation structured as an array.
+     * Returns a structured array of project presentation elements (ex: project goal; project description).
+     * 
+    * $discussionMaterial is a user - AI chatGPT conversation formatted as an array the way Open AI wants to receive it.
     */
     public function createPPDataArray($openAIAPIKey, $discussionMaterial){
 
         $ai = new OpenAIService;
+        
+        //Creating a OPEN AI FORMATTED CONVERSATION ROW that asks AI to create a formatted project presentation json summary
+        $instructionsRow = ['role' => 'system', 'content' => $this->summaryComponentsAIPrompt()];//$this->summaryComponentsAIPrompt() returns the instruction to create this json
 
-        $instructionsRow = ['role' => 'system', 'content' => $this->summaryComponentsAIPrompt()];
+        $discussionMaterial[] = $instructionsRow;//COMPLETES the ai - user conversation OPEN AI FORMATTED ARRAY with our just above formatted instruction
 
-        $discussionMaterial[] = $instructionsRow;
+        //Getting the AI json output + converting it into a PHP array. As a result we get a project presentation ELEMENTS PHP array 
 
         $projectPresentationElements = json_decode($ai->getDiscussionAnswer($openAIAPIKey, "gpt-3.5-turbo-0125", $discussionMaterial), true);
 
-        //we consider that an AI presentation is admin validated
+        /* Adding some parameters to the newly created project presentation ELEMENTS array*/
+
+        //we consider that this AI generated project presentation has to be admin validated
         $projectPresentationElements["isAdminValidated"] = true;
 
-        //we disable private messages by default
+        //we want to disable user can receive private messages by default
         $projectPresentationElements["privateMessagesActivation"] = false;
 
         return $projectPresentationElements;
@@ -60,7 +51,8 @@ class AICreatePPService {
 
 
     /**
-    * PP summary components ai prompt
+     * Returns a text instruction that asks AI to create a json output containing some basic project presentation elements (ex: project goal; project description; etc)
+    * 
     */
     protected function summaryComponentsAIPrompt(){
 

@@ -10,6 +10,10 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
+
+/**
+ * Context: Given a structured array of information about a project (ex: project goal; project title; project description) this class allows to create an actual Propon Project Presentation Page stored in DB.
+ */
 class CreatePPService {
 
     protected $em;
@@ -112,7 +116,7 @@ class CreatePPService {
 
     /**
     * PP needs a creator to be valid
-    * If user is not logged in, we create a virtual/shadow user so that user can subscribe & connect after he sees the result
+    * If user is not logged in, we create a virtual user so that user can subscribe & connect if he wants to save the result
     */
     protected function ppUserCreatorManagement(){
 

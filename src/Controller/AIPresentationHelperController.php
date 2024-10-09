@@ -287,29 +287,32 @@ class AIPresentationHelperController extends AbstractController
 
         } else {// process of creating a Propon Project Presentation Page
 
-            //This service 
+            //The following service creates a PHP array containing formatted elements dscribing the project (project goal; project description; project title; etc) 
             $structuredPPData = $createSummaryService->createPPDataArray($_ENV['OPEN_AI_KEY'], $conversationRawData);
 
+            //Given the above mentionned PHP array representing a project presentation, the following service actually creates a Propon Project Presentation Page saved in DB. This service returns newly created project presentation slug (= stringId) so that we can redirected user to the created project presentation page.
             $newPPStringId = $createPPService->create($structuredPPData);
 
+            //Generating URL of the newly created project presentation page
             $presentationURL = $this->generateUrl('show_presentation', [
 
                 'stringId'=> $newPPStringId,
                     
             ], UrlGeneratorInterface::ABSOLUTE_URL);
 
+            //Emailing admin that a project presentation page has just been created with AI helper
             $mailerService->mailAdmin("New presentation created from ai helper", "See <a href=".$presentationURL.">".$presentationURL."</a><br><p>Here is ai interview helper conversation :</p><pre>".json_encode($this->get('session')->get('ai_interview_helper_conversation'))."</pre>");
+
+            //Redirecting user to the newly created 3P
 
             return $this->redirectToRoute('show_presentation', [
 
                 'stringId'=> $newPPStringId,
-                'first-time-editor' => "true",
+                'first-time-editor' => "true",//flag meaning this is the first time sees his project presentation page (ex: we display a tutorial...)
                     
             ]);
 
         }
-
-        
 
        
     }

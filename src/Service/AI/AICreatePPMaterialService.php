@@ -13,6 +13,7 @@ use App\Service\AI\OpenAIService;
  * 2 methods are used here:
  * 
  *  - summaryComponentsAIPrompt: returns a text instruction asking AI to summarise the conversation in a json format
+ * 
  *  - createPPDataArray: returns a structured array of project presentation elements (ex: project goal; project description). This array is easily exploitable to create an actual Propon Project Presentation Page stored in DB (done with createPPService).
  * 
 */
@@ -20,7 +21,7 @@ use App\Service\AI\OpenAIService;
 class AICreatePPMaterialService {
 
     /**
-     * Returns a structured array of project presentation elements (ex: project goal; project description).
+     * Returns a structured array of project presentation elements (ex: project goal => "..."; project description => "...").
      * 
     * $discussionMaterial is a user - AI chatGPT conversation formatted as an array the way Open AI wants to receive it.
     */

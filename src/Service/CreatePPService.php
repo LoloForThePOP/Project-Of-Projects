@@ -12,19 +12,23 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
- * Context: Given a structured array of information about a project (ex: project goal; project title; project description) this class allows to create an actual Propon Project Presentation Page stored in DB.
+ * Context: Given a structured array of information about a project (ex: "project goal" => "..."; "project title" => "..."; "project description" => "...") this class allows to create an actual Propon Project Presentation Page stored in DB.
  */
 class CreatePPService {
 
-    protected $em;
-    protected $session;
-    protected $security;
-    protected $slugger;
-    protected $pp;
+    protected $pp; //project presentation we are creating
+    protected $slugger; //project presentations have a friendly url adress, to do so we slug project goal or title if provided
+
+    protected $security; //symgony security component allows to get current user object, we need it to hydrate project presentation creator
+    protected $session; //allows to access in session some information about user
+    
+    protected $em; //entity manager to create and save project presentation in database
+    
 
     public function __construct(EntityManagerInterface $em, Security $security, SessionInterface $session, SluggerInterface $slugger)
     {
 
+        //see details above
         $this->session = $session;
         $this->em = $em;
         $this->security = $security;
@@ -34,14 +38,16 @@ class CreatePPService {
 
 
     /**
-    * Save into db an actual Propon project presentation
-    * $dataArray : an array representing a project presentation (keys are goal, keywords, etc..)
+    * Save an actual Propon project presentation into db
+    * Params: 
+    *   
+    *     - $dataArray : an array representing a project presentation (keys are {project goal; project description; etc.})
     */
     public function create($dataArray){
 
-        $this->pp = new PPBase();
+        $this->pp = new PPBase(); //instanciating a new 3P
 
-        $this->ppUserCreatorManagement();
+        $this->ppUserCreatorManagement(); //This function allows to hydrate PP user depending on context (user logged in or not).
                 
         foreach ($dataArray as $key => $value) {
 
@@ -115,19 +121,19 @@ class CreatePPService {
 
 
     /**
-    * PP needs a creator to be valid
-    * If user is not logged in, we create a virtual user so that user can subscribe & connect if he wants to save the result
+    * PP needs a creator to be valid. This function allows to hydrate PP user appropriately depending on user context (user is logged in or not)
+    * 
     */
     protected function ppUserCreatorManagement(){
 
-        $user = $this->security->getUser();
+        $user = $this->security->getUser(); //getting current user thanks to symfony security component
         
-        if ($user) {
+        if ($user) { //case user is logged in, it's easy we hydrate project presentation user with it
             $this->pp->setCreator($user);
-        }else{
+        }else{ //current user is not logged in
             
             $newUserService = new UserService($this->em, $this->slugger, $this->session); 
-            $newGuestUser = $newUserService->createSaveFakeUser();
+            $newGuestUser = $newUserService->createSaveGuestUser();
 
             $this->pp->setCreator($newGuestUser)
                      ->setDataItem("guest-presenter-activated", false);

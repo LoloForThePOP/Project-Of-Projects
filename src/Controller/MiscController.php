@@ -313,17 +313,16 @@ class MiscController extends AbstractController
     */
     public function authRedirections(SessionVariablesService $sessionVariables, EntityManagerInterface $em)
     {
-        //Did user just create a presentation while not being logged in
-        $fakeUserId = $sessionVariables->fakeUserId();
+        $guestUserId = $sessionVariables->guestUserId(); 
 
-        if ($fakeUserId !== null) {
+        if ($guestUserId !== null) {
 
-            $fakeUser = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $fakeUserId]);
-            $fakeUserPresentation = $fakeUser->getCreatedPresentations()[0];
-            $fakeUserPresentation->setDataItem("guest-presenter-activated", true);
+            $guestUser = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $guestUserId]);
+            $guestUserPresentation = $guestUser->getCreatedPresentations()[0];
+            $guestUserPresentation->setDataItem("guest-presenter-activated", true);
 
-            $this->getUser()->addCreatedPresentation($fakeUserPresentation);
-            $fakeUser->removeCreatedPresentation($fakeUserPresentation);
+            $this->getUser()->addCreatedPresentation($guestUserPresentation);
+            $guestUser->removeCreatedPresentation($guestUserPresentation);
 
             //dd($this->getUser());
 
@@ -332,7 +331,7 @@ class MiscController extends AbstractController
             //supprimer la session;
 
             return $this->redirectToRoute('show_presentation', [
-                'stringId' => $fakeUserPresentation->getStringId(),
+                'stringId' => $guestUserPresentation->getStringId(),
             ]);
 
         }

@@ -109,7 +109,7 @@ class UserService {
 
         //managing app session variables
         $sessionVariablesService = new SessionVariablesService($this->session);
-        //storing our current guest user id in a session variable so that we can match the online anonymous user with the db stored guest user (in other words anonymous user is tracked with db guest user id stored in session). 
+        //storing our current guest user id in a session variable so that we can match the online anonymous user with the db stored guest user (in other words anonymous user that has done some work with the app is tracked with db guest user id stored in session). 
         $sessionVariablesService->guestUserId($this->user); 
 
         return $this->user;

@@ -313,22 +313,20 @@ class MiscController extends AbstractController
     */
     public function authRedirections(SessionVariablesService $sessionVariables, EntityManagerInterface $em)
     {
-        $guestUserId = $sessionVariables->guestUserId(); 
+        $guestUserId = $sessionVariables->guestUserId(); //getting the matching db guest user id stored in a session variable so that we can match anonymous online user that is logging into the app with the work stored in db as a guest user.
 
-        if ($guestUserId !== null) {
+        if ($guestUserId !== null) {//if user authenticating have a guest user id stored in a session variable, it means that he / she just used the app as a guest and now he authenticates (register or log in).
 
-            $guestUser = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $guestUserId]);
-            $guestUserPresentation = $guestUser->getCreatedPresentations()[0];
-            $guestUserPresentation->setDataItem("guest-presenter-activated", true);
+            $guestUser = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $guestUserId]);//searching in db the guest user matching with the online anonymous user that is logging into the app.
+            $guestUserPresentation = $guestUser->getCreatedPresentations()[0];// searching the db stored project presentation done by the guest user.
+            $guestUserPresentation->setDataItem("guest-presenter-activated", true);//flagging that a solid user is claiming the work done as a guest
 
-            $this->getUser()->addCreatedPresentation($guestUserPresentation);
-            $guestUser->removeCreatedPresentation($guestUserPresentation);
-
-            //dd($this->getUser());
+            $this->getUser()->addCreatedPresentation($guestUserPresentation);//Adding the presentation to the authenticating user
+            $guestUser->removeCreatedPresentation($guestUserPresentation);//removing the presentation from the guest user sotred in db (we don't need this user anymore, he served as a storage)
 
             $em->flush();
 
-            //supprimer la session;
+            //to do: delete session variable
 
             return $this->redirectToRoute('show_presentation', [
                 'stringId' => $guestUserPresentation->getStringId(),

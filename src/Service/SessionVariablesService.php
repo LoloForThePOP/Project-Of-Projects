@@ -22,24 +22,32 @@ class SessionVariablesService {
 
 
     /**
+     * Context: anonymous user can use the app as a demo without being logged in but how to give him back his / her work if this anonymous user wants to register or log into the app ? A session variable is a solution: it keeps a link between online anonymous user and db stored works he's done as a guest. So now if anonymous user subsribe / log into the app, we can give him back the work he has done as an anonymous user thanks to the session variable.
+     *
+     * Params: 
      * 
+     *   - (nullable) $guestUser: (User) a db stored guest user
+     * 
+     * if a User object is given as an argument we SET the session variable with this user id.
+     * if no User object is given as an argument and we have an existing session variable, we GET its value.
      * 
      */
-    public function guestUserId(User $fakeUser = null){
+    public function guestUserId(User $guestUser = null){
 
-        if ($fakeUser !== null) {//If user is fake and have an id, we store it in session
-            $this->session->set("fake-user-id", $fakeUser->getId());
+        if ($guestUser !== null) {//If a guest user work is stored in db, we SET its id in a session variable so that we can match his / her work with the online anonymous user that have actually done the work. 
+            $this->session->set("guest-user-id", $guestUser->getId());
             
             return;
         }
+        
+        //If no User object is given as an argument in the function + the session variable exists, we GET its value
+        if ($this->session->has("guest-user-id")) {
 
-        if ($this->session->has("fake-user-id")) {//If a fake-user-id is stored in session we get it
-
-            return $this->session->get("fake-user-id");
+            return $this->session->get("guest-user-id");
             
         }
         
-        return null; 
+        return null; //case no User object is given as function argument + no sesion variable declared.
 
     }
 

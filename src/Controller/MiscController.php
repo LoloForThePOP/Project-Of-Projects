@@ -308,17 +308,24 @@ class MiscController extends AbstractController
 
 
 
-     /**
+    /**
+     * 
+     * 
+     * 
+     * 
      * @Route("/auth-redirections", name="auth_redirections")
     */
     public function authRedirections(SessionVariablesService $sessionVariables, EntityManagerInterface $em)
     {
+
         $guestUserId = $sessionVariables->guestUserId(); //getting the matching db guest user id stored in a session variable so that we can match anonymous online user that is logging into the app with the work stored in db as a guest user.
 
         if ($guestUserId !== null) {//if user authenticating have a guest user id stored in a session variable, it means that he / she just used the app as a guest and now he authenticates (register or log in).
 
             $guestUser = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $guestUserId]);//searching in db the guest user matching with the online anonymous user that is logging into the app.
+
             $guestUserPresentation = $guestUser->getCreatedPresentations()[0];// searching the db stored project presentation done by the guest user.
+            
             $guestUserPresentation->setDataItem("guest-presenter-activated", true);//flagging that a solid user is claiming the work done as a guest
 
             $this->getUser()->addCreatedPresentation($guestUserPresentation);//Adding the presentation to the authenticating user
@@ -326,9 +333,9 @@ class MiscController extends AbstractController
 
             $em->flush();
 
-            //to do: delete session variable
+            $sessionVariables->guestUserId(null, true); //delete the session variable we don't use anymore since user has logged in.
 
-            return $this->redirectToRoute('show_presentation', [
+            return $this->redirectToRoute('show_presentation', [ //redirect the newly logged in user to the presentation page he has created.
                 'stringId' => $guestUserPresentation->getStringId(),
             ]);
 

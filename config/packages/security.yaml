@@ -20,7 +20,7 @@ security:
             lazy: true
             provider: app_user_provider
             custom_authenticators: 
-                - App\Security\AppCustomAuthenticator
+                - App\Security\Authenticator\AppCustomAuthenticator
                 - App\Security\Authenticator\GoogleAuthenticator
                 - App\Security\Authenticator\FacebookAuthenticator
 

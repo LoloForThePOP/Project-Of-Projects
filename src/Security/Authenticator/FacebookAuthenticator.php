@@ -86,7 +86,7 @@ class FacebookAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
 
-        // redirect to the route whereby we manage post auth
+        // redirecting to the route whereby we manage post auth
         $targetUrl = $this->router->generate('auth_redirections');
 
         return new RedirectResponse($targetUrl);

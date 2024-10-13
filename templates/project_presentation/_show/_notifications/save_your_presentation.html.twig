@@ -1,24 +1,37 @@
+
+{#
+
+    Context: user has created a project presentation while not being logged into the app (= guest user)
+
+    This is a notification panel containing connexion buttons so that guest user can subscribe / log in to the app & save his work.
+
+#}
+
 <div class="">
+
+    {# Notification panel #}
     
     <div class="notif-save-presentation notification d-flex flex-column align-items-center alert alert-dismissible fade border border-warning show fw-bold p-2 py-4" role="alert">
 
+        {# "save your work" text notification #}
+
         <h5 class="d-flex align-items-center justify-content-center text-center mb-1">
+
+            {# Info icon #}
          
-            <img class="me-1 me-md-2" src="{{ asset('info.svg', 'misc')}}" alt="Info Icon" width="32" height="32"   >
+            <img class="me-1 me-md-2" src="{{ asset('info.svg', 'misc')}}" alt="Circled letter i representing an info icon" width="32" height="32">
+
+            {# Call to action text #}
         
             <span class="fw-bold align-bottom">
-                Ne perdez pas votre travail, connectez-vous pour enregistrer gratuitement la présentation de votre projet.
+                <span class="text-danger">Ne perdez pas votre travail !</span> <span class="text-success">Connectez-vous pour enregistrer gratuitement la présentation de votre projet.</span>
             </span>
-
-           {#  <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-exclamation-triangle-fill text-primary me-2" viewBox="0 0 16 16">
-                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
-            
-            </svg> #}
 
         </h5>
 
-        <h5 class="text-center mb-3 mt-2">Et découvrez nos autres outils gratuits pour développer vos projets.</h5>
-        {# <h6 class="mb-4">(présentez vos besoins, recevez des donations, créez une communauté)</h6> #}
+        <h5 class="text-center mb-3 mt-2">Et découvrez nos autres outils gratuits pour développer vos projets ✓</h5>
+
+        {# Subscribe / login possibilities container #}
 
         <div class="text-center">
             
@@ -26,7 +39,11 @@
 
                 <h3 class="fw-bold mb-2 mb-md-4">Connexion</h3>
 
+                {# Third parties auth #}
+
                 <div class="container mb-0 mb-md-4 pb-3 px-0">
+
+                    {# Connect with Google button #}
 
                     <a href="{{ path('connect_google_start') }}">
 
@@ -40,6 +57,8 @@
 
                     </a>
 
+                    {# Connect with Facebook button #}
+
                     <a href="{{ path('connect_facebook_start') }}">
 
                         <button class="connect-btn btn btn-outline-dark">
@@ -51,6 +70,8 @@
                         </button>
 
                     </a>
+
+                    {# Connect buttons styles #}
 
                     <style>
 
@@ -68,136 +89,29 @@
 
                         }
 
-
                     </style>
-
 
                 </div>
 
-            <div class="">
+                {# Link to register with an email address #}
 
-                <h5 class="email-connect-title fw-bold mb-3">Ou utilisez votre adresse e-mail</h5>
+                <div class="">
 
-                {{form_start(newUserForm)}}
+                    <h5 class="mb-3"><a href="{{path('app_register')}}" class="text-decoration-none">Ou rejoignez-nous avec une adresse e-mail.</a></h5>
 
-                    <div class="d-flex flex-column justify-content-center text-center">
+                </div>
 
-                        <div class="mb-4">
-
-                            {{form_errors(newUserForm.email)}}
-                            
-                            <div class="input-group ps-2" style="max-width: 400px;">
-
-                                <div class="input-group-text">
-                                
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-at" viewBox="0 0 16 16">
-
-                                        <path d="M13.106 7.222c0-2.967-2.249-5.032-5.482-5.032-3.35 0-5.646 2.318-5.646 5.702 0 3.493 2.235 5.708 5.762 5.708.862 0 1.689-.123 2.304-.335v-.862c-.43.199-1.354.328-2.29.328-2.926 0-4.813-1.88-4.813-4.798 0-2.844 1.921-4.881 4.594-4.881 2.735 0 4.608 1.688 4.608 4.156 0 1.682-.554 2.769-1.416 2.769-.492 0-.772-.28-.772-.76V5.206H8.923v.834h-.11c-.266-.595-.881-.964-1.6-.964-1.4 0-2.378 1.162-2.378 2.823 0 1.737.957 2.906 2.379 2.906.8 0 1.415-.39 1.709-1.087h.11c.081.67.703 1.148 1.503 1.148 1.572 0 2.57-1.415 2.57-3.643zm-7.177.704c0-1.197.54-1.907 1.456-1.907.93 0 1.524.738 1.524 1.907S8.308 9.84 7.371 9.84c-.895 0-1.442-.725-1.442-1.914"/>
-
-                                    </svg>
-
-                                </div>
-
-                                {{ form_widget(newUserForm.email) }}
-
-                            </div>
-
-                        </div>
-
-                        <div class="mb-2">
-                            {{ form_errors(newUserForm.plainPassword) }}
-
-
-                             <div class="input-group ps-2" style="max-width: 400px;">
-
-                                <div class="input-group-text">
-                                
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-key" viewBox="0 0 16 16">
-                                        <path d="M0 8a4 4 0 0 1 7.465-2H14a.5.5 0 0 1 .354.146l1.5 1.5a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0L13 9.207l-.646.647a.5.5 0 0 1-.708 0L11 9.207l-.646.647a.5.5 0 0 1-.708 0L9 9.207l-.646.647A.5.5 0 0 1 8 10h-.535A4 4 0 0 1 0 8m4-3a3 3 0 1 0 2.712 4.285A.5.5 0 0 1 7.163 9h.63l.853-.854a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.793-.793-1-1h-6.63a.5.5 0 0 1-.451-.285A3 3 0 0 0 4 5"/>
-                                        <path d="M4 8a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
-
-                                    </svg>
-
-                                </div>
-
-                                    {{ form_widget(newUserForm.plainPassword) }}
-
-                                
-                            </div>
-                        </div>     
-                    
-                    </div>
-
-                    {#   <div>
-                        {{ form_label(newUserForm.agreeTerms) }}
-                        {{ form_widget(newUserForm.agreeTerms) }}
-                    </div> #}
-
-
-
-                    <!-- ui Actions Buttons -->
-
-                    <div class="d-flex justify-content-center mt-3">
-
-                        <button type="submit" value="" class="btn btn-validate border rounded-3 mb-2">
-                            <span class="h5 fw-bold">Valider ✔️</span>
-                        </button>
-
-                    </div>
-
-                {{form_end(newUserForm)}}
-            
             </div>
 
-              
+        </div>  
+        
+    </div>
 
-        </div>
-
-
-
-    </div>  
-    
 </div>
 
+{# Styles for notification panel #}
 
 <style>
-
-    .notif-save-presentation{
-
-
-    }
-
-    .checked .red-cross, .check-mark {
-        display: none;
-    }
-
-    .checked .check-mark{
-        display: inline;
-    }
-
-
-    .inline-text-trigger-action{
-
-        color: inherit;
-        border-radius: 6px;
-        cursor: pointer;
-        padding: 5px;
-        
-
-    }
-
-
-    .inline-text-trigger-action:hover{
-
-        background-color: lightblue;
-        
-    }
-
-    @media screen and (max-width: 810px) {
-
-
-    }
-
 
     @media screen and (max-width: 580px) {
 

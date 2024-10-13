@@ -4,7 +4,7 @@ namespace App\Security\Authenticator;
 
 use App\Entity\Persorg;
 use App\Service\UserService;
-use App\Entity\User; // your user entity
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -95,7 +95,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // change "app_homepage" to some route in your app
+        // redirecting to the route whereby we manage post auth
         $targetUrl = $this->router->generate('auth_redirections');
 
         return new RedirectResponse($targetUrl);

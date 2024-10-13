@@ -26,13 +26,14 @@ class SessionVariablesService {
      *
      * Params: 
      * 
-     *   - (nullable) $guestUser: (User) a db stored guest user
+     *   - $guestUser: (User) (nullable) a db stored guest user
+     *   - $delete: (boolean) delete the session variable if set to true (default is false)
      * 
      * if a User object is given as an argument we SET the session variable with this user id.
      * if no User object is given as an argument and we have an existing session variable, we GET its value.
      * 
      */
-    public function guestUserId(User $guestUser = null){
+    public function guestUserId(User $guestUser = null, bool $delete = false){
 
         if ($guestUser !== null) {//If a guest user work is stored in db, we SET its id in a session variable so that we can match his / her work with the online anonymous user that have actually done the work. 
             $this->session->set("guest-user-id", $guestUser->getId());
@@ -45,6 +46,12 @@ class SessionVariablesService {
 
             return $this->session->get("guest-user-id");
             
+        }
+
+        if ($delete == true) {
+            
+            $this->session->remove('guest-user-id');
+
         }
         
         return null; //case no User object is given as function argument + no sesion variable declared.

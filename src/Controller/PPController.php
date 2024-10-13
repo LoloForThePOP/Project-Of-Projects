@@ -10,11 +10,9 @@ use App\Service\Slug;
 use App\Entity\Follow;
 use App\Entity\PPBase;
 use App\Form\NewsType;
-use App\Entity\Comment;
 use App\Entity\Persorg;
 use App\Entity\Document;
 use App\Form\PPBaseType;
-use App\Form\CommentType;
 use App\Form\PersorgType;
 use App\Form\WebsiteType;
 use App\Form\DocumentType;
@@ -34,7 +32,6 @@ use App\Service\MailerService;
 use App\Service\StripeService;
 use App\Service\CacheThumbnail;
 use App\Form\QuestionAnswerType;
-use App\Form\CustomThumbnailType;
 use App\Form\RegistrationFormType;
 use App\Repository\LikeRepository;
 use App\Repository\SlideRepository;
@@ -43,23 +40,16 @@ use App\Entity\ContributorStructure;
 use App\Form\CreatePresentationType;
 use App\Repository\FollowRepository;
 use App\Service\NotificationService;
-use Symfony\Component\Form\FormError;
 use App\Form\ContributorStructureType;
 use App\Service\AI\AICreateImageService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Validator\Constraints\Url;
-use App\Form\WithoutUsernameRegistrationFormType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Vich\UploaderBundle\Templating\Helper\UploaderHelper;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
-use Symfony\Component\PasswordHasher\PasswordHasherInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
@@ -529,44 +519,6 @@ class PPController extends AbstractController
                 }
             }
 
-            //create an account possibility for guest user presenters
-            $guestPresenterForm = $this->createForm(WithoutUsernameRegistrationFormType::class);
-            $guestPresenterForm->handleRequest($request);
-
-            if ($guestPresenterForm->isSubmitted() && $guestPresenterForm->isValid()){
-
-                $shadowUser = $presentation->getCreator(); // The fake user we created when we created an empty guest user presentation. We want to update this user with real information.
-
-                $guestPresenterEmail= $guestPresenterForm->get('email')->getData();
-
-                // hashing guest user provided password
-                
-                $guestPresenterPassword = $encoder->hashPassword(
-                    $shadowUser,
-                    $guestPresenterForm->get('plainPassword')->getData()
-                );
-
-                $shadowUser ->setEmail($guestPresenterEmail)
-                            ->setPassword($guestPresenterPassword);
-
-                $presentation->setDataItem("guest-presenter-activated", true);
-
-                //$presentation->unsetDataItem("guest-presenter-token"); //removed so that guest user can continue his work without being disconnected meanwhile.
-
-                $manager->flush();
-
-                $this->addFlash(
-                    'success',
-                    "✅ Votre présentation est enregistrée. Vous pouvez continuer à la modifier dès maintenant. Pour la modifier une autre fois, il suffira de vous connecter avec votre e-mail et votre mot de passe."
-                );
-
-                return $this->redirectToRoute('show_presentation', [
-                    'stringId' => $presentation->getStringId(),
-                ]);
-            
-            }
-
-
             $bankAccount = new BankAccount;            
             $bankAccountInfoForm = $this->createForm(BankAccountType::class, $bankAccount);
             $bankAccountInfoForm->handleRequest($request);
@@ -627,7 +579,6 @@ class PPController extends AbstractController
                 'addImageForm' => $addImageForm->createView(),
                 'addVideoForm' => $addVideoForm->createView(),
                 'addLogoForm' => $addLogoForm->createView(),
-                'newUserForm' => $guestPresenterForm->createView(),
                 'addNewsForm' => $addNewsForm->createView(),
                 'bankAccountInfoForm' => $bankAccountInfoForm->createView(),
                 'firstTimeEditor' => $firstTimeEditor,

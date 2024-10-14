@@ -2,8 +2,7 @@
 
 namespace App\Security\Authenticator;
 
-use App\Entity\Persorg;
-use App\Service\UserService;
+use App\Service\CreateUserService;
 use App\Entity\User; // your user entity
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,8 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -20,23 +17,24 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\SelfValidatingPassport;
 
+
+/**
+ * Allows user to authenticate to the app with a Facebook account
+ */
 class FacebookAuthenticator extends OAuth2Authenticator
 {
     private $clientRegistry;
     private $entityManager;
     private $router;
+    private $createUserService;
 
-    protected $slugger;
-    protected $session;
-
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, SluggerInterface $slugger, SessionInterface $session)
+    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, CreateUserService $createUserService)
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
 
-        $this->slugger = $slugger;
-        $this->session = $session;
+        $this->createUserService = $createUserService; // to save the authenticating user in db if not already done (facebook shares user email, name)
     }
 
     public function supports(Request $request): ?bool
@@ -55,25 +53,22 @@ class FacebookAuthenticator extends OAuth2Authenticator
                 
                 $facebookUser = $client->fetchUserFromToken($accessToken); //array containing data provided by facebook (for the property list : dd($client->fetchUserFromToken($accessToken)))
 
-                //dd($facebookUser);
-                $email = $facebookUser->getEmail();
+                $email = $facebookUser->getEmail(); //User email as provided by Facebook
 
-                /* // 1) have they logged in with Facebook before? (it might be more appropriate to check if a user Facebook Id has been saved in db like below, because user Facebook email might change as time goes by). I don't do it now because of MVP.
-                $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['facebookId' => $facebookUser->["sub"]]); */
+                /* Have user logged in with Facebook before? */
 
-                $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+                $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]); // it might be more appropriate to check if a user Facebook Id has been saved in db like below, because user Facebook email might change as time goes by). I don't do it now because it is an mvp.                 $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['facebookId' => $facebookUser->["sub"]]);
                 
-                if (!$user) { //creating a new user
+                if (!$user) { //if user email has not been find in db we consider it is a new user
 
                     $user = new User();
                     
-                    $user
-                        ->setUserName($facebookUser->getName())
+                    $user //hydrating the user object
+                        ->setUserName($facebookUser->getName()) //User name as provided by Facebook
                         ->setEmail($email)
-                        ->setParameter("isVerified", true);
+                        ->setParameter("isVerified", true); //Facebook already did it
 
-                    $userService = new UserService($this->entityManager, $this->slugger, $this->session, $user);
-                    $userService->saveSolidUser(true);
+                    $this->createUserService->saveSolidUser($user, false, null, false); // to save user object in db, without creating a username (we take the one provided by facebook), creating a dumb password (user connects with the facebook one), without sending a confirmation email (Facebook already verified user).
 
                 }
                 
@@ -86,7 +81,7 @@ class FacebookAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
 
-        // redirecting to the route whereby we manage post auth
+        // redirecting user to the route whereby we manage post auth
         $targetUrl = $this->router->generate('auth_redirections');
 
         return new RedirectResponse($targetUrl);

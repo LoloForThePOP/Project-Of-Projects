@@ -3,7 +3,7 @@
 namespace App\Security\Authenticator;
 
 use App\Entity\Persorg;
-use App\Service\UserService;
+use App\Service\CreateUserService;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,17 +26,16 @@ class GoogleAuthenticator extends OAuth2Authenticator
     private $entityManager;
     private $router;
 
-    protected $slugger;
-    protected $session;
+    protected $createUserService;
 
-    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, SluggerInterface $slugger, SessionInterface $session)
+    public function __construct(ClientRegistry $clientRegistry, EntityManagerInterface $entityManager, RouterInterface $router, CreateUserService $createUserService)
     {
         $this->clientRegistry = $clientRegistry;
         $this->entityManager = $entityManager;
         $this->router = $router;
 
-        $this->slugger = $slugger;
-        $this->session = $session;
+        $this->createUserService = $createUserService; // to save the authenticating user in db if not already done (Google shares user email, name)
+
     }
 
     public function supports(Request $request): ?bool
@@ -55,35 +54,24 @@ class GoogleAuthenticator extends OAuth2Authenticator
                 
                 $googleUser = $client->fetchUserFromToken($accessToken); //array containing data provided by google (for the property list : dd($client->fetchUserFromToken($accessToken)))
 
-                $email = $googleUser->getEmail();
+                $email = $googleUser->getEmail(); //User email as provided by Google
 
-                /* // 1) have they logged in with Google before? (it might be more appropriate to check if a user Google Id has been saved in db like below, because user Google email might change as time goes by). I don't do it now because of MVP.
-                $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['googleId' => $googleUser->["sub"]]); */
+                // Have user logged in with Google before?
 
-                $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]);
+                $user = $this->entityManager->getRepository(User::class)->findOneBy(['email' => $email]); //it might be more appropriate to check if a user Google Id has been saved in db like below, because user Google email might change as time goes by. I don't do it now because of MVP. $existingUser = $this->entityManager->getRepository(User::class)->findOneBy(['googleId' => $googleUser->["sub"]]);
                 
                 if (!$user) { //creating a new user
 
                     $user = new User();
 
-                    $userName = $googleUser->getName();
+                    $userName = $googleUser->getName(); //User name as provided by Google
 
-                    $user
+                    $user //hydrating the user object
                         ->setUserName($userName)
                         ->setEmail($email)
                         ->setParameter('isVerified', true);
 
-                    $userPersorg = new Persorg(); // creating a user profile
-                    $userPersorg->setName($user->getUserName());
-                    $user->setPersorg($userPersorg);
-
-                    $userService = new UserService($this->entityManager, $this->slugger, $this->session, $user);
-                    $userService->saveSolidUser(true);
-
-                    $this->entityManager->persist($userPersorg);
-                    $this->entityManager->persist($user);
-                    $this->entityManager->flush();
-
+                    $this->createUserService->saveSolidUser($user, false, null, false); // to save user object in db, without creating a username (we take the one provided by Google), creating a dumb password (user connects with the Google one), without sending a confirmation email (Facebook already verified user).
 
                 }
 

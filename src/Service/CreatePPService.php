@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Entity\Slide;
 use App\Entity\PPBase;
-use App\Service\UserService;
+use App\Service\CreateUserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
@@ -124,7 +124,7 @@ class CreatePPService {
     * PP needs a creator to be valid. This function allows to hydrate PP user appropriately depending on user context (user is logged in or not)
     * 
     */
-    protected function ppUserCreatorManagement(){
+    protected function ppUserCreatorManagement(CreateUserService $createUserService){
 
         $user = $this->security->getUser(); //getting current user thanks to symfony security component
         
@@ -132,11 +132,9 @@ class CreatePPService {
             $this->pp->setCreator($user);
         }else{ //current user is not logged in
             
-            $newUserService = new UserService($this->em, $this->slugger, $this->session); 
-            $newGuestUser = $newUserService->createSaveGuestUser();
+            $newGuestUser = $createUserService->createSaveGuestUser();
 
-            $this->pp->setCreator($newGuestUser)
-                     ->setDataItem("guest-presenter-activated", false);
+            $this->pp->setCreator($newGuestUser)->setDataItem("guest-presenter-activated", false);
 
             $this->em->flush();
 

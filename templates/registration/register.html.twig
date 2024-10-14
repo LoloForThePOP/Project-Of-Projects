@@ -1,34 +1,42 @@
+{# Template for register to the app via an email address #}
+
 {% extends 'base.html.twig' %}
 
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Créer un compte Propon{% endblock %}
 
 {% block body %}
 
+    {# Hide / show password functionnality for input[type="password"] #}
+
     {% include "utilities/_toggle_password_visibility.html.twig" %}
+
+
+    {# Overall container #}
 
     <div class="page-container container px-2 col-md-8 col-xxl-8">
 
         <div class="row align-items-center text-center text-lg-start">
 
-            <h3 class="fw-bold text-body text-center">Inscription sur le site</h3>
+            {# Overall title #}
 
-            <div class="col-lg-6 text-success">
+            <h3 class="text-success fw-bold text-center">Créer un compte Propon gratuit</h3>
+
+            {# Form container #}
+
+            <div class="col-lg-6 text-success pt-3">
 
                 {{form_start(registrationForm)}}
 
+                {# Email field #}
 
-                <div class="my-5 mb-lg-3">
-                    <span class="me-2" style="display: inline-block;transform: matrix(-1, 0, 0, 1, 0, 0);">✒️</span> {{ form_label(registrationForm.userName) }}
-                    {{form_errors(registrationForm.userName)}}
-                    {{ form_widget(registrationForm.userName) }}
-                </div>
-
-                <div class="my-5 mb-lg-3">
+                <div class="my-5  mt-lg-3 mb-lg-3">
                     <span class="fs-4 text-success me-2">@</span> {{ form_label(registrationForm.email) }}
                     {{form_errors(registrationForm.email)}}
                     {{ form_widget(registrationForm.email) }}
                 </div>
+
+                {# Password field #}
 
                 <div class="my-5 mb-lg-3">
                     <span class="me-2">🔑</span> {{ form_label(registrationForm.plainPassword) }}
@@ -36,13 +44,10 @@
                     {{ form_widget(registrationForm.plainPassword) }}
                 </div>
 
+                {# Agree terms info #}
+
                 <p class="text-body">En cliquant sur valider, vous acceptez nos <a href="{{path ('static', {'page_name': "terms",})}}"target="_blank" rel="noopener noreferrer">conditions générales d'utilisation</a>.</p>
-                {#   <div>
-                    {{ form_label(registrationForm.agreeTerms) }}
-                    {{ form_widget(registrationForm.agreeTerms) }}
-                </div> #}
-
-
+               
 
                 <!-- ui Actions Buttons -->
 
@@ -64,6 +69,8 @@
 
             </div>
 
+            {# Illustration image (only >= md screens) #}
+
             <div class="d-none d-lg-block col-12 col-md-8 col-lg-6 ps-lg-5">
 
                 <img src="{{asset('account/register.png', 'larger')}}" class="rounded d-block mx-lg-auto img-fluid" alt="Two men, one is showing an entry door." loading="lazy" width="700" height="500">
@@ -74,16 +81,5 @@
 
     </div>
 
-    <script>
-
-        mixpanel.track(
-
-            "Create Account",
-            
-            {"step": "initial form"}
-
-        );
-
-    </script>
 
 {% endblock %}

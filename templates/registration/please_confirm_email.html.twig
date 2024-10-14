@@ -1,14 +1,31 @@
+
+{# 
+
+  About user email verification.
+
+  To inform user that an email has been sent to him / her in order to confirm email address.
+  
+#}
+
 {% extends "base.html.twig" %}
 
 {% block body %}
+
+{# Main content container #}
 
 <div class="container col-xxl-8 px-4">
 
   <div class="row align-items-center g-5 py-5">
 
+    {# Main text container (is a column, left column, >= md screens) #}
+
     <div class="col-md-6 px-0">
 
+      {# ui page title #}
+
       <h4 class="fw-bold lh-1 mb-3">Confirmez votre adresse e-mail</h4>
+
+      {# Text content: check your emails #}
 
       <p class="lead">Un e-mail vous a été envoyé à l'adresse :<br>
 
@@ -35,28 +52,17 @@
       </ul>
 
     </div>
+
+    {# Illustration container (is a column, right column, >= md screens) #}
     
     <div class="col-12 col-md-6" style="background-color: #c9dfe7;">
 
-      <img src="{{ asset('account/confirm_email.png', 'larger')}}" class="d-block mx-lg-auto img-fluid" alt="Person receive an email"
-        loading="lazy" width="350" height="350">
+      <img src="{{ asset('account/confirm_email.png', 'larger')}}" class="d-block mx-lg-auto img-fluid" alt="Person receive an email" loading="lazy" width="350" height="350">
 
     </div>
 
   </div>
 
 </div>
-
-<script>
-
-  mixpanel.track(
-
-    "Create Account",
-
-    {"step": "confirm email page"}
-
-  );
-
-</script>
 
 {% endblock %}

@@ -22,6 +22,8 @@
 
             <h3 class="text-success fw-bold text-center">Créer un compte Propon gratuit</h3>
 
+            <h6 class="text-center">Déjà un compte Propon ? <a class="" href="{{path('app_login')}}">Connectez-vous ici.</a></h6>
+
             {# Form container #}
 
             <div class="col-lg-6 text-success pt-3">
@@ -31,7 +33,7 @@
                 {# Email field #}
 
                 <div class="my-5  mt-lg-3 mb-lg-3">
-                    <span class="fs-4 text-success me-2">@</span> {{ form_label(registrationForm.email) }}
+                    <span class="fs-4 text-warning me-2">@</span> {{ form_label(registrationForm.email) }}
                     {{form_errors(registrationForm.email)}}
                     {{ form_widget(registrationForm.email) }}
                 </div>

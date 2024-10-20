@@ -58,14 +58,16 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * User Email Confirmation Action
+     * User email confirmation route after registering to the app (see create user service for details about this email).
+     * 
+     * URL params: $token: the token we assigned to the newly registered user (token stored in DB, see User entity for details), this token is also assigned to an email we sent to user so that if user can confirm their email address.
      * 
      * @Route("/verify/email_confirmation/{token}", name="email_confirmation")
      */
-    public function EmailConfirmation(Request $request, string $token): Response
+    public function EmailConfirmation(string $token): Response
     {
 
-        // searching user with given token
+        //Searching user with provided in url token
 
         $user = $this->getDoctrine()->getRepository(User::class)->findOneBy(
 
@@ -73,23 +75,24 @@ class RegistrationController extends AbstractController
 
         );
 
-        // if user does not exist
+        //If user does not exist in DB, redirecting user to app login route and displaying an error
         if ($user === null) {
-            // displaying an error
+        
             $this->addFlash('danger', 'Une erreur est survenue : Token Inconnu');
             return $this->redirectToRoute('app_login');
         }
 
-        $user->setParameter('isVerified', true);
-        $user->setEmailValidationToken(null);
+        //Else setting that user email is verified
 
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($user);
-        $entityManager->flush();
+        $user->setParameter('isVerified', true);//$parameter is an User entity attribute array containing info about user 
+        $user->setEmailValidationToken(null);//no need to keep the email validation token filled
 
-        // flash message & redirect to login route
+        $entityManager = $this->getDoctrine()->getManager()->flush();
+
+        //Redirecting user to login route with a successfull feedback flash message 
         $this->addFlash('success', 'Votre adresse a été vérifiée ! Vous pouvez maintenant vous connecter et utiliser le site.');
 
         return $this->redirectToRoute('app_login');
     }
+
 }

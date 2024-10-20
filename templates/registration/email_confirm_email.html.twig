@@ -1,19 +1,17 @@
 
 {# This is an email content: 
 
-    About user email verification: asking user to click on a link so that we validate the provided email address
+    About user email verification: we ask user to click on a link in order to validate the email address he provided
     
 #}
 
 <p style="font-size:17px;">
 
-    <b>Pour valider votre inscription sur propon.org, cliquez sur le lien ci-dessous :</b>
-    
-    <br><br>
+    <b>Pour valider votre inscription sur propon.org, cliquez sur le lien suivant : </b>
 
     {# Unique url with token user have to click on in order to validate their email address #}
     
-    <a href="{{ confirmationURL }}">Je confirme mon inscription</a>
+    <a href="{{ confirmationURL }}">confirmer mon inscription.</a>
 
 </p>
 
@@ -22,5 +20,5 @@
 </p>
 
 <p>
-    Ceci est un message automatique. Merci de ne pas y répondre.
+    Ceci est un message automatique envoyé par propon.org, plateforme spécialisée dans la présentation de projets. Merci de ne pas répondre à ce message.
 </p>

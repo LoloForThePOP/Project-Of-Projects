@@ -2,7 +2,7 @@
 
 namespace App\Security\Authenticator;
 
-use App\Entity\Persorg;
+
 use App\Service\CreateUserService;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
@@ -11,8 +11,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use KnpU\OAuth2ClientBundle\Security\Authenticator\OAuth2Authenticator;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -84,12 +82,8 @@ class GoogleAuthenticator extends OAuth2Authenticator
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
         // redirecting to the route whereby we manage post auth
-        $targetUrl = $this->router->generate('auth_redirections');
-
-        return new RedirectResponse($targetUrl);
-    
-        // or, on success, let the request continue to be handled by the controller
-        //return null;
+        return new RedirectResponse($this->router->generate('auth_redirections'));
+        
     }
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response

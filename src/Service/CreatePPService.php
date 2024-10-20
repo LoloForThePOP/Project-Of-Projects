@@ -8,7 +8,6 @@ use App\Service\CreateUserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 
 /**
@@ -20,19 +19,20 @@ class CreatePPService {
     protected $slugger; //project presentations have a friendly url adress, to do so we slug project goal or title if provided
 
     protected $security; //symgony security component allows to get current user object, we need it to hydrate project presentation creator
-    protected $session; //allows to access in session some information about user
     
     protected $em; //entity manager to create and save project presentation in database
+
+    protected $createUserService; //New project presentation needs a presentation creator. If user is an anonymous guest, CreateUserService stores in DB such a guest user so that project presention has a creator anyway.
     
 
-    public function __construct(EntityManagerInterface $em, Security $security, SessionInterface $session, SluggerInterface $slugger)
+    public function __construct(EntityManagerInterface $em, Security $security, SluggerInterface $slugger, CreateUserService $createUserService)
     {
 
         //see details above
-        $this->session = $session;
         $this->em = $em;
         $this->security = $security;
         $this->slugger = $slugger;
+        $this->createUserService = $createUserService;
         
     }
 
@@ -47,7 +47,7 @@ class CreatePPService {
 
         $this->pp = new PPBase(); //instanciating a new 3P
 
-        $this->ppUserCreatorManagement(); //This function allows to hydrate PP user depending on context (user logged in or not).
+        $this->ppCreatorManagement(); //This function allows to hydrate PP user depending on context (user logged in or not).
                 
         foreach ($dataArray as $key => $value) {
 
@@ -105,7 +105,6 @@ class CreatePPService {
                     break;
                 
                 default:
-                    # code...
                     break;
 
             }
@@ -121,18 +120,18 @@ class CreatePPService {
 
 
     /**
-    * PP needs a creator to be valid. This function allows to hydrate PP user appropriately depending on user context (user is logged in or not)
+    * A PP needs a creator to be valid. This function allows to hydrate PP creator attribute appropriately depending on current user context (user is logged in or user is a guest)
     * 
     */
-    protected function ppUserCreatorManagement(CreateUserService $createUserService){
+    protected function ppCreatorManagement(){
 
         $user = $this->security->getUser(); //getting current user thanks to symfony security component
         
-        if ($user) { //case user is logged in, it's easy we hydrate project presentation user with it
+        if ($user) { //case user is logged in, we hydrate project presentation creator attribute with logged in user
             $this->pp->setCreator($user);
-        }else{ //current user is not logged in
+        }else{ //current user is not logged in, current is a guest user, so PP creator is a guest user we got to create(see CreateUserService for details about creating a guest user in DB)
             
-            $newGuestUser = $createUserService->createSaveGuestUser();
+            $newGuestUser = $this->createUserService->createSaveGuestUser();
 
             $this->pp->setCreator($newGuestUser)->setDataItem("guest-presenter-activated", false);
 

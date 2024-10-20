@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\Entity\User;
+use App\Service\CreateUserService;
 use App\Service\ImageService;
 use App\Service\SessionVariablesService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -318,33 +319,21 @@ class MiscController extends AbstractController
      * 
      * @Route("/auth-redirections", name="auth_redirections")
     */
-    public function authRedirections(SessionVariablesService $sessionVariables, EntityManagerInterface $em)
+    public function authRedirections(CreateUserService $createUserService)
     {
 
-        $guestUserId = $sessionVariables->guestUserId(); //checking if authenticating user has just been a guest user anonymously presenting a project (true if not null).
+        //checking if authenticated user has been an anonymous guest user
+        $transfertUserWork = $createUserService->transfertGuestUserWork($this->getUser());
 
-        if ($guestUserId !== null) {//if authenticating user have a guest user id stored in a session variable, it means that they just used the app as a guest and now he authenticates to the app.
+        if($transfertUserWork != false){//case user has just been an anonymous user creating a project presentation
 
-            $guestUser = $this->getDoctrine()->getRepository(User::class)->findOneBy(['id' => $guestUserId]);//searching in db the guest user matching with the online anonymous user that is logging into the app.
-
-            $guestUserPresentation = $guestUser->getCreatedPresentations()[0];// searching the db stored project presentation done by the guest user.
-            
-            $guestUserPresentation->setDataItem("guest-presenter-activated", true);//flagging that a solid user is claiming the work done as a guest
-
-            $this->getUser()->addCreatedPresentation($guestUserPresentation);//Adding the presentation to the authenticating user
-            $guestUser->removeCreatedPresentation($guestUserPresentation);//removing the presentation from the guest user sotred in db (we don't need this user anymore, he served as a storage)
-
-            $em->flush();
-
-            $sessionVariables->guestUserId(null, true); //delete the session variable we don't use anymore since user has logged in.
-
-            return $this->redirectToRoute('show_presentation', [ //redirect the newly logged in user to the presentation page he has created.
-                'stringId' => $guestUserPresentation->getStringId(),
-            ]);
+            return $this->redirectToRoute('show_presentation', [
+                'stringId' => $transfertUserWork,
+            ]);//redirecting user to the presentation they have created
 
         }
 
-        return $this->redirectToRoute('homepage');
+        return $this->redirectToRoute('homepage');//redirecting user to homepage if no specific targeted page is defined.
 
     }
 

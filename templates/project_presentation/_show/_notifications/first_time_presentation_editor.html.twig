@@ -1,8 +1,9 @@
+{# A modal box displaying some advice the first time user arrives on their Project Presentation Page #}
+
 {% embed "utilities/modal_skeleton.html.twig" with {'modal_id': "firstTimeEditPresentationModal", 'modal_title': "Votre page de projet est créée !", 'modal_size': "modal-dialog-centered"} %}
 
 
     {% block closingCross %}{% endblock %}
-  
 
     {% block modalBody %}
 
@@ -19,18 +20,28 @@
             };
 
             $(document).ready(function(){
+                
+                //first time user arrives into their 3P, we switch to pp-consultation mode in order to reduce user cognitive overload (seeing all edition possibilities can be demoralizing !).
 
-                document.getElementById("pp-switch-edit-consult-mode").click(); //get into pp-consultation mode in order to reduce user cognitive overload.
+                document.getElementById("pp-switch-edit-consult-mode").click(); 
 
             });
         
         </script>
 
+        {# Actual modal box text content #}
+
         <div class="">
 
-            <p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">✏️</span> <span style=""><b>Modifiez-là</b> en cliquant sur l'<b>icône crayon à droite de l'écran</b>.</span></p>
+            {# click on pen to edit your presentation page #}
 
-            {% if not app.user %}<p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">📌</span> <b>Enregistrez-là gratuitement</b> avec le formulaire en bas de page. <b>Vous pourrez partager son adresse.</b></p>{% endif %}
+            <p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">✏️</span> <span style=""><b>Modifiez-là rapidement</b> en cliquant sur l'<b>icône crayon à droite de l'écran</b>.</span></p>
+
+            {# If user is not authenticated (= anonymous guest user) we propose them to authenticate via a specific form #}
+
+            {% if not app.user %}<p class="fs-5"><span style="display: inline-block; transform: rotate(360deg) scaleX(-1);">📌</span> <b>Enregistrez-là gratuitement</b> avec le formulaire en bas de page et <b>partagez son adresse.</b></p>{% endif %}
+
+            {# Some page edition possibilities #}
 
             <p class="fs-5 mb-1">✨ <b>Profitez des avantages</b> apportés par votre page :</p>
 
@@ -47,6 +58,8 @@
     {% block footerButtons %}
 
         {% block footerCloseButton %}{% endblock %}
+
+        {# Close modal button #}
 
         <button type="button" class="btn btn-validate" data-bs-dismiss="modal">Ok</button>
 

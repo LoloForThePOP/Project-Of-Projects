@@ -74,7 +74,7 @@
 
 
 
-/* Overiding some project_collection_by_theme.css  */
+/* Overiding some titled_project_collection.css  */
 
 .tab-result .collection-title{
     display: none;
@@ -84,7 +84,7 @@
     margin-top: 40px;
 }
 
-/* End of overiding project_collection_by_theme.css */
+/* End of overiding titled_project_collection.css */
 
 
 

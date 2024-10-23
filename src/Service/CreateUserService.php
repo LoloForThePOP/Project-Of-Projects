@@ -19,11 +19,11 @@ use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
  * 
  * Two users types are treated in this class (one method for each case):
  * 
- *  - type 1: user just have subscribed to the app (including app register form; Google auth or Facebook auth): in this case we know user's email adress, we save this user in DB, potentially with an email verification process (such users are called solid users).
+ *  - type 1: user just have subscribed to the app (including app register form; Google auth or Facebook auth): in this case we know user's email adress, we save this user in DB, potentially with an email verification process (such users are called authenticated users).
  * 
  *  - type 2: user is a guest: he has not logged in but he has created a presentation: in this case we create and save a guest user with a fake email address & with access to the just created project presentation.
  * 
- * Another method allows to transfert a anonymous guest user work to a solid created user (= when user authenticates to the app after creating a project presentation as an anonymous guest user, we transfert the guest user work to the newly authenticated user so that they retrieve their work).
+ * Another method allows to transfert a anonymous guest user work to a authenticated created user (= when user authenticates to the app after creating a project presentation as an anonymous guest user, we transfert the guest user work to the newly authenticated user so that they retrieve their work).
  * 
  */
 class CreateUserService {
@@ -64,16 +64,15 @@ class CreateUserService {
     *
     * Return the user object.
     *
-    * Note: Solid user means this user is not a anonym guest user.
     */
-    public function saveSolidUser(User $user = null, $createUsername = false, $plainPassword = null, $checkUserEmail = false){
+    public function saveAuthenticatedUser(User $user = null, $createUsername = false, $plainPassword = null, $checkUserEmail = false){
 
         if ($user->getEmail() == null) {//this function only handles cases where user email is known
-           throw new Exception("Creating a solid user means knowing its email adress");
+           throw new Exception("Creating an authenticated user means knowing its email adress");
         }
 
         if ($createUsername == true) {//if user name is unknown we create a fake one
-            $user->setUserName("std-sld-".substr(md5(rand()), 0, 7));// std means standard (we don't know username so we call it standard); sld means solid user (= not a guest user)
+            $user->setUserName("std-auth-".substr(md5(rand()), 0, 7));// std means standard (we don't know username so we call it standard); auth means authenticated user (= not a guest user)
         }
 
         /* userName unique slug creation*/
@@ -96,6 +95,9 @@ class CreateUserService {
         if ($plainPassword == null) {//if no password is provided we create a random one
             $plainPassword = substr(md5(rand()), 0, 7);
         } 
+
+        
+        //dd($plainPassword);
 
         // hashing user password
         $user->setPassword($this->passwordHasher->hashPassword($user, $plainPassword));
@@ -147,7 +149,7 @@ class CreateUserService {
 
         $randomString = substr(md5(rand()), 0, 8);//this random string is used to create some guest user attributes like he/her name
 
-        $user->setUserName("std-gst-".$randomString)// std means standard (we don't know username so we call it standard); gst means guest user (= not a solid user)
+        $user->setUserName("std-gst-".$randomString)// std means standard (we don't know username so we call it standard); gst means guest user (= not an authenticated user)
                     ->setEmail('ppn-temp-'.$randomString.'@test.com')//guest user fake email adress
                     ->setUserNameSlug($this->slugger->slug($user->getUserName()))//creating a slug (required attribute)
                     ->setPassword(substr(md5(rand()), 0, 8)) //fake password

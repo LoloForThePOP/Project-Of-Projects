@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
@@ -24,7 +23,6 @@ class RegistrationFormType extends AbstractType
 
             ->add('plainPassword', PasswordType::class, [
                 
-                'mapped' => false, // we do not hydrate the User object with the provided password because we hash it afterwads for security reasons, that's why we do not map the password field.
                 'label' => "Créez votre mot de passe",
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
@@ -47,7 +45,7 @@ class RegistrationFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => User::class,
+            
         ]);
     }
 }

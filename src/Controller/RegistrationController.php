@@ -20,15 +20,10 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, CreateUserService $createUserService): Response
     {
-        $user = new User();
-
-        //setting a temporary user name (this is a required field, a random one is generated in the CreateUserService used bellow, user can change it later)
-        $user->setUserName("temp");
 
         //registration form with antispam time protection
         $form = $this->createForm(
             RegistrationFormType::class,
-            $user,
             array(
 
                 'antispam_time'     => true,
@@ -42,9 +37,13 @@ class RegistrationController extends AbstractController
         //If a valid form is submitted
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $plainPassword = $form->getData("password");
+            $plainPassword = $form->get("plainPassword")->getData();
 
-            $createUserService->saveSolidUser($user, true, $plainPassword, true); //saving user, creating a random username, without creating a password, with email verification.
+            $user = new User();
+            $user->setEmail($form->get("email")->getData())
+                 ->setPassword($plainPassword);
+
+            $createUserService->saveAuthenticatedUser($user, true, $plainPassword, true); //saving user, creating a random username, without creating a password, with email verification.
 
             return $this->render('registration/please_confirm_email.html.twig', [//redirecting user to a page whereby we ask him to check emails
                 'userEmailToConfirm' => $user->getEmail(),// we pass user provided email address so that he can check if he has provided a good one ( without typo)

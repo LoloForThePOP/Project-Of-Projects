@@ -3,6 +3,8 @@
 
     $(document).ready(function () {
 
+        //AI answer template
+
         const newAIAnswerPattern = ({ answer }) => `
 
             <div class="assistant-advice-container form-group">
@@ -15,7 +17,7 @@
     
         `;
 
-        //visual ui innitialisation
+        //UI initialisation
 
         $(".answer-loader").hide();
 
@@ -23,27 +25,23 @@
 
         $(".userInput").focus();
 
-        $(".js-ai-create-ppp").hide();
+        $(".js-ai-create-ppp").hide(); // This button launch project presentation creation, it appears after some AI / user interactions
 
-        $("#process-container").hide();
-
+    // In the begining conversation boxes are hidden, just a page with a start button is displayed.
+        $("#process-container").hide(); 
         $(".assistant-advice-container").hide();
-
-
 
         const context = "{{context}}"; // when context is coach, user wants to use the tool without initially wanting to create a propon project presentation page.
 
-        if(context !== "coach"){ // when context is not coach, user knows he wants to create a propon project presentation page, we avoid some initial messages.
+        if(context !== "coach"){ // when context is not coach, user knows she wants to create a propon project presentation page, we avoid some initial messages including the teasing start button page.
 
             $("#introduction-container").hide();
-            $("#process-container").show();
+            $("#process-container").show(); // In this case user enters directly to the discussion mode
 
         };
 
-       
 
-
-        //when user click on start button, show main ui
+        //when user click on the start button from the teasing start page, show main ui
 
         $('#js-start-interview-coach').on('click', function (){
 
@@ -52,17 +50,16 @@
 
         });
 
-        //store user messages count in order to show "Make a summary button" when relevant.
+        // Store user messages count in order to show the create Propon page button when relevant.
         var userMessagesCount = 0;
 
         //conversation flow
         $('.send-button').on( "click", function() {
 
-            var userMessage = $('.userInput:last').val();
+            var userMessage = $('.userInput:last').val(); // Getting last user input
 
-            //console.log("Le message qui va être envoyé est "+userMessage);
+            $(".pursue-conversation").hide(); // Hiding send answer to AI button because it is currently processing user answer
 
-            $(".pursue-conversation").hide();
             $(".answer-loader").show();
 
             $.ajax({
@@ -75,13 +72,14 @@
 
                 success: function (response) {
 
-                    //console.log(response.aiAnswer);
+                    // !!! Cleanup Work in progress stopped here.
+
 
                     $("#main-ui form").append([
                         { answer: response.aiAnswer },
                     ].map(newAIAnswerPattern));
 
-                    $('.user-input-container:first').clone(true, true).appendTo('#main-ui form'); //deep cloning with events
+                    $('.user-input-container:first').clone(true, true).appendTo('#main-ui form'); //deep cloning (= with events)
                     $('.userInput:last').val("");
 
                     $('.send-button-container').appendTo('#main-ui form');

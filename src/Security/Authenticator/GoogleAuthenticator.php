@@ -69,7 +69,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
                         ->setEmail($email)
                         ->setParameter('isVerified', true);
 
-                    $this->createUserService->saveSolidUser($user, false, null, false); // to save user object in db, without creating a username (we take the one provided by Google), creating a dumb password (user connects with the Google one), without sending a confirmation email (Facebook already verified user).
+                    $this->createUserService->saveAuthenticatedUser($user, false, null, false); // to save user object in db, without creating a username (we take the one provided by Google), creating a dumb password (user connects with the Google one), without sending a confirmation email (Facebook already verified user).
 
                 }
 
@@ -81,6 +81,7 @@ class GoogleAuthenticator extends OAuth2Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+     
         // redirecting to the route whereby we manage post auth
         return new RedirectResponse($this->router->generate('auth_redirections'));
         

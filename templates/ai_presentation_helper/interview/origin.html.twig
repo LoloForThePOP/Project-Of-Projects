@@ -1,5 +1,9 @@
+
+{# Main page for Propon Project Presentation AI Interview Assistant #}
+
 {% extends 'base.html.twig' %}
 
+    {# Setting some metadata #}
 
     {% set titleMetadata = "Comment répondre aux questions importantes sur votre projet ? Votre assistant gratuit." %}
     {% set metadataDescription = "Préparez-vous à répondre aux questions importantes sur votre projet. Notre coach automatique vous pose des questions pertinentes et vous aide à trouver les bons mots pour y répondre." %}
@@ -8,12 +12,18 @@
 
 {% block headTag %}
 
+    {# Declaring some metadata #}
+
     <meta name="description" content="{{metadataDescription}}">
     <meta name="author" content="Laurent G.">
     <meta name="keywords" content="Assistant, IA, Entretien, Présentation, Projet">
     <meta name="date" content="2023-01-17">
 
-    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }} {# Call from base.html.twig #}
+    {# Open graph macro called from base.html.twig #}
+
+    {{ _self.openGraph(titleMetadata, 'Propon', currentPageUrl, metadataDescription, 'product', metadataImageUrl, null) }}
+
+    {# Specific CSS #}
 
     <link href="/css/ia_interview_assistant.css" rel="stylesheet">
     
@@ -24,16 +34,21 @@
 
 {% block body %}
 
+    {# JS Fronted mechanics + ajax calls #}
 
-{% include "ai_presentation_helper/interview/_js_process.html.twig" %} {# uses a context variable to determine display #}
+    {% include "ai_presentation_helper/interview/_js_process.html.twig" %} {# contains a twig variable called "context" in order to know the user landing context and proceed accordingly #}
 
-<div id="" class="page-container">
+    <div id="" class="page-container">
 
-    <div id="introduction-container">{% include "ai_presentation_helper/interview/_introduction.html.twig" %}</div>
+        {# This container contains a teasing page with a start button #}
 
-    <div id="process-container">{% include "ai_presentation_helper/interview/_visual_process.html.twig" %}</div>
+        <div id="introduction-container">{% include "ai_presentation_helper/interview/_introduction.html.twig" %}</div>
 
-</div>
+        {# This container contains User / AI conversation boxes #}
+
+        <div id="process-container">{% include "ai_presentation_helper/interview/_visual_process.html.twig" %}</div>
+
+    </div>
 
 
 {% endblock %}

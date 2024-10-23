@@ -1,25 +1,9 @@
+
+/* Global CSS for Propon Project Presentation AI Interview Assistant */
+
 body {
   font-family: Montserrat, sans-serif;
 }
-
-#assistant-question{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #227422;
-}
-
-#main-ui .assistant-advice {
-	padding: 8px 8px 10px 8px;
-	border-radius: 8px;
-}
-
-
-#main-ui .send-button-container {
-	display: flex;
-  justify-content: center;
-}
-
 
 
 #main-ui form {
@@ -56,6 +40,31 @@ body {
   outline: none;
 }
 
+#main-ui #assistant-question{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #227422;
+}
+
+#main-ui .assistant-advice {
+	padding: 8px 8px 10px 8px;
+	border-radius: 8px;
+}
+
+
+#main-ui .assistant-advice-label{
+  text-align: center;
+  color: #5c5cae;
+  font-weight: bold;
+}
+
+
+#main-ui .send-button-container {
+	display: flex;
+  justify-content: center;
+}
+
 #main-ui button {
 
   padding: 0.75rem 1.5rem;
@@ -84,48 +93,39 @@ body {
 
 /* RGPD Show more */
 
-/* Initially hide the "Learn More" content */
+/* Initially hide "Learn More" content */
 .more-content {
   display: none;
 
 }
 
-/* Styles for the "Learn More" button */
+/* Styles for "Learn More" button */
 .learn-more {
   color: #0073e6;
   cursor: pointer;
 }
 
-/* Style on hover for the "Learn More" button */
 .learn-more:hover {
   text-decoration: none;
 }
 
 /* End of RGPD Show more */
 
-.assistant-advice-label{
-  text-align: center;
-  color: #5c5cae;
-  font-weight: bold;
-}
 
 @media screen and (max-width: 580px) {
-
 
   #main-ui form {
     padding: 2rem 0.8rem ;
     width: 100%;
   }
 
-  #assistant-question{
-    margin: -5px;
-    font-size: 1.05em;
-  }
-
-
   #main-ui textarea {
     height: 92px;
   }
-  
+
+  #assistant-question{
+    margin: -5px;
+    font-size: 1.05em;
+  }  
 
 }

@@ -1,8 +1,12 @@
-
+{# A start page to tease / appeal user to use the service #}
 
 <div class="mt-4 mb-4">
 
+    {# Main page title #}
+
     <h1 class="h3 text-center mb-4" style="color: #293951;"><b>Préparer</b> un <b>entretien</b> <br class="d-block d-md-none">pour <u>votre</u> <b>projet</b></h1>
+
+    {# Rationnal arguments #}
 
     <div class="d-flex justify-content-center">
 
@@ -37,14 +41,19 @@
 </div>
 
 
+{# Start using the service button #}
+
 <div class="d-flex justify-content-center">
         
     <button id="js-start-interview-coach">
+
         <div class="mb-1">Démarrer</div>
+
         <svg class="feather feather-arrow-right" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"/>
             <polyline points="12 5 19 12 12 19"/>
         </svg>
+
     </button>
 
 </div>
@@ -54,44 +63,45 @@
 
 <style>
 
+    #js-start-interview-coach {
+        display: flex;
+        align-items: center;
+        background-color: #00b803;
+        color: #ffffff;
+        padding: 14px 26px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 20px;
+        font-weight: bold;
+        transition: background-color .3s;
+    }
 
-#js-start-interview-coach {
-    display: flex;
-    align-items: center;
-    background-color: #00b803;
-    color: #ffffff;
-    padding: 14px 26px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-    transition: background-color .3s;
-}
+    #js-start-interview-coach svg {
+        width: 30px;
+        height: 24px;
+        fill: #ffffff;
+        margin-left: 3px;
+    }
 
-#js-start-interview-coach svg {
-    width: 30px;
-    height: 24px;
-    fill: #ffffff;
-    margin-left: 3px;
-}
+    #js-start-interview-coach svg {
+    position: relative;
+    right: 0;
+    transition: right ease 0.5s;
+    }
 
+    #js-start-interview-coach:hover svg {
+    right: -10px;
+    }
 
-#js-start-interview-coach svg {
-  position: relative;
-  right: 0;
-  transition: right ease 0.5s;
-}
-#js-start-interview-coach:hover svg {
-  right: -10px;
-}
+    #js-start-interview-coach:hover {
+        background-color: #3eb811;
+    }
 
-#js-start-interview-coach:hover {
-    background-color: #3eb811;
-}
 </style>
 
 
+{# GDPR Disclaimer with show more button #}
 
 <div class="cta container col-md-6 border p-2 py-2 py-md-3 mt-4">
 
@@ -109,19 +119,23 @@
 
         </div>
 
-        <script>
-        // Select HTML elements
-        const learnMoreButton = document.querySelector('.learn-more');
-        const moreContent = document.querySelector('.more-content');
+        {# Show more button JS #}
 
-        // Add an event listener to show/hide the "Learn More" content
-        learnMoreButton.addEventListener('click', () => {
-            if (moreContent.style.display === 'block') {
-            moreContent.style.display = 'none';
-            } else {
-            moreContent.style.display = 'block';
-            }
-        });
+        <script>
+
+            // Select HTML elements
+            const learnMoreButton = document.querySelector('.learn-more');
+            const moreContent = document.querySelector('.more-content');
+
+            // Add an event listener to show/hide the "Learn More" content
+            learnMoreButton.addEventListener('click', () => {
+                if (moreContent.style.display === 'block') {
+                moreContent.style.display = 'none';
+                } else {
+                moreContent.style.display = 'block';
+                }
+            });
+
         </script>
 
     </div>

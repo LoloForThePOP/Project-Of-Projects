@@ -68,7 +68,7 @@ class FacebookAuthenticator extends OAuth2Authenticator
                         ->setEmail($email)
                         ->setParameter("isVerified", true); //Facebook already did it
 
-                    $this->createUserService->saveSolidUser($user, false, null, false); // to save user object in db, without creating a username (we take the one provided by facebook), creating a dumb password (user connects with the facebook one), without sending a confirmation email (Facebook already verified user).
+                    $this->createUserService->saveAuthenticatedUser($user, false, null, false); // to save user object in db, without creating a username (we take the one provided by facebook), creating a dumb password (user connects with the facebook one), without sending a confirmation email (Facebook already verified user).
 
                 }
                 

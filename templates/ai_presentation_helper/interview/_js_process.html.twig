@@ -72,56 +72,55 @@
 
                 success: function (response) {
 
-                    // !!! Cleanup Work in progress stopped here.
-
-
-                    $("#main-ui form").append([
+                    $("#main-ui form").append([ //appending the ai answer using our ai answer js template
                         { answer: response.aiAnswer },
                     ].map(newAIAnswerPattern));
 
-                    $('.user-input-container:first').clone(true, true).appendTo('#main-ui form'); //deep cloning (= with events)
-                    $('.userInput:last').val("");
+                    $('.user-input-container:first').clone(true, true).appendTo('#main-ui form'); //appending user input container box (deep cloning (= with events))
+                    $('.userInput:last').val(""); // cleaning the appended box
 
-                    $('.send-button-container').appendTo('#main-ui form');
-                    $(".send-button-container").hide();
+                    $('.send-button-container').appendTo('#main-ui form'); //moving the send button to the end of the form
+                    $(".send-button-container").hide(); //hiding the send button when user input is empty
                     $(".answer-loader").hide();
-                    $(".pursue-conversation").show();
-                    //$(".userInput:last-of-type").focus();
+                    $(".pursue-conversation").show(); //Displaying the continue conversation icon
+
+                    //$(".userInput:last-of-type").focus(); (focus should only be done on >= tiny screens (otherwise touchscreen keyboard hides too much of the screen)
 
                     userMessagesCount++;
 
-                    if(userMessagesCount == 3){
+                    if(userMessagesCount == 3){ //When user has done at least some interactions, they can create a Propon page, here we notify them when the treshold is attained.
 
                         var note = null;
 
-                        if(context == "coach"){
+                        if(context == "coach"){ //If context is just coaching, then we label the create a Propon page CTA as "Display a project page summary"
 
                             note = "Note : à tout moment vous pouvez obtenir et enregistrer un résumé de notre conversation en appuyant sur le bouton \"Afficher un résumé\".<br><br>";
 
-                        }else{
+                        }else{ //If context is explicitly "user wants to create a Popon page" then we label the call to action button as "Create the Propon Page"
 
                             note = "Note : à tout moment vous pouvez lancer la création automatique de votre page Propon en appuyant sur le bouton \"Créer la page Propon\".<br><br>";
 
                         }
                         
-                        $('.assistant-advice:last').html(note+response.aiAnswer);
+                        $('.assistant-advice:last').html(note+response.aiAnswer); //notification is displayed above the ai answer.
 
                     }
 
                     if(userMessagesCount >= 3){
 
-                        $(".js-ai-create-ppp").show();
+                        $(".js-ai-create-ppp").show(); //displaying the CTA "Create a Propon page" button when at least some interactions has been done
 
                     }
+                    
+                    // Automatically scroll to the last element
 
                     var adviceElements = document.getElementsByClassName('assistant-advice');
-
-                    // Scroll to the last element
+                    
                     if (adviceElements.length > 0) {
 
                         var lastAdviceElement = adviceElements[adviceElements.length - 1];
 
-                        var topOffset = lastAdviceElement.offsetTop - 120/* Adjust for fixed bar height */; // Add the height of your fixed bar here
+                        var topOffset = lastAdviceElement.offsetTop - 120 /* Adjust for fixed bar height */; // Added the height of the fixed bar
 
                         window.scrollTo({
                             top: topOffset,
@@ -136,7 +135,8 @@
 
         });
 
-        // Make send user input button appear when user fill textarea
+
+        // Make "send user input button" appears when user fills textarea
         $('.userInput').on('input propertychange', function() {
 
             if ($(".userInput:last-of-type").val().length > 1 ) {
@@ -147,18 +147,8 @@
 
         });
 
-        // Make send user input button appear when user fill textarea
-        $('.userInput').on('input propertychange', function() {
-
-            if ($(".userInput:last-of-type").val().length > 1 ) {
-                $('.send-button-container').show();
-            } else {
-                $('.send-button-container').hide();
-            }
-
-        });
-
-        // Send message when user hit enter
+       
+        // Send message when user hits enter
         $('.userInput').on('keypress', function(event) {
 
             if (event.keyCode == 13) {
@@ -169,6 +159,7 @@
 
         });
 
+        /* If we are aware of user's project goal from another page, we don't ask them again, we fill the form first question and send the request */
 
         const goal = "{{projectGoal}}";
 

@@ -21,10 +21,6 @@
 
                 {% if is_granted('ROLE_ADMIN') %}
 
-                    <a href="{{ path('display_pool_data') }}">
-                        <button class="btn btn-light btn-lg me-3">Résultats Sondage</button>
-                    </a>
-
                     <a href="{{ path('one_shot') }}">
                         <button class="btn btn-light btn-lg me-3">Action unique</button>
                     </a>

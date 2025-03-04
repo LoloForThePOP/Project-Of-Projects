@@ -84,34 +84,8 @@ $(document).ready(function(){
 
     searchClient,
 
-    searchFunction: customFilters,
-
   });
 
-    /**
-   * Our custom filter function where we add our string length check before the query gets sent off to Algolia
-   * @param {*} helper
-   */
-  function customFilters(helper) {
-
-    if (helper.state.query) {
-
-      const search_string = helper.state.query;
-
-      if (search_string.length < 3) {
-
-        console.log('- de 3 chars');
-        
-        return false;
-        
-      }
-
-    }
-
-    console.log('Hello');
-    helper.search();
-    
-  }
 
 
 

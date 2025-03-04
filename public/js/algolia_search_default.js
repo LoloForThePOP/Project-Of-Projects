@@ -69,23 +69,50 @@ $(document).ready(function(){
   var o = new InfoBox({/*options*/});
 
 
+    const searchClient = algoliasearch(
+
+      'Z7NO8ZLFH4',
+      'b2d9ba779ea94f1c5f81d1b5751e267e'
+
+    );
+
   //Initialize Algolia instant search app with credentials
 
   const search = instantsearch({
 
     indexName: 'prod_presentation_bases',
 
-    searchClient: algoliasearch(
+    searchClient,
 
-      'Z7NO8ZLFH4',
-      'b2d9ba779ea94f1c5f81d1b5751e267e'
-
-    ),
-
-
-    
+    searchFunction: customFilters,
 
   });
+
+    /**
+   * Our custom filter function where we add our string length check before the query gets sent off to Algolia
+   * @param {*} helper
+   */
+  function customFilters(helper) {
+
+    if (helper.state.query) {
+
+      const search_string = helper.state.query;
+
+      if (search_string.length < 3) {
+
+        console.log('- de 3 chars');
+        
+        return false;
+        
+      }
+
+    }
+
+    console.log('Hello');
+    helper.search();
+    
+  }
+
 
 
   // Setting an input that will trigger algolia searchs
@@ -103,6 +130,8 @@ $(document).ready(function(){
   //render fires when all widgets are rendered. This happens after every search request.
   search.on('render', function () {
 
+
+
     //reset search input on mobile when user clicks on black cross icon
     $(".js-reset-search-icon").click(function() {
 
@@ -111,6 +140,8 @@ $(document).ready(function(){
       search.helper.setQuery(document.querySelector('#searchbox .ais-SearchBox-input').value).search();
 
     });
+
+
 
     //When a search input proxy value changes, we show the search result panel.
     $("#navbar_md_search_input, #navbar_sm_search_input, #homepage-search-input").on("input", function() { //means "each time a proxy value has changed" 
@@ -136,8 +167,9 @@ $(document).ready(function(){
 
   });
 
-  //Handling search results appearence on a Google Map
 
+
+  //Handling search results appearence on a Google Map
 
   search.addWidgets([
 
@@ -391,7 +423,7 @@ $(document).ready(function(){
 
   }
 
-  //search.start();
+  search.start();
 
 });
 

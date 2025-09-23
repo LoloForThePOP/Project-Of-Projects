@@ -37,6 +37,22 @@ class PresentationHelperType extends AbstractType
 
             )
 
+            ->add('textDescription', TextareaType::class, 
+                [
+                    'label' => 'Votre réponse',
+                    'attr' => [
+                        
+                        'placeholder'    => 'Écrire ici',
+                        'rows' => '5',
+                        'autofocus' => true,
+                    ],
+                    'required'   => false,
+                    'constraints' => array(
+                    
+                    )
+                ]
+            )
+
             ->add('answer', TextareaType::class, 
                 [
                     'label' => 'Votre réponse',
@@ -52,14 +68,16 @@ class PresentationHelperType extends AbstractType
                     )
                 ]
             )
+
+
             ->add(
                 'websiteDescription',
                 TextType::class,
                 [
-                    'label' => "Pouvez-vous donner un titre à cette adresse ?",
+                    'label' => "Titre de cette adresse ?",
                     'attr' => [
 
-                        'placeholder'    => 'Exemple : Compte Twitter; Site web officiel; etc.',
+                        'placeholder'    => 'Exemple : Compte Instagram; Site web officiel; etc.',
                     ],
                     'required'   => false,
                 ]

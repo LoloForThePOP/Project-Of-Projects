@@ -41,7 +41,7 @@ class CreatePPService {
     * Save an actual Propon project presentation into db
     * Params: 
     *   
-    *     - $dataArray : an array representing a project presentation (keys are {project goal; project description; etc.})
+    *     $dataArray : an array representing a project presentation (keys are {project goal; project description; etc.})
     */
     public function create($dataArray){
 

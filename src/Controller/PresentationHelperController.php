@@ -10,9 +10,10 @@ use App\Service\TreatItem;
 use App\Service\ImageResizer;
 use App\Service\AssessQuality;
 use App\Service\CacheThumbnail;
+use App\Service\CreatePPService;
 use App\Form\PresentationHelperType;
-use App\Repository\CategoryRepository;
 use App\Repository\PPBaseRepository;
+use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,11 +24,11 @@ class PresentationHelperController extends AbstractController
 {
 
     /**
-     * Allow user to follow a step by step guidance to present its project
+     * Allow user to follow a step by step guidance to present her project
      * 
-     * position = 0 means begining; position = null means end.
+     * position = 0 means first step; position = null means last step.
      * 
-     * @Route("{stringId}/helper/{position}/{repeatInstance?false}", requirements={"position"="\d+"}, name="presentation_helper")
+     * @Route("{stringId}/step-by-step-presentation/{position?0}/{repeatInstance?false}", requirements={"position"="\d+"}, name="presentation_helper")
      */
     public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance = "false", TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
     {

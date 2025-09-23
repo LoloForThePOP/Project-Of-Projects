@@ -1,51 +1,6 @@
 
-{% if hasPriorQuestion and repeatInstance == "false" and form.vars.valid %}
-
-    {% include "presentation_helper/_ask_to_choose.html.twig" %}
-
-{% endif %}
-
-
-
-<div class="form {{ hasPriorQuestion and repeatInstance == "false" and form.vars.valid ? 'hide-me' : '' }}">
+<div class="form">
 
     {% include "presentation_helper/_form.html.twig" %}
 
 </div>
-
-
-<style>
-
-    .action-buttons-container{
-
-        display: flex;
-        justify-content: center;
-
-        margin-top : 34px;
-
-    }
-    
-
-    @media screen and (max-width: 820px) {
-
-
-    }
-
-
-    @media screen and (max-width: 580px) {
-       
-        .action-buttons-container{
-
-            flex-direction: column;
-
-        }
-       
-        .action-buttons-container button{
-
-            width: 100%;
-
-        }
-        
-    }     
-
-</style>

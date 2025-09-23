@@ -10,14 +10,14 @@
 #}
 
 {% set helperItems = [ 
-                    
+            
+    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Décrivez votre projet en quelques lignes", 'finalRenderingLabel': ""},
+
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "✒️ Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
-        
-    { 'uniqueName': "goal_details", 'type': "textDescription", 'priorQuestion': "🎯 Pouvez-vous décrire le résultat final que vous aimeriez atteindre ?", 'questionFr': "Quel résultat final visez-vous ?", 'finalRenderingLabel': ""}, 
 
     { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "🏗️ Votre Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
 
-    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "🌐 Avez-vous déjà un site web ou un réseau social en lien avec votre Projet ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
+    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "", 'questionFr': "🌐 Si vous avez déjà un site web ou un réseau social en lien avec votre Projet", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
     { 'uniqueName': "places", 'type': "places", 'priorQuestion': "🌍 Votre Projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
     
@@ -73,31 +73,12 @@
 
 
 {% block body %}
-
-    {% set hasPriorQuestion = currentItem.priorQuestion is defined %}
-
         
     <div class="container page-container mt-5" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
 
-        {% if currentPosition + 1 != itemsCount %}<h4 class="text-center sm-fs-4 mb-3">⏱️ La construction de la présentation progresse !</h4>{% endif %}
-
-        <div class="progress container col-md-6 px-0 mb-5" role="progressbar" aria-valuenow="{{progressionPercentage}}" aria-valuemin="0" aria-valuemax="100" style="height: 20px">
-            <div class="progress-bar" style="width: {{ progressionPercentage }}%">{{ progressionPercentage | round(0, 'floor') }} %</div>
-        </div>
 
         {% include "presentation_helper/_template.html.twig" %}
 
-        {# sometimes we ask user whether he would like an item #}
-
-        {% if currentItem.repeatableMessage is defined %}
-
-            {% include "presentation_helper/_ask_to_repeat.html.twig" %}
-
-        {% endif %}
-
-        {# Quit presentation helper #}
-
-        <div class="text-end text-center text-info mt-4 mt-md-5"><a href="{{ path('show_presentation', {'stringId': stringId}) }}">Quitter le mode pas à pas</a></div>
 
     </div>
 
@@ -106,11 +87,30 @@
 
     <style>
 
-        .hide-me{
+        {# Background colors for large screens #}
 
-            display: none;
+         @media screen and (min-width: 580px) {
 
-        }                
+            .main-container{
+
+                background-color: #fff6e4;
+
+
+            }
+
+            .page-container{
+
+                max-width: 1000px;
+                min-height: unset;
+
+                border-radius: 15px;
+                background-color: white;
+
+            }
+
+         }
+
+          
 
         @media screen and (max-width: 580px) {
 
@@ -171,21 +171,6 @@
 
                 $("#"+relatedInputId).focus();
             }
-
-            //alert($('#presentation_helper_nextPosition').val());
-
-            $('#accept-invitation').click(function() {
-
-                $('.hide-me').show();
-
-                $('.invitation-title').hide();
-                $('#invitation-container').hide();
-
-                $('.form').show();
-
-                giveFocus(); // form was hiden so we have to give it focus again. 
-
-            });
 
         });
 

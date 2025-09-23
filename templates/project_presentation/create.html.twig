@@ -4,6 +4,8 @@
 
 {% block body %}
 
+    {# Overall container #}
+
     <div class="container page-container col-lg-6 px-0 px-md-4">
 
         <div class="row mt-2 mt-md-4">
@@ -29,15 +31,13 @@
                     </div>
 
                     
-                    {# Project Goals Exemples #}
+                    {# Project Goal Examples #}
 
                     <div class="card shadow mb-4 mb-lg-5">
 
                         <div class="card-body p-3">
 
                             <h4 class="mb-3">📘 Exemples</h4>
-
-                            <!-- Unordered list -->
 
                             <ul class="fs-15">
                                 
@@ -52,11 +52,18 @@
                     </div>
 
 
+                    {# Project Goal Input #}
+
+
                     <div class="goal-input-container">
 
                         {{form_widget(form.goal)}}
 
                     </div>
+
+
+
+                    {# Some Styling #}
 
                     <style>
                     
@@ -65,17 +72,17 @@
                             margin-bottom: 3rem;
                         }
 
-                        
-                    @media screen and (max-width: 580px) {
-
-                        .goal-input-container{
-                        
-                            margin-top: 2rem;
-                            margin-bottom: 2rem;
                             
-                        }
+                        @media screen and (max-width: 580px) {
 
-                    }
+                            .goal-input-container{
+                            
+                                margin-top: 2rem;
+                                margin-bottom: 2rem;
+                                
+                            }
+
+                        }
                     
                     </style>
 
@@ -87,11 +94,11 @@
 
                     {# Presentation Helper Proposition is only displayed above medium screens #}
                     
-                    <button id="js-submit-form" type="submit" class="btn btn-validate btn-lg me-4 mb-2">Je valide 🚀</button>
+                    <button id="js-submit-form" type="submit" class="btn btn-validate btn-lg me-4 mb-2">Valider</button>
 
                     <a href="{{ path('homepage') }}">
 
-                        <button type="button" class="btn btn-go-back btn-lg mb-2"> Annuler<span class="d-none d-md-inline"> ❌</span></button>
+                        <button type="button" class="btn btn-go-back btn-lg mb-2">Quitter</button>
                         
                     </a>
                 

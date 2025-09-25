@@ -73,14 +73,96 @@
 
 
 {% block body %}
+
+<div  id="createPPModal" class="modal" tabindex="-1" aria-hidden="true">
+
+    <div class="modal-dialog modal-fullscreen">
+
+        <div class="modal-content">
+            
+            <div class="box-header">
+            
+                <div>
+
+                    <a class="ms-5 me-3" href="/">
+
+                        <img class="website-logo" src="/media/static/images/propon_logo.svg" alt="website logo" loading="lazy"/>
+
+                    </a>
+
+                    <span class="box-title">
+                    
+                        Ajouter un Projet
+
+                    </span>       
+                
+                
+                </div>
+
+                <a href="{{path ('homepage')}}">
+                
+                    <button type="button" class="btn btn-outline-dark" >Quitter</button>
+                
+                </a>
+
+                
+
+        <style>
         
-    <div class="container page-container mt-5" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
+            .box-header{
+                
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+
+                height: 74px;
+
+                margin-bottom: 50px;
+                background-color: white;
+            
+            
+            }
+
+            .website-logo{
+                width: 135px;
+            }
 
 
-        {% include "presentation_helper/_template.html.twig" %}
+            .box-title{
+                font-size: 15px;
+                color: #094171;
+            }
+        
+        </style>
+            
+            </div>
+
+
+            <div class="box-content">
+        
+
+                        
+                    <div class="form-container form" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
+
+                        {% include "presentation_helper/_form.html.twig" %}
+
+                    </div>
+            
+            
+            </div>        
+        </div>
+
+
+
+
 
 
     </div>
+</div>
+
+
+        
+    
 
     
 
@@ -91,16 +173,28 @@
 
          @media screen and (min-width: 580px) {
 
-            .main-container{
+            #createPPModal .modal-content{
+
 
                 background-color: #fff6e4;
 
 
             }
 
-            .page-container{
+            .box-content{
 
-                max-width: 1000px;
+                display: flex;
+                justify-content: center;
+            }
+
+
+             
+
+            .form-container{
+
+                width: 1000px;
+
+                padding: 50px;
                 min-height: unset;
 
                 border-radius: 15px;
@@ -114,7 +208,7 @@
 
         @media screen and (max-width: 580px) {
 
-            .page-container{
+            #createPPModal{
 
                 padding-left: 0px;
                 padding-right: 0px;
@@ -175,5 +269,17 @@
         });
 
     </script>
+
+
+    <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const autoModalEl = document.getElementById('createPPModal');
+            const autoModal = new bootstrap.Modal(autoModalEl, {
+                backdrop: 'static', // optionnel : empêcher la fermeture en cliquant dehors
+                keyboard: true
+            });
+            autoModal.show();
+            });
+</script>
 
 {% endblock %}

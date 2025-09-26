@@ -102,16 +102,16 @@
 
 
 
-    {# create a presentation form (what is your goal?) #}
+    {# !!!SUPPRIMER LE FORM DEVENU INUTILE DANS LE CONTROLLER create a presentation form (what is your goal?)
   
-    <div class="projects-change-the-world try-website-cta container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5">
+    <div class="projects-change-the-world try-website-cta container col-lg-9 pt-3 pt-md-5 pb-3 pb-md-5 mb-5"> #}
     
-      {# Form title & call to action text #}
+      {# Form title & call to action text 
       <h3 class="d-flex align-items-center justify-content-center"><img class="verified-icon me-2" src="{{ asset('verified.svg', 'misc')}}" alt="verified icon" width="40" height="40"> Tester Propon <b class="ms-2"> MAINTENANT sans inscription</b></h3>
 
-      <p>Quel est l'objectif de votre projet ?</p>
+      <p>Quel est l'objectif de votre projet ?</p>#}
 
-      {# Styles for text cta #}
+      {# Styles for text cta
 
       <style>
 
@@ -144,7 +144,7 @@
 
       </style>
 
-      {% set createPresentationForm4 = setGoalForm %} {# Form 4 because this one was part of some duplications #}
+      {% set createPresentationForm4 = setGoalForm %} {# Form 4 because this one was part of some duplications
     
       {{form_start(createPresentationForm4)}}
 
@@ -154,9 +154,9 @@
                           
         {{ form_errors(createPresentationForm4.goal) }}
             
-        {{form_widget(createPresentationForm4.goal)}}
+        {{form_widget(createPresentationForm4.goal)}} #} #}
 
-        {# Submit button #}
+        {# Submit button
 
         <button id="" type="submit" class="create-presentation-button btn btn-validate border rounded btn-lg p-2 px-md-3 fw-normal">Ok</button>
 
@@ -164,7 +164,7 @@
 
       {{ form_end(createPresentationForm4) }}
 
-    </div>
+    </div> #}
 
     {# Styles for form container & actual input #}
     

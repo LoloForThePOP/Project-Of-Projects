@@ -39,7 +39,7 @@ class OneShotController extends AbstractController
 
         foreach ($users as $user) {
 
-            if(count($user->getCreatedPresentations())==0 && count($user->getPurchases()) == 0   ){
+            if(count($user->getCreatedPresentations())==0 && count($user->getPurchases()) == 0 && count($user->getMessages()) == 0  ){
 
                 $manager->remove($user);
                 

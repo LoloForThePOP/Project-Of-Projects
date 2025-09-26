@@ -20,6 +20,24 @@ class PresentationHelperType extends AbstractType
     {
         $builder
 
+             ->add(
+
+                'goal',
+
+                TextType::class,
+
+                [
+                    'label' => "Quel est l'objectif du Projet ?",
+
+                    'attr' => [
+
+                        'placeholder'    => 'Écrire ici l\'objectif',
+                    ],
+
+                    'required'   => true,
+                ]
+            )
+
             ->add(
                 'title',
                 TextType::class,

@@ -25,6 +25,17 @@
 
         {{ form_errors(form) }}
 
+        {% if currentItem.type == "goal" %}
+
+            <div class="container col-md-9">
+            
+                {{ form_widget(form.goal) }}
+
+            </div>
+
+
+        {% endif %}
+
         {% if currentItem.type == "title" %}
 
             <div class="container col-md-5">
@@ -220,11 +231,11 @@
 
             {% if previousPosition is not null %}
 
-                <a class="text-body " href="{{ path('presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="btn btn-light border big-select-button">Retour</button></a>             
+                <a class="text-body " href="{{ path('presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="action-button btn btn-light border big-select-button">Retour</button></a>             
                     
             {% endif %}
 
-            <button id="validate-button" type="submit" class="btn btn-validate me-0 me-md-4 mb-2">Continuer</button>
+            <button id="" type="submit" class="action-button btn btn-validate me-0 me-md-4 mb-2">Continuer</button>
 
         </div>
 
@@ -243,7 +254,7 @@
             }
 
 
-            #validate-button{
+            .action-button{
 
                 padding: 9px 19px;
                 border-radius: 25px;
@@ -268,7 +279,7 @@
 
                 }
 
-                #validate-button {
+                .action-button {
 
                     margin-bottom: 22px !important;
 

@@ -40,11 +40,30 @@
 
             <a href="{{path ('create_presentation')}}">
 
-              <button type="button" class="btn btn-outline-success">
+              <button type="button" class="create-presentation-button btn btn-outline-success">
+
+                <img class="bordered-plus-sign" src="{{asset ('bordered-plus-sign-add-something.svg', 'misc')}}" class="" alt="" loading="lazy" width="15" height="15">
 
                 Présenter un Projet
                 
               </button>
+
+              <style>
+
+                .bordered-plus-sign{
+
+                  margin-bottom: 4px;
+
+                  filter: invert(31%) sepia(77%) saturate(1383%) hue-rotate(89deg) brightness(89%) contrast(108%); {# green color to svg #}
+
+                }
+
+                header .create-presentation-button:hover {
+                  background-color: #f7fff7;
+                  color: green;
+                }
+              
+              </style>
 
             </a>
 

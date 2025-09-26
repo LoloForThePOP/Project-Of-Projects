@@ -35,13 +35,31 @@ class OneShotController extends AbstractController
     public function doAction(PPBaseRepository $projectsRepo, PlaceRepository $placesRepo, CategoryRepository $categoriesRepo, SearchService $searchService, EntityManagerInterface $manager, CacheThumbnail $cacheThumbnail, UserRepository $userRepo, CacheThumbnail $thumb): Response
     {
 
-        $projects=$projectsRepo->findAll();
+        $users=$userRepo->findAll();
+
+        foreach ($users as $user) {
+
+            if(count($user->getCreatedPresentations())==0 && count($user->getPurchases()) == 0   ){
+
+                $manager->remove($user);
+                
+
+            }
+            
+            $manager->flush();
+        }
+
+
+
+
+        
+        /*$projects=$projectsRepo->findAll();
 
         foreach ($projects as $project) {
             $cacheThumbnail->cacheThumbnail($project);
         }
 
-        /* 
+         
 
         $places = $placesRepo->findAll();
 

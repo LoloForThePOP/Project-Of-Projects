@@ -43,10 +43,12 @@ class OneShotController extends AbstractController
 
                 $manager->remove($user);
                 
+                $manager->flush();
+                
 
             }
             
-            $manager->flush();
+            
         }
 
 

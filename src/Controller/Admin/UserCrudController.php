@@ -20,6 +20,7 @@ class UserCrudController extends AbstractCrudController
     {
         return $crud
             ->setDefaultSort(['id' => 'DESC'])
+            ->setPaginatorPageSize(200)
 
         ;
     }

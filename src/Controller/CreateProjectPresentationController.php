@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class PresentationHelperController extends AbstractController
+class CreateProjectPresentationController extends AbstractController
 {
 
     /**
@@ -28,26 +28,27 @@ class PresentationHelperController extends AbstractController
      * 
      * position = 0 means first step; position = null means last step.
      * 
-     * @Route("step-by-step-project-presentation/{stringId?}/{position}/{repeatInstance?}", name="presentation_helper")
+     * @Route("step-by-step-project-presentation/{position?0}/{stringId?}/{repeatInstance}", name="project_presentation_helper", defaults={"repeatInstance": "false"})
      */
-    public function origin($stringId=null, $position=0,$repeatInstance = "false", Request $request, EntityManagerInterface $manager,  TreatItem $specificTreatments, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
+    public function origin($stringId = null, $position=0, $repeatInstance = "false", Request $request, EntityManagerInterface $manager,  TreatItem $specificTreatments, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
     {
 
         // TO DO : ask ai to choose categories and keywordsfor user.
         // add a keyword field maybe anyway
-
-        //$this->denyAccessUnlessGranted('edit', $presentation);
-
         
         $request->attributes->set('googleMapApiKey', $this->getParameter('app.google_map_api_key'));
 
-        if($stringId==null){
+        if($stringId == null){
+
+            $this->denyAccessUnlessGranted('ROLE_USER');
 
             $presentation = new PPBase();
 
         }else{
 
             $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['stringId' => $stringId]);
+
+            $this->denyAccessUnlessGranted('edit', $presentation);
 
         }
 
@@ -68,6 +69,8 @@ class PresentationHelperController extends AbstractController
 
             if($stringId==null){
 
+                //dd("ttt");
+
                 $goal = $form->get('goal')->getData();
 
                 $presentation->setGoal($goal);
@@ -76,7 +79,7 @@ class PresentationHelperController extends AbstractController
                 $manager->persist($presentation);
                 $manager->flush();
 
-                return $this->redirectToRoute('presentation_helper', [
+                return $this->redirectToRoute('project_presentation_helper', [
 
                     'stringId' => $presentation->getStringId(),
                     'position' => 1,
@@ -87,6 +90,8 @@ class PresentationHelperController extends AbstractController
             }
 
             else{
+
+                
 
                 $nextPosition=$form->get('nextPosition')->getData();
 
@@ -112,7 +117,7 @@ class PresentationHelperController extends AbstractController
                 }
 
                 $helperType=$form->get('helperItemType')->getData();
-
+//dd($helperType);
 
                 if ($helperType=="title") {
 
@@ -240,7 +245,7 @@ class PresentationHelperController extends AbstractController
 
                 if ($helperType=="textDescription") {
 
-                    $string = "<p>".nl2br($answer=$form->get('answer')->getData())."</p>";
+                    $string = nl2br($answer=$form->get('answer')->getData());
 
                     $presentation->setTextDescription($presentation->getTextDescription().$string);
 
@@ -268,7 +273,7 @@ class PresentationHelperController extends AbstractController
 
             
 
-                $currentPosition=$form->get('currentPosition')->getData();
+                $currentPosition = $form->get('currentPosition')->getData();
 
                 
 
@@ -280,7 +285,7 @@ class PresentationHelperController extends AbstractController
                     $nextPosition = $currentPosition;
                 }
 
-                return $this->redirectToRoute('presentation_helper', [
+                return $this->redirectToRoute('project_presentation_helper', [
 
                     'stringId' => $presentation->getStringId(),
                     'presentation' => $presentation,
@@ -293,11 +298,10 @@ class PresentationHelperController extends AbstractController
 
         }
 
-        return $this->render('presentation_helper/origin.html.twig', [
+        return $this->render('project_presentation/create/origin.html.twig', [
             'form' => $form->createView(),
+            'stringId' => $stringId,
             'position' => $position,
-            'stringId' => 't3a99o',
-            /* 'presentation' => $presentation, */
             'repeatInstance' => $repeatInstance,
         ]);
 

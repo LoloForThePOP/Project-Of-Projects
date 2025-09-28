@@ -9,13 +9,13 @@
 
 {% if currentItem.type == "categories_keywords" %}
 
-    {% include "presentation_helper/_categories_keywords.html.twig" %}
+    {% include "project_presentation/create/_categories_keywords.html.twig" %}
     
 {% elseif currentItem.type == "places" %}
     
     <div class="container px-0 col-md-6">
     
-        {% include "presentation_helper/_places.html.twig" %}
+        {% include "project_presentation/create/_places.html.twig" %}
 
     </div>
 
@@ -58,7 +58,7 @@
 
                 {% block footer %}
 
-                    <a href="{{ path('presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
+                    <a href="{{ path('project_presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
                         <button type="button" class="jumbotron-btn btn btn-go-back">❌ Annuler</button>
                     </a>
 
@@ -230,9 +230,9 @@
 
         <div class="action-buttons-container {% if previousPosition is null %}justify-content-center{% endif %}">{# When only one button we center it (no previous button) #}
 
-            {% if previousPosition is not null %}
+            {% if currentPosition != 0 %}
 
-                {# <a class="text-body " href="{{ path('presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="action-button btn btn-light border big-select-button">Retour</button></a>     #}         
+                <a class="text-body " href="{{ path('project_presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="action-button btn btn-light border big-select-button">Retour</button></a>        
                     
             {% endif %}
 

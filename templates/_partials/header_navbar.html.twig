@@ -38,9 +38,9 @@
           
           <li class="nav-item fs-5 me-4 d-none d-md-inline">
 
-            <a href="{{path ('create_presentation')}}">
+            <a href="{{path ('project_presentation_helper')}}">
 
-              <button type="button" class="create-presentation-button btn btn-outline-success">
+              <button type="button" class="create-presentation-button btn btn-success text-white">
 
                 <img class="bordered-plus-sign" src="{{asset ('bordered-plus-sign-add-something.svg', 'misc')}}" class="" alt="" loading="lazy" width="15" height="15">
 
@@ -54,13 +54,12 @@
 
                   margin-bottom: 4px;
 
-                  filter: invert(31%) sepia(77%) saturate(1383%) hue-rotate(89deg) brightness(89%) contrast(108%); {# green color to svg #}
+                  filter: invert(100%) sepia(100%) saturate(1%) hue-rotate(305deg) brightness(103%) contrast(101%); /* white svg color */
 
                 }
 
                 header .create-presentation-button:hover {
-                  background-color: #f7fff7;
-                  color: green;
+                  background-color: #1fab1fff;
                 }
               
               </style>
@@ -179,7 +178,7 @@
 
               <li>
     
-                <a class="dropdown-item" href="{{path ('create_presentation')}}">Ajouter un Projet</a>
+                <a class="dropdown-item" href="{{path ('project_presentation_helper')}}">Ajouter un Projet</a>
     
               </li>
 

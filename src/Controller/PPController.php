@@ -65,7 +65,7 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $manager, MailerService $mailer)
+   /*  public function create(Request $request, EntityManagerInterface $manager, MailerService $mailer)
     {
 
         $this->denyAccessUnlessGranted('ROLE_USER');
@@ -108,7 +108,7 @@ class PPController extends AbstractController
             $mailer->send($sender, 'Propon', $receiver, "A New Presentation Has Been Created",'/project_presentation/email_webmaster_notif_new_pp.html.twig', $emailParameters);
 
             return $this->redirectToRoute(
-                'presentation_helper',
+                'project_presentation_helper',
     
                 [
     
@@ -127,7 +127,7 @@ class PPController extends AbstractController
         ]);
 
 
-    }
+    } */
 
 
     /**

@@ -121,6 +121,22 @@
 
 
 {% block body %}
+{# 
+<pre>
+    {{ dump(position) }}
+</pre>
+
+<pre>
+    {{ dump(currentPosition) }}
+</pre>
+
+<pre>
+    {{ dump(previousPosition) }}
+</pre>
+
+<pre>
+    {{ dump(nextPosition) }}
+</pre> #}
 
 <div  id="createPPModal" class="modal" tabindex="-1" aria-hidden="true">
 
@@ -203,7 +219,7 @@
                     
                 <div class="form-container form" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
 
-                    {% include "presentation_helper/_form.html.twig" %}
+                    {% include "project_presentation/create/_form.html.twig" %}
 
                 </div>
             

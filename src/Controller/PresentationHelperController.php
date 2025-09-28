@@ -28,17 +28,15 @@ class PresentationHelperController extends AbstractController
      * 
      * position = 0 means first step; position = null means last step.
      * 
-     * @Route("step-by-step-project-presentation/{stringId?}/{position?0}/{repeatInstance?}", requirements={"position"="\d+"}, name="presentation_helper")
+     * @Route("step-by-step-project-presentation/{stringId?}/{position}/{repeatInstance?}", name="presentation_helper")
      */
-    public function origin($stringId=null, $position = 0, $repeatInstance = "false", Request $request, EntityManagerInterface $manager,  TreatItem $specificTreatments, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
+    public function origin($stringId=null, $position=0,$repeatInstance = "false", Request $request, EntityManagerInterface $manager,  TreatItem $specificTreatments, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
     {
 
         // TO DO : ask ai to choose categories and keywordsfor user.
         // add a keyword field maybe anyway
 
         //$this->denyAccessUnlessGranted('edit', $presentation);
-
-
 
         
         $request->attributes->set('googleMapApiKey', $this->getParameter('app.google_map_api_key'));
@@ -90,8 +88,13 @@ class PresentationHelperController extends AbstractController
 
             else{
 
+                $nextPosition=$form->get('nextPosition')->getData();
 
-                if($position==8){
+
+                if($nextPosition==null){
+
+
+                    //put a flag in PPBase object so that we know that user engaged until the end so that we can clean db with junk presentations.
 
                     $assessQuality->assessQuality($presentation);
 
@@ -267,7 +270,7 @@ class PresentationHelperController extends AbstractController
 
                 $currentPosition=$form->get('currentPosition')->getData();
 
-                $nextPosition=$form->get('nextPosition')->getData();
+                
 
                 // Do we repeat current position (example : user wants to add another website)
 

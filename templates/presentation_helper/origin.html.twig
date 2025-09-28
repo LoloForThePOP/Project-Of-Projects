@@ -11,53 +11,49 @@
 
 {% set lol %}
 
-
     <div class="container d-flex justify-content-center">
 
         <div class="col-lg-9">
                     
-                        <div class="text-center h4 mb-4">⏱️ Top chrono, c'est parti.</div>
+           <div class="text-center h4 mb-4">⏱️ Top chrono, c'est parti.</div>
 
-<div class="fw-bold h5 text-center mb-2 mb-md-3">
+            <div class="fw-bold h5 text-center mb-2 mb-md-3">
 
-                        {# Project Goal Label & Errors #}
+                {# Project Goal Label & Errors #}
 
-                        <span class="">
+                <span class="">
 
-                            Quel est l'objectif de votre projet ?
+                    Quel est l'objectif de votre projet ?
 
-                        </span>
+                </span>
 
-                    </div>
+            </div>
 
                         
-                        {# Project Goal Examples #}
+            {# Project Goal Examples #}
 
-                        <div class="card shadow text-start">
+            <div class="card shadow text-start">
 
-                            <div class="card-body p-3">
+                <div class="card-body p-3">
 
-                                <h4 class="mb-3">📘 Exemples</h4>
+                    <h4 class="mb-3">📘 Exemples</h4>
 
-                                <ul class="">
-                                    
-                                    <li class="mb-2 text-dark">Créer un jeu vidéo d'action</li>
-                                    <li class="mb-2 text-dark">Restaurer un moulin à eau</li>
-                                    <li class="mb-2 text-dark">Créer un journal d'investigation</li>
+                    <ul class="">
+                        
+                        <li class="mb-2 text-dark">Créer un jeu vidéo d'action</li>
+                        <li class="mb-2 text-dark">Restaurer un moulin à eau</li>
+                        <li class="mb-2 text-dark">Créer un journal d'investigation</li>
 
-                                </ul>
-                                
-                            </div>
+                    </ul>
+                    
+                </div>
 
-                        </div>
-                       
+            </div>
+                    
 
-                    </div>
-    
+        </div>
+
     </div>
-
-               
-
 
 {% endset %}
 
@@ -73,15 +69,13 @@
 
     { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "", 'questionFr': "🌐 Si vous avez déjà un site web ou un réseau social en lien avec votre Projet", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
-    { 'uniqueName': "places", 'type': "places", 'priorQuestion': "🌍 Votre Projet est-il relié à un pays, un département, ou une ville ?", 'questionFr': "", 'finalRenderingLabel': ""},
+    { 'uniqueName': "places", 'type': "places", 'priorQuestion': "", 'questionFr': "🌍 Votre Projet est-il relié à un pays, un département, ou une ville ?", 'finalRenderingLabel': ""},
     
-    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "🙃 Souhaitez-vous de l'aide ?", 'questionFr': "", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
+    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "", 'questionFr': "🙃 Souhaitez-vous de l'aide ?", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
     
-    { 'uniqueName': "logo", 'type': "logo", 'priorQuestion': "🍋 Avez-vous déjà un logo pour votre projet ?", 'questionFr': "",'finalRenderingLabel': ""}, 
+    { 'uniqueName': "logo", 'type': "logo", 'priorQuestion': "", 'questionFr': "🍋 Avez-vous déjà un logo pour votre projet ?",'finalRenderingLabel': ""}, 
 
-    { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "🖼️ Avez-vous une image ou une photo pour illustrer votre projet ?", 'questionFr': "",'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
-    
-    { 'uniqueName': "categories_keywords", 'type': "categories_keywords", 'questionFr': "Dernière étape ! Facilitez la découverte de votre Projet 😍"},
+    { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': "🖼️ Avez-vous une image ou une photo pour illustrer votre projet ?",'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
 
 ] %}
 
@@ -206,23 +200,19 @@
 
 
             <div class="box-content">
-                        
-                    <div class="form-container form" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
+                    
+                <div class="form-container form" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
 
-                        {% include "presentation_helper/_form.html.twig" %}
+                    {% include "presentation_helper/_form.html.twig" %}
 
-                    </div>
+                </div>
             
-            
-            </div>        
+            </div>  
+
         </div>
 
-
-
-
-
-
     </div>
+
 </div>
 
 

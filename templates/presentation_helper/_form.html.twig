@@ -27,6 +27,7 @@
 
         {% if currentItem.type == "goal" %}
 
+
             <div class="container col-md-9">
             
                 {{ form_widget(form.goal) }}
@@ -192,13 +193,13 @@
 
             </div>           
 
-        {% elseif currentItem.type == "qa" %}
+  {#       {% elseif currentItem.type == "qa" %}
 
             <div class="container col-md-6 px-0">
 
                 {{ form_widget(form.answer) }}
 
-            </div>
+            </div> #}
 
 
         {% endif %}
@@ -231,7 +232,7 @@
 
             {% if previousPosition is not null %}
 
-                <a class="text-body " href="{{ path('presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="action-button btn btn-light border big-select-button">Retour</button></a>             
+                {# <a class="text-body " href="{{ path('presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="action-button btn btn-light border big-select-button">Retour</button></a>     #}         
                     
             {% endif %}
 

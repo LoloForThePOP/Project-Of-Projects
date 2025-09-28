@@ -2,12 +2,13 @@
 
 namespace App\Form;
 
-use App\Form\VideoSlideType;
+use App\Entity\PPBase;
 use Symfony\Component\Form\AbstractType;
-use App\Form\ImageSlideWithoutVichHelperType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+
+use App\Form\ImageSlideWithoutVichHelperType;
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -83,7 +84,8 @@ class PresentationHelperType extends AbstractType
                     'required'   => false,
                     'constraints' => array(
                     
-                    )
+                    ),
+                    'mapped' => false,
                 ]
             )
 
@@ -98,6 +100,7 @@ class PresentationHelperType extends AbstractType
                         'placeholder'    => 'Exemple : Compte Instagram; Site web officiel; etc.',
                     ],
                     'required'   => false,
+                    'mapped' => false,
                 ]
             )
 
@@ -112,6 +115,7 @@ class PresentationHelperType extends AbstractType
                         'placeholder'    => 'www.exemple.com',
                     ],
                     'required'   => false,
+                    'mapped' => false,
 
                 ]
             )
@@ -127,6 +131,7 @@ class PresentationHelperType extends AbstractType
 
                         'placeholder'    => "Exemple : Un local à Paris",
                     ],
+                    'mapped' => false,
                 ]
             )
             ->add(
@@ -142,6 +147,7 @@ class PresentationHelperType extends AbstractType
 
                         'rows' => '7',
                     ],
+                    'mapped' => false,
                 ]
             )
 
@@ -177,20 +183,33 @@ class PresentationHelperType extends AbstractType
             )
 
             
-            ->add('imageSlide', ImageSlideWithoutVichHelperType::class)
+            ->add('imageSlide', ImageSlideWithoutVichHelperType::class, [
+    'mapped' => false,
+])
 
-            ->add('selectedNeedType', HiddenType::class)
+            ->add('selectedNeedType', HiddenType::class, [
+    'mapped' => false,
+])
 
-            ->add('helperItemType', HiddenType::class)
-            ->add('finalRenderingLabel', HiddenType::class)
+            ->add('helperItemType', HiddenType::class, [
+    'mapped' => false,
+])
+            ->add('finalRenderingLabel', HiddenType::class, [
+    'mapped' => false,
+])
 
 
-            ->add('currentPosition', HiddenType::class)
-            ->add('nextPosition', HiddenType::class)
+            ->add('currentPosition', HiddenType::class, [
+    'mapped' => false,
+])
+            ->add('nextPosition', HiddenType::class, [
+    'mapped' => false,
+])
             ->add('repeatedInstance', HiddenType::class, 
             
                 [
-                    'data' =>'false'
+                    'data' =>'false',
+                    'mapped' => false,
                 ]
                     
             )
@@ -200,7 +219,7 @@ class PresentationHelperType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => PPBase::class,
         ]);
     }
 }

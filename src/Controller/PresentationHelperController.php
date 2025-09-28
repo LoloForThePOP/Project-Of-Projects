@@ -28,38 +28,33 @@ class PresentationHelperController extends AbstractController
      * 
      * position = 0 means first step; position = null means last step.
      * 
-     * @Route("{stringId}/step-by-step-presentation/{position?0}/{repeatInstance?false}", requirements={"position"="\d+"}, name="presentation_helper")
+     * @Route("step-by-step-project-presentation/{stringId?}/{position?0}/{repeatInstance?}", requirements={"position"="\d+"}, name="presentation_helper")
      */
-    public function origin(PPBase $presentation, Request $request, EntityManagerInterface $manager, $position = null, $repeatInstance = "false", TreatItem $specificTreatments, CategoryRepository $categoryRepository, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
+    public function origin($stringId=null, $position = 0, $repeatInstance = "false", Request $request, EntityManagerInterface $manager,  TreatItem $specificTreatments, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
     {
 
-        $this->denyAccessUnlessGranted('edit', $presentation);
+        // TO DO : ask ai to choose categories and keywordsfor user.
+        // add a keyword field maybe anyway
 
-        $categories = $categoryRepository->findBy([], ['position' => 'ASC']);
+        //$this->denyAccessUnlessGranted('edit', $presentation);
 
-        // End Of presentation helper
 
-        if($position==null){
 
-            $assessQuality->assessQuality($presentation);
-
-            $this->addFlash(
-                'success fs-4',
-                "✅ Votre page de présentation est prête. Apportez-lui toutes les modifications que vous désirez. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide rapide en bas de page."
-            );
-
-            return $this->redirectToRoute('show_presentation', [
-
-                'stringId' => $presentation->getStringId(),
-                               
-            ]);
-
-        }
         
         $request->attributes->set('googleMapApiKey', $this->getParameter('app.google_map_api_key'));
 
+        if($stringId==null){
+
+            $presentation = new PPBase();
+
+        }else{
+
+            $presentation = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['stringId' => $stringId]);
+
+        }
+
         $form = $this->createForm(
-            PresentationHelperType::class,null,
+            PresentationHelperType::class, $presentation,
             array(
 
                 // Time protection
@@ -73,159 +68,233 @@ class PresentationHelperController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $helperType=$form->get('helperItemType')->getData();
+            if($stringId==null){
 
-            if ($helperType=="title") {
+                $goal = $form->get('goal')->getData();
 
-                $title = $form->get('title')->getData();
+                $presentation->setGoal($goal);
+                $presentation->setCreator($this->getUser());
 
-                if(!empty($title)){
+                $manager->persist($presentation);
+                $manager->flush();
 
-                    $presentation->setTitle($title);
+                return $this->redirectToRoute('presentation_helper', [
 
-                    //setting a slug
-                    $stringId = $slug->slugInput($title);
+                    'stringId' => $presentation->getStringId(),
+                    'position' => 1,
+                    'repeatInstance' => $repeatInstance,
+                                
+                ]);
+             
+            }
 
-                    // checking if result is unique
-                    $twin = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['stringId' => $stringId]);
+            else{
 
-                    if ($twin !== null) {
 
-                        $stringId .="-".$presentation->getId();
-                        
+                if($position==8){
+
+                    $assessQuality->assessQuality($presentation);
+
+                    $this->addFlash(
+                        'success fs-4',
+                        "✅ Votre page de présentation est prête. Apportez-lui toutes les modifications que vous désirez. <br> 🙋 Si vous avez besoin d'aide, utilisez le bouton d'aide rapide en bas de page."
+                    );
+
+                    return $this->redirectToRoute('show_presentation', [
+
+                        'stringId' => $presentation->getStringId(),
+                                    
+                    ]);
+
+                }
+
+                $helperType=$form->get('helperItemType')->getData();
+
+
+                if ($helperType=="title") {
+
+                    $title = $form->get('title')->getData();
+
+                    if(!empty($title)){
+
+                        $presentation->setTitle($title);
+
+                        //setting a slug
+                        $stringId = $slug->slugInput($title);
+
+                        // checking if result is unique
+                        $twin = $this->getDoctrine()->getRepository(PPBase::class)->findOneBy(['stringId' => $stringId]);
+
+                        if ($twin !== null) {
+
+                            $stringId .="-".$presentation->getId();
+                            
+                        }
+
+                        $presentation->setStringId($stringId);
+
+                        $manager->flush();
+
                     }
 
-                    $presentation->setStringId($stringId);
+                }
+
+                if ($helperType=="logo") {
+
+                    $logo = $form->get('logoFile')->getData();
+
+                    if (isset($logo) && $logo !== '') {
+                        
+                        $presentation->setLogoFile($logo);
+
+                        $manager->flush();
+
+                        $imageResizer->edit($presentation, 'logoFile');
+                        $cacheThumbnail->cacheThumbnail($presentation);
+                    }
+                   
+
+                }
+
+                if ($helperType=="imageSlide") {
+                    
+                    $slide = $form->get('imageSlide')->getData();
+
+                    if ($slide->getId() != null) {
+                       
+                        $slide = new Slide();
+
+                        $slide->setType('image');
+
+                        $manager->persist($slide);
+                        $presentation->addSlide($slide);
+
+                        $manager->flush();
+
+                        $imageResizer->edit($slide);
+                        $cacheThumbnail->cacheThumbnail($presentation);  
+
+                    }
+
+
+
+                    
+
+                }
+
+                if ($helperType=="websites") {
+
+
+                    $url = $form->get('url')->getData();
+
+
+                    if (filter_var($url, FILTER_VALIDATE_URL)){
+
+                        $websiteItem = 
+                        
+                            [
+                                "description" => $form->get('websiteDescription')->getData(),
+                                "url" =>$url,
+                            ]
+                        ;
+
+                        $websiteItem = $specificTreatments->specificTreatments('websites', $websiteItem);
+
+                        $presentation->addOtherComponentItem('websites', $websiteItem);
+
+                        $manager->flush();
+
+                    }
+
+
+                }
+
+                if ($helperType=="needs") {
+
+
+                    $needTitle = $form->get('needTitle')->getData();
+                    $needDescription = $form->get('needDescription')->getData();
+                    $needType =  $form->get('selectedNeedType')->getData();
+
+                    if (isset($needTitle) && $needTitle !== ''  && isset($needDescription) && $needDescription !== '') {
+
+                        $need = new Need();
+
+                        $need->setTitle($needTitle);
+                        $need->setDescription($needDescription);
+                        $need->setType($needType);
+
+                        $presentation->addNeed($need);
+
+                        $manager->persist($need);
+                        $manager->flush();
+
+                    }
+
+
+                    
+                }
+
+                if ($helperType=="textDescription") {
+
+                    $string = "<p>".nl2br($answer=$form->get('answer')->getData())."</p>";
+
+                    $presentation->setTextDescription($presentation->getTextDescription().$string);
 
                     $manager->flush();
 
                 }
 
-            }
+                if ($helperType=="qa") {
 
-            if ($helperType=="logo") {
+                    $question=$form->get('finalRenderingLabel')->getData();
+                    $answer=$form->get('answer')->getData();
 
-                $logo = $form->get('logoFile')->getData();
-                $presentation->setLogoFile($logo);
+                    $qaItem = 
+                    
+                        [
+                            "question" => $question,
+                            "answer" => $answer,
+                        ]
+                    ;
 
-                $manager->flush();
+                    $presentation->addOtherComponentItem('questionsAnswers', $qaItem);
+                    $manager->flush();
 
-                $imageResizer->edit($presentation, 'logoFile');
-                $cacheThumbnail->cacheThumbnail($presentation);
+                }
 
-            }
+            
 
-            if ($helperType=="imageSlide") {
+                $currentPosition=$form->get('currentPosition')->getData();
 
-                //dd($imageSlideFile);
-                $slide = new Slide();
+                $nextPosition=$form->get('nextPosition')->getData();
 
-                $slide = $form->get('imageSlide')->getData();
-                $slide->setType('image');
+                // Do we repeat current position (example : user wants to add another website)
 
-                $manager->persist($slide);
-                $presentation->addSlide($slide);
+                $repeatInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
 
-                $manager->flush();
+                if ($repeatInstance == "true") {
+                    $nextPosition = $currentPosition;
+                }
 
-                $imageResizer->edit($slide);
-                $cacheThumbnail->cacheThumbnail($presentation);
+                return $this->redirectToRoute('presentation_helper', [
 
-            }
-
-            if ($helperType=="websites") {
-
-                $websiteDescription=$form->get('websiteDescription')->getData();
-                $websiteURL=$form->get('url')->getData();
-
-                $websiteItem = 
-                
-                    [
-                        "description" => $websiteDescription,
-                        "url" => $websiteURL,
-                    ]
-                ;
-
-                $websiteItem = $specificTreatments->specificTreatments('websites', $websiteItem);
-
-                $presentation->addOtherComponentItem('websites', $websiteItem);
-                $manager->flush();
+                    'stringId' => $presentation->getStringId(),
+                    'presentation' => $presentation,
+                    'position' => $nextPosition,
+                    'repeatInstance' => $repeatInstance,
+                                
+                ]);
 
             }
-
-            if ($helperType=="needs") {
-
-                $need = new Need();
-
-                $need->setTitle($form->get('needTitle')->getData());
-                $need->setDescription($form->get('needDescription')->getData());
-                $need->setType($form->get('selectedNeedType')->getData());
-
-                $presentation->addNeed($need);
-
-                $manager->persist($need);
-                $manager->flush();
-                
-            }
-
-            if ($helperType=="textDescription") {
-
-                $string = "<p>".nl2br($answer=$form->get('answer')->getData())."</p>";
-
-                $presentation->setTextDescription($presentation->getTextDescription().$string);
-
-                $manager->flush();
-
-            }
-
-            if ($helperType=="qa") {
-
-                $question=$form->get('finalRenderingLabel')->getData();
-                $answer=$form->get('answer')->getData();
-
-                $qaItem = 
-                
-                    [
-                        "question" => $question,
-                        "answer" => $answer,
-                    ]
-                ;
-
-                $presentation->addOtherComponentItem('questionsAnswers', $qaItem);
-                $manager->flush();
-
-            }
-
-            $currentPosition=$form->get('currentPosition')->getData();
-
-            $nextPosition=$form->get('nextPosition')->getData();
-
-            // Do we repeat current position (example : user wants to add another website)
-
-            $repeatInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
-
-            if ($repeatInstance == "true") {
-                $nextPosition = $currentPosition;
-            }
-
-            return $this->redirectToRoute('presentation_helper', [
-
-                'stringId' => $presentation->getStringId(),
-                'presentation' => $presentation,
-                'categories' => $categories,
-                'position' => $nextPosition,
-                'repeatInstance' => $repeatInstance,
-                               
-            ]);
 
         }
 
         return $this->render('presentation_helper/origin.html.twig', [
             'form' => $form->createView(),
             'position' => $position,
-            'categories' => $categories,
-            'stringId' => $presentation->getStringId(),
-            'presentation' => $presentation,
+            'stringId' => 't3a99o',
+            /* 'presentation' => $presentation, */
             'repeatInstance' => $repeatInstance,
         ]);
 

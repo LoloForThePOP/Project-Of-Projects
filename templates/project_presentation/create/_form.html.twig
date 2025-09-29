@@ -173,13 +173,72 @@
 
                 <div class="mb-4">
 
-                    {{ form_row(form.imageSlide.file) }}
-                
-                </div>
+                    <div id="upload-icon" class="add-image-square">
+                        
+                        <img src="{{asset ('image2.svg', 'misc')}}" class="" alt="Image icon" loading="lazy" width="50" height="50">
 
-                <div class="mb-3">
+                        <div class="plus-sign">+</div>
+                    
+                    </div>
 
-                    {{ form_row(form.imageSlide.caption) }}
+                    <style>
+
+
+                        .add-image-square {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            width: 130px;
+                            height: 130px;
+                            border: 2px solid #094171;
+                            border-radius: 16px;
+                            margin: auto;
+                            cursor: pointer;
+                            position: relative;
+                        }
+
+                        .plus-sign {
+                            position: absolute;
+                            top: 5px;
+                            right: 20px;
+
+                            font-size: 32px;
+                            font-weight: bolder;
+                            color: #094171;
+                        }
+                    
+                    
+                    
+                    </style>
+
+                    <div class="d-none">{{ form_row(form.imageSlide.file) }}</div>
+
+
+
+                    
+
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', () => {
+                            const icon  = document.getElementById('upload-icon');
+                            const input = document.getElementById('presentation_helper_imageSlide_file');
+
+                            // When the icon is clicked, simulate a click on the hidden input
+                            icon.addEventListener('click', () => {
+                                input.click();
+                            });
+
+                            // Optional: handle the file once chosen
+                            input.addEventListener('change', (event) => {
+                                const file = event.target.files[0];
+                                if (file) {
+                                    console.log('Selected file:', file.name);
+                                    // You can preview or upload here:
+                                    // uploadFile(file);
+                                }
+                            });
+                        });
+                    </script>
                 
                 </div>
 
@@ -189,7 +248,7 @@
 
             <div class="container col-md-6 px-0">
 
-                {{ form_widget(form.textDescription) }}
+                {{ form_widget(form.textDescription, {value: form.textDescription.vars.value|replace({'<br />': "\n", '<br>': "\n", '<br/>': "\n"})}) }} {# formatting the right way for user displaying #}
 
             </div>           
 
@@ -236,7 +295,8 @@
                     
             {% endif %}
 
-            <button id="" type="submit" class="action-button btn btn-validate me-0 me-md-4 mb-2">Continuer</button>
+            <button type="submit" class="validate action-button btn btn-success text-white">Continuer</button>
+
 
         </div>
 
@@ -259,9 +319,15 @@
 
                 padding: 9px 19px;
                 border-radius: 25px;
-                border: 2px solid #c7f5ad;
+                border: 2px solid #c7f5a;
+
             }
-            
+                
+
+            button.validate:hover {
+                background-color: #1fab1fff;
+            }
+                            
 
             @media screen and (max-width: 820px) {
 

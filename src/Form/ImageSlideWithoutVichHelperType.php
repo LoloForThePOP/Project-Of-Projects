@@ -33,7 +33,7 @@ class ImageSlideWithoutVichHelperType extends AbstractType
                 ]
 
             )
-            ->add(
+/*             ->add(
                 'caption',
                 TextType::class,
                 [
@@ -46,7 +46,7 @@ class ImageSlideWithoutVichHelperType extends AbstractType
 
                     'required'   => false,
                 ]
-            )
+            ) */
             ->add(
                 'licence',
                 TextType::class,

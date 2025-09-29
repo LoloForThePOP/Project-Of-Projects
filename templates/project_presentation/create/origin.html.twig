@@ -9,7 +9,7 @@
     "finalRenderingLabel" is the label that will be integrated on consultation page, if relevant.
 #}
 
-{% set lol %}
+{% set goalFieldHTML %}
 
     <div class="container d-flex justify-content-center">
 
@@ -57,13 +57,37 @@
 
 {% endset %}
 
+
+
+
+{% set imageFieldHTML %}
+
+
+    <div class="mb-4">
+
+        <div>🖼️ Ajoutez une image pour illustrer votre projet</div>
+        <div>(si vous en avez une)</div>
+        
+        <div class="mb-4 pb-3">
+
+            <small class="text-muted">Note : vous pourrez en ajouter d'autres ensuite</small>
+        
+        </div>
+
+    </div>
+
+{% endset %}
+
 {% set helperItems = [ 
             
-    { 'uniqueName': "goal", 'type': "goal", 'questionFr': lol, 'finalRenderingLabel': ""},
+    { 'uniqueName': "goal", 'type': "goal", 'questionFr': goalFieldHTML, 'finalRenderingLabel': ""},
             
     { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Décrivez votre projet en quelques lignes", 'finalRenderingLabel': ""},
 
+    { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': imageFieldHTML,'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
+
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "✒️ Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
+
 
     { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "🏗️ Votre Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
 
@@ -75,7 +99,6 @@
     
     { 'uniqueName': "logo", 'type': "logo", 'priorQuestion': "", 'questionFr': "🍋 Avez-vous déjà un logo pour votre projet ?",'finalRenderingLabel': ""}, 
 
-    { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': "🖼️ Avez-vous une image ou une photo pour illustrer votre projet ?",'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
 
 ] %}
 

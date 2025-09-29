@@ -245,9 +245,9 @@ class CreateProjectPresentationController extends AbstractController
 
                 if ($helperType=="textDescription") {
 
-                    $string = nl2br($answer=$form->get('answer')->getData());
+                    $string = nl2br($form->get('textDescription')->getData());
 
-                    $presentation->setTextDescription($presentation->getTextDescription().$string);
+                    $presentation->setTextDescription($string);
 
                     $manager->flush();
 

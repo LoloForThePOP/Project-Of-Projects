@@ -9,7 +9,7 @@
     "finalRenderingLabel" is the label that will be integrated on consultation page, if relevant.
 #}
 
-{% set goalFieldHTML %}
+{% set goalFieldText %}
 
     <div class="container d-flex justify-content-center">
 
@@ -21,11 +21,11 @@
 
                 {# Project Goal Label & Errors #}
 
-                <span class="">
+                <div class="mb-3">
 
                     Quel est l'objectif de votre projet ?
 
-                </span>
+                </div>
 
             </div>
 
@@ -60,17 +60,16 @@
 
 
 
-{% set imageFieldHTML %}
+{% set imageFieldText %}
 
 
     <div class="mb-4">
 
-        <div>🖼️ Ajoutez une image pour illustrer votre projet</div>
-        <div>(si vous en avez une)</div>
+        <h5>🖼️ Ajoutez une image (si vous en avez)</h5>
         
-        <div class="mb-4 pb-3">
+        <div class="mt-3 mb-4 pb-3">
 
-            <small class="text-muted">Note : vous pourrez en ajouter d'autres ensuite</small>
+            <small class="fs-6 text-muted">Vous pourrez en ajouter d'autres plus tard</small>
         
         </div>
 
@@ -78,13 +77,23 @@
 
 {% endset %}
 
+
+{% set descriptionFieldText %}
+
+    <h5>Décrivez votre projet en quelques lignes</h5>
+    
+{% endset %}
+
+
+
+
 {% set helperItems = [ 
             
-    { 'uniqueName': "goal", 'type': "goal", 'questionFr': goalFieldHTML, 'finalRenderingLabel': ""},
+    { 'uniqueName': "goal", 'type': "goal", 'questionFr': goalFieldText, 'finalRenderingLabel': ""},
             
-    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': "Décrivez votre projet en quelques lignes", 'finalRenderingLabel': ""},
+    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': descriptionFieldText, 'finalRenderingLabel': ""},
 
-    { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': imageFieldHTML,'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
+    { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': imageFieldText,'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
 
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "✒️ Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
 
@@ -198,7 +207,7 @@
                         
                         display: flex;
                         align-items: center;
-                        justify-content: space-evenly;
+                        justify-content: space-around;
 
                         height: 74px;
                         background-color: white;
@@ -307,6 +316,10 @@
                 padding-left: 0px;
                 padding-right: 0px;
 
+            }
+
+            .box-content{
+                margin: 0 auto;
             }
 
             .fs-4{

@@ -2,7 +2,7 @@
 
 {% if repeatInstance == "false" %}
                     
-    <h1 class="text-center fs-5 lh-1 mb-4">{{currentItem.questionFr}}</h1>
+    <div class="text-center lh-1 mb-4">{{currentItem.questionFr}}</div>
 
 {% endif %}
 
@@ -24,6 +24,18 @@
     {{ form_start(form) }}
 
         {{ form_errors(form) }}
+
+        <div class="text-center">
+            
+            {{ form_errors(form.imageSlide.file) }}
+            {{ form_errors(form.goal) }}
+            {{ form_errors(form.title) }}
+            {{ form_errors(form.textDescription) }}
+            {{ form_errors(form.websiteDescription) }}
+            {{ form_errors(form.url) }}
+        
+        </div>
+
 
         {% if currentItem.type == "goal" %}
 
@@ -213,6 +225,10 @@
 
                     <div class="d-none">{{ form_row(form.imageSlide.file) }}</div>
 
+                    <div id="preview-container" class = "d-flex justify-content-center" style="margin-top:1rem;">
+                        <img id="preview" src="" alt="Preview" style="max-width:200px; display:none; border:1px solid #ccc; padding:5px; border-radius:5px;">
+                    </div>
+
 
 
                     
@@ -222,6 +238,7 @@
                         document.addEventListener('DOMContentLoaded', () => {
                             const icon  = document.getElementById('upload-icon');
                             const input = document.getElementById('presentation_helper_imageSlide_file');
+                                const preview  = document.getElementById('preview');
 
                             // When the icon is clicked, simulate a click on the hidden input
                             icon.addEventListener('click', () => {
@@ -234,7 +251,17 @@
                                 if (file) {
                                     console.log('Selected file:', file.name);
                                     // You can preview or upload here:
-                                    // uploadFile(file);
+                                    if (!file.type.startsWith('image/')) {
+                                        alert("Veuillez sélectionner une image.");
+                                        return;
+                                    }
+
+                                    const reader = new FileReader();
+                                    reader.onload = e => {
+                                        preview.src = e.target.result;
+                                        preview.style.display = "block";
+                                    };
+                                    reader.readAsDataURL(file);
                                 }
                             });
                         });
@@ -291,7 +318,7 @@
 
             {% if currentPosition != 0 %}
 
-                <a class="text-body " href="{{ path('project_presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="action-button btn btn-light border big-select-button">Retour</button></a>        
+                <a class="text-body " href="{{ path('project_presentation_helper', {'stringId': stringId, 'position': previousPosition }) }}"><button type="button" class="action-button btn btn-outline-dark">Retour</button></a>        
                     
             {% endif %}
 

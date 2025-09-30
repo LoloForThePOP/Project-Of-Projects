@@ -5,7 +5,6 @@ namespace App\Form;
 use App\Entity\Slide;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -21,7 +20,7 @@ class ImageSlideWithoutVichHelperType extends AbstractType
                 FileType::class,
                 
                 [
-                    'label' => 'Cliquer pour sélectionner une image 👇',
+                    'label' => 'Cliquer pour sélectionner une image',
 
                     'attr' => [
 
@@ -29,6 +28,16 @@ class ImageSlideWithoutVichHelperType extends AbstractType
                     ],
 
                     'required'   => false,
+
+                    'constraints' => [
+                        new Image([
+                            'maxSize' => '8000k',
+                            'maxSizeMessage' => "Le poids maximal accepté pour l'image est de {{ limit }} {{ suffix }}",
+                            'mimeTypes' => ["image/png", "image/jpeg", "image/jpg", "image/webp"],
+                            'mimeTypesMessage' => "Pour ajouter une image, le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}",
+                           
+                        ])
+                    ]
 
                 ]
 

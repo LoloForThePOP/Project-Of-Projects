@@ -46,8 +46,8 @@ class RegistrationController extends AbstractController
             $createUserService->saveAuthenticatedUser($user, true, $plainPassword, true); //saving user, creating a random username, without creating a password, with email verification.
 
             return $this->render('registration/please_confirm_email.html.twig', [//redirecting user to a page whereby we ask him to check emails
-                'userEmailToConfirm' => $user->getEmail(),// we pass user provided email address so that he can check if he has provided a good one ( without typo)
-                'websiteSupportEmail' => $this->getParameter('app.general_contact_email'),// in case user can't confirm his / her email address we provide email address from app support.
+                'userEmailToConfirm' => $user->getEmail(),// we pass user provided email address so that he can check if he has provided her good one without typo
+                'websiteSupportEmail' => $this->getParameter('app.email.contact'),// in case user can't confirm his / her email address we provide email address from app support.
             ]);
         }
 

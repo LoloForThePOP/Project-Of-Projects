@@ -95,7 +95,7 @@ class PPController extends AbstractController
 
             // Email Webmaster that a new presentation has been created (moderation)
 
-            $sender = $this->getParameter('app.general_contact_email');
+            $sender = $this->getParameter('app.email.general_technical_sending');
             $receiver = $sender;
 
             $emailParameters=[
@@ -544,8 +544,8 @@ class PPController extends AbstractController
 
                 /* Email Webmaster that someone wants to receive donations */
     
-                $sender = $this->getParameter('app.mailer_email');
-                $receiver = $this->getParameter('app.general_contact_email');
+                $sender = $this->getParameter('app.email.general_technical_sending');
+                $receiver = $this->getParameter('app.email.contact');
 
                 $presentation_url = $this->generateUrl('show_presentation', ["stringId"=>$presentation->getStringId()], UrlGeneratorInterface::ABSOLUTE_URL);
     
@@ -593,7 +593,7 @@ class PPController extends AbstractController
 
         }
 
-        // create a presentation form CTA 
+        // create a presentation form call to action form
 
          /* Create a Presentation Form */
 
@@ -619,8 +619,8 @@ class PPController extends AbstractController
              
             /* Email Webmaster that a new presentation has been created (moderation) */
  
-             $sender = $this->getParameter('app.mailer_email');
-             $receiver = $this->getParameter('app.general_contact_email');
+             $sender = $this->getParameter('app.email.general_technical_sending');
+             $receiver = $this->getParameter('app.email.contact');
  
              $emailParameters=[
  
@@ -813,7 +813,7 @@ class PPController extends AbstractController
                             
                             /* Email user presenter its presentation has been validated */
 
-                            $sender = $this->getParameter('app.general_contact_email');
+                            $sender = $this->getParameter('app.email.general_technical_sending');
                             
                             $receiver = $presentation->getCreator()->getEmail();
 
@@ -845,7 +845,7 @@ class PPController extends AbstractController
                             
                             /* Email user presenter that donations are activated */
 
-                            $sender = $this->getParameter('app.general_contact_email');
+                            $sender = $this->getParameter('app.email.general_technical_sending');
                             
                             $receiver = $presentation->getCreator()->getEmail();
 

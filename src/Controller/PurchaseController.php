@@ -46,13 +46,11 @@ class PurchaseController extends AbstractController
             $manager->persist($purchase);
             $manager->flush();
 
-            $sender = $this->getParameter('app.general_contact_email');
+            $sender = $this->getParameter('app.email.general_technical_sending');
 
 
             //notify propon administration
-
-            $sender = $this->getParameter('app.general_contact_email');             
-            $receiver = $sender;
+            $receiver = $this->getParameter('app.email.contact');
 
             $mailer->send($sender, 'Propon', $receiver, "To admin : payment intent.", 'Intention type: '.$proponPurchaseType.'. Additional info: '.json_encode($additionalInfo));
 

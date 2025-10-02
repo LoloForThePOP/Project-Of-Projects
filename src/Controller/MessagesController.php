@@ -90,7 +90,7 @@ class MessagesController extends AbstractController
             $entityManager->flush();
 
             $email = (new TemplatedEmail())
-                ->from(new Address($this->getParameter('app.mailer_email'), 'Propon'))
+                ->from(new Address($this->getParameter('app.email.general_technical_sending'), 'Propon'))
                 ->to(new Address($receiver->getEmail()))
                 ->subject('Nouveau message sur Propon')
 
@@ -174,9 +174,9 @@ class MessagesController extends AbstractController
                         $receiver->setDataItem("unreadMessagesCount", $unreadMessagesCount+1);
 
                         $email = (new TemplatedEmail())
-                            ->from(new Address($this->getParameter('app.mailer_email'), 'Propon'))
+                            ->from(new Address($this->getParameter('app.email.general_technical_sending'), 'Propon'))
                             ->to(new Address($receiver->getEmail()))
-                            ->subject('Nnouveau message sur Propon')
+                            ->subject('Nouveau message sur Propon')
 
                             // path of the Twig template to render
                             ->htmlTemplate('user/messages/email_got_new_message.html.twig')
@@ -325,14 +325,14 @@ class MessagesController extends AbstractController
 
             $context= $context.'-'.$item.'-'.$identifier;
 
-            $sender = $form->get('authorEmail')->getData();
+            $userEmail = $form->get('authorEmail')->getData();
 
-            $receiver = $this->getParameter('app.general_contact_email');
 
             $email = (new TemplatedEmail())
-                ->from($sender)
-                ->to($receiver)
+                ->from($this->getParameter('app.email.general_technical_sending'))
+                ->to($this->getParameter('app.email.contact'))
                 ->subject('New Message from Contact Form')
+                ->replyTo($userEmail)
 
                 // path of the Twig template to render
                 ->htmlTemplate('static/email_contact_form_to_website.html.twig')
@@ -341,7 +341,7 @@ class MessagesController extends AbstractController
                 ->context([
                     'context' => $context,
                     'messageContent' => $form->get('content')->getData(),
-                    'sender' => $sender,
+                    'userEmail' => $userEmail,
                 ]);
 
             $mailer->send($email);

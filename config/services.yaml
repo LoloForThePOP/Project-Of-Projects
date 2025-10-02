@@ -10,11 +10,11 @@ parameters:
     # website contact phone 
     app.contact_phone: "07 76 64 87 58"
 
-    # website general contact email adress (ex: contact@website.com)
-    app.general_contact_email: "contact@propon.org"
+    app.email.general_technical_sending: "noreply@propon.org"
+    app.email.contact: "contact@propon.org"
+    app.email.support: "support@propon.org"
+    app.email.newsletter: newsletter@propon.org
 
-    # website mailer (ex: mailer@website.com)
-    app.mailer_email: "mailer@propon.org"
 
     app.google_map_api_key: AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk
 

@@ -51,8 +51,8 @@ class FeedbackController extends AbstractController
 
             /* Email feedback to admin */
 
-            $sender = $this->getParameter('app.general_contact_email');
-            $receiver = $this->getParameter('app.general_contact_email');
+            $sender = $this->getParameter('app.email.general_technical_sending');
+            $receiver = $this->getParameter('app.email.contact');
 
             $email = (new Email())
                 ->from($sender)

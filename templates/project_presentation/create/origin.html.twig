@@ -80,10 +80,22 @@
 
 {% set descriptionFieldText %}
 
-    <h5>Décrivez votre projet en quelques lignes</h5>
+    <h5>Décrivez votre projet !</h5>
     
 {% endset %}
 
+
+{% set needFieldText %}
+
+    <div class="">Souhaitez-vous de l'aide ?</div>
+
+    <div class="mt-1 mb-4 pb-3">
+
+        <small class="fs-6 text-muted">Vous pourrez ajouter d'autres demandes plus tard</small>
+        
+    </div>
+    
+{% endset %}
 
 
 
@@ -95,6 +107,8 @@
 
     { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': imageFieldText,'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
 
+    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "", 'questionFr': needFieldText, 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
+
     { 'uniqueName': "title", 'type': "title", 'priorQuestion': "✒️ Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
 
 
@@ -103,8 +117,7 @@
     { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "", 'questionFr': "🌐 Si vous avez déjà un site web ou un réseau social en lien avec votre Projet", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
     { 'uniqueName': "places", 'type': "places", 'priorQuestion': "", 'questionFr': "🌍 Votre Projet est-il relié à un pays, un département, ou une ville ?", 'finalRenderingLabel': ""},
-    
-    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "", 'questionFr': "🙃 Souhaitez-vous de l'aide ?", 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
+
     
     { 'uniqueName': "logo", 'type': "logo", 'priorQuestion': "", 'questionFr': "🍋 Avez-vous déjà un logo pour votre projet ?",'finalRenderingLabel': ""}, 
 
@@ -319,7 +332,7 @@
             }
 
             .box-content{
-                margin: 0 auto;
+                margin: 0 0;
             }
 
             .fs-4{

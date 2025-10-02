@@ -65,8 +65,8 @@ class AIPresentationHelperController extends AbstractController
             $dataCollect->save("ai_presentation_helper", [$dataCollectArray]);
 
             /* Email an admin that someone used the product (october 2024 it's still so rare!) */
-            $sender = $this->getParameter('app.general_contact_email');
-            $receiver = $this->getParameter('app.general_contact_email');
+            $sender = $this->getParameter('app.email.general_technical_sending');
+            $receiver = $this->getParameter('app.email.contact');
 
             $email = (new Email())
                 ->from($sender)

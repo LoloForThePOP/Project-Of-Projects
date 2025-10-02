@@ -92,7 +92,7 @@ class ArticleController extends AbstractController
                 }
 
             }else{//article is new, we inform website admin
-                $sender = $this->getParameter('app.email.general_technical_sending');
+                $sender = $this->getParameter('app.email.noreply');
                 $receiver = $this->getParameter('app.email.contact');
  
                 $mailer->send($sender, 'Propon', $receiver, "A New Article Has Been Created",'Article Title: '.$article->getTitle());

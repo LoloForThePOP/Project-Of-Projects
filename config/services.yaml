@@ -10,7 +10,7 @@ parameters:
     # website contact phone 
     app.contact_phone: "07 76 64 87 58"
 
-    app.email.general_technical_sending: "noreply@propon.org"
+    app.email.noreply: "noreply@propon.org"
     app.email.contact: "contact@propon.org"
     app.email.support: "support@propon.org"
     app.email.newsletter: newsletter@propon.org

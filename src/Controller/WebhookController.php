@@ -66,7 +66,7 @@ class WebhookController extends AbstractController
 
           $receiverEmail = $concernedPresentation->getCreator()->getEmail();
 
-          $sender = $this->getParameter('app.email.general_technical_sending');
+          $sender = $this->getParameter('app.email.noreply');
 
           $subject = "Vous avez reçu un don pour votre projet";
 

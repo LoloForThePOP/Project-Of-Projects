@@ -46,7 +46,7 @@ class PurchaseController extends AbstractController
             $manager->persist($purchase);
             $manager->flush();
 
-            $sender = $this->getParameter('app.email.general_technical_sending');
+            $sender = $this->getParameter('app.email.noreply');
 
 
             //notify propon administration

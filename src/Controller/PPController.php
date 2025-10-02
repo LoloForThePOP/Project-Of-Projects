@@ -95,7 +95,7 @@ class PPController extends AbstractController
 
             // Email Webmaster that a new presentation has been created (moderation)
 
-            $sender = $this->getParameter('app.email.general_technical_sending');
+            $sender = $this->getParameter('app.email.noreply');
             $receiver = $sender;
 
             $emailParameters=[
@@ -544,7 +544,7 @@ class PPController extends AbstractController
 
                 /* Email Webmaster that someone wants to receive donations */
     
-                $sender = $this->getParameter('app.email.general_technical_sending');
+                $sender = $this->getParameter('app.email.noreply');
                 $receiver = $this->getParameter('app.email.contact');
 
                 $presentation_url = $this->generateUrl('show_presentation', ["stringId"=>$presentation->getStringId()], UrlGeneratorInterface::ABSOLUTE_URL);
@@ -619,7 +619,7 @@ class PPController extends AbstractController
              
             /* Email Webmaster that a new presentation has been created (moderation) */
  
-             $sender = $this->getParameter('app.email.general_technical_sending');
+             $sender = $this->getParameter('app.email.noreply');
              $receiver = $this->getParameter('app.email.contact');
  
              $emailParameters=[
@@ -813,7 +813,7 @@ class PPController extends AbstractController
                             
                             /* Email user presenter its presentation has been validated */
 
-                            $sender = $this->getParameter('app.email.general_technical_sending');
+                            $sender = $this->getParameter('app.email.noreply');
                             
                             $receiver = $presentation->getCreator()->getEmail();
 
@@ -845,7 +845,7 @@ class PPController extends AbstractController
                             
                             /* Email user presenter that donations are activated */
 
-                            $sender = $this->getParameter('app.email.general_technical_sending');
+                            $sender = $this->getParameter('app.email.noreply');
                             
                             $receiver = $presentation->getCreator()->getEmail();
 

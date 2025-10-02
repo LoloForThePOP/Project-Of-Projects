@@ -66,7 +66,7 @@ class ResetUserPasswordController extends AbstractController
             // send an email to verify user adress
 
             $email = (new TemplatedEmail())
-                ->from($this->getParameter('app.email.general_technical_sending'))
+                ->from($this->getParameter('app.email.noreply'))
                 ->to(new Address($user->getEmail()))
                 ->subject('Réinitialisation Mot de Passe - Projet des Projets')
 

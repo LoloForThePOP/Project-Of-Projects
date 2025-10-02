@@ -90,7 +90,7 @@ class MessagesController extends AbstractController
             $entityManager->flush();
 
             $email = (new TemplatedEmail())
-                ->from(new Address($this->getParameter('app.email.general_technical_sending'), 'Propon'))
+                ->from(new Address($this->getParameter('app.email.noreply'), 'Propon'))
                 ->to(new Address($receiver->getEmail()))
                 ->subject('Nouveau message sur Propon')
 
@@ -174,7 +174,7 @@ class MessagesController extends AbstractController
                         $receiver->setDataItem("unreadMessagesCount", $unreadMessagesCount+1);
 
                         $email = (new TemplatedEmail())
-                            ->from(new Address($this->getParameter('app.email.general_technical_sending'), 'Propon'))
+                            ->from(new Address($this->getParameter('app.email.noreply'), 'Propon'))
                             ->to(new Address($receiver->getEmail()))
                             ->subject('Nouveau message sur Propon')
 
@@ -329,7 +329,7 @@ class MessagesController extends AbstractController
 
 
             $email = (new TemplatedEmail())
-                ->from($this->getParameter('app.email.general_technical_sending'))
+                ->from($this->getParameter('app.email.noreply'))
                 ->to($this->getParameter('app.email.contact'))
                 ->subject('New Message from Contact Form')
                 ->replyTo($userEmail)

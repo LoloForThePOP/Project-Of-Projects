@@ -84,16 +84,60 @@
     
 {% endset %}
 
+{% set websitesFieldText %}
+
+    <h5>🌐 Si vous avez déjà un site web ou un réseau social en lien avec votre projet</h5>
+    
+{% endset %}
+
 
 {% set needFieldText %}
 
-    <div class="">Souhaitez-vous de l'aide ?</div>
+    <div class="">Cherchez-vous de l'aide ?</div>
 
     <div class="mt-1 mb-4 pb-3">
 
         <small class="fs-6 text-muted">Vous pourrez ajouter d'autres demandes plus tard</small>
         
     </div>
+    
+{% endset %}
+
+{% set titleFieldText %}
+
+    <div class="container d-flex justify-content-center">
+
+        <div class="col-lg-7">
+
+        <h5 class="mb-1">📌 Quel est le titre de votre projet ?</h5>
+
+            <div class="mb-1"><small class="fs-6 text-muted">Vous pourrez le modifier</small></div>
+            <div class="mb-4 pb-2"><small class="fs-6 text-muted">Vous pouvez aussi passer cette étape si votre projet n'a pas de titre</small></div>
+            
+            {# Project Title Examples #}
+
+            <div class="card shadow text-start mx-md-2 mb-4">
+
+                <div class="card-body p-3">
+
+                    <h6 class="mb-3">📘 Exemples de titres</h6>
+
+                    <ul class="">
+                        
+                        <li class="mb-2 text-dark">Métalisieux 2027</li>
+                        <li class="mb-2 text-dark">Bouge ton Move</li>
+                        <li class="mb-2 text-dark">Pic d'oiseau</li>
+
+                    </ul>
+                    
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+   
     
 {% endset %}
 
@@ -105,16 +149,16 @@
             
     { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': descriptionFieldText, 'finalRenderingLabel': ""},
 
+    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "", 'questionFr': websitesFieldText, 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
+
     { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': imageFieldText,'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
 
     { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "", 'questionFr': needFieldText, 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
-    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "✒️ Votre Projet a t-il déjà un titre ou un titre temporaire ?", 'questionFr': "Quel est le titre du Projet ?",'finalRenderingLabel': ""}, 
+    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "", 'questionFr': titleFieldText,'finalRenderingLabel': ""}, 
 
 
     { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "🏗️ Votre Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
-
-    { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "", 'questionFr': "🌐 Si vous avez déjà un site web ou un réseau social en lien avec votre Projet", 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
     { 'uniqueName': "places", 'type': "places", 'priorQuestion': "", 'questionFr': "🌍 Votre Projet est-il relié à un pays, un département, ou une ville ?", 'finalRenderingLabel': ""},
 

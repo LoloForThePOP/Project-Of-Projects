@@ -51,10 +51,11 @@
 
         {% if currentItem.type == "title" %}
 
-            <div class="container col-md-5">
-            
-                {{ form_widget(form.title) }}
+            <div class="container col-lg-7 mb-3">
 
+                {{ form_widget(form.title) }}
+            
+            
             </div>
 
 
@@ -79,8 +80,6 @@
             {% endembed %}
 
                 <div class="container col-md-6 text-center">
-
-                    <div class=""></div>
 
                     <div class="mb-4">
 
@@ -146,16 +145,23 @@
 
         {% elseif currentItem.type == "websites" %}
 
-            <div class="container col-md-6 text-center">
 
-                <div class="mb-4">
-                {{ form_row(form.url) }}
-                
-                </div>
+            <div class="container col-md-7 mb-3">
 
-                {{ form_row(form.websiteDescription) }}
+                <div class="mb-2">Quelle est son adresse ?</div>
 
+                {{ form_widget(form.url) }}
+            
+            
             </div>
+
+            <div class="container col-md-7">
+
+                <div class="mb-2">Donnez un titre à cette adresse</div>
+
+                {{ form_widget(form.websiteDescription) }} {# formatting the right way for user displaying #}
+
+            </div>   
 
         {% elseif currentItem.type == "logo" %}
 
@@ -281,8 +287,6 @@
                 <div class="mb-2">Objectif du projet</div>
 
                 {{ form_widget(form.goal) }}
-            
-            
             
             
             </div>

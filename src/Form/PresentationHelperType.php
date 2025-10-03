@@ -48,7 +48,7 @@ class PresentationHelperType extends AbstractType
 
                     'attr' => [
 
-                        'placeholder'    => 'Écrire ici',
+                        'placeholder'    => 'Écrire ici le titre',
                     ],
 
                     'required'   => false,

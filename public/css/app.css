@@ -460,7 +460,7 @@ label:active:after {
 
 
     ::placeholder {
-        font-size: 1em !important;
+        font-size: 0.95em !important;
     }
 
 

@@ -1,25 +1,6 @@
-<!-- Question -->
 
-{% if repeatInstance == "false" %}
-                    
-    <div class="text-center lh-1 mb-4">{{currentItem.questionFr}}</div>
+<div class="text-center lh-1 mb-4">{{currentItem.questionFr}}</div>
 
-{% endif %}
-
-
-{% if currentItem.type == "categories_keywords" %}
-
-    {% include "project_presentation/create/_categories_keywords.html.twig" %}
-    
-{% elseif currentItem.type == "places" %}
-    
-    <div class="container px-0 col-md-6">
-    
-        {% include "project_presentation/create/_places.html.twig" %}
-
-    </div>
-
-{% else %}
 
     {{ form_start(form) }}
 
@@ -59,91 +40,26 @@
             </div>
 
 
-        {% endif %}
+{#         {% if currentItem.type == "needs" %}
 
-        {% if currentItem.type == "needs" %}
+            <div class="container col-md-6 text-center">
 
-            <!-- Need Type Selection (in a Modal Box, triggered by above button) -->
+                <div class="mb-4">
 
-            {% embed "project_presentation/edit/needs/_select_need_type_modal.html.twig" %}
+                    {{ form_widget(form.needTitle) }}
 
-                {% block crossDismiss %}{% endblock %}
-
-                {% block footer %}
-
-                    <a href="{{ path('project_presentation_helper', {'stringId': stringId, 'position': nextPosition }) }}">
-                        <button type="button" class="jumbotron-btn btn btn-go-back">❌ Annuler</button>
-                    </a>
-
-                {% endblock %}
-                
-            {% endembed %}
-
-                <div class="container col-md-6 text-center">
-
-                    <div class="mb-4">
-
-                        {{ form_widget(form.needTitle) }}
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        {{ form_widget(form.needDescription) }}
-
-                    </div>
-                
                 </div>
 
+                <div class="mb-4">
 
-            {% if repeatInstance == "true" %}
+                    {{ form_widget(form.needDescription) }}
 
-                <script>
-
-                    $(document).ready(function(){
-                        var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {});
-
-                        needTypesModal.show();
-                    });
-
-                </script>
+                </div>
             
-            {% endif %}
+            </div>
+ #}
 
-            <script>
-
-                $(document).ready(function(){
-
-                    $('#accept-invitation').click(function() {
-
-                        var needTypesModal = new bootstrap.Modal(document.getElementById("selectNeedTypeModal"), {
-                            backdrop: 'static'
-                        });
-        
-                        needTypesModal.show();
-
-                    });
-
-                    $('#selectNeedTypeModal .needTypeChoice').click(function(event) {
-
-                        var myModalEl = document.getElementById('selectNeedTypeModal')
-                        var modal = bootstrap.Modal.getInstance(myModalEl)
-
-                        modal.hide();
-
-                        event.preventDefault();
-
-                        $('#presentation_helper_selectedNeedType').val($(this).data("need-type"));
-
-                    });
-
-                    giveFocus();
-
-                });
-
-            </script>
-
-        {% elseif currentItem.type == "websites" %}
+       {#  {% elseif currentItem.type == "websites" %}
 
 
             <div class="container col-md-7 mb-3">
@@ -159,11 +75,11 @@
 
                 <div class="mb-2">Donnez un titre à cette adresse</div>
 
-                {{ form_widget(form.websiteDescription) }} {# formatting the right way for user displaying #}
+                {{ form_widget(form.websiteDescription) }} #} {# formatting the right way for user displaying #}
 
-            </div>   
+           {#  </div>    #}
 
-        {% elseif currentItem.type == "logo" %}
+       {#  {% elseif currentItem.type == "logo" %}
 
             <div class="container col-md-6 text-center">
 
@@ -173,7 +89,7 @@
                 
                 </div>
 
-            </div>
+            </div> #}
 
         {% elseif currentItem.type == "imageSlide" %}
 
@@ -243,7 +159,9 @@
 
 
                     <script>
+
                         document.addEventListener('DOMContentLoaded', () => {
+
                             const icon  = document.getElementById('upload-icon');
                             const input = document.getElementById('presentation_helper_imageSlide_file');
                                 const preview  = document.getElementById('preview');
@@ -272,7 +190,9 @@
                                     reader.readAsDataURL(file);
                                 }
                             });
+
                         });
+
                     </script>
                 
                 </div>
@@ -297,15 +217,7 @@
 
                 {{ form_widget(form.textDescription, {value: form.textDescription.vars.value|replace({'<br />': "\n", '<br>': "\n", '<br/>': "\n"})}) }} {# formatting the right way for user displaying #}
 
-            </div>           
-
-  {#       {% elseif currentItem.type == "qa" %}
-
-            <div class="container col-md-6 px-0">
-
-                {{ form_widget(form.answer) }}
-
-            </div> #}
+            </div>    
 
 
         {% endif %}
@@ -316,13 +228,9 @@
                         
             {{ form_widget(form.helperItemType, {'value' : currentItem.type}) }}
 
-            {{ form_widget(form.finalRenderingLabel, {'value' : currentItem.finalRenderingLabel}) }}
-
             {{ form_widget(form.currentPosition, {'value' : position}) }}
 
             {{ form_widget(form.nextPosition, {'value' : nextPosition}) }}
-
-            {{ form_widget(form.repeatedInstance) }}
 
         </div>
 
@@ -376,12 +284,6 @@
             }
                             
 
-            @media screen and (max-width: 820px) {
-
-
-            }
-
-
             @media screen and (max-width: 580px) {
             
                 .action-buttons-container{
@@ -406,5 +308,3 @@
 
 
     {{ form_end(form) }}
-
-{% endif %}

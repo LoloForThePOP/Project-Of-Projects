@@ -24,19 +24,17 @@ class CreateProjectPresentationController extends AbstractController
 {
 
     /**
-     * Allow user to follow a step by step guidance to present her project
+     * Allow user to follow a step by step form to present their project
      * 
      * position = 0 means first step; position = null means last step.
      * 
      * @Route("step-by-step-project-presentation/{position?0}/{stringId?}/{repeatInstance}", name="project_presentation_helper", defaults={"repeatInstance": "false"})
      */
-    public function origin($stringId = null, $position=0, $repeatInstance = "false", Request $request, EntityManagerInterface $manager,  TreatItem $specificTreatments, Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
+    public function origin($stringId = null, $position = 0, $repeatInstance = "false", Request $request, EntityManagerInterface $manager,  Slug $slug, CacheThumbnail $cacheThumbnail, ImageResizer $imageResizer, AssessQuality $assessQuality): Response
     {
 
         // TO DO : ask ai to choose categories and keywordsfor user.
-        // add a keyword field maybe anyway
-        
-        $request->attributes->set('googleMapApiKey', $this->getParameter('app.google_map_api_key'));
+        // maybe add a keyword field anyway (or let ai manage...)
 
         if($stringId == null){
 
@@ -67,9 +65,9 @@ class CreateProjectPresentationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            if($stringId==null){
+            // Case user types project goal for the first time: we create a presentation in DB
 
-                //dd("ttt");
+            if($stringId==null){
 
                 $goal = $form->get('goal')->getData();
 
@@ -89,17 +87,20 @@ class CreateProjectPresentationController extends AbstractController
              
             }
 
-            else{
+            // Case user has already defined a project goal: project presentation exists in DB
 
-                
+            else{
 
                 $nextPosition=$form->get('nextPosition')->getData();
 
+                // Case user has finished project step by step presentation
 
                 if($nextPosition==null){
 
 
-                    //put a flag in PPBase object so that we know that user engaged until the end so that we can clean db with junk presentations.
+                    // TO DO: 
+                    // Put a flag in PPBase object so that we know that user engaged until the end so that we can clean db with junk presentations.
+                    // Send an email to admin so that they can validate presentation or not
 
                     $assessQuality->assessQuality($presentation);
 
@@ -116,8 +117,10 @@ class CreateProjectPresentationController extends AbstractController
 
                 }
 
+                // Case user has not finished step by step presentation
+
                 $helperType=$form->get('helperItemType')->getData();
-//dd($helperType);
+
 
                 if ($helperType=="title") {
 
@@ -147,22 +150,6 @@ class CreateProjectPresentationController extends AbstractController
 
                 }
 
-                if ($helperType=="logo") {
-
-                    $logo = $form->get('logoFile')->getData();
-
-                    if (isset($logo) && $logo !== '') {
-                        
-                        $presentation->setLogoFile($logo);
-
-                        $manager->flush();
-
-                        $imageResizer->edit($presentation, 'logoFile');
-                        $cacheThumbnail->cacheThumbnail($presentation);
-                    }
-                   
-
-                }
 
                 if ($helperType=="imageSlide") {
                     
@@ -190,58 +177,7 @@ class CreateProjectPresentationController extends AbstractController
 
                 }
 
-                if ($helperType=="websites") {
 
-
-                    $url = $form->get('url')->getData();
-
-
-                    if (filter_var($url, FILTER_VALIDATE_URL)){
-
-                        $websiteItem = 
-                        
-                            [
-                                "description" => $form->get('websiteDescription')->getData(),
-                                "url" =>$url,
-                            ]
-                        ;
-
-                        $websiteItem = $specificTreatments->specificTreatments('websites', $websiteItem);
-
-                        $presentation->addOtherComponentItem('websites', $websiteItem);
-
-                        $manager->flush();
-
-                    }
-
-
-                }
-
-                if ($helperType=="needs") {
-
-
-                    $needTitle = $form->get('needTitle')->getData();
-                    $needDescription = $form->get('needDescription')->getData();
-                    $needType =  $form->get('selectedNeedType')->getData();
-
-                    if (isset($needTitle) && $needTitle !== ''  && isset($needDescription) && $needDescription !== '') {
-
-                        $need = new Need();
-
-                        $need->setTitle($needTitle);
-                        $need->setDescription($needDescription);
-                        $need->setType($needType);
-
-                        $presentation->addNeed($need);
-
-                        $manager->persist($need);
-                        $manager->flush();
-
-                    }
-
-
-                    
-                }
 
                 if ($helperType=="textDescription") {
 
@@ -253,44 +189,14 @@ class CreateProjectPresentationController extends AbstractController
 
                 }
 
-                if ($helperType=="qa") {
+                           
 
-                    $question=$form->get('finalRenderingLabel')->getData();
-                    $answer=$form->get('answer')->getData();
-
-                    $qaItem = 
-                    
-                        [
-                            "question" => $question,
-                            "answer" => $answer,
-                        ]
-                    ;
-
-                    $presentation->addOtherComponentItem('questionsAnswers', $qaItem);
-                    $manager->flush();
-
-                }
-
-            
-
-                $currentPosition = $form->get('currentPosition')->getData();
-
-                
-
-                // Do we repeat current position (example : user wants to add another website)
-
-                $repeatInstance = $form->get('repeatedInstance')->getData(); // set to false by default in form type definition.
-
-                if ($repeatInstance == "true") {
-                    $nextPosition = $currentPosition;
-                }
 
                 return $this->redirectToRoute('project_presentation_helper', [
 
                     'stringId' => $presentation->getStringId(),
                     'presentation' => $presentation,
                     'position' => $nextPosition,
-                    'repeatInstance' => $repeatInstance,
                                 
                 ]);
 
@@ -302,7 +208,6 @@ class CreateProjectPresentationController extends AbstractController
             'form' => $form->createView(),
             'stringId' => $stringId,
             'position' => $position,
-            'repeatInstance' => $repeatInstance,
         ]);
 
     }

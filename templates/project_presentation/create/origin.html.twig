@@ -1,13 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block headTag %}<meta name="robots" content="noindex,nofollow" />{% endblock %}
+{% block headTag %}<meta name="robots" content="noindex, nofollow" />{% endblock %}
 
 {% block title %}Aide à la présentation de projet{% endblock %}
 
 
-{# "priorQuestion" is a prior question user can answer with yes or no, so that a form appears or not with an actual Question (questionFr) 
-    "finalRenderingLabel" is the label that will be integrated on consultation page, if relevant.
-#}
+
 
 {% set goalFieldText %}
 
@@ -108,11 +106,12 @@
     <div class="container d-flex justify-content-center">
 
         <div class="col-lg-7">
+        
 
         <h5 class="mb-1">📌 Quel est le titre de votre projet ?</h5>
 
             <div class="mb-1"><small class="fs-6 text-muted">Vous pourrez le modifier</small></div>
-            <div class="mb-4 pb-2"><small class="fs-6 text-muted">Vous pouvez aussi passer cette étape si votre projet n'a pas de titre</small></div>
+            <div class="mb-4 pb-2"><small class="fs-6 text-muted">Vous pouvez passer cette étape si votre projet n'a pas de titre</small></div>
             
             {# Project Title Examples #}
 
@@ -143,40 +142,43 @@
 
 
 
+{# ordering steps #}
+
 {% set helperItems = [ 
             
-    { 'uniqueName': "goal", 'type': "goal", 'questionFr': goalFieldText, 'finalRenderingLabel': ""},
+    { 'type': "goal", 'questionFr': goalFieldText},
             
-    { 'uniqueName': "goal_details", 'type': "textDescription", 'questionFr': descriptionFieldText, 'finalRenderingLabel': ""},
+    { 'type': "textDescription", 'questionFr': descriptionFieldText},
+
+    { 'type': "imageSlide", 'priorQuestion': "", 'questionFr': imageFieldText},
+
+    { 'type': "title", 'questionFr': titleFieldText}, 
+    
+] %}
+
+{# 
 
     { 'uniqueName': "websites", 'type': "websites", 'priorQuestion': "", 'questionFr': websitesFieldText, 'repeatableMessage': 'Voulez-vous ajouter un autre site web ?', 'finalRenderingLabel': ""},
 
-    { 'uniqueName': "imageSlide", 'type': "imageSlide", 'priorQuestion': "", 'questionFr': imageFieldText,'finalRenderingLabel': "", 'repeatableMessage': 'Voulez-vous ajouter une autre image ?'},
-
-    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "", 'questionFr': needFieldText, 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
-
-    { 'uniqueName': "title", 'type': "title", 'priorQuestion': "", 'questionFr': titleFieldText,'finalRenderingLabel': ""}, 
-
-
-    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "🏗️ Votre Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
+    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est née l'idée du projet ?"}, 
 
     { 'uniqueName': "places", 'type': "places", 'priorQuestion': "", 'questionFr': "🌍 Votre Projet est-il relié à un pays, un département, ou une ville ?", 'finalRenderingLabel': ""},
 
-    
-    { 'uniqueName': "logo", 'type': "logo", 'priorQuestion': "", 'questionFr': "🍋 Avez-vous déjà un logo pour votre projet ?",'finalRenderingLabel': ""}, 
+    { 'uniqueName': "logo", 'type': "logo", 'priorQuestion': "", 'questionFr': "🍋 Avez-vous déjà un logo pour votre projet ?",'finalRenderingLabel': ""},
 
+    { 'uniqueName': "progress", 'type': "qa", 'priorQuestion': "🏗️ Votre Projet a t-il déjà avancé ?", 'questionFr': "Quel est le travail déjà effectué ?", 'finalRenderingLabel': "Quel est l'avancement du Projet ?"},
 
-] %}
+    { 'uniqueName': "needs", 'type': "needs", 'priorQuestion': "", 'questionFr': needFieldText, 'repeatableMessage': 'Voulez-vous ajouter un autre besoin ?', 'finalRenderingLabel': ""}, 
 
-{# For another form...
-
-    { 'uniqueName': "idea", 'type': "qa", 'questionFr': "Comment est née l'idée du projet ?", 'finalRenderingLabel': "Comment est née l'idée du projet ?"}, 
 #}
+
+
+{# Setting position in step by step form #}
 
 
 {% set currentItem = helperItems[position] %}
 
-{% set uniqueName = currentItem.uniqueName %}
+{% set currentItemTitle = currentItem.type %}
 
 {% set currentPosition = position %}
 
@@ -208,117 +210,105 @@
 
     {% endif %}
 
+{# End of setting position in step by step form #}
+
 
 {% block body %}
-{# 
-<pre>
-    {{ dump(position) }}
-</pre>
 
-<pre>
-    {{ dump(currentPosition) }}
-</pre>
+    {# Modal Box Full Screen #}
 
-<pre>
-    {{ dump(previousPosition) }}
-</pre>
+    <div  id="createPPModal" class="modal" tabindex="-1" aria-hidden="true">
 
-<pre>
-    {{ dump(nextPosition) }}
-</pre> #}
+        <div class="modal-dialog modal-fullscreen">
 
-<div  id="createPPModal" class="modal" tabindex="-1" aria-hidden="true">
-
-    <div class="modal-dialog modal-fullscreen">
-
-        <div class="modal-content">
-            
-            <div class="box-header">
-            
-                <div>
-
-                    <a class="ms-2 ms-md-5 me-3" href="/">
-
-                        <img class="website-logo" src="/media/static/images/propon_logo.svg" alt="website logo" loading="lazy"/>
-
-                    </a>
-
-                    <span class="box-title">
-                    
-                        Ajouter un Projet
-
-                    </span>       
+            <div class="modal-content">
                 
+                <div class="box-header">
                 
-                </div>
+                    <div>
 
-                <a href="{{path ('homepage')}}">
-                
-                    <button type="button" class="btn btn-outline-dark" >Quitter</button>
-                
-                </a>
- 
-                <style>
-                
-                    .box-header{
+                        <a class="ms-2 ms-md-5 me-3" href="/">
+
+                            <img class="website-logo" src="/media/static/images/propon_logo.svg" alt="website logo" loading="lazy"/>
+
+                        </a>
+
+                        <span class="box-title">
                         
-                        display: flex;
-                        align-items: center;
-                        justify-content: space-around;
+                            Ajouter un Projet
 
-                        height: 74px;
-                        background-color: white;
+                        </span>       
                     
                     
-                    }
+                    </div>
 
-                    .website-logo{
-                        width: 135px;
-                    }
+                    <a href="{{path ('homepage')}}">
+                    
+                        <button type="button" class="btn btn-outline-dark" >Quitter</button>
+                    
+                    </a>
+    
+                    <style>
+                    
+                        .box-header{
+                            
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-around;
 
-
-                    .box-title{
-                        font-size: 15px;
-                        color: #094171;
-                    }
-
-                    @media (max-width: 576px) {
-
-                        .website-logo{
-                            width: 75px;
+                            height: 74px;
+                            background-color: white;
+                        
+                        
                         }
 
-                    }
-                
-                </style>
-
-            </div>
+                        .website-logo{
+                            width: 135px;
+                        }
 
 
-            <div class="box-progress-bar" style="margin-bottom: 50px;">
+                        .box-title{
+                            font-size: 15px;
+                            color: #094171;
+                        }
 
-                <div class="" style="width: {{ progressionPercentage }}%; height: 4px; background-color: orange;"></div>
+                        @media (max-width: 576px) {
 
-            </div>
+                            .website-logo{
+                                width: 75px;
+                            }
 
-            
-
-
-            <div class="box-content">
+                        }
                     
-                <div class="form-container form" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{uniqueName}}"} }'>
-
-                    {% include "project_presentation/create/_form.html.twig" %}
+                    </style>
 
                 </div>
-            
-            </div>  
+
+
+                <div class="box-progress-bar" style="margin-bottom: 50px;">
+
+                    <div class="progress-line" style="width: {{ progressionPercentage }}%; height: 4px; background-color: orange; ; position: relative;"></div>
+
+                </div>
+
+                
+
+
+                <div class="box-content">
+                        
+                    <div class="form-container form" data-track-view='{"key":"pres-help-step-{{ currentPosition }}", "attributes":{"uniqueName": "{{currentItemTitle}}"} }'>
+
+                        {% include "project_presentation/create/_form.html.twig" %}
+
+                    </div>
+                
+                </div>  
+
+            </div>
 
         </div>
 
     </div>
-
-</div>
 
 
         
@@ -328,6 +318,21 @@
 
 
     <style>
+
+        {# Make progress line become an arrow #}
+
+        .progress-line::after {
+            content: "";
+            position: absolute;
+            right: -8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid orange;
+            border-top: 6px solid transparent;
+            border-bottom: 6px solid transparent;
+        }
 
         {# Background colors for large screens #}
 
@@ -391,103 +396,32 @@
 
     </style>
 
-    <script>
 
-        $(document).ready(function(){
 
-            // Giving focus to appropriate input
+<script>
 
-            function giveFocus(){
+    document.addEventListener('DOMContentLoaded', () => 
+    
+    {
 
-                var itemType = $('#presentation_helper_helperItemType').val();
-                var relatedInputId;
+        const modalEl = document.getElementById('createPPModal');
 
-                switch(itemType) {
+        // Make sure Bootstrap’s JS is loaded
+        if (typeof bootstrap === 'undefined') {
+            return console.error('Bootstrap JS is not loaded (check bootstrap.bundle.js inclusion)');
+        }
 
-                    case 'title':
-                        relatedInputId = 'presentation_helper_title';
-                        break;
-                        
-                    case 'qa':
-                    case 'textDescription':
-                    
-                        relatedInputId = 'presentation_helper_answer';
-                        break;
-                        
-                    case 'websites':
-                        relatedInputId = 'presentation_helper_url';
-                        break;
-                        
-                    case 'needs':
-                        relatedInputId = 'presentation_helper_needTitle';
-                        break;
-                      
-                    default:
-                        document.getElementById('autocomplete').focus();  // it is an isolated case, see _form.html.twig
-                } 
-
-                $("#"+relatedInputId).focus();
-            }
-
+        // Create and show the modal
+        const autoModal = new bootstrap.Modal(modalEl, {
+            backdrop: 'static', // optional: prevent closing by clicking outside
+            keyboard: true      // allow closing with the ESC key
         });
 
-    </script>
-
-
-    <script>
-       document.addEventListener('DOMContentLoaded', () => {
-  const modalEl = document.getElementById('createPPModal');
-  const inputEl = document.getElementById('presentation_helper_goal');
-
-  if (!modalEl) {
-    return console.error('Modal element not found: #createPPModal');
-  }
-  if (!inputEl) {
-    console.warn('Input element not found: #presentation_helper_goal (focus will fail)');
-  }
-
-  // Attach the listener BEFORE calling show(), so we don't miss the event
-  modalEl.addEventListener('shown.bs.modal', () => {
-    if (!inputEl) return;
-    // 1) Try to focus immediately
-    inputEl.focus();
-    // 2) Optionally select text if you want
-    if (typeof inputEl.select === 'function') inputEl.select();
-    // 3) Fallback: re-focus after a tiny delay if needed
-    setTimeout(() => inputEl.focus(), 50);
-  });
-
-  // Make sure Bootstrap’s JS is loaded
-  if (typeof bootstrap === 'undefined') {
-    return console.error('Bootstrap JS is not loaded (check bootstrap.bundle.js inclusion)');
-  }
-
-  // Create and show the modal
-  const autoModal = new bootstrap.Modal(modalEl, {
-    backdrop: 'static', // optional: prevent closing by clicking outside
-    keyboard: true      // allow closing with the ESC key
-  });
-
-  autoModal.show();
-});
-
-
-
-
-
-
+        autoModal.show();
+    
+    });
 
 </script>
 
-    <script>
-    
-        $(document).ready(function(){
-
-			$("#create_presentation_goal").focus();
-
-		});
-    
-    
-    </script>
 
 {% endblock %}

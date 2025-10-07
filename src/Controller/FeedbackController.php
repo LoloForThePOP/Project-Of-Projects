@@ -45,8 +45,10 @@ class FeedbackController extends AbstractController
 
             $user=$this->getUser();
 
+            $userEmail =  $user->getEmail();
+
             if ($user) {
-                $result['email'] = $user->getEmail();
+                $result['email'] = $userEmail;
             }
 
             /* Email feedback to admin */
@@ -58,7 +60,8 @@ class FeedbackController extends AbstractController
                 ->from($sender)
                 ->to($receiver)
                 ->subject('New user Feedback')
-                ->html('<pre>'.json_encode($result, JSON_PRETTY_PRINT).'</pre>');
+                ->html('<pre>'.json_encode($result, JSON_PRETTY_PRINT).'</pre>')
+                ->replyTo($userEmail);
 
             $mailer->send($email);
 

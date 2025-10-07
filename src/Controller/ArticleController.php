@@ -91,7 +91,7 @@ class ArticleController extends AbstractController
 
                 }
 
-            }else{//article is new, we inform website admin
+            }else{//article is new, mail an admin
                 $sender = $this->getParameter('app.email.noreply');
                 $receiver = $this->getParameter('app.email.contact');
  

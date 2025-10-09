@@ -21,7 +21,7 @@
                 <button class="jbtr-cta-btn fw-bold btn d-flex justify-content-center align-items-center pt-2 pe-4 me-md-4 mb-3 mb-md-0" style=" height:50px; padding-bottom: 10px;" data-track-click='{"key":"read-the-pop-manifesto"}'>
 
                 <img class="m" src="{{ asset('reading_book.png', 'misc')}}" width="32" alt="a opened book with hands handling it">
-                <span class="ps-1">Lire notre Manifesto</span>
+                <span class="ps-1">Lire notre Manifeste</span>
             
                 </button>
         
@@ -32,11 +32,11 @@
 
             <a href="{{path('project_presentation_helper')}}">
 
-                <button class="jbtr-cta-btn btn d-flex justify-content-center align-items-center px-3 pt-2" data-track-click='{"key":"clicked-jumbotron-create-presentation"}'>
+                <button class="jbtr-cta-btn jbtr-cta-btn-present-project btn d-flex justify-content-center align-items-center px-3 pt-2" data-track-click='{"key":"clicked-jumbotron-create-presentation"}'>
         
                   <img class="mb-2" src="{{ asset('add_presentation.svg', 'misc')}}" alt="bucket with a plus icon">
                   
-                  <span class="fw-bold ps-2">Présenter un projet maintenant</span>
+                  <span class="fw-bold ps-2">Présenter son projet maintenant</span>
               
                 </button>
         
@@ -48,21 +48,26 @@
 
         <style>
 
+            .jbtr-cta-btn{
+                min-width: 202px;
+                border-radius: 11px;
+                border-color: rgb(216, 216, 201);
+                
+            }
+
+            .jbtr-cta-btn-present-project{
+                background-color: #f1f7f4;
+            }
+
             .jumbotron-title{
                 font-size: 34px;
                 
             }
 
             .jbtr-descr .green-highlight{
-                background-color: #f1f7f4;
+                background-color: rgb(234, 255, 230);
                 border-radius: 4px;
                 padding : 4px 8px 4px 8px; 
-            }
-
-            .jbtr-cta-btn{
-                min-width: 202px;
-                border-color: rgb(216, 216, 201);
-                
             }
 
             .jbtr-cta-btn:hover{

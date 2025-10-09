@@ -3,37 +3,37 @@
 
 <div class="project-by-categories">
 
-    {# Decorated Area's Title #}
-
-    <h3 class="d-flex align-items-center justify-content-center fw-bold"><span class="">EXPLORER PROPON</span></h3>
-
     {# Tabs Navigation Buttons by project Categories #}
 
     <div class="nav" id="v-tab" role="tablist" aria-orientation="vertical">
 
-        <a class="nav-link " href="#" id="v-history-tab" data-bs-toggle="pill" data-bs-target="#v-history" type="button" role="tab" aria-controls="v-history" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/amphora.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Histoire
+        <a class="nav-link selected" href="#" id="v-all-tab" data-bs-toggle="pill" data-bs-target="#v-all" type="button" role="tab" aria-controls="v-all" aria-selected="false">Tous
             
         </a>
 
-        <a class="nav-link " href="#" id="v-space-tab" data-bs-toggle="pill" data-bs-target="#v-space" type="button" role="tab" aria-controls="v-space" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/plane.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Aéronautique
+        <a class="nav-link " href="#" id="v-history-tab" data-bs-toggle="pill" data-bs-target="#v-history" type="button" role="tab" aria-controls="v-history" aria-selected="false">Histoire
             
         </a>
 
-        <a class="nav-link " href="#" id="v-numeric-tab" data-bs-toggle="pill" data-bs-target="#v-numeric" type="button" role="tab" aria-controls="v-numeric" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/computer.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Numérique</a>
-
-        <a class="nav-link " href="#" id="v-inform-tab" data-bs-toggle="pill" data-bs-target="#v-inform" type="button" role="tab" aria-controls="v-inform" aria-selected="false">📘 Informer - Apprendre
+        <a class="nav-link " href="#" id="v-space-tab" data-bs-toggle="pill" data-bs-target="#v-space" type="button" role="tab" aria-controls="v-space" aria-selected="false">Aéronautique
             
         </a>
 
-        <a class="nav-link " href="#" id="v-environment-tab" data-bs-toggle="pill" data-bs-target="#v-environment" type="button" role="tab" aria-controls="v-environment" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/leaf.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Environnement
+        <a class="nav-link " href="#" id="v-numeric-tab" data-bs-toggle="pill" data-bs-target="#v-numeric" type="button" role="tab" aria-controls="v-numeric" aria-selected="false">Numérique</a>
+
+        <a class="nav-link " href="#" id="v-inform-tab" data-bs-toggle="pill" data-bs-target="#v-inform" type="button" role="tab" aria-controls="v-inform" aria-selected="false">Informer - Apprendre
+            
+        </a>
+
+        <a class="nav-link " href="#" id="v-environment-tab" data-bs-toggle="pill" data-bs-target="#v-environment" type="button" role="tab" aria-controls="v-environment" aria-selected="false">Environnement
         
         </a>
 
-        <a class="nav-link " href="#" id="v-humane-tab" data-bs-toggle="pill" data-bs-target="#v-humane" type="button" role="tab" aria-controls="v-humane" aria-selected="false">✊🏻✊🏽✊🏿 Solidarité
+        <a class="nav-link " href="#" id="v-humane-tab" data-bs-toggle="pill" data-bs-target="#v-humane" type="button" role="tab" aria-controls="v-humane" aria-selected="false">Solidarité
             
         </a>
 
-        <a class="nav-link " href="#" id="v-db-tab" data-bs-toggle="pill" data-bs-target="#v-db" type="button" role="tab" aria-controls="v-db" aria-selected="false"><img class="collection-icon" src="{{asset ("collection_categories/network.svg", 'icons')}}" alt="An icon representing the project category" width = "20">Bases de Données
+        <a class="nav-link " href="#" id="v-db-tab" data-bs-toggle="pill" data-bs-target="#v-db" type="button" role="tab" aria-controls="v-db" aria-selected="false">Bases de Données
             
         </a>
 
@@ -44,19 +44,19 @@
 
     <div class="tab-content" id="v-tabContent">
 
-        <div class="tab-pane fade show active" id="v-history" role="tabpanel" aria-labelledby="v-home-tab" tabindex="0">{{ render(path('backend_search', {label: 'Histoire et Patrimoine', class: 'tab-result', filters: '(categories.uniqueName:history)', iconName: 'amphora'})) }}</div>
+        <div class="tab-pane fade show active" id="v-history" role="tabpanel" aria-labelledby="v-home-tab" tabindex="0">{% cache "cat0" ttl(21600) %}{{ render(controller('backend_search', {label: 'Histoire et Patrimoine', class: 'tab-result', filters: '(categories.uniqueName:history)', iconName: 'amphora'})) }}{% endcache %}</div>
 
-        <div class="tab-pane fade" id="v-numeric" role="tabpanel" aria-labelledby="v-profile-tab" tabindex="1">{{ render(path('backend_search', {label: 'Numérique', class: 'tab-result', filters: '(categories.uniqueName:software)', iconName: 'computer' })) }}</div>
+        <div class="tab-pane fade" id="v-numeric" role="tabpanel" aria-labelledby="v-profile-tab" tabindex="1">{% cache "cat1" ttl(21600) %}{{ render(controller('backend_search', {label: 'Numérique', class: 'tab-result', filters: '(categories.uniqueName:software)', iconName: 'computer' })) }}{% endcache %}</div>
 
-        <div class="tab-pane fade" id="v-inform" role="tabpanel" aria-labelledby="v-disabled-tab" tabindex="2">{% cache "cat2" ttl(21600) %}{{ render(path('backend_search', {label: 'Informer, Éduquer, Apprendre', class: 'tab-result', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }}{% endcache %}</div>
+        <div class="tab-pane fade" id="v-inform" role="tabpanel" aria-labelledby="v-disabled-tab" tabindex="2">{% cache "cat2" ttl(21600) %}{{ render(controller('backend_search', {label: 'Informer, Éduquer, Apprendre', class: 'tab-result', filters: '(categories.uniqueName:inform)', iconName: 'book'})) }}{% endcache %}</div>
 
-        <div class="tab-pane fade" id="v-space" role="tabpanel" aria-labelledby="v-messages-tab" tabindex="3">{% cache "cat3" ttl(21600) %}{{ render(path('backend_search', {label: 'Préserver l\'Environnement', class: 'tab-result', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}{% endcache %}</div>
+        <div class="tab-pane fade" id="v-space" role="tabpanel" aria-labelledby="v-messages-tab" tabindex="3">{% cache "cat3" ttl(21600) %}{{ render(controller('backend_search', {label: 'Préserver l\'Environnement', class: 'tab-result', filters: '(categories.uniqueName:space)', iconName: 'plane'})) }}{% endcache %}</div>
 
-        <div class="tab-pane fade" id="v-environment" role="tabpanel" aria-labelledby="v-messages-tab" tabindex="4">{% cache "cat4" ttl(21600) %}{{ render(path('backend_search', {label: 'Préserver l\'Environnement', class: 'tab-result', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}{% endcache %}</div>
+        <div class="tab-pane fade" id="v-environment" role="tabpanel" aria-labelledby="v-messages-tab" tabindex="4">{% cache "cat4" ttl(21600) %}{{ render(controller('backend_search', {label: 'Préserver l\'Environnement', class: 'tab-result', filters: '(categories.uniqueName:environment)', iconName: 'leaf'})) }}{% endcache %}</div>
 
-        <div class="tab-pane fade" id="v-humane" role="tabpanel" aria-labelledby="v-settings-tab" tabindex="5">{% cache "cat5" ttl(21600) %}{{ render(path('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', class: 'tab-result' , filters: '(categories.uniqueName:humane)', iconName: 'none'})) }}{% endcache %}</div>
+        <div class="tab-pane fade" id="v-humane" role="tabpanel" aria-labelledby="v-settings-tab" tabindex="5">{% cache "cat5" ttl(21600) %}{{ render(controller('backend_search', {label: '✊🏻✊🏽✊🏿 Solidarité', class: 'tab-result' , filters: '(categories.uniqueName:humane)', iconName: 'none'})) }}{% endcache %}</div>
 
-        <div class="tab-pane fade" id="v-db" role="tabpanel" aria-labelledby="v-db-tab" tabindex="6">{% cache "cat6" ttl(21600) %}{{ render(path('backend_search', {label: 'Bases de Données', class: 'tab-result' , filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}{% endcache %}</div>
+        <div class="tab-pane fade" id="v-db" role="tabpanel" aria-labelledby="v-db-tab" tabindex="6">{% cache "cat6" ttl(21600) %}{{ render(controller('backend_search', {label: 'Bases de Données', class: 'tab-result' , filters: '(categories.uniqueName:data)', iconName: 'network' } ) ) }}{% endcache %}</div>
 
     </div>
 

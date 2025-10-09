@@ -39,14 +39,16 @@
 }
 
 .project-by-categories .nav-link {
-    display: flex;
-    font-size: 18px;
-    color: #1d77d7;
-    border : 1px solid #acbbf5;
-    margin-right: 7px;
-    border-radius: 40px;
-    margin-bottom: 10px;
-    font-weight: bold;
+	display: flex;
+	font-size: 16px;
+	color: #182338;
+	/* border: 1px solid #acbbf5; */
+    background-color: #f2ffef;
+	margin-right: 12px;
+	border-radius: 12px;
+	margin-bottom: 10px;
+	font-weight: bold;
+	padding: 3px 12px;
 }
 
 .project-by-categories .nav-link.selected {

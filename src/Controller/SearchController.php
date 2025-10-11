@@ -24,7 +24,7 @@ class SearchController extends AbstractController
      * @Route("/backend-search/{label}/{filters}/{shuffle}/{iconName}/{class}", name="backend_search")
      *
      */
-   /*  public function backendSearch($label='', $iconName = null, $class = null,  $filters = 'none', $shuffle = 0)
+    public function backendSearch($label='', $iconName = null, $class = null,  $filters = 'none', $shuffle = 0)
     {
 
         $em = $this->getDoctrine()->getManagerForClass(PPBase::class);
@@ -48,6 +48,6 @@ class SearchController extends AbstractController
             'class' => $class,
         ]);
 
-    } */
+    }
 
 }

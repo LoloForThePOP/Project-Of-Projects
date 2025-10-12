@@ -23,7 +23,6 @@
         "league/oauth2-facebook": "^2.0",
         "league/oauth2-google": "^4.0",
         "liip/imagine-bundle": "^2.6",
-        "nucleos/antispam-bundle": "^2.2",
         "openai-php/client": "^0.7.3",
         "patrickbussmann/oauth2-apple": "^0.2.6",
         "phpdocumentor/reflection-docblock": "^5.2",

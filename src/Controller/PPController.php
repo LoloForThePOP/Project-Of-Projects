@@ -74,15 +74,7 @@ class PPController extends AbstractController
 
         $form = $this->createForm(
             CreatePresentationType::class,
-            $presentation,
-            array(
-
-                // Time protection
-                'antispam_time'     => true,
-                'antispam_time_min' => 3,
-                'antispam_time_max' => 3600,
-            )
-        );
+            $presentation);
 
         $form->handleRequest($request);
 
@@ -602,13 +594,7 @@ class PPController extends AbstractController
          $createPresentationFormCTA = $this->createForm(
              CreatePresentationType::class,
              $newPresentation,
-             array(
- 
-                 // Time protection
-                 'antispam_time'     => true,
-                 'antispam_time_min' => 3,
-                 'antispam_time_max' => 3600,
-             )
+
          );
  
          $createPresentationFormCTA->handleRequest($request);

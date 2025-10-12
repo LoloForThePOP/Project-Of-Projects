@@ -23,14 +23,7 @@ class RegistrationController extends AbstractController
 
         //registration form with antispam time protection
         $form = $this->createForm(
-            RegistrationFormType::class,
-            array(
-
-                'antispam_time'     => true,
-                'antispam_time_min' => 5,
-                'antispam_time_max' => 1200
-            )
-        );
+            RegistrationFormType::class);
 
         $form->handleRequest($request);
 

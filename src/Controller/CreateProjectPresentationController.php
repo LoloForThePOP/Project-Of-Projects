@@ -52,13 +52,7 @@ class CreateProjectPresentationController extends AbstractController
 
         $form = $this->createForm(
             PresentationHelperType::class, $presentation,
-            array(
 
-                // Time protection
-                'antispam_time'     => true,
-                'antispam_time_min' => 3,
-                'antispam_time_max' => 3600,
-            )
         );
 
         $form->handleRequest($request);

@@ -52,14 +52,7 @@ class MessagesController extends AbstractController
 
         $privateMessage = new Message();
 
-        $form = $this->createForm(PrivateMessageType::class, $privateMessage,
-        array(
-
-            // Time protection
-            'antispam_time'     => true,
-            'antispam_time_min' => 7,
-            'antispam_time_max' => 3600,
-        ));
+        $form = $this->createForm(PrivateMessageType::class, $privateMessage);
 
         $form->handleRequest($request);
 
@@ -137,14 +130,7 @@ class MessagesController extends AbstractController
           
         $newMessage = new Message();
 
-        $form = $this->createForm(PrivateMessageType::class, $newMessage,
-        array(
-
-            // Time protection
-            'antispam_time'     => true,
-            'antispam_time_min' => 7,
-            'antispam_time_max' => 3600,
-        ));
+        $form = $this->createForm(PrivateMessageType::class, $newMessage);
 
         $form->handleRequest($request);
         
@@ -308,15 +294,7 @@ class MessagesController extends AbstractController
             $this->createForm(
 
                 ContactWebsiteType::class, 
-                null,
-                array(
-
-                    // Time protection
-                    'antispam_time'     => true,
-                    'antispam_time_min' => 4,
-                    'antispam_time_max' => 3600,
-                )
-            );
+                null);
 
 
         $form->handleRequest($request);

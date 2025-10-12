@@ -34,15 +34,7 @@ class HomeController extends AbstractController
 
         $setGoalForm = $this->createForm(
             CreatePresentationType::class,
-            $presentation,
-            array(
-
-                // Time protection
-                'antispam_time'     => true,
-                'antispam_time_min' => 3,
-                'antispam_time_max' => 3600,
-            )
-        );
+            $presentation);
 
         $setGoalForm->handleRequest($request);
 

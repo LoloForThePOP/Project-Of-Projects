@@ -22,7 +22,7 @@ class ArticleController extends AbstractController
     #[Route('/articles', name: 'index_articles')]
     public function index(ArticleRepository $repo): Response
     {
-        $articles = $repo->findAll();
+        $articles = array_reverse($repo->findAll());
 
         return $this->render('article/index.html.twig', [
             'articles' => $articles,

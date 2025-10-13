@@ -113,7 +113,7 @@
 
 {% set fast %}
 
-  <div><b>Répondez à quelques questions BASIQUES</b> et BOOM la présentation de votre projet est<b> créée automatiquement</b>. Partagez <b>son adresse personnalisée et facile à retenir</b>.</div>
+  <div><b>Répondez à quelques questions BASIQUES</b> et la présentation de votre projet est<b> créée automatiquement</b>. Partagez <b>son adresse personnalisée <u>facile à retenir</u></b>.</div>
 
 {% endset %}
 
@@ -157,7 +157,7 @@
 
 
 {# Overall title #}
-<div class="d-flex justify-content-center"><h3 class="arguments-slider-title">Pourquoi <span class="">Utiliser</span> Propon ?</h3></div> 
+<div class="d-flex justify-content-center"><h3 class="arguments-slider-title">💡 Pourquoi <span class="">Utiliser</span> Propon ?</h3></div> 
 
 
 {# Actual Bootstrap slider template #}
@@ -170,11 +170,11 @@
 
       {# Calling and hydrating slide template with values #}
 
-      {{ _self.carouselItem("Gagnez du temps", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, true) }}
+      {{ _self.carouselItem("Gagner du temps", "lightning.svg", "Une icône de foudre qui symbolise la rapidité.", fast, true) }}
 
-      {{ _self.carouselItem("Rassemblez l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
+      {{ _self.carouselItem("Rassembler l'Essentiel", "summarize.webp", "Un ensemble d'icônes qui symbolisent un résumé de présentation de projet.", summarize, false) }}
 
-      {{ _self.carouselItem("Trouvez de l'Aide", "find_resources.webp", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
+      {{ _self.carouselItem("Trouver de l'Aide", "find_resources.webp", "Une pelle avec de jeunes arbres qui poussent, la pelle n'est encore utilisée par personne.", findResources, false) }}
 
       {{ _self.carouselItem("Suivre votre projet ?", "wifi.svg", "Un dessin qui comporte une onde radio synonyme de news.", news, false) }}
         
@@ -212,7 +212,7 @@
     top: unset;
     bottom: unset;
     z-index: 2;
-    background-color: #94caff;
+    background-color: #def;
     width: 60px;
     height: 60px;
     border-radius: 50px;
@@ -247,15 +247,15 @@
     font-size: 30px;
     font-weight: bold;
     text-transform: uppercase;
-    background-color: #efefff;
-    padding: 17px 40px;
-    border-radius: 0px;
+    background-color: #faffef;
+    padding: 17px 180px;
+    border-radius: 50px;
     
   }
 
   .carousel-control-prev, .carousel-control-next {
 
-    background-color: #9ccdfe;
+    background-color: #aad5ff;
 
   }
 
@@ -302,7 +302,7 @@
     align-items: center;
     justify-content: center;
     height: 75px;
-    background-color: #9ccdfe;
+    background-color: #f9fcff;
     transform: skewY(-5deg);
     margin-top: 30px;
     margin-bottom: 10px;
@@ -319,7 +319,7 @@
 
   .wave-container {
     position: relative;
-    background: #9ccdfe;
+    background: #f9fcff;
     height: 52px;
     margin-top: -15px;
   }
@@ -327,7 +327,7 @@
   .wave-container .wave {
     height: 36px;
     width: 100%;
-    background: #9ccdfe;
+    background: #f9fcff;
     bottom: 0;
   }
 
@@ -349,7 +349,7 @@
   .wave-container .wave::after {
     width: 55%;
     height: 100%;
-    background-color: #9ccdfe;
+    background-color: #f9fcff;
     top: 31%;
     left: 0;
   }

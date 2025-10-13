@@ -46,7 +46,23 @@
 
 {% block body %}
 
-  <div class="page-container container-lg px-0 col-xxl-12 pt-4">
+  <div class="homepage-container page-container container-lg px-0 col-xxl-12">
+
+  <style>
+  
+    .homepage-container{
+      padding-top: 38px;
+    }
+
+    @media screen and (max-width: 580px) {
+
+    .homepage-container{
+      padding-top: 24px;
+    }
+
+    }
+  
+  </style>
 
     {# Case user logged in : displaying personalized content #}
 
